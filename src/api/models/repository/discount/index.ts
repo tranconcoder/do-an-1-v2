@@ -13,7 +13,14 @@ const queryCreate = async (data: modelTypes.discount.DiscountSchema) =>
 export const createDiscount = async (
     data: modelTypes.discount.DiscountSchema
 ) => {
-    const discount = await queryCreate(data);
+    /* ---------------- Check user id admin ???  ---------------- */
+    const isAdmin = false;
+
+    /* -------------------- Create discount  -------------------- */
+    const discount = await queryCreate({
+        ...data,
+        is_admin_voucher: isAdmin
+    });
 
     return _.omit(discount.toObject(), [
         'is_admin_voucher',
