@@ -1,4 +1,7 @@
-import { productModel } from '../models/product.model';
+import mongoose  from "mongoose";
+
+export const convertToMongooseId = (id: string) =>
+    new mongoose.Types.ObjectId(id);
 
 export const addFieldToSchemaDefinition = <T, K>(schema: T, field: K) => {
     return {

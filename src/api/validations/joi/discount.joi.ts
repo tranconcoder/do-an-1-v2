@@ -20,8 +20,10 @@ export const createDiscountSchema =
         }),
         discount_count: Joi.number(),
         discount_products: Joi.array().items(mongooseId),
-        discount_start_at: Joi.date().required(),
-        discount_end_at: Joi.date().required(),
+        discount_start_at: Joi.date().min('now').required(),
+        discount_end_at: Joi.date()
+            .min(Joi.ref('discount_start_at'))
+            .required(),
         discount_max_value: Joi.when(Joi.ref('discount_type'), {
             is: DiscountTypeEnum.Percentage,
             then: Joi.number().required(),
