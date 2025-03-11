@@ -12,8 +12,6 @@ export const createPhone = async (
     return await phoneModel.create(payload);
 };
 
-
-
 /* ------------------------------------------------------ */
 /*                         Delete                         */
 /* ------------------------------------------------------ */

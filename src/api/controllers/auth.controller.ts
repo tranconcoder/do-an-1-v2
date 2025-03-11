@@ -37,10 +37,9 @@ export default class AuthController {
         }).send(res);
     };
 
-
-/* ------------------------------------------------------ */
-/*                  Handle refresh token                  */
-/* ------------------------------------------------------ */
+    /* ------------------------------------------------------ */
+    /*                  Handle refresh token                  */
+    /* ------------------------------------------------------ */
     public static newToken: RequestWithBody<joiTypes.auth.NewTokenSchema> =
         async (req, res, _) => {
             new OkResponse({

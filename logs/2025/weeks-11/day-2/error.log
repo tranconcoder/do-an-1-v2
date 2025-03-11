@@ -1,0 +1,89 @@
+[2025-03-10T21:01:30.006Z] [error]: connect EHOSTUNREACH 54.169.191.242:27017
+[2025-03-10T21:01:30.009Z] [error]: connect EHOSTUNREACH 54.169.191.242:27017
+[2025-03-10T21:02:30.006Z] [error]: connect EHOSTUNREACH 54.169.191.242:27017
+[2025-03-10T21:02:30.006Z] [error]: connect EHOSTUNREACH 54.169.191.242:27017
+[2025-03-10T21:03:30.005Z] [error]: connect EHOSTUNREACH 54.169.191.242:27017
+[2025-03-10T21:03:30.007Z] [error]: connect EHOSTUNREACH 54.169.191.242:27017
+[2025-03-10T21:04:30.009Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:04:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:05:30.011Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:05:30.013Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:06:30.006Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:06:30.009Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:07:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:07:30.013Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:08:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:08:30.014Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:09:30.010Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:09:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:10:30.011Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:10:30.013Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:11:30.010Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:11:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:12:30.011Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:12:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:13:30.009Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:13:30.011Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:14:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:14:30.014Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:15:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:15:30.014Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:16:30.010Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:16:30.014Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:17:30.006Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:17:30.009Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:18:30.005Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:18:30.008Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:19:30.005Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:19:30.007Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:20:30.011Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:20:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:21:30.010Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:21:30.013Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:22:30.011Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:22:30.013Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:23:30.009Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:23:30.010Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:24:30.007Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:24:30.007Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:25:30.007Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:25:30.009Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:26:30.010Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:26:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:27:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:27:30.014Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:28:30.008Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:28:30.010Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:29:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:29:30.013Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:30:30.012Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-10T21:30:30.014Z] [error]: getaddrinfo ENOTFOUND cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-11T00:13:30.195Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-11T00:13:30.196Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-11T05:44:38.249Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T05:44:38.250Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T05:55:18.307Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T05:55:18.309Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T05:57:14.671Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-01.q7xyq.mongodb.net
+[2025-03-11T05:58:30.009Z] [error]: Socket 'secureConnect' timed out after 43223ms (connectTimeoutMS: 30000)
+[2025-03-11T05:58:30.011Z] [error]: Socket 'secureConnect' timed out after 43223ms (connectTimeoutMS: 30000)
+[2025-03-11T05:59:30.007Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T05:59:30.011Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T06:00:30.016Z] [error]: Socket 'secureConnect' timed out after 35002ms (connectTimeoutMS: 30000)
+[2025-03-11T06:00:30.021Z] [error]: Socket 'secureConnect' timed out after 35002ms (connectTimeoutMS: 30000)
+[2025-03-11T06:01:30.005Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T06:01:30.009Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T06:02:30.003Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T06:02:30.005Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T06:03:30.006Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T06:03:30.010Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T06:04:30.006Z] [error]: Socket 'secureConnect' timed out after 49577ms (connectTimeoutMS: 30000)
+[2025-03-11T06:04:30.011Z] [error]: Socket 'secureConnect' timed out after 49577ms (connectTimeoutMS: 30000)
+[2025-03-11T06:06:19.766Z] [error]: Connection to cluster0-shard-00-01.q7xyq.mongodb.net:27017 interrupted due to server monitor timeout
+[2025-03-11T06:06:30.011Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T06:07:30.007Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T06:07:30.009Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T06:08:30.006Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T06:08:30.010Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-11T08:26:11.564Z] [error]: read ECONNRESET
+[2025-03-11T08:26:11.568Z] [error]: read ECONNRESET

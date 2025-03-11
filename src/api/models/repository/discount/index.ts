@@ -22,3 +22,18 @@ export const createDiscount = async (
         '__v'
     ]);
 };
+
+/* ---------------------------------------------------------- */
+/*                          Find all                          */
+/* ---------------------------------------------------------- */
+
+/* ------ Find all discount publish available by shop  ------ */
+export const findAllDiscountPublishAvailableByShop = async (shop: string) => {
+    return await discountModel.find({
+        discount_shop: shop,
+        is_publish: true,
+        is_available: true,
+        discount_start_at: { $lte: new Date() },
+        discount_end_at: { $gte: new Date() }
+    });
+};
