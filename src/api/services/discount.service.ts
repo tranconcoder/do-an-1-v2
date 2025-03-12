@@ -1,10 +1,14 @@
 import _ from 'lodash';
 import {
+    checkConflictDiscountInShop,
     checkDiscountCodeIsValid,
     createDiscount,
     findAllDiscountInShopByCode
 } from '../models/repository/discount/index';
-import { BadRequestErrorResponse } from '../response/error.response';
+import {
+    BadRequestErrorResponse,
+    ConflictErrorResponse
+} from '../response/error.response';
 
 export default class DiscountService {
     /* -------------------- Create discount  -------------------- */
@@ -18,10 +22,24 @@ export default class DiscountService {
         const isAdmin = false;
 
         /* ------------------ Check code is valid  ------------------ */
-        const equalCodeInShop = await findAllDiscountInShopByCode({
-            shop: userId,
-            code: payload.discount_code
+        const hasConflictDiscount = await checkConflictDiscountInShop({
+            discount_shop: userId,
+            discount_code: payload.discount_code,
+            discount_start_at: payload.discount_start_at,
+            discount_end_at: payload.discount_end_at
         });
+
+        console.log(hasConflictDiscount);
+        if (hasConflictDiscount?.length) {
+            const conflictDiscountNames = hasConflictDiscount
+                .map((x) => x.discount_name)
+                .join(', ');
+
+            throw new ConflictErrorResponse(
+                `Conflict with discount: ${conflictDiscountNames}`,
+                false
+            );
+        }
 
         return await createDiscount({
             ...payload,

@@ -12,7 +12,13 @@ const discountSchema = new Schema<modelTypes.discount.DiscountSchema>(
         discount_shop: { type: ObjectId, ref: USER_MODEL_NAME, required },
         discount_name: { type: String, required },
         discount_description: String,
-        discount_code: { type: String, minLength: 6, maxLength: 6, required },
+        discount_code: {
+            type: String,
+            minLength: 6,
+            maxLength: 6,
+            required,
+            uppercase: true
+        },
         discount_type: {
             type: String,
             enum: DiscountTypeEnum,
@@ -39,8 +45,5 @@ const discountSchema = new Schema<modelTypes.discount.DiscountSchema>(
         collection: DISCOUNT_COLLECTION_NAME
     }
 );
-
-/* ------------- Unique discount code in a shop  ------------- */
-discountSchema.index({ discount_code: 1, discount_shop: 1 }, { unique: true });
 
 export default model(DISCOUNT_MODEL_NAME, discountSchema);

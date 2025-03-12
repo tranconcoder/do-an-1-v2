@@ -53,34 +53,39 @@ export const checkDiscountCodeIsValid = async (shop: string, code: string) => {
 /* ---------------------------------------------------------- */
 
 /* ----------- Find all discount in shop by code ------------ */
-export const checkConflictDiscountInShop = async (
-    payload: Pick<
-        modelTypes.discount.DiscountSchema,
-        | 'discount_shop'
-        | 'discount_code'
-        | 'discount_start_at'
-        | 'discount_end_at'
-    >
-) => {
+export const checkConflictDiscountInShop = async ({
+    discount_start_at,
+    discount_end_at,
+    ...payload
+}: Pick<
+    modelTypes.discount.DiscountSchema,
+    'discount_shop' | 'discount_code' | 'discount_start_at' | 'discount_end_at'
+>) => {
     return await discountModel
         .find({
             ...payload,
+            is_available: true,
             $or: [
+                /* --------- Check discount start at in payload time --------- */
                 {
                     discount_start_at: {
-                        $lte: payload.discount_end_at,
-                        $gte: payload.discount_start_at
+                        $gte: discount_start_at,
+                        $lte: discount_end_at
                     }
                 },
+
+                /* --------- Check discount end at in payload time  --------- */
                 {
                     discount_end_at: {
-                        $lte: payload.discount_end_at,
-                        $gte: payload.discount_start_at
+                        $gte: discount_start_at,
+                        $lte: discount_end_at
                     }
                 },
+
+                /* ---------- Time range payload contain discount  ---------- */
                 {
-                    discount_start_at: { $gte: payload.discount_start_at },
-                    discount_end_at: { $lte: payload.discount_end_at }
+                    discount_start_at: { $lte: discount_start_at },
+                    discount_end_at: { $gte: discount_end_at }
                 }
             ]
         })
