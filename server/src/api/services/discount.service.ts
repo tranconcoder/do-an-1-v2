@@ -136,7 +136,7 @@ export default class DiscountService {
             '+is_apply_all_product'
         );
         if (!discount) throw new NotFoundErrorResponse('Not found discount!');
-        console.log(discount)
+        console.log(discount);
 
         /* ---------------------------------------------------------- */
         /*     Missing check shop is admin because no RBAC build      */
