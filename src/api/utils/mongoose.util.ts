@@ -42,15 +42,9 @@ export const generateFindAllPageSplit = <T = any>(model: any) => {
         query,
         limit = 50,
         page = 1,
-        select,
-        omit
-    }: {
-        query: Partial<T>;
-        limit?: number;
-        page?: number;
-        select: string[];
-        omit: string[];
-    }): Promise<T[]> => {
+        select = [],
+        omit = []
+    }: moduleTypes.mongoose.FindAllWithPageSlittingArgs<T>): Promise<T[]> => {
         const projection: commonTypes.object.ObjectAnyKeys = {};
         const skip = limit * (page - 1);
 

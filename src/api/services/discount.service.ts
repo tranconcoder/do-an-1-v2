@@ -3,6 +3,8 @@ import {
     checkConflictDiscountInShop,
     checkDiscountOwnByShop,
     createDiscount,
+    deleteDiscount,
+    findAllDiscount,
     findDiscountById,
     updateAvailableDiscount
 } from '../models/repository/discount/index';
@@ -82,14 +84,27 @@ export default class DiscountService {
     };
 
     /* ------------- Get all discount code in shop  ------------- */
-    public static getAllDiscountCodeInShop =
-        async ({}: serviceTypes.discount.arguments.GetAllDiscountCodeInShop) => {};
+    public static getAllDiscountCodeInShop = async ({
+        shopId,
+        limit,
+        page
+    }: serviceTypes.discount.arguments.GetAllDiscountCodeInShop) => {
+        return await findAllDiscount({
+            query: {
+                discount_shop: shopId,
+                is_publish: true,
+                is_available: true
+            },
+            limit,
+            page
+        });
+    };
 
     /* ------- Get all discount available code in product ------- */
-    public static getAllDiscountCodeInProduct = async () => {};
+    public static getAllDiscountCodeWithProduct = async () => {};
 
-    /* ---------------- Get all discount by user ---------------- */
-    public static getAllDiscountByUser = async () => {};
+    /* ------------ Get all product discount by code ------------ */
+    public static getAllProductDiscountByCode = async () => {};
 
     /* ---------------------------------------------------------- */
     /*                           Update                           */
@@ -137,5 +152,26 @@ export default class DiscountService {
             state: false,
             discountId: _id
         });
+    };
+
+    /* ---------------------------------------------------------- */
+    /*                           Delete                           */
+    /* ---------------------------------------------------------- */
+    public static deleteDiscount = async ({
+        discountId,
+        productShop
+    }: serviceTypes.discount.arguments.DeleteDiscount) => {
+        /* --------------- Check shop is own of code  --------------- */
+        const isOwn = await checkDiscountOwnByShop({
+            _id: discountId,
+            discount_shop: productShop
+        });
+        if (!isOwn)
+            throw new ForbiddenErrorResponse('Not permission to delete!');
+
+        /* --------------- Handle delete discount code  -------------- */
+        return {
+            success: await deleteDiscount(discountId)
+        };
     };
 }

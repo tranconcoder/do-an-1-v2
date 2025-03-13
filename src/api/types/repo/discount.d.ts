@@ -31,11 +31,6 @@ declare global {
                 /* ---------------------------------------------------------- */
                 /*                          Find all                          */
                 /* ---------------------------------------------------------- */
-                interface FindAllDiscount {
-                    /* filter: Partial<modelTypes.discount.DiscountSchema>;
-                    limit: number;
-                    page: number; */
-                }
 
                 /* ---------------------------------------------------------- */
                 /*                           Update                           */

@@ -17,7 +17,11 @@ const schema = {
         otherwise: Joi.number().min(1).required()
     }) as any as NumberSchema,
     discount_count: Joi.number(),
-    discount_products: Joi.array().items(mongooseId),
+    discount_products: Joi.when(Joi.ref('is_apply_all_product'), {
+        is: true,
+        then: Joi.array().min(1).items(mongooseId),
+        otherwise: Joi.forbidden()
+    }),
     discount_start_at: Joi.date().min('now').required(),
     discount_end_at: Joi.date().min(Joi.ref('discount_start_at')).required(),
     discount_max_value: Joi.when(Joi.ref('discount_type'), {
@@ -41,6 +45,15 @@ export const createDiscountSchema = Joi.object<
 >(_.omit(schema, '_id'));
 
 /* ---------------------------------------------------------- */
+/*                            Get                             */
+/* ---------------------------------------------------------- */
+export const getAllDiscountCodeInShopSchema =
+    Joi.object<joiTypes.discount.GetAllDiscountCodeInShop>({
+        limit: Joi.number(),
+        page: Joi.number()
+    });
+
+/* ---------------------------------------------------------- */
 /*                           Update                           */
 /* ---------------------------------------------------------- */
 
@@ -52,3 +65,13 @@ export const setAvailableDiscountSchema = Joi.object<
 
 /* ---------------- Set unavailable discount ---------------- */
 export const setUnavailableDiscountSchema = setAvailableDiscountSchema;
+
+/* ---------------------------------------------------------- */
+/*                           Delete                           */
+/* ---------------------------------------------------------- */
+
+/* -------------------- Delete discount  -------------------- */
+export const deleteDiscountSchema =
+    Joi.object<joiTypes.discount.DeleteDiscount>({
+        discountId: mongooseId
+    });

@@ -1,6 +1,10 @@
-import { CreatedResponse } from '../response/success.response';
+import SuccessResponse, { CreatedResponse } from '../response/success.response';
 import DiscountService from '../services/discount.service';
-import { RequestWithBody } from '../types/request';
+import {
+    RequestWithBody,
+    RequestWithParams,
+    RequestWithQuery
+} from '../types/request';
 
 export default class DiscountController {
     /* ---------------------------------------------------------- */
@@ -20,10 +24,42 @@ export default class DiscountController {
         };
 
     /* ---------------------------------------------------------- */
+    /*                            Get                             */
+    /* ---------------------------------------------------------- */
+    /* ------------- Get all discount code in shop  ------------- */
+    public static getAllDiscountCodeInShop: RequestWithQuery<joiTypes.discount.GetAllDiscountCodeInShop> =
+        async (req, res, _) => {
+            new SuccessResponse({
+                name: 'Get all discount code in shop',
+                statusCode: 200,
+                message: 'Get all discount code in shop successfully',
+                metadata: await DiscountService.getAllDiscountCodeInShop({
+                    ...req.query,
+                    shopId: req.userId as string
+                })
+            }).send(res);
+        };
+
+    /* ---------------------------------------------------------- */
     /*                           Update                           */
     /* ---------------------------------------------------------- */
 
-    /* ----------------- Set available discount ----------------- */
 
-    /* ---------------- Set unavailable discount ---------------- */
+    /* ---------------------------------------------------------- */
+    /*                           Delete                           */
+    /* ---------------------------------------------------------- */
+
+    /* -------------------- Delete discount  -------------------- */
+    public static deleteDiscount: RequestWithParams<joiTypes.discount.DeleteDiscount> =
+        async (req, res, _) => {
+            new SuccessResponse({
+                statusCode: 200,
+                name: 'Delete discount',
+                message: 'Delete success!',
+                metadata: await DiscountService.deleteDiscount({
+                    discountId: req.params.discountId,
+                    productShop: req.userId as string
+                })
+            }).send(res);
+        };
 }

@@ -27,6 +27,13 @@ declare global {
                 /* -------- Get all discount code available in shop  -------- */
                 interface GetAllDiscountCodeInShop {
                     shopId: string;
+                    limit?: number;
+                    page?: number;
+                }
+
+                /* ----------- Get all discount code with product ----------- */
+                interface GetAllDiscountCodeWithProduct {
+                    productId: string;
                 }
 
                 /* ---------------------------------------------------------- */
@@ -41,6 +48,14 @@ declare global {
                 }
 
                 interface SetUnavailableDiscount extends SetAvailableDiscount {}
+
+                /* ---------------------------------------------------------- */
+                /*                           Delete                           */
+                /* ---------------------------------------------------------- */
+                interface DeleteDiscount {
+                    discountId: string;
+                    productShop: string;
+                }
             }
         }
     }

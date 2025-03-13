@@ -137,3 +137,12 @@ export const updateAvailableDiscount = async ({
 
     return result.modifiedCount > 0;
 };
+
+/* ---------------------------------------------------------- */
+/*                           Delete                           */
+/* ---------------------------------------------------------- */
+export const deleteDiscount = async (id: string) => {
+    const { deletedCount } = await discountModel.deleteOne({ _id: id });
+
+    return deletedCount > 0;
+};

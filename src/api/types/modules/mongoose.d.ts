@@ -26,6 +26,15 @@ declare global {
                         ? T
                         : {}
                     : {});
+
+            /* ----- Argument of generateFindAllPageSlitting utils  ----- */
+            interface FindAllWithPageSlittingArgs<T = any> {
+                query: Partial<T>;
+                limit?: number;
+                page?: number;
+                select?: string[];
+                omit?: string[];
+            }
         }
     }
 }
