@@ -4,6 +4,7 @@ import {
     convertToMongooseId,
     generateFindAllPageSplit
 } from '../../../utils/mongoose.util';
+import { ProjectionType } from 'mongoose';
 
 /* ---------------------------------------------------------- */
 /*                           Common                           */
@@ -53,8 +54,11 @@ export const checkDiscountOwnByShop = async ({
 /* ---------------------------------------------------------- */
 /*                            Find                            */
 /* ---------------------------------------------------------- */
-export const findDiscountById = async (discountId: string) => {
-    return await discountModel.findById(discountId).lean();
+export const findDiscountById = async (
+    discountId: string,
+    projection: ProjectionType<modelTypes.discount.DiscountSchema> = {}
+) => {
+    return await discountModel.findById(discountId, projection).lean();
 };
 
 /* ---------------------------------------------------------- */

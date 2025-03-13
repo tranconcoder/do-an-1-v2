@@ -1335,3 +1335,25 @@
 [2025-03-13T11:29:00.030Z] [error]: Client must be connected before running operations
 [2025-03-13T11:29:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
 [2025-03-13T11:29:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T16:25:02.204Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-13T16:28:51.715Z] [error]: HIDE::500::ValidationError::"discount_start_at" must be greater than or equal to "now"::
+[2025-03-13T16:29:34.035Z] [error]: HIDE::500::ValidationError::"discount_start_at" must be greater than or equal to "now"::
+[2025-03-13T16:29:55.630Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-13T16:32:36.035Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-13T16:32:48.431Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-13T16:34:39.435Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T16:34:44.743Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T16:35:02.080Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T16:35:07.005Z] [error]: HIDE::500::ValidationError::"shopId" is required::
+[2025-03-13T16:36:31.394Z] [error]: HIDE::500::ValidationError::"shopId" is required::
+[2025-03-13T16:37:21.623Z] [error]: HIDE::500::ValidationError::"shopId" is required::
+[2025-03-13T16:42:46.043Z] [error]: HIDE::500::TypeError::import_discount.default.findById(...).projection(...).lean is not a function::
+[2025-03-13T16:43:41.808Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T16:43:49.993Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T16:43:51.839Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T16:44:02.761Z] [error]: Token was stolen! User id: 67c994cb52def8bd1623cc49
+[2025-03-13T16:44:02.763Z] [error]: HIDE::403::Forbidden::Token was deleted!::
+[2025-03-13T16:44:06.040Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-13T16:44:12.642Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-13T16:44:22.864Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T16:44:29.843Z] [error]: HIDE::403::Forbidden::Invalid token!::

@@ -22,12 +22,26 @@ declare global {
                     serviceTypes.discount.arguments.GetAllDiscountCodeInShop,
                     GetAllDiscountCodeInShopQueryKey
                 > {}
-
             /* ------------------------- Params ------------------------- */
             interface GetAllDiscountCodeInShopParams
                 extends Omit<
                     serviceTypes.discount.arguments.GetAllDiscountCodeInShop,
                     GetAllDiscountCodeInShopQueryKey
+                > {}
+
+            /* ------------ Get all product discount by code ------------ */
+            /* ------------------------- Query  ------------------------- */
+            type GetAllProductDiscountByCodeQueryKey = 'limit' | 'page';
+            interface GetAllProductDiscountByCodeQuery
+                extends Pick<
+                    serviceTypes.discount.arguments.GetAllProductDiscountByCode,
+                    GetAllProductDiscountByCodeQueryKey
+                > {}
+            /* ------------------------- Params ------------------------- */
+            interface GetAllProductDiscountByCodeParams
+                extends Omit<
+                    serviceTypes.discount.arguments.GetAllProductDiscountByCode,
+                    GetAllProductDiscountByCodeQueryKey
                 > {}
 
             /* ---------------------------------------------------------- */

@@ -1,5 +1,8 @@
 import { RequestHandler } from 'express';
-import SuccessResponse, { CreatedResponse } from '../response/success.response';
+import SuccessResponse, {
+    CreatedResponse,
+    OkResponse
+} from '../response/success.response';
 import DiscountService from '../services/discount.service';
 import {
     RequestWithBody,
@@ -42,6 +45,23 @@ export default class DiscountController {
                 limit: req.query.limit,
                 page: req.query.page,
                 shopId: req.params.shopId
+            })
+        }).send(res);
+    };
+
+    /* ------------ Get all product discount by code ------------ */
+    public static getAllProductDiscountByCode: RequestHandler<
+        joiTypes.discount.GetAllProductDiscountByCodeParams,
+        any,
+        any,
+        joiTypes.discount.GetAllProductDiscountByCodeQuery
+    > = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get all product discount by code successfully',
+            metadata: await DiscountService.getAllProductDiscountByCode({
+                discountId: req.params.discountId,
+                limit: req.query.limit,
+                page: req.query.page
             })
         }).send(res);
     };

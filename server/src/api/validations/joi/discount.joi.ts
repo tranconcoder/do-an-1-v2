@@ -65,6 +65,19 @@ export const getAllDiscountCodeInShopParamsSchema = Joi.object<
     shopId: mongooseId
 });
 
+/* ------------ Get all product discount by code ------------ */
+/* ------------------------- Query  ------------------------- */
+export const getAllProductDiscountByCodeQuerySchema =
+    Joi.object<joiTypes.discount.GetAllProductDiscountByCodeQuery>({
+        limit: Joi.number(),
+        page: Joi.number()
+    });
+/* ------------------------- Params ------------------------- */
+export const getAllProductDiscountByCodeParamsSchema =
+    Joi.object<joiTypes.discount.GetAllProductDiscountByCodeParams>({
+        discountId: mongooseId
+    });
+
 /* ---------------------------------------------------------- */
 /*                           Update                           */
 /* ---------------------------------------------------------- */

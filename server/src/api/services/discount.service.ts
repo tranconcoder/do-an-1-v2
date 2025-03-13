@@ -89,8 +89,8 @@ export default class DiscountService {
         return await findAllDiscount({
             query: {
                 discount_shop: shopId,
-                discount_start_at: { $gte: new Date() },
-                discount_end_at: { $lte: new Date() },
+                discount_start_at: { $lte: new Date() },
+                discount_end_at: { $gte: new Date() },
                 is_publish: true,
                 is_available: true
             },
@@ -131,8 +131,12 @@ export default class DiscountService {
         limit,
         page
     }: serviceTypes.discount.arguments.GetAllProductDiscountByCode) => {
-        const discount = await findDiscountById(discountId);
+        const discount = await findDiscountById(
+            discountId,
+            '+is_apply_all_product'
+        );
         if (!discount) throw new NotFoundErrorResponse('Not found discount!');
+        console.log(discount)
 
         /* ---------------------------------------------------------- */
         /*     Missing check shop is admin because no RBAC build      */
@@ -158,7 +162,8 @@ export default class DiscountService {
             return await findAllProduct({
                 query: {
                     _id: { $in: discount.discount_products },
-                    product_shop: discount.discount_shop
+                    product_shop: discount.discount_shop,
+                    is_publish: true
                 },
                 limit,
                 page,

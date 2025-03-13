@@ -8,7 +8,9 @@ import {
 import { authenticate } from '../../middlewares/jwt.middleware';
 import {
     getAllDiscountCodeInShopQuerySchema,
-    getAllDiscountCodeInShopParamsSchema
+    getAllDiscountCodeInShopParamsSchema,
+    getAllProductDiscountByCodeQuerySchema,
+    getAllProductDiscountByCodeParamsSchema
 } from '../../validations/joi/discount.joi';
 
 const discountGetRoute = Router();
@@ -24,6 +26,13 @@ discountGetRoute.get(
     validateRequestQuery(getAllDiscountCodeInShopQuerySchema),
     validateRequestParams(getAllDiscountCodeInShopParamsSchema),
     catchError(DiscountController.getAllDiscountCodeInShop as any)
+);
+
+discountGetRoute.get(
+    '/product/:discountId',
+    validateRequestQuery(getAllProductDiscountByCodeQuerySchema),
+    validateRequestParams(getAllProductDiscountByCodeParamsSchema),
+    catchError(DiscountController.getAllProductDiscountByCode as any)
 );
 
 /* ---------------------------------------------------------- */
