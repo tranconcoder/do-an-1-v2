@@ -309,7 +309,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, t: __turbopack_require_real__ } = __turbopack_context__;
 {
-__turbopack_export_value__("/_next/static/media/jcb-svgrepo-com.05754cc6.svg");}}),
+__turbopack_export_value__("/_next/static/media/jcb-svgrepo-com.d821e8d7.svg");}}),
 "[project]/src/app/assets/icon_footer/jcb-svgrepo-com.svg.mjs { IMAGE => \"[project]/src/app/assets/icon_footer/jcb-svgrepo-com.svg [app-client] (static)\" } [app-client] (structured image object, ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
@@ -1186,105 +1186,106 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$HomeFoo
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)"); //Import useEffect
 ;
 var _s = __turbopack_refresh__.signature();
-"use client"; // Add this line to the top of the file
+'use client'; // Add this line to the top of the file
 ;
 ;
 ;
 ;
 const provinces = [
-    "Hà Nội",
-    "Hồ Chí Minh",
-    "Đà Nẵng",
-    "Hải Phòng",
-    "Cần Thơ"
+    'Hà Nội',
+    'Hồ Chí Minh',
+    'Đà Nẵng',
+    'Hải Phòng',
+    'Cần Thơ'
 ];
 const districtsByProvince = {
-    "Hà Nội": [
-        "Ba Đình",
-        "Hoàn Kiếm",
-        "Đống Đa"
+    'Hà Nội': [
+        'Ba Đình',
+        'Hoàn Kiếm',
+        'Đống Đa'
     ],
-    "Hồ Chí Minh": [
-        "Quận 1",
-        "Quận 2",
-        "Quận 3"
+    'Hồ Chí Minh': [
+        'Quận 1',
+        'Quận 2',
+        'Quận 3'
     ],
-    "Đà Nẵng": [
-        "Hải Châu",
-        "Thanh Khê"
+    'Đà Nẵng': [
+        'Hải Châu',
+        'Thanh Khê'
     ],
-    "Hải Phòng": [
-        "Hồng Bàng",
-        "Lê Chân"
+    'Hải Phòng': [
+        'Hồng Bàng',
+        'Lê Chân'
     ],
-    "Cần Thơ": [
-        "Ninh Kiều",
-        "Cái Răng"
+    'Cần Thơ': [
+        'Ninh Kiều',
+        'Cái Răng'
     ]
 };
 const wardsByDistrict = {
-    "Ba Đình": [
-        "Điện Biên",
-        "Quán Thánh"
+    'Ba Đình': [
+        'Điện Biên',
+        'Quán Thánh'
     ],
-    "Hoàn Kiếm": [
-        "Hàng Bạc",
-        "Hàng Gai"
+    'Hoàn Kiếm': [
+        'Hàng Bạc',
+        'Hàng Gai'
     ],
-    "Đống Đa": [
-        "Văn Miếu",
-        "Quốc Tử Giám"
+    'Đống Đa': [
+        'Văn Miếu',
+        'Quốc Tử Giám'
     ],
-    "Quận 1": [
-        "Bến Nghé",
-        "Bến Thành"
+    'Quận 1': [
+        'Bến Nghé',
+        'Bến Thành'
     ],
-    "Quận 2": [
-        "Thảo Điền",
-        "An Phú"
+    'Quận 2': [
+        'Thảo Điền',
+        'An Phú'
     ],
-    "Quận 3": [
-        "Võ Thị Sáu",
-        "Trương Quyền"
+    'Quận 3': [
+        'Võ Thị Sáu',
+        'Trương Quyền'
     ],
-    "Hải Châu": [
-        "Hải Châu 1",
-        "Hải Châu 2"
+    'Hải Châu': [
+        'Hải Châu 1',
+        'Hải Châu 2'
     ],
-    "Thanh Khê": [
-        "Thanh Khê Đông",
-        "Thanh Khê Tây"
+    'Thanh Khê': [
+        'Thanh Khê Đông',
+        'Thanh Khê Tây'
     ],
-    "Hồng Bàng": [
-        "Minh Khai",
-        "Phan Bội Châu"
+    'Hồng Bàng': [
+        'Minh Khai',
+        'Phan Bội Châu'
     ],
-    "Lê Chân": [
-        "Cát Dài",
-        "An Biên"
+    'Lê Chân': [
+        'Cát Dài',
+        'An Biên'
     ],
-    "Ninh Kiều": [
-        "An Hội",
-        "Tân An"
+    'Ninh Kiều': [
+        'An Hội',
+        'Tân An'
     ],
-    "Cái Răng": [
-        "Lê Bình",
-        "Ba Láng"
+    'Cái Răng': [
+        'Lê Bình',
+        'Ba Láng'
     ]
 };
 function DangKy() {
     _s();
-    const [fullName, setFullName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [email, setEmail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [phoneNumber, setPhoneNumber] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [username, setUsername] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [password, setPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [selectedProvince, setSelectedProvince] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [selectedDistrict, setSelectedDistrict] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [selectedWard, setSelectedWard] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [streetAddress, setStreetAddress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+    const [fullName, setFullName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [email, setEmail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [phoneNumber, setPhoneNumber] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [username, setUsername] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [password, setPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [selectedProvince, setSelectedProvince] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [selectedDistrict, setSelectedDistrict] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [selectedWard, setSelectedWard] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [streetAddress, setStreetAddress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [phoneNumberError, setPhoneNumberError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [isFormValid, setIsFormValid] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false); // New state for overall form validity
+    const handleSignUp = ()=>{};
     const districts = districtsByProvince[selectedProvince] || [];
     const wards = wardsByDistrict[selectedDistrict] || [];
     // Update individual state variables on input change
@@ -1308,12 +1309,12 @@ function DangKy() {
     };
     const handleProvinceChange = (e)=>{
         setSelectedProvince(e.target.value);
-        setSelectedDistrict("");
-        setSelectedWard("");
+        setSelectedDistrict('');
+        setSelectedWard('');
     };
     const handleDistrictChange = (e)=>{
         setSelectedDistrict(e.target.value);
-        setSelectedWard("");
+        setSelectedWard('');
     };
     const handleWardChange = (e)=>{
         setSelectedWard(e.target.value);
@@ -1325,13 +1326,13 @@ function DangKy() {
     const handleSubmit = (e)=>{
         e.preventDefault();
         if (!validatePhoneNumber(phoneNumber)) {
-            setPhoneNumberError("Số điện thoại không hợp lệ. Vui lòng nhập 10-11 chữ số.");
+            setPhoneNumberError('Số điện thoại không hợp lệ. Vui lòng nhập 10-11 chữ số.');
             return;
         } else {
             setPhoneNumberError(null); // Clear any previous error
         }
         // If validation passes, you can proceed with form submission here
-        console.log("Form submitted:", {
+        console.log('Form submitted:', {
             fullName,
             email,
             phoneNumber,
@@ -1343,21 +1344,21 @@ function DangKy() {
             streetAddress
         });
         // Reset the form after submission (optional)
-        setFullName("");
-        setEmail("");
-        setPhoneNumber("");
-        setUsername("");
-        setPassword("");
-        setSelectedProvince("");
-        setSelectedDistrict("");
-        setSelectedWard("");
-        setStreetAddress("");
-        alert("Đăng ký thành công!");
+        setFullName('');
+        setEmail('');
+        setPhoneNumber('');
+        setUsername('');
+        setPassword('');
+        setSelectedProvince('');
+        setSelectedDistrict('');
+        setSelectedWard('');
+        setStreetAddress('');
+        alert('Đăng ký thành công!');
     };
     // useEffect to check form validity
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "DangKy.useEffect": ()=>{
-            const isValid = fullName.trim() !== "" && email.trim() !== "" && validatePhoneNumber(phoneNumber) && username.trim() !== "" && password.trim() !== "" && selectedProvince !== "" && selectedDistrict !== "" && selectedWard !== "" && streetAddress.trim() !== "";
+            const isValid = fullName.trim() !== '' && email.trim() !== '' && validatePhoneNumber(phoneNumber) && username.trim() !== '' && password.trim() !== '' && selectedProvince !== '' && selectedDistrict !== '' && selectedWard !== '' && streetAddress.trim() !== '';
             setIsFormValid(isValid);
         }
     }["DangKy.useEffect"], [
@@ -1375,27 +1376,27 @@ function DangKy() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$HomeHeader1$2f$index$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                lineNumber: 165,
-                columnNumber: 7
+                lineNumber: 175,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["outside-container"],
+                className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['outside-container'],
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["login-container"],
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['login-container'],
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                             children: "Đăng Ký"
                         }, void 0, false, {
                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                            lineNumber: 168,
-                            columnNumber: 11
+                            lineNumber: 178,
+                            columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                             onSubmit: handleSubmit,
-                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["login-form"],
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['login-form'],
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["form-group"],
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['form-group'],
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             type: "text",
@@ -1406,25 +1407,25 @@ function DangKy() {
                                             onChange: handleFullNameChange
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 172,
-                                            columnNumber: 15
+                                            lineNumber: 185,
+                                            columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                             htmlFor: "fullName",
                                             children: "Họ Tên"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 180,
-                                            columnNumber: 15
+                                            lineNumber: 193,
+                                            columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                    lineNumber: 171,
-                                    columnNumber: 13
+                                    lineNumber: 184,
+                                    columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["form-group"],
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['form-group'],
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             type: "email",
@@ -1435,63 +1436,63 @@ function DangKy() {
                                             onChange: handleEmailChange
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 183,
-                                            columnNumber: 15
+                                            lineNumber: 196,
+                                            columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                             htmlFor: "email",
                                             children: "Gmail"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 191,
-                                            columnNumber: 15
+                                            lineNumber: 204,
+                                            columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                    lineNumber: 182,
-                                    columnNumber: 13
+                                    lineNumber: 195,
+                                    columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["form-group"]} ${phoneNumberError ? __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["form-group--error"] : ""}`,
+                                    className: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['form-group']} ${phoneNumberError ? __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['form-group--error'] : ''}`,
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             type: "tel",
                                             id: "phoneNumber",
                                             name: "phoneNumber",
                                             placeholder: " ",
-                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["phone-input"],
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['phone-input'],
                                             value: phoneNumber,
                                             onChange: handlePhoneNumberChange
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 199,
-                                            columnNumber: 15
+                                            lineNumber: 214,
+                                            columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                             htmlFor: "phoneNumber",
                                             children: "Số Điện Thoại"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 208,
-                                            columnNumber: 15
+                                            lineNumber: 223,
+                                            columnNumber: 29
                                         }, this),
                                         phoneNumberError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["error-message"],
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['error-message'],
                                             children: phoneNumberError
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 210,
-                                            columnNumber: 17
+                                            lineNumber: 225,
+                                            columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                    lineNumber: 194,
-                                    columnNumber: 13
+                                    lineNumber: 207,
+                                    columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["form-group"],
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['form-group'],
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             type: "text",
@@ -1502,25 +1503,25 @@ function DangKy() {
                                             onChange: handleUsernameChange
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 216,
-                                            columnNumber: 15
+                                            lineNumber: 231,
+                                            columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                             htmlFor: "username",
                                             children: "Tài khoản"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 224,
-                                            columnNumber: 15
+                                            lineNumber: 239,
+                                            columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                    lineNumber: 215,
-                                    columnNumber: 13
+                                    lineNumber: 230,
+                                    columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["form-group"],
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['form-group'],
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             type: "password",
@@ -1531,135 +1532,135 @@ function DangKy() {
                                             onChange: handlePasswordChange
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 227,
-                                            columnNumber: 15
+                                            lineNumber: 242,
+                                            columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                             htmlFor: "password",
                                             children: "Mật khẩu"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 235,
-                                            columnNumber: 15
+                                            lineNumber: 250,
+                                            columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                    lineNumber: 226,
-                                    columnNumber: 13
+                                    lineNumber: 241,
+                                    columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["form-group"],
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['form-group'],
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                         id: "province",
                                         name: "province",
                                         value: selectedProvince,
                                         onChange: handleProvinceChange,
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["select-input"],
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['select-input'],
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                 value: "",
                                                 children: "Chọn Tỉnh/Thành phố"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                                lineNumber: 247,
-                                                columnNumber: 17
+                                                lineNumber: 262,
+                                                columnNumber: 33
                                             }, this),
                                             provinces.map((province)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     value: province,
                                                     children: province
                                                 }, province, false, {
                                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                                    lineNumber: 249,
-                                                    columnNumber: 19
+                                                    lineNumber: 264,
+                                                    columnNumber: 37
                                                 }, this))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                        lineNumber: 240,
-                                        columnNumber: 15
+                                        lineNumber: 255,
+                                        columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                    lineNumber: 239,
-                                    columnNumber: 13
+                                    lineNumber: 254,
+                                    columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["form-group"],
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['form-group'],
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                         id: "district",
                                         name: "district",
                                         value: selectedDistrict,
                                         onChange: handleDistrictChange,
                                         disabled: !selectedProvince,
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["select-input"],
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['select-input'],
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                 value: "",
                                                 children: "Chọn Quận/Huyện"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                                lineNumber: 265,
-                                                columnNumber: 17
+                                                lineNumber: 280,
+                                                columnNumber: 33
                                             }, this),
                                             districts.map((district)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     value: district,
                                                     children: district
                                                 }, district, false, {
                                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                                    lineNumber: 267,
-                                                    columnNumber: 19
+                                                    lineNumber: 282,
+                                                    columnNumber: 37
                                                 }, this))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                        lineNumber: 257,
-                                        columnNumber: 15
+                                        lineNumber: 272,
+                                        columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                    lineNumber: 256,
-                                    columnNumber: 13
+                                    lineNumber: 271,
+                                    columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["form-group"],
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['form-group'],
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                         id: "ward",
                                         name: "ward",
                                         value: selectedWard,
                                         onChange: handleWardChange,
                                         disabled: !selectedDistrict,
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["select-input"],
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['select-input'],
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                 value: "",
                                                 children: "Chọn Xã/Phường"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                                lineNumber: 283,
-                                                columnNumber: 17
+                                                lineNumber: 298,
+                                                columnNumber: 33
                                             }, this),
                                             wards.map((ward)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     value: ward,
                                                     children: ward
                                                 }, ward, false, {
                                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                                    lineNumber: 285,
-                                                    columnNumber: 19
+                                                    lineNumber: 300,
+                                                    columnNumber: 37
                                                 }, this))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                        lineNumber: 275,
-                                        columnNumber: 15
+                                        lineNumber: 290,
+                                        columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                    lineNumber: 274,
-                                    columnNumber: 13
+                                    lineNumber: 289,
+                                    columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["form-group"],
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['form-group'],
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             type: "text",
@@ -1670,92 +1671,92 @@ function DangKy() {
                                             onChange: handleStreetAddressChange
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 293,
-                                            columnNumber: 15
+                                            lineNumber: 308,
+                                            columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                             htmlFor: "streetAddress",
                                             children: "Số nhà, tên đường"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 301,
-                                            columnNumber: 15
+                                            lineNumber: 316,
+                                            columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                    lineNumber: 292,
-                                    columnNumber: 13
+                                    lineNumber: 307,
+                                    columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["button-group"],
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['button-group'],
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "submit",
-                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["register-button"],
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['register-button'],
                                             disabled: !isFormValid,
                                             children: "Đăng ký"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 305,
-                                            columnNumber: 15
+                                            lineNumber: 322,
+                                            columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "submit",
-                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["login-button"],
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['login-button'],
                                             children: "Đăng nhập"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                            lineNumber: 312,
-                                            columnNumber: 15
+                                            lineNumber: 329,
+                                            columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                    lineNumber: 304,
-                                    columnNumber: 13
+                                    lineNumber: 321,
+                                    columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                            lineNumber: 170,
-                            columnNumber: 11
+                            lineNumber: 180,
+                            columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]["forgot-password"],
+                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$DangKy$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['forgot-password'],
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                 href: "#",
                                 children: "Quên mật khẩu?"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                                lineNumber: 318,
-                                columnNumber: 13
+                                lineNumber: 338,
+                                columnNumber: 25
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                            lineNumber: 317,
-                            columnNumber: 11
+                            lineNumber: 337,
+                            columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                    lineNumber: 167,
-                    columnNumber: 9
+                    lineNumber: 177,
+                    columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                lineNumber: 166,
-                columnNumber: 7
+                lineNumber: 176,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$HomeFooter$2f$index$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/DangNhap/DangKy/page.tsx",
-                lineNumber: 322,
-                columnNumber: 7
+                lineNumber: 342,
+                columnNumber: 13
             }, this)
         ]
     }, void 0, true);
 }
-_s(DangKy, "nxMJAqsB7Z82h9+BIwUHmlQMftY=");
+_s(DangKy, "OXmrnjk/jMd794zWVxcRwdnT0eY=");
 _c = DangKy;
 var _c;
 __turbopack_refresh__.register(_c, "DangKy");

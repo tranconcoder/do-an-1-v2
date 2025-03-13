@@ -92,13 +92,18 @@ export default class AuthService {
     }: serviceTypes.auth.arguments.Login) => {
         /* -------------- Check if user is exists ------------- */
         const user = await UserService.findOne({ phoneNumber });
-        if (!user) throw new NotFoundErrorResponse('User not found!');
+        if (!user)
+            throw new NotFoundErrorResponse(
+                'Username or password is not correct!'
+            );
 
         /* ------------------ Check password ------------------ */
         const hashPassword = user.password;
         const isPasswordMatch = bcrypt.compare(password, hashPassword);
         if (!isPasswordMatch)
-            throw new ForbiddenErrorResponse('Password is wrong!');
+            throw new ForbiddenErrorResponse(
+                'Username or password is not correct!'
+            );
 
         /* --------- Generate token and send response --------- */
         const { privateKey, publicKey } = KeyTokenService.generateTokenPair();

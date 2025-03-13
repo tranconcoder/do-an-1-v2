@@ -6,7 +6,7 @@ declare global {
             interface FindAllProductId
                 extends Omit<
                     moduleTypes.mongoose.FindAllWithPageSlittingArgs,
-                    'query' | "select"
+                    'query' | 'select'
                 > {}
         }
     }

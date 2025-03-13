@@ -631,3 +631,707 @@
 [2025-03-13T10:01:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
 [2025-03-13T10:01:00.065Z] [error]: Client must be connected before running operations
 [2025-03-13T10:01:00.067Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:02:00.028Z] [error]: Client must be connected before running operations
+[2025-03-13T10:02:00.030Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:02:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:02:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:02:00.071Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:02:00.072Z] [error]: Client must be connected before running operations
+[2025-03-13T10:03:00.057Z] [error]: Client must be connected before running operations
+[2025-03-13T10:03:00.058Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:03:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:03:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:03:00.070Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:03:00.072Z] [error]: Client must be connected before running operations
+[2025-03-13T10:04:00.016Z] [error]: Client must be connected before running operations
+[2025-03-13T10:04:00.017Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:04:00.045Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:04:00.047Z] [error]: Client must be connected before running operations
+[2025-03-13T10:04:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:04:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:05:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:05:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:05:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:05:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:05:00.065Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:05:00.066Z] [error]: Client must be connected before running operations
+[2025-03-13T10:06:00.026Z] [error]: Client must be connected before running operations
+[2025-03-13T10:06:00.027Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:06:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:06:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:06:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:06:00.072Z] [error]: Client must be connected before running operations
+[2025-03-13T10:07:00.057Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:07:00.058Z] [error]: Client must be connected before running operations
+[2025-03-13T10:07:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:07:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:07:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:07:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:08:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:08:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:08:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:08:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:08:00.064Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:08:00.066Z] [error]: Client must be connected before running operations
+[2025-03-13T10:09:00.010Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:09:00.011Z] [error]: Client must be connected before running operations
+[2025-03-13T10:09:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:09:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:09:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:09:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:10:00.024Z] [error]: Client must be connected before running operations
+[2025-03-13T10:10:00.025Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:10:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:10:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:10:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:10:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:11:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:11:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:11:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:11:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:11:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:11:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:12:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:12:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:12:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:12:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:12:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:12:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:13:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:13:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:13:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:13:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:13:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:13:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:14:00.032Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:14:00.033Z] [error]: Client must be connected before running operations
+[2025-03-13T10:14:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:14:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:14:00.064Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:14:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T10:15:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:15:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:15:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:15:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:15:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T10:15:00.066Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:16:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:16:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:16:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:16:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:16:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:16:00.064Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:17:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:17:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:17:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:17:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:17:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:17:00.063Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:18:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:18:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:18:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:18:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:18:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:18:00.066Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:18:22.768Z] [error]: read ECONNRESET
+[2025-03-13T10:18:22.769Z] [error]: read ECONNRESET
+[2025-03-13T10:18:43.192Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T10:18:43.557Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T10:19:00.043Z] [error]: Client must be connected before running operations
+[2025-03-13T10:19:00.049Z] [error]: Client must be connected before running operations
+[2025-03-13T10:19:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:19:00.063Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:19:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:19:00.065Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:19:00.067Z] [error]: Client must be connected before running operations
+[2025-03-13T10:19:00.067Z] [error]: Client must be connected before running operations
+[2025-03-13T10:19:08.695Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T10:19:08.957Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T10:20:00.028Z] [error]: Client must be connected before running operations
+[2025-03-13T10:20:00.029Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:20:00.033Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:20:00.035Z] [error]: Client must be connected before running operations
+[2025-03-13T10:20:00.051Z] [error]: Client must be connected before running operations
+[2025-03-13T10:20:00.054Z] [error]: Client must be connected before running operations
+[2025-03-13T10:20:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:20:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:21:00.037Z] [error]: Client must be connected before running operations
+[2025-03-13T10:21:00.038Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:21:00.059Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:21:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:21:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:21:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:21:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:21:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:21:19.670Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T10:21:19.827Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T10:21:26.212Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-13T10:21:29.790Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-13T10:22:00.025Z] [error]: Client must be connected before running operations
+[2025-03-13T10:22:00.026Z] [error]: Client must be connected before running operations
+[2025-03-13T10:22:00.032Z] [error]: Client must be connected before running operations
+[2025-03-13T10:22:00.033Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:22:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:22:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:22:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:22:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:23:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:23:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:23:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:23:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:23:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:23:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:23:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:23:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:24:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:24:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:24:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:24:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:24:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:24:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:24:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:24:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:24:54.385Z] [error]: HIDE::500::ValidationError::"phoneNumber" with value "erwgewrgwerg" fails to match the required pattern: /(\+84|84|0[3|5|7|8|9])+([0-9]{8})\b/::
+[2025-03-13T10:25:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:25:00.062Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:25:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:25:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:25:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:25:00.065Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:25:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T10:25:00.066Z] [error]: Client must be connected before running operations
+[2025-03-13T10:25:24.397Z] [error]: HIDE::500::ValidationError::"password" with value "wregwergerg" fails to match the required pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/::
+[2025-03-13T10:25:30.501Z] [error]: HIDE::404::NotFound::User not found!::
+[2025-03-13T10:26:00.011Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:26:00.013Z] [error]: Client must be connected before running operations
+[2025-03-13T10:26:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:26:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:26:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:26:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:26:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:26:00.064Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:26:50.725Z] [error]: HIDE::404::NotFound::User not found!::
+[2025-03-13T10:27:00.009Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:27:00.014Z] [error]: Client must be connected before running operations
+[2025-03-13T10:27:00.020Z] [error]: Client must be connected before running operations
+[2025-03-13T10:27:00.022Z] [error]: Client must be connected before running operations
+[2025-03-13T10:27:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:27:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:27:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:27:00.064Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:28:00.038Z] [error]: Client must be connected before running operations
+[2025-03-13T10:28:00.040Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:28:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:28:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:28:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:28:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:28:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:28:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:28:15.013Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-03-13T10:29:00.058Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:29:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:29:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:29:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:29:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:29:00.063Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:29:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:29:00.066Z] [error]: Client must be connected before running operations
+[2025-03-13T10:30:00.039Z] [error]: Client must be connected before running operations
+[2025-03-13T10:30:00.041Z] [error]: Client must be connected before running operations
+[2025-03-13T10:30:00.058Z] [error]: Client must be connected before running operations
+[2025-03-13T10:30:00.059Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:30:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:30:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:30:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:30:00.066Z] [error]: Client must be connected before running operations
+[2025-03-13T10:31:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:31:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:31:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:31:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:31:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:31:00.066Z] [error]: Client must be connected before running operations
+[2025-03-13T10:31:00.066Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:31:00.067Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:31:44.569Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-03-13T10:32:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:32:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:32:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:32:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:32:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:32:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:32:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:32:00.066Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:33:00.032Z] [error]: Client must be connected before running operations
+[2025-03-13T10:33:00.034Z] [error]: Client must be connected before running operations
+[2025-03-13T10:33:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:33:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:33:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:33:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:33:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T10:33:00.066Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:34:00.044Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:34:00.045Z] [error]: Client must be connected before running operations
+[2025-03-13T10:34:00.059Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:34:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:34:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:34:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:34:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:34:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:35:00.029Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:35:00.030Z] [error]: Client must be connected before running operations
+[2025-03-13T10:35:00.054Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:35:00.055Z] [error]: Client must be connected before running operations
+[2025-03-13T10:35:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:35:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:35:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:35:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T10:36:00.007Z] [error]: Client must be connected before running operations
+[2025-03-13T10:36:00.008Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:36:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:36:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:36:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:36:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:36:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:36:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:37:00.019Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:37:00.021Z] [error]: Client must be connected before running operations
+[2025-03-13T10:37:00.040Z] [error]: Client must be connected before running operations
+[2025-03-13T10:37:00.040Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:37:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:37:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:37:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:37:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:38:00.023Z] [error]: Client must be connected before running operations
+[2025-03-13T10:38:00.024Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:38:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:38:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:38:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:38:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:38:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:38:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:39:00.036Z] [error]: Client must be connected before running operations
+[2025-03-13T10:39:00.037Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:39:00.058Z] [error]: Client must be connected before running operations
+[2025-03-13T10:39:00.059Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:39:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:39:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:39:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:39:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:40:00.029Z] [error]: Client must be connected before running operations
+[2025-03-13T10:40:00.029Z] [error]: Client must be connected before running operations
+[2025-03-13T10:40:00.030Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:40:00.031Z] [error]: Client must be connected before running operations
+[2025-03-13T10:40:00.033Z] [error]: Client must be connected before running operations
+[2025-03-13T10:40:00.033Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:40:00.058Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:40:00.059Z] [error]: Client must be connected before running operations
+[2025-03-13T10:41:00.047Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:41:00.047Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:41:00.048Z] [error]: Client must be connected before running operations
+[2025-03-13T10:41:00.051Z] [error]: Client must be connected before running operations
+[2025-03-13T10:41:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:41:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:41:00.062Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:41:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:42:00.037Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:42:00.041Z] [error]: Client must be connected before running operations
+[2025-03-13T10:42:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:42:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:42:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:42:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:42:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:42:00.064Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:43:00.034Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:43:00.034Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:43:00.036Z] [error]: Client must be connected before running operations
+[2025-03-13T10:43:00.036Z] [error]: Client must be connected before running operations
+[2025-03-13T10:43:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:43:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:43:00.062Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:43:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:44:00.044Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:44:00.045Z] [error]: Client must be connected before running operations
+[2025-03-13T10:44:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:44:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:44:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:44:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:44:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:44:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:45:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:45:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:45:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:45:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:45:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:45:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:45:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:45:00.066Z] [error]: Client must be connected before running operations
+[2025-03-13T10:46:00.053Z] [error]: Client must be connected before running operations
+[2025-03-13T10:46:00.054Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:46:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:46:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:46:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:46:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:46:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:46:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:47:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:47:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:47:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:47:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:47:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:47:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:47:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:47:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:48:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:48:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:48:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T10:48:00.071Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:48:00.071Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:48:00.072Z] [error]: Client must be connected before running operations
+[2025-03-13T10:48:00.072Z] [error]: Client must be connected before running operations
+[2025-03-13T10:48:00.073Z] [error]: Client must be connected before running operations
+[2025-03-13T10:49:00.030Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:49:00.031Z] [error]: Client must be connected before running operations
+[2025-03-13T10:49:00.032Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:49:00.033Z] [error]: Client must be connected before running operations
+[2025-03-13T10:49:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:49:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:49:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:49:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:50:00.030Z] [error]: Client must be connected before running operations
+[2025-03-13T10:50:00.031Z] [error]: Client must be connected before running operations
+[2025-03-13T10:50:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:50:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:50:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:50:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:50:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:50:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:51:00.033Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:51:00.033Z] [error]: Client must be connected before running operations
+[2025-03-13T10:51:00.034Z] [error]: Client must be connected before running operations
+[2025-03-13T10:51:00.034Z] [error]: Client must be connected before running operations
+[2025-03-13T10:51:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:51:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:51:00.065Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:51:00.066Z] [error]: Client must be connected before running operations
+[2025-03-13T10:52:00.038Z] [error]: Client must be connected before running operations
+[2025-03-13T10:52:00.039Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:52:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:52:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:52:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:52:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:52:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:52:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:53:00.058Z] [error]: Client must be connected before running operations
+[2025-03-13T10:53:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:53:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:53:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T10:53:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:53:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:53:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:53:00.064Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:54:00.047Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:54:00.048Z] [error]: Client must be connected before running operations
+[2025-03-13T10:54:00.050Z] [error]: Client must be connected before running operations
+[2025-03-13T10:54:00.051Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:54:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:54:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:54:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:54:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:55:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:55:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:55:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:55:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:55:00.064Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:55:00.065Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:55:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T10:55:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T10:56:00.046Z] [error]: Client must be connected before running operations
+[2025-03-13T10:56:00.046Z] [error]: Client must be connected before running operations
+[2025-03-13T10:56:00.047Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:56:00.048Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:56:00.059Z] [error]: Client must be connected before running operations
+[2025-03-13T10:56:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:56:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:56:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:57:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:57:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:57:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:57:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T10:57:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:57:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:57:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T10:57:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T10:57:21.670Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-13T10:57:29.066Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T10:57:36.206Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-13T10:58:00.064Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:58:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T10:58:00.064Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:58:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T10:58:00.067Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:58:00.070Z] [error]: Client must be connected before running operations
+[2025-03-13T10:58:00.071Z] [error]: Client must be connected before running operations
+[2025-03-13T10:58:00.071Z] [error]: Client must be connected before running operations
+[2025-03-13T10:59:00.021Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:59:00.026Z] [error]: Client must be connected before running operations
+[2025-03-13T10:59:00.059Z] [error]: Client must be connected before running operations
+[2025-03-13T10:59:00.059Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T10:59:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T10:59:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T10:59:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T10:59:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T11:00:00.005Z] [error]: Client must be connected before running operations
+[2025-03-13T11:00:00.007Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:00:00.014Z] [error]: Client must be connected before running operations
+[2025-03-13T11:00:00.016Z] [error]: Client must be connected before running operations
+[2025-03-13T11:00:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:00:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:00:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:00:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:00:26.904Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:00:34.596Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:00:45.425Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:01:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:01:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:01:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:01:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:01:00.071Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:01:00.072Z] [error]: Client must be connected before running operations
+[2025-03-13T11:01:00.072Z] [error]: Client must be connected before running operations
+[2025-03-13T11:01:00.074Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:02:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:02:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:02:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:02:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T11:02:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T11:02:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T11:02:00.068Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:02:00.068Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:03:00.019Z] [error]: Client must be connected before running operations
+[2025-03-13T11:03:00.021Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:03:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:03:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:03:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:03:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:03:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:03:00.065Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:04:00.037Z] [error]: Client must be connected before running operations
+[2025-03-13T11:04:00.038Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:04:00.058Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:04:00.059Z] [error]: Client must be connected before running operations
+[2025-03-13T11:04:00.059Z] [error]: Client must be connected before running operations
+[2025-03-13T11:04:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:04:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:04:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T11:05:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:05:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:05:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:05:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:05:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:05:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:05:00.063Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:05:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:05:32.690Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:05:34.468Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:05:35.262Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:06:00.011Z] [error]: Client must be connected before running operations
+[2025-03-13T11:06:00.013Z] [error]: Client must be connected before running operations
+[2025-03-13T11:06:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:06:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:06:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:06:00.063Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:06:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:06:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T11:06:49.439Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:07:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:07:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:07:00.062Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:07:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:07:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T11:07:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T11:07:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T11:07:00.065Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:07:28.263Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:07:37.908Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:07:57.160Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:07:59.827Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:08:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:08:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:08:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:08:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:08:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:08:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:08:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:08:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T11:08:05.390Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:08:06.726Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:08:07.560Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:08:08.313Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:08:08.757Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:08:10.153Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:08:10.952Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:08:12.410Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T11:09:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:09:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:09:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:09:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:09:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:09:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:09:00.063Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:09:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T11:10:00.032Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:10:00.036Z] [error]: Client must be connected before running operations
+[2025-03-13T11:10:00.041Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:10:00.044Z] [error]: Client must be connected before running operations
+[2025-03-13T11:10:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:10:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:10:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:10:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:11:00.004Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:11:00.006Z] [error]: Client must be connected before running operations
+[2025-03-13T11:11:00.058Z] [error]: Client must be connected before running operations
+[2025-03-13T11:11:00.059Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:11:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:11:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:11:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:11:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T11:12:00.009Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:12:00.010Z] [error]: Client must be connected before running operations
+[2025-03-13T11:12:00.022Z] [error]: Client must be connected before running operations
+[2025-03-13T11:12:00.024Z] [error]: Client must be connected before running operations
+[2025-03-13T11:12:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:12:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:12:00.065Z] [error]: Client must be connected before running operations
+[2025-03-13T11:12:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T11:13:00.030Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:13:00.031Z] [error]: Client must be connected before running operations
+[2025-03-13T11:13:00.049Z] [error]: Client must be connected before running operations
+[2025-03-13T11:13:00.051Z] [error]: Client must be connected before running operations
+[2025-03-13T11:13:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:13:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:13:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:13:00.066Z] [error]: Client must be connected before running operations
+[2025-03-13T11:14:00.040Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:14:00.042Z] [error]: Client must be connected before running operations
+[2025-03-13T11:14:00.060Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:14:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:14:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:14:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:14:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:14:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:15:00.014Z] [error]: Client must be connected before running operations
+[2025-03-13T11:15:00.015Z] [error]: Client must be connected before running operations
+[2025-03-13T11:15:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:15:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:15:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:15:00.071Z] [error]: Client must be connected before running operations
+[2025-03-13T11:15:00.072Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:15:00.074Z] [error]: Client must be connected before running operations
+[2025-03-13T11:16:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:16:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:16:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:16:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:16:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:16:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:16:00.071Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:16:00.072Z] [error]: Client must be connected before running operations
+[2025-03-13T11:17:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:17:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:17:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:17:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:17:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:17:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T11:17:00.064Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:17:00.065Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:18:00.011Z] [error]: Client must be connected before running operations
+[2025-03-13T11:18:00.012Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:18:00.029Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:18:00.029Z] [error]: Client must be connected before running operations
+[2025-03-13T11:18:00.030Z] [error]: Client must be connected before running operations
+[2025-03-13T11:18:00.030Z] [error]: Client must be connected before running operations
+[2025-03-13T11:18:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:18:00.064Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:19:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:19:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:19:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:19:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:19:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:19:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:19:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:19:00.063Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:20:00.009Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:20:00.011Z] [error]: Client must be connected before running operations
+[2025-03-13T11:20:00.026Z] [error]: Client must be connected before running operations
+[2025-03-13T11:20:00.027Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:20:00.039Z] [error]: Client must be connected before running operations
+[2025-03-13T11:20:00.040Z] [error]: Client must be connected before running operations
+[2025-03-13T11:20:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:20:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:21:00.059Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:21:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:21:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:21:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:21:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:21:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:21:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:21:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:22:00.041Z] [error]: Client must be connected before running operations
+[2025-03-13T11:22:00.042Z] [error]: Client must be connected before running operations
+[2025-03-13T11:22:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:22:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:22:00.062Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:22:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T11:22:00.070Z] [error]: Client must be connected before running operations
+[2025-03-13T11:22:00.071Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:23:00.058Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:23:00.059Z] [error]: Client must be connected before running operations
+[2025-03-13T11:23:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:23:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:23:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:23:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:23:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:23:00.064Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:24:00.041Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:24:00.043Z] [error]: Client must be connected before running operations
+[2025-03-13T11:24:00.044Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:24:00.046Z] [error]: Client must be connected before running operations
+[2025-03-13T11:24:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:24:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:24:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:24:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:25:00.022Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:25:00.022Z] [error]: Client must be connected before running operations
+[2025-03-13T11:25:00.023Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:25:00.023Z] [error]: Client must be connected before running operations
+[2025-03-13T11:25:00.037Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:25:00.039Z] [error]: Client must be connected before running operations
+[2025-03-13T11:25:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:25:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:26:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:26:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:26:00.061Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:26:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:26:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:26:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:26:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:26:00.064Z] [error]: Client must be connected before running operations
+[2025-03-13T11:27:00.057Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:27:00.058Z] [error]: Client must be connected before running operations
+[2025-03-13T11:27:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:27:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:27:00.062Z] [error]: Client must be connected before running operations
+[2025-03-13T11:27:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:27:00.063Z] [error]: Client must be connected before running operations
+[2025-03-13T11:27:00.064Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:28:00.002Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:28:00.003Z] [error]: Client must be connected before running operations
+[2025-03-13T11:28:00.005Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:28:00.007Z] [error]: Client must be connected before running operations
+[2025-03-13T11:28:00.059Z] [error]: Client must be connected before running operations
+[2025-03-13T11:28:00.060Z] [error]: Client must be connected before running operations
+[2025-03-13T11:28:00.061Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T11:28:00.061Z] [error]: Client must be connected before running operations
+[2025-03-13T11:29:00.009Z] [error]: Client must be connected before running operations
+[2025-03-13T11:29:00.030Z] [error]: Client must be connected before running operations
+[2025-03-13T11:29:00.060Z] [error]: Cannot destructure property 'limit' of 'undefined' as it is undefined.
+[2025-03-13T11:29:00.060Z] [error]: Client must be connected before running operations

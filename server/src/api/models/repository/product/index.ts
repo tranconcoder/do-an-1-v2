@@ -99,21 +99,17 @@ export const findAllProduct =
     generateFindAllPageSplit<modelTypes.product.ProductSchema>(productModel);
 
 /* ------------ Find all product id as string ------------ */
-export const findAllProductId = async ({
-    limit,
-    projection,
-    omit,
-    page,
-    sort
-}: repoTypes.product.FindAllProductId) => {
+export const findAllProductId = async (
+    payload: repoTypes.product.FindAllProductId
+) => {
     return findAllProduct({
         query: {},
-        projection,
-        limit,
-        omit,
-        page,
+        projection: payload.projection,
+        limit: payload.limit,
+        omit: payload.omit,
+        page: payload.page,
         select: ['id'],
-        sort
+        sort: payload.sort
     }).then((products) => products.map(({ _id }) => _id.toString()));
 };
 

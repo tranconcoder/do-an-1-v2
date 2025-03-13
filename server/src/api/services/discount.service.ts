@@ -10,6 +10,7 @@ import {
 } from '../models/repository/discount/index';
 import {
     checkProductListIsPublish,
+    findAllProduct
 } from '../models/repository/product/index';
 import {
     ConflictErrorResponse,
@@ -19,8 +20,8 @@ import {
 
 export default class DiscountService {
     /* ---------------------------------------------------------- */
-    /* ---------------------------------------------------------- */
     /*                           Create                           */
+    /* ---------------------------------------------------------- */
     public static createDiscount = async ({
         userId,
         ...payload
@@ -139,7 +140,30 @@ export default class DiscountService {
         const isAdminShop = false;
 
         if (discount.is_apply_all_product) {
-            if (isAdminShop) return { products: "every" };
+            /* ------------------ Return all by admin  ------------------ */
+            if (isAdminShop) return { products: 'every' };
+
+            /* ------------------- Return all by shop ------------------- */
+            return await findAllProduct({
+                query: {
+                    product_shop: discount.discount_shop,
+                    is_publish: true
+                },
+                limit,
+                page,
+                sort: { updated_at: -1 }
+            });
+        } else {
+            /* ------------------ Get specific product ------------------ */
+            return await findAllProduct({
+                query: {
+                    _id: { $in: discount.discount_products },
+                    product_shop: discount.discount_shop
+                },
+                limit,
+                page,
+                sort: { updated_at: -1 }
+            });
         }
     };
 
