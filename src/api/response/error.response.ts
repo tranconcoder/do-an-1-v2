@@ -100,3 +100,17 @@ export class ConflictErrorResponse extends ErrorResponse {
         super(StatusCodes.CONFLICT, 'Conflict', message, hideOnProduction);
     }
 }
+
+export class InvalidPayloadErrorResponse extends ErrorResponse {
+    public constructor(
+        message: string = StatusCodes[StatusCodes.BAD_REQUEST],
+        hideOnProduction: boolean = true
+    ) {
+        super(
+            StatusCodes.BAD_REQUEST,
+            'InvalidPayload',
+            message,
+            hideOnProduction
+        );
+    }
+}

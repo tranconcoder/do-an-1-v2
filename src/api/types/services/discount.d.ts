@@ -19,6 +19,11 @@ declare global {
                 /*                            Find                            */
                 /* ---------------------------------------------------------- */
 
+                /* ------------------- Get discount by id ------------------- */
+                interface GetDiscountById {
+                    discountId: string;
+                }
+
                 /* -------- Get all discount code available in shop  -------- */
                 interface GetAllDiscountCodeInShop {
                     shopId: string;

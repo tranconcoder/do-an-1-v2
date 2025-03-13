@@ -1,4 +1,4 @@
-import mongoose  from "mongoose";
+import mongoose, { HydratedDocument, Model } from 'mongoose';
 
 export const convertToMongooseId = (id: string) =>
     new mongoose.Types.ObjectId(id);
@@ -34,4 +34,33 @@ export const omitFields = <T = string>(fields: T[]) => {
     });
 
     return results;
+};
+
+/* -------------------- Find all wrapper -------------------- */
+export const generateFindAllPageSplit = <T = any>(model: any) => {
+    return async ({
+        query,
+        limit = 50,
+        page = 1,
+        select,
+        omit
+    }: {
+        query: Partial<T>;
+        limit?: number;
+        page?: number;
+        select: string[];
+        omit: string[];
+    }): Promise<T[]> => {
+        const projection: commonTypes.object.ObjectAnyKeys = {};
+        const skip = limit * (page - 1);
+
+        for (const field of select) projection[field] = 1;
+        for (const field of omit) projection[field] = 0;
+
+        return await model
+            .find(query, projection)
+            .skip(skip)
+            .limit(limit)
+            .lean();
+    };
 };

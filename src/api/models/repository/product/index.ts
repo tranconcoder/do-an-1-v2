@@ -169,7 +169,9 @@ export const findProductByShopAndId = async (
 };
 
 /* ------------- Check product list is publish  ------------- */
-export const checkProductListIsPublish = async (listId: string[]) => {
+export const checkProductListIsPublish = async (
+    listId: moduleTypes.mongoose.ObjectId[]
+) => {
     return await productModel.exists({
         _id: { $in: listId },
         is_publish: false

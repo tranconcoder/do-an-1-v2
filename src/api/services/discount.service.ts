@@ -3,11 +3,15 @@ import {
     checkConflictDiscountInShop,
     checkDiscountOwnByShop,
     createDiscount,
+    findDiscountById,
     updateAvailableDiscount
 } from '../models/repository/discount/index';
+import { checkProductListIsPublish } from '../models/repository/product/index';
 import {
     ConflictErrorResponse,
-    ForbiddenErrorResponse
+    ForbiddenErrorResponse,
+    InvalidPayloadErrorResponse,
+    NotFoundErrorResponse
 } from '../response/error.response';
 
 export default class DiscountService {
@@ -39,6 +43,22 @@ export default class DiscountService {
         }
 
         /* --------------- Check products is publish  --------------- */
+        if (payload.is_apply_all_product && !payload.discount_products?.length)
+            throw new NotFoundErrorResponse(
+                'Not found product to apply discount code!',
+                false
+            );
+
+        if (payload.is_apply_all_product) {
+            const isAllProductPublish = await checkProductListIsPublish(
+                payload.discount_products as string[]
+            );
+
+            if (!isAllProductPublish)
+                throw new InvalidPayloadErrorResponse(
+                    'Can not create discount for unpublish product!'
+                );
+        }
 
         return await createDiscount({
             ...payload,
@@ -51,13 +71,25 @@ export default class DiscountService {
     /*                            Find                            */
     /* ---------------------------------------------------------- */
 
+    /* ------------------- Get discount by id ------------------- */
+    public static getDiscountById = async ({
+        discountId
+    }: serviceTypes.discount.arguments.GetDiscountById) => {
+        const discount = await findDiscountById(discountId);
+        if (!discount) throw new NotFoundErrorResponse('Not found discount!');
+
+        return discount;
+    };
+
     /* ------------- Get all discount code in shop  ------------- */
-    public static getAllDiscountCodeInShop = async ({
-        shopId
-    }: serviceTypes.discount.arguments.GetAllDiscountCodeInShop) => {};
+    public static getAllDiscountCodeInShop =
+        async ({}: serviceTypes.discount.arguments.GetAllDiscountCodeInShop) => {};
 
     /* ------- Get all discount available code in product ------- */
     public static getAllDiscountCodeInProduct = async () => {};
+
+    /* ---------------- Get all discount by user ---------------- */
+    public static getAllDiscountByUser = async () => {};
 
     /* ---------------------------------------------------------- */
     /*                           Update                           */

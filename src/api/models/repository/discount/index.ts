@@ -1,6 +1,9 @@
 import _ from 'lodash';
 import discountModel from '../../discount.model';
-import { convertToMongooseId } from '../../../utils/mongoose.util';
+import {
+    convertToMongooseId,
+    generateFindAllPageSplit
+} from '../../../utils/mongoose.util';
 
 /* ---------------------------------------------------------- */
 /*                           Common                           */
@@ -50,10 +53,17 @@ export const checkDiscountOwnByShop = async ({
 /* ---------------------------------------------------------- */
 /*                            Find                            */
 /* ---------------------------------------------------------- */
+export const findDiscountById = async (discountId: string) => {
+    return await discountModel.findById(discountId).lean();
+};
 
 /* ---------------------------------------------------------- */
 /*                          Find all                          */
 /* ---------------------------------------------------------- */
+
+/* ------------------- Find all discount  ------------------- */
+export const findAllDiscount =
+    generateFindAllPageSplit<modelTypes.discount.DiscountSchema>(discountModel);
 
 /* ----------- Find all discount in shop by code ------------ */
 export const checkConflictDiscountInShop = async ({
