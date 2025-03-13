@@ -1,5 +1,10 @@
 import type mongooseBase from 'mongoose';
-import mongoose, { HydratedDocument, Models } from 'mongoose';
+import mongoose, {
+    HydratedDocument,
+    Models,
+    QueryWithHelpers,
+    RootFilterQuery
+} from 'mongoose';
 import mongooseLib, { Document, model, Model } from 'mongoose';
 
 declare global {
@@ -29,12 +34,20 @@ declare global {
 
             /* ----- Argument of generateFindAllPageSlitting utils  ----- */
             interface FindAllWithPageSlittingArgs<T = any> {
-                query: Partial<T>;
+                query: RootFilterQuery<T>;
+                sort?: any;
                 limit?: number;
                 page?: number;
                 select?: string[];
                 omit?: string[];
             }
         }
+    }
+}
+
+module 'mongoose' {
+    interface QueryTimestampsConfig {
+        created_at?: boolean;
+        updated_at?: boolean;
     }
 }

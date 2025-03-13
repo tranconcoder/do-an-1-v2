@@ -4,6 +4,7 @@ import ErrorResponse, {
     ForbiddenErrorResponse,
     NotFoundErrorResponse
 } from '../../../response/error.response';
+import { generateFindAllPageSplit } from '../../../utils/mongoose.util';
 import { productModel } from '../../product.model';
 
 // Common
@@ -92,8 +93,29 @@ export const findProductCategoryById = async (id: string) => {
 /* ------------------------------------------------------ */
 /*                        Find all                        */
 /* ------------------------------------------------------ */
+
+/* -------------------- Find all product -------------------- */
+export const findAllProduct =
+    generateFindAllPageSplit<modelTypes.product.ProductSchema>(productModel);
+
 /* ------------ Find all product id as string ------------ */
-export const findProductIdStrList = async () => {
+export const findProductIdStrList = async ({
+    query,
+    limit,
+    omit,
+    page,
+    select,
+    sort
+}: moduleTypes.mongoose.FindAllWithPageSlittingArgs) => {
+    return findAllProduct({
+        query:{},
+        limit,
+        omit,
+        page,
+        select,
+        sort
+    });
+
     return (
         await productModel.aggregate().project({
             _id: { $toString: '$_id' }

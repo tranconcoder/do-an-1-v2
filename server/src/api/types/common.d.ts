@@ -71,6 +71,11 @@ declare global {
         /*                         OBJECT                         */
         /* ====================================================== */
         namespace object {
+            interface PageSlitting {
+                limit?: number;
+                page?: number;
+            }
+
             type ObjectAnyKeys<T = any> = Object & {
                 [key: string]: T;
             };

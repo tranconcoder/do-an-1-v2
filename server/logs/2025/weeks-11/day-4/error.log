@@ -21,3 +21,23 @@
 [2025-03-13T03:57:27.792Z] [error]: HIDE::403::Forbidden::Invalid token!::
 [2025-03-13T03:57:33.327Z] [error]: HIDE::500::ValidationError::"shopId" is required::
 [2025-03-13T03:57:55.839Z] [error]: HIDE::500::ValidationError::"shopId" is not allowed::
+[2025-03-13T06:39:31.831Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T06:39:32.120Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T07:12:00.020Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:13:00.005Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:14:00.019Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:15:00.003Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:15:03.939Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T07:15:08.326Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T07:16:00.003Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:17:00.003Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:18:00.004Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:19:00.004Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:19:13.664Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-13T07:19:27.539Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-13T07:20:00.004Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:21:00.003Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:22:00.003Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:23:00.003Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:24:00.003Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.
+[2025-03-13T07:25:00.004Z] [error]: Cannot destructure property 'query' of 'undefined' as it is undefined.

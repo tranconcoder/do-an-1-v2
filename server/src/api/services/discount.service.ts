@@ -1,14 +1,17 @@
 import _ from 'lodash';
+import discountModel from '../models/discount.model';
 import {
     checkConflictDiscountInShop,
     checkDiscountOwnByShop,
     createDiscount,
     deleteDiscount,
     findAllDiscount,
-    findDiscountById,
-    updateAvailableDiscount
+    findDiscountById
 } from '../models/repository/discount/index';
-import { checkProductListIsPublish } from '../models/repository/product/index';
+import {
+    checkProductListIsPublish,
+    findAllProduct
+} from '../models/repository/product/index';
 import {
     ConflictErrorResponse,
     ForbiddenErrorResponse,
@@ -17,8 +20,8 @@ import {
 
 export default class DiscountService {
     /* ---------------------------------------------------------- */
-    /*                           Create                           */
     /* ---------------------------------------------------------- */
+    /*                           Create                           */
     public static createDiscount = async ({
         userId,
         ...payload
@@ -82,9 +85,12 @@ export default class DiscountService {
         limit,
         page
     }: serviceTypes.discount.arguments.GetAllDiscountCodeInShop) => {
+        discountModel.find({});
         return await findAllDiscount({
             query: {
                 discount_shop: shopId,
+                discount_start_at: { $gte: new Date() },
+                discount_end_at: { $lte: new Date() },
                 is_publish: true,
                 is_available: true
             },
@@ -94,10 +100,49 @@ export default class DiscountService {
     };
 
     /* ------- Get all discount available code in product ------- */
-    public static getAllDiscountCodeWithProduct = async () => {};
+    public static getAllDiscountCodeWithProduct = async ({
+        productId,
+        limit,
+        page
+    }: serviceTypes.discount.arguments.GetAllDiscountCodeWithProduct) => {
+        await findAllDiscount({
+            query: {
+                discount_start_at: { $gte: new Date() },
+                discount_end_at: { $lte: new Date() },
+                is_available: true,
+                is_publish: true,
+                $or: [
+                    { discount_products: [productId] },
+                    { is_apply_all_product: true }
+                ]
+            },
+            sort: {
+                is_admin_voucher: -1,
+                updated_at: -1
+            },
+            limit,
+            page
+        });
+    };
 
     /* ------------ Get all product discount by code ------------ */
-    public static getAllProductDiscountByCode = async () => {};
+    public static getAllProductDiscountByCode = async ({
+        discountId,
+        limit,
+        page
+    }: serviceTypes.discount.arguments.GetAllProductDiscountByCode) => {
+        const discount = await findDiscountById(discountId);
+        if (!discount) throw new NotFoundErrorResponse('Not found discount!');
+
+        /* ---------------------------------------------------------- */
+        /*     Missing check shop is admin because no RBAC build      */
+        /* ---------------------------------------------------------- */
+        const isAdminShop = false;
+
+        if (discount.is_apply_all_product) {
+            if (isAdminShop) return { products: "every" };
+        }
+    };
 
     /* ---------------------------------------------------------- */
     /*                           Update                           */

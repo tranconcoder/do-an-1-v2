@@ -121,23 +121,6 @@ export const findAllDiscountPublishAvailableByShop = async (shop: string) => {
 /*                           Update                           */
 /* ---------------------------------------------------------- */
 
-/* --------------- Update available discount ---------------- */
-export const updateAvailableDiscount = async ({
-    discountId,
-    state
-}: repoTypes.discount.arguments.UpdateAvailableDiscount) => {
-    const result = await discountModel.updateOne(
-        {
-            _id: discountId
-        },
-        {
-            is_available: state
-        }
-    );
-
-    return result.modifiedCount > 0;
-};
-
 /* ---------------------------------------------------------- */
 /*                           Delete                           */
 /* ---------------------------------------------------------- */

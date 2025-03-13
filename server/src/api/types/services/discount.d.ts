@@ -25,15 +25,21 @@ declare global {
                 }
 
                 /* -------- Get all discount code available in shop  -------- */
-                interface GetAllDiscountCodeInShop {
+                interface GetAllDiscountCodeInShop
+                    extends commonTypes.object.PageSlitting {
                     shopId: string;
-                    limit?: number;
-                    page?: number;
                 }
 
                 /* ----------- Get all discount code with product ----------- */
-                interface GetAllDiscountCodeWithProduct {
+                interface GetAllDiscountCodeWithProduct
+                    extends commonTypes.object.PageSlitting {
                     productId: string;
+                }
+
+                /* ------------ Get all product discount by code ------------ */
+                interface GetAllProductDiscountByCode
+                    extends commonTypes.object.PageSlitting {
+                    discountId: string;
                 }
 
                 /* ---------------------------------------------------------- */

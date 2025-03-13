@@ -16,7 +16,7 @@ const patchRouteValidated = Router();
 /* ----------------- Set available discount ----------------- */
 patchRouteValidated.patch(
     '/set-available',
-    validateRequestBody(setAvailableDiscountSchema),
+    validateRequestBody(setAvailableDiscountSchema)
 );
 
 /* ---------------- Set unavailable discount ---------------- */

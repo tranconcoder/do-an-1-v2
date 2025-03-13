@@ -40,6 +40,7 @@ export const omitFields = <T = string>(fields: T[]) => {
 export const generateFindAllPageSplit = <T = any>(model: any) => {
     return async ({
         query,
+        sort = {},
         limit = 50,
         page = 1,
         select = [],
@@ -53,6 +54,7 @@ export const generateFindAllPageSplit = <T = any>(model: any) => {
 
         return await model
             .find(query, projection)
+            .sort(sort)
             .skip(skip)
             .limit(limit)
             .lean();
