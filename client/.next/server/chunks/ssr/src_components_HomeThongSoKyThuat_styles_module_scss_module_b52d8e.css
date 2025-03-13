@@ -1,0 +1,158 @@
+/* [project]/src/components/HomeThongSoKyThuat/styles.module.scss.module.css [app-client] (css) */
+.styles-module-scss-module__CMEUNG__container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 10px auto 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #f0f2f5, #e8e8e8);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px #0000001a;
+  overflow: hidden;
+}
+
+.styles-module-scss-module__CMEUNG__specifications {
+  flex: 2;
+  padding-right: 30px;
+  box-sizing: border-box;
+}
+
+.styles-module-scss-module__CMEUNG__title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  text-shadow: 1px 1px 3px #0000001a;
+  letter-spacing: .05em;
+}
+
+.styles-module-scss-module__CMEUNG__videoSection {
+  flex: 1;
+  padding-left: 30px;
+  border-left: 2px solid #bdc3c7;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.styles-module-scss-module__CMEUNG__videoTitle {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #34495e;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+.styles-module-scss-module__CMEUNG__videoTitle:hover {
+  color: #3498db;
+}
+
+.styles-module-scss-module__CMEUNG__videoList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.styles-module-scss-module__CMEUNG__videoItem {
+  border: 1px solid #d3d3d3;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 5px #00000014;
+  transition: transform .3s, box-shadow .3s;
+}
+
+.styles-module-scss-module__CMEUNG__videoItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px #00000026;
+}
+
+.styles-module-scss-module__CMEUNG__specificationTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.styles-module-scss-module__CMEUNG__tableRow {
+  transition: background-color .3s, transform .2s;
+  transform-origin: 0;
+}
+
+.styles-module-scss-module__CMEUNG__tableRow:hover {
+  background-color: #ecf0f1;
+  transform: scale(1.01);
+}
+
+.styles-module-scss-module__CMEUNG__tableRow:last-child td, .styles-module-scss-module__CMEUNG__tableRow:last-child th {
+  border-bottom: none;
+}
+
+.styles-module-scss-module__CMEUNG__specificationTable th, .styles-module-scss-module__CMEUNG__specificationTable td {
+  padding: 15px 20px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  vertical-align: top;
+}
+
+.styles-module-scss-module__CMEUNG__specificationTable th {
+  width: 35%;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.styles-module-scss-module__CMEUNG__specificationTable td {
+  color: #444;
+}
+
+.styles-module-scss-module__CMEUNG__buttonContainer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.styles-module-scss-module__CMEUNG__specButton {
+  display: inline-block;
+  padding: 14px 30px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 8px;
+  transition: background-color .3s, transform .2s, box-shadow .2s;
+  box-shadow: 0 3px 5px #0003;
+}
+
+.styles-module-scss-module__CMEUNG__specButton:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 7px #0000004d;
+}
+
+.styles-module-scss-module__CMEUNG__specButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px #0003;
+}
+
+.styles-module-scss-module__CMEUNG__specButton:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: #ffffff4d;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: width .5s ease-out, height .5s ease-out, opacity .5s ease-out;
+}
+
+.styles-module-scss-module__CMEUNG__specButton:active:before {
+  width: 300%;
+  height: 300%;
+  opacity: 1;
+}
+
+/*# sourceMappingURL=src_components_HomeThongSoKyThuat_styles_module_scss_module_b52d8e.css.map*/

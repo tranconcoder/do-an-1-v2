@@ -1,0 +1,624 @@
+// styles.module.scss
+
+// --- Color Palette (CSS Variables) ---
+:root {
+  --primary-color: #ff6b6b;
+  --primary-color-hover: #ff4a4a;
+  --secondary-color: #55efc4;
+  --secondary-color-darker: #43bc9d;
+  --accent-color: #f9ca24;
+  --accent-color-hover: #f5b100;
+  --text-color-light: #444;
+  --text-color-dark: #fff;
+  --background-color-light: #f5f6fa;
+  --background-color-dark: #2c3e50;
+  --border-color: #e0e0e0;
+  --success-color: #27ae60;
+  --success-color-darker: #1e8449;
+  --error-color: #e74c3c;
+}
+
+// --- Utility Classes ---
+.text-center {
+    text-align: center;
+}
+
+.voucherError {
+    color: var(--error-color);
+    font-size: 0.9em;
+    margin-top: 5px;
+    text-align: left;  /* ensure left alignment */
+}
+
+// --- General Styling ---
+.checkoutContainer {
+  max-width: 1200px;
+  margin: 130px auto 20px; /* Reduced top margin for a more responsive feel */
+  padding: 30px; /* Slightly reduced padding for better flow */
+  background-color: var(--background-color-light);
+  border: 1px solid var(--border-color);
+  border-radius: 22px; /* Make it even more rounded */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18); /* More pronounced shadow*/
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 9px 25px rgba(0, 0, 0, 0.24); /* Stronger hover shadow */
+  }
+
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 768px) {
+      margin-top: 40px; /* Further reduced margin on small screens */
+      padding: 20px;    /* Even smaller padding */
+      border-radius: 16px; /* Less rounded corners */
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+
+  button {
+      background-color: var(--secondary-color);
+      color: var(--text-color-dark);
+      border: none;
+      font-size: 1.4em; /* slightly reduced font size */
+      cursor: pointer;
+      margin-right: 15px;
+      padding: 12px 24px; /* refined button padding */
+      border-radius: 12px; /* match the main container's radius */
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+
+      &:hover {
+          background-color: var(--secondary-color-darker);
+          transform: scale(1.08);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);  /* Increased hover shadow */
+      }
+  }
+
+  span {
+      font-size: 1.3em;
+      font-weight: 600;
+      color: var(--text-color-light);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+}
+
+.steps {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  padding: 0 15px;  /* add some padding to prevent overflowing */
+}
+
+.step {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  color: #aaa; /* softer gray */
+  font-size: 0.95em; /* Reduced size */
+  text-transform: uppercase;
+  font-weight: 500; /* Weight is in 500 */
+  position: relative;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  width: 50%;
+  text-align: center;
+  letter-spacing: 0.5px;
+
+  &:after {
+      content: "";
+      position: absolute;
+      bottom: -7px; /* more spacing at bottom */
+      left: 20%;
+      width: 60%; /* more narrow */
+      height: 4px;  /* slightly thicker */
+      background-color: #ddd; /* lighter base color*/
+      transition: background-color 0.3s ease;
+  }
+
+  &:hover {
+      color: #777;  /* Slightly darker gray on hover */
+  }
+
+  @media (max-width: 600px) {
+      font-size: 0.8em;  /* make steps smaller on extra small screens */
+      &:after {
+        bottom: -4px; /* Reduce after bottom padding */
+        height: 2px; /* reduce height */
+      }
+  }
+}
+
+.step.active {
+  color: var(--primary-color);
+  font-weight: 600;  /* make active state bolder */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+
+  &:after {
+      background-color: var(--primary-color);
+  }
+}
+
+.productDetails {
+  display: flex;
+  align-items: center;
+  padding: 22px;  /* slight adjustments */
+  border: 1px solid var(--border-color);
+  border-radius: 14px; /* rounded edges */
+  margin-bottom: 22px; /* spacing */
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);  /* emphasized shadow */
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  transform-origin: center;  /* make sure that it always moves from center */
+
+  &:hover {
+     box-shadow: 0 7px 14px rgba(0, 0, 0, 0.22);  /* hover is in 0.22 */
+     transform: scale(1.03);  /* subtle scale */
+  }
+
+  img {
+      margin-right: 20px;
+      border-radius: 12px; /* makes more rounded edges */
+      width: 90px; /* Adjust width */
+      height: 90px;
+      object-fit: cover;  /* Cover image*/
+      transition: transform 0.3s ease;
+  }
+
+  .productName {
+      font-weight: 600;
+      font-size: 1.2em; /* adjust size */
+      margin-bottom: 8px; /* more spacing */
+      color: var(--text-color-light);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      transition: color 0.3s ease;
+  }
+
+  .productPrice {
+      font-size: 1.3em;  /* adjust size*/
+      color: var(--primary-color);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      transition: color 0.3s ease;
+
+      .originalPrice {
+          text-decoration: line-through;
+          color: #999;
+          margin-left: 10px;
+          font-size: 1em;  /* adjust size */
+      }
+  }
+
+  .quantity {
+      margin-left: auto;
+      font-style: italic;
+      color: #888;
+      transition: color 0.3s ease;
+  }
+
+  @media (max-width: 576px) { /* for very small devices */
+      flex-direction: column;
+      align-items: flex-start;
+      img {
+          margin-bottom: 15px;
+          margin-right: 0;
+          width: 75px;
+          height: 75px;
+      }
+      .quantity {
+          margin-top: 10px;
+          margin-left: 0;
+      }
+  }
+}
+
+.customerInfo,
+.shippingInfo {
+  margin-bottom: 25px;
+  padding: 28px;  /* padding */
+  border: 1px solid var(--border-color);
+  border-radius: 14px; /* rounded borders */
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12); /* emphasised shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
+  }
+
+  h3 {
+    font-size: 1.4em; /* adjust size*/
+    margin-bottom: 20px;
+    color: var(--text-color-light);
+    font-weight: 600; /* font weight */
+  }
+}
+
+.formGroup {
+  margin-bottom: 20px;
+
+  label {
+      display: block;
+      font-weight: 500; /* slightly reduced font weight */
+      color: var(--text-color-light);
+      font-size: 1.1em;
+      margin-bottom: 6px; /* added margin */
+      transition: color 0.2s ease;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select {
+      width: 100%;
+      padding: 14px;  /* Increased padding */
+      border: 1.5px solid var(--border-color); /* Increased border weight */
+      border-radius: 10px;
+      font-size: 1.1em;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+      &:focus {
+          outline: none;
+          border-color: var(--secondary-color);
+          box-shadow: 0 0 10px rgba(var(--secondary-color), 0.3); /* adjusted strength */
+      }
+  }
+
+  input[type="checkbox"] {
+      margin-right: 10px;
+      vertical-align: middle;
+  }
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.1em;
+  color: var(--text-color-light);
+  transition: color 0.2s ease;
+
+  &:hover {
+      color: var(--secondary-color);
+  }
+}
+
+.shippingOptions {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+
+  .shippingOption {
+      padding: 14px 22px;  /* fine-tuned */
+      border: 1.5px solid var(--border-color); /* make it a big heavier */
+      border-radius: 10px;
+      margin-bottom: 12px; /* slightly bigger */
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+      font-size: 1.1em;
+      color: var(--text-color-light);
+
+      &:hover {
+          background-color: #f2f2f2;
+          transform: scale(1.03);  /* subtle scale effect */
+          color: var(--secondary-color);
+      }
+
+      input[type="radio"] {
+          margin-right: 14px;
+          vertical-align: middle;
+      }
+  }
+}
+
+// --- Payment Step Styles ---
+.paymentStep {
+  padding: 35px;
+  border: 1px solid var(--border-color);
+  border-radius: 16px; /* rounded effect */
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14); /* depth */
+
+   /* Mobile adjustments: Reduce padding and center items */
+    @media (max-width: 576px) {
+      padding: 20px;
+    }
+}
+
+.paymentOptions {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  .paymentOption {
+      padding: 14px 18px; /* refined padding */
+      border: 1.5px solid var(--border-color); /* Weight */
+      border-radius: 10px;
+      margin-bottom: 10px;  /*spacing*/
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 1.1em;
+      color: var(--text-color-light);
+      display: flex;
+      align-items: center;
+
+      &:hover {
+          background-color: #f2f2f2;
+      }
+
+      input[type="radio"] {
+          margin-right: 12px;
+      }
+  }
+}
+
+.cardSelection {
+  margin-bottom: 20px;
+}
+
+// Add these new styles to your styles.module.scss
+.voucherSection {
+  margin-bottom: 25px;
+
+  label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 7px;
+      font-size: 1.1em;
+      color: var(--text-color-light); /* ensures legibility */
+  }
+}
+
+.voucherInputContainer {
+  display: flex;
+  align-items: center;
+}
+
+/* style input directly */
+.voucherInputContainer > input {
+  width: 70%; /* Adjusted to accommodate more varied screen sizes */
+  padding: 12px;
+  border: 1.5px solid var(--border-color); /* heavier borders*/
+  border-radius: 10px; /* bigger borders*/
+  font-size: 1.1em;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 9px rgba(var(--secondary-color), 0.3); /* Strength */
+  }
+}
+
+.applyButton {
+  background-color: var(--accent-color);
+  color: var(--text-color-dark);
+  border: none;
+  padding: 12px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-left: 12px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+
+  &:hover {
+      background-color: var(--accent-color-hover);
+      transform: scale(1.06);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.orderSummary {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 22px;
+
+  h3 {
+      font-size: 1.3em;
+      margin-bottom: 12px;
+  }
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  font-size: 1.1em;
+  color: var(--text-color-light);
+  letter-spacing: 0.3px;
+
+  span:first-child {
+      font-weight: 500;
+  }
+}
+
+.paymentMethodSelection {
+  border: 1.5px solid var(--border-color); /* Bigger border*/
+  border-radius: 10px;
+  padding: 17px; /* Increase pad*/
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Increased transition */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1em;
+
+  &:hover {
+      background-color: #f2f2f2;
+      transform: translateY(-1px); /* lift */
+  }
+
+  .arrow {
+      font-size: 1.2em;
+      color: var(--text-color-light);
+  }
+}
+
+.paymentMethodModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.55); /* Make it darker*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.paymentMethodModalContent {
+  background-color: #fff;
+  border-radius: 14px; /* corners */
+  padding: 25px; /* spacing */
+  width: 85%; /* slightly more screen coverage */
+  max-width: 550px;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* box shadows */
+}
+
+.paymentMethodItem {
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* transitions on all*/
+  font-size: 1.1em;
+
+  &:last-child {
+      border-bottom: none;
+  }
+
+  &:hover {
+      background-color: #f7f7f7;
+      color: var(--secondary-color);
+      transform: translateX(3px); /* Subtle movement */
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 12px; /* Adjust */
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.6em; /* Adjust  */
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+      opacity: 1;
+  }
+}
+
+.confirmButton {
+  background-color: var(--success-color);
+  color: var(--text-color-dark);
+  border: none;
+  padding: 12px 25px; /* add some extra padding */
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 18px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* transitions on all */
+
+  &:hover {
+      background-color: var(--success-color-darker);
+      transform: translateY(-2px);  /* subtle lift */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  }
+}
+
+// Add this style
+.paymentMethodDescription {
+  font-size: 0.85em;
+  color: #888;
+  font-style: italic; /* Italic text for descriptions */
+}
+
+.qrCodeSection {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background-color: #f8f8f8; /* softer */
+    text-align: center;
+
+    h3 {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+        color: var(--text-color-light);
+    }
+
+    img {
+        max-width: 80%; /* keep image */
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+        }
+    }
+}
+
+// Footer Buttons Styles
+.footer {
+display: flex;
+justify-content: space-between;
+margin-top: 40px;
+padding: 0 10px; /* added to ensure content doesn't touch the sides */
+
+button {
+  padding: 12px 24px; /* Slight change in padding */
+  border: 1px solid var(--border-color);  /* Bolder border */
+  border-radius: 10px; /* More cornered */
+  font-size: 1.05em;  /* slight nudge in fontsize */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+    font-weight: 500;  /*Weight */
+
+  &:hover {
+    background-color: #eee; /* Lighter hover */
+    transform: translateY(-3px);   /* Subtle lift */
+    box-shadow: 0 3px 7px rgba(0,0,0,0.12);  /* refined */
+  }
+}
+
+.continueButton,
+.payButton {
+  background-color: var(--success-color);
+  color: var(--text-color-dark);
+  border: none;
+  font-weight: 600;  /* weight */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  letter-spacing: 0.5px;
+
+  &:hover {
+    background-color: var(--success-color-darker);
+      transform: scale(1.07);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.22);
+  }
+}
+   /* Adjusting footer buttons for smaller screens */
+    @media (max-width: 400px) { /* very small screens */
+       button {
+            width: 48%; /* nearly full width on smaller viewports */
+            padding: 10px 15px; /* Reduce padding on small screens */
+            font-size: 0.9em; /* reduce font */
+       }
+    }
+}

@@ -1,0 +1,336 @@
+// styles.module.scss
+
+.danhGiaContainer {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px; /*Added margin here*/
+    font-family: sans-serif;
+    background-color: #fff;
+    width: 1200px;
+    margin: 20px auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  
+    .header {
+      font-size: 1.4em;
+      font-weight: bold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0ad4e;
+      color: #333;
+    }
+  
+    .ratingSummary {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+  
+      .overallRating {
+        width: 25%;
+        text-align: center;
+        background-color: #f8f8f8;
+        padding: 15px;
+        border-radius: 8px;
+  
+        .ratingValue {
+          font-size: 2.5em;
+          font-weight: bold;
+          color: #4CAF50;
+        }
+  
+        .stars {
+          color: #f0ad4e;
+          font-size: 1.5em;
+          margin-bottom: 5px;
+        }
+  
+        .reviewCount {
+          font-size: 1em;
+          color: #555;
+        }
+      }
+  
+      .ratingBreakdown {
+        width: 45%;
+  
+        .ratingRow {
+          display: flex;
+          align-items: center;
+          margin-bottom: 8px;
+  
+          .starLabel {
+            width: 50px;
+            font-size: 0.9em;
+            color: #666;
+          }
+  
+          .progressBar {
+            width: 70%;
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+  
+            .progressBarFill {
+              height: 100%;
+              background-color: #f0ad4e;
+              border-radius: 5px;
+              transition: width 0.3s ease;
+            }
+          }
+  
+          .reviewNumber {
+            width: 30px;
+            text-align: right;
+            font-size: 0.9em;
+            color: #777;
+          }
+        }
+      }
+  
+      .askQuestion {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+  
+        .questionText {
+          font-size: 1em;
+          margin-bottom: 10px;
+          color: #555;
+        }
+  
+        .questionButton {
+          background-color: #fff;
+          color: #f0ad4e;
+          border: 2px solid #f0ad4e;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 1em;
+          font-weight: bold;
+          transition: all 0.3s ease;
+  
+          &:hover {
+            background-color: #f0ad4e;
+            color: white;
+          }
+        }
+      }
+    }
+  
+    .reviewForm,
+    .questionForm {
+      margin-bottom: 20px;
+      background-color: #f8f8f8;
+      padding: 20px;
+      border-radius: 8px;
+  
+      .formHeader {
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        color: #444;
+      }
+  
+      .starRating {
+        color: #f0ad4e;
+        font-size: 2.2em;
+        margin-bottom: 10px;
+      }
+  
+      .commentBox {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        resize: vertical;
+        min-height: 100px;
+        font-size: 0.9em;
+        color: #555;
+        background-color: #fff;
+      }
+  
+      .inputField {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        font-size: 0.9em;
+        color: #555;
+        background-color: #fff;
+      }
+  
+      .formActions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+  
+        .cancelButton {
+          background-color: #fff;
+          border: 1px solid #ccc;
+          color: #555;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 1em;
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: #eee;
+          }
+        }
+  
+        .submitButton {
+          background-color: #f0ad4e;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 1em;
+          font-weight: bold;
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: darken(#f0ad4e, 10%);
+          }
+        }
+      }
+    }
+  
+    .searchBox {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 0.9em;
+      color: #555;
+    }
+  
+
+    margin-bottom:20px; /*Add to just this element*/
+  
+    .reviewItem {
+      border: 1px solid #eee;
+      padding: 15px;
+      margin-bottom: 15px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+  
+    .reviewHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+  
+    .authorInfo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  
+    .authorName {
+      font-weight: bold;
+      color: #333;
+      font-size: 1.05em;
+    }
+  
+    .staffBadge {
+      background-color: #f0ad4e;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+  
+    .authorPhone {
+      color: gray;
+      font-size: 0.85em;
+    }
+  
+    .ratingStars {
+      color: #f0ad4e;
+      font-size: 1.2em;
+    }
+  
+    .reviewContent {
+      margin-bottom: 8px;
+      color: #555;
+      font-size: 0.95em;
+    }
+  
+    .reviewFooter {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85em;
+      color: #777;
+    }
+  
+    .staffReply {
+      border: 1px solid #ddd;
+      padding: 12px;
+      margin-top: 12px;
+      background-color: #f9f9f9;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+  /* Pagination styles */
+  .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+  
+      button {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        color: #555;
+        padding: 10px 15px;
+        margin: 0 5px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s ease; // Smooth transition
+  
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+  
+        &.active {
+          background-color: #f0ad4e;
+          color: white;
+          border-color: #f0ad4e;
+        }
+  
+        &:hover:not(:disabled) {
+          background-color: #eee;
+        }
+      }
+    }
+    
+  /* ... (existing styles) */
+  
+  .customerBadge {
+      background-color: #4CAF50; // Green color for customer badge
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      margin-left: 5px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); // Added subtle shadow
+    }
+  
+    .managerBadge {
+      background-color: #007bff !important; // Blue color for manager badge
+      color: white !important;
+      /* Add any other specific styles for the manager badge */
+    }
+  }

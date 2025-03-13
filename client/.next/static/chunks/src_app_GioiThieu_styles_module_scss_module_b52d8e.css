@@ -1,0 +1,98 @@
+/* [project]/src/app/GioiThieu/styles.module.scss.module.css [app-client] (css) */
+.styles-module-scss-module__KaRn9W__container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-top: 80px;
+  margin-bottom: 20px;
+}
+
+.styles-module-scss-module__KaRn9W__section {
+  margin-bottom: 40px;
+  min-height: 300px;
+}
+
+.styles-module-scss-module__KaRn9W__item {
+  margin-bottom: 30px;
+}
+
+.styles-module-scss-module__KaRn9W__gridContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (width >= 768px) {
+  .styles-module-scss-module__KaRn9W__gridContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.styles-module-scss-module__KaRn9W__text {
+  order: 1;
+}
+
+.styles-module-scss-module__KaRn9W__imageContainer {
+  order: 2;
+  text-align: center;
+}
+
+.styles-module-scss-module__KaRn9W__image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.styles-module-scss-module__KaRn9W__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.styles-module-scss-module__KaRn9W__description {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.styles-module-scss-module__KaRn9W__link {
+  color: #0070f3;
+  text-decoration: underline;
+}
+
+.styles-module-scss-module__KaRn9W__link:hover {
+  color: #0052cc;
+}
+
+@media (width >= 768px) {
+  .styles-module-scss-module__KaRn9W__text {
+    order: 1;
+  }
+
+  .styles-module-scss-module__KaRn9W__imageContainer {
+    order: 2;
+    text-align: left;
+  }
+}
+
+@media (width >= 992px) {
+  .styles-module-scss-module__KaRn9W__title {
+    font-size: 1.75rem;
+  }
+
+  .styles-module-scss-module__KaRn9W__description {
+    font-size: 1.1rem;
+  }
+}
+
+@media (width >= 1200px) {
+  .styles-module-scss-module__KaRn9W__container {
+    margin-top: 120px;
+  }
+}
+
+/*# sourceMappingURL=src_app_GioiThieu_styles_module_scss_module_b52d8e.css.map*/

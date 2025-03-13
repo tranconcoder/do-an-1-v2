@@ -1,0 +1,186 @@
+/* [project]/src/app/page.module.scss.module.css [app-client] (css) */
+.page-module-scss-module__rcUngW__hotsaleSection {
+  padding: 20px;
+  background-color: #f8f8f8;
+  margin-top: 20px;
+  position: relative;
+}
+
+.page-module-scss-module__rcUngW__hotsaleTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  color: red;
+}
+
+.page-module-scss-module__rcUngW__countdownTimer {
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.page-module-scss-module__rcUngW__countdownTimer span {
+  font-weight: bold;
+  color: red;
+}
+
+.page-module-scss-module__rcUngW__productListContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.page-module-scss-module__rcUngW__productList {
+  display: flex;
+  overflow-x: hidden;
+  padding-bottom: 15px;
+  scroll-behavior: smooth;
+}
+
+.page-module-scss-module__rcUngW__productItem {
+  width: 200px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-right: 10px;
+  text-align: center;
+  border-radius: 8px;
+  background-color: #fff;
+  position: relative;
+  flex: none;
+  transition: transform .3s;
+}
+
+.page-module-scss-module__rcUngW__productItem:hover {
+  transform: translateY(-5px);
+}
+
+.page-module-scss-module__rcUngW__discountLabel {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: red;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.page-module-scss-module__rcUngW__installmentLabel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.page-module-scss-module__rcUngW__productName {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.page-module-scss-module__rcUngW__priceContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.page-module-scss-module__rcUngW__discountedPrice {
+  font-size: 18px;
+  color: red;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.page-module-scss-module__rcUngW__originalPrice {
+  font-size: 14px;
+  color: #888;
+  text-decoration: line-through;
+}
+
+.page-module-scss-module__rcUngW__description {
+  font-size: 12px;
+  color: #555;
+}
+
+.page-module-scss-module__rcUngW__rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.page-module-scss-module__rcUngW__star {
+  font-size: 18px;
+  color: #ffc107;
+  margin-right: 2px;
+}
+
+.page-module-scss-module__rcUngW__wishlist {
+  text-align: center;
+}
+
+.page-module-scss-module__rcUngW__heartIcon {
+  font-size: 24px;
+  color: #888;
+  cursor: pointer;
+  transition: color .2s ease-in-out;
+}
+
+.page-module-scss-module__rcUngW__heartIcon:hover {
+  color: red;
+}
+
+.page-module-scss-module__rcUngW__addToCartButton {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color .3s;
+}
+
+.page-module-scss-module__rcUngW__addToCartButton:hover {
+  background-color: #218838;
+}
+
+.page-module-scss-module__rcUngW__productScrollButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #00000080;
+  padding: 5px;
+  z-index: 10;
+  outline: none;
+  transition: color .3s;
+}
+
+.page-module-scss-module__rcUngW__productScrollButton:hover {
+  color: #000c;
+}
+
+.page-module-scss-module__rcUngW__productScrollButton:first-child {
+  left: 0;
+}
+
+.page-module-scss-module__rcUngW__productScrollButton:last-child {
+  right: 0;
+}
+
+
+/*# sourceMappingURL=src_app_page_module_scss_module_8aaef4.css.map*/

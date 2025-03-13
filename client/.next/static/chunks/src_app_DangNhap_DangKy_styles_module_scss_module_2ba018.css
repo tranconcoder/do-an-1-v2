@@ -1,0 +1,320 @@
+/* [project]/src/app/DangNhap/DangKy/styles.module.scss.module.css [app-client] (css) */
+.styles-module-scss-module__rcsz9a__outside-container {
+  background: url("../media/imgDangNhap.5748a413.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.styles-module-scss-module__rcsz9a__login-container {
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px #000000e6;
+  background-color: #fffc;
+  text-align: center;
+  position: relative;
+}
+
+.styles-module-scss-module__rcsz9a__login-container h1 {
+  font-size: 1.8rem;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px #0000001a;
+}
+
+.styles-module-scss-module__rcsz9a__social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.styles-module-scss-module__rcsz9a__facebook-button, .styles-module-scss-module__rcsz9a__google-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  transition: background-color .3s;
+}
+
+.styles-module-scss-module__rcsz9a__facebook-button:hover, .styles-module-scss-module__rcsz9a__google-button:hover {
+  background-image: linear-gradient(to right, #4267b2, #1877f2);
+}
+
+.styles-module-scss-module__rcsz9a__facebook-button img, .styles-module-scss-module__rcsz9a__google-button img {
+  margin-right: 5px;
+}
+
+.styles-module-scss-module__rcsz9a__facebook-button {
+  background-color: #1877f2;
+}
+
+.styles-module-scss-module__rcsz9a__google-button {
+  background-color: #4285f4;
+}
+
+.styles-module-scss-module__rcsz9a__separator {
+  text-align: center;
+  margin-bottom: 15px;
+  position: relative;
+  color: #aaa;
+}
+
+.styles-module-scss-module__rcsz9a__separator:before, .styles-module-scss-module__rcsz9a__separator:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background-color: #000;
+  transform: translateY(-50%);
+}
+
+.styles-module-scss-module__rcsz9a__separator:before {
+  left: 0;
+}
+
+.styles-module-scss-module__rcsz9a__separator:after {
+  right: 0;
+}
+
+.styles-module-scss-module__rcsz9a__login-form {
+  text-align: left;
+}
+
+.styles-module-scss-module__rcsz9a__form-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.styles-module-scss-module__rcsz9a__form-group label {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  color: #999;
+  font-size: .9rem;
+  pointer-events: none;
+  transition: all .2s;
+  background-color: #0000;
+  padding: 0;
+}
+
+.styles-module-scss-module__rcsz9a__form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+}
+
+.styles-module-scss-module__rcsz9a__form-group input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff33;
+}
+
+.styles-module-scss-module__rcsz9a__form-group input:focus ~ label {
+  top: -8px;
+  font-size: .7rem;
+  color: #007bff;
+  background-color: #fff;
+  padding: 0 5px;
+  border-left: 1px solid #007bff;
+  border-right: 1px solid #007bff;
+}
+
+.styles-module-scss-module__rcsz9a__form-group input:not(:placeholder-shown):valid ~ label, .styles-module-scss-module__rcsz9a__form-group input:not(:placeholder-shown):invalid ~ label {
+  top: -8px;
+  font-size: .7rem;
+  color: #007bff;
+  background-color: #fff;
+  padding: 0 5px;
+  border-left: 1px solid #007bff;
+  border-right: 1px solid #007bff;
+}
+
+.styles-module-scss-module__rcsz9a__remember-me {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  color: #777;
+}
+
+.styles-module-scss-module__rcsz9a__remember-me input {
+  margin-right: 5px;
+}
+
+.styles-module-scss-module__rcsz9a__button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.styles-module-scss-module__rcsz9a__login-button, .styles-module-scss-module__rcsz9a__register-button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 48%;
+  transition: all .3s;
+  border: 2px solid;
+}
+
+.styles-module-scss-module__rcsz9a__login-button {
+  background-color: #28a745;
+  color: #fff;
+  border-color: #28a745;
+}
+
+.styles-module-scss-module__rcsz9a__login-button:hover {
+  background-color: #fff;
+  color: #28a745;
+}
+
+.styles-module-scss-module__rcsz9a__register-button {
+  background-color: #fff;
+  color: #28a745;
+  border-color: #28a745;
+}
+
+.styles-module-scss-module__rcsz9a__register-button:hover {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.styles-module-scss-module__rcsz9a__forgot-password {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.styles-module-scss-module__rcsz9a__forgot-password a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.styles-module-scss-module__rcsz9a__forgot-password a:hover {
+  text-decoration: underline;
+}
+
+.styles-module-scss-module__rcsz9a__back-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: #555;
+  text-decoration: none;
+  font-size: .875rem;
+  display: flex;
+  align-items: center;
+  transition: color .2s;
+}
+
+.styles-module-scss-module__rcsz9a__back-button:hover {
+  color: #222;
+}
+
+.styles-module-scss-module__rcsz9a__back-button .styles-module-scss-module__rcsz9a__arrow {
+  color: #34a853;
+  margin-right: .25rem;
+}
+
+@media (width <= 576px) {
+  .styles-module-scss-module__rcsz9a__login-container {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .styles-module-scss-module__rcsz9a__login-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .styles-module-scss-module__rcsz9a__social-buttons {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .styles-module-scss-module__rcsz9a__facebook-button, .styles-module-scss-module__rcsz9a__google-button {
+    padding: 8px 16px;
+    font-size: .9rem;
+  }
+
+  .styles-module-scss-module__rcsz9a__form-group {
+    margin-bottom: 10px;
+  }
+
+  .styles-module-scss-module__rcsz9a__form-group label {
+    font-size: .8rem;
+    top: 8px;
+  }
+
+  .styles-module-scss-module__rcsz9a__form-group input {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .styles-module-scss-module__rcsz9a__button-group {
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  .styles-module-scss-module__rcsz9a__login-button, .styles-module-scss-module__rcsz9a__register-button {
+    width: 100%;
+    font-size: .9rem;
+  }
+
+  .styles-module-scss-module__rcsz9a__forgot-password {
+    font-size: .75rem;
+  }
+
+  .styles-module-scss-module__rcsz9a__back-button {
+    font-size: .75rem;
+    top: .5rem;
+    left: .5rem;
+  }
+}
+
+@media (width >= 768px) {
+  .styles-module-scss-module__rcsz9a__login-container {
+    width: 80%;
+    max-width: 500px;
+    padding: 30px;
+  }
+
+  .styles-module-scss-module__rcsz9a__login-container h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .styles-module-scss-module__rcsz9a__social-buttons {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .styles-module-scss-module__rcsz9a__facebook-button, .styles-module-scss-module__rcsz9a__google-button {
+    width: 48%;
+  }
+
+  .styles-module-scss-module__rcsz9a__login-button, .styles-module-scss-module__rcsz9a__register-button {
+    width: 48%;
+  }
+}
+
+
+/*# sourceMappingURL=src_app_DangNhap_DangKy_styles_module_scss_module_2ba018.css.map*/

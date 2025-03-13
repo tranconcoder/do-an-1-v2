@@ -1,0 +1,183 @@
+/* [project]/src/components/HomeHeader1/styles.module.scss.module.css [app-client] (css) */
+.styles-module-scss-module__rpKhrW__header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: linear-gradient(to right, #22771366, #15141666, #ab421066);
+  z-index: 1000;
+}
+
+.styles-module-scss-module__rpKhrW__nav {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.styles-module-scss-module__rpKhrW__logo {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.styles-module-scss-module__rpKhrW__menu {
+  display: flex;
+  align-items: center;
+}
+
+.styles-module-scss-module__rpKhrW__menu > li {
+  position: relative;
+  margin-left: 20px;
+}
+
+.styles-module-scss-module__rpKhrW__menu > li > a {
+  color: #fff;
+  padding: 8px 12px;
+  transition: background .3s, color .3s;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.styles-module-scss-module__rpKhrW__menu > li > a:hover {
+  background: #fff;
+  color: #333;
+  border-radius: 4px;
+}
+
+.styles-module-scss-module__rpKhrW__headerActions {
+  display: flex;
+  align-items: center;
+}
+
+.styles-module-scss-module__rpKhrW__searchBox {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.styles-module-scss-module__rpKhrW__searchBox input[type="text"] {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 250px;
+}
+
+.styles-module-scss-module__rpKhrW__searchBox button[type="submit"] {
+  background: #4caf50;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.styles-module-scss-module__rpKhrW__dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  min-width: 200px;
+  border: 1px solid #ddd;
+  z-index: 1000;
+  padding: 0;
+}
+
+.styles-module-scss-module__rpKhrW__dropdown li a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  transition: background .3s;
+}
+
+.styles-module-scss-module__rpKhrW__dropdown li a:hover {
+  background: #f0f0f0;
+}
+
+.styles-module-scss-module__rpKhrW__menu li:hover > .styles-module-scss-module__rpKhrW__dropdown {
+  display: block;
+}
+
+.styles-module-scss-module__rpKhrW__menu li .styles-module-scss-module__rpKhrW__dropdown li:hover > .styles-module-scss-module__rpKhrW__dropdown2 {
+  display: block;
+}
+
+@media (width <= 768px) {
+  .styles-module-scss-module__rpKhrW__nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .styles-module-scss-module__rpKhrW__logo {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .styles-module-scss-module__rpKhrW__menu {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    display: none;
+  }
+
+  .styles-module-scss-module__rpKhrW__menu.styles-module-scss-module__rpKhrW__open {
+    display: flex;
+  }
+
+  .styles-module-scss-module__rpKhrW__menu > li {
+    margin-left: 0;
+    border-bottom: 1px solid #ffffff1a;
+  }
+
+  .styles-module-scss-module__rpKhrW__menu > li > a {
+    padding: 12px;
+    text-align: center;
+  }
+
+  .styles-module-scss-module__rpKhrW__searchBox {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .styles-module-scss-module__rpKhrW__searchBox input[type="text"] {
+    width: calc(100% - 16px);
+  }
+
+  .styles-module-scss-module__rpKhrW__headerActions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .styles-module-scss-module__rpKhrW__dropdown, .styles-module-scss-module__rpKhrW__dropdown2 {
+    position: static;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    display: none;
+  }
+
+  .styles-module-scss-module__rpKhrW__dropdown li a, .styles-module-scss-module__rpKhrW__dropdown2 li a {
+    padding-left: 20px;
+    text-align: left;
+  }
+
+  .styles-module-scss-module__rpKhrW__menu li:hover > .styles-module-scss-module__rpKhrW__dropdown, .styles-module-scss-module__rpKhrW__menu li:hover > .styles-module-scss-module__rpKhrW__dropdown2 {
+    display: none;
+  }
+}
+
+@media (width >= 769px) and (width <= 1024px) {
+  .styles-module-scss-module__rpKhrW__menu > li {
+    margin-left: 10px;
+  }
+
+  .styles-module-scss-module__rpKhrW__searchBox input[type="text"] {
+    width: 150px;
+  }
+}
+
+/*# sourceMappingURL=src_components_HomeHeader1_styles_module_scss_module_b52d8e.css.map*/

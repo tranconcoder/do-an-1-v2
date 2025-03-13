@@ -1,0 +1,219 @@
+// src/components/FeaturedPhones/styles.module.scss
+
+.featuredPhonesSection {
+  padding: 20px;
+  background-color: #ffffff;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto; 
+}
+
+.sectionTitle {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left; 
+  color: #222;
+  padding-left: 0px;
+}
+
+.sliderContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.phoneGrid {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-bottom: 15px;
+  -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  &::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari and Opera */
+  }
+}
+
+.scrollButton {
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: #888;  
+  cursor: pointer;
+  padding: 0 10px;
+  transition: color 0.2s ease-in-out;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  &:hover {
+    color: #e44d26;
+  }
+  &:first-child {
+    left: 0;
+  }
+  &:last-child {
+    right: 0;
+  }
+}
+
+.phoneItem {
+  width: 370px; /* Adjust as needed */
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  text-align: center;
+  position: relative;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin: 10px; /* Add some spacing around each item */
+  background-color: #f9f9f9;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.discountLabel {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: #e44d26;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.installmentLabel {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #007bff;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.imageContainer {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px auto;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
+  }
+  &:hover img {
+    transform: scale(1.1);
+  }
+}
+
+.phoneName {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  padding: 10px auto;
+}
+
+.priceContainer {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+.discountedPrice {
+  font-size: 22px;
+  font-weight: 700;
+  color: #e44d26;
+}
+
+.originalPrice {
+  font-size: 14px;
+  color: #999;
+  text-decoration: line-through;
+  margin-left: 10px;
+}
+
+.description {
+  font-size: 14px;
+  color: #555;
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+.rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.star {
+  font-size: 18px;
+  color: #ffc107;
+  margin: 0 2px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.addToCartButton,
+.buyNowButton {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s ease;
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addToCartButton {
+  background-color: #4caf50; /* Green background */
+  color: white;
+}
+
+.buyNowButton {
+  background-color: #2196f3; /* Blue background */
+  color: white;
+}
+
+.viewAll {
+  text-align: center;
+  margin-top: 10px;
+  a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: 1px solid #007bff;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: #007bff;
+      color: white;
+    }
+  }
+}

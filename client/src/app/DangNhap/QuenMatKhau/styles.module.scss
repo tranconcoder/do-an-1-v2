@@ -1,0 +1,411 @@
+/* styles.module.scss */
+
+$primary-color: #34a853;
+$facebook-color: #1877f2;
+$dark-gray: #333;
+$light-gray: #999;
+$lighter-gray: #aaa;
+$even-lighter-gray: #ddd;
+$white: #fff;
+$blue: #007bff;
+
+/* Transitions */
+$transition-duration: 0.3s;
+$transition-easing: ease;
+
+/* Shadows */
+$box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+$text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+
+/* Font Sizes */
+$h1-font-size: 1.8rem;
+$default-font-size: 1rem;
+$small-font-size: 0.9rem;
+$smaller-font-size: 0.7rem;
+
+/* Breakpoints */
+$breakpoint-small: 576px;
+$breakpoint-medium: 768px;
+$breakpoint-large: 992px;
+$breakpoint-xlarge: 1200px;
+
+
+/* General Styles */
+.outside-container {
+  background: url('../../assets/anh/imgDangNhap.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // Add a subtle overlay for better readability on background images
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1); // Adjust the alpha value for darkness
+    pointer-events: none; // Allows clicks to pass through
+  }
+}
+
+.login-container {
+  width: 90%;
+  max-width: 500px;
+  margin: 50px auto; // Reduced margin for smaller screens
+  padding: 20px; // Reduced padding for smaller screens
+  border-radius: 12px;
+  box-shadow: $box-shadow;
+  background-color: rgba($white, 0.9); // Semi-transparent white
+  text-align: center;
+  position: relative;
+
+  @media (min-width: $breakpoint-small) {
+    margin: 80px auto;
+    padding: 25px;
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    margin: 100px auto;
+    padding: 28px;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    margin: 120px auto;
+    padding: 30px;
+  }
+
+  & h1 {
+    font-size: $h1-font-size;
+    color: $dark-gray;
+    font-weight: 600; // Slightly lighter font weight than bold
+    margin-bottom: 15px; // Reduced margin for smaller screens
+    text-transform: uppercase;
+    letter-spacing: 0.5px; // Reduced letter spacing
+    text-shadow: $text-shadow;
+
+    @media (min-width: $breakpoint-small) {
+      margin-bottom: 20px; // Increase margin for larger screens
+    }
+  }
+}
+
+/* Social Login Styles */
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; // Reduced gap for smaller screens
+  margin-bottom: 15px;
+
+  @media (min-width: $breakpoint-small) {
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+}
+
+.facebook-button,
+.google-button {
+  padding: 10px 20px; // Reduced padding for smaller screens
+  border: none;
+  border-radius: 8px; // Slightly rounder corners
+  color: $white;
+  font-weight: 500; // Slightly lighter font weight
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  transition: background-color $transition-duration $transition-easing, transform 0.2s ease-in-out; // Added transform transition
+  font-size: $small-font-size;  //make the text a bit smaller
+
+  &:hover {
+    transform: scale(1.02); // Slight scale on hover
+    filter: brightness(1.1); // slightly brighter
+  }
+
+  img {
+    width: 20px; // Reduced size for smaller screens
+    height: 20px;
+
+    @media (min-width: $breakpoint-medium) {
+      width: 22px;
+      height: 22px;
+    }
+
+    @media (min-width: $breakpoint-large) {
+      width: 24px; // Consistent image size for larger screens
+      height: 24px;
+    }
+  }
+
+   @media (min-width: $breakpoint-medium) {
+       padding: 11px 22px;
+       font-size: $default-font-size;
+   }
+
+    @media (min-width: $breakpoint-large) {
+       padding: 12px 24px;
+   }
+}
+
+.facebook-button {
+  background-color: $facebook-color;
+}
+
+.google-button {
+  background-color: #4285f4;
+}
+
+/* Separator Styling */
+.separator {
+  text-align: center;
+  margin-bottom: 15px; // Reduced margin for smaller screens
+  position: relative;
+  color: $lighter-gray;
+  font-size: $small-font-size;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: $even-lighter-gray;
+    transform: translateY(-50%);
+  }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+
+  @media (min-width: $breakpoint-small) {
+    margin-bottom: 18px;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    margin-bottom: 20px;
+  }
+}
+
+/* Form Group Styles */
+.login-form {
+  text-align: left;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 15px; // Reduced margin for smaller screens
+
+  label {
+    position: absolute;
+    top: 10px; // Slightly adjusted for smaller screens
+    left: 8px; // Slightly adjusted for smaller screens
+    color: $light-gray;
+    font-size: $small-font-size;
+    pointer-events: none;
+    transition: all $transition-duration $transition-easing;
+    background-color: transparent;
+    padding: 0;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px; // Reduced padding for smaller screens
+    border: 1px solid $even-lighter-gray;
+    border-radius: 8px; // Slightly rounder corners
+    font-size: $default-font-size;
+    outline: none;
+    transition: border-color $transition-duration $transition-easing, box-shadow $transition-duration $transition-easing;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 8px rgba($primary-color, 0.3); // Adjusted shadow
+      outline: none;
+
+      ~ label {
+        top: -8px;
+        font-size: $smaller-font-size;
+        color: $primary-color;
+        background-color: $white;
+        padding: 0 5px;
+        border-left: 1px solid $primary-color;
+        border-right: 1px solid $primary-color;
+      }
+    }
+
+    &:not(:placeholder-shown):valid,
+    &:not(:placeholder-shown):invalid {
+      ~ label {
+        top: -8px;
+        font-size: $smaller-font-size;
+        color: $primary-color;
+        background-color: $white;
+        padding: 0 5px;
+        border-left: 1px solid $primary-color;
+        border-right: 1px solid $primary-color;
+      }
+    }
+  }
+
+  @media (min-width: $breakpoint-small) {
+    margin-bottom: 18px;
+    label {
+      top: 11px;
+      left: 9px;
+    }
+    input {
+      padding: 11px;
+    }
+  }
+
+  @media (min-width: $breakpoint-large) {
+    margin-bottom: 20px;
+    label {
+      top: 12px;
+      left: 10px;
+    }
+    input {
+      padding: 12px;
+    }
+  }
+}
+
+/* Remember Me and Button Group Styles */
+.remember-me {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px; // Reduced margin for smaller screens
+  color: $light-gray;
+  font-size: $small-font-size;
+
+  input {
+    margin-right: 5px;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    margin-bottom: 15px;
+  }
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;  //Reduced margin for smaller screens
+
+   @media (min-width: $breakpoint-large) {
+        margin-top: 20px;
+   }
+}
+
+/* Action Buttons */
+.register-button {
+  padding: 10px 18px; // Reduced padding for smaller screens
+  border-radius: 8px; // Slightly rounder corners
+  font-weight: 500; // Slightly lighter font weight
+  cursor: pointer;
+  transition: all $transition-duration $transition-easing, transform 0.2s ease-in-out;
+  border: 2px solid $primary-color;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: $primary-color;
+  font-size: $default-font-size;
+
+  &:hover {
+    background-color: $primary-color;
+    color: $white;
+    transform: scale(1.02); // Slight scale on hover
+  }
+
+  @media (min-width: $breakpoint-medium) {
+      padding: 11px 19px;
+  }
+
+   @media (min-width: $breakpoint-large) {
+       padding: 12px 20px;
+   }
+}
+
+.login-button {
+  color: $blue;
+  border-color: $blue;
+
+  &:hover {
+    background-color: $blue;
+    color: $white;
+    transform: scale(1.02); // Slight scale on hover
+  }
+}
+
+/* Footer Link */
+.forgot-password {
+  text-align: center;
+  margin-top: 12px; // Reduced margin for smaller screens
+  font-size: $small-font-size;
+
+  a {
+    color: $blue;
+    text-decoration: none;
+    transition: color $transition-duration $transition-easing;
+
+    &:hover {
+      text-decoration: underline;
+      color: darken($blue, 10%);
+    }
+  }
+
+  @media (min-width: $breakpoint-large) {
+    margin-top: 15px;
+  }
+}
+
+/* Styles for auth-links container */
+.auth-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; // Reduced gap for smaller screens
+  margin-top: 15px;
+
+  a {
+    text-decoration: none;
+    display: block;
+    padding: 10px 18px; // Reduced padding for smaller screens
+    border-radius: 8px; // Slightly rounder corners
+    font-weight: 500; // Slightly lighter font weight
+    cursor: pointer;
+    transition: all $transition-duration $transition-easing, transform 0.2s ease-in-out;
+    border: 2px solid;
+    text-align: center;
+    font-size: $default-font-size;
+
+    &:hover {
+      transform: scale(1.02); // Slight scale on hover
+    }
+  }
+
+   @media (min-width: $breakpoint-small) {
+        gap: 11px;
+        padding: 11px 19px;
+   }
+
+  @media (min-width: $breakpoint-large) {
+       gap: 12px;
+        margin-top: 20px;
+        padding: 12px 20px;
+  }
+}

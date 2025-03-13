@@ -1,0 +1,334 @@
+/* === General Styles === */
+$primary-color: #1565c0;
+$secondary-color: #43a047;
+$accent-color: #d84315;
+$light-gray: #f0f0f0;
+$medium-gray: #888;
+$success-color: #28a745;
+
+@keyframes animatedBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.pageWrapper {
+  max-width: 1200px;
+  margin: 120px auto 20px;
+  padding: 20px; /* Add some padding to the page wrapper */
+}
+
+.contactPage {
+  display: flex;
+  flex-direction: column; /* Stack vertically on smaller screens */
+  align-items: center; /* Center items horizontally */
+  padding: 20px;
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(135deg, #e0f7fa, #f9fbe7);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.4s ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+
+  &:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  }
+
+  /* Tablet and larger screens */
+  @media (min-width: 768px) {
+    flex-direction: row; /* Side by side layout */
+    justify-content: space-around; /* Distribute space evenly */
+  }
+}
+
+.contactInfo {
+  width: 100%; /* Full width on smaller screens */
+  padding: 50px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(
+    45deg,
+    rgba(144, 238, 144, 0.15),
+    rgba(255, 255, 255, 0.05)
+  );
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  margin-bottom: 20px; /* Add some margin */
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  }
+
+  h2 {
+    color: $secondary-color;
+    font-size: 2rem; /* Adjust font size */
+    margin-bottom: 20px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease;
+  }
+
+  p,
+  a {
+    font-size: 1rem; /* Adjust font size */
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6; /* Adjust line height */
+    transition: color 0.4s ease, transform 0.3s ease;
+    position: relative;
+    padding-left: 25px; /* Adjust padding */
+
+    i {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.3rem;
+      color: $secondary-color;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      color: $secondary-color;
+      transform: translateX(5px);
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: $primary-color;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.4s ease, color 0.4s ease, transform 0.3s ease;
+    display: inline-block;
+
+    &:hover {
+      color: $secondary-color;
+      border-bottom: 2px solid $primary-color;
+      transform: scale(1.05);
+    }
+  }
+
+  /* Tablet and larger screens */
+  @media (min-width: 768px) {
+    width: 45%; /* Take 45% width on larger screens */
+    margin-bottom: 0; /* Remove bottom margin */
+  }
+}
+
+.contactForm {
+  width: 100%; /* Full width on smaller screens */
+  padding: 50px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 160, 122, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  }
+
+  h2 {
+    color: $accent-color;
+    font-size: 2rem; /* Adjust font size */
+    margin-bottom: 20px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1rem; /* Adjust font size */
+    color: #666;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid $light-gray;
+    border-radius: 12px;
+    font-size: 1rem; /* Adjust font size */
+    color: #444;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    position: relative;
+    overflow: hidden;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 10px rgba($primary-color, 0.3);
+    }
+
+    &::placeholder {
+      color: $medium-gray;
+      font-style: italic;
+      opacity: 0.8;
+      transition: color 0.3s ease;
+    }
+
+    &:focus::placeholder {
+      color: transparent;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 100px; /* Increase min height */
+  }
+
+  /* === Custom File Input Styles === */
+  .file-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center; /* Vertically align the input and file name */
+    justify-content: space-between; /* Put the input and the file name at opposite ends */
+    padding: 12px 20px; /* Adjust Padding */
+    border-radius: 10px;
+    border: 2px dashed $medium-gray;
+    background: $light-gray;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    overflow: hidden; /* Hide the actual file input */
+
+    &:hover {
+      background: rgba($primary-color, 0.05);
+      border-color: $primary-color;
+    }
+  }
+
+  .file-wrapper input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Hide the default button */
+    cursor: pointer;
+  }
+
+  .file-wrapper .file-message {
+    font-size: 0.9rem; /* Adjust font size */
+    color: $medium-gray;
+    font-style: italic;
+    overflow: hidden; /* Hide overflowing text */
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Add ... if the text is too long */
+    max-width: 70%; /* Prevent the file name from taking too much space */
+    transition: color 0.3s ease;
+  }
+
+  .file-wrapper:hover .file-message {
+    color: $primary-color;
+  }
+
+  .file-wrapper .choose-file-button {
+    font-size: 0.9rem; /* Adjust font size */
+    color: $primary-color;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .file-wrapper .choose-file-button:hover {
+    text-decoration: underline;
+    transform: translateX(-2px);
+  }
+
+  /* === Submit Button === */
+  button[type="submit"] {
+    background: linear-gradient(to right, #1e88e5, #43a047);
+    color: white;
+    padding: 14px 60px; /* Adjust Padding */
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem; /* Adjust font size */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    overflow: hidden;
+    position: relative;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      color: $light-gray;
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+  }
+
+  /* Tablet and larger screens */
+  @media (min-width: 768px) {
+    width: 45%; /* Take 45% width on larger screens */
+  }
+}

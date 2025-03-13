@@ -1,0 +1,98 @@
+/* [project]/src/components/HomeBoxChat/styles.module.scss.module.css [app-client] (css) */
+.styles-module-scss-module__ie7S_q__backToTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #ffffff80;
+  color: #000;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.styles-module-scss-module__ie7S_q__backToTopBtn > div {
+  position: unset !important;
+}
+
+.styles-module-scss-module__ie7S_q__backToTopBtn > div > span {
+  position: unset !important;
+}
+
+.styles-module-scss-module__ie7S_q__backToTopBtn > div > span > img {
+  position: relative !important;
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.styles-module-scss-module__ie7S_q__supportButton {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #85707080;
+  color: #6ec115;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.styles-module-scss-module__ie7S_q__supportButton > div {
+  position: unset !important;
+}
+
+.styles-module-scss-module__ie7S_q__supportButton > div > span {
+  position: unset !important;
+}
+
+.styles-module-scss-module__ie7S_q__supportButton > div > span > img {
+  position: relative !important;
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.styles-module-scss-module__ie7S_q__supportOptions {
+  position: fixed;
+  bottom: 70px;
+  left: 20px;
+  background-color: #000c;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  display: none;
+}
+
+.styles-module-scss-module__ie7S_q__supportOptions[style*="display: block"] {
+  display: flex;
+}
+
+.styles-module-scss-module__ie7S_q__supportOptions > * {
+  color: #fff;
+  text-decoration: none;
+}
+
+.styles-module-scss-module__ie7S_q__closeSupportOptions {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.styles-module-scss-module__ie7S_q__closeSupportOptions:before {
+  content: "×";
+}
+
+/*# sourceMappingURL=src_components_HomeBoxChat_styles_module_scss_module_b52d8e.css.map*/

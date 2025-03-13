@@ -1,0 +1,345 @@
+/* styles.module.scss */
+
+/* Header Styles */
+.header {
+    background: linear-gradient(to right, #a5afa2, #35539a);
+    color: white;
+    padding: 1.2rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: headerGradient 12s linear infinite;
+    background-size: 200% 200%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
+  }
+  
+  @keyframes headerGradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .headerLeft {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    margin-right: 1.2rem;
+  }
+  
+  .headerTitle {
+    font-size: 1.7rem;
+    font-weight: 500;
+  }
+  
+  .headerIconsRight {
+    a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.2s ease;
+  
+      &:hover {
+        color: #bbdefb;
+      }
+    }
+  }
+  
+  /* Container Styles */
+  .container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #eceff1;
+    padding-top: 80px;
+  }
+  
+  /* Sidebar Styles */
+  .sidebar {
+    width: 270px;
+    background-color: #fafafa;
+    padding: 1.2rem;
+    transition: width 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease,
+      left 0.3s ease;
+    box-shadow: 3px 0 5px rgba(0, 0, 0, 0.08);
+    overflow-x: hidden;
+    height: calc(100vh - 80px);
+    position: fixed;
+    top: 80px;
+    left: 0;
+    border-right: 1px solid #cfd8dc;
+    z-index: 10;
+  }
+  
+  .sidebar.hidden {
+    width: 0;
+    padding: 0;
+    box-shadow: none;
+    overflow: hidden;
+    left: -270px;
+  }
+  
+  /* Main Content Styles */
+  .mainContentContainer {
+    flex: 1;
+    overflow: auto;
+  }
+  
+  .mainContent {
+    position: relative;
+    padding: 2.5rem;
+    transition: margin-left 0.3s ease;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    margin-left: 270px;
+  }
+  
+  .mainContent.expanded {
+    margin-left: 0;
+  }
+  
+  .functionTitle {
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+    color: #546e7a;
+    font-weight: 500;
+  }
+  
+  /* Sidebar Button Styles (polished) */
+  .sidebarButton {
+    display: block;
+    width: 100%;
+    padding: 1rem 1.3rem;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(to right, #a5afa2, #35539a);
+    color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 12px;
+    transition: background-color 0.3s ease, transform 0.2s ease,
+      box-shadow 0.2s ease;
+    font-weight: 500;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    font-size: auto;
+    font-weight: bold;
+  
+    &:hover {
+      background-color: #512da8;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
+    }
+  
+    &:active {
+      background-color: #4527a0;
+      transform: translateY(0);
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    }
+  }
+  
+  .sidebarLink {
+    display: block;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .thanhKeo {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 32px;
+    cursor: pointer;
+    margin-right: 25px;
+    transition: color 0.2s ease;
+  
+    &:hover {
+      color: #bbdefb;
+    }
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .headerTitle {
+      font-size: 1.4rem;
+    }
+  }
+  
+  // Code Phần CSS Ở TRONG ĐAY 
+/* styles.module.scss */
+
+/* Existing Styles */
+.mainContent {
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+  margin-left: 250px;
+  &.expanded {
+    margin-left: 0;
+  }
+
+  /* Added to take up full space*/
+  width: 100%;
+  box-sizing: border-box; /* Important to include padding/border in width */
+}
+
+.articleActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.createArticleButton {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.articleList {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next row */
+}
+
+.articleItem {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  width: 33.33%; /* Each article takes up 33.33% of the container */
+  box-sizing: border-box;
+  padding: 10px; /* Add some padding around each article */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.articleImageContainer {
+  width: 100%; /* Make image container take the full width of the item */
+  margin-bottom: 10px;
+}
+
+.editArticleButton {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.deleteArticleButton {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Styles for the Create Article Form */
+.createArticleForm {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  label {
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  textarea {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    /* Added to take up full space*/
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  input[type="file"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    /* Added to take up full space*/
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    resize: vertical; /* Allow vertical resizing */
+    min-height: 100px;
+    /* Added to take up full space*/
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.saveButton {
+  background-color: #28a745; /* Bootstrap success color */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #218838;
+  }
+}
+
+.cancelButton {
+  background-color: #dc3545; /* Bootstrap danger color */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c82333;
+  }
+}
+  // Code Phần CSS Ở TRONG ĐAY

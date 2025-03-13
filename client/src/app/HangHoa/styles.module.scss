@@ -1,0 +1,459 @@
+// styles.module.scss
+
+/* ------------------------------------
+   Global Filter Container Styles
+   ------------------------------------ */
+   .filter-container {
+    background-color: #f9f9f9; // Light gray background
+    border: 1px solid #ddd; // Subtle border
+    border-radius: 50px; // Softly rounded corners
+    padding: 50px 60px; // Generous padding all around
+    display: flex;
+    flex-direction: column;
+    gap: 20px; // More vertical spacing
+    max-width: 1200px; // Enhanced max width
+    margin: 130px auto 20px; // Adjusted margins
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); // Increased shadow intensity
+    transition: all 0.3s ease-in-out; // Smooth transition for all properties
+  
+    &:hover {
+      background-color: #f2f2f2; // Lighten on hover
+      box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1); // More pronounced shadow
+    }
+  }
+  
+  /* ------------------------------------
+     Responsive Width Adjustments
+     ------------------------------------ */
+  .filterContainerLarge {
+    width: 100%; // Responsive width
+  }
+  
+  /* ------------------------------------
+     Individual Filter Row Styles
+     ------------------------------------ */
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; // Evenly distribute items
+    align-items: stretch; // Ensure equal height items
+    gap: 10px; // Horizontal and vertical spacing
+    padding: 10px 0; // Vertical padding
+    border-bottom: 1px solid #eee; // Separator between rows
+  
+    &:last-child {
+      border-bottom: none; // No border for the last row
+    }
+  }
+  
+  .filterRowLarge {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  
+  /* ------------------------------------
+     Individual Filter Group Styles
+     ------------------------------------ */
+  .filter-group {
+    flex: 1 1 23%; // Four items per row
+    max-width: 280px; // Wider max width
+    margin: 8px 5px; // More balanced margins
+    position: relative; // For custom dropdown arrow
+    transition: all 0.25s ease-in-out;
+  
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 8px rgba(0, 0, 0, 0.5); // Subtle lift
+    }
+  }
+  
+  .filterGroupLarge {
+    width: 100%;
+    border-radius: 50px;
+  }
+  
+  /* ------------------------------------
+     Select Element Styles
+     ------------------------------------ */
+  .filter-group select {
+    width: 100%;
+    padding: 20px 24px; // More balanced padding
+    border: none; // Clean border
+    border-radius: 50px; // Fully rounded
+    background-color: #fff;
+    font-size: 1.2em; // Better readability
+    font-weight: 500;
+    color: #555; // Slightly darker text
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 24px center;
+    background-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.12); // Enhanced shadow
+    transition: box-shadow 0.3s ease, border-color 0.3s ease; // More transitions
+  
+    &:hover {
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); // More pronounced on hover
+    }
+  }
+  
+  /* ------------------------------------
+     Select Focus State
+     ------------------------------------ */
+  .filter-group select:focus {
+    outline: none;
+    border-color: #63ace5; // Light blue border
+    box-shadow: 0 0 0 5px rgba(107, 204, 255, 0.3); // Wider focus shadow
+  }
+  
+  /* ------------------------------------
+     Sort By Section Styles
+     ------------------------------------ */
+  .sort-by {
+    display: flex;
+    justify-content: flex-start; // Left align
+    align-items: center;
+    gap: 20px; // Better spacing
+    margin-top: 20px; // More top margin
+    padding: 20px 40px; // Refined padding
+    border-radius: 40px;
+    background-color: rgb(255, 255, 255); // Semi-transparent white background
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); // Softer shadow
+    transition: all 0.3s ease-in-out;
+  
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); // Subtle hover effect
+    }
+  }
+  
+  /* ------------------------------------
+     Sort By Header Styles
+     ------------------------------------ */
+  .sort-by h3 {
+    font-size: 1.4em; // Larger header
+    color: #333;
+    margin-right: 10px; // Spacing after header
+  }
+  
+  /* ------------------------------------
+     Button Styles (General)
+     ------------------------------------ */
+  .sort-by button {
+    padding: 18px 76px; // Larger buttons
+    border: none;
+    border-radius: 60px; // Even more rounded
+    background-color: #f2f2f2;
+    color: #666; // Slightly darker text
+    cursor: pointer;
+    font-size: 1.2em; // Clear text
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);
+  
+    &:hover {
+      background-color: #e0e0e0; // Lighter background on hover
+      transform: translateY(-2px); // Subtle hover effect
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  
+    &:active {
+      transform: scale(0.95); // Feedback on click
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09);
+    }
+  }
+  
+  /* ------------------------------------
+     Highlighted Button Style
+     ------------------------------------ */
+  .sort-by button.highlighted {
+    background-color: #e74c3c;
+    color: white;
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.4);
+  }
+  
+  /* ------------------------------------
+     Small Screen Adjustments
+     ------------------------------------ */
+  @media (max-width: 768px) {
+  
+    .filter-container {
+      padding: 30px; // Reduced padding
+      margin: 70px auto 20px; // Adjusted margins
+    }
+  
+    .filter-row {
+      justify-content: center; // Center items
+      gap: 20px;
+    }
+  
+    .filter-group {
+      flex: 1 1 48%; // Two per row on small screens
+      max-width: none; // Remove max width
+    }
+  
+    .sort-by {
+      flex-direction: column; // Stack on small
+      align-items: stretch; // Full-width buttons
+    }
+  
+    .sort-by h3 {
+      margin-bottom: 15px; // Spacing below heading
+      text-align: left; // Align heading left
+    }
+  
+    .sort-by button {
+      padding: 16px; // Adjust button padding
+    }
+  }
+  
+  /* ------------------------------------
+     Large Screen Adjustments
+     ------------------------------------ */
+  @media (min-width: 769px) {
+  
+    .filterContainerLarge {
+      width: auto; // Auto width
+    }
+  
+    .filterRowLarge {
+      flex-direction: row; // Keep row
+      justify-content: flex-start; // Left align
+    }
+  }
+  
+  /* ------------------------------------
+     Extra Large Screen Adjustments
+     ------------------------------------ */
+  @media (min-width: 1201px) {
+  
+    .filter-container {
+      padding: 60px; // Max padding
+    }
+  
+    .filter-group {
+      max-width: 300px; // More width on wide screens
+    }
+  
+    .sort-by {
+      padding: 30px; // Adjusted padding on large
+    }
+  
+    .sort-by h3 {
+      font-size: 1.5em; // Bigger header text
+    }
+  }
+
+
+// =================================================
+// styles.module.scss
+
+/* ------------------------------------
+   Button Container
+   ------------------------------------ */
+   .button-container {
+    display: flex;
+    justify-content: center; // Center content
+    align-items: center;
+    gap: 25px;
+    padding: 30px 40px;
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 60px; // more
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.09);
+    transition: all 0.3s ease-in-out;
+    max-width: 1200px; /* ADD THIS LINE */
+    margin: 20px auto; // and this line
+  
+    &:hover {
+      box-shadow: 0 7px 20px rgba(0, 0, 0, 0.12);
+    }
+  }
+  
+  .buttonContainerLarge {
+    width: 100%;
+  }
+  
+  /* ------------------------------------
+     Search Input Styles
+     ------------------------------------ */
+  .search-input {
+    flex: 1; // Take up remaining space
+    min-width: 250px;
+    padding: 18px 30px;
+    border: none;
+    border-radius: 55px;
+    font-size: 1.3em;
+    font-weight: 500;
+    color: #444;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  
+    &::placeholder {
+      color: #bbb; /* Light gray placeholder */
+    }
+  
+    &:focus {
+      outline: none;
+      border-color: #5c6bc0;
+      box-shadow: 0 0 0 5px rgba(92, 107, 192, 0.2);
+    }
+  }
+  
+  /* ------------------------------------
+     Individual Buttons Styles
+     ------------------------------------ */
+  .button-container button {
+    padding: 20px 40px;
+    border: none;
+    border-radius: 65px;
+    background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.3em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+  
+    &:hover {
+      background-color: #388e3c;
+      transform: translateY(-3px);
+      box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
+    }
+  
+    &:active {
+      transform: translateY(1px);
+      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.12);
+    }
+  
+    &#reset-filters {
+      background-color: #d32f2f;
+      &:hover {
+        background-color: #f44336;
+      }
+    }
+  }
+  
+  /* ------------------------------------
+     Responsive adjustments (Small screens)
+     ------------------------------------ */
+  @media (max-width: 768px) {
+    .button-container {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 20px;
+    }
+  
+    .search-input {
+      flex-grow: 1;
+      min-width: auto;
+      margin-bottom: 15px; // increased
+    }
+  
+    .button-container button {
+      padding: 18px 30px; // more mobile fit
+    }
+  }
+
+
+/* --------------------------------------------------------------- */
+/* Product Grid and Items (Modularized)                            */
+/* --------------------------------------------------------------- */
+
+/* Product Grid Styles */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+  gap: 20px; /* Spacing between grid items */
+  padding: 20px; /* Padding around the grid */
+  max-width: 1200px; /* Maximum width */
+  margin: 0 auto; /* Center the grid */
+}
+
+/* Product Item Styles */
+.product-item {
+  background-color: #fff;
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  padding: 20px; /* Inner spacing */
+  text-align: center; /* Center content */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px); /* Lift on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Product Image Styles */
+.image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 8px; /* Rounded image corners */
+  object-fit: cover; /* Cover the area, potentially cropping */
+}
+
+/* Product Name Styles */
+.product-name {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Product Detail Styles */
+.detail {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+/* Product Price Styles */
+.price {
+  font-size: 1.1rem;
+  color: #27ae60; /* Green price */
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+/* Product Actions (Buttons) */
+.product-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between; /* Full width, 4 products */
+  align-items: center;
+}
+
+/* Button Styles */
+.product-actions button {
+  width: 100%; /* Button takes full width */
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px; /* Increased padding for better touch */
+  cursor: pointer;
+  font-size: 0.9rem; /* Larger font size */
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: darken(#4CAF50, 10%);
+  }
+
+  &:first-child {
+    margin-right: 5px;
+  }
+
+  &:last-child {
+    margin-left: 5px;
+  }
+}
+
+/* Responsive adjustments */
+@media (min-width: 1200px) {
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr); /* Fixed 4 columns on larger screens */
+    }
+}

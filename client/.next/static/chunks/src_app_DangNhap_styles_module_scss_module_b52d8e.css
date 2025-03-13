@@ -1,0 +1,272 @@
+/* [project]/src/app/DangNhap/styles.module.scss.module.css [app-client] (css) */
+.styles-module-scss-module__4OpBYW__outside-container {
+  background: url("../media/imgDangNhap.5748a413.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.styles-module-scss-module__4OpBYW__login-container {
+  width: 90%;
+  max-width: 500px;
+  margin: 120px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px #000000e6;
+  background-color: #fffc;
+  text-align: center;
+  position: relative;
+}
+
+.styles-module-scss-module__4OpBYW__login-container h1 {
+  font-size: 1.8rem;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px #0000001a;
+}
+
+.styles-module-scss-module__4OpBYW__social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.styles-module-scss-module__4OpBYW__facebook-button, .styles-module-scss-module__4OpBYW__google-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  transition: background-color .3s;
+}
+
+.styles-module-scss-module__4OpBYW__facebook-button:hover, .styles-module-scss-module__4OpBYW__google-button:hover {
+  opacity: .8;
+}
+
+.styles-module-scss-module__4OpBYW__facebook-button img, .styles-module-scss-module__4OpBYW__google-button img {
+  margin-right: 5px;
+}
+
+.styles-module-scss-module__4OpBYW__facebook-button {
+  background-color: #1877f2;
+}
+
+.styles-module-scss-module__4OpBYW__google-button {
+  background-color: #4285f4;
+}
+
+.styles-module-scss-module__4OpBYW__separator {
+  text-align: center;
+  margin-bottom: 15px;
+  position: relative;
+  color: #aaa;
+}
+
+.styles-module-scss-module__4OpBYW__separator:before, .styles-module-scss-module__4OpBYW__separator:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background-color: #000;
+  transform: translateY(-50%);
+}
+
+.styles-module-scss-module__4OpBYW__separator:before {
+  left: 0;
+}
+
+.styles-module-scss-module__4OpBYW__separator:after {
+  right: 0;
+}
+
+.styles-module-scss-module__4OpBYW__login-form {
+  text-align: left;
+}
+
+.styles-module-scss-module__4OpBYW__form-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.styles-module-scss-module__4OpBYW__form-group label {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  color: #999;
+  font-size: .9rem;
+  pointer-events: none;
+  transition: all .2s;
+  background-color: #0000;
+  padding: 0;
+}
+
+.styles-module-scss-module__4OpBYW__form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+}
+
+.styles-module-scss-module__4OpBYW__form-group input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff33;
+}
+
+.styles-module-scss-module__4OpBYW__form-group input:focus ~ label {
+  top: -8px;
+  font-size: .7rem;
+  color: #007bff;
+  background-color: #fff;
+  padding: 0 5px;
+  border-left: 1px solid #007bff;
+  border-right: 1px solid #007bff;
+}
+
+.styles-module-scss-module__4OpBYW__form-group input:not(:placeholder-shown):valid ~ label, .styles-module-scss-module__4OpBYW__form-group input:not(:placeholder-shown):invalid ~ label {
+  top: -8px;
+  font-size: .7rem;
+  color: #007bff;
+  background-color: #fff;
+  padding: 0 5px;
+  border-left: 1px solid #007bff;
+  border-right: 1px solid #007bff;
+}
+
+.styles-module-scss-module__4OpBYW__remember-me {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  color: #777;
+}
+
+.styles-module-scss-module__4OpBYW__remember-me input {
+  margin-right: 5px;
+}
+
+.styles-module-scss-module__4OpBYW__button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.styles-module-scss-module__4OpBYW__login-button, .styles-module-scss-module__4OpBYW__register-button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 48%;
+  transition: all .3s;
+  border: 2px solid;
+}
+
+.styles-module-scss-module__4OpBYW__login-button {
+  background-color: #28a745;
+  color: #fff;
+  border-color: #28a745;
+}
+
+.styles-module-scss-module__4OpBYW__login-button:hover {
+  background-color: #fff;
+  color: #28a745;
+}
+
+.styles-module-scss-module__4OpBYW__register-button {
+  background-color: #fff;
+  color: #28a745;
+  border-color: #28a745;
+}
+
+.styles-module-scss-module__4OpBYW__register-button:hover {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.styles-module-scss-module__4OpBYW__forgot-password {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.styles-module-scss-module__4OpBYW__forgot-password a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.styles-module-scss-module__4OpBYW__forgot-password a:hover {
+  text-decoration: underline;
+}
+
+@media (width >= 992px) {
+  .styles-module-scss-module__4OpBYW__login-container {
+    width: 40%;
+    max-width: 600px;
+  }
+
+  .styles-module-scss-module__4OpBYW__social-buttons {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .styles-module-scss-module__4OpBYW__facebook-button, .styles-module-scss-module__4OpBYW__google-button {
+    width: 48%;
+  }
+}
+
+@media (width >= 768px) and (width <= 991px) {
+  .styles-module-scss-module__4OpBYW__login-container {
+    width: 70%;
+  }
+
+  .styles-module-scss-module__4OpBYW__facebook-button, .styles-module-scss-module__4OpBYW__google-button {
+    width: 100%;
+  }
+
+  .styles-module-scss-module__4OpBYW__social-buttons {
+    flex-direction: column;
+  }
+}
+
+@media (width <= 767px) {
+  .styles-module-scss-module__4OpBYW__login-container {
+    width: 95%;
+    margin: 20px auto;
+  }
+
+  .styles-module-scss-module__4OpBYW__facebook-button, .styles-module-scss-module__4OpBYW__google-button {
+    width: 100%;
+  }
+
+  .styles-module-scss-module__4OpBYW__button-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .styles-module-scss-module__4OpBYW__login-button, .styles-module-scss-module__4OpBYW__register-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .styles-module-scss-module__4OpBYW__social-buttons {
+    flex-direction: column;
+  }
+}
+
+/*# sourceMappingURL=src_app_DangNhap_styles_module_scss_module_b52d8e.css.map*/

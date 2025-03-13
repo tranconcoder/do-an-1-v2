@@ -1,0 +1,528 @@
+/* [project]/src/app/Admin/DanhMucSanPham/styles.module.scss.module.css [app-client] (css) */
+.styles-module-scss-module__HO3XNG__header {
+  background: linear-gradient(to right, #a5afa2, #35539a);
+  color: #fff;
+  padding: 1.2rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: 12s linear infinite styles-module-scss-module__HO3XNG__headerGradient;
+  background-size: 200% 200%;
+  box-shadow: 0 2px 4px #0000001a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+}
+
+@keyframes styles-module-scss-module__HO3XNG__headerGradient {
+  0% {
+    background-position: 0%;
+  }
+
+  50% {
+    background-position: 100%;
+  }
+
+  100% {
+    background-position: 0%;
+  }
+}
+
+.styles-module-scss-module__HO3XNG__headerLeft {
+  display: flex;
+  align-items: center;
+}
+
+.styles-module-scss-module__HO3XNG__logo {
+  margin-right: 1.2rem;
+}
+
+.styles-module-scss-module__HO3XNG__headerTitle {
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+
+.styles-module-scss-module__HO3XNG__headerIconsRight a {
+  color: #fff;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.styles-module-scss-module__HO3XNG__headerIconsRight a:hover {
+  color: #bbdefb;
+}
+
+.styles-module-scss-module__HO3XNG__container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #eceff1;
+  padding-top: 80px;
+}
+
+.styles-module-scss-module__HO3XNG__sidebar {
+  width: 270px;
+  background-color: #fafafa;
+  padding: 1.2rem;
+  transition: width .3s, padding .3s, box-shadow .3s, left .3s;
+  box-shadow: 3px 0 5px #00000014;
+  overflow-x: hidden;
+  height: calc(100vh - 80px);
+  position: fixed;
+  top: 80px;
+  left: 0;
+  border-right: 1px solid #cfd8dc;
+  z-index: 10;
+}
+
+.styles-module-scss-module__HO3XNG__sidebar.styles-module-scss-module__HO3XNG__hidden {
+  width: 0;
+  padding: 0;
+  box-shadow: none;
+  overflow: hidden;
+  left: -270px;
+}
+
+.styles-module-scss-module__HO3XNG__mainContentContainer {
+  flex: 1;
+  overflow: auto;
+}
+
+.styles-module-scss-module__HO3XNG__mainContent {
+  position: relative;
+  padding: 2.5rem;
+  transition: margin-left .3s;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px #0000000d;
+  margin-left: 270px;
+}
+
+.styles-module-scss-module__HO3XNG__mainContent.styles-module-scss-module__HO3XNG__expanded {
+  margin-left: 0;
+}
+
+.styles-module-scss-module__HO3XNG__functionTitle {
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
+  color: #546e7a;
+  font-weight: 500;
+}
+
+.styles-module-scss-module__HO3XNG__sidebarButton {
+  display: block;
+  width: 100%;
+  padding: 1rem 1.3rem;
+  margin-bottom: .8rem;
+  background: linear-gradient(to right, #a5afa2, #35539a);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 12px;
+  transition: background-color .3s, transform .2s, box-shadow .2s;
+  font-weight: 500;
+  box-shadow: 0 3px 5px #0000001a;
+  position: relative;
+  overflow: hidden;
+  font-size: auto;
+  font-weight: bold;
+}
+
+.styles-module-scss-module__HO3XNG__sidebarButton:hover {
+  background-color: #512da8;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 8px #00000026;
+}
+
+.styles-module-scss-module__HO3XNG__sidebarButton:active {
+  background-color: #4527a0;
+  transform: translateY(0);
+  box-shadow: 0 2px 3px #0000001a;
+}
+
+.styles-module-scss-module__HO3XNG__sidebarLink {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+}
+
+.styles-module-scss-module__HO3XNG__thanhKeo {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  margin-right: 25px;
+  transition: color .2s;
+}
+
+.styles-module-scss-module__HO3XNG__thanhKeo:hover {
+  color: #bbdefb;
+}
+
+@media (width <= 768px) {
+  .styles-module-scss-module__HO3XNG__headerTitle {
+    font-size: 1.4rem;
+  }
+}
+
+.styles-module-scss-module__HO3XNG__header {
+  background: linear-gradient(to right, #a5afa2, #35539a);
+  color: #fff;
+  padding: 1.2rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: 12s linear infinite styles-module-scss-module__HO3XNG__headerGradient;
+  background-size: 200% 200%;
+  box-shadow: 0 2px 4px #0000001a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+}
+
+@keyframes styles-module-scss-module__HO3XNG__headerGradient {
+  0% {
+    background-position: 0%;
+  }
+
+  50% {
+    background-position: 100%;
+  }
+
+  100% {
+    background-position: 0%;
+  }
+}
+
+.styles-module-scss-module__HO3XNG__headerLeft {
+  display: flex;
+  align-items: center;
+}
+
+.styles-module-scss-module__HO3XNG__logo {
+  margin-right: 1.2rem;
+}
+
+.styles-module-scss-module__HO3XNG__headerTitle {
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+
+.styles-module-scss-module__HO3XNG__headerIconsRight a {
+  color: #fff;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.styles-module-scss-module__HO3XNG__headerIconsRight a:hover {
+  color: #bbdefb;
+}
+
+.styles-module-scss-module__HO3XNG__container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #eceff1;
+  padding-top: 80px;
+}
+
+.styles-module-scss-module__HO3XNG__sidebar {
+  width: 270px;
+  background-color: #fafafa;
+  padding: 1.2rem;
+  transition: width .3s, padding .3s, box-shadow .3s, left .3s;
+  box-shadow: 3px 0 5px #00000014;
+  overflow-x: hidden;
+  height: calc(100vh - 80px);
+  position: fixed;
+  top: 80px;
+  left: 0;
+  border-right: 1px solid #cfd8dc;
+  z-index: 10;
+}
+
+.styles-module-scss-module__HO3XNG__sidebar.styles-module-scss-module__HO3XNG__hidden {
+  width: 0;
+  padding: 0;
+  box-shadow: none;
+  overflow: hidden;
+  left: -270px;
+}
+
+.styles-module-scss-module__HO3XNG__mainContentContainer {
+  flex: 1;
+  overflow: auto;
+}
+
+.styles-module-scss-module__HO3XNG__mainContent {
+  position: relative;
+  padding: 2.5rem;
+  transition: margin-left .3s;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px #0000000d;
+  margin-left: 270px;
+  width: calc(100% - 270px);
+  box-sizing: border-box;
+}
+
+.styles-module-scss-module__HO3XNG__mainContent.styles-module-scss-module__HO3XNG__expanded {
+  margin-left: 0;
+  width: 100%;
+}
+
+.styles-module-scss-module__HO3XNG__functionTitle {
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
+  color: #546e7a;
+  font-weight: 500;
+}
+
+.styles-module-scss-module__HO3XNG__sidebarButton {
+  display: block;
+  width: 100%;
+  padding: 1rem 1.3rem;
+  margin-bottom: .8rem;
+  background: linear-gradient(to right, #a5afa2, #35539a);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 12px;
+  transition: background-color .3s, transform .2s, box-shadow .2s;
+  font-weight: 500;
+  box-shadow: 0 3px 5px #0000001a;
+  position: relative;
+  overflow: hidden;
+  font-size: auto;
+  font-weight: bold;
+}
+
+.styles-module-scss-module__HO3XNG__sidebarButton:hover {
+  background-color: #512da8;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 8px #00000026;
+}
+
+.styles-module-scss-module__HO3XNG__sidebarButton:active {
+  background-color: #4527a0;
+  transform: translateY(0);
+  box-shadow: 0 2px 3px #0000001a;
+}
+
+.styles-module-scss-module__HO3XNG__sidebarLink {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+}
+
+.styles-module-scss-module__HO3XNG__thanhKeo {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  margin-right: 25px;
+  transition: color .2s;
+}
+
+.styles-module-scss-module__HO3XNG__thanhKeo:hover {
+  color: #bbdefb;
+}
+
+@media (width <= 768px) {
+  .styles-module-scss-module__HO3XNG__headerTitle {
+    font-size: 1.4rem;
+  }
+}
+
+.styles-module-scss-module__HO3XNG__categoryHeading {
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: .75rem;
+}
+
+.styles-module-scss-module__HO3XNG__categoryTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 4px #00000014;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.styles-module-scss-module__HO3XNG__categoryTable th, .styles-module-scss-module__HO3XNG__categoryTable td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.styles-module-scss-module__HO3XNG__categoryTable th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.styles-module-scss-module__HO3XNG__categoryTable tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.styles-module-scss-module__HO3XNG__categoryButton {
+  padding: 12px 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color .3s, transform .2s;
+  margin-bottom: 15px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.styles-module-scss-module__HO3XNG__categoryButton:hover {
+  background-color: #43a047;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px #00000026;
+}
+
+.styles-module-scss-module__HO3XNG__categoryButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.styles-module-scss-module__HO3XNG__addCategoryContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.styles-module-scss-module__HO3XNG__addCategoryContainer > * {
+  margin-bottom: 18px;
+}
+
+.styles-module-scss-module__HO3XNG__categoryInput, .styles-module-scss-module__HO3XNG__categoryTextarea, .styles-module-scss-module__HO3XNG__categorySelect {
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color .3s;
+}
+
+.styles-module-scss-module__HO3XNG__categoryInput:focus, .styles-module-scss-module__HO3XNG__categoryTextarea:focus, .styles-module-scss-module__HO3XNG__categorySelect:focus {
+  border-color: #8e24aa;
+  outline: none;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.styles-module-scss-module__HO3XNG__categoryTextarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.styles-module-scss-module__HO3XNG__categorySelect {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px top 50%;
+  background-size: 18px;
+  padding-right: 35px;
+}
+
+.styles-module-scss-module__HO3XNG__searchInput {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 25px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color .3s;
+}
+
+.styles-module-scss-module__HO3XNG__searchInput:focus {
+  border-color: #8e24aa;
+  outline: none;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.styles-module-scss-module__HO3XNG__actionButton {
+  padding: 12px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color .3s, transform .2s, box-shadow .2s;
+  background-color: #7e57c2;
+  color: #fff;
+}
+
+.styles-module-scss-module__HO3XNG__actionButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px #00000026;
+}
+
+.styles-module-scss-module__HO3XNG__actionButton.styles-module-scss-module__HO3XNG__edit {
+  background-color: #64b5f6;
+  color: #fff;
+}
+
+.styles-module-scss-module__HO3XNG__actionButton.styles-module-scss-module__HO3XNG__edit:hover {
+  background-color: #42a5f5;
+}
+
+.styles-module-scss-module__HO3XNG__actionButton.styles-module-scss-module__HO3XNG__delete {
+  background-color: #e57373;
+  color: #fff;
+}
+
+.styles-module-scss-module__HO3XNG__actionButton.styles-module-scss-module__HO3XNG__delete:hover {
+  background-color: #ef5350;
+}
+
+.styles-module-scss-module__HO3XNG__actionButton:hover {
+  background-color: #673ab7;
+}
+
+.styles-module-scss-module__HO3XNG__imagePreview {
+  max-width: 140px;
+  max-height: 140px;
+  margin-bottom: 18px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.styles-module-scss-module__HO3XNG__categoryTable th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #495057;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.styles-module-scss-module__HO3XNG__categoryTable td {
+  padding: 14px 18px;
+}
+
+.styles-module-scss-module__HO3XNG__categoryTable tbody tr:hover {
+  background-color: #fafafa;
+}
+
+
+/*# sourceMappingURL=src_app_Admin_DanhMucSanPham_styles_module_scss_module_f85aa1.css.map*/

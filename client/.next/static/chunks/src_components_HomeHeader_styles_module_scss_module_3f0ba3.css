@@ -1,0 +1,119 @@
+/* [project]/src/components/HomeHeader/styles.module.scss.module.css [app-client] (css) */
+.styles-module-scss-module__SLCppG__header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #000000d9;
+  z-index: 1000;
+}
+
+.styles-module-scss-module__SLCppG__nav {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.styles-module-scss-module__SLCppG__logo {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.styles-module-scss-module__SLCppG__menu {
+  display: flex;
+  align-items: center;
+}
+
+.styles-module-scss-module__SLCppG__menu > li {
+  position: relative;
+  margin-left: 20px;
+}
+
+.styles-module-scss-module__SLCppG__menu > li > a {
+  color: #fff;
+  padding: 8px 12px;
+  transition: background .3s, color .3s;
+}
+
+.styles-module-scss-module__SLCppG__menu > li > a:hover {
+  background: #fff;
+  color: #333;
+  border-radius: 4px;
+}
+
+.styles-module-scss-module__SLCppG__headerActions {
+  display: flex;
+  align-items: center;
+}
+
+.styles-module-scss-module__SLCppG__searchBox {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.styles-module-scss-module__SLCppG__searchBox input[type="text"] {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 200px;
+}
+
+.styles-module-scss-module__SLCppG__searchBox button[type="submit"] {
+  background: #4caf50;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.styles-module-scss-module__SLCppG__dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  min-width: 200px;
+  border: 1px solid #ddd;
+  z-index: 1000;
+  padding: 0;
+}
+
+.styles-module-scss-module__SLCppG__dropdown li a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  transition: background .3s;
+}
+
+.styles-module-scss-module__SLCppG__dropdown li a:hover {
+  background: #f0f0f0;
+}
+
+.styles-module-scss-module__SLCppG__menu li:hover > .styles-module-scss-module__SLCppG__dropdown {
+  display: block;
+}
+
+.styles-module-scss-module__SLCppG__dropdown2 {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  min-width: 200px;
+  z-index: 1000;
+}
+
+.styles-module-scss-module__SLCppG__menu li .styles-module-scss-module__SLCppG__dropdown li:hover > .styles-module-scss-module__SLCppG__dropdown2 {
+  display: block;
+}
+
+
+/*# sourceMappingURL=src_components_HomeHeader_styles_module_scss_module_3f0ba3.css.map*/
