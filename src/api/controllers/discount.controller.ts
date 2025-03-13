@@ -3,6 +3,11 @@ import DiscountService from '../services/discount.service';
 import { RequestWithBody } from '../types/request';
 
 export default class DiscountController {
+    /* ---------------------------------------------------------- */
+    /*                           Create                           */
+    /* ---------------------------------------------------------- */
+
+    /* -------------------- Create discount  -------------------- */
     public static createDiscount: RequestWithBody<joiTypes.discount.CreateDiscount> =
         async (req, res, _) => {
             new CreatedResponse({
@@ -13,4 +18,12 @@ export default class DiscountController {
                 })
             }).send(res);
         };
+
+    /* ---------------------------------------------------------- */
+    /*                           Update                           */
+    /* ---------------------------------------------------------- */
+
+    /* ----------------- Set available discount ----------------- */
+
+    /* ---------------- Set unavailable discount ---------------- */
 }

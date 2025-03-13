@@ -168,6 +168,14 @@ export const findProductByShopAndId = async (
     return await productModel.findOne(payload);
 };
 
+/* ------------- Check product list is publish  ------------- */
+export const checkProductListIsPublish = async (listId: string[]) => {
+    return await productModel.exists({
+        _id: { $in: listId },
+        is_publish: false
+    });
+};
+
 /* ------------------------------------------------------ */
 /*                         Update                         */
 /* ------------------------------------------------------ */

@@ -5,14 +5,15 @@ import { convertToMongooseId } from '../../../utils/mongoose.util';
 /* ---------------------------------------------------------- */
 /*                           Common                           */
 /* ---------------------------------------------------------- */
-const queryCreate = async (data: modelTypes.discount.DiscountSchema) =>
-    await discountModel.create(data);
+const queryCreate = async (data: repoTypes.discount.arguments.QueryCreate) => {
+    return await discountModel.create(data);
+};
 
 /* ---------------------------------------------------------- */
 /*                           Create                           */
 /* ---------------------------------------------------------- */
 export const createDiscount = async (
-    data: modelTypes.discount.DiscountSchema
+    data: repoTypes.discount.arguments.QueryCreate
 ) => {
     /* -------------------- Create discount  -------------------- */
     const discount = await queryCreate(data);
@@ -35,18 +36,20 @@ export const isExistsDiscount = async (shop: string, code: string) => {
     });
 };
 
+/* --------------- Check discount own by shop --------------- */
+export const checkDiscountOwnByShop = async ({
+    _id,
+    discount_shop
+}: repoTypes.discount.arguments.CheckDiscountOwnByShop) => {
+    return await discountModel.exists({
+        _id,
+        discount_shop
+    });
+};
+
 /* ---------------------------------------------------------- */
 /*                            Find                            */
 /* ---------------------------------------------------------- */
-export const checkDiscountCodeIsValid = async (shop: string, code: string) => {
-    return await discountModel.exists({
-        discount_shop: shop,
-        discount_code: code,
-        discount_start_at: { $lte: new Date() },
-        discount_end_at: { $gte: new Date() },
-        is_available: true
-    });
-};
 
 /* ---------------------------------------------------------- */
 /*                          Find all                          */
@@ -56,14 +59,13 @@ export const checkDiscountCodeIsValid = async (shop: string, code: string) => {
 export const checkConflictDiscountInShop = async ({
     discount_start_at,
     discount_end_at,
-    ...payload
-}: Pick<
-    modelTypes.discount.DiscountSchema,
-    'discount_shop' | 'discount_code' | 'discount_start_at' | 'discount_end_at'
->) => {
+    discount_code,
+    discount_shop
+}: repoTypes.discount.arguments.CheckConflictDiscountInShop) => {
     return await discountModel
-        .find({
-            ...payload,
+        .findOne({
+            discount_code,
+            discount_shop,
             is_available: true,
             $or: [
                 /* --------- Check discount start at in payload time --------- */
@@ -103,4 +105,25 @@ export const findAllDiscountPublishAvailableByShop = async (shop: string) => {
         discount_start_at: { $lte: date },
         discount_end_at: { $gte: date }
     });
+};
+
+/* ---------------------------------------------------------- */
+/*                           Update                           */
+/* ---------------------------------------------------------- */
+
+/* --------------- Update available discount ---------------- */
+export const updateAvailableDiscount = async ({
+    discountId,
+    state
+}: repoTypes.discount.arguments.UpdateAvailableDiscount) => {
+    const result = await discountModel.updateOne(
+        {
+            _id: discountId
+        },
+        {
+            is_available: state
+        }
+    );
+
+    return result.modifiedCount > 0;
 };

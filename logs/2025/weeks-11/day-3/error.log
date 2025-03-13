@@ -71,3 +71,6 @@
 [2025-03-12T08:03:43.798Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
 [2025-03-12T08:03:45.867Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
 [2025-03-12T08:03:51.102Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-12T08:05:40.772Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-12T09:03:30.011Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
+[2025-03-12T09:03:30.015Z] [error]: getaddrinfo EAI_AGAIN cluster0-shard-00-00.q7xyq.mongodb.net
