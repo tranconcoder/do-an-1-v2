@@ -1,0 +1,12 @@
+[2025-03-13T03:20:34.248Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-13T03:20:42.866Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-13T03:22:23.595Z] [error]: HIDE::500::ValidationError::"discount_products" is required::
+[2025-03-13T03:22:45.388Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-13T03:22:58.363Z] [error]: HIDE::500::ValidationError::"discount_products" is required::
+[2025-03-13T03:23:15.031Z] [error]: HIDE::500::ValidationError::"discount_products" does not contain 1 required value(s)::
+[2025-03-13T03:23:20.568Z] [error]: HIDE::500::ValidationError::"discount_products[0]" is not allowed to be empty::
+[2025-03-13T03:23:24.110Z] [error]: HIDE::500::ValidationError::"discount_products[0]" length must be 24 characters long::
+[2025-03-13T03:27:29.462Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-13T03:27:39.997Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-13T03:27:42.348Z] [error]: HIDE::500::ValidationError::"discount_products[0]" length must be 24 characters long::
+[2025-03-13T03:27:47.040Z] [error]: HIDE::400::InvalidPayload::Can not create discount for unpublish product!::

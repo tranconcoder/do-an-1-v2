@@ -12,7 +12,6 @@ import { checkProductListIsPublish } from '../models/repository/product/index';
 import {
     ConflictErrorResponse,
     ForbiddenErrorResponse,
-    InvalidPayloadErrorResponse,
     NotFoundErrorResponse
 } from '../response/error.response';
 
@@ -45,20 +44,14 @@ export default class DiscountService {
         }
 
         /* --------------- Check products is publish  --------------- */
-        if (payload.is_apply_all_product && !payload.discount_products?.length)
-            throw new NotFoundErrorResponse(
-                'Not found product to apply discount code!',
-                false
-            );
-
-        if (payload.is_apply_all_product) {
+        if (payload.discount_products) {
             const isAllProductPublish = await checkProductListIsPublish(
                 payload.discount_products as string[]
             );
 
             if (!isAllProductPublish)
-                throw new InvalidPayloadErrorResponse(
-                    'Can not create discount for unpublish product!'
+                throw new NotFoundErrorResponse(
+                    "Some product in discount code isn't publish!"
                 );
         }
 

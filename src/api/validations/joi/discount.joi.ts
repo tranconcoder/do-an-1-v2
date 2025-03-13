@@ -1,4 +1,4 @@
-import Joi, { NumberSchema } from 'joi';
+import Joi, { ArraySchema, NumberSchema } from 'joi';
 import _ from 'lodash';
 import { mongooseId } from '../../../configs/joi.config';
 import { DiscountTypeEnum } from '../../enums/discount.enum';
@@ -19,9 +19,9 @@ const schema = {
     discount_count: Joi.number(),
     discount_products: Joi.when(Joi.ref('is_apply_all_product'), {
         is: true,
-        then: Joi.array().min(1).items(mongooseId),
-        otherwise: Joi.forbidden()
-    }),
+        then: Joi.forbidden(),
+        otherwise: Joi.array().min(1).items(mongooseId).required()
+    }) as any as ArraySchema,
     discount_start_at: Joi.date().min('now').required(),
     discount_end_at: Joi.date().min(Joi.ref('discount_start_at')).required(),
     discount_max_value: Joi.when(Joi.ref('discount_type'), {
