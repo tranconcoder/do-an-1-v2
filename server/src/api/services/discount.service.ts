@@ -10,7 +10,6 @@ import {
 } from '../models/repository/discount/index';
 import {
     checkProductListIsPublish,
-    findAllProduct
 } from '../models/repository/product/index';
 import {
     ConflictErrorResponse,

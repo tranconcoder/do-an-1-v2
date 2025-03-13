@@ -40,13 +40,13 @@ export const omitFields = <T = string>(fields: T[]) => {
 export const generateFindAllPageSplit = <T = any>(model: any) => {
     return async ({
         query,
+        projection = {},
         sort = {},
         limit = 50,
         page = 1,
         select = [],
         omit = []
     }: moduleTypes.mongoose.FindAllWithPageSlittingArgs<T>): Promise<T[]> => {
-        const projection: commonTypes.object.ObjectAnyKeys = {};
         const skip = limit * (page - 1);
 
         for (const field of select) projection[field] = 1;

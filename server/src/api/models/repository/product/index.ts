@@ -99,28 +99,22 @@ export const findAllProduct =
     generateFindAllPageSplit<modelTypes.product.ProductSchema>(productModel);
 
 /* ------------ Find all product id as string ------------ */
-export const findProductIdStrList = async ({
-    query,
+export const findAllProductId = async ({
     limit,
+    projection,
     omit,
     page,
-    select,
     sort
-}: moduleTypes.mongoose.FindAllWithPageSlittingArgs) => {
+}: repoTypes.product.FindAllProductId) => {
     return findAllProduct({
-        query:{},
+        query: {},
+        projection,
         limit,
         omit,
         page,
-        select,
+        select: ['id'],
         sort
-    });
-
-    return (
-        await productModel.aggregate().project({
-            _id: { $toString: '$_id' }
-        })
-    ).map((x: { _id: string }) => x._id);
+    }).then((products) => products.map(({ _id }) => _id.toString()));
 };
 
 /* -------------- Find all product by shop -------------- */

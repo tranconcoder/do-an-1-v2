@@ -2,6 +2,8 @@ import type mongooseBase from 'mongoose';
 import mongoose, {
     HydratedDocument,
     Models,
+    ProjectionType,
+    QueryOptions,
     QueryWithHelpers,
     RootFilterQuery
 } from 'mongoose';
@@ -35,6 +37,7 @@ declare global {
             /* ----- Argument of generateFindAllPageSlitting utils  ----- */
             interface FindAllWithPageSlittingArgs<T = any> {
                 query: RootFilterQuery<T>;
+                projection?: ProjectionType;
                 sort?: any;
                 limit?: number;
                 page?: number;

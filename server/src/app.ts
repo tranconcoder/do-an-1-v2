@@ -4,6 +4,7 @@ import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import compression from 'compression';
+import cors from 'cors';
 
 // Services
 import HandleErrorService from './api/services/handleError.service';
@@ -38,6 +39,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 // Helmet for security
 app.use(helmet());
+// CORS
+app.use(cors());
 // Compression
 app.use(compression());
 

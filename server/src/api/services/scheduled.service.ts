@@ -17,7 +17,7 @@ import { CronJob } from 'cron';
 import { asyncFilter } from '../utils/array.utils';
 import mongoose from 'mongoose';
 import { CategoryEnum } from '../enums/product.enum';
-import { findProductIdStrList } from '../models/repository/product';
+import { findAllProductId } from '../models/repository/product/index';
 
 export default class ScheduledService {
     public static startScheduledService = () => {
@@ -96,7 +96,7 @@ export default class ScheduledService {
     /* ------------------------------------------------------ */
     private static handleCleanUpProduct = async () => {
         /* ----------------- Get product id list ---------------- */
-        const productIds = new Set(await findProductIdStrList());
+        const productIds = new Set(await findAllProductId({}));
 
         /* -------------- Get product child id list ------------- */
         const productChildModelName = Object.values(CategoryEnum);
@@ -113,19 +113,20 @@ export default class ScheduledService {
 
         /* --------------- Clean in product model --------------- */
         const productChildSet = new Set(productChildsList.flat());
-        const productDiffence = productIds.difference(productChildSet);
+        const productDifference = productIds.difference(productChildSet);
 
         await Promise.all([
             productModel.deleteMany({
-                _id: { $in: Array.from(productDiffence) }
+                _id: { $in: Array.from(productDifference) }
             }),
             ...productChildsList.map(async (childList, index) => {
                 const childSet = new Set(childList);
-                const diffence = childSet.difference(productIds);
+                const difference = childSet.difference(productIds);
+
                 const model = mongoose.model(productChildModelName[index]);
 
                 return await model.deleteMany({
-                    _id: { $in: Array.from(diffence) }
+                    _id: { $in: Array.from(difference) }
                 });
             })
         ]).then((results) => {
@@ -142,10 +143,9 @@ export default class ScheduledService {
         });
     };
 
-
-/* ------------------------------------------------------ */
-/*                       Cron jobs                        */
-/* ------------------------------------------------------ */
+    /* ------------------------------------------------------ */
+    /*                       Cron jobs                        */
+    /* ------------------------------------------------------ */
     public static cleanUpKeyTokenCronJob = CronJob.from(
         getCronOptions({
             cronTime: CLEAN_UP_KEY_TOKEN_CRON_TIME,
