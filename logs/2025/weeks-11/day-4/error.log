@@ -10,3 +10,14 @@
 [2025-03-13T03:27:39.997Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
 [2025-03-13T03:27:42.348Z] [error]: HIDE::500::ValidationError::"discount_products[0]" length must be 24 characters long::
 [2025-03-13T03:27:47.040Z] [error]: HIDE::400::InvalidPayload::Can not create discount for unpublish product!::
+[2025-03-13T03:30:33.196Z] [error]: HIDE::404::NotFound::Some product in discount code isn't publish!::
+[2025-03-13T03:30:39.427Z] [error]: HIDE::500::ValidationError::"discount_products" is not allowed::
+[2025-03-13T03:31:40.900Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T03:31:56.675Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-13T03:36:28.022Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-13T03:36:43.646Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-13T03:36:56.096Z] [error]: HIDE::403::Forbidden::Not permission to delete!::
+[2025-03-13T03:57:22.149Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-13T03:57:27.792Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-13T03:57:33.327Z] [error]: HIDE::500::ValidationError::"shopId" is required::
+[2025-03-13T03:57:55.839Z] [error]: HIDE::500::ValidationError::"shopId" is not allowed::

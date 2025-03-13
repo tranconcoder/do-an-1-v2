@@ -103,50 +103,6 @@ export default class DiscountService {
     /*                           Update                           */
     /* ---------------------------------------------------------- */
 
-    /* ----------------- Set available discount ----------------- */
-    public static setAvailableDiscount = async ({
-        _id,
-        shopId
-    }: serviceTypes.discount.arguments.SetAvailableDiscount) => {
-        /* --------------- Check discount own by shop --------------- */
-        const isOwn = await checkDiscountOwnByShop({
-            _id,
-            discount_shop: shopId
-        });
-        if (!isOwn)
-            throw new ForbiddenErrorResponse(
-                'Not permission to change discount!'
-            );
-
-        /* ------------- Handle set available discount  ------------- */
-        return await updateAvailableDiscount({
-            state: true,
-            discountId: _id
-        });
-    };
-
-    /* ---------------- Set unavailable discount ---------------- */
-    public static setUnavailableDiscount = async ({
-        _id,
-        shopId
-    }: serviceTypes.discount.arguments.SetUnavailableDiscount) => {
-        /* ------------- Check discount is own by shop  ------------- */
-        const isOwn = await checkDiscountOwnByShop({
-            _id,
-            discount_shop: shopId
-        });
-        if (!isOwn)
-            throw new ForbiddenErrorResponse(
-                'Not permission to change discount!'
-            );
-
-        /* -------------- Handle unavailable discount  -------------- */
-        return await updateAvailableDiscount({
-            state: false,
-            discountId: _id
-        });
-    };
-
     /* ---------------------------------------------------------- */
     /*                           Delete                           */
     /* ---------------------------------------------------------- */

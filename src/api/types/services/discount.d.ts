@@ -39,15 +39,6 @@ declare global {
                 /* ---------------------------------------------------------- */
                 /*                           Update                           */
                 /* ---------------------------------------------------------- */
-                interface SetAvailableDiscount
-                    extends Pick<
-                        modelTypes.discount.DiscountSchema<false, true>,
-                        '_id'
-                    > {
-                    shopId: string;
-                }
-
-                interface SetUnavailableDiscount extends SetAvailableDiscount {}
 
                 /* ---------------------------------------------------------- */
                 /*                           Delete                           */

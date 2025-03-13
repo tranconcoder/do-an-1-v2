@@ -15,10 +15,19 @@ declare global {
             /* ---------------------------------------------------------- */
 
             /* ------------- Get all discount code in shop  ------------- */
-            interface GetAllDiscountCodeInShop
+            type GetAllDiscountCodeInShopQueryKey = 'limit' | 'page';
+            /* ------------------------- Query  ------------------------- */
+            interface GetAllDiscountCodeInShopQuery
+                extends Pick<
+                    serviceTypes.discount.arguments.GetAllDiscountCodeInShop,
+                    GetAllDiscountCodeInShopQueryKey
+                > {}
+
+            /* ------------------------- Params ------------------------- */
+            interface GetAllDiscountCodeInShopParams
                 extends Omit<
                     serviceTypes.discount.arguments.GetAllDiscountCodeInShop,
-                    'shopId'
+                    GetAllDiscountCodeInShopQueryKey
                 > {}
 
             /* ---------------------------------------------------------- */
@@ -38,10 +47,7 @@ declare global {
 
             /* -------------------- Delete discount  -------------------- */
             interface DeleteDiscount
-                extends Pick<
-                    serviceTypes.discount.arguments.DeleteDiscount,
-                    'discountId'
-                > {}
+                extends serviceTypes.discount.arguments.DeleteDiscount {}
         }
     }
 }

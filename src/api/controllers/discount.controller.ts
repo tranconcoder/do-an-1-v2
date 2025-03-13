@@ -1,3 +1,4 @@
+import { RequestHandler } from 'express';
 import SuccessResponse, { CreatedResponse } from '../response/success.response';
 import DiscountService from '../services/discount.service';
 import {
@@ -27,23 +28,27 @@ export default class DiscountController {
     /*                            Get                             */
     /* ---------------------------------------------------------- */
     /* ------------- Get all discount code in shop  ------------- */
-    public static getAllDiscountCodeInShop: RequestWithQuery<joiTypes.discount.GetAllDiscountCodeInShop> =
-        async (req, res, _) => {
-            new SuccessResponse({
-                name: 'Get all discount code in shop',
-                statusCode: 200,
-                message: 'Get all discount code in shop successfully',
-                metadata: await DiscountService.getAllDiscountCodeInShop({
-                    ...req.query,
-                    shopId: req.userId as string
-                })
-            }).send(res);
-        };
+    public static getAllDiscountCodeInShop: RequestHandler<
+        joiTypes.discount.GetAllDiscountCodeInShopParams,
+        any,
+        any,
+        joiTypes.discount.GetAllDiscountCodeInShopQuery
+    > = async (req, res, _) => {
+        new SuccessResponse({
+            name: 'Get all discount code in shop',
+            statusCode: 200,
+            message: 'Get all discount code in shop successfully',
+            metadata: await DiscountService.getAllDiscountCodeInShop({
+                limit: req.query.limit,
+                page: req.query.page,
+                shopId: req.params.shopId
+            })
+        }).send(res);
+    };
 
     /* ---------------------------------------------------------- */
     /*                           Update                           */
     /* ---------------------------------------------------------- */
-
 
     /* ---------------------------------------------------------- */
     /*                           Delete                           */

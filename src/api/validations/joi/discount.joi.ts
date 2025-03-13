@@ -47,11 +47,23 @@ export const createDiscountSchema = Joi.object<
 /* ---------------------------------------------------------- */
 /*                            Get                             */
 /* ---------------------------------------------------------- */
-export const getAllDiscountCodeInShopSchema =
-    Joi.object<joiTypes.discount.GetAllDiscountCodeInShop>({
-        limit: Joi.number(),
-        page: Joi.number()
-    });
+
+/* ------------- Get all discount code in shop  ------------- */
+/* ------------------------- Query  ------------------------- */
+export const getAllDiscountCodeInShopQuerySchema = Joi.object<
+    joiTypes.discount.GetAllDiscountCodeInShopQuery,
+    true
+>({
+    limit: Joi.number(),
+    page: Joi.number()
+});
+/* ------------------------- Params ------------------------- */
+export const getAllDiscountCodeInShopParamsSchema = Joi.object<
+    joiTypes.discount.GetAllDiscountCodeInShopParams,
+    true
+>({
+    shopId: mongooseId
+});
 
 /* ---------------------------------------------------------- */
 /*                           Update                           */
