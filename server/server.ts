@@ -1,5 +1,6 @@
 // Load env
 import './src/api/helpers/loadEnv.helper';
+import jsonfile from 'jsonfile';
 
 // Configs
 import { HOST, PORT, BASE_URL } from './src/configs/server.config';
@@ -8,6 +9,12 @@ import { HOST, PORT, BASE_URL } from './src/configs/server.config';
 import app from './src/app';
 import loggerService from './src/api/services/logger.service';
 import MongoDB from './src/app/db.app';
+import {
+    provinceModel,
+    cityModel,
+    districtModel
+} from './src/api/models/location.model';
+import path from 'path';
 
 const server = app.listen(PORT, HOST, () => {
     console.log(`Server is running on ${BASE_URL}`);
@@ -24,4 +31,41 @@ process.on('SIGINT', () => {
 
     // Push notification to developer...
     loggerService.getInstance().info('Server closed');
+});
+
+/* ---------------------------------------------------------- */
+/*                        Initial data                        */
+/* ---------------------------------------------------------- */
+const provinceJsonFile = path.join(
+    __dirname,
+    './src/api/assets/provinces.json'
+);
+const citiesJsonFile = path.join(__dirname, './src/api/assets/cities.json');
+const districtJsonFile = path.join(
+    __dirname,
+    './src/api/assets/districts.json'
+);
+jsonfile.readFile(provinceJsonFile, (err, data) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    provinceModel.insertMany(data).catch(console.log);
+});
+jsonfile.readFile(citiesJsonFile, (err, data) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    cityModel.insertMany(data).catch(console.log);
+});
+jsonfile.readFile(districtJsonFile, (err, data) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    districtModel.insertMany(data).catch(console.log);
 });

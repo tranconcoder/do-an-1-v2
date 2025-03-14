@@ -83,13 +83,17 @@ export default class DiscountService {
         return discount;
     };
 
+    /* ------------------ Get discount amount  ------------------ */
+    public static getDiscountAmount = async () => {
+
+    }
+
     /* ------------- Get all discount code in shop  ------------- */
     public static getAllDiscountCodeInShop = async ({
         shopId,
         limit,
         page
     }: serviceTypes.discount.arguments.GetAllDiscountCodeInShop) => {
-        discountModel.find({});
         return await findAllDiscount({
             query: {
                 discount_shop: shopId,

@@ -1,3 +1,4 @@
+import { provinceModel } from './api/models/location.model';
 import express from 'express';
 
 // Libs
