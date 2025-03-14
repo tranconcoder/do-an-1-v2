@@ -16,3 +16,7 @@
 [2025-03-14T05:00:33.683Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-03-14T05:00:45.998Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-03-14T05:01:26.542Z] [error]: HIDE::500::ValidationError::"discount_value" is required::
+[2025-03-14T05:24:25.146Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-14T05:24:30.800Z] [error]: HIDE::400::InvalidPayload::Start and end time must greater than now!::
+[2025-03-14T05:25:31.953Z] [error]: HIDE::400::InvalidPayload::Start and end time must greater than now!::
+[2025-03-14T05:25:33.357Z] [error]: HIDE::400::InvalidPayload::Start and end time must greater than now!::

@@ -198,19 +198,23 @@ export default class DiscountService {
             );
 
         /* ---------------- Check start and end time ---------------- */
-        const now = new Date();
-        const start = new Date(discount_start_at || discount.discount_start_at);
-        const end = new Date(discount_end_at || discount.discount_end_at);
-        if (start <= now || end <= now)
-            throw new InvalidPayloadErrorResponse(
-                'Start and end time must greater than now!',
-                true
+        if (discount_start_at || discount_end_at) {
+            const now = new Date();
+            const start = new Date(
+                discount_start_at || discount.discount_start_at
             );
-        if (start <= end)
-            throw new InvalidPayloadErrorResponse(
-                'Start time must be greater than end time!',
-                true
-            );
+            const end = new Date(discount_end_at || discount.discount_end_at);
+            if (start <= now || end <= now)
+                throw new InvalidPayloadErrorResponse(
+                    'Start and end time must greater than now!',
+                    true
+                );
+            if (start >= end)
+                throw new InvalidPayloadErrorResponse(
+                    'Start time must be greater than end time!',
+                    true
+                );
+        }
 
         /* ------------------ Check conflict code  ------------------ */
         const conflictDiscount = await checkConflictDiscountInShop({
