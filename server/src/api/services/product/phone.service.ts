@@ -21,8 +21,8 @@ export default class Phone extends Product {
             /* ---------------- Create phone product ---------------- */
             createPhone({
                 ...this.product_attributes,
-                _id: super.getProductId(),
-                product_shop: super.getProductShop()
+                _id: super.getProductId()?.toString(),
+                product_shop: super.getProductShop()?.toString()
             })
         ])
             .then(([product]) => product)

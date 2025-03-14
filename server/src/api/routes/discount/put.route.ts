@@ -11,7 +11,9 @@ const putRoute = Router();
 putRoute.use(authenticate);
 
 putRoute.put(
-    '/update',
+    '/',
     validateRequestBody(updateDiscountSchema),
     catchError(DiscountController.updateDiscount)
 );
+
+export default putRoute;

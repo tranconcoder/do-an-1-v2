@@ -1,0 +1,18 @@
+[2025-03-14T03:51:28.043Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-14T03:51:56.050Z] [error]: Token was stolen! User id: 67c994cb52def8bd1623cc49
+[2025-03-14T03:51:56.051Z] [error]: HIDE::403::Forbidden::Token was deleted!::
+[2025-03-14T03:52:09.023Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-14T03:52:29.225Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-14T03:52:52.980Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-14T03:57:11.809Z] [error]: HIDE::500::ValidationError::"discount_type" must be one of [percentage, fixed]::
+[2025-03-14T03:57:23.176Z] [error]: HIDE::500::SyntaxError::Expected double-quoted property name in JSON at position 116 (line 18 column 1)::
+[2025-03-14T03:57:24.905Z] [error]: HIDE::500::ValidationError::"discount_name" is required::
+[2025-03-14T03:57:49.913Z] [error]: HIDE::500::ValidationError::"discount_code" is required::
+[2025-03-14T03:57:51.103Z] [error]: HIDE::500::ValidationError::"discount_code" is required::
+[2025-03-14T03:57:56.953Z] [error]: HIDE::500::ValidationError::"discount_code" is required::
+[2025-03-14T03:57:59.357Z] [error]: HIDE::500::ValidationError::"discount_code" is required::
+[2025-03-14T03:58:04.930Z] [error]: HIDE::500::ValidationError::"discount_name" is required::
+[2025-03-14T03:58:05.892Z] [error]: HIDE::500::ValidationError::"discount_name" is required::
+[2025-03-14T05:00:33.683Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-14T05:00:45.998Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-14T05:01:26.542Z] [error]: HIDE::500::ValidationError::"discount_value" is required::
