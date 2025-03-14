@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { startupSnapshot } from 'v8';
 import discountModel from '../models/discount.model';
 import {
     checkConflictDiscountInShop,
@@ -223,7 +222,7 @@ export default class DiscountService {
             discount_start_at: discount_start_at || discount.discount_start_at,
             discount_end_at: discount_end_at || discount.discount_end_at
         });
-        if (conflictDiscount)
+        if (conflictDiscount && conflictDiscount._id.toString() !== _id)
             throw new BadRequestErrorResponse(
                 `Conflict with discount: ${conflictDiscount.discount_name}`
             );
@@ -264,8 +263,9 @@ export default class DiscountService {
             _id: discountId,
             discount_shop: productShop
         });
-        if (!isOwn)
+        if (!isOwn) {
             throw new ForbiddenErrorResponse('Not permission to delete!');
+        }
 
         /* --------------- Handle delete discount code  -------------- */
         return {

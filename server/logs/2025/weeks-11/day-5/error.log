@@ -20,3 +20,9 @@
 [2025-03-14T05:24:30.800Z] [error]: HIDE::400::InvalidPayload::Start and end time must greater than now!::
 [2025-03-14T05:25:31.953Z] [error]: HIDE::400::InvalidPayload::Start and end time must greater than now!::
 [2025-03-14T05:25:33.357Z] [error]: HIDE::400::InvalidPayload::Start and end time must greater than now!::
+[2025-03-14T05:26:59.561Z] [error]: HIDE::400::BadRequest::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-14T05:27:50.758Z] [error]: HIDE::400::BadRequest::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-14T05:27:52.028Z] [error]: HIDE::400::BadRequest::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-14T05:27:59.525Z] [error]: HIDE::400::BadRequest::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-14T05:28:18.060Z] [error]: HIDE::400::BadRequest::Conflict with discount: Khuyến mãi mùa hè!::
+[2025-03-14T05:29:41.112Z] [error]: HIDE::400::BadRequest::Conflict with discount: Khuyến mãi mùa hè!::
