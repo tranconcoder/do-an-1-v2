@@ -15,9 +15,17 @@ declare global {
             type ObjectId = mongooseBase.Types.ObjectId | string;
 
             type ConvertObjectIdToString<T> = {
-                [K in keyof T]: T[K] extends mongooseBase.Types.ObjectId
+                [K in keyof T]: NonNullable<T[K]> extends ObjectId
                     ? string
-                    : T[K];
+                    : NonNullable<T[K]> extends mongooseBase.Types.ObjectId
+                      ? string
+                      : NonNullable<T[K]> extends ObjectId[]
+                        ? string[]
+                        : NonNullable<
+                                T[K]
+                            > extends mongooseBase.Types.ObjectId[]
+                          ? string[]
+                          : T[K];
             };
 
             type IsModel<T = false, K = any> = T extends true
@@ -44,13 +52,19 @@ declare global {
                 select?: string[];
                 omit?: string[];
             }
+
+            /* ------------- Arguments of generateUpdateAll ------------- */
+            interface UpdateAllArgs<T = any> {
+                query: RootFilterQuery<T>;
+                update: Partial<T>;
+            }
         }
     }
-}
 
-module 'mongoose' {
-    interface QueryTimestampsConfig {
-        created_at?: boolean;
-        updated_at?: boolean;
+    module 'mongoose' {
+        interface QueryTimestampsConfig {
+            created_at?: boolean;
+            updated_at?: boolean;
+        }
     }
 }

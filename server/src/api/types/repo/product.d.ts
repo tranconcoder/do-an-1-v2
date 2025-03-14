@@ -8,6 +8,12 @@ declare global {
                     moduleTypes.mongoose.FindAllWithPageSlittingArgs,
                     'query' | 'select'
                 > {}
+
+            /* ------ Check products is available to apply discount ------ */
+            interface CheckProductsIsAvailableToApplyDiscount {
+                shopId: string;
+                productIds: string[];
+            }
         }
     }
 }

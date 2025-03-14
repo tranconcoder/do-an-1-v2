@@ -2,21 +2,22 @@ import _ from 'lodash';
 import discountModel from '../models/discount.model';
 import {
     checkConflictDiscountInShop,
-    checkDiscountOwnByShop,
     createDiscount,
     deleteDiscount,
     findAllDiscount,
     findDiscountById
 } from '../models/repository/discount/index';
 import {
-    checkProductListIsPublish,
-    findAllProduct
+    findAllProduct,
+    checkProductsIsAvailableToApplyDiscount
 } from '../models/repository/product/index';
 import {
+    BadRequestErrorResponse,
     ConflictErrorResponse,
     ForbiddenErrorResponse,
     NotFoundErrorResponse
 } from '../response/error.response';
+import { get$SetNestedFromObject } from '../utils/mongoose.util';
 
 export default class DiscountService {
     /* ---------------------------------------------------------- */
@@ -48,9 +49,11 @@ export default class DiscountService {
 
         /* --------------- Check products is publish  --------------- */
         if (payload.discount_products) {
-            const isAllProductPublish = await checkProductListIsPublish(
-                payload.discount_products as string[]
-            );
+            const isAllProductPublish =
+                await checkProductsIsAvailableToApplyDiscount({
+                    productIds: payload.discount_products as string[],
+                    shopId: userId
+                });
 
             if (!isAllProductPublish)
                 throw new NotFoundErrorResponse(
@@ -136,7 +139,6 @@ export default class DiscountService {
             '+is_apply_all_product'
         );
         if (!discount) throw new NotFoundErrorResponse('Not found discount!');
-        console.log(discount);
 
         /* ---------------------------------------------------------- */
         /*     Missing check shop is admin because no RBAC build      */
@@ -175,6 +177,59 @@ export default class DiscountService {
     /* ---------------------------------------------------------- */
     /*                           Update                           */
     /* ---------------------------------------------------------- */
+    public static updateDiscount = async ({
+        _id,
+        ...payload
+    }: serviceTypes.discount.arguments.UpdateDiscount) => {
+        const {
+            discount_shop,
+            discount_code,
+            discount_products,
+            discount_start_at,
+            discount_end_at
+        } = payload;
+        /* ------------- Check discount is own by shop  ------------- */
+        const discount = await discountModel.findOne({ _id, discount_shop });
+        if (!discount)
+            throw new ForbiddenErrorResponse(
+                'Not permission to update discount!'
+            );
+
+        /* ------------------ Check conflict code  ------------------ */
+        const conflictDiscount = await checkConflictDiscountInShop({
+            discount_shop,
+            discount_code: discount_code || discount.discount_code,
+            discount_start_at: discount_start_at || discount.discount_start_at,
+            discount_end_at: discount_end_at || discount.discount_end_at
+        });
+        if (conflictDiscount)
+            throw new BadRequestErrorResponse(
+                `Conflict with discount: ${conflictDiscount.discount_name}`
+            );
+
+        /* ------- Check products is own by shop and publish  ------- */
+        if (discount_products?.length) {
+            const productsIsAvailableToDiscount =
+                await checkProductsIsAvailableToApplyDiscount({
+                    productIds: discount_products,
+                    shopId: discount_shop
+                });
+            if (!productsIsAvailableToDiscount)
+                throw new BadRequestErrorResponse(
+                    'Some products is unpublish or not permission to discount!'
+                );
+        }
+
+        /* --------------------- Handle update  --------------------- */
+        const $set = {};
+        get$SetNestedFromObject(payload, $set);
+
+        return {
+            success:
+                (await discountModel.updateOne({ _id }, { $set }))
+                    .modifiedCount > 0
+        };
+    };
 
     /* ---------------------------------------------------------- */
     /*                           Delete                           */
@@ -184,7 +239,7 @@ export default class DiscountService {
         productShop
     }: serviceTypes.discount.arguments.DeleteDiscount) => {
         /* --------------- Check shop is own of code  --------------- */
-        const isOwn = await checkDiscountOwnByShop({
+        const isOwn = await discountModel.findOne({
             _id: discountId,
             discount_shop: productShop
         });

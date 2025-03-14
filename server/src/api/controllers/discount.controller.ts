@@ -69,6 +69,16 @@ export default class DiscountController {
     /* ---------------------------------------------------------- */
     /*                           Update                           */
     /* ---------------------------------------------------------- */
+    public static updateDiscount: RequestWithBody<joiTypes.discount.UpdateDiscount> =
+        async (req, res, _) => {
+            new OkResponse({
+                message: 'Update discount success!',
+                metadata: await DiscountService.updateDiscount({
+                    ...req.body,
+                    discount_shop: req.userId as string
+                })
+            }).send(res);
+        };
 
     /* ---------------------------------------------------------- */
     /*                           Delete                           */

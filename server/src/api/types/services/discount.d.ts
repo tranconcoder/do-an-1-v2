@@ -11,7 +11,10 @@ declare global {
                 /*                           Create                           */
                 /* ---------------------------------------------------------- */
                 interface CreateDiscount
-                    extends joiTypes.discount.CreateDiscount {
+                    extends Omit<
+                        modelTypes.discount.DiscountSchema,
+                        'is_admin_voucher' | 'discount_shop' | '_id'
+                    > {
                     userId: string;
                 }
 
@@ -45,6 +48,16 @@ declare global {
                 /* ---------------------------------------------------------- */
                 /*                           Update                           */
                 /* ---------------------------------------------------------- */
+                interface UpdateDiscount
+                    extends commonTypes.utils.PartialWithout<
+                        moduleTypes.mongoose.ConvertObjectIdToString<
+                            Omit<
+                                modelTypes.discount.DiscountSchema,
+                                'is_admin_voucher'
+                            >
+                        >,
+                        '_id' | 'discount_shop'
+                    > {}
 
                 /* ---------------------------------------------------------- */
                 /*                           Delete                           */

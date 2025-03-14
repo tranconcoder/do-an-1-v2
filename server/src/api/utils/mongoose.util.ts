@@ -1,4 +1,4 @@
-import mongoose, { HydratedDocument, Model } from 'mongoose';
+import mongoose, { HydratedDocument, Model, RootFilterQuery } from 'mongoose';
 
 export const convertToMongooseId = (id: string) =>
     new mongoose.Types.ObjectId(id);
@@ -58,5 +58,12 @@ export const generateFindAllPageSplit = <T = any>(model: any) => {
             .skip(skip)
             .limit(limit)
             .lean();
+    };
+};
+
+/* ------------------- Update all wrapper ------------------- */
+export const generateUpdateAll = <T = any>(model: any) => {
+    return async ({ query, update }: moduleTypes.mongoose.UpdateAllArgs<T>) => {
+        return (await model.updateMany(query, update).modifiedCount) > 0;
     };
 };

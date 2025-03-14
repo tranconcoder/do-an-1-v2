@@ -6,8 +6,8 @@ declare global {
             /* -------------------- Create discount  -------------------- */
             interface CreateDiscount
                 extends Omit<
-                    modelTypes.discount.DiscountSchema,
-                    'is_admin_voucher' | 'discount_shop' | '_id'
+                    serviceTypes.discount.arguments.CreateDiscount,
+                    'userId'
                 > {}
 
             /* ---------------------------------------------------------- */
@@ -47,6 +47,11 @@ declare global {
             /* ---------------------------------------------------------- */
             /*                           Update                           */
             /* ---------------------------------------------------------- */
+            interface UpdateDiscount
+                extends Omit<
+                    serviceTypes.discount.arguments.UpdateDiscount,
+                    'discount_shop'
+                > {}
 
             /* ----------------- Set available discount ----------------- */
             interface SetAvailableDiscount

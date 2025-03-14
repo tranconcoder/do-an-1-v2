@@ -181,13 +181,16 @@ export const findProductByShopAndId = async (
 };
 
 /* ------------- Check product list is publish  ------------- */
-export const checkProductListIsPublish = async (
-    listId: moduleTypes.mongoose.ObjectId[]
-) => {
-    return await productModel.exists({
-        _id: { $in: listId },
-        is_publish: false
-    });
+
+/* ------ Check products is available to apply discount ------ */
+export const checkProductsIsAvailableToApplyDiscount = async ({
+    productIds,
+    shopId
+}: repoTypes.product.CheckProductsIsAvailableToApplyDiscount) => {
+    return !(await productModel.exists({
+        _id: { $in: productIds },
+        $or: [{ is_publish: false }, { product_shop: { $ne: shopId } }]
+    }));
 };
 
 /* ------------------------------------------------------ */

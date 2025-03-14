@@ -16,7 +16,7 @@ const schema = {
         then: Joi.number().min(1).max(100).required(),
         otherwise: Joi.number().min(1).required()
     }) as any as NumberSchema,
-    discount_count: Joi.number(),
+    discount_count: Joi.number().min(1),
     discount_products: Joi.when(Joi.ref('is_apply_all_product'), {
         is: true,
         then: Joi.forbidden(),
@@ -29,8 +29,8 @@ const schema = {
         then: Joi.number().required(),
         otherwise: Joi.forbidden()
     }) as any as NumberSchema,
-    discount_min_order_cost: Joi.number(),
-    discount_user_max_use: Joi.number(),
+    discount_min_order_cost: Joi.number().min(1),
+    discount_user_max_use: Joi.number().min(1),
     is_apply_all_product: Joi.boolean(),
     is_available: Joi.boolean(),
     is_publish: Joi.boolean()
@@ -81,6 +81,27 @@ export const getAllProductDiscountByCodeParamsSchema =
 /* ---------------------------------------------------------- */
 /*                           Update                           */
 /* ---------------------------------------------------------- */
+export const updateDiscountSchema = Joi.object<
+    joiTypes.discount.UpdateDiscount,
+    true
+>({
+    _id: schema._id,
+    discount_name: schema.discount_name,
+    discount_description: schema.discount_description,
+    discount_code: schema.discount_code,
+    discount_type: schema.discount_type,
+    discount_value: schema.discount_value,
+    discount_count: schema.discount_count,
+    discount_products: schema.discount_products,
+    discount_start_at: schema.discount_start_at,
+    discount_end_at: schema.discount_end_at,
+    discount_max_value: schema.discount_max_value,
+    discount_min_order_cost: schema.discount_min_order_cost,
+    discount_user_max_use: schema.discount_user_max_use,
+    is_apply_all_product: schema.is_apply_all_product,
+    is_available: schema.is_available,
+    is_publish: schema.is_publish
+});
 
 /* ----------------- Set available discount ----------------- */
 export const setAvailableDiscountSchema = Joi.object<

@@ -2,7 +2,8 @@ import _ from 'lodash';
 import discountModel from '../../discount.model';
 import {
     convertToMongooseId,
-    generateFindAllPageSplit
+    generateFindAllPageSplit,
+    generateUpdateAll
 } from '../../../utils/mongoose.util';
 import { ProjectionType } from 'mongoose';
 
@@ -37,17 +38,6 @@ export const isExistsDiscount = async (shop: string, code: string) => {
     return await discountModel.exists({
         discount_code: code,
         discount_shop: convertToMongooseId(shop)
-    });
-};
-
-/* --------------- Check discount own by shop --------------- */
-export const checkDiscountOwnByShop = async ({
-    _id,
-    discount_shop
-}: repoTypes.discount.arguments.CheckDiscountOwnByShop) => {
-    return await discountModel.exists({
-        _id,
-        discount_shop
     });
 };
 
@@ -124,6 +114,7 @@ export const findAllDiscountPublishAvailableByShop = async (shop: string) => {
 /* ---------------------------------------------------------- */
 /*                           Update                           */
 /* ---------------------------------------------------------- */
+export const updateManyDiscount = generateUpdateAll(discountModel);
 
 /* ---------------------------------------------------------- */
 /*                           Delete                           */
