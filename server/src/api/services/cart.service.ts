@@ -14,11 +14,11 @@ export default class CartService {
         if (!foundProduct.is_publish) throw new ForbiddenErrorResponse('Product is not publish!');
 
         /* --------------- Add new cart product item  --------------- */
-        const cart = await cartModel.findOneAndUpdate(
-            { user: userId },
-            {},
-            { new: true, upsert: true }
-        );
+        const cart = await findOneAndUpdateCart({
+            query: { user: userId },
+            update: {},
+            options: { new: true, upsert: true }
+        });
 
         const cartProduct = cart.cart_product.find((x) => x.product.toString() === productId);
         if (!cartProduct) {
@@ -47,19 +47,15 @@ export default class CartService {
         userId
     }: serviceTypes.cart.arguments.DecreaseFromCart) {
         /* ----------------------- Check cart ----------------------- */
-        let cart = await cartModel.findOneAndUpdate(
-            {
+        let cart = await findOneAndUpdateCart({
+            query: {
                 user: userId,
                 'cart_product.product': productId,
                 'cart_product.quantity': { $gt: 0 }
             },
-            {
-                $inc: { 'cart_product.$.quantity': -1 }
-            },
-            {
-                new: true
-            }
-        );
+            update: { $inc: { 'cart_product.$.quantity': -1 } },
+            options: { new: true }
+        });
         if (!cart) throw new NotFoundErrorResponse('Cart not found!');
 
         /* ------ Remove product in cart when quantity is zero ------ */
@@ -86,7 +82,8 @@ export default class CartService {
         const cart = await findOneAndUpdateCart({
             query: { user: userId },
             update: { $pull: { cart_product: { product: productId } } },
-            options: { new: true }
+            options: { new: true },
+            omit: 'metadata'
         });
 
         if (!cart) throw new NotFoundErrorResponse('Cart not found!');

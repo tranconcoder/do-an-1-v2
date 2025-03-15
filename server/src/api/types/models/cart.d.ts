@@ -9,7 +9,7 @@ declare global {
                     product: moduleTypes.mongoose.ObjectId;
                     quantity: number;
                     price: number;
-                    status: CartItemStatus;
+                    status?: CartItemStatus;
                 }>;
             }
         }

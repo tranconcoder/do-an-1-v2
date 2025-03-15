@@ -62,7 +62,7 @@ declare global {
                 projection?: ProjectionType;
                 sort?: any;
                 select?: string[];
-                omit?: string[];
+                omit?: string[] | 'metadata';
             }
         }
     }
