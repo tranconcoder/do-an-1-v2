@@ -78,15 +78,16 @@ export default class DiscountService {
         discountId
     }: serviceTypes.discount.arguments.GetDiscountById) => {
         const discount = await findDiscountById(discountId);
+
         if (!discount) throw new NotFoundErrorResponse('Not found discount!');
+        if (!discount.is_available)
+            throw new ForbiddenErrorResponse('Discount is not available!');
 
         return discount;
     };
 
     /* ------------------ Get discount amount  ------------------ */
-    public static getDiscountAmount = async () => {
-
-    }
+    public static getDiscountAmount = async () => {};
 
     /* ------------- Get all discount code in shop  ------------- */
     public static getAllDiscountCodeInShop = async ({
@@ -144,6 +145,8 @@ export default class DiscountService {
             '+is_apply_all_product'
         );
         if (!discount) throw new NotFoundErrorResponse('Not found discount!');
+        if (!discount.is_available)
+            throw new ForbiddenErrorResponse('Discount is not available!');
 
         /* ---------------------------------------------------------- */
         /*     Missing check shop is admin because no RBAC build      */
@@ -248,11 +251,7 @@ export default class DiscountService {
         const $set = {};
         get$SetNestedFromObject(payload, $set);
 
-        return {
-            success:
-                (await discountModel.updateOne({ _id }, { $set }))
-                    .modifiedCount > 0
-        };
+        return (await discountModel.findOneAndUpdate({ _id }, { $set }, {new :true}))
     };
 
     /* ---------------------------------------------------------- */

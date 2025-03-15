@@ -14,7 +14,7 @@ export const NODE_ENV = (process.env.NODE_ENV || 'development') as
 // Database
 export const DB_URL = process.env.DB_URL || 'mongodb://localhost:27017';
 export const DB_MIN_POOL_SIZE = 50;
-export const DB_MAX_POOL_SIZE = 100;
+export const DB_MAX_POOL_SIZE = 500;
 
 // Paginate
 export const ITEM_PER_PAGE = 48; // Chia hết cho tá để dễ phân layout

@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "jsonfile": "^6.1.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/jsonfile": "^6.1.4"
+  }
+}
