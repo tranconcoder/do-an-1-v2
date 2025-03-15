@@ -1,10 +1,8 @@
+import { RequestHandler } from 'express';
+import { ITEM_PER_PAGE } from 'src/configs/server.config';
 import SuccessResponse, { CreatedResponse } from '../response/success.response';
 import ProductFactory from '../services/product';
-import {
-    RequestWithBody,
-    RequestWithParams,
-    RequestWithQuery
-} from '../types/request';
+import { RequestWithBody, RequestWithParams, RequestWithQuery } from '../types/request';
 
 export default class ProductController {
     /* ------------------------------------------------------ */
@@ -14,13 +12,10 @@ export default class ProductController {
         async (req, res, _) => {
             new CreatedResponse({
                 message: 'Product created successfully',
-                metadata: await ProductFactory.createProduct(
-                    req.body.product_category,
-                    {
-                        ...req.body,
-                        product_shop: req.userId as string
-                    }
-                )
+                metadata: await ProductFactory.createProduct(req.body.product_category, {
+                    ...req.body,
+                    product_shop: req.userId as string
+                })
             }).send(res);
         };
 
@@ -50,28 +45,36 @@ export default class ProductController {
                 name: 'Get product by id',
                 message: 'Get product by id success',
                 statusCode: 200,
-                metadata: await ProductFactory.getProductById(
-                    req.params.product_id
-                )
-            }).send(res);
-        };
-
-    /* --------------- Get all product by shop -------------- */
-    public static getAllProductByShop: RequestWithParams<joiTypes.product.definition.GetAllProductByShopSchema> =
-        async (req, res, _) => {
-            new SuccessResponse({
-                name: 'Get product shop',
-                message: 'Get product shop success',
-                statusCode: 200,
-                metadata: await ProductFactory.getAllProductByShop({
-                    product_shop: req.userId as string,
-                    currentPage: Number(req.params.currentPage)
+                metadata: await ProductFactory.getProductById({
+                    productId: req.params.productId,
+                    userId: req.userId 
                 })
             }).send(res);
         };
 
+    /* --------------- Get all product by shop -------------- */
+    public static getAllProductByShop: RequestHandler<
+        joiTypes.product.definition.GetAllProductByShopParams,
+        any,
+        any,
+        joiTypes.product.definition.GetAllProductByShopQuery
+    > = async (req, res, _) => {
+        console.log(req.query);
+        new SuccessResponse({
+            name: 'Get product shop',
+            message: 'Get product shop success',
+            statusCode: 200,
+            metadata: await ProductFactory.getAllProductByShop({
+                product_shop: req.params.shopId,
+                limit: req.query.limit || ITEM_PER_PAGE,
+                page: req.query.page || 1,
+                userId: req.userId as string
+            })
+        }).send(res);
+    };
+
     /* ------------- Get all product draft by shop  ------------- */
-    public static getAllProductDraftByShop: RequestWithParams<joiTypes.product.definition.GetAllProductDraftByShopSchema> =
+    public static getAllProductDraftByShop: RequestWithQuery<joiTypes.product.definition.GetAllProductDraftByShopSchema> =
         async (req, res, _) => {
             new SuccessResponse({
                 name: 'Get all product draft by shop',
@@ -79,13 +82,14 @@ export default class ProductController {
                 statusCode: 200,
                 metadata: await ProductFactory.getAllProductDraftByShop({
                     product_shop: req.userId as string,
-                    currentPage: Number(req.params.currentPage)
+                    limit: req.query.limit || ITEM_PER_PAGE,
+                    page: req.query.page || 1
                 })
             }).send(res);
         };
 
     /* ------------ Get all product publish by shop  ------------ */
-    public static getAllProductPublishByShop: RequestWithParams<joiTypes.product.definition.GetAllProductPublishByShopSchema> =
+    public static getAllProductPublishByShop: RequestWithQuery<joiTypes.product.definition.GetAllProductPublishByShopSchema> =
         async (req, res, _) => {
             new SuccessResponse({
                 name: 'Get all product publish by shop',
@@ -93,13 +97,14 @@ export default class ProductController {
                 statusCode: 200,
                 metadata: await ProductFactory.getAllProductPublishByShop({
                     product_shop: req.userId as string,
-                    currentPage: Number(req.params.currentPage)
+                    limit: req.query.limit || ITEM_PER_PAGE,
+                    page: req.query.page || 1
                 })
             }).send(res);
         };
 
     /* ------------ Get all product undraft by shop  ------------ */
-    public static getAllProductUndraftByShop: RequestWithParams<joiTypes.product.definition.GetAllProductUndraftByShopSchema> =
+    public static getAllProductUndraftByShop: RequestWithQuery<joiTypes.product.definition.GetAllProductUndraftByShopSchema> =
         async (req, res, _) => {
             new SuccessResponse({
                 name: 'Get all product undraft by shop',
@@ -107,13 +112,14 @@ export default class ProductController {
                 statusCode: 200,
                 metadata: await ProductFactory.getAllProductUndraftByShop({
                     product_shop: req.userId as string,
-                    currentPage: Number(req.params.currentPage)
+                    limit: req.query.limit || ITEM_PER_PAGE,
+                    page: req.query.page || 1
                 })
             }).send(res);
         };
 
     /* ----------- Get all product unpublish by shop  ----------- */
-    public static getAllProductUnpublishByShop: RequestWithParams<joiTypes.product.definition.GetAllProductUnpublishByShopSchema> =
+    public static getAllProductUnpublishByShop: RequestWithQuery<joiTypes.product.definition.GetAllProductUnpublishByShopSchema> =
         async (req, res, _) => {
             new SuccessResponse({
                 name: 'Get all product unpublish by shop',
@@ -121,7 +127,8 @@ export default class ProductController {
                 statusCode: 200,
                 metadata: await ProductFactory.getAllProductUnpublishByShop({
                     product_shop: req.userId as string,
-                    currentPage: Number(req.params.currentPage)
+                    limit: req.query.limit || ITEM_PER_PAGE,
+                    page: req.query.page || 1
                 })
             }).send(res);
         };
@@ -181,10 +188,7 @@ export default class ProductController {
     /* ------------------------------------------------------ */
     public static deleteProduct: RequestWithBody<joiTypes.product.definition.DeleteProductSchema> =
         async (req, res, _) => {
-            await ProductFactory.removeProduct(
-                req.body.product_id,
-                req.userId as string
-            );
+            await ProductFactory.removeProduct(req.body.product_id, req.userId as string);
 
             new SuccessResponse({
                 message: 'Product deleted successfully',

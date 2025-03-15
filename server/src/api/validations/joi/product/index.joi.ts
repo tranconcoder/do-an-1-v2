@@ -2,7 +2,7 @@ import Joi from 'joi';
 import { CategoryEnum } from '../../../enums/product.enum';
 import { createPhoneSchema, updatePhoneSchema } from './phone.joi';
 import { createClothesSchema, updateClothesSchema } from './clothes.joi';
-import { mongooseId } from '../../../../configs/joi.config';
+import { mongooseId, pageSplitting } from '../../../../configs/joi.config';
 
 /* ------------------------------------------------------ */
 /*                     Create product                     */
@@ -54,28 +54,27 @@ export const getProductByIdSchema = Joi.object<
     joiTypes.product.definition.GetProductByIdSchema,
     true
 >({
-    product_id: mongooseId
+    productId: mongooseId
 });
 
 /* --------------- Get all product by shop -------------- */
-export const getAllProductByShopSchema = Joi.object<
-    joiTypes.product.definition.GetAllProductByShopSchema,
-    true
->({
-    currentPage: Joi.number().required()
-});
+export const getAllProductByShopParamsSchema =
+    Joi.object<joiTypes.product.definition.GetAllProductByShopParams>({
+        shopId: mongooseId
+    });
+export const getAllProductByShopQuerySchema = pageSplitting;
 
 /* ------------ Get all product draft by shop ----------- */
-export const getAllProductDraftByShopSchema = getAllProductByShopSchema;
+export const getAllProductDraftByShopSchema = pageSplitting;
 
 /* ----------- Get all product publish by shop ---------- */
-export const getAllProductPublishByShopSchema = getAllProductByShopSchema;
+export const getAllProductPublishByShopSchema = pageSplitting;
 
-/* ------------- Get all produt undraft by shop ------------- */
-export const getAllProductUndraftByShopSchema = getAllProductByShopSchema;
+/* ------------- Get all product un draft by shop ------------- */
+export const getAllProductUndraftByShopSchema = pageSplitting;
 
 /* ---------- Get all product unpublish by shop ---------- */
-export const getAllProductUnpublishByShopSchema = getAllProductByShopSchema;
+export const getAllProductUnpublishByShopSchema = pageSplitting;
 
 /* ====================================================== */
 /*                         UPDATE                         */

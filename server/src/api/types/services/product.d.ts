@@ -32,36 +32,32 @@ declare global {
                 /* ------------------------------------------------------ */
                 /*                         Search                         */
                 /* ------------------------------------------------------ */
-                interface SearchProduct
-                    extends joiTypes.product.definition.SearchProductSchema {}
+                interface SearchProduct extends joiTypes.product.definition.SearchProductSchema {}
 
                 /* ------------------------------------------------------ */
                 /*                          Get                           */
                 /* ------------------------------------------------------ */
                 /* ----------------- Get product by id  ----------------- */
-                interface GetProductById
-                    extends joiTypes.product.definition.GetProductByIdSchema {}
+                interface GetProductById {
+                    productId: string;
+                    userId?: string;
+                }
 
                 /* --------------- Get all product by shop -------------- */
                 interface GetAllProductByShop
-                    extends joiTypes.product.definition
-                            .GetAllProductByShopSchema,
-                        Pick<
-                            modelTypes.product.ProductSchema,
-                            'product_shop'
-                        > {}
+                    extends Pick<modelTypes.product.ProductSchema, 'product_shop'>,
+                        Pick<moduleTypes.mongoose.FindAllWithPageSlittingArgs, 'limit' | 'page'> {
+                    userId: string;
+                }
 
-                interface GetAllProductDraftByShop
-                    extends GetAllProductByShop {}
+                interface GetAllProductDraftByShop extends Omit<GetAllProductByShop, 'userId'> {}
 
-                interface GetAllProductPublishByShop
-                    extends GetAllProductByShop {}
+                interface GetAllProductPublishByShop extends Omit<GetAllProductByShop, 'userId'> {}
 
-                interface GetAllProductUndraftByShop
-                    extends GetAllProductByShop {}
+                interface GetAllProductUndraftByShop extends Omit<GetAllProductByShop, 'userId'> {}
 
                 interface GetAllProductUnpublishByShop
-                    extends GetAllProductByShop {}
+                    extends Omit<GetAllProductByShop, 'userId'> {}
 
                 /* ------------------- Update product ------------------- */
                 interface UpdateProduct
@@ -78,8 +74,7 @@ declare global {
                 interface SetPublishProduct extends SetDraftProduct {}
 
                 /* ------------------- Remove product ------------------- */
-                type RemoveProduct =
-                    joiTypes.product.definition.DeleteProductSchema['product_id'];
+                type RemoveProduct = joiTypes.product.definition.DeleteProductSchema['product_id'];
             }
         }
     }

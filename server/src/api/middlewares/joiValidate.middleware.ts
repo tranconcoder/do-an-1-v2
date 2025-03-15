@@ -4,7 +4,7 @@ import catchError from './catchError.middleware';
 /* --------------- Validate request body  --------------- */
 export default function validateRequestBody(schema: Schema) {
     return catchError(async (req, _, next) => {
-        await schema.validateAsync(req.body);
+        req.body = await schema.validateAsync(req.body, { convert: true });
         next();
     });
 }
@@ -12,15 +12,15 @@ export default function validateRequestBody(schema: Schema) {
 /* -------------- Validate request params  -------------- */
 export const validateRequestParams = (schema: Schema) => {
     return catchError(async (req, _, next) => {
-        await schema.validateAsync(req.params);
+        req.params = await schema.validateAsync(req.params, { convert: true });
         next();
     });
 };
 
 /* --------------- Validate product query --------------- */
-export const validateRequestQuery= (schema: Schema) => {
+export const validateRequestQuery = (schema: Schema) => {
     return catchError(async (req, _, next) => {
-        await schema.validateAsync(req.query);
+        req.query = await schema.validateAsync(req.query, { convert: true });
         next();
     });
 };

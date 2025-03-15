@@ -5,9 +5,10 @@ import {
     validateRequestParams,
     validateRequestQuery
 } from '../../middlewares/joiValidate.middleware';
-import { authenticate } from '../../middlewares/jwt.middleware';
+import { authenticate, authenticateNotRequired } from '../../middlewares/jwt.middleware';
 import {
-    getAllProductByShopSchema,
+    getAllProductByShopParamsSchema,
+    getAllProductByShopQuerySchema,
     getAllProductDraftByShopSchema,
     getAllProductPublishByShopSchema,
     getProductByIdSchema,
@@ -15,6 +16,7 @@ import {
 } from '../../validations/joi/product/index.joi';
 
 const productGetRoute = Router();
+const productGetRouteValidateOrNot = Router();
 const productGetRouteValidate = Router();
 
 /* ------------------------------------------------------ */
@@ -26,12 +28,17 @@ productGetRoute.get(
     catchError(ProductController.searchProduct as any)
 );
 
-/* ------------------------------------------------------ */
-/*                          Get                           */
-/* ------------------------------------------------------ */
+
+
+/* ---------------------------------------------------------- */
+/*                   Validate or not routes                   */
+/* ---------------------------------------------------------- */
+productGetRoute.use(productGetRouteValidateOrNot)
+productGetRouteValidateOrNot.use(authenticateNotRequired)
+
 /* ----------------- Get product by id  ----------------- */
 productGetRoute.get(
-    '/get-by-id/:product_id',
+    '/get-by-id/:productId',
     validateRequestParams(getProductByIdSchema),
     catchError(ProductController.getProductById)
 );
@@ -42,41 +49,39 @@ productGetRoute.get(
 productGetRoute.use(productGetRouteValidate);
 productGetRouteValidate.use(authenticate);
 
-/* ------------------------------------------------------ */
-/*                          Get                           */
-/* ------------------------------------------------------ */
 /* ---------------- Get all product by shop  ---------------- */
 productGetRouteValidate.get(
-    '/product-shop/all/:currentPage',
-    validateRequestParams(getAllProductByShopSchema),
+    '/product-shop/all/:shopId',
+    validateRequestQuery(getAllProductByShopQuerySchema),
+    validateRequestParams(getAllProductByShopParamsSchema),
     catchError(ProductController.getAllProductByShop)
 );
 
 /* ------------- Get all product draft by shop  ------------- */
 productGetRouteValidate.get(
-    '/product-shop/draft/all/:currentPage',
-    validateRequestParams(getAllProductDraftByShopSchema),
+    '/product-shop/draft/all',
+    validateRequestQuery(getAllProductDraftByShopSchema),
     catchError(ProductController.getAllProductDraftByShop)
 );
 
 /* ------------ Get all product publish by shop  ------------ */
 productGetRouteValidate.get(
-    '/product-shop/publish/all/:currentPage',
-    validateRequestParams(getAllProductPublishByShopSchema),
+    '/product-shop/publish/all',
+    validateRequestQuery(getAllProductPublishByShopSchema),
     catchError(ProductController.getAllProductPublishByShop)
 );
 
 /* ------------ Get all product undraft by shop  ------------ */
 productGetRouteValidate.get(
-    '/product-shop/undraft/all/:currentPage',
-    validateRequestParams(getAllProductDraftByShopSchema),
+    '/product-shop/undraft/all',
+    validateRequestQuery(getAllProductDraftByShopSchema),
     catchError(ProductController.getAllProductUndraftByShop)
 );
 
 /* ----------- Get all product unpublish by shop  ----------- */
 productGetRouteValidate.get(
-    '/product-shop/unpublish/all/:currentPage',
-    validateRequestParams(getAllProductPublishByShopSchema),
+    '/product-shop/unpublish/all',
+    validateRequestQuery(getAllProductPublishByShopSchema),
     catchError(ProductController.getAllProductUnpublishByShop)
 );
 

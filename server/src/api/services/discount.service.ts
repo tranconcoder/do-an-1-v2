@@ -251,8 +251,15 @@ export default class DiscountService {
         const $set = {};
         get$SetNestedFromObject(payload, $set);
 
-        return (await discountModel.findOneAndUpdate({ _id }, { $set }, {new :true}))
+        return await discountModel.findOneAndUpdate(
+            { _id },
+            { $set },
+            { new: true }
+        );
     };
+
+    /* -------------------- Cancel discount  -------------------- */
+    public static cancelDiscount = async () => {};
 
     /* ---------------------------------------------------------- */
     /*                           Delete                           */

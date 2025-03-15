@@ -13,18 +13,12 @@ declare global {
                 /* ====================================================== */
                 interface CreatePhoneSchema
                     extends moduleTypes.mongoose.ConvertObjectIdToString<
-                        Omit<
-                            modelTypes.product.PhoneSchema,
-                            'product_shop' | '_id'
-                        >
+                        Omit<modelTypes.product.PhoneSchema, 'product_shop' | '_id'>
                     > {}
 
                 interface CreateClothesSchema
                     extends moduleTypes.mongoose.ConvertObjectIdToString<
-                        Omit<
-                            modelTypes.product.ClothesSchema,
-                            'product_shop' | '_id'
-                        >
+                        Omit<modelTypes.product.ClothesSchema, 'product_shop' | '_id'>
                     > {}
 
                 interface CreateProductSchema
@@ -52,39 +46,33 @@ declare global {
                 /* ====================================================== */
                 /*                        GET ONE                         */
                 /* ====================================================== */
-                interface GetProductByIdSchema {
-                    product_id: string;
-                }
+                interface GetProductByIdSchema
+                    extends Omit<serviceTypes.product.arguments.GetProductById, 'userId'> {}
 
                 /* ====================================================== */
                 /*                         GET ALL                        */
                 /* ====================================================== */
-                interface GetAllProductByShopSchema {
-                    currentPage: number;
+                interface GetAllProductByShopQuery extends joiTypes.PageSplitting {}
+                interface GetAllProductByShopParams {
+                    shopId: string;
                 }
 
-                interface GetAllProductDraftByShopSchema
-                    extends GetAllProductByShopSchema {}
+                interface GetAllProductDraftByShopSchema extends joiTypes.PageSplitting {}
 
-                interface GetAllProductPublishByShopSchema
-                    extends GetAllProductByShopSchema {}
+                interface GetAllProductPublishByShopSchema extends joiTypes.PageSplitting {}
 
-                interface GetAllProductUndraftByShopSchema
-                    extends GetAllProductByShopSchema {}
+                interface GetAllProductUndraftByShopSchema extends joiTypes.PageSplitting {}
 
-                interface GetAllProductUnpublishByShopSchema
-                    extends GetAllProductByShopSchema {}
+                interface GetAllProductUnpublishByShopSchema extends joiTypes.PageSplitting {}
 
                 /* ====================================================== */
                 /*                         UPDATE                         */
                 /* ====================================================== */
                 interface UpdatePhoneSchema
-                    extends commonTypes.utils
-                        .PartialNested<CreatePhoneSchema> {}
+                    extends commonTypes.utils.PartialNested<CreatePhoneSchema> {}
 
                 interface UpdateClothesSchema
-                    extends commonTypes.utils
-                        .PartialNested<CreateClothesSchema> {}
+                    extends commonTypes.utils.PartialNested<CreateClothesSchema> {}
 
                 interface UpdateProductSchema
                     extends commonTypes.utils.PartialWithout<
@@ -99,8 +87,7 @@ declare global {
                     product_id: string;
                 }
 
-                interface SetPublishProductSchema
-                    extends SetDraftProductSchema {}
+                interface SetPublishProductSchema extends SetDraftProductSchema {}
 
                 /* ====================================================== */
                 /*                         DELETE                         */
@@ -116,9 +103,7 @@ declare global {
         /* ====================================================== */
         namespace validate {
             interface ClothesSchemaRequiredKeys
-                extends Array<
-                    commonTypes.utils.RequiredKeys<product.CreateClothesSchema>
-                > {}
+                extends Array<commonTypes.utils.RequiredKeys<product.CreateClothesSchema>> {}
         }
     }
 }

@@ -1,10 +1,8 @@
 /* ----------------------- Configs ---------------------- */
 import { getProduct } from '../../../configs/product.config';
+import { BadRequestErrorResponse, NotFoundErrorResponse } from '../../response/error.response';
 import {
-    BadRequestErrorResponse,
-    NotFoundErrorResponse
-} from '../../response/error.response';
-import {
+    checkUserIsShop,
     findAllProductByShop,
     findAllProductDraftByShop,
     findAllProductPublishByShop,
@@ -23,15 +21,12 @@ export default class ProductFactory {
     /* ------------------------------------------------------ */
     /*                     Create product                     */
     /* ------------------------------------------------------ */
-    public static createProduct = async <
-        K extends modelTypes.product.ProductList
-    >(
+    public static createProduct = async <K extends modelTypes.product.ProductList>(
         type: K,
         payload: serviceTypes.product.arguments.CreateProduct
     ) => {
         const serviceClass = await getProduct<K>(type);
-        if (!serviceClass)
-            throw new NotFoundErrorResponse('Not found product service');
+        if (!serviceClass) throw new NotFoundErrorResponse('Not found product service');
 
         const instance = new serviceClass(payload as any);
 
@@ -41,9 +36,7 @@ export default class ProductFactory {
     /* ------------------------------------------------------ */
     /*                         Search                         */
     /* ------------------------------------------------------ */
-    public static searchProduct = async (
-        payload: serviceTypes.product.arguments.SearchProduct
-    ) => {
+    public static searchProduct = async (payload: serviceTypes.product.arguments.SearchProduct) => {
         return await searchProduct(payload);
     };
 
@@ -51,15 +44,25 @@ export default class ProductFactory {
     /*                      Get product                       */
     /* ------------------------------------------------------ */
     /* ----------------- Get product by id  ----------------- */
-    public static getProductById = async (productId: string) => {
-        return await findProductById(productId);
+    public static getProductById = async ({
+        userId,
+        productId
+    }: serviceTypes.product.arguments.GetProductById) => {
+        return await findProductById({ userId, productId });
     };
 
     /* --------------- Get all product by shop -------------- */
     public static getAllProductByShop = async ({
+        userId,
         ...payload
     }: serviceTypes.product.arguments.GetAllProductByShop) => {
-        return await findAllProductByShop(payload);
+        const isOwner =
+            Boolean(await checkUserIsShop({ userId })) && payload.product_shop === userId;
+
+        return await findAllProductByShop({
+            ...payload,
+            isOwner
+        });
     };
 
     /* ------------ Get all product draft by shop ----------- */
@@ -110,17 +113,14 @@ export default class ProductFactory {
             payload.product_new_category &&
             payload.product_category !== payload.product_new_category
         ) {
-            const removeServiceClass = await getProduct(
-                payload.product_category
-            );
+            const removeServiceClass = await getProduct(payload.product_category);
             const instance = new removeServiceClass({ _id });
 
             await instance.removeProduct();
         }
 
         /* ------------------- Update product ------------------- */
-        const category =
-            payload.product_new_category || payload.product_category;
+        const category = payload.product_new_category || payload.product_category;
         const serviceClass = await getProduct(category);
         const instance = new serviceClass({ ...payload, _id });
 
@@ -149,14 +149,12 @@ export default class ProductFactory {
         userId: string
     ) => {
         /* ------------------ Get product type ------------------ */
-        const type: modelTypes.product.ProductList | undefined =
-            await findProductCategoryById(id);
+        const type: modelTypes.product.ProductList | undefined = await findProductCategoryById(id);
         if (!type) throw new NotFoundErrorResponse('Product not found!');
 
         /* ----------------- Init service class ----------------- */
         const serviceClass = await getProduct(type);
-        if (!serviceClass)
-            throw new NotFoundErrorResponse('Not found product service');
+        if (!serviceClass) throw new NotFoundErrorResponse('Not found product service');
 
         const instance = new serviceClass({
             _id: id,

@@ -9,10 +9,27 @@ declare global {
                     'query' | 'select'
                 > {}
 
+            /* ------------------- Check user is shop ------------------- */
+            interface CheckUserIsShop {
+                userId: string;
+            }
+
             /* ------ Check products is available to apply discount ------ */
             interface CheckProductsIsAvailableToApplyDiscount {
                 shopId: string;
                 productIds: string[];
+            }
+
+            /* ---------------------------------------------------------- */
+            /*                            Find                            */
+            /* ---------------------------------------------------------- */
+            interface FindProductById extends serviceTypes.product.arguments.GetProductById {
+            
+            }
+
+            interface FindAllProductByShop
+                extends Omit<serviceTypes.product.arguments.GetAllProductByShop, 'userId'> {
+                isOwner: boolean;
             }
         }
     }

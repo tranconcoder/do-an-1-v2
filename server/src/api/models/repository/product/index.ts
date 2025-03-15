@@ -9,8 +9,7 @@ import { productModel } from '../../product.model';
 
 // Common
 export const queryPaginate = async (query: object, page: number) => {
-    if (!page || page < 1)
-        throw new NotFoundErrorResponse('Current page invalid!');
+    if (!page || page < 1) throw new NotFoundErrorResponse('Current page invalid!');
 
     return await productModel
         .find(query)
@@ -35,9 +34,7 @@ export const queryProductByShop = async (
 /* ---------------------------------------------------------- */
 /*                           Create                           */
 /* ---------------------------------------------------------- */
-export const createProduct = async (
-    payload: serviceTypes.product.arguments.CreateProduct
-) => {
+export const createProduct = async (payload: serviceTypes.product.arguments.CreateProduct) => {
     return await productModel.create(payload);
 };
 
@@ -49,8 +46,7 @@ export const searchProduct = async ({
     page,
     query
 }: serviceTypes.product.arguments.SearchProduct) => {
-    if (!page || page < 1)
-        throw new NotFoundErrorResponse('Current page invalid!');
+    if (!page || page < 1) throw new NotFoundErrorResponse('Current page invalid!');
 
     return await productModel
         .find(
@@ -72,22 +68,25 @@ export const searchProduct = async ({
 /*                          Find one                          */
 /* ---------------------------------------------------------- */
 /* ----------------- Find product by id ----------------- */
-export const findProductById = async (id: string) => {
-    const product = await productModel.findById(id);
+export const findProductById = async ({ productId, userId }: repoTypes.product.FindProductById) => {
+    const product = await productModel.findById(productId).lean();
     if (!product) throw new NotFoundErrorResponse('Not found product!');
 
-    return product;
+    if (product.is_publish) return product;
+
+    /* ------------ Check is shop when not publish  ------------ */
+    if (product.product_shop === userId) return product;
+
+    throw new ForbiddenErrorResponse('Not permission to get this product!');
 };
 
-export const findOneProduct = async (
-    payload: Partial<modelTypes.product.ProductSchema>
-) => {
+export const findOneProduct = async (payload: Partial<modelTypes.product.ProductSchema>) => {
     return await productModel.findOne(payload);
 };
 
 /* ------------- Find product category by id ------------ */
 export const findProductCategoryById = async (id: string) => {
-    return await findProductById(id).then((x) => x?.product_category);
+    return await productModel.findById(id).then((x) => x?.product_category);
 };
 
 /* ------------------------------------------------------ */
@@ -99,9 +98,7 @@ export const findAllProduct =
     generateFindAllPageSplit<modelTypes.product.ProductSchema>(productModel);
 
 /* ------------ Find all product id as string ------------ */
-export const findAllProductId = async (
-    payload: repoTypes.product.FindAllProductId
-) => {
+export const findAllProductId = async (payload: repoTypes.product.FindAllProductId) => {
     return findAllProduct({
         query: {},
         projection: payload.projection,
@@ -115,62 +112,80 @@ export const findAllProductId = async (
 
 /* -------------- Find all product by shop -------------- */
 export const findAllProductByShop = async ({
-    currentPage,
-    product_shop
-}: serviceTypes.product.arguments.GetAllProductByShop) => {
-    return queryPaginate({ product_shop }, currentPage);
+    product_shop,
+    limit,
+    page,
+    isOwner
+}: repoTypes.product.FindAllProductByShop) => {
+    return await findAllProduct({
+        query: isOwner ? { product_shop } : { product_shop, is_publish: true },
+        limit,
+        page
+    });
 };
 
 /* ------------- Find all product draft by shop ------------- */
 export const findAllProductDraftByShop = async ({
     product_shop,
-    currentPage
+    limit,
+    page
 }: serviceTypes.product.arguments.GetAllProductDraftByShop) => {
-    const query: Partial<modelTypes.product.ProductSchema> = {
-        product_shop,
-        is_draft: true
-    };
-
-    return queryPaginate(query, currentPage);
+    return findAllProduct({
+        query: { product_shop, is_draft: true },
+        limit,
+        page
+    });
 };
 
 /* ------------ Find all product publish by shop ------------ */
 export const findAllProductPublishByShop = async ({
     product_shop,
-    currentPage
+    page,
+    limit
 }: serviceTypes.product.arguments.GetAllProductPublishByShop) => {
     const query: Partial<modelTypes.product.ProductSchema> = {
         product_shop,
         is_publish: true
     };
 
-    return queryPaginate(query, currentPage);
+    return await findAllProduct({
+        query: {
+            product_shop,
+            is_publish: true
+        },
+        limit,
+        page
+    });
 };
 
 /* ------------ Find all product undraft by shop ------------ */
 export const findAllProductUndraftByShop = async ({
     product_shop,
-    currentPage
+    limit,
+    page
 }: serviceTypes.product.arguments.GetAllProductUndraftByShop) => {
-    const query: Partial<modelTypes.product.ProductSchema> = {
-        product_shop,
-        is_draft: false
-    };
-
-    return queryPaginate(query, currentPage);
+    return await findAllProduct({
+        query: {
+            product_shop,
+            is_draft: false
+        }
+    });
 };
 
 /* ------------ Find all product unpublish by shop ------------ */
 export const findAllProductUnpublishByShop = async ({
     product_shop,
-    currentPage
+    limit,
+    page
 }: serviceTypes.product.arguments.GetAllProductUnpublishByShop) => {
-    const query: Partial<modelTypes.product.ProductSchema> = {
-        product_shop,
-        is_publish: false
-    };
-
-    return queryPaginate(query, currentPage);
+    return await findAllProduct({
+        query: {
+            product_shop,
+            is_publish: false
+        },
+        limit,
+        page
+    });
 };
 
 /* ------------- Find product by shop and id ------------ */
@@ -180,7 +195,10 @@ export const findProductByShopAndId = async (
     return await productModel.findOne(payload);
 };
 
-/* ------------- Check product list is publish  ------------- */
+/* ------------------- Check user is shop ------------------- */
+export const checkUserIsShop = async ({ userId }: repoTypes.product.CheckUserIsShop) => {
+    return await productModel.exists({ product_shop: userId });
+};
 
 /* ------ Check products is available to apply discount ------ */
 export const checkProductsIsAvailableToApplyDiscount = async ({
@@ -233,8 +251,7 @@ export const deleteProductById = async (_id: string) => {
     if (!product) throw new ErrorResponse(400, 'Delete product failed!');
 
     const productChildModel = getProductModel(product.product_category);
-    if (!productChildModel)
-        throw new NotFoundErrorResponse('Not found product!');
+    if (!productChildModel) throw new NotFoundErrorResponse('Not found product!');
 
     const { deletedCount } = await productChildModel.deleteOne({ _id });
 
@@ -242,9 +259,7 @@ export const deleteProductById = async (_id: string) => {
 };
 
 /* ----------------- Delete one product ----------------- */
-export const deleteOneProduct = async (
-    payload: Partial<modelTypes.product.ProductSchema>
-) => {
+export const deleteOneProduct = async (payload: Partial<modelTypes.product.ProductSchema>) => {
     const { deletedCount } = await productModel.deleteOne(payload);
     return deletedCount;
 };

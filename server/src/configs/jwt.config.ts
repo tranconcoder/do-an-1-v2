@@ -1,7 +1,9 @@
+import {NODE_ENV} from "./server.config";
+
 export default {
     accessToken: {
         options: {
-            expiresIn: '15 minutes', // 15 minutes
+            expiresIn: NODE_ENV === "development" ? "1 day" :'15 minutes', // 15 minutes
             algorithm: 'RS256'
         }
     },
