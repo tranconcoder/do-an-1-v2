@@ -4,6 +4,8 @@ import JwtService from '../services/jwt.service';
 import KeyTokenService from '../services/keyToken.service';
 
 export const authenticate = catchError(async (req, _, next) => {
+    if (req.userId) return next();
+
     /* -------------- Get token from header ------------- */
     const authHeader = req.headers.authorization;
     const accessToken = authHeader && authHeader.split(' ').at(1);

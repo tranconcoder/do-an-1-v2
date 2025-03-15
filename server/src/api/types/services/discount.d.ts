@@ -28,20 +28,17 @@ declare global {
                 }
 
                 /* -------- Get all discount code available in shop  -------- */
-                interface GetAllDiscountCodeInShop
-                    extends commonTypes.object.PageSlitting {
+                interface GetAllDiscountCodeInShop extends commonTypes.object.PageSlitting {
                     shopId: string;
                 }
 
                 /* ----------- Get all discount code with product ----------- */
-                interface GetAllDiscountCodeWithProduct
-                    extends commonTypes.object.PageSlitting {
+                interface GetAllDiscountCodeWithProduct extends commonTypes.object.PageSlitting {
                     productId: string;
                 }
 
                 /* ------------ Get all product discount by code ------------ */
-                interface GetAllProductDiscountByCode
-                    extends commonTypes.object.PageSlitting {
+                interface GetAllProductDiscountByCode extends commonTypes.object.PageSlitting {
                     discountId: string;
                 }
 
@@ -51,10 +48,7 @@ declare global {
                 interface UpdateDiscount
                     extends commonTypes.utils.PartialWithout<
                         moduleTypes.mongoose.ConvertObjectIdToString<
-                            Omit<
-                                modelTypes.discount.DiscountSchema,
-                                'is_admin_voucher'
-                            >
+                            Omit<modelTypes.discount.DiscountSchema, 'is_admin_voucher'>
                         >,
                         '_id' | 'discount_shop'
                     > {}

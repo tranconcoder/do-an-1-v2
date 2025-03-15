@@ -8,7 +8,7 @@ export const CART_COLLECTION_NAME = 'carts';
 
 const cartSchema = new Schema(
     {
-        user: { type: Schema.Types.ObjectId, ref: USER_MODEL_NAME, required, unique },
+        user: { type: Schema.Types.ObjectId, ref: USER_MODEL_NAME, required },
         cart_product: [
             {
                 product: { type: Schema.Types.ObjectId, ref: PRODUCT_MODEL_NAME, required },

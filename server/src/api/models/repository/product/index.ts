@@ -69,8 +69,9 @@ export const searchProduct = async ({
 /* ---------------------------------------------------------- */
 /* ----------------- Find product by id ----------------- */
 export const findProductById = async ({ productId, userId }: repoTypes.product.FindProductById) => {
-    const product = await productModel.findById(productId).lean();
+    const product = await productModel.findById(productId, "+is_publish").lean();
     if (!product) throw new NotFoundErrorResponse('Not found product!');
+
 
     if (product.is_publish) return product;
 
@@ -120,7 +121,9 @@ export const findAllProductByShop = async ({
     return await findAllProduct({
         query: isOwner ? { product_shop } : { product_shop, is_publish: true },
         limit,
-        page
+        page,
+        omit: ['__v', 'created_at', 'updated_at'],
+        sort: { updated_at: -1 }
     });
 };
 
@@ -133,7 +136,8 @@ export const findAllProductDraftByShop = async ({
     return findAllProduct({
         query: { product_shop, is_draft: true },
         limit,
-        page
+        page,
+        sort: { updated_at: -1 }
     });
 };
 
@@ -154,7 +158,8 @@ export const findAllProductPublishByShop = async ({
             is_publish: true
         },
         limit,
-        page
+        page,
+        sort: { updated_at: -1 }
     });
 };
 
@@ -184,7 +189,8 @@ export const findAllProductUnpublishByShop = async ({
             is_publish: false
         },
         limit,
-        page
+        page,
+        sort: { updated_at: -1 }
     });
 };
 

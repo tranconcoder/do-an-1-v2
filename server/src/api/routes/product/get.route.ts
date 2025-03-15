@@ -28,26 +28,18 @@ productGetRoute.get(
     catchError(ProductController.searchProduct as any)
 );
 
-
-
 /* ---------------------------------------------------------- */
 /*                   Validate or not routes                   */
 /* ---------------------------------------------------------- */
-productGetRoute.use(productGetRouteValidateOrNot)
-productGetRouteValidateOrNot.use(authenticateNotRequired)
+productGetRoute.use(productGetRouteValidateOrNot);
+productGetRouteValidateOrNot.use(authenticateNotRequired);
 
 /* ----------------- Get product by id  ----------------- */
-productGetRoute.get(
+productGetRouteValidateOrNot.get(
     '/get-by-id/:productId',
     validateRequestParams(getProductByIdSchema),
     catchError(ProductController.getProductById)
 );
-
-/* ------------------------------------------------------ */
-/*                    Validated routes                    */
-/* ------------------------------------------------------ */
-productGetRoute.use(productGetRouteValidate);
-productGetRouteValidate.use(authenticate);
 
 /* ---------------- Get all product by shop  ---------------- */
 productGetRouteValidate.get(
@@ -56,6 +48,12 @@ productGetRouteValidate.get(
     validateRequestParams(getAllProductByShopParamsSchema),
     catchError(ProductController.getAllProductByShop)
 );
+
+/* ------------------------------------------------------ */
+/*                    Validated routes                    */
+/* ------------------------------------------------------ */
+productGetRouteValidateOrNot.use(productGetRouteValidate);
+productGetRouteValidate.use(authenticate);
 
 /* ------------- Get all product draft by shop  ------------- */
 productGetRouteValidate.get(

@@ -47,7 +47,7 @@ export default class ProductController {
                 statusCode: 200,
                 metadata: await ProductFactory.getProductById({
                     productId: req.params.productId,
-                    userId: req.userId 
+                    userId: req.userId
                 })
             }).send(res);
         };
@@ -175,7 +175,7 @@ export default class ProductController {
                 message: 'Set publish product success',
                 statusCode: 200,
                 metadata: {
-                    setDraftSuccess: await ProductFactory.setPublishProduct({
+                    setPublishSuccess: await ProductFactory.setPublishProduct({
                         product_id: req.params.product_id,
                         product_shop: req.userId as string
                     })
