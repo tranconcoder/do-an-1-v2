@@ -81,10 +81,9 @@ export const generateFindOneAndUpdate = <T = any>(model: any) => {
         /* -------------------------- Omit -------------------------- */
         if (omit === 'metadata') {
             const metadataField = ['__v', ...Object.values(timestamps)];
+
             for (const field of metadataField) projection[field] = 0;
         } else for (const field of omit) projection[field] = 0;
-
-        console.log(projection);
 
         return (await (model.findOneAndUpdate(query, update, options) as Query)
             .select(projection)

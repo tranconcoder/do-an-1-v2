@@ -11,6 +11,12 @@ declare global {
 
             /* ---------------- Delete product from cart ---------------- */
             interface DeleteProductFromCart extends AddToCart {}
+
+            /* --------------------- Select product --------------------- */
+            interface SelectProduct extends AddToCart {}
+
+            /* ------------------- Un select product  ------------------- */
+            interface UnSelectProduct extends AddToCart {}
         }
     }
 }

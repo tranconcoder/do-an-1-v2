@@ -13,6 +13,7 @@ const cartSchema = new Schema(
         cart_product: [
             {
                 product: { type: Schema.Types.ObjectId, ref: PRODUCT_MODEL_NAME, required },
+                product_name: { type: String, required },
                 quantity: { type: Number, required },
                 price: { type: Number, required },
                 status: { type: String, enum: CartItemStatus, default: CartItemStatus.Active }

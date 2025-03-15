@@ -7,6 +7,7 @@ declare global {
                 user: moduleTypes.mongoose.ObjectId;
                 cart_product: Array<{
                     product: moduleTypes.mongoose.ObjectId;
+                    product_name: string;
                     quantity: number;
                     price: number;
                     status?: CartItemStatus;

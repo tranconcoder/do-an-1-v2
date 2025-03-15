@@ -15,3 +15,9 @@ export const decreaseFromCart = addToCartSchema;
 
 /* ---------------- Delete product from cart ---------------- */
 export const deleteProductFromCart = addToCartSchema;
+
+/* --------------------- Select product --------------------- */
+export const selectProduct = addToCartSchema;
+
+/* -------------------- Unselect product -------------------- */
+export const unSelectProduct = addToCartSchema;

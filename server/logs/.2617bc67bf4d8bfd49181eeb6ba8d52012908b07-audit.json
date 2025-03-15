@@ -79,6 +79,11 @@
             "date": 1742001421322,
             "name": "logs/2025/weeks-11/day-6/debug.log",
             "hash": "eae902fd5bc28d1b98560548b3b341ac7420e59ac6166f87c9eec4bea0128285"
+        },
+        {
+            "date": 1742058000028,
+            "name": "logs/2025/weeks-12/day-0/debug.log",
+            "hash": "9cdcdc92b5be79072927a762a4a1a2e9da1b76bd88be91449ffe7b15f55c4829"
         }
     ],
     "hashType": "sha256"

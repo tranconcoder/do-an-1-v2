@@ -1,9 +1,28 @@
+import { CartItemStatus } from '../enums/cart.enum';
 import cartModel from '../models/cart.model';
 import { findOneAndUpdateCart } from '../models/repository/cart/index';
 import { findProductById } from '../models/repository/product/index';
 import { ForbiddenErrorResponse, NotFoundErrorResponse } from '../response/error.response';
 
 export default class CartService {
+    /* ---------------------------------------------------------- */
+    /*                          Get cart                          */
+    /* ---------------------------------------------------------- */
+    public static async getCart({ user }: serviceTypes.cart.arguments.GetCart) {
+        let cart: any = await cartModel.findOne({ user }).lean();
+        if (!cart) {
+            /* --------------- Add new cart product item  --------------- */
+            cart = await findOneAndUpdateCart({
+                query: { user },
+                update: {},
+                options: { new: true, upsert: true },
+                omit: 'metadata'
+            }).lean();
+        }
+
+        return cart;
+    }
+
     /* ---------------------------------------------------------- */
     /*                        Add to cart                         */
     /* ---------------------------------------------------------- */
@@ -17,13 +36,15 @@ export default class CartService {
         const cart = await findOneAndUpdateCart({
             query: { user: userId },
             update: {},
-            options: { new: true, upsert: true }
+            options: { new: true, upsert: true },
+            omit: 'metadata'
         });
 
         const cartProduct = cart.cart_product.find((x) => x.product.toString() === productId);
         if (!cartProduct) {
             cart.cart_product.push({
                 product: productId,
+                product_name: foundProduct.product_name,
                 quantity: 1,
                 price: foundProduct.product_cost
             });
@@ -54,7 +75,8 @@ export default class CartService {
                 'cart_product.quantity': { $gt: 0 }
             },
             update: { $inc: { 'cart_product.$.quantity': -1 } },
-            options: { new: true }
+            options: { new: true },
+            omit: 'metadata'
         });
         if (!cart) throw new NotFoundErrorResponse('Cart not found!');
 
@@ -97,5 +119,41 @@ export default class CartService {
     public static async selectProduct({
         productId,
         userId
-    }: serviceTypes.cart.arguments.SelectProduct) {}
+    }: serviceTypes.cart.arguments.SelectProduct) {
+        const cart = await findOneAndUpdateCart({
+            query: {
+                user: userId,
+                'cart_product.product': productId,
+                'cart_product.status': CartItemStatus.Inactive
+            },
+            update: { 'cart_product.$.status': CartItemStatus.Active },
+            options: { new: true }
+        });
+
+        if (!cart) throw new NotFoundErrorResponse('Not found cart of cart is not inactive!');
+
+        return cart;
+    }
+
+    /* ---------------------------------------------------------- */
+    /*                      Unselect product                      */
+    /* ---------------------------------------------------------- */
+    public static async unSelectProduct({
+        userId,
+        productId
+    }: serviceTypes.cart.arguments.UnSelectProduct) {
+        const cart = await findOneAndUpdateCart({
+            query: {
+                user: userId,
+                'cart_product.product': productId,
+                'cart_product.status': CartItemStatus.Active
+            },
+            update: { 'cart_product.$.status': CartItemStatus.Inactive },
+            options: { new: true }
+        });
+
+        if (!cart) throw new NotFoundErrorResponse('Not found cart of cart is not active!');
+
+        return cart;
+    }
 }

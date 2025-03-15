@@ -7,6 +7,11 @@ declare global {
             /*                         Arguments                          */
             /* ---------------------------------------------------------- */
             namespace arguments {
+                /* ------------------------ Get cart ------------------------ */
+                interface GetCart {
+                    user: string;
+                }
+
                 /* ---------------------- Add to cart  ---------------------- */
                 interface AddToCart {
                     userId: string;
@@ -14,22 +19,16 @@ declare global {
                 }
 
                 /* ------------------- Decrease from cart ------------------- */
-                interface DecreaseFromCart {
-                    userId: string;
-                    productId: string;
-                }
+                interface DecreaseFromCart extends AddToCart {}
 
                 /* ---------------- Delete product from cart ---------------- */
-                interface DeleteProductFromCart {
-                    userId: string;
-                    productId: string;
-                }
+                interface DeleteProductFromCart extends AddToCart {}
 
                 /* --------------------- Select product --------------------- */
-                interface SelectProduct {
-                    userId: string;
-                    productId: string;
-                }
+                interface SelectProduct extends AddToCart {}
+
+                /* -------------------- Unselect product -------------------- */
+                interface UnSelectProduct extends AddToCart {}
             }
         }
     }
