@@ -50,16 +50,13 @@ export default class DiscountService {
 
         /* --------------- Check products is publish  --------------- */
         if (payload.discount_products) {
-            const isAllProductPublish =
-                await checkProductsIsAvailableToApplyDiscount({
-                    productIds: payload.discount_products as string[],
-                    shopId: userId
-                });
+            const isAllProductPublish = await checkProductsIsAvailableToApplyDiscount({
+                productIds: payload.discount_products as string[],
+                shopId: userId
+            });
 
             if (!isAllProductPublish)
-                throw new NotFoundErrorResponse(
-                    "Some product in discount code isn't publish!"
-                );
+                throw new NotFoundErrorResponse("Some product in discount code isn't publish!");
         }
 
         return await createDiscount({
@@ -80,8 +77,7 @@ export default class DiscountService {
         const discount = await findDiscountById(discountId);
 
         if (!discount) throw new NotFoundErrorResponse('Not found discount!');
-        if (!discount.is_available)
-            throw new ForbiddenErrorResponse('Discount is not available!');
+        if (!discount.is_available) throw new ForbiddenErrorResponse('Discount is not available!');
 
         return discount;
     };
@@ -120,10 +116,7 @@ export default class DiscountService {
                 discount_end_at: { $lte: new Date() },
                 is_available: true,
                 is_publish: true,
-                $or: [
-                    { discount_products: [productId] },
-                    { is_apply_all_product: true }
-                ]
+                $or: [{ discount_products: [productId] }, { is_apply_all_product: true }]
             },
             sort: {
                 is_admin_voucher: -1,
@@ -140,13 +133,9 @@ export default class DiscountService {
         limit,
         page
     }: serviceTypes.discount.arguments.GetAllProductDiscountByCode) => {
-        const discount = await findDiscountById(
-            discountId,
-            '+is_apply_all_product'
-        );
+        const discount = await findDiscountById(discountId, '+is_apply_all_product');
         if (!discount) throw new NotFoundErrorResponse('Not found discount!');
-        if (!discount.is_available)
-            throw new ForbiddenErrorResponse('Discount is not available!');
+        if (!discount.is_available) throw new ForbiddenErrorResponse('Discount is not available!');
 
         /* ---------------------------------------------------------- */
         /*     Missing check shop is admin because no RBAC build      */
@@ -198,17 +187,12 @@ export default class DiscountService {
         } = payload;
         /* ------------- Check discount is own by shop  ------------- */
         const discount = await discountModel.findOne({ _id, discount_shop });
-        if (!discount)
-            throw new ForbiddenErrorResponse(
-                'Not permission to update discount!'
-            );
+        if (!discount) throw new ForbiddenErrorResponse('Not permission to update discount!');
 
         /* ---------------- Check start and end time ---------------- */
         if (discount_start_at || discount_end_at) {
             const now = new Date();
-            const start = new Date(
-                discount_start_at || discount.discount_start_at
-            );
+            const start = new Date(discount_start_at || discount.discount_start_at);
             const end = new Date(discount_end_at || discount.discount_end_at);
             if (start <= now || end <= now)
                 throw new InvalidPayloadErrorResponse(
@@ -236,11 +220,10 @@ export default class DiscountService {
 
         /* ------- Check products is own by shop and publish  ------- */
         if (discount_products?.length) {
-            const productsIsAvailableToDiscount =
-                await checkProductsIsAvailableToApplyDiscount({
-                    productIds: discount_products,
-                    shopId: discount_shop
-                });
+            const productsIsAvailableToDiscount = await checkProductsIsAvailableToApplyDiscount({
+                productIds: discount_products,
+                shopId: discount_shop
+            });
             if (!productsIsAvailableToDiscount)
                 throw new BadRequestErrorResponse(
                     'Some products is unpublish or not permission to discount!'
@@ -251,15 +234,13 @@ export default class DiscountService {
         const $set = {};
         get$SetNestedFromObject(payload, $set);
 
-        return await discountModel.findOneAndUpdate(
-            { _id },
-            { $set },
-            { new: true }
-        );
+        return await discountModel.findOneAndUpdate({ _id }, { $set }, { new: true });
     };
 
     /* -------------------- Cancel discount  -------------------- */
-    public static cancelDiscount = async () => {};
+        public static cancelDiscount = async () => {
+
+    };
 
     /* ---------------------------------------------------------- */
     /*                           Delete                           */

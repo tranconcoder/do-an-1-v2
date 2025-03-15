@@ -1,5 +1,4 @@
-import "";
-
+import '';
 
 declare global {
     namespace serviceTypes {
@@ -8,7 +7,14 @@ declare global {
             /*                         Arguments                          */
             /* ---------------------------------------------------------- */
             namespace arguments {
+                /* ---------------------- Add to cart  ---------------------- */
                 interface AddToCart {
+                    userId: string;
+                    productId: string;
+                }
+
+                /* ------------------- Decrease from cart ------------------- */
+                interface DecreaseFromCart {
                     userId: string;
                     productId: string;
                 }

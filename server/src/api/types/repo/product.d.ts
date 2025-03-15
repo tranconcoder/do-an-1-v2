@@ -23,9 +23,7 @@ declare global {
             /* ---------------------------------------------------------- */
             /*                            Find                            */
             /* ---------------------------------------------------------- */
-            interface FindProductById extends serviceTypes.product.arguments.GetProductById {
-            
-            }
+            interface FindProductById extends serviceTypes.product.arguments.GetProductById {}
 
             interface FindAllProductByShop
                 extends Omit<serviceTypes.product.arguments.GetAllProductByShop, 'userId'> {

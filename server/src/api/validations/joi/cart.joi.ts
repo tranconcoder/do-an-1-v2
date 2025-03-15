@@ -8,3 +8,5 @@ const cart = {
 export const addToCartSchema = Joi.object<joiTypes.cart.AddToCart, true>({
     productId: cart.productId
 });
+
+export const decreaseFromCart = addToCartSchema;

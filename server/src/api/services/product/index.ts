@@ -105,7 +105,7 @@ export default class ProductFactory {
             product_shop: payload.product_shop,
             product_category: payload.product_category
         });
-        if (!product) throw new NotFoundErrorResponse('Not found product!');
+        if (!product) throw new NotFoundErrorResponse('Not found product in your shop!');
 
         /* ----------------- Remove old category ---------------- */
         /* ---------------- When changed category --------------- */

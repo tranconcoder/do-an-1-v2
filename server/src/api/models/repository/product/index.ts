@@ -69,9 +69,8 @@ export const searchProduct = async ({
 /* ---------------------------------------------------------- */
 /* ----------------- Find product by id ----------------- */
 export const findProductById = async ({ productId, userId }: repoTypes.product.FindProductById) => {
-    const product = await productModel.findById(productId, "+is_publish").lean();
+    const product = await productModel.findById(productId, '+is_publish').lean();
     if (!product) throw new NotFoundErrorResponse('Not found product!');
-
 
     if (product.is_publish) return product;
 

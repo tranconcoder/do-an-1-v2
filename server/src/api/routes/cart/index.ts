@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import postRouter from "./cart.post"
+import postRouter from './cart.post';
 
 const router = Router();
 

@@ -3,7 +3,7 @@ import CartController from 'src/api/controllers/cart.controller';
 import catchError from 'src/api/middlewares/catchError.middleware';
 import { validateRequestParams } from 'src/api/middlewares/joiValidate.middleware';
 import { authenticate } from 'src/api/middlewares/jwt.middleware';
-import { addToCartSchema } from 'src/api/validations/joi/cart.joi';
+import { addToCartSchema, decreaseFromCart } from 'src/api/validations/joi/cart.joi';
 
 const router = Router();
 const routerValidated = Router();
@@ -18,6 +18,12 @@ routerValidated.post(
     '/add/:productId',
     validateRequestParams(addToCartSchema),
     catchError(CartController.addToCart)
+);
+
+routerValidated.post(
+    '/decrease/:productId',
+    validateRequestParams(decreaseFromCart),
+    catchError(CartController.decreaseFromCart)
 );
 
 export default router;
