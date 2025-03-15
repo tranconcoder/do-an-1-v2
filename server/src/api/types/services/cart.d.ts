@@ -24,6 +24,12 @@ declare global {
                     userId: string;
                     productId: string;
                 }
+
+                /* --------------------- Select product --------------------- */
+                interface SelectProduct {
+                    userId: string;
+                    productId: string;
+                }
             }
         }
     }

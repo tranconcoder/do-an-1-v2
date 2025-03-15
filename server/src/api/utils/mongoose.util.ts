@@ -1,7 +1,7 @@
-import mongoose, { HydratedDocument, Model, RootFilterQuery } from 'mongoose';
+import mongoose, { HydratedDocument, QueryWithHelpers } from 'mongoose';
+import { timestamps } from 'src/configs/mongoose.config';
 
-export const convertToMongooseId = (id: string) =>
-    new mongoose.Types.ObjectId(id);
+export const convertToMongooseId = (id: string) => new mongoose.Types.ObjectId(id);
 
 export const addFieldToSchemaDefinition = <T, K>(schema: T, field: K) => {
     return {
@@ -52,12 +52,7 @@ export const generateFindAllPageSplit = <T = any>(model: any) => {
         for (const field of select) projection[field] = 1;
         for (const field of omit) projection[field] = 0;
 
-        return await model
-            .find(query, projection)
-            .sort(sort)
-            .skip(skip)
-            .limit(limit)
-            .lean();
+        return await model.find(query, projection).sort(sort).skip(skip).limit(limit).lean();
     };
 };
 
@@ -65,5 +60,26 @@ export const generateFindAllPageSplit = <T = any>(model: any) => {
 export const generateUpdateAll = <T = any>(model: any) => {
     return async ({ query, update }: moduleTypes.mongoose.UpdateAllArgs<T>) => {
         return (await model.updateMany(query, update).modifiedCount) > 0;
+    };
+};
+
+export const generateFindOneAndUpdate = <T = any>(model: any) => {
+    return async ({
+        query,
+        update,
+        options = {},
+        select = [],
+        omit = [],
+        sort = 'ctime',
+        projection = {}
+    }: moduleTypes.mongoose.FindOneAndUpdate<T>) => {
+        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findOneAndUpdate', {}>;
+
+        for (const field of select) projection[field] = 1;
+        for (const field of omit) projection[field] = -1;
+
+        return (await (model.findOneAndUpdate(query, update, options) as Query)
+            .select(projection)
+            .sort(sort === 'ctime' ? { [timestamps.updatedAt]: -1 } : sort)) as HydratedDocument<T>;
     };
 };

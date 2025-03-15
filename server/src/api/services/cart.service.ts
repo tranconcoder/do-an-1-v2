@@ -1,4 +1,5 @@
 import cartModel from '../models/cart.model';
+import { findOneAndUpdateCart } from '../models/repository/cart/index';
 import { findProductById } from '../models/repository/product/index';
 import { ForbiddenErrorResponse, NotFoundErrorResponse } from '../response/error.response';
 
@@ -82,20 +83,22 @@ export default class CartService {
         userId
     }: serviceTypes.cart.arguments.DeleteProductFromCart) {
         /* ----------------------- Check cart ----------------------- */
-        const cart = await cartModel
-            .findOneAndUpdate(
-                { user: userId },
-                {
-                    $pull: { cart_product: { product: productId } }
-                },
-                { new: true }
-            )
-            .lean();
+        const cart = await findOneAndUpdateCart({
+            query: { user: userId },
+            update: { $pull: { cart_product: { product: productId } } },
+            options: { new: true }
+        });
+
         if (!cart) throw new NotFoundErrorResponse('Cart not found!');
 
         return cart;
     }
 
-
-
+    /* ---------------------------------------------------------- */
+    /*                       Select product                       */
+    /* ---------------------------------------------------------- */
+    public static async selectProduct({
+        productId,
+        userId
+    }: serviceTypes.cart.arguments.SelectProduct) {}
 }

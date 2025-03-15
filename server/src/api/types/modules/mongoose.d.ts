@@ -5,7 +5,8 @@ import mongoose, {
     ProjectionType,
     QueryOptions,
     QueryWithHelpers,
-    RootFilterQuery
+    RootFilterQuery,
+    UpdateQuery
 } from 'mongoose';
 import mongooseLib, { Document, model, Model } from 'mongoose';
 
@@ -21,9 +22,7 @@ declare global {
                       ? string
                       : NonNullable<T[K]> extends ObjectId[]
                         ? string[]
-                        : NonNullable<
-                                T[K]
-                            > extends mongooseBase.Types.ObjectId[]
+                        : NonNullable<T[K]> extends mongooseBase.Types.ObjectId[]
                           ? string[]
                           : T[K];
             };
@@ -36,11 +35,7 @@ declare global {
                 ? Model<{}, {}, {}, {}, HydratedDocument<T>>
                 : {}) &
                 (isDocument extends true ? HydratedDocument<T> : {}) &
-                (isModel extends false
-                    ? isDocument extends false
-                        ? T
-                        : {}
-                    : {});
+                (isModel extends false ? (isDocument extends false ? T : {}) : {});
 
             /* ----- Argument of generateFindAllPageSlitting utils  ----- */
             interface FindAllWithPageSlittingArgs<T = any> {
@@ -57,6 +52,17 @@ declare global {
             interface UpdateAllArgs<T = any> {
                 query: RootFilterQuery<T>;
                 update: Partial<T>;
+            }
+
+            /* --------------- Generate findOneAndUpdate  --------------- */
+            interface FindOneAndUpdate<T = any> {
+                query: RootFilterQuery<T>;
+                update: UpdateQuery<T>;
+                options?: QueryOptions<T>;
+                projection?: ProjectionType;
+                sort?: any;
+                select?: string[];
+                omit?: string[];
             }
         }
     }
