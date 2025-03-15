@@ -1,10 +1,6 @@
 import cartModel from '../models/cart.model';
 import { findProductById } from '../models/repository/product/index';
-import {
-    BadRequestErrorResponse,
-    ForbiddenErrorResponse,
-    NotFoundErrorResponse
-} from '../response/error.response';
+import { ForbiddenErrorResponse, NotFoundErrorResponse } from '../response/error.response';
 
 export default class CartService {
     /* ---------------------------------------------------------- */
@@ -24,13 +20,13 @@ export default class CartService {
         );
 
         const cartProduct = cart.cart_product.find((x) => x.product.toString() === productId);
-        if (!cartProduct)
+        if (!cartProduct) {
             cart.cart_product.push({
                 product: productId,
                 quantity: 1,
                 price: foundProduct.product_cost
             });
-        else {
+        } else {
             /* --------------------- Check quantity --------------------- */
             if (cartProduct.quantity >= foundProduct.product_quantity) {
                 return { ...cart.toObject(), message: 'Maximum quantity product!' };
@@ -42,7 +38,6 @@ export default class CartService {
 
         return await cart.save();
     }
-
     /* ---------------------------------------------------------- */
     /*                     Decrease from cart                     */
     /* ---------------------------------------------------------- */
@@ -60,7 +55,9 @@ export default class CartService {
             {
                 $inc: { 'cart_product.$.quantity': -1 }
             },
-            { new: true }
+            {
+                new: true
+            }
         );
         if (!cart) throw new NotFoundErrorResponse('Cart not found!');
 
@@ -76,4 +73,29 @@ export default class CartService {
 
         return cart;
     }
+
+    /* ---------------------------------------------------------- */
+    /*                  Delete product from cart                  */
+    /* ---------------------------------------------------------- */
+    public static async deleteProductFromCart({
+        productId,
+        userId
+    }: serviceTypes.cart.arguments.DeleteProductFromCart) {
+        /* ----------------------- Check cart ----------------------- */
+        const cart = await cartModel
+            .findOneAndUpdate(
+                { user: userId },
+                {
+                    $pull: { cart_product: { product: productId } }
+                },
+                { new: true }
+            )
+            .lean();
+        if (!cart) throw new NotFoundErrorResponse('Cart not found!');
+
+        return cart;
+    }
+
+
+
 }

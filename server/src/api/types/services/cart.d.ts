@@ -18,6 +18,12 @@ declare global {
                     userId: string;
                     productId: string;
                 }
+
+                /* ---------------- Delete product from cart ---------------- */
+                interface DeleteProductFromCart {
+                    userId: string;
+                    productId: string;
+                }
             }
         }
     }

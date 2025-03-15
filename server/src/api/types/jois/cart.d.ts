@@ -8,6 +8,9 @@ declare global {
 
             /* ------------------- Decrease from cart ------------------- */
             interface DecreaseFromCart extends AddToCart {}
+
+            /* ---------------- Delete product from cart ---------------- */
+            interface DeleteProductFromCart extends AddToCart {}
         }
     }
 }

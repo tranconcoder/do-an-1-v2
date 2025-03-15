@@ -29,4 +29,16 @@ export default class CartController {
             })
         }).send(res);
     };
+
+    /* ---------------- Delete product from cart ---------------- */
+    public static deleteProductFromCart: RequestWithParams<joiTypes.cart.DeleteProductFromCart> =
+        async (req, res, _) => {
+            new OkResponse({
+                message: 'Product deleted from cart!',
+                metadata: await CartService.deleteProductFromCart({
+                    productId: req.params.productId,
+                    userId: req.userId as string
+                })
+            }).send(res);
+        };
 }
