@@ -15,7 +15,7 @@ const discountSchema = new Schema<modelTypes.discount.DiscountSchema>(
         discount_code: {
             type: String,
             minLength: 6,
-            maxLength: 6,
+            maxLength: 10,
             required,
             uppercase: true
         },

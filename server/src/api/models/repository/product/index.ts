@@ -216,6 +216,16 @@ export const checkProductsIsAvailableToUse = async ({
     }));
 };
 
+/* --------------- Check products is publish  --------------- */
+export const checkProductsIsPublish = async ({
+    productIds
+}: repoTypes.product.CheckProductsIsPublish) => {
+    return !(await productModel.exists({
+        _id: { $in: productIds },
+        is_publish: false
+    }));
+};
+
 /* ------------------------------------------------------ */
 /*                         Update                         */
 /* ------------------------------------------------------ */

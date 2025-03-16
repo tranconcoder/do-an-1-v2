@@ -42,6 +42,15 @@ declare global {
                     discountId: string;
                 }
 
+                /* ------------------ Get discount amount  ------------------ */
+                interface GetDiscountAmount {
+                    discountCode: string;
+                    products: {
+                        id: string;
+                        quantity: number;
+                    }[];
+                }
+
                 /* ---------------------------------------------------------- */
                 /*                           Update                           */
                 /* ---------------------------------------------------------- */

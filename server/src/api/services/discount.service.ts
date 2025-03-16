@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import discountModel from '../models/discount.model';
+import { productModel } from '../models/product.model';
 import {
     checkConflictDiscountInShop,
     createDiscount,
@@ -7,7 +8,11 @@ import {
     findAllDiscount,
     findDiscountById
 } from '../models/repository/discount/index';
-import { findAllProduct, checkProductsIsAvailableToUse } from '../models/repository/product/index';
+import {
+    findAllProduct,
+    checkProductsIsAvailableToUse,
+    checkProductsIsPublish
+} from '../models/repository/product/index';
 import {
     BadRequestErrorResponse,
     ConflictErrorResponse,
@@ -15,6 +20,7 @@ import {
     InvalidPayloadErrorResponse,
     NotFoundErrorResponse
 } from '../response/error.response';
+import { calculateDiscount } from '../utils/discount.util';
 import { get$SetNestedFromObject } from '../utils/mongoose.util';
 
 export default class DiscountService {
@@ -47,7 +53,7 @@ export default class DiscountService {
 
         /* --------------- Check products is publish  --------------- */
         if (payload.discount_products) {
-            const isAllProductPublish = await checkProductsIsAvailableToApplyDiscount({
+            const isAllProductPublish = await checkProductsIsAvailableToUse({
                 productIds: payload.discount_products as string[],
                 shopId: userId
             });
@@ -166,7 +172,82 @@ export default class DiscountService {
     };
 
     /* ------------------ Get discount amount  ------------------ */
-    public static getDiscountAmount = async () => {};
+    public static getDiscountAmount = async ({
+        discountCode,
+        products
+    }: serviceTypes.discount.arguments.GetDiscountAmount) => {
+        /* --------------------- Check discount --------------------- */
+        const discount = await discountModel
+            .findOne({ discount_code: discountCode, is_available: true })
+            .lean();
+        if (!discount) throw new NotFoundErrorResponse('Not found discount!');
+
+        /* ----------- Check product is available to use  ----------- */
+        const productIds = products.map((x) => x.id);
+        const isProductsAvailable = await checkProductsIsPublish({
+            productIds
+        });
+        if (!isProductsAvailable)
+            throw new BadRequestErrorResponse('Product is not available to apply discount!');
+
+        /* ---------------------- Get products ---------------------- */
+        const foundProducts = await productModel.find({
+            _id: { $in: productIds }
+        });
+        if (foundProducts.length !== productIds.length)
+            throw new BadRequestErrorResponse('Get products failed!');
+
+        /* ---------------------- Handle calc  ---------------------- */
+        const result: commonTypes.object.ObjectAnyKeys = {};
+        let totalPrice = 0;
+        let totalDiscount = 0;
+        let totalProductPriceToDiscount = 0; // To check min to apply product
+
+        await Promise.all(
+            foundProducts.map(async (product, index) => {
+                totalPrice += product.product_cost * products[index].quantity;
+
+                if (
+                    // Admin -> all
+                    (discount.is_admin_voucher && discount.is_apply_all_product) ||
+                    // Admin -> specific
+                    (discount.is_admin_voucher &&
+                        discount?.discount_products?.includes(product._id)) ||
+                    // Shop -> all
+                    (!discount.is_admin_voucher &&
+                        discount.is_apply_all_product &&
+                        product.product_shop === discount.discount_shop) ||
+                    // Shop -> specific
+                    (!discount.is_admin_voucher &&
+                        !discount.is_apply_all_product &&
+                        product.product_shop === discount.discount_shop &&
+                        discount?.discount_products?.includes(product._id))
+                )
+                    totalProductPriceToDiscount += product.product_cost * products[index].quantity;
+            })
+        );
+
+        if (
+            /* --------------------- Have min cost  --------------------- */
+            (discount.discount_min_order_cost &&
+                totalProductPriceToDiscount >= discount.discount_min_order_cost) ||
+            /* ------------------- Not have min cost  ------------------- */
+            !discount.discount_min_order_cost
+        ) {
+            totalDiscount = calculateDiscount(
+                totalProductPriceToDiscount,
+                discount.discount_value,
+                discount.discount_type,
+                discount.discount_max_value
+            );
+        }
+
+        return {
+            totalPrice,
+            totalDiscount,
+            totalPayment: totalPrice - totalDiscount
+        };
+    };
 
     /* ---------------------------------------------------------- */
     /*                           Update                           */

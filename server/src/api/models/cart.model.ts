@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { timestamps, required, unique } from '../../configs/mongoose.config';
 import { CartItemStatus } from '../enums/cart.enum';
+import { PRODUCT_MODEL_NAME } from './product.model';
 import { userModel, USER_MODEL_NAME } from './user.model';
 
 export const CART_MODEL_NAME = 'Cart';
@@ -16,7 +17,11 @@ const cartSchema = new Schema<modelTypes.cart.CartSchema>(
                     products: {
                         type: [
                             {
-                                id: { type: Schema.Types.ObjectId, required },
+                                id: {
+                                    type: Schema.Types.ObjectId,
+                                    required,
+                                    ref: PRODUCT_MODEL_NAME
+                                },
                                 name: { type: String, required },
                                 thumb: { type: String, required },
                                 quantity: { type: Number, required },

@@ -4,15 +4,10 @@ import { productModel } from '../../models/product.model';
 import { createProduct } from '../../models/repository/product';
 import { get$SetNestedFromObject } from '../../utils/mongoose.util';
 import { deleteOneProduct } from '../../models/repository/product';
-import {
-    createInventory,
-    updateInventoryStock
-} from '../../models/repository/inventory/index';
+import { createInventory, updateInventoryStock } from '../../models/repository/inventory/index';
 import { BadRequestErrorResponse } from '../../response/error.response';
 
-export abstract class Product
-    implements serviceTypes.product.definition.Product
-{
+export abstract class Product implements serviceTypes.product.definition.Product {
     public _id?: string | mongoose.Types.ObjectId;
     public product_slug?: string;
     public product_rating_avg?: number;
@@ -93,19 +88,14 @@ export abstract class Product
                 validProperties.product_quantity
             );
 
-            if (!updateStockSuccess)
-                throw new BadRequestErrorResponse('Error update quantity!');
+            if (!updateStockSuccess) throw new BadRequestErrorResponse('Error update quantity!');
         }
 
         /* ------------------- Init set object ------------------ */
         const $set: commonTypes.object.ObjectAnyKeys = {};
         get$SetNestedFromObject(validProperties, $set);
 
-        return await productModel.findOneAndUpdate(
-            { _id: this._id },
-            { $set },
-            { new: true }
-        );
+        return await productModel.findOneAndUpdate({ _id: this._id }, { $set }, { new: true });
     }
 
     /* ------------------------------------------------------ */
