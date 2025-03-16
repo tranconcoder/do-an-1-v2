@@ -1,4 +1,4 @@
-import '';
+import type { CartItemStatus } from 'src/api/enums/cart.enum';
 
 declare global {
     namespace serviceTypes {
@@ -18,17 +18,30 @@ declare global {
                     productId: string;
                 }
 
-                /* ------------------- Decrease from cart ------------------- */
-                interface DecreaseFromCart extends AddToCart {}
+                /* ---------------------- Update cart  ---------------------- */
+                interface UpdateCart {
+                    user: string;
+                    cartShop: Array<{
+                        shopId: string;
+                        products: Array<{
+                            id: string;
+
+                            // Quantity
+                            quantity: number;
+                            newQuantity: number;
+
+                            // Status
+                            status: CartItemStatus;
+                            newStatus: CartItemStatus;
+
+                            // Delete
+                            isDelete: boolean;
+                        }>;
+                    }>;
+                }
 
                 /* ---------------- Delete product from cart ---------------- */
                 interface DeleteProductFromCart extends AddToCart {}
-
-                /* --------------------- Select product --------------------- */
-                interface SelectProduct extends AddToCart {}
-
-                /* -------------------- Unselect product -------------------- */
-                interface UnSelectProduct extends AddToCart {}
             }
         }
     }

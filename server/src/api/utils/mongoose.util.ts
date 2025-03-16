@@ -64,7 +64,7 @@ export const generateUpdateAll = <T = any>(model: any) => {
 };
 
 export const generateFindOneAndUpdate = <T = any>(model: any) => {
-    return async ({
+    return ({
         query,
         update,
         options = {},
@@ -85,8 +85,11 @@ export const generateFindOneAndUpdate = <T = any>(model: any) => {
             for (const field of metadataField) projection[field] = 0;
         } else for (const field of omit) projection[field] = 0;
 
-        return (await (model.findOneAndUpdate(query, update, options) as Query)
+        const result: Query = model
+            .findOneAndUpdate(query, update, options)
             .select(projection)
-            .sort(sort === 'ctime' ? { [timestamps.updatedAt]: -1 } : sort)) as HydratedDocument<T>;
+            .sort(sort === 'ctime' ? { [timestamps.updatedAt]: -1 } : sort);
+
+        return result;
     };
 };

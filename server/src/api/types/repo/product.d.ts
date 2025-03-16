@@ -20,6 +20,12 @@ declare global {
                 productIds: string[];
             }
 
+            /* ------------ Check products is own by a shop  ------------ */
+            interface CheckProductsIsOwnByShop {
+                shopId: string;
+                productIds: string[];
+            }
+
             /* ---------------------------------------------------------- */
             /*                            Find                            */
             /* ---------------------------------------------------------- */

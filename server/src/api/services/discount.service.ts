@@ -7,10 +7,7 @@ import {
     findAllDiscount,
     findDiscountById
 } from '../models/repository/discount/index';
-import {
-    findAllProduct,
-    checkProductsIsAvailableToApplyDiscount
-} from '../models/repository/product/index';
+import { findAllProduct, checkProductsIsAvailableToUse } from '../models/repository/product/index';
 import {
     BadRequestErrorResponse,
     ConflictErrorResponse,
@@ -81,9 +78,6 @@ export default class DiscountService {
 
         return discount;
     };
-
-    /* ------------------ Get discount amount  ------------------ */
-    public static getDiscountAmount = async () => {};
 
     /* ------------- Get all discount code in shop  ------------- */
     public static getAllDiscountCodeInShop = async ({
@@ -171,6 +165,9 @@ export default class DiscountService {
         }
     };
 
+    /* ------------------ Get discount amount  ------------------ */
+    public static getDiscountAmount = async () => {};
+
     /* ---------------------------------------------------------- */
     /*                           Update                           */
     /* ---------------------------------------------------------- */
@@ -220,7 +217,7 @@ export default class DiscountService {
 
         /* ------- Check products is own by shop and publish  ------- */
         if (discount_products?.length) {
-            const productsIsAvailableToDiscount = await checkProductsIsAvailableToApplyDiscount({
+            const productsIsAvailableToDiscount = await checkProductsIsAvailableToUse({
                 productIds: discount_products,
                 shopId: discount_shop
             });
@@ -238,9 +235,7 @@ export default class DiscountService {
     };
 
     /* -------------------- Cancel discount  -------------------- */
-        public static cancelDiscount = async () => {
-
-    };
+    public static cancelDiscount = async () => {};
 
     /* ---------------------------------------------------------- */
     /*                           Delete                           */

@@ -13,3 +13,54 @@
 [2025-03-15T17:30:19.961Z] [error]: HIDE::404::NotFound::Not found cart of cart is not active!::
 [2025-03-15T17:30:20.609Z] [error]: HIDE::404::NotFound::Not found cart of cart is not active!::
 [2025-03-15T18:12:29.923Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-03-15T23:50:12.002Z] [error]: HIDE::404::NotFound::Not found cart of cart is not inactive!::
+[2025-03-15T23:50:13.135Z] [error]: HIDE::404::NotFound::Not found cart of cart is not inactive!::
+[2025-03-15T23:50:13.873Z] [error]: HIDE::404::NotFound::Not found cart of cart is not inactive!::
+[2025-03-15T23:50:16.450Z] [error]: HIDE::404::NotFound::Not found cart of cart is not active!::
+[2025-03-15T23:50:18.199Z] [error]: HIDE::404::NotFound::Not found cart of cart is not active!::
+[2025-03-16T02:41:37.377Z] [error]: HIDE::500::ValidationError::Cart validation failed: cart_shop.0.price: Path `price` is required., cart_shop.0.quantity: Path `quantity` is required., cart_shop.0.thumb: Path `thumb` is required., cart_shop.0.name: Path `name` is required., cart_shop.0.id: Path `id` is required.::
+[2025-03-16T02:43:08.305Z] [error]: HIDE::500::ValidationError::Cart validation failed: cart_shop.0.price: Path `price` is required., cart_shop.0.quantity: Path `quantity` is required., cart_shop.0.thumb: Path `thumb` is required., cart_shop.0.name: Path `name` is required., cart_shop.0.id: Path `id` is required.::
+[2025-03-16T02:43:30.534Z] [error]: HIDE::500::ValidationError::Cart validation failed: cart_shop.0.price: Path `price` is required., cart_shop.0.quantity: Path `quantity` is required., cart_shop.0.thumb: Path `thumb` is required., cart_shop.0.name: Path `name` is required., cart_shop.0.id: Path `id` is required.::
+[2025-03-16T02:44:03.971Z] [error]: HIDE::500::ValidationError::Cart validation failed: cart_shop.0.price: Path `price` is required., cart_shop.0.quantity: Path `quantity` is required., cart_shop.0.thumb: Path `thumb` is required., cart_shop.0.name: Path `name` is required., cart_shop.0.id: Path `id` is required.::
+[2025-03-16T02:44:32.741Z] [error]: HIDE::500::ValidationError::Cart validation failed: cart_shop.0.price: Path `price` is required., cart_shop.0.quantity: Path `quantity` is required., cart_shop.0.thumb: Path `thumb` is required., cart_shop.0.name: Path `name` is required., cart_shop.0.id: Path `id` is required.::
+[2025-03-16T02:44:58.037Z] [error]: HIDE::500::ValidationError::Cart validation failed: cart_shop.0.price: Path `price` is required., cart_shop.0.quantity: Path `quantity` is required., cart_shop.0.thumb: Path `thumb` is required., cart_shop.0.name: Path `name` is required., cart_shop.0.id: Path `id` is required.::
+[2025-03-16T02:45:48.533Z] [error]: HIDE::500::ValidationError::Cart validation failed: cart_shop.0.price: Path `price` is required., cart_shop.0.quantity: Path `quantity` is required., cart_shop.0.thumb: Path `thumb` is required., cart_shop.0.name: Path `name` is required., cart_shop.0.id: Path `id` is required.::
+[2025-03-16T02:46:11.205Z] [error]: HIDE::500::ValidationError::Cart validation failed: cart_shop.0.price: Path `price` is required., cart_shop.0.quantity: Path `quantity` is required., cart_shop.0.thumb: Path `thumb` is required., cart_shop.0.name: Path `name` is required., cart_shop.0.id: Path `id` is required.::
+[2025-03-16T02:46:40.240Z] [error]: HIDE::500::ValidationError::Cart validation failed: cart_shop.0.price: Path `price` is required., cart_shop.0.quantity: Path `quantity` is required., cart_shop.0.thumb: Path `thumb` is required., cart_shop.0.name: Path `name` is required., cart_shop.0.id: Path `id` is required.::
+[2025-03-16T02:46:57.104Z] [error]: HIDE::500::ValidationError::Cart validation failed: cart_shop.0.price: Path `price` is required., cart_shop.0.quantity: Path `quantity` is required., cart_shop.0.thumb: Path `thumb` is required., cart_shop.0.name: Path `name` is required., cart_shop.0.id: Path `id` is required.::
+[2025-03-16T02:47:18.267Z] [error]: HIDE::500::ValidationError::Cart validation failed: cart_shop.0.price: Path `price` is required., cart_shop.0.quantity: Path `quantity` is required., cart_shop.0.thumb: Path `thumb` is required., cart_shop.0.name: Path `name` is required., cart_shop.0.id: Path `id` is required.::
+[2025-03-16T02:49:32.736Z] [error]: HIDE::500::TypeError::cart.cart_shop.find is not a function::
+[2025-03-16T03:21:47.277Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-16T03:21:50.833Z] [error]: HIDE::500::ValidationError::"user" length must be 24 characters long::
+[2025-03-16T03:22:17.746Z] [error]: HIDE::500::ValidationError::"cartShop" is required::
+[2025-03-16T03:22:26.177Z] [error]: HIDE::500::ValidationError::"cartShop" must contain at least 1 items::
+[2025-03-16T03:22:32.630Z] [error]: HIDE::500::ValidationError::"cartShop[0]" must be of type object::
+[2025-03-16T03:22:37.912Z] [error]: HIDE::500::ValidationError::"cartShop[0].shopId" is required::
+[2025-03-16T03:22:46.845Z] [error]: HIDE::500::ValidationError::"cartShop[0].products" is required::
+[2025-03-16T03:22:57.118Z] [error]: HIDE::500::ValidationError::"cartShop[0].products" must contain at least 1 items::
+[2025-03-16T03:23:01.495Z] [error]: HIDE::500::ValidationError::"cartShop[0].products[0]" must be of type object::
+[2025-03-16T03:23:05.985Z] [error]: HIDE::500::ValidationError::"cartShop[0].products[0].id" is required::
+[2025-03-16T03:23:10.022Z] [error]: HIDE::500::SyntaxError::Expected property name or '}' in JSON at position 142 (line 6 column 13)::
+[2025-03-16T03:23:12.588Z] [error]: HIDE::500::ValidationError::"cartShop[0].products[0].id" length must be 24 characters long::
+[2025-03-16T03:23:18.337Z] [error]: HIDE::500::ValidationError::"cartShop[0].products[0].quantity" is required::
+[2025-03-16T03:25:43.624Z] [error]: HIDE::500::ValidationError::"cartShop[0].products[0].status" is required::
+[2025-03-16T03:25:50.671Z] [error]: HIDE::500::ValidationError::"cartShop[0].products[0].status" must be one of [active, inactive]::
+[2025-03-16T06:20:31.273Z] [error]: HIDE::500::ValidationError::"user" is not allowed::
+[2025-03-16T06:20:36.998Z] [error]: HIDE::500::StrictModeError::Path "userId" is not in schema, strict mode is `true`, and upsert is `true`.::
+[2025-03-16T06:21:22.276Z] [error]: HIDE::500::StrictModeError::Path "userId" is not in schema, strict mode is `true`, and upsert is `true`.::
+[2025-03-16T06:22:21.498Z] [error]: HIDE::404::NotFound::Not found shop in cart!::
+[2025-03-16T06:22:22.930Z] [error]: HIDE::404::NotFound::Not found shop in cart!::
+[2025-03-16T06:23:29.440Z] [error]: HIDE::404::NotFound::Not found shop in cart!::
+[2025-03-16T06:23:55.674Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-03-16T06:23:58.655Z] [error]: HIDE::404::NotFound::Not found shop in cart!::
+[2025-03-16T06:24:16.446Z] [error]: HIDE::404::NotFound::Not found shop in cart!::
+[2025-03-16T06:24:20.214Z] [error]: HIDE::404::NotFound::Not found shop in cart!::
+[2025-03-16T06:24:21.034Z] [error]: HIDE::404::NotFound::Not found shop in cart!::
+[2025-03-16T06:24:22.841Z] [error]: HIDE::404::NotFound::Not found shop in cart!::
+[2025-03-16T06:24:31.721Z] [error]: HIDE::500::TypeError::cart.save is not a function::
+[2025-03-16T06:24:36.062Z] [error]: HIDE::500::TypeError::cart.save is not a function::
+[2025-03-16T06:24:59.591Z] [error]: HIDE::404::NotFound::Not found shop in cart!::
+[2025-03-16T06:26:15.882Z] [error]: HIDE::404::NotFound::Not found shop in cart!::
+[2025-03-16T06:26:16.752Z] [error]: HIDE::404::NotFound::Not found shop in cart!::
+[2025-03-16T06:26:30.893Z] [error]: HIDE::404::NotFound::Not found product in cart!::
+[2025-03-16T06:26:31.865Z] [error]: HIDE::404::NotFound::Not found product in cart!::

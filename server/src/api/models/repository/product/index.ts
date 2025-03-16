@@ -206,7 +206,7 @@ export const checkUserIsShop = async ({ userId }: repoTypes.product.CheckUserIsS
 };
 
 /* ------ Check products is available to apply discount ------ */
-export const checkProductsIsAvailableToApplyDiscount = async ({
+export const checkProductsIsAvailableToUse = async ({
     productIds,
     shopId
 }: repoTypes.product.CheckProductsIsAvailableToApplyDiscount) => {

@@ -1,4 +1,4 @@
-import type { RequestWithParams } from '../types/request';
+import type { RequestWithBody, RequestWithParams } from '../types/request';
 
 import { CreatedResponse, OkResponse } from '../response/success.response';
 import CartService from '../services/cart.service';
@@ -24,17 +24,14 @@ export default class CartController {
         }).send(res);
     };
 
-    /* ------------------- Decrease from cart ------------------- */
-    public static decreaseFromCart: RequestWithParams<joiTypes.cart.DecreaseFromCart> = async (
-        req,
-        res,
-        _
-    ) => {
+    /* ---------------------- Update cart  ---------------------- */
+    public static updateCart: RequestWithBody<joiTypes.cart.UpdateCart> = async (req, res, _) => {
+        console.log(req.userId);
         new OkResponse({
-            message: 'Decrease from cart success!',
-            metadata: await CartService.decreaseFromCart({
-                productId: req.params.productId,
-                userId: req.userId as string
+            message: 'Updated cart!',
+            metadata: await CartService.updateCart({
+                user: req.userId as string,
+                cartShop: req.body.cartShop
             })
         }).send(res);
     };
@@ -50,34 +47,4 @@ export default class CartController {
                 })
             }).send(res);
         };
-
-    /* --------------------- Select product --------------------- */
-    public static selectProduct: RequestWithParams<joiTypes.cart.SelectProduct> = async (
-        req,
-        res,
-        _
-    ) => {
-        new OkResponse({
-            message: 'Product selected!',
-            metadata: await CartService.selectProduct({
-                productId: req.params.productId,
-                userId: req.userId as string
-            })
-        }).send(res);
-    };
-
-    /* -------------------- Unselect product -------------------- */
-    public static unSelectProduct: RequestWithParams<joiTypes.cart.UnSelectProduct> = async (
-        req,
-        res,
-        _
-    ) => {
-        new OkResponse({
-            message: 'Product unselected!',
-            metadata: await CartService.unSelectProduct({
-                userId: req.userId as string,
-                productId: req.params.productId
-            })
-        }).send(res);
-    };
 }

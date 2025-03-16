@@ -1174,7 +1174,7 @@ function DangNhap() {
                                         children: "Tiếp tục với Google"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/DangNhap/page.tsx",
-                                        lineNumber: 22,
+                                        lineNumber: 17,
                                         columnNumber: 29
                                     }, this)
                                 ]
@@ -1194,12 +1194,12 @@ function DangNhap() {
                                 children: "Hoặc"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/DangNhap/page.tsx",
-                                lineNumber: 26,
+                                lineNumber: 21,
                                 columnNumber: 25
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/DangNhap/page.tsx",
-                            lineNumber: 25,
+                            lineNumber: 20,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1217,7 +1217,7 @@ function DangNhap() {
                                             placeholder: " "
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/page.tsx",
-                                            lineNumber: 34,
+                                            lineNumber: 25,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1225,13 +1225,13 @@ function DangNhap() {
                                             children: "Tài khoản / Số điện thoại / Email"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/page.tsx",
-                                            lineNumber: 40,
+                                            lineNumber: 26,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/DangNhap/page.tsx",
-                                    lineNumber: 33,
+                                    lineNumber: 24,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1244,7 +1244,7 @@ function DangNhap() {
                                             placeholder: " "
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/page.tsx",
-                                            lineNumber: 45,
+                                            lineNumber: 29,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1252,13 +1252,13 @@ function DangNhap() {
                                             children: "Mật khẩu"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/page.tsx",
-                                            lineNumber: 51,
+                                            lineNumber: 30,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/DangNhap/page.tsx",
-                                    lineNumber: 44,
+                                    lineNumber: 28,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1270,7 +1270,7 @@ function DangNhap() {
                                             name: "remember"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/page.tsx",
-                                            lineNumber: 54,
+                                            lineNumber: 33,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1278,25 +1278,25 @@ function DangNhap() {
                                             children: "Nhớ đăng nhập"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/page.tsx",
-                                            lineNumber: 59,
+                                            lineNumber: 34,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/DangNhap/page.tsx",
-                                    lineNumber: 53,
+                                    lineNumber: 32,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['button-group'],
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            type: "submit",
+                                            type: "button",
                                             className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$DangNhap$2f$styles$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"]['login-button'],
                                             children: "Đăng nhập"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/page.tsx",
-                                            lineNumber: 63,
+                                            lineNumber: 38,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1305,19 +1305,19 @@ function DangNhap() {
                                             children: "Đăng ký"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/DangNhap/page.tsx",
-                                            lineNumber: 69,
+                                            lineNumber: 41,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/DangNhap/page.tsx",
-                                    lineNumber: 62,
+                                    lineNumber: 37,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/DangNhap/page.tsx",
-                            lineNumber: 28,
+                            lineNumber: 23,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1327,12 +1327,12 @@ function DangNhap() {
                                 children: "Quên mật khẩu?"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/DangNhap/page.tsx",
-                                lineNumber: 78,
+                                lineNumber: 47,
                                 columnNumber: 25
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/DangNhap/page.tsx",
-                            lineNumber: 77,
+                            lineNumber: 46,
                             columnNumber: 21
                         }, this)
                     ]
@@ -1348,7 +1348,7 @@ function DangNhap() {
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$HomeFooter$2f$index$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/DangNhap/page.tsx",
-                lineNumber: 82,
+                lineNumber: 51,
                 columnNumber: 13
             }, this)
         ]

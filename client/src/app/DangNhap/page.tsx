@@ -13,63 +13,32 @@ export default function DangNhap() {
                     <h1>Đăng Nhập</h1>
                     <div className={styles['social-buttons']}>
                         <button className={styles['google-button']}>
-                            <Image
-                                src="/Google.svg"
-                                alt="Google Login"
-                                width={32}
-                                height={32}
-                            />
+                            <Image src="/Google.svg" alt="Google Login" width={32} height={32} />
                             <span>Tiếp tục với Google</span>
                         </button>
                     </div>
                     <div className={styles['separator']}>
                         <span>Hoặc</span>
                     </div>
-                    <form
-                        action="#"
-                        method="post"
-                        className={styles['login-form']}
-                    >
+                    <form action="#" method="post" className={styles['login-form']}>
                         <div className={styles['form-group']}>
-                            <input
-                                type="text"
-                                id="username"
-                                name="username"
-                                placeholder=" "
-                            />
-                            <label htmlFor="username">
-                                Tài khoản / Số điện thoại / Email
-                            </label>
+                            <input type="text" id="username" name="username" placeholder=" " />
+                            <label htmlFor="username">Tài khoản / Số điện thoại / Email</label>
                         </div>
                         <div className={styles['form-group']}>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                placeholder=" "
-                            />
+                            <input type="password" id="password" name="password" placeholder=" " />
                             <label htmlFor="password">Mật khẩu</label>
                         </div>
                         <div className={styles['remember-me']}>
-                            <input
-                                type="checkbox"
-                                id="remember"
-                                name="remember"
-                            />
+                            <input type="checkbox" id="remember" name="remember" />
                             <label htmlFor="remember">Nhớ đăng nhập</label>
                         </div>
 
                         <div className={styles['button-group']}>
-                            <button
-                                type="submit"
-                                className={styles['login-button']}
-                            >
+                            <button type="button" className={styles['login-button']}>
                                 Đăng nhập
                             </button>
-                            <button
-                                type="button"
-                                className={styles['register-button']}
-                            >
+                            <button type="button" className={styles['register-button']}>
                                 Đăng ký
                             </button>
                         </div>

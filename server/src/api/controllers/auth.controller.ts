@@ -40,11 +40,10 @@ export default class AuthController {
     /* ------------------------------------------------------ */
     /*                  Handle refresh token                  */
     /* ------------------------------------------------------ */
-    public static newToken: RequestWithBody<joiTypes.auth.NewTokenSchema> =
-        async (req, res, _) => {
-            new OkResponse({
-                message: 'Get new token pair success!',
-                metadata: await AuthService.newToken(req.body)
-            }).send(res);
-        };
+    public static newToken: RequestWithBody<joiTypes.auth.NewTokenSchema> = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get new token pair success!',
+            metadata: await AuthService.newToken(req.body)
+        }).send(res);
+    };
 }

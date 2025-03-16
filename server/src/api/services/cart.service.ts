@@ -1,31 +1,25 @@
-import { CartItemStatus } from '../enums/cart.enum';
-import cartModel from '../models/cart.model';
-import { findOneAndUpdateCart } from '../models/repository/cart/index';
-import { findProductById } from '../models/repository/product/index';
-import { ForbiddenErrorResponse, NotFoundErrorResponse } from '../response/error.response';
+import {
+    getCartUpsert,
+    findOneAndUpdateCart,
+    findAndRemoveProductFromCart
+} from '../models/repository/cart/index';
+import {
+    checkProductsIsAvailableToUse,
+    findAllProduct,
+    findProductById
+} from '../models/repository/product/index';
+import {
+    BadRequestErrorResponse,
+    ForbiddenErrorResponse,
+    NotFoundErrorResponse
+} from '../response/error.response';
 
 export default class CartService {
     /* ---------------------------------------------------------- */
-    /*                          Get cart                          */
+    /*                           Create                           */
     /* ---------------------------------------------------------- */
-    public static async getCart({ user }: serviceTypes.cart.arguments.GetCart) {
-        let cart: any = await cartModel.findOne({ user }).lean();
-        if (!cart) {
-            /* --------------- Add new cart product item  --------------- */
-            cart = await findOneAndUpdateCart({
-                query: { user },
-                update: {},
-                options: { new: true, upsert: true },
-                omit: 'metadata'
-            }).lean();
-        }
 
-        return cart;
-    }
-
-    /* ---------------------------------------------------------- */
-    /*                        Add to cart                         */
-    /* ---------------------------------------------------------- */
+    /* ---------------------- Add to cart  ---------------------- */
     public static async addToCart({ productId, userId }: serviceTypes.cart.arguments.AddToCart) {
         /* ---------------- Check product is active  ---------------- */
         const foundProduct = await findProductById({ productId });
@@ -33,126 +27,131 @@ export default class CartService {
         if (!foundProduct.is_publish) throw new ForbiddenErrorResponse('Product is not publish!');
 
         /* --------------- Add new cart product item  --------------- */
-        const cart = await findOneAndUpdateCart({
-            query: { user: userId },
-            update: {},
-            options: { new: true, upsert: true },
-            omit: 'metadata'
-        });
+        const cart = await getCartUpsert(userId);
 
-        const cartProduct = cart.cart_product.find((x) => x.product.toString() === productId);
-        if (!cartProduct) {
-            cart.cart_product.push({
-                product: productId,
-                product_name: foundProduct.product_name,
-                quantity: 1,
-                price: foundProduct.product_cost
+        const cartShop = cart.cart_shop.find(
+            (x) => x.shop.toString() === foundProduct.product_shop.toString()
+        );
+        /* --------------- Add new shop if not exists --------------- */
+        if (!cartShop) {
+            cart.cart_shop.push({
+                shop: foundProduct.product_shop,
+                products: [
+                    {
+                        id: foundProduct._id.toString(),
+                        name: foundProduct.product_name,
+                        quantity: 1,
+                        price: foundProduct.product_cost,
+                        thumb: foundProduct.product_thumb
+                    }
+                ]
             });
         } else {
-            /* --------------------- Check quantity --------------------- */
-            if (cartProduct.quantity >= foundProduct.product_quantity) {
-                return { ...cart.toObject(), message: 'Maximum quantity product!' };
-            }
+            const cartProduct = cartShop.products.find(
+                (product) => product.id.toString() === productId
+            );
 
-            cartProduct.quantity++;
-            cartProduct.price = foundProduct.product_cost * cartProduct.quantity;
+            /* ----- Increase quantity if product is exists in cart ----- */
+            if (cartProduct) cartProduct.quantity++;
+            else {
+                /* ------- Add new product to cart if shop is exists ------- */
+                cartShop.products.push({
+                    id: foundProduct._id.toString(),
+                    name: foundProduct.product_name,
+                    quantity: 1,
+                    price: foundProduct.product_cost,
+                    thumb: foundProduct.product_thumb
+                });
+            }
         }
 
         return await cart.save();
     }
-    /* ---------------------------------------------------------- */
-    /*                     Decrease from cart                     */
-    /* ---------------------------------------------------------- */
-    public static async decreaseFromCart({
-        productId,
-        userId
-    }: serviceTypes.cart.arguments.DecreaseFromCart) {
-        /* ----------------------- Check cart ----------------------- */
-        let cart = await findOneAndUpdateCart({
-            query: {
-                user: userId,
-                'cart_product.product': productId,
-                'cart_product.quantity': { $gt: 0 }
-            },
-            update: { $inc: { 'cart_product.$.quantity': -1 } },
-            options: { new: true },
-            omit: 'metadata'
-        });
-        if (!cart) throw new NotFoundErrorResponse('Cart not found!');
 
-        /* ------ Remove product in cart when quantity is zero ------ */
-        if (cart.cart_product.find((x) => x.quantity <= 0)) {
-            cart.set(
-                'cart_product',
-                cart.cart_product.filter((x) => x.quantity > 0)
-            );
+    /* ---------------------------------------------------------- */
+    /*                            Get                             */
+    /* ---------------------------------------------------------- */
 
-            cart = await cart.save();
-        }
+    /* ------------------------ Get cart ------------------------ */
+    public static async getCart({ user }: serviceTypes.cart.arguments.GetCart) {
+        const cart = await getCartUpsert(user);
 
         return cart;
     }
 
     /* ---------------------------------------------------------- */
-    /*                  Delete product from cart                  */
+    /*                           Update                           */
+    /* ---------------------------------------------------------- */
+
+    /* ---------------------- Update cart  ---------------------- */
+    public static async updateCart({ user, cartShop }: serviceTypes.cart.arguments.UpdateCart) {
+        const cart = await getCartUpsert(user);
+
+        await Promise.all(
+            cartShop.map(async (shop, index) => {
+                /* -------------- Check products is available  -------------- */
+                const productIds = shop.products.map((x) => x.id);
+                const productsValidToUse = await checkProductsIsAvailableToUse({
+                    shopId: shop.shopId,
+                    productIds
+                });
+                if (!productsValidToUse)
+                    throw new BadRequestErrorResponse('Some product is invalid to add cart!');
+
+                /* ----------- Create new cart shop if not exists ----------- */
+                const foundShop = cart.cart_shop.find((x) => x.shop.toString() === shop.shopId);
+                if (!foundShop) throw new NotFoundErrorResponse('Not found shop in cart!');
+
+                await Promise.all(
+                    shop.products.map(async (product) => {
+                        /* -------------- Check product exists in cart -------------- */
+                        const foundProduct = foundShop.products.find(
+                            (x) => x.id.toString() === product.id
+                        );
+                        if (!foundProduct)
+                            throw new NotFoundErrorResponse('Not found product in cart!');
+
+                        /* --------------------- Handle delete  --------------------- */
+                        if (product.isDelete) {
+                            foundShop.products = foundShop.products.filter(
+                                (x) => x.id.toString() !== product.id
+                            );
+                            return;
+                        }
+
+                        /* ------------------ Handle update status ------------------ */
+                        if (product.status !== product.newStatus) {
+                            foundProduct.status = product.newStatus;
+                        }
+
+                        /* ----------------- Handle update quantity ----------------- */
+                        if (product.quantity !== product.newQuantity) {
+                            foundProduct.quantity = product.newQuantity;
+                        }
+                    })
+                );
+            })
+        );
+
+        return {
+            old: cartShop,
+            new: (await cart.save()).cart_shop
+        };
+    }
+
+    /* ---------------------------------------------------------- */
+    /*                           Delete                           */
     /* ---------------------------------------------------------- */
     public static async deleteProductFromCart({
         productId,
         userId
     }: serviceTypes.cart.arguments.DeleteProductFromCart) {
         /* ----------------------- Check cart ----------------------- */
-        const cart = await findOneAndUpdateCart({
-            query: { user: userId },
-            update: { $pull: { cart_product: { product: productId } } },
-            options: { new: true },
-            omit: 'metadata'
+        const cart = await findAndRemoveProductFromCart({
+            product: productId,
+            user: userId
         });
-
         if (!cart) throw new NotFoundErrorResponse('Cart not found!');
-
-        return cart;
-    }
-
-    /* ---------------------------------------------------------- */
-    /*                       Select product                       */
-    /* ---------------------------------------------------------- */
-    public static async selectProduct({
-        productId,
-        userId
-    }: serviceTypes.cart.arguments.SelectProduct) {
-        const cart = await findOneAndUpdateCart({
-            query: {
-                user: userId,
-                'cart_product.product': productId,
-                'cart_product.status': CartItemStatus.Inactive
-            },
-            update: { 'cart_product.$.status': CartItemStatus.Active },
-            options: { new: true }
-        });
-
-        if (!cart) throw new NotFoundErrorResponse('Not found cart of cart is not inactive!');
-
-        return cart;
-    }
-
-    /* ---------------------------------------------------------- */
-    /*                      Unselect product                      */
-    /* ---------------------------------------------------------- */
-    public static async unSelectProduct({
-        userId,
-        productId
-    }: serviceTypes.cart.arguments.UnSelectProduct) {
-        const cart = await findOneAndUpdateCart({
-            query: {
-                user: userId,
-                'cart_product.product': productId,
-                'cart_product.status': CartItemStatus.Active
-            },
-            update: { 'cart_product.$.status': CartItemStatus.Inactive },
-            options: { new: true }
-        });
-
-        if (!cart) throw new NotFoundErrorResponse('Not found cart of cart is not active!');
 
         return cart;
     }
