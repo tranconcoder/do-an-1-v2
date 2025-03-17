@@ -2,7 +2,6 @@ import type { Document, HydratedDocument, Model, Models } from 'mongoose';
 import type mongoose from 'mongoose';
 import type { CategoryEnum } from '../../enums/product.enum';
 import { Product } from '../../services/product';
-import { productModel } from '../../models/product.model';
 
 declare global {
     namespace modelTypes {
@@ -10,9 +9,7 @@ declare global {
             type ProductListKey = keyof typeof CategoryEnum;
             type ProductList = CategoryEnum;
 
-            type ProductSchemaList<T = false> = Partial<
-                PhoneSchema<T> & ClothesSchema<T>
-            >;
+            type ProductSchemaList<T = false> = Partial<PhoneSchema<T> & ClothesSchema<T>>;
             type ProductUnion<T = false> = PhoneSchema<T> | ClothesSchema<T>;
 
             type CommonFields = {
@@ -20,12 +17,11 @@ declare global {
                 product_shop: mongoose.Types.ObjectId | string;
             };
 
-            type MongooseInit<isModel, isDocument, T> =
-                moduleTypes.mongoose.MongooseType<
-                    T & CommonFields,
-                    isModel,
-                    isDocument
-                >;
+            type MongooseInit<isModel, isDocument, T> = moduleTypes.mongoose.MongooseType<
+                T & CommonFields,
+                isModel,
+                isDocument
+            >;
 
             type ProductSchema<isModel = false, isDoc = false> = MongooseInit<
                 isModel,
@@ -97,7 +93,6 @@ declare global {
                     color: string;
                 }
             >;
-
         }
     }
 }

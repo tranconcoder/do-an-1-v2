@@ -31,11 +31,11 @@ declare global {
                 ? mongooseLib.Model<{}, {}, {}, {}, HydratedDocument<K>>
                 : {};
 
-            type MongooseType<T, isModel, isDocument> = (isModel extends true
-                ? Model<{}, {}, {}, {}, HydratedDocument<T>>
+            type MongooseType<T, isModel, isDocument, D> = (isModel extends true
+                ? Model<{}, {}, {}, {}, HydratedDocument<T & D>>
                 : {}) &
-                (isDocument extends true ? HydratedDocument<T> : {}) &
-                (isModel extends false ? (isDocument extends false ? T : {}) : {});
+                (isDocument extends true ? HydratedDocument<T & D> : {}) &
+                (isModel extends false ? (isDocument extends false ? T & D : {}) : {});
 
             /* ----- Argument of generateFindAllPageSlitting utils  ----- */
             interface FindAllWithPageSlittingArgs<T = any> {
