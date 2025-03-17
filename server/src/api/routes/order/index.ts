@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import getRoute from '../cart/get.route';
+import getRoute from './get.route';
 
 const orderRoute = Router();
 

@@ -9,7 +9,7 @@ import { CartItemStatus } from '../enums/cart.enum';
 export default new (class CheckoutService {
     public async checkout({
         user,
-        shopsDiscount,
+        shopsDiscount = [],
         discountId
     }: serviceTypes.checkout.arguments.Checkout) {
         /* --------- Check user address, phone number --------------- */

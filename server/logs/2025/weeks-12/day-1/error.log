@@ -21427,3 +21427,14 @@
 [2025-03-17T07:32:00.062Z] [error]: Client must be connected before running operations
 [2025-03-17T07:32:00.064Z] [error]: Client must be connected before running operations
 [2025-03-17T07:32:00.066Z] [error]: Client must be connected before running operations
+[2025-03-17T08:10:38.074Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-17T08:10:38.080Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-17T08:10:53.238Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-17T08:11:58.380Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-17T08:12:03.810Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-17T08:12:18.762Z] [error]: HIDE::404::NotFound::Product not found!::
+[2025-03-17T08:12:28.593Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-17T08:12:45.761Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-17T08:14:11.564Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'find')::
+[2025-03-17T08:14:20.628Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'find')::
+[2025-03-17T08:14:53.175Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'find')::
