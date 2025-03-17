@@ -4,20 +4,11 @@ import { DiscountTypeEnum } from '../../enums/discount.enum';
 declare global {
     namespace modelTypes {
         namespace discount {
-            type MongooseInit<isModel, isDoc, T> =
-                moduleTypes.mongoose.MongooseType<
-                    T & CommonType,
-                    isModel,
-                    isDoc
-                >;
-
             interface CommonType {
                 _id: moduleTypes.mongoose.ObjectId;
             }
 
-            type DiscountSchema<isModel = false, isDoc = false> = MongooseInit<
-                isModel,
-                isDoc,
+            type DiscountSchema<isModel = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
                 {
                     discount_shop: moduleTypes.mongoose.ObjectId;
                     discount_name: string;
@@ -36,18 +27,23 @@ declare global {
                     is_available?: boolean;
                     is_publish?: boolean;
                     is_admin_voucher?: boolean;
-                }
+                },
+                isModel,
+                isDoc,
+                CommonType
             >;
 
-            type DiscountUsed<isModel = false, isDoc = false> = MongooseInit<
-                isModel.isDoc,
+            type DiscountUsed<isModel = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
                 {
                     user: moduleTypes.mongoose.MongooseType;
                     discount: moduleTypes.mongoose.MongooseType;
                     order: moduleTypes.mongoose.MongooseType;
                     discounted_value: number;
                     used_at: Date;
-                }
+                },
+                isModel,
+                isDoc,
+                CommonType
             >;
         }
     }

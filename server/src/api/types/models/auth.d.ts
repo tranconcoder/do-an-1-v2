@@ -4,10 +4,7 @@ import { joiTypes } from '../joi';
 declare global {
     namespace modelTypes {
         namespace auth {
-            type UserSchema<
-                isModel = false,
-                isDoc = false
-            > = moduleTypes.mongoose.MongooseType<
+            type UserSchema<isModel = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
                 {
                     phoneNumber: string;
                     password: string;
@@ -17,9 +14,9 @@ declare global {
                     dayOfBirth?: Date;
                 },
                 isModel,
-                isDoc
+                isDoc,
+                {}
             >;
         }
     }
 }
-

@@ -12,20 +12,12 @@ declare global {
             type ProductSchemaList<T = false> = Partial<PhoneSchema<T> & ClothesSchema<T>>;
             type ProductUnion<T = false> = PhoneSchema<T> | ClothesSchema<T>;
 
-            type CommonFields = {
+            interface CommonFields {
                 _id: mongoose.Types.ObjectId | string;
                 product_shop: mongoose.Types.ObjectId | string;
-            };
+            }
 
-            type MongooseInit<isModel, isDocument, T> = moduleTypes.mongoose.MongooseType<
-                T & CommonFields,
-                isModel,
-                isDocument
-            >;
-
-            type ProductSchema<isModel = false, isDoc = false> = MongooseInit<
-                isModel,
-                isDoc,
+            type ProductSchema<isModel = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
                 {
                     product_name: string;
                     product_cost: number;
@@ -38,12 +30,13 @@ declare global {
                     is_publish: boolean;
                     product_rating_avg: number;
                     product_slug: string;
-                }
+                },
+                isModel,
+                isDoc,
+                CommonFields
             >;
 
-            type PhoneSchema<isMode = false, isDoc = false> = MongooseInit<
-                isMode,
-                isDoc,
+            type PhoneSchema<isMode = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
                 {
                     phone_processor: string;
                     phone_brand: string;
@@ -82,16 +75,20 @@ declare global {
                     phone_material: string;
                     phone_weight: number;
                     is_smartphone: boolean;
-                }
+                },
+                isMode,
+                isDoc,
+                CommonFields
             >;
 
-            type ClothesSchema<isModel = false, isDoc = false> = MongooseInit<
-                isModel,
-                isDoc,
+            type ClothesSchema<isModel = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
                 {
                     size: string;
                     color: string;
-                }
+                },
+                isModel,
+                isDoc,
+                CommonFields
             >;
         }
     }

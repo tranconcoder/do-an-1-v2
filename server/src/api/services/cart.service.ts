@@ -24,8 +24,8 @@ export default class CartService {
     public static async addToCart({ productId, userId }: serviceTypes.cart.arguments.AddToCart) {
         /* ---------------- Check product is active  ---------------- */
         const foundProduct = await findProductById({ productId });
-        if (!foundProduct) throw new NotFoundErrorResponse('Not found product');
-        if (!foundProduct.is_publish) throw new ForbiddenErrorResponse('Product is not publish!');
+        if (!foundProduct || !foundProduct.is_publish)
+            throw new NotFoundErrorResponse('Not found product');
 
         /* --------------- Add new cart product item  --------------- */
         const cart = await findOneCartByUser({ user: userId });

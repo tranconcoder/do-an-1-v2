@@ -181,6 +181,8 @@ export default class DiscountService {
             .findOne({ discount_code: discountCode, is_available: true })
             .lean();
         if (!discount) throw new NotFoundErrorResponse('Not found discount!');
+        if (discount.discount_count === 0)
+            throw new BadRequestErrorResponse('Discount is out of code!');
 
         /* ----------- Check product is available to use  ----------- */
         const productIds = products.map((x) => x.id);

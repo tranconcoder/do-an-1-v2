@@ -38,10 +38,10 @@ declare global {
             namespace arguments {
                 interface Checkout {
                     user: string;
-                    discountId?: string; // Admin voucher
+                    discountCode?: string; // Admin voucher
                     shopsDiscount: Array<{
                         shopId: string;
-                        discountId: string;
+                        discountCode: string;
                     }>;
                 }
             }

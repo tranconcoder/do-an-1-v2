@@ -17,18 +17,11 @@ const queryCreate = async (data: repoTypes.discount.arguments.QueryCreate) => {
 /* ---------------------------------------------------------- */
 /*                           Create                           */
 /* ---------------------------------------------------------- */
-export const createDiscount = async (
-    data: repoTypes.discount.arguments.QueryCreate
-) => {
+export const createDiscount = async (data: repoTypes.discount.arguments.QueryCreate) => {
     /* -------------------- Create discount  -------------------- */
     const discount = await queryCreate(data);
 
-    return _.omit(discount.toObject(), [
-        'is_admin_voucher',
-        'created_at',
-        'updated_at',
-        '__v'
-    ]);
+    return _.omit(discount.toObject(), ['is_admin_voucher', 'created_at', 'updated_at', '__v']);
 };
 
 /* ---------------------------------------------------------- */
@@ -44,11 +37,18 @@ export const isExistsDiscount = async (shop: string, code: string) => {
 /* ---------------------------------------------------------- */
 /*                            Find                            */
 /* ---------------------------------------------------------- */
+
+/* ------------------- Find discount byid ------------------- */
 export const findDiscountById = async (
     discountId: string,
     projection: ProjectionType<modelTypes.discount.DiscountSchema> = {}
 ) => {
     return await discountModel.findById(discountId, projection).lean();
+};
+
+/* ----------------- Find discount by code  ----------------- */
+export const findDiscountByCode = async (discountCode: string) => {
+    return await discountModel.findOne({ discount_code: discountCode }).lean();
 };
 
 /* ---------------------------------------------------------- */

@@ -1,5 +1,5 @@
 import { findOneCartByUser } from '../models/repository/cart/index';
-import { findDiscountById } from '../models/repository/discount/index';
+import { findDiscountByCode, findDiscountById } from '../models/repository/discount/index';
 import { userModel } from '../models/user.model';
 import { NotFoundErrorResponse } from '../response/error.response';
 import DiscountService from './discount.service';
@@ -10,15 +10,12 @@ export default new (class CheckoutService {
     public async checkout({
         user,
         shopsDiscount = [],
-        discountId
+        discountCode
     }: serviceTypes.checkout.arguments.Checkout) {
         /* --------- Check user address, phone number --------------- */
 
         /* ----------------------- Check cart ----------------------- */
-        const cart = await findOneCartByUser({
-            user: user,
-            query: { 'cart_shop.products.status': CartItemStatus.Active }
-        });
+        const cart = await findOneCartByUser({ user: user });
 
         cart.cart_shop.forEach((shop) => {
             shop.products = shop.products.filter(
@@ -38,7 +35,7 @@ export default new (class CheckoutService {
 
         /* --------------------- Admin voucher  --------------------- */
         let totalPriceProductToApplyAdminVoucher = 0;
-        const discountAdmin = discountId ? await findDiscountById(discountId) : null;
+        const discountAdmin = discountCode ? await findDiscountByCode(discountCode) : null;
 
         /* ----------------------- Each shop  ----------------------- */
         await Promise.all(
@@ -54,13 +51,10 @@ export default new (class CheckoutService {
                 const discountInfo = shopsDiscount.find(
                     (discount) => discount.shopId === shop.shop
                 );
-                const discount = discountInfo?.discountId
-                    ? await findDiscountById(discountInfo.discountId)
-                    : null;
-                const discountPrice = discount
+                const discountPrice = discountInfo
                     ? (
                           await DiscountService.getDiscountAmount({
-                              discountCode: discount.discount_code as string,
+                              discountCode: discountInfo.discountCode,
                               products: shop.products.map((x) => ({
                                   id: x.id,
                                   quantity: x.quantity
