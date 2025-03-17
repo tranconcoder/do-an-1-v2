@@ -1,5 +1,0 @@
-[2025-03-03T15:51:23.357Z] [debug]: "product_shop" is required
-[2025-03-03T15:59:32.331Z] [debug]: "product_shop" is required
-[2025-03-03T16:00:59.906Z] [debug]: "product_rating_avg" is required
-[2025-03-03T17:57:15.051Z] [debug]: "product_slug" is required
-[2025-03-03T18:04:08.601Z] [debug]: "product_attributes" does not match any of the allowed types

@@ -1,5 +1,0 @@
-[2025-03-01T09:33:08.494Z] [debug]: child "product_attributes" fails because [child "size" fails because ["size" is required], child "memory" fails because ["memory" is required]]
-[2025-03-01T09:34:24.202Z] [debug]: child "product_attributes" fails because [child "size" fails because ["size" is required], child "memory" fails because ["memory" is required]]
-[2025-03-01T10:07:21.800Z] [debug]: child "refreshToken" fails because ["refreshToken" is required]
-[2025-03-01T10:07:35.887Z] [debug]: "value" must be an object
-[2025-03-01T11:52:02.665Z] [debug]: child "product_category" fails because ["product_category" must be one of [Phone, Clothes]]

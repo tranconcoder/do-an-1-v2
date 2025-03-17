@@ -1,6 +1,0 @@
-[2025-03-04T04:24:09.046Z] [debug]: "product_attributes" does not match any of the allowed types
-[2025-03-04T04:53:02.072Z] [debug]: "product_attributes" does not match any of the allowed types
-[2025-03-04T05:55:29.592Z] [debug]: "product_category" must be [[object Object]]
-[2025-03-04T05:56:34.347Z] [debug]: "product_category" must be [[object Object]]
-[2025-03-04T05:57:15.732Z] [debug]: "product_category" must be [[object Object]]
-[2025-03-04T05:57:56.755Z] [debug]: "product_category" must be [[object Object]]

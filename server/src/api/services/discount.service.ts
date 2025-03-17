@@ -1,4 +1,3 @@
-import { NullableType } from 'joi';
 import _ from 'lodash';
 import discountModel from '../models/discount.model';
 import { productModel } from '../models/product.model';
@@ -199,7 +198,6 @@ export default class DiscountService {
             throw new BadRequestErrorResponse('Get products failed!');
 
         /* ---------------------- Handle calc  ---------------------- */
-        const result: commonTypes.object.ObjectAnyKeys = {};
         let totalPrice = 0;
         let totalDiscount = 0;
         let totalProductPriceToDiscount = 0; // To check min to apply product

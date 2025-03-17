@@ -7,13 +7,11 @@ export const HOST = process.env.HOST || 'localhost';
 export const BASE_URL = `http://${HOST}:${PORT}`;
 
 // Environment
-export const NODE_ENV = (process.env.NODE_ENV || 'development') as
-    | 'development'
-    | 'production';
+export const NODE_ENV = (process.env.NODE_ENV || 'development') as 'development' | 'production';
 
 // Database
 export const DB_URL = process.env.DB_URL || 'mongodb://localhost:27017';
-export const DB_MIN_POOL_SIZE = 50;
+export const DB_MIN_POOL_SIZE = 100;
 export const DB_MAX_POOL_SIZE = 500;
 
 // Paginate
