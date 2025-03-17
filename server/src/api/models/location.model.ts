@@ -1,8 +1,6 @@
 import { Schema, model } from 'mongoose';
 import slugify from 'slugify';
 import { timestamps, required } from '../../configs/mongoose.config';
-import jsonfile from 'jsonfile';
-import path from 'path';
 
 /* ---------------------------------------------------------- */
 /*                          Province                          */
@@ -109,4 +107,3 @@ citySchema.pre('save', function (next) {
 });
 
 export const districtModel = model(DISTRICT_MODEL_NAME, districtSchema);
-

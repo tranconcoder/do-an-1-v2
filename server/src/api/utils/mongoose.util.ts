@@ -1,5 +1,5 @@
 import mongoose, { HydratedDocument, QueryWithHelpers } from 'mongoose';
-import { timestamps } from 'src/configs/mongoose.config';
+import { timestamps } from '../../configs/mongoose.config';
 
 export const convertToMongooseId = (id: string) => new mongoose.Types.ObjectId(id);
 

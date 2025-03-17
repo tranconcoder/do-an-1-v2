@@ -9,11 +9,7 @@ import { HOST, PORT, BASE_URL } from './src/configs/server.config';
 import app from './src/app';
 import loggerService from './src/api/services/logger.service';
 import MongoDB from './src/app/db.app';
-import {
-    provinceModel,
-    cityModel,
-    districtModel
-} from './src/api/models/location.model';
+import { provinceModel, cityModel, districtModel } from './src/api/models/location.model';
 import path from 'path';
 
 const server = app.listen(PORT, HOST, () => {
@@ -36,36 +32,27 @@ process.on('SIGINT', () => {
 /* ---------------------------------------------------------- */
 /*                        Initial data                        */
 /* ---------------------------------------------------------- */
-const provinceJsonFile = path.join(
-    __dirname,
-    './src/api/assets/provinces.json'
-);
+const provinceJsonFile = path.join(__dirname, './src/api/assets/provinces.json');
 const citiesJsonFile = path.join(__dirname, './src/api/assets/cities.json');
-const districtJsonFile = path.join(
-    __dirname,
-    './src/api/assets/districts.json'
-);
+const districtJsonFile = path.join(__dirname, './src/api/assets/districts.json');
 jsonfile.readFile(provinceJsonFile, (err, data) => {
     if (err) {
-        console.error(err);
-        return;
+        return console.error(err);
     }
 
-    provinceModel.insertMany(data).catch(console.log);
+    provinceModel.insertMany(data).catch(() => {});
 });
 jsonfile.readFile(citiesJsonFile, (err, data) => {
     if (err) {
-        console.error(err);
-        return;
+        return console.error(err);
     }
 
-    cityModel.insertMany(data).catch(console.log);
+    cityModel.insertMany(data).catch(() => {});
 });
 jsonfile.readFile(districtJsonFile, (err, data) => {
     if (err) {
-        console.error(err);
-        return;
+        return console.error(err);
     }
 
-    districtModel.insertMany(data).catch(console.log);
+    districtModel.insertMany(data).catch(() => {});
 });

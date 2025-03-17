@@ -1,8 +1,8 @@
 import cartModel from '../models/cart.model';
 import {
-    getCartUpsert,
     findOneAndUpdateCart,
-    findAndRemoveProductFromCart
+    findAndRemoveProductFromCart,
+    findOneCartByUser
 } from '../models/repository/cart/index';
 import {
     checkProductsIsAvailableToUse,
@@ -28,7 +28,7 @@ export default class CartService {
         if (!foundProduct.is_publish) throw new ForbiddenErrorResponse('Product is not publish!');
 
         /* --------------- Add new cart product item  --------------- */
-        const cart = await getCartUpsert({ userId });
+        const cart = await findOneCartByUser({ user: userId });
 
         const cartShop = cart.cart_shop.find(
             (x) => x.shop.toString() === foundProduct.product_shop.toString()
@@ -75,7 +75,7 @@ export default class CartService {
 
     /* ------------------------ Get cart ------------------------ */
     public static async getCart({ user }: serviceTypes.cart.arguments.GetCart) {
-        const cart = await getCartUpsert({ userId: user });
+        const cart = await findOneCartByUser({ user });
 
         return cart;
     }
@@ -86,8 +86,8 @@ export default class CartService {
 
     /* ---------------------- Update cart  ---------------------- */
     public static async updateCart({ user, cartShop }: serviceTypes.cart.arguments.UpdateCart) {
-        const cart = await getCartUpsert({
-            userId: user
+        const cart = await findOneCartByUser({
+            user
         });
 
         await Promise.all(

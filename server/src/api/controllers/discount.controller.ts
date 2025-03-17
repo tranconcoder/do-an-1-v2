@@ -1,14 +1,7 @@
 import { RequestHandler } from 'express';
-import SuccessResponse, {
-    CreatedResponse,
-    OkResponse
-} from '../response/success.response';
+import SuccessResponse, { CreatedResponse, OkResponse } from '../response/success.response';
 import DiscountService from '../services/discount.service';
-import {
-    RequestWithBody,
-    RequestWithParams,
-    RequestWithQuery
-} from '../types/request';
+import { RequestWithBody, RequestWithParams, RequestWithQuery } from '../types/request';
 
 export default class DiscountController {
     /* ---------------------------------------------------------- */
@@ -16,16 +9,19 @@ export default class DiscountController {
     /* ---------------------------------------------------------- */
 
     /* -------------------- Create discount  -------------------- */
-    public static createDiscount: RequestWithBody<joiTypes.discount.CreateDiscount> =
-        async (req, res, _) => {
-            new CreatedResponse({
-                message: 'Discount created successfully',
-                metadata: await DiscountService.createDiscount({
-                    ...req.body,
-                    userId: req.userId as string
-                })
-            }).send(res);
-        };
+    public static createDiscount: RequestWithBody<joiTypes.discount.CreateDiscount> = async (
+        req,
+        res,
+        _
+    ) => {
+        new CreatedResponse({
+            message: 'Discount created successfully',
+            metadata: await DiscountService.createDiscount({
+                ...req.body,
+                userId: req.userId as string
+            })
+        }).send(res);
+    };
 
     /* ---------------------------------------------------------- */
     /*                            Get                             */
@@ -69,32 +65,38 @@ export default class DiscountController {
     /* ---------------------------------------------------------- */
     /*                           Update                           */
     /* ---------------------------------------------------------- */
-    public static updateDiscount: RequestWithBody<joiTypes.discount.UpdateDiscount> =
-        async (req, res, _) => {
-            new OkResponse({
-                message: 'Update discount success!',
-                metadata: await DiscountService.updateDiscount({
-                    ...req.body,
-                    discount_shop: req.userId as string
-                })
-            }).send(res);
-        };
+    public static updateDiscount: RequestWithBody<joiTypes.discount.UpdateDiscount> = async (
+        req,
+        res,
+        _
+    ) => {
+        new OkResponse({
+            message: 'Update discount success!',
+            metadata: await DiscountService.updateDiscount({
+                ...req.body,
+                discount_shop: req.userId as string
+            })
+        }).send(res);
+    };
 
     /* ---------------------------------------------------------- */
     /*                           Delete                           */
     /* ---------------------------------------------------------- */
 
     /* -------------------- Delete discount  -------------------- */
-    public static deleteDiscount: RequestWithParams<joiTypes.discount.DeleteDiscount> =
-        async (req, res, _) => {
-            new SuccessResponse({
-                statusCode: 200,
-                name: 'Delete discount',
-                message: 'Delete success!',
-                metadata: await DiscountService.deleteDiscount({
-                    discountId: req.params.discountId,
-                    productShop: req.userId as string
-                })
-            }).send(res);
-        };
+    public static deleteDiscount: RequestWithParams<joiTypes.discount.DeleteDiscount> = async (
+        req,
+        res,
+        _
+    ) => {
+        new SuccessResponse({
+            statusCode: 200,
+            name: 'Delete discount',
+            message: 'Delete success!',
+            metadata: await DiscountService.deleteDiscount({
+                discountId: req.params.discountId,
+                productShop: req.userId as string
+            })
+        }).send(res);
+    };
 }

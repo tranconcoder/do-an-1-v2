@@ -7,6 +7,14 @@ declare global {
                 product: string;
                 user: string;
             }
+
+            /* ---------------------------------------------------------- */
+            /*                           Check                            */
+            /* ---------------------------------------------------------- */
+            interface CheckShopListExistsInCart {
+                user: string;
+                shopList: string[];
+            }
         }
     }
 }

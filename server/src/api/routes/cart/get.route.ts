@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import CartController from 'src/api/controllers/cart.controller';
-import catchError from 'src/api/middlewares/catchError.middleware';
-import { authenticate } from 'src/api/middlewares/jwt.middleware';
+import CartController from '../../controllers/cart.controller';
+import catchError from '../../middlewares/catchError.middleware';
+import { authenticate } from '../../middlewares/jwt.middleware';
 
 const getRouter = Router();
 const getRouterValidated = Router();

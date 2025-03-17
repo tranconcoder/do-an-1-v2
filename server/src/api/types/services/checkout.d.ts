@@ -10,6 +10,8 @@ declare global {
                 interface CheckoutResult {
                     totalPriceRaw: number;
                     totalFeeShip: number;
+                    totalDiscountShopPrice: number;
+                    totalDiscountAdminPrice: number;
                     totalDiscountPrice: number;
                     totalCheckout: number;
                     shopsInfo: Array<{
@@ -22,7 +24,6 @@ declare global {
                             thumb: string;
                             price: number;
                             priceRaw: number;
-                            discountPrice: number;
                         }>;
                         feeShip: number;
                         totalPriceRaw: number;

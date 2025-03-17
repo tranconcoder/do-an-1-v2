@@ -1,3 +1,4 @@
+import { NullableType } from 'joi';
 import _ from 'lodash';
 import discountModel from '../models/discount.model';
 import { productModel } from '../models/product.model';
@@ -312,7 +313,9 @@ export default class DiscountService {
         const $set = {};
         get$SetNestedFromObject(payload, $set);
 
-        return await discountModel.findOneAndUpdate({ _id }, { $set }, { new: true });
+        const result = await discountModel.findOneAndUpdate({ _id }, { $set }, { new: true });
+
+        return result as NonNullable<typeof result>;
     };
 
     /* -------------------- Cancel discount  -------------------- */
