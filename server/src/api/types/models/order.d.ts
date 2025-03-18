@@ -11,7 +11,7 @@ declare global {
             type OrderSchema<isModel = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
                 {
                     /* ----------------------- Customers  ----------------------- */
-                    customer: string;
+                    customer: moduleTypes.mongoose.ObjectId;
                     customer_avatar: string;
                     customer_full_name: string;
                     customer_phone: string;
@@ -29,15 +29,25 @@ declare global {
                         shop_products: Array<{
                             product_id: string;
                             product_name: string;
+                            product_thumb: string;
                             product_quantity: number;
                             product_price: number;
                             product_total_price_raw: number;
-                            product_thumb: string;
                         }>;
-                        shop_customer_notes: string;
+                        shop_customer_note: string;
                     }>;
 
                     /* ------------------------ Discount ------------------------ */
+                    discount_admin: Pick<
+                        modelTypes.discount.DiscountSchema,
+                        | 'discount_name'
+                        | 'discount_description'
+                        | 'discount_type'
+                        | 'discount_value'
+                        | 'discount_code'
+                        | 'discount_start_at'
+                        | 'discount_end_at'
+                    >;
                     discount_price_shop: number;
                     discount_price_admin: number;
                     discount_price_total: number;
@@ -49,6 +59,7 @@ declare global {
                     /* ------------------------ Payment  ------------------------ */
                     payment_type: PaymentType;
                     payment_bank?: string;
+                    payment_paid: boolean;
 
                     /* ------------------------- Status ------------------------- */
                     order_status: OrderStatus;
