@@ -1,10 +1,20 @@
-import { findOneCartByUser } from '../models/repository/cart/index';
-import { findDiscountByCode, findDiscountById } from '../models/repository/discount/index';
-import { userModel } from '../models/user.model';
 import { NotFoundErrorResponse } from '../response/error.response';
-import DiscountService from './discount.service';
-import { calculateDiscount } from '../utils/discount.util';
+
+/* -------------------------- Enum -------------------------- */
 import { CartItemStatus } from '../enums/cart.enum';
+
+/* ------------------------- Utils  ------------------------- */
+import { calculateDiscount } from '../utils/discount.util';
+
+/* ------------------------ Services ------------------------ */
+import DiscountService from './discount.service';
+
+/* ------------------------- Models ------------------------- */
+import checkoutModel from '../models/checkout.model';
+import { userModel } from '../models/user.model';
+import { findOneCartByUser } from '../models/repository/cart/index';
+import { findDiscountByCode } from '../models/repository/discount/index';
+import { findOneAndUpdateCheckout } from '../models/repository/checkout/index';
 
 export default new (class CheckoutService {
     public async checkout({
@@ -125,6 +135,13 @@ export default new (class CheckoutService {
             checkoutResult.totalFeeShip -
             checkoutResult.totalDiscountPrice;
 
-        return checkoutResult;
+        return await findOneAndUpdateCheckout({
+            query: { user },
+            update: {
+                ...checkoutResult,
+                user
+            },
+            options: { new: true, upsert: true }
+        });
     }
 })();

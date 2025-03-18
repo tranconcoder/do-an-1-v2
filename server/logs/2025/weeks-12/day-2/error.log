@@ -1,0 +1,6 @@
+[2025-03-18T11:37:39.722Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-03-18T11:37:46.787Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-18T11:37:58.560Z] [error]: HIDE::500::ValidationError::Checkout validation failed: user: Path `user` is required.::
+[2025-03-18T11:38:49.363Z] [error]: HIDE::500::ValidationError::Checkout validation failed: user: Path `user` is required.::
+[2025-03-18T11:50:00.002Z] [error]: Client must be connected before running operations
+[2025-03-18T11:50:00.005Z] [error]: Client must be connected before running operations
