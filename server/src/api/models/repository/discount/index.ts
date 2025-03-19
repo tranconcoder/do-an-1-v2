@@ -1,11 +1,15 @@
 import _ from 'lodash';
-import discountModel from '../../discount.model';
+import discountModel from '../../discount.model.js';
 import {
     convertToMongooseId,
     generateFindAllPageSplit,
+    generateFindOneAndUpdate,
     generateUpdateAll
-} from '../../../utils/mongoose.util';
+} from '../../../utils/mongoose.util.js';
 import { ProjectionType } from 'mongoose';
+import discountUsedModel from '../../discountUsed.model.js';
+import { pessimisticLock } from 'src/api/services/redis.service.js';
+import { PessimisticKeys } from 'src/api/enums/redis.enum.js';
 
 /* ---------------------------------------------------------- */
 /*                           Common                           */
@@ -37,8 +41,10 @@ export const isExistsDiscount = async (shop: string, code: string) => {
 /* ---------------------------------------------------------- */
 /*                            Find                            */
 /* ---------------------------------------------------------- */
+export const findOneAndUpdateDiscount =
+    generateFindOneAndUpdate<modelTypes.discount.DiscountSchema>(discountModel);
 
-/* ------------------- Find discount byid ------------------- */
+/* ------------------ Find discount by id ------------------ */
 export const findDiscountById = async (
     discountId: string,
     projection: ProjectionType<modelTypes.discount.DiscountSchema> = {}
@@ -49,6 +55,24 @@ export const findDiscountById = async (
 /* ----------------- Find discount by code  ----------------- */
 export const findDiscountByCode = async (discountCode: string) => {
     return await discountModel.findOne({ discount_code: discountCode }).lean();
+};
+
+/* -------------- Find discount valid by code  -------------- */
+export const findDiscountValidByCode = async (discountCode: string) => {
+    return await discountModel.findOne({
+        discount_code: discountCode,
+        is_available: true,
+        discount_start_at: { $lte: new Date() },
+        discount_end_at: { $gte: new Date() },
+        $or: [
+            { discount_count: null },
+            {
+                $expr: {
+                    $lt: ['discount_used_count', 'discount_count']
+                }
+            }
+        ]
+    });
 };
 
 /* ---------------------------------------------------------- */
@@ -115,6 +139,21 @@ export const findAllDiscountPublishAvailableByShop = async (shop: string) => {
 /*                           Update                           */
 /* ---------------------------------------------------------- */
 export const updateManyDiscount = generateUpdateAll(discountModel);
+
+/* -------------------- Cancel discount  -------------------- */
+export const cancelDiscount = async (discountId: moduleTypes.mongoose.ObjectId) => {
+    return await Promise.all([
+        pessimisticLock(PessimisticKeys.DISCOUNT, discountId.toString(), async () =>
+            findOneAndUpdateDiscount({
+                query: { _id: discountId },
+                update: {
+                    $inc: { discount_used_count: -1 }
+                }
+            })
+        ),
+        discountUsedModel.deleteOne({ discount_used_discount: discountId })
+    ]);
+};
 
 /* ---------------------------------------------------------- */
 /*                           Delete                           */

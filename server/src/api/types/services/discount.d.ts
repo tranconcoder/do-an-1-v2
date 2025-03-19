@@ -62,6 +62,13 @@ declare global {
                         '_id' | 'discount_shop'
                     > {}
 
+                /* ---------------------- Use discount ---------------------- */
+                interface UseDiscount {
+                    userId: string;
+                    discountId: string;
+                    discountCode: string;
+                }
+
                 /* ---------------------------------------------------------- */
                 /*                           Delete                           */
                 /* ---------------------------------------------------------- */

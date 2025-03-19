@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { CHECKOUT_EXPIRES_TIME } from 'src/configs/model.config';
-import { timestamps, required } from 'src/configs/mongoose.config';
-import { DiscountTypeEnum } from '../enums/discount.enum';
+import { CHECKOUT_EXPIRES_TIME } from 'src/configs/model.config.js';
+import { timestamps, required } from 'src/configs/mongoose.config.js';
+import { DiscountTypeEnum } from '../enums/discount.enum.js';
 
 export const CHECKOUT_MODEL_NAME = 'Checkout';
 export const CHECKOUT_COLLECTION_NAME = 'checkouts';
@@ -20,6 +20,7 @@ export const checkoutSchema = new Schema<modelTypes.checkout.CheckoutSchema>(
                 shop_id: { type: String, required },
                 shop_name: { type: String, required },
                 discount: {
+                    discount_id: { type: Schema.Types.ObjectId, required },
                     discount_name: { type: String, required },
                     discount_type: { type: String, enum: DiscountTypeEnum, required },
                     discount_value: { type: Number, required }

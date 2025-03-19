@@ -1,12 +1,16 @@
 import _ from 'lodash';
+import { PessimisticKeys } from '../enums/redis.enum.js';
 import discountModel from '../models/discount.model.js';
+import discountUsedModel from '../models/discountUsed.model.js';
 import { productModel } from '../models/product.model.js';
 import {
+    cancelDiscount,
     checkConflictDiscountInShop,
     createDiscount,
     deleteDiscount,
     findAllDiscount,
-    findDiscountById
+    findDiscountById,
+    findDiscountValidByCode
 } from '../models/repository/discount/index.js';
 import {
     findAllProduct,
@@ -22,6 +26,7 @@ import {
 } from '../response/error.response.js';
 import { calculateDiscount } from '../utils/discount.util.js';
 import { get$SetNestedFromObject } from '../utils/mongoose.util.js';
+import { pessimisticLock } from './redis.service.js';
 
 export default class DiscountService {
     /* ---------------------------------------------------------- */
@@ -177,15 +182,9 @@ export default class DiscountService {
         products
     }: serviceTypes.discount.arguments.GetDiscountAmount) => {
         /* --------------------- Check discount --------------------- */
-        const discount = await discountModel
-            .findOne({
-                discount_code: discountCode,
-                is_available: true,
-                discount_start_at: { $lte: new Date() },
-                discount_end_at: { $gte: new Date() }
-            })
-            .lean();
-        if (!discount) throw new NotFoundErrorResponse('Not found discount!');
+        const discount = await findDiscountValidByCode(discountCode);
+        if (!discount)
+            throw new NotFoundErrorResponse('Not found discount or discount is invalid!');
         if (discount.discount_count === 0)
             throw new BadRequestErrorResponse('Discount is out of code!');
 
@@ -323,8 +322,59 @@ export default class DiscountService {
         return result as NonNullable<typeof result>;
     };
 
+    public static useDiscount = async ({
+        userId,
+        discountId,
+        discountCode
+    }: serviceTypes.discount.arguments.UseDiscount) => {
+        const newDiscount = await pessimisticLock(
+            PessimisticKeys.DISCOUNT,
+            discountId,
+            async () =>
+                await discountModel.findOneAndUpdate(
+                    {
+                        discount_code: discountCode,
+                        discount_start_at: { $lte: new Date() },
+                        discount_end_at: { $gte: new Date() },
+                        is_available: true,
+                        $or: [
+                            { discount_count: null },
+                            {
+                                $expr: {
+                                    $lt: ['discount_count_used', 'discount_count']
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        $inc: {
+                            discount_used_count: 1
+                        }
+                    },
+                    {
+                        new: true
+                    }
+                )
+        );
+        if (!newDiscount) throw new BadRequestErrorResponse('Discount is invalid!');
+
+        /* -------------------- Add used history -------------------- */
+        const discountUsed = await discountUsedModel.create({
+            discount_used_code: newDiscount.discount_code,
+            discount_used_user: userId,
+            discount_used_shop: newDiscount.discount_shop,
+            discount_used_discount: newDiscount._id
+        });
+        if (!discountUsed) {
+            await this.cancelDiscount(newDiscount._id);
+            throw new BadRequestErrorResponse('Check discount failed!');
+        }
+    };
+
     /* -------------------- Cancel discount  -------------------- */
-    public static cancelDiscount = async () => {};
+    public static cancelDiscount = async (discountId: moduleTypes.mongoose.ObjectId) => {
+        return await cancelDiscount(discountId);
+    };
 
     /* ---------------------------------------------------------- */
     /*                           Delete                           */

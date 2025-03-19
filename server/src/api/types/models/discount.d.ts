@@ -17,6 +17,7 @@ declare global {
                     discount_type: DiscountTypeEnum;
                     discount_value: number;
                     discount_count?: number;
+                    discount_used_count?: number;
                     discount_min_order_cost?: number; // Minimum cost to apply discount
                     discount_products?: Array<moduleTypes.mongoose.ObjectId>;
                     discount_start_at: Date;
@@ -35,11 +36,11 @@ declare global {
 
             type DiscountUsed<isModel = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
                 {
-                    user: moduleTypes.mongoose.MongooseType;
-                    discount: moduleTypes.mongoose.MongooseType;
-                    order: moduleTypes.mongoose.MongooseType;
-                    discounted_value: number;
-                    used_at: Date;
+                    discount_used_discount: moduleTypes.mongoose.ObjectId;
+                    discount_used_code: string;
+                    discount_used_user: moduleTypes.mongoose.ObjectId;
+                    discount_used_shop: moduleTypes.mongoose.ObjectId;
+                    discount_used_at: Date;
                 },
                 isModel,
                 isDoc,

@@ -32,7 +32,7 @@ export default new (class OrderService {
 
                 /* ----------------- Check inventory stock  ----------------- */
                 const orderedInventory = await pessimisticLock(
-                    PessimisticKeys.INVENTORY_STOCK,
+                    PessimisticKeys.INVENTORY,
                     inventory._id,
                     async () => {
                         return await orderProductInventory(id, quantity);
@@ -43,6 +43,11 @@ export default new (class OrderService {
                 }
 
                 /* --------------------- Check discount --------------------- */
+                const orderedDiscount = await pessimisticLock(
+                    PessimisticKeys.DISCOUNT,
+                    '',
+                    async () => {}
+                );
             })
         );
     }
