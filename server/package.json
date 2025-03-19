@@ -1,6 +1,7 @@
 {
     "name": "do-an-1",
     "version": "1.0.0",
+    "type": "module",
     "main": "index.js",
     "repository": "https://github.com/tranconcoder/do-an-1",
     "author": "tvconss <tranconcoder@gmail.com>",

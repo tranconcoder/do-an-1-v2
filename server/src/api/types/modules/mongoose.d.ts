@@ -64,6 +64,9 @@ declare global {
                 select?: string[];
                 omit?: string[] | 'metadata';
             }
+
+            /* -------------------- Generate findOne -------------------- */
+            interface FindOne<T = any> extends Omit<FindOneAndUpdate<T>, 'update'> {}
         }
     }
 

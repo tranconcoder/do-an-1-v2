@@ -15,24 +15,38 @@ const result = test.validate({
 console.log(result); */
 
 import express, { Router } from 'express';
+import mongoose, { Schema, model } from 'mongoose';
+
+mongoose.connect('mongodb://localhost:27017');
+
+const testModel = model(
+    'testModel',
+    new Schema({
+        stock: Number
+    })
+);
 
 const app = express();
 const testRoute = Router();
-const testRouteValidated = Router();
+let i = 0;
 
-app.use(testRoute);
+app.get('/', (req, res, next) => {
+    testModel.updateOne({ stock: { $gt: 0 } }, { $inc: { stock: -1 } }).then((order) => {
+        if (order.modifiedCount > 0) {
+            const result = {
+                success: true,
+                i,
+                // stock_after: order.stock,
+                messsage: 'Order successully!'
+            };
 
-testRoute.use(testRouteValidated);
-testRouteValidated.use((req, res, next) => {
-    console.log('Middleware running...');
-});
-
-testRoute.get('/', (req, res) => {
-    console.log('Root route');
-});
-
-testRouteValidated.get('/validated', (req, res) => {
-    console.log('Validated route');
+            console.log(i++);
+            res.status(200).send();
+        } else {
+            console.log('Het hang');
+            res.status(400).send();
+        }
+    });
 });
 
 app.listen(3000, () => {});

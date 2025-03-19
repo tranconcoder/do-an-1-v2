@@ -93,3 +93,27 @@ export const generateFindOneAndUpdate = <T = any>(model: any) => {
         return result;
     };
 };
+
+export const generateFindOne = <T = any>(model: any) => {
+    return ({
+        query,
+        options = {},
+        select = [],
+        omit = [],
+        projection = {}
+    }: moduleTypes.mongoose.FindOne<T>) => {
+        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findOne', {}>;
+
+        for (const field of select) projection[field] = 1;
+
+        if (omit === 'metadata') {
+            const metadataField = ['__v', ...Object.values(timestamps)];
+
+            for (const field of metadataField) projection[field] = 0;
+        } else for (const field of omit) projection[field] = 0;
+
+        const result: Query = model.findOne(query, projection, options);
+
+        return result;
+    };
+};

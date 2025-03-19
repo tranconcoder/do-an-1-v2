@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { required } from '../../configs/mongoose.config';
-import { USER_MODEL_NAME } from '../models/user.model';
+import { required } from '../../configs/mongoose.config.js';
+import { USER_MODEL_NAME } from '../models/user.model.js';
 import path from 'path';
 
 export const addProductShopToSchema = <T = any>(schema: T) => {
@@ -18,27 +18,18 @@ export const addProductShopToSchema = <T = any>(schema: T) => {
     } as commonTypes.utils.AutoType<T> & typeof productShop;
 };
 
-export const importProductService = async (
-    productName: modelTypes.product.ProductList
-) => {
-    const PRODUCT_SERVICE_PATH = path.join(__dirname, '../services/product');
+export const importProductService = async (productName: modelTypes.product.ProductList) => {
+    const PRODUCT_SERVICE_PATH = path.join(import.meta.dirname, '../services/product');
 
-    return await import(
-        `${PRODUCT_SERVICE_PATH}/${productName.toLowerCase()}.service`
-    ).then((x) => x.default);
+    return await import(`${PRODUCT_SERVICE_PATH}/${productName.toLowerCase()}.service`).then(
+        (x) => x.default
+    );
 };
 
-export const importProductModel = async <
-    T extends modelTypes.product.ProductList
->(
+export const importProductModel = async <T extends modelTypes.product.ProductList>(
     productName: T
 ) => {
-    const PRODUCT_MODEL_PATH = path.join(
-        __dirname,
-        '../models/product.model.js'
-    );
+    const PRODUCT_MODEL_PATH = path.join(__dirname, '../models/product.model.js');
 
-    return await import(PRODUCT_MODEL_PATH).then(
-        (x) => x[`${productName.toLowerCase()}Schema`]
-    );
+    return await import(PRODUCT_MODEL_PATH).then((x) => x[`${productName.toLowerCase()}Schema`]);
 };

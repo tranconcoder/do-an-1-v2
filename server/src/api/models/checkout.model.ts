@@ -1,43 +1,54 @@
-import mongoose, { Schema, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
+import { CHECKOUT_EXPIRES_TIME } from 'src/configs/model.config';
 import { timestamps, required } from 'src/configs/mongoose.config';
+import { DiscountTypeEnum } from '../enums/discount.enum';
 
 export const CHECKOUT_MODEL_NAME = 'Checkout';
 export const CHECKOUT_COLLECTION_NAME = 'checkouts';
 
-const checkoutSchema = new Schema<modelTypes.checkout.CheckoutSchema>(
+export const checkoutSchema = new Schema<modelTypes.checkout.CheckoutSchema>(
     {
-        user: { type: Schema.Types.ObjectId, required },
-        totalPriceRaw: { type: Number, required },
-        totalFeeShip: { type: Number, required },
-        totalDiscountShopPrice: { type: Number, required },
-        totalDiscountAdminPrice: { type: Number, required },
-        totalDiscountPrice: { type: Number, required },
-        totalCheckout: { type: Number, required },
-        shopsInfo: [
+        user: { type: Schema.Types.ObjectId, required, index: true },
+        total_price_raw: { type: Number, required },
+        total_fee_ship: { type: Number, required },
+        total_discount_shop_price: { type: Number, required },
+        total_discount_admin_price: { type: Number, required },
+        total_discount_price: { type: Number, required },
+        total_checkout: { type: Number, required },
+        shops_info: [
             {
-                shopId: { type: String, required },
-                shopName: { type: String, required },
-                productsInfo: [
-                    {
-                        id: { type: String, required },
-                        name: { type: String, required },
-                        quantity: { type: Number, required },
-                        thumb: { type: String, required },
-                        price: { type: Number, required },
-                        priceRaw: { type: Number, required }
-                    }
-                ],
-                feeShip: { type: Number, required },
-                totalPriceRaw: { type: Number, required },
-                totalDiscountPrice: { type: Number, required }
+                shop_id: { type: String, required },
+                shop_name: { type: String, required },
+                discount: {
+                    discount_name: { type: String, required },
+                    discount_type: { type: String, enum: DiscountTypeEnum, required },
+                    discount_value: { type: Number, required }
+                },
+                products_info: {
+                    type: [
+                        {
+                            id: { type: String, required },
+                            name: { type: String, required },
+                            quantity: { type: Number, required },
+                            thumb: { type: String, required },
+                            price: { type: Number, required },
+                            price_raw: { type: Number, required }
+                        }
+                    ],
+                    required
+                },
+                fee_ship: { type: Number, required },
+                total_price_raw: { type: Number, required },
+                total_discount_price: { type: Number, required }
             }
         ]
     },
     {
         timestamps,
-        collection: CHECKOUT_COLLECTION_NAME,
-        expireAfterSeconds: 1 * 24 * 60 * 60
+        collection: CHECKOUT_COLLECTION_NAME
     }
 );
+
+checkoutSchema.index({ created_at: 1 }, { expireAfterSeconds: CHECKOUT_EXPIRES_TIME });
 
 export default model(CHECKOUT_MODEL_NAME, checkoutSchema);

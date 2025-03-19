@@ -19,23 +19,7 @@ declare global {
                     customer_address: string;
 
                     /* ------------------------ Products ------------------------ */
-                    order_shop: Array<{
-                        shop_id: string;
-                        shop_discount: {
-                            discount_name: string;
-                            discount_code: string;
-                            discount_price: number;
-                        };
-                        shop_products: Array<{
-                            product_id: string;
-                            product_name: string;
-                            product_thumb: string;
-                            product_quantity: number;
-                            product_price: number;
-                            product_total_price_raw: number;
-                        }>;
-                        shop_customer_note: string;
-                    }>;
+                    order_checkout: modelTypes.checkout.CheckoutSchema;
 
                     /* ------------------------ Discount ------------------------ */
                     discount_admin: Pick<

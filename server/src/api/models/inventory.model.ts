@@ -53,7 +53,8 @@ const inventorySchema = new Schema<modelTypes.inventory.InventorySchema>(
     },
     {
         collection: INVENTORY_COLLECTION_NAME,
-        timestamps
+        timestamps,
+        optimisticConcurrency: true
     }
 );
 

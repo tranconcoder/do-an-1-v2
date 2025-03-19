@@ -18,9 +18,7 @@ export default class JwtService {
             const { options } = jwtConfig[type];
             return await jwtSignAsync(payload, privateKey, options);
         } catch (error: any) {
-            LoggerService.getInstance().error(
-                error?.toString() || 'Error while generating jwt'
-            );
+            LoggerService.getInstance().error(error?.toString() || 'Error while generating jwt');
             return null;
         }
     };
@@ -30,16 +28,8 @@ export default class JwtService {
     }: serviceTypes.jwt.arguments.JwtSignPair) => {
         try {
             const [accessToken, refreshToken] = await Promise.all([
-                jwtSignAsync(
-                    payload,
-                    privateKey,
-                    jwtConfig.accessToken.options
-                ),
-                jwtSignAsync(
-                    payload,
-                    privateKey,
-                    jwtConfig.refreshToken.options
-                )
+                jwtSignAsync(payload, privateKey, jwtConfig.accessToken.options),
+                jwtSignAsync(payload, privateKey, jwtConfig.refreshToken.options)
             ]);
 
             return {
@@ -54,10 +44,9 @@ export default class JwtService {
         }
     };
 
-
-/* ------------------------------------------------------ */
-/*                    Verify jwt token                    */
-/* ------------------------------------------------------ */
+    /* ------------------------------------------------------ */
+    /*                    Verify jwt token                    */
+    /* ------------------------------------------------------ */
     public static verifyJwt = async ({
         token,
         publicKey
@@ -70,24 +59,17 @@ export default class JwtService {
         });
     };
 
-
-/* ------------------------------------------------------ */
-/*                  Parse token payload                   */
-/* ------------------------------------------------------ */
-    public static parseJwtPayload = (
-        token: string
-    ): serviceTypes.jwt.arguments.ParseJwtPayload => {
+    /* ------------------------------------------------------ */
+    /*                  Parse token payload                   */
+    /* ------------------------------------------------------ */
+    public static parseJwtPayload = (token: string): serviceTypes.jwt.arguments.ParseJwtPayload => {
         try {
-            const payload =
-                jwtDecode<serviceTypes.jwt.definition.JwtDecode>(token);
-            const { error: joiError, value } =
-                jwtDecodeSchema.validate(payload);
+            const payload = jwtDecode<serviceTypes.jwt.definition.JwtDecode>(token);
+            const { error: joiError, value } = jwtDecodeSchema.validate(payload);
 
             if (joiError) {
                 // Alert to admin have a hacker
-                LoggerService.getInstance().error(
-                    `Token is not generate by server: ${token}`
-                );
+                LoggerService.getInstance().error(`Token is not generate by server: ${token}`);
 
                 throw joiError;
             }

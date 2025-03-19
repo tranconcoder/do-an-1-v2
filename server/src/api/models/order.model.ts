@@ -3,6 +3,7 @@ import { required, timestamps } from 'src/configs/mongoose.config';
 import { DiscountTypeEnum } from '../enums/discount.enum';
 import { OrderStatus } from '../enums/order.enum';
 import { PaymentBank, PaymentType } from '../enums/payment.enum';
+import { checkoutSchema } from './checkout.model';
 
 export const ORDER_MODEL_NAME = 'Order';
 export const ORDER_COLLECTION_NAME = 'orders';
@@ -32,27 +33,7 @@ const orderSchema = new Schema<modelTypes.order.OrderSchema>(
         discount_price_total: { type: Number, default: 0 },
 
         /* ----------------------- Order shop ----------------------- */
-        order_shop: [
-            {
-                shop_id: { type: String, required },
-                shop_discount: {
-                    discount_name: { type: String, required },
-                    discount_code: { type: String, required },
-                    discount_price: { type: Number, default: 0 }
-                },
-                shop_products: [
-                    {
-                        product_id: { type: String, required },
-                        product_name: { type: String, required },
-                        product_thumb: { type: String, required },
-                        product_quantity: { type: Number, required },
-                        product_price: { type: Number, required },
-                        product_total_price_raw: { type: Number, required }
-                    }
-                ],
-                shop_customer_note: String
-            }
-        ],
+        order_checkout: checkoutSchema,
 
         /* ------------------------ Payment  ------------------------ */
         payment_type: { type: String, enum: PaymentType, required },

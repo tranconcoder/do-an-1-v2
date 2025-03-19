@@ -3,13 +3,13 @@ import './src/api/helpers/loadEnv.helper';
 import jsonfile from 'jsonfile';
 
 // Configs
-import { HOST, PORT, BASE_URL } from './src/configs/server.config';
+import { HOST, PORT, BASE_URL } from './src/configs/server.config.js';
 
 // App
-import app from './src/app';
-import loggerService from './src/api/services/logger.service';
-import MongoDB from './src/app/db.app';
-import { provinceModel, cityModel, districtModel } from './src/api/models/location.model';
+import app from './src/app.js';
+import loggerService from './src/api/services/logger.service.js';
+import MongoDB from './src/app/db.app.js';
+import { provinceModel, cityModel, districtModel } from './src/api/models/location.model.js';
 import path from 'path';
 
 const server = app.listen(PORT, HOST, () => {
@@ -32,9 +32,9 @@ process.on('SIGINT', () => {
 /* ---------------------------------------------------------- */
 /*                        Initial data                        */
 /* ---------------------------------------------------------- */
-const provinceJsonFile = path.join(__dirname, './src/api/assets/provinces.json');
-const citiesJsonFile = path.join(__dirname, './src/api/assets/cities.json');
-const districtJsonFile = path.join(__dirname, './src/api/assets/districts.json');
+const provinceJsonFile = path.join(import.meta.dirname, './src/api/assets/provinces.json');
+const citiesJsonFile = path.join(import.meta.dirname, './src/api/assets/cities.json');
+const districtJsonFile = path.join(import.meta.dirname, './src/api/assets/districts.json');
 jsonfile.readFile(provinceJsonFile, (err, data) => {
     if (err) {
         return console.error(err);

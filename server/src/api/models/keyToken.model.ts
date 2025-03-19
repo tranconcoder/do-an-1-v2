@@ -7,7 +7,7 @@ export const KEY_TOKEN_COLLECTION_NAME = 'key_tokens';
 
 const keyTokenSchema = new Schema<modelTypes.keyToken.KeyTokenSchema>(
     {
-        user: { type: Schema.Types.ObjectId, require, ref: USER_MODEL_NAME },
+        user: { type: Schema.Types.ObjectId, required, ref: USER_MODEL_NAME },
         private_key: { type: String, required },
         public_key: { type: String, required },
         refresh_token: { type: String, required },
