@@ -327,6 +327,8 @@ export default class DiscountService {
         discountId,
         discountCode
     }: serviceTypes.discount.arguments.UseDiscount) => {
+        if (!discountId || !discountCode) return;
+
         const newDiscount = await pessimisticLock(
             PessimisticKeys.DISCOUNT,
             discountId,

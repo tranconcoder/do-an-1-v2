@@ -1,9 +1,8 @@
 import mongoose from 'mongoose';
 import { CategoryEnum } from '../../enums/product.enum.js';
 import { productModel } from '../../models/product.model.js';
-import { createProduct } from '../../models/repository/product.js';
+import { createProduct, deleteOneProduct } from '../../models/repository/product/index.js';
 import { get$SetNestedFromObject } from '../../utils/mongoose.util.js';
-import { deleteOneProduct } from '../../models/repository/product.js';
 import { createInventory, updateInventoryStock } from '../../models/repository/inventory/index.js';
 import { BadRequestErrorResponse } from '../../response/error.response.js';
 

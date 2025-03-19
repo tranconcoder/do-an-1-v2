@@ -2,15 +2,10 @@
 import mongoose, { MongooseError } from 'mongoose';
 
 // Services
-import loggerService from '../api/services/logger.service';
+import loggerService from '../api/services/logger.service.js';
 
 // Configs
-import {
-    DB_URL,
-    DB_MIN_POOL_SIZE,
-    DB_MAX_POOL_SIZE,
-    NODE_ENV
-} from '../configs/server.config';
+import { DB_URL, DB_MIN_POOL_SIZE, DB_MAX_POOL_SIZE, NODE_ENV } from '../configs/server.config.js';
 
 export default class MongoDB {
     private static instance: MongoDB;
@@ -26,9 +21,7 @@ export default class MongoDB {
 
         mongoose.connection.on('error', (error: MongooseError) => {
             if (NODE_ENV === 'production') {
-                loggerService
-                    .getInstance()
-                    .error(`${error.name}: ${error.message}`);
+                loggerService.getInstance().error(`${error.name}: ${error.message}`);
             }
 
             console.log('MongoDB error: \n', error);
@@ -39,8 +32,8 @@ export default class MongoDB {
         });
     }
 
-    public connect = () => {
-        mongoose.connect(DB_URL, {
+    public connect = async () => {
+        await mongoose.connect(DB_URL, {
             minPoolSize: DB_MIN_POOL_SIZE,
             maxPoolSize: DB_MAX_POOL_SIZE
         });

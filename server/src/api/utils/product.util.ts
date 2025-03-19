@@ -18,14 +18,6 @@ export const addProductShopToSchema = <T = any>(schema: T) => {
     } as commonTypes.utils.AutoType<T> & typeof productShop;
 };
 
-export const importProductService = async (productName: modelTypes.product.ProductList) => {
-    const PRODUCT_SERVICE_PATH = path.join(import.meta.dirname, '../services/product');
-
-    return await import(`${PRODUCT_SERVICE_PATH}/${productName.toLowerCase()}.service`).then(
-        (x) => x.default
-    );
-};
-
 export const importProductModel = async <T extends modelTypes.product.ProductList>(
     productName: T
 ) => {

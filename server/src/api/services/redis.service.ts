@@ -1,4 +1,4 @@
-import { sleep } from 'bun';
+import { sleep } from '../utils/promise.util.js';
 import ms from 'ms';
 import { createClient } from 'redis';
 import { PessimisticKeys } from '../enums/redis.enum.js';
@@ -15,12 +15,14 @@ const redisClient = await createClient()
     })
     .connect();
 
+
 export const pessimisticLock = async <T = any>(
     key: PessimisticKeys,
     id: string,
     cb: () => Promise<T>
 ): Promise<commonTypes.utils.AutoType<T> | null> => {
     const RETRY_TIMES = 10;
+    const WAITING_TIME = 50;
     const EXPIRE_TIME = ms('10 seconds');
 
     const redisKey = `pessLock_${key}_${id}`;
@@ -40,7 +42,7 @@ export const pessimisticLock = async <T = any>(
             })) as commonTypes.utils.AutoType<T>;
         } else {
             /* ---------------- Waiting until unlock  ----------------- */
-            await sleep(50);
+            await sleep(WAITING_TIME);
         }
     }
 

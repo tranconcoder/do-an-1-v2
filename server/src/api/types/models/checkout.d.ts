@@ -21,6 +21,8 @@ declare global {
                         shop_id: string;
                         shop_name: string;
                         discount?: {
+                            discount_id: moduleTypes.mongoose.ObjectId;
+                            discount_code: string;
                             discount_name: string;
                             discount_type: DiscountTypeEnum;
                             discount_value: number;

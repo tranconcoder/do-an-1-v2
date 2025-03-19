@@ -1,4 +1,3 @@
-import { provinceModel } from './api/models/location.model';
 import express from 'express';
 
 // Libs
@@ -8,18 +7,18 @@ import compression from 'compression';
 import cors from 'cors';
 
 // Services
-import HandleErrorService from './api/services/handleError.service';
-import ScheduledService from './api/services/scheduled.service';
+import HandleErrorService from './api/services/handleError.service.js';
+import ScheduledService from './api/services/scheduled.service.js';
 
 // Database
-import MongoDB from './app/db.app';
+import MongoDB from './app/db.app.js';
 
 // Configs
-import { API_VERSION } from './configs/server.config';
+import { API_VERSION } from './configs/server.config.js';
 
 // Routes
-import rootRoute from './api/routes';
-import { NotFoundErrorResponse } from './api/response/error.response';
+import rootRoute from './api/routes/index.js';
+import { NotFoundErrorResponse } from './api/response/error.response.js';
 
 const app = express();
 
@@ -48,7 +47,7 @@ app.use(compression());
 /* ------------------------------------------------------ */
 /*                        Database                        */
 /* ------------------------------------------------------ */
-MongoDB.getInstance().connect();
+await MongoDB.getInstance().connect();
 
 // Start service
 ScheduledService.startScheduledService();

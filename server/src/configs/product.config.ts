@@ -3,15 +3,14 @@ import Clothes from '../api/services/product/clothes.service.js';
 import Phone from '../api/services/product/phone.service.js';
 
 /* ------------------------ Utils ----------------------- */
-import { importProductService } from '../api/utils/product.util.js';
-import { CategoryEnum } from '../api/enums/product.enum.js';
+// import { importProductService } from '../api/utils/product.util.js';
 import { clothesModel, phoneModel } from '../api/models/product.model.js';
 
 type GetKeyType<T, K> = K extends keyof T ? T[K] : any;
 
 const services = {
-    Clothes: (await importProductService(CategoryEnum.Clothes)) as typeof Clothes,
-    Phone: (await importProductService(CategoryEnum.Phone)) as typeof Phone
+    Clothes: Clothes as typeof Clothes,
+    Phone: Phone as typeof Phone
 } as const;
 
 const models = {
@@ -28,4 +27,3 @@ export const getProductModel = (key: keyof typeof models) => {
         (typeof models)[keyof typeof models]
     >;
 };
-
