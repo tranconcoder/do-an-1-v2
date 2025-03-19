@@ -1,3 +1,3 @@
-export enum OptimisticFields {
-    INVENTORY_STOCK = 'inventory_stock',
+export enum PessimisticKeys {
+    INVENTORY_STOCK = 'inventory_stock'
 }

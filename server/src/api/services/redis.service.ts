@@ -1,5 +1,7 @@
+import { sleep } from 'bun';
+import ms from 'ms';
 import { createClient } from 'redis';
-import { OptimisticFields } from '../enums/redis.enum.js';
+import { PessimisticKeys } from '../enums/redis.enum.js';
 import LoggerService from './logger.service.js';
 
 const redisClient = await createClient()
@@ -13,8 +15,33 @@ const redisClient = await createClient()
     })
     .connect();
 
-export const getOptimisticFieldVersion = async (key: OptimisticFields, id: string) => {
-    const redisKey = `ver_${key}_${id}`;
+export const pessimisticLock = async <T = any>(
+    key: PessimisticKeys,
+    id: string,
+    cb: () => Promise<T>
+): Promise<(T extends infer U ? U : never) | null> => {
+    const RETRY_TIMES = 10;
+    const EXPIRE_TIME = ms('10 seconds');
 
-    return await redisClient.multi().setNX(redisKey, '0').get(redisKey).exec();
+    const redisKey = `pessLock_${key}_${id}`;
+
+    for (let i = 0; i < RETRY_TIMES; i++) {
+        const isUnlock =
+            (await redisClient.set(redisKey, '', {
+                PX: EXPIRE_TIME,
+                NX: true
+            })) !== null;
+
+        if (isUnlock) {
+            /* --------------------- Handle access  --------------------- */
+            return (await cb().finally(async () => {
+                await redisClient.del(redisKey);
+            })) as T extends infer U ? U : never;
+        } else {
+            /* ---------------- Waiting until unlock  ----------------- */
+            await sleep(50);
+        }
+    }
+
+    return null;
 };
