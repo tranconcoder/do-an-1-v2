@@ -1,10 +1,12 @@
-type ElementType<T> = T extends Array<infer U> ? U : never;
-type AsyncFilterCallback<T> = (item: ElementType<T>, index: number) => Promise<boolean>;
+type AsyncFilterCallback<T> = (
+    item: commonTypes.utils.AutoType<T>,
+    index: number
+) => Promise<boolean>;
 
 export async function asyncFilter<T extends any[]>(
     source: T,
     cb: AsyncFilterCallback<T>
-): Promise<ElementType<T>[]> {
+): Promise<commonTypes.utils.AutoType<T>[]> {
     // Handle all promises
     const promises = await Promise.all(source.map(cb));
 

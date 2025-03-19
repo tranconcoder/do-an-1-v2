@@ -1,5 +1,5 @@
 import type mongooseBase from 'mongoose';
-import mongoose, {
+import type {
     HydratedDocument,
     Models,
     ProjectionType,
@@ -44,8 +44,8 @@ declare global {
                 sort?: any;
                 limit?: number;
                 page?: number;
-                select?: string[];
-                omit?: string[];
+                select?: Array<keyof T>;
+                omit?: Array<keyof T>;
             }
 
             /* ------------- Arguments of generateUpdateAll ------------- */
@@ -61,8 +61,8 @@ declare global {
                 options?: QueryOptions<T>;
                 projection?: ProjectionType;
                 sort?: any;
-                select?: string[];
-                omit?: string[] | 'metadata';
+                select?: Array<keyof T>;
+                omit?: Array<keyof T> | 'metadata';
             }
 
             /* -------------------- Generate findOne -------------------- */

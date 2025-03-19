@@ -19,7 +19,7 @@ export const pessimisticLock = async <T = any>(
     key: PessimisticKeys,
     id: string,
     cb: () => Promise<T>
-): Promise<(T extends infer U ? U : never) | null> => {
+): Promise<commonTypes.utils.AutoType<T> | null> => {
     const RETRY_TIMES = 10;
     const EXPIRE_TIME = ms('10 seconds');
 
@@ -35,8 +35,9 @@ export const pessimisticLock = async <T = any>(
         if (isUnlock) {
             /* --------------------- Handle access  --------------------- */
             return (await cb().finally(async () => {
+                /* ---------------- Unlock key after finally ---------------- */
                 await redisClient.del(redisKey);
-            })) as T extends infer U ? U : never;
+            })) as commonTypes.utils.AutoType<T>;
         } else {
             /* ---------------- Waiting until unlock  ----------------- */
             await sleep(50);

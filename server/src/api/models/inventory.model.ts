@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
-import { timestamps, required, ObjectId } from '../../configs/mongoose.config';
-import { PRODUCT_MODEL_NAME } from './product.model';
-import { USER_MODEL_NAME } from './user.model';
+import { timestamps, required, ObjectId } from '../../configs/mongoose.config.js';
+import { PRODUCT_MODEL_NAME } from './product.model.js';
+import { USER_MODEL_NAME } from './user.model.js';
 
 export const INVENTORY_MODEL_NAME = 'Inventory';
 export const INVENTORY_COLLECTION_NAME = 'inventories';
@@ -11,7 +11,8 @@ const inventorySchema = new Schema<modelTypes.inventory.InventorySchema>(
         inventory_product: {
             type: ObjectId,
             ref: PRODUCT_MODEL_NAME,
-            required
+            required,
+            index: true
         },
         inventory_shop: {
             type: ObjectId,

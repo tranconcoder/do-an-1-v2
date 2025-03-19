@@ -1,27 +1,27 @@
 import _ from 'lodash';
-import discountModel from '../models/discount.model';
-import { productModel } from '../models/product.model';
+import discountModel from '../models/discount.model.js';
+import { productModel } from '../models/product.model.js';
 import {
     checkConflictDiscountInShop,
     createDiscount,
     deleteDiscount,
     findAllDiscount,
     findDiscountById
-} from '../models/repository/discount/index';
+} from '../models/repository/discount/index.js';
 import {
     findAllProduct,
     checkProductsIsAvailableToUse,
     checkProductsIsPublish
-} from '../models/repository/product/index';
+} from '../models/repository/product/index.js';
 import {
     BadRequestErrorResponse,
     ConflictErrorResponse,
     ForbiddenErrorResponse,
     InvalidPayloadErrorResponse,
     NotFoundErrorResponse
-} from '../response/error.response';
-import { calculateDiscount } from '../utils/discount.util';
-import { get$SetNestedFromObject } from '../utils/mongoose.util';
+} from '../response/error.response.js';
+import { calculateDiscount } from '../utils/discount.util.js';
+import { get$SetNestedFromObject } from '../utils/mongoose.util.js';
 
 export default class DiscountService {
     /* ---------------------------------------------------------- */
@@ -178,7 +178,12 @@ export default class DiscountService {
     }: serviceTypes.discount.arguments.GetDiscountAmount) => {
         /* --------------------- Check discount --------------------- */
         const discount = await discountModel
-            .findOne({ discount_code: discountCode, is_available: true })
+            .findOne({
+                discount_code: discountCode,
+                is_available: true,
+                discount_start_at: { $lte: new Date() },
+                discount_end_at: { $gte: new Date() }
+            })
             .lean();
         if (!discount) throw new NotFoundErrorResponse('Not found discount!');
         if (discount.discount_count === 0)
