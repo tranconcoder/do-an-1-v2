@@ -1,5 +1,3 @@
-import path from 'path';
-
 // Version control
 export const API_VERSION = 'v1';
 
@@ -18,4 +16,3 @@ export const DB_MAX_POOL_SIZE = 500;
 
 // Paginate
 export const ITEM_PER_PAGE = 48; // Chia hết cho tá để dễ phân layout
-
