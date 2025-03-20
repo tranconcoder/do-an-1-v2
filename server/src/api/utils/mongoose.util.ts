@@ -1,5 +1,6 @@
 import mongoose, { HydratedDocument, QueryWithHelpers } from 'mongoose';
 import { timestamps } from '@/configs/mongoose.config.js';
+import { PESSIMISTIC_EXPIRE_TIME, PESSIMISTIC_QUERY_TIME } from '@/configs/redis.config.js';
 
 export const convertToMongooseId = (id: string) => new mongoose.Types.ObjectId(id);
 
@@ -59,7 +60,10 @@ export const generateFindAllPageSplit = <T = any>(model: any) => {
 /* ------------------- Update all wrapper ------------------- */
 export const generateUpdateAll = <T = any>(model: any) => {
     return async ({ query, update }: moduleTypes.mongoose.UpdateAllArgs<T>) => {
-        return (await model.updateMany(query, update).modifiedCount) > 0;
+        return (
+            (await model.updateMany(query, update).maxTimeMS(PESSIMISTIC_QUERY_TIME)
+                .modifiedCount) > 0
+        );
     };
 };
 
@@ -88,7 +92,8 @@ export const generateFindOneAndUpdate = <T = any>(model: any) => {
         const result: Query = model
             .findOneAndUpdate(query, update, options)
             .select(projection)
-            .sort(sort === 'ctime' ? { [timestamps.updatedAt]: -1 } : sort);
+            .sort(sort === 'ctime' ? { [timestamps.updatedAt]: -1 } : sort)
+            .maxTimeMS(PESSIMISTIC_QUERY_TIME);
 
         return result;
     };

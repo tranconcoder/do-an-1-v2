@@ -11,6 +11,7 @@ import { checkout } from '@/validations/joi/checkout.joi.js';
 import catchError from '@/middlewares/catchError.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
+import orderController from '@/controllers/order.controller.js';
 
 const getRoute = Router();
 const getRouteValidated = Router();
@@ -27,6 +28,10 @@ getRouteValidated.get(
     catchError(CheckoutController.checkout)
 );
 
-getRouteValidated.get('/create', validateRequestBody(createOrder));
+getRouteValidated.get(
+    '/create',
+    validateRequestBody(createOrder),
+    catchError(orderController.createOrder)
+);
 
 export default getRoute;

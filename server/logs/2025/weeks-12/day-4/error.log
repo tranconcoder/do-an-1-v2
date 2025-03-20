@@ -287,3 +287,367 @@
 [2025-03-20T04:05:00.060Z] [error]: Client must be connected before running operations
 [2025-03-20T04:05:00.062Z] [error]: Client must be connected before running operations
 [2025-03-20T04:05:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T07:59:00.007Z] [error]: Client must be connected before running operations
+[2025-03-20T07:59:00.009Z] [error]: Client must be connected before running operations
+[2025-03-20T08:00:00.040Z] [error]: Client must be connected before running operations
+[2025-03-20T08:00:00.041Z] [error]: Client must be connected before running operations
+[2025-03-20T08:01:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T08:01:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T08:02:00.065Z] [error]: Client must be connected before running operations
+[2025-03-20T08:15:06.986Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-20T08:16:25.238Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-20T08:16:29.026Z] [error]: HIDE::500::ValidationError::"paymentType" is required::
+[2025-03-20T08:16:41.527Z] [error]: HIDE::500::ValidationError::"paymentType" is required::
+[2025-03-20T08:16:50.320Z] [error]: HIDE::500::ValidationError::"paymentType" must be one of [bank_transfer, credit_card, cod]::
+[2025-03-20T08:16:54.275Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:17:34.154Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-20T08:18:04.471Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:21:46.181Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:22:27.029Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:22:32.820Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:23:01.847Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:23:44.142Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:24:13.641Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:24:14.756Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:24:15.271Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:24:15.813Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:24:18.583Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:24:19.001Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:24:19.561Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:24:20.053Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:24:20.542Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:24:21.079Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:24:21.512Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:24:28.439Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:25:23.599Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:25:24.240Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:25:27.124Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:25:27.695Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:25:28.303Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:25:28.893Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:25:31.286Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:25:31.972Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:25:55.940Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:25:58.413Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:27:38.152Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:27:42.396Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:28:12.764Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:28:19.067Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:29:14.787Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:29:21.521Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:29:22.210Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:29:22.835Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:33:53.958Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:33:59.850Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:35:04.450Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:35:05.051Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:35:05.590Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:35:06.141Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:35:06.645Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:36:51.351Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:36:59.366Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:37:12.518Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:37:13.588Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:37:14.378Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:37:42.270Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:38:35.536Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:38:39.942Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:38:41.052Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:38:41.681Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:38:42.247Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:38:42.735Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:39:56.727Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:40:00.306Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T08:40:29.542Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:40:54.959Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:41:13.814Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:41:21.718Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:41:58.013Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:42:12.152Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:42:19.517Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:43:26.465Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:43:41.817Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:43:50.426Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:43:56.631Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:44:18.587Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:44:26.309Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:45:00.010Z] [error]: Client must be connected before running operations
+[2025-03-20T08:45:00.012Z] [error]: Client must be connected before running operations
+[2025-03-20T08:45:40.798Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:45:49.636Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:45:57.604Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:46:00.032Z] [error]: Client must be connected before running operations
+[2025-03-20T08:46:00.033Z] [error]: Client must be connected before running operations
+[2025-03-20T08:46:27.448Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:46:32.505Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:47:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T08:47:00.065Z] [error]: Client must be connected before running operations
+[2025-03-20T08:47:21.037Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:47:21.448Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:47:38.660Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:47:44.118Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:48:00.047Z] [error]: Client must be connected before running operations
+[2025-03-20T08:48:00.048Z] [error]: Client must be connected before running operations
+[2025-03-20T08:49:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T08:49:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T08:49:54.797Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:50:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T08:50:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T08:50:21.846Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:50:27.227Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:50:34.023Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:51:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T08:51:00.064Z] [error]: Client must be connected before running operations
+[2025-03-20T08:52:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T08:52:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T08:53:00.053Z] [error]: Client must be connected before running operations
+[2025-03-20T08:53:00.057Z] [error]: Client must be connected before running operations
+[2025-03-20T08:54:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T08:54:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T08:54:47.924Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T08:55:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T08:55:00.066Z] [error]: Client must be connected before running operations
+[2025-03-20T08:55:02.481Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:55:07.668Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T08:56:00.043Z] [error]: Client must be connected before running operations
+[2025-03-20T08:56:00.044Z] [error]: Client must be connected before running operations
+[2025-03-20T08:57:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T08:57:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T08:58:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T08:58:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T08:59:00.002Z] [error]: Client must be connected before running operations
+[2025-03-20T08:59:00.003Z] [error]: Client must be connected before running operations
+[2025-03-20T09:00:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:00:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:00:02.647Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:00:06.459Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T09:00:25.836Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:00:50.193Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:00:56.167Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:01:00.044Z] [error]: Client must be connected before running operations
+[2025-03-20T09:01:00.046Z] [error]: Client must be connected before running operations
+[2025-03-20T09:02:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:02:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:03:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:03:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:04:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:04:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:05:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:05:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:06:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:06:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:07:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:07:00.065Z] [error]: Client must be connected before running operations
+[2025-03-20T09:08:00.045Z] [error]: Client must be connected before running operations
+[2025-03-20T09:08:00.047Z] [error]: Client must be connected before running operations
+[2025-03-20T09:09:00.016Z] [error]: Client must be connected before running operations
+[2025-03-20T09:09:00.018Z] [error]: Client must be connected before running operations
+[2025-03-20T09:10:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:10:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:11:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:11:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:11:25.408Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:12:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:12:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:12:46.841Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:12:50.739Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:12:51.890Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:12:56.280Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:12:57.017Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:12:57.668Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:12:58.277Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:12:58.788Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:12:59.279Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:12:59.830Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:13:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:13:00.331Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:00.859Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:01.365Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:01.826Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:02.290Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:02.775Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:03.569Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:04.183Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:04.711Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:05.167Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:05.704Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:06.262Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:06.760Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:07.247Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:13:07.978Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': -10 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:14:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:14:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:14:12.442Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:14:13.652Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:14:17.981Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.1.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.1.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.1.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.1.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.1.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:14:41.966Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.1.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.1.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.1.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.1.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.1.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:14:42.647Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.1.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.1.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.1.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.1.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.1.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:14:43.233Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.1.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.1.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.1.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.1.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.1.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:14:43.726Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.1.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.1.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.1.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.1.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.1.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:15:00.051Z] [error]: Client must be connected before running operations
+[2025-03-20T09:15:00.053Z] [error]: Client must be connected before running operations
+[2025-03-20T09:15:30.226Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:15:34.607Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': 2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:15:40.303Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': 2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:16:00.012Z] [error]: Client must be connected before running operations
+[2025-03-20T09:16:00.016Z] [error]: Client must be connected before running operations
+[2025-03-20T09:16:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:16:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:16:44.694Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.1.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.1.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.1.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.1.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.1.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:17:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:17:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:17:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:17:00.064Z] [error]: Client must be connected before running operations
+[2025-03-20T09:17:38.639Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:17:45.250Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.1.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.1.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.1.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.1.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.1.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:18:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:18:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:18:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:18:00.064Z] [error]: Client must be connected before running operations
+[2025-03-20T09:18:25.791Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.1.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.1.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.1.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.1.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.1.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:18:33.304Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.1.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.1.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.1.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.1.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.1.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:18:42.279Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.1.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.1.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.1.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.1.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.1.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:18:49.132Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:18:56.283Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.1.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.1.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.1.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.1.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.1.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:19:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:19:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:19:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:19:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:19:42.125Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': 2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:20:00.056Z] [error]: Client must be connected before running operations
+[2025-03-20T09:20:00.057Z] [error]: Client must be connected before running operations
+[2025-03-20T09:20:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:20:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:21:00.053Z] [error]: Client must be connected before running operations
+[2025-03-20T09:21:00.053Z] [error]: Client must be connected before running operations
+[2025-03-20T09:21:00.054Z] [error]: Client must be connected before running operations
+[2025-03-20T09:21:00.054Z] [error]: Client must be connected before running operations
+[2025-03-20T09:22:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:22:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:22:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:22:00.064Z] [error]: Client must be connected before running operations
+[2025-03-20T09:23:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:23:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:23:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:23:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:24:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:24:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:24:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:24:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:25:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:25:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:25:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:25:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:26:00.048Z] [error]: Client must be connected before running operations
+[2025-03-20T09:26:00.050Z] [error]: Client must be connected before running operations
+[2025-03-20T09:26:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:26:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:26:28.027Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:26:36.717Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': 2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:27:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:27:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:27:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:27:00.064Z] [error]: Client must be connected before running operations
+[2025-03-20T09:27:46.692Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': 2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:28:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:28:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:28:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:28:00.066Z] [error]: Client must be connected before running operations
+[2025-03-20T09:29:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:29:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:29:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:29:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:30:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:30:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:30:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:30:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:31:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:31:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:31:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:31:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:31:41.165Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': 2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:32:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:32:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:32:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:32:00.064Z] [error]: Client must be connected before running operations
+[2025-03-20T09:32:08.597Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': 2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:32:47.469Z] [error]: HIDE::500::CastError::Cast to Number failed for value "{ '$inc': 2 }" (type Object) at path "inventory_stock"::
+[2025-03-20T09:33:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:33:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:33:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:33:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:34:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:34:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:34:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:34:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:34:05.751Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:34:14.980Z] [error]: HIDE::404::NotFound::Not found inventory!::
+[2025-03-20T09:34:52.329Z] [error]: HIDE::403::Forbidden::Not permission to get this product!::
+[2025-03-20T09:34:55.654Z] [error]: HIDE::403::Forbidden::Not permission to get this product!::
+[2025-03-20T09:35:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:35:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:35:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:35:00.064Z] [error]: Client must be connected before running operations
+[2025-03-20T09:36:00.051Z] [error]: Client must be connected before running operations
+[2025-03-20T09:36:00.053Z] [error]: Client must be connected before running operations
+[2025-03-20T09:36:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:36:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:37:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:37:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:37:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:37:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:37:17.230Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:37:33.050Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:38:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:38:00.064Z] [error]: Client must be connected before running operations
+[2025-03-20T09:38:00.068Z] [error]: Client must be connected before running operations
+[2025-03-20T09:38:00.069Z] [error]: Client must be connected before running operations
+[2025-03-20T09:38:04.533Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:38:30.474Z] [error]: HIDE::404::NotFound::Not found shop in cart!::
+[2025-03-20T09:38:53.026Z] [error]: HIDE::404::NotFound::Not found product!::
+[2025-03-20T09:39:00.021Z] [error]: Client must be connected before running operations
+[2025-03-20T09:39:00.023Z] [error]: Client must be connected before running operations
+[2025-03-20T09:39:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:39:00.066Z] [error]: Client must be connected before running operations
+[2025-03-20T09:39:35.039Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:39:43.692Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T09:40:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:40:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:40:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:40:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:41:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:41:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:41:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:41:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:42:00.046Z] [error]: Client must be connected before running operations
+[2025-03-20T09:42:00.048Z] [error]: Client must be connected before running operations
+[2025-03-20T09:42:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:42:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:43:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:43:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:43:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:43:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:44:00.059Z] [error]: Client must be connected before running operations
+[2025-03-20T09:44:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:44:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:44:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:44:03.764Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:44:10.226Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T09:45:00.048Z] [error]: Client must be connected before running operations
+[2025-03-20T09:45:00.050Z] [error]: Client must be connected before running operations
+[2025-03-20T09:45:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:45:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:45:39.774Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-03-20T09:45:45.141Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T09:46:00.061Z] [error]: Client must be connected before running operations
+[2025-03-20T09:46:00.062Z] [error]: Client must be connected before running operations
+[2025-03-20T09:46:00.065Z] [error]: Client must be connected before running operations
+[2025-03-20T09:46:00.065Z] [error]: Client must be connected before running operations
+[2025-03-20T09:46:10.822Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required.::
+[2025-03-20T09:46:35.041Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-03-20T09:47:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:47:00.060Z] [error]: Client must be connected before running operations
+[2025-03-20T09:47:00.063Z] [error]: Client must be connected before running operations
+[2025-03-20T09:47:00.064Z] [error]: Client must be connected before running operations
+[2025-03-20T09:47:09.450Z] [error]: HIDE::500::ValidationError::Order validation failed: discount_admin.discount_end_at: Path `discount_admin.discount_end_at` is required., discount_admin.discount_start_at: Path `discount_admin.discount_start_at` is required., discount_admin.discount_code: Path `discount_admin.discount_code` is required., discount_admin.discount_value: Path `discount_admin.discount_value` is required., discount_admin.discount_type: Path `discount_admin.discount_type` is required., discount_admin.discount_name: Path `discount_admin.discount_name` is required., order_checkout.discount.discount_value: Path `discount.discount_value` is required., order_checkout.discount.discount_type: Path `discount.discount_type` is required., order_checkout.discount.discount_name: Path `discount.discount_name` is required., order_checkout.discount.discount_code: Path `discount.discount_code` is required., order_checkout.discount.discount_id: Path `discount.discount_id` is required., order_checkout.shops_info.0.discount.discount_value: Path `discount.discount_value` is required., order_checkout.shops_info.0.discount.discount_type: Path `discount.discount_type` is required., order_checkout.shops_info.0.discount.discount_name: Path `discount.discount_name` is required., order_checkout.shops_info.0.discount.discount_code: Path `discount.discount_code` is required., order_checkout.shops_info.0.discount.discount_id: Path `discount.discount_id` is required.::

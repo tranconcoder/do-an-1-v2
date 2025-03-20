@@ -21,7 +21,7 @@ import { pessimisticLock } from './redis.service.js';
 import DiscountService from './discount.service.js';
 
 /* ------------------------- Utils  ------------------------- */
-import { assertFulfilled, assertRejected } from '@/utils/promise.util.js';
+import { assertFulfilled, assertRejected, sleep } from '@/utils/promise.util.js';
 
 import _ from 'lodash';
 
@@ -51,7 +51,7 @@ export default new (class OrderService {
 
         /* ------------- Check admin discount if exists ------------- */
         const discountAdmin = checkout.discount;
-        if (!!discountAdmin) {
+        if (discountAdmin?.discount_id) {
             await DiscountService.useDiscount({
                 userId,
                 discountId: discountAdmin.discount_id.toString(),
@@ -73,7 +73,13 @@ export default new (class OrderService {
                 const orderedInventory = await pessimisticLock(
                     PessimisticKeys.INVENTORY,
                     inventory._id,
-                    async () => await orderProductInventory(id, quantity)
+                    async () => {
+                        console.log('Running...');
+                        console.log(quantity)
+                        const result = await orderProductInventory(id, quantity);
+                        console.log('Stopping...');
+                        return result;
+                    }
                 );
                 if (!orderedInventory) {
                     throw new BadRequestErrorResponse('Product stock is not enough!', true);

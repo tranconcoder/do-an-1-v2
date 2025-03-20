@@ -25,14 +25,19 @@ export const findOneAndUpdateInventory =
     generateFindOneAndUpdate<modelTypes.inventory.InventorySchema>(inventoryModel);
 
 /* --------------------- Order product  --------------------- */
-export const orderProductInventory = async (productId: string, orderQuantity: number) => {
-    return await findOneAndUpdateInventory({
+export const orderProductInventory = (productId: string, orderQuantity: number) => {
+    return findOneAndUpdateInventory({
         query: {
             inventory_product: productId,
             inventory_stock: { $gte: orderQuantity }
         },
         update: {
-            inventory_stock: { $inc: -orderQuantity }
+            $inc: {
+                inventory_stock: -orderQuantity
+            }
+        },
+        options: {
+            new: true
         }
     });
 };
