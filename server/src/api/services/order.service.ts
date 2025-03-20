@@ -11,9 +11,11 @@ import _ from 'lodash';
 import DiscountService from './discount.service.js';
 import { assertFulfilled, assertRejected } from '../utils/promise.util.js';
 import { cancelDiscount } from '../models/repository/discount/index.js';
+import orderModel from '../models/order.model.js';
+import { OrderStatus } from '../enums/order.enum.js';
 
 export default new (class OrderService {
-    public async createOrder({ userId }: serviceTypes.order.arguments.CreateOrder) {
+    public async createOrder({ userId, paymentType }: serviceTypes.order.arguments.CreateOrder) {
         /* ------------------- Check information  ------------------- */
         const shipInfo = {
             // ...
@@ -37,6 +39,16 @@ export default new (class OrderService {
             );
 
         /* ------------- Check admin discount if exists ------------- */
+        const discountAdmin = checkout.discount;
+        if (!!discountAdmin) {
+            await DiscountService.useDiscount({
+                userId,
+                discountId: discountAdmin.discount_id.toString(),
+                discountCode: discountAdmin.discount_code
+            });
+        }
+
+        /* ----------- Handle inventory and shop discount ----------- */
         return await Promise.allSettled(
             shops.map(async ({ id, quantity, discount_id, discount_code }, index) => {
                 /* -------------------- Check inventory  -------------------- */
@@ -71,29 +83,50 @@ export default new (class OrderService {
                     index
                 };
             })
-        ).then(async (results) => {
-            const isSuccessAll = results.every((x) => x.status === 'fulfilled');
-            if (isSuccessAll) {
-                return; // ....
-            }
+        )
+            .then(async (results) => {
+                const isSuccessAll = results.every((x) => x.status === 'fulfilled');
+                if (isSuccessAll) return Promise.resolve(); // Move to next then
 
-            /* ----------- Otherwise cleanup successfully item ----------- */
-            const successfullyResults = results.filter(assertFulfilled);
-            const firstRejectMessage =
-                results.find(assertRejected)?.reason || 'Some error when ordering!';
+                /* ----------- Otherwise cleanup successfully item ----------- */
+                const successfullyResults = results.filter(assertFulfilled);
+                const firstRejectMessage =
+                    results.find(assertRejected)?.reason || 'Some error when ordering!';
 
-            await Promise.all(
-                successfullyResults.map(async ({ value }) => {
-                    /* ----------------- Revert inventory stock ----------------- */
-                    await revertProductInventory(value.productId, value.quantity);
+                await Promise.all(
+                    successfullyResults.map(async ({ value }) => {
+                        /* ----------------- Revert inventory stock ----------------- */
+                        await revertProductInventory(value.productId, value.quantity);
 
-                    /* -------------------- Revert discount  -------------------- */
-                    await cancelDiscount(value.discountId);
-                })
-            );
+                        /* -------------------- Revert discount  -------------------- */
+                        await cancelDiscount(value.discountId);
+                    })
+                );
 
-            /* ------------- Return first error to frontend ------------- */
-            return Promise.reject(firstRejectMessage);
-        });
+                /* ------------- Return first error to frontend ------------- */
+                return Promise.reject(firstRejectMessage);
+            })
+            .then(async () => {
+                /* ------------------ Handle create order  ------------------ */
+                await orderModel.create({
+                    /* ------------------------ Customer ------------------------ */
+                    customer: userId,
+                    customer_address: 'Viet nam',
+                    customer_avatar: 'avatar-test.png',
+                    customer_email: 'tranvanconkg@test.com',
+                    customer_full_name: 'Tran Van Con',
+                    customer_phone: '0327781160',
+
+                    /* ------------------------ Payment  ------------------------ */
+                    payment_type: paymentType,
+                    payment_paid: false,
+                    price_to_payment: checkout.total_checkout,
+                    price_total_raw: checkout.total_price_raw,
+
+                    /* ------------------------- Order  ------------------------- */
+                    order_checkout: checkout,
+                    order_status: OrderStatus.PENDING_PAYMENT
+                });
+            });
     }
 })();

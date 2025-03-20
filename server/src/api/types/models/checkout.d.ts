@@ -17,6 +17,13 @@ declare global {
                     total_discount_admin_price: number;
                     total_discount_price: number;
                     total_checkout: number;
+                    discount?: {
+                        discount_id: moduleTypes.mongoose.ObjectId;
+                        discount_code: string;
+                        discount_name: string;
+                        discount_type: DiscountTypeEnum;
+                        discount_value: number;
+                    };
                     shops_info: Array<{
                         shop_id: string;
                         shop_name: string;

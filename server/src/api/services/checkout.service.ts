@@ -47,6 +47,18 @@ export default new (class CheckoutService {
         let totalPriceProductToApplyAdminVoucher = 0;
         const discountAdmin = discountCode && (await findDiscountByCode(discountCode));
 
+        if (discountAdmin) {
+            checkoutResult.discount = {
+                ..._.pick(discountAdmin, [
+                    'discount_code',
+                    'discount_name',
+                    'discount_type',
+                    'discount_value'
+                ]),
+                discount_id: discountAdmin._id
+            };
+        }
+
         /* ----------------------- Each shop  ----------------------- */
         await Promise.all(
             cart.cart_shop.map(async (shop) => {
@@ -101,7 +113,15 @@ export default new (class CheckoutService {
                     shop_id: foundShop._id.toString(),
                     shop_name: foundShop.fullName,
                     discount: discount
-                        ? _.pick(discount, ['discount_name', 'discount_type', 'discount_value'])
+                        ? {
+                              ..._.pick(discount, [
+                                  'discount_name',
+                                  'discount_type',
+                                  'discount_value',
+                                  'discount_code'
+                              ]),
+                              discount_id: discount._id
+                          }
                         : undefined,
                     fee_ship: FEE_SHIP_DEFAULT,
                     total_discount_price: discountPrice,

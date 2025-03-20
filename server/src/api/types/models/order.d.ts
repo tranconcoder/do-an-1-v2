@@ -21,21 +21,6 @@ declare global {
                     /* ------------------------ Products ------------------------ */
                     order_checkout: modelTypes.checkout.CheckoutSchema;
 
-                    /* ------------------------ Discount ------------------------ */
-                    discount_admin: Pick<
-                        modelTypes.discount.DiscountSchema,
-                        | 'discount_name'
-                        | 'discount_description'
-                        | 'discount_type'
-                        | 'discount_value'
-                        | 'discount_code'
-                        | 'discount_start_at'
-                        | 'discount_end_at'
-                    >;
-                    discount_price_shop: number;
-                    discount_price_admin: number;
-                    discount_price_total: number;
-
                     /* ------------------------- Price  ------------------------- */
                     price_total_raw: number;
                     price_to_payment: number;
