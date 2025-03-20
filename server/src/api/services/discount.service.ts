@@ -322,6 +322,7 @@ export default class DiscountService {
         return result as NonNullable<typeof result>;
     };
 
+    /* ---------------------- Use discount ---------------------- */
     public static useDiscount = async ({
         userId,
         discountId,

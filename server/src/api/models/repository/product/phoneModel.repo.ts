@@ -1,13 +1,11 @@
-import { phoneModel } from '../../product.model';
+import { phoneModel } from '../../product.model.js';
 
 /* ------------------------------------------------------ */
 /*                         Create                         */
 /* ------------------------------------------------------ */
 /* -------------------- Create phone -------------------- */
 export const createPhone = async (
-    payload: Partial<
-        moduleTypes.mongoose.ConvertObjectIdToString<modelTypes.product.PhoneSchema>
-    >
+    payload: Partial<moduleTypes.mongoose.ConvertObjectIdToString<modelTypes.product.PhoneSchema>>
 ) => {
     return await phoneModel.create(payload);
 };
@@ -16,9 +14,7 @@ export const createPhone = async (
 /*                         Delete                         */
 /* ------------------------------------------------------ */
 /* ------------------ Delete one phone ------------------ */
-export const deleteOnePhone = async (
-    query: Partial<modelTypes.product.PhoneSchema>
-) => {
+export const deleteOnePhone = async (query: Partial<modelTypes.product.PhoneSchema>) => {
     const result = await phoneModel.deleteOne(query);
 
     return result.deletedCount;

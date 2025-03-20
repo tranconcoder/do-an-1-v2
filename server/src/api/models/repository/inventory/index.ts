@@ -37,6 +37,18 @@ export const orderProductInventory = async (productId: string, orderQuantity: nu
     });
 };
 
+/* --------------------- Revert product --------------------- */
+export const revertProductInventory = async (productId: string, orderQuantity: number) => {
+    return await findOneAndUpdateInventory({
+        query: {
+            inventory_product: productId
+        },
+        update: {
+            inventory_stock: { $inc: orderQuantity }
+        }
+    });
+};
+
 /* ----------------- Update inventory stock ----------------- */
 export const updateInventoryStock = async (productId: string, newStock: number) => {
     return (
