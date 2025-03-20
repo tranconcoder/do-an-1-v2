@@ -4,16 +4,16 @@ import bcrypt from 'bcrypt';
 import _ from 'lodash';
 
 // Handle error
-import { NotFoundErrorResponse, ForbiddenErrorResponse } from '../response/error.response';
+import { NotFoundErrorResponse, ForbiddenErrorResponse } from '@/response/error.response.js';
 
 // Configs
-import { BCRYPT_SALT_ROUND } from './../../configs/bcrypt.config';
+import { BCRYPT_SALT_ROUND } from '@/configs/bcrypt.config.js';
 
 // Services
-import UserService from './user.service';
-import KeyTokenService from './keyToken.service';
-import JwtService from './jwt.service';
-import LoggerService from './logger.service';
+import UserService from './user.service.js';
+import KeyTokenService from './keyToken.service.js';
+import JwtService from './jwt.service.js';
+import LoggerService from './logger.service.js';
 
 export default class AuthService {
     /* ------------------------------------------------------ */

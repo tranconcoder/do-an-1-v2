@@ -1,15 +1,10 @@
 import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
-import ErrorResponse from '../response/error.response';
-import loggerService from './logger.service';
+import ErrorResponse from '@/response/error.response.js';
+import loggerService from './logger.service.js';
 import { v7 as uuid } from 'uuid';
-import { NODE_ENV } from '../../configs/server.config';
+import { NODE_ENV } from '@/../configs/server.config.js';
 
-type ErrorHandler = (
-    error: ErrorResponse,
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => void;
+type ErrorHandler = (error: ErrorResponse, req: Request, res: Response, next: NextFunction) => void;
 
 export default class HandleErrorService {
     public static middleware: ErrorRequestHandler = (err, req, res, next) => {
@@ -45,8 +40,7 @@ export default class HandleErrorService {
             res.status(error.statusCode).json({
                 code: logId,
                 statusCode: error.statusCode,
-                message:
-                    'Oops.... Something went wrong. Please try again later.'
+                message: 'Oops.... Something went wrong. Please try again later.'
             });
         } else {
             res.status(error.statusCode).json(error.get());

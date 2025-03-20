@@ -1,5 +1,5 @@
 import { Schema } from 'joi';
-import catchError from './catchError.middleware';
+import catchError from './catchError.middleware.js';
 
 /* --------------- Validate request body  --------------- */
 export default function validateRequestBody(schema: Schema) {

@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { required, unique, timestamps } from '../../configs/mongoose.config';
+import { unique, required, timestamps } from '@/configs/mongoose.config.js';
 
 export const ROLE_MODEL_NAME = 'Role';
 export const ROLE_COLLECTION_NAME = 'roles';

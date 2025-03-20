@@ -1,5 +1,5 @@
 import winston from 'winston';
-import { LogLevel } from '../api/types/log';
+import { LogLevel } from '@/types/log.js';
 
 export const getFileTransport = (level: LogLevel) =>
     new winston.transports.DailyRotateFile({

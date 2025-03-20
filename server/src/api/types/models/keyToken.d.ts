@@ -1,4 +1,4 @@
-import keyTokenModel from '../../models/keyToken.model';
+import type keyTokenModel from '@/models/keyToken.model.js';
 
 declare global {
     namespace modelTypes {

@@ -1,6 +1,6 @@
 /* ----------------------- Configs ---------------------- */
-import { getProduct } from '../../../configs/product.config';
-import { BadRequestErrorResponse, NotFoundErrorResponse } from '../../response/error.response';
+import { getProduct } from '@/configs/product.config.js';
+import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 import {
     checkUserIsShop,
     findAllProductByShop,
@@ -12,7 +12,7 @@ import {
     searchProduct,
     setDraftProduct,
     setPublishProduct
-} from '../../models/repository/product';
+} from '@/models/repository/product/index.js';
 
 /* ------------------------------------------------------ */
 /*                        Factory                         */

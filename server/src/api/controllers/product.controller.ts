@@ -1,8 +1,8 @@
 import { RequestHandler } from 'express';
-import { ITEM_PER_PAGE } from '../..//configs/server.config';
-import SuccessResponse, { CreatedResponse } from '../response/success.response';
-import ProductFactory from '../services/product';
-import { RequestWithBody, RequestWithParams, RequestWithQuery } from '../types/request';
+import { ITEM_PER_PAGE } from 'src/configs/server.config.js';
+import SuccessResponse, { CreatedResponse, OkResponse } from '@/response/success.response.js';
+import ProductFactory from '@/services/product/index.js';
+import { RequestWithBody, RequestWithParams, RequestWithQuery } from '@/types/request.js';
 
 export default class ProductController {
     /* ------------------------------------------------------ */

@@ -1,7 +1,7 @@
 import type { Document, HydratedDocument, Model, Models } from 'mongoose';
 import type mongoose from 'mongoose';
-import type { CategoryEnum } from '../../enums/product.enum';
-import { Product } from '../../services/product';
+import type { CategoryEnum } from '@/enums/product.enum.js';
+import { Product } from '@/services/product/index.js';
 
 declare global {
     namespace modelTypes {

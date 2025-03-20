@@ -2,22 +2,22 @@ import {
     CLEAN_UP_KEY_TOKEN_CRON_TIME,
     CLEAN_UP_PRODUCT_CRON_TIME,
     getCronOptions
-} from './../../configs/scheduled.config';
+} from '@/configs/scheduled.config.js';
 
 // Models
-import keyTokenModel from '../models/keyToken.model';
-import { productModel } from '../models/product.model';
+import keyTokenModel from '@/models/keyToken.model.js';
+import { productModel } from '@/models/product.model.js';
 
 // Services
-import JwtService from './jwt.service';
-import LoggerService from './logger.service';
+import JwtService from './jwt.service.js';
+import LoggerService from './logger.service.js';
 
 // Libs
 import { CronJob } from 'cron';
-import { asyncFilter } from '../utils/array.utils';
+import { asyncFilter } from '@/utils/array.utils.js';
 import mongoose from 'mongoose';
-import { CategoryEnum } from '../enums/product.enum';
-import { findAllProductId } from '../models/repository/product/index';
+import { CategoryEnum } from '@/enums/product.enum.js';
+import { findAllProductId } from '@/models/repository/product/index.js';
 
 export default class ScheduledService {
     public static startScheduledService = () => {
@@ -52,8 +52,7 @@ export default class ScheduledService {
                 const newRefreshTokensUsed = await asyncFilter(
                     keyToken.refresh_tokens_used,
                     async (refreshTokenUsed) => {
-                        const payload =
-                            JwtService.parseJwtPayload(refreshTokenUsed);
+                        const payload = JwtService.parseJwtPayload(refreshTokenUsed);
 
                         if (!payload) return false;
                         if (payload.exp * 1000 <= Date.now()) return false;
@@ -68,17 +67,14 @@ export default class ScheduledService {
 
                 /* --------- Counting refreh token used removed --------- */
                 refeshTokenUsedCleaned +=
-                    keyToken.refresh_tokens_used.length -
-                    newRefreshTokensUsed.length;
+                    keyToken.refresh_tokens_used.length - newRefreshTokensUsed.length;
 
                 return true;
             })
         )
             /* -------------- Couting key token removed ------------- */
             .then((resultList) => {
-                keyTokenCleaned = resultList.filter(
-                    (x) => x.status === 'rejected'
-                ).length;
+                keyTokenCleaned = resultList.filter((x) => x.status === 'rejected').length;
             })
             /* --------------------- Show result -------------------- */
             .then(() => {
@@ -137,9 +133,7 @@ export default class ScheduledService {
                 { deletedCount: 0 }
             );
 
-            LoggerService.getInstance().info(
-                `Cleanup product: Cleaned ${deletedCount} products`
-            );
+            LoggerService.getInstance().info(`Cleanup product: Cleaned ${deletedCount} products`);
         });
     };
 

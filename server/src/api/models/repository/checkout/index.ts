@@ -5,3 +5,4 @@ export const findOneAndUpdateCheckout =
     generateFindOneAndUpdate<modelTypes.checkout.CheckoutSchema>(checkoutModel);
 
 export const findOneCheckout = generateFindOne<modelTypes.checkout.CheckoutSchema>(checkoutModel);
+

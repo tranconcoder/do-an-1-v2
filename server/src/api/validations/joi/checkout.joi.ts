@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { mongooseId } from '../../../configs/joi.config';
+import { mongooseId } from '@/configs/joi.config.js';
 
 export const checkout = Joi.object<joiTypes.checkout.Checkout>({
     discountCode: mongooseId.optional(),

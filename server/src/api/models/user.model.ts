@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { ROLE_MODEL_NAME } from './role.model';
-import { required, unique, timestamps } from '../../configs/mongoose.config';
+import { ROLE_MODEL_NAME } from './role.model.js';
+import { required, unique, timestamps } from '@/configs/mongoose.config.js';
 
 export const USER_MODEL_NAME = 'User';
 export const USER_COLLECTION_NAME = 'users';

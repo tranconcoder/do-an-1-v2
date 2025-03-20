@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { timestamps, required, ObjectId } from '../../configs/mongoose.config.js';
+import { timestamps, required, ObjectId } from '@/configs/mongoose.config.js';
 import { PRODUCT_MODEL_NAME } from './product.model.js';
 import { USER_MODEL_NAME } from './user.model.js';
 

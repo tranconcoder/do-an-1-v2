@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
-import SuccessResponse, { CreatedResponse, OkResponse } from '../response/success.response';
-import DiscountService from '../services/discount.service';
-import { RequestWithBody, RequestWithParams, RequestWithQuery } from '../types/request';
+import SuccessResponse, { CreatedResponse, OkResponse } from '@/response/success.response.js';
+import DiscountService from '@/services/discount.service.js';
+import { RequestWithBody, RequestWithParams } from '@/types/request.js';
 
 export default class DiscountController {
     /* ---------------------------------------------------------- */

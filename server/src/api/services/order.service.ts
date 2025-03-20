@@ -1,18 +1,29 @@
-import { PessimisticKeys } from '../enums/redis.enum.js';
-import { findOneCheckout } from '../models/repository/checkout/index.js';
+/* -------------------------- Enum -------------------------- */
+import { PessimisticKeys } from '@/enums/redis.enum.js';
+import { OrderStatus } from '@/enums/order.enum.js';
+
+/* ------------------------- Models ------------------------- */
+import { findOneCheckout } from '@/models/repository/checkout/index.js';
+import orderModel from '@/models/order.model.js';
+
+/* -------------------------- Repo -------------------------- */
+import { cancelDiscount } from '@/models/repository/discount/index.js';
 import {
     findOneInventory,
     orderProductInventory,
     revertProductInventory
-} from '../models/repository/inventory/index.js';
-import { BadRequestErrorResponse, NotFoundErrorResponse } from '../response/error.response.js';
+} from '@/models/repository/inventory/index.js';
+
+import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
+
+/* ------------------------ Services ------------------------ */
 import { pessimisticLock } from './redis.service.js';
-import _ from 'lodash';
 import DiscountService from './discount.service.js';
-import { assertFulfilled, assertRejected } from '../utils/promise.util.js';
-import { cancelDiscount } from '../models/repository/discount/index.js';
-import orderModel from '../models/order.model.js';
-import { OrderStatus } from '../enums/order.enum.js';
+
+/* ------------------------- Utils  ------------------------- */
+import { assertFulfilled, assertRejected } from '@/utils/promise.util.js';
+
+import _ from 'lodash';
 
 export default new (class OrderService {
     public async createOrder({ userId, paymentType }: serviceTypes.order.arguments.CreateOrder) {
@@ -108,7 +119,7 @@ export default new (class OrderService {
             })
             .then(async () => {
                 /* ------------------ Handle create order  ------------------ */
-                await orderModel.create({
+                return await orderModel.create({
                     /* ------------------------ Customer ------------------------ */
                     customer: userId,
                     customer_address: 'Viet nam',

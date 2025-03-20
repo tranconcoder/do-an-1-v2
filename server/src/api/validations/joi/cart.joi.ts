@@ -1,6 +1,6 @@
 import Joi from 'joi';
-import { CartItemStatus } from '../../enums/cart.enum';
-import { mongooseId } from '../../../configs/joi.config';
+import { CartItemStatus } from '@/enums/cart.enum.js';
+import { mongooseId } from '@/configs/joi.config.js';
 
 const cart = {
     id: mongooseId,

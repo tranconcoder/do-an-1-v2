@@ -1,4 +1,4 @@
-import { JwtPayload as JwtPayloadBase } from 'jsonwebtoken';
+import type { JwtPayload as JwtPayloadBase } from 'jsonwebtoken';
 
 declare global {
     namespace joiTypes {
@@ -7,11 +7,9 @@ declare global {
             /*                       DEFINITION                       */
             /* ====================================================== */
             namespace definition {
-                interface JwtPayload
-                    extends serviceTypes.jwt.definition.JwtPayload {}
+                interface JwtPayload extends serviceTypes.jwt.definition.JwtPayload {}
 
-                interface JwtDecode
-                    extends serviceTypes.jwt.definition.JwtDecode {}
+                interface JwtDecode extends serviceTypes.jwt.definition.JwtDecode {}
             }
         }
     }

@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import deleteRouter from './delete.route';
-import discountGetRoute from './get.route';
-import discountPostRoute from './post.route';
-import putRoute from './put.route';
+import deleteRouter from './delete.route.js';
+import discountGetRoute from './get.route.js';
+import discountPostRoute from './post.route.js';
+import putRoute from './put.route.js';
 
 const discountRoute = Router();
 

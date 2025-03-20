@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import { PessimisticKeys } from '../enums/redis.enum.js';
-import discountModel from '../models/discount.model.js';
-import discountUsedModel from '../models/discountUsed.model.js';
-import { productModel } from '../models/product.model.js';
+import { PessimisticKeys } from '@/enums/redis.enum.js';
+import discountModel from '@/models/discount.model.js';
+import discountUsedModel from '@/models/discountUsed.model.js';
+import { productModel } from '@/models/product.model.js';
 import {
     cancelDiscount,
     checkConflictDiscountInShop,
@@ -11,21 +11,21 @@ import {
     findAllDiscount,
     findDiscountById,
     findDiscountValidByCode
-} from '../models/repository/discount/index.js';
+} from '@/models/repository/discount/index.js';
 import {
     findAllProduct,
     checkProductsIsAvailableToUse,
     checkProductsIsPublish
-} from '../models/repository/product/index.js';
+} from '@/models/repository/product/index.js';
 import {
     BadRequestErrorResponse,
     ConflictErrorResponse,
     ForbiddenErrorResponse,
     InvalidPayloadErrorResponse,
     NotFoundErrorResponse
-} from '../response/error.response.js';
-import { calculateDiscount } from '../utils/discount.util.js';
-import { get$SetNestedFromObject } from '../utils/mongoose.util.js';
+} from '@/response/error.response.js';
+import { calculateDiscount } from '@/utils/discount.util.js';
+import { get$SetNestedFromObject } from '@/utils/mongoose.util.js';
 import { pessimisticLock } from './redis.service.js';
 
 export default class DiscountService {

@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import CartController from '../../controllers/cart.controller';
-import catchError from '../../middlewares/catchError.middleware';
+import CartController from '@/controllers/cart.controller.js';
+import catchError from '@/middlewares/catchError.middleware.js';
 import validateRequestBody, {
     validateRequestParams
-} from '../../middlewares/joiValidate.middleware';
-import { authenticate } from '../../middlewares/jwt.middleware';
-import { addToCartSchema, updateCart } from '../../validations/joi/cart.joi';
+} from '@/middlewares/joiValidate.middleware.js';
+import { authenticate } from '@/middlewares/jwt.middleware.js';
+import { addToCartSchema, updateCart } from '@/validations/joi/cart.joi.js';
 
 const router = Router();
 const routerValidated = Router();

@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import DiscountController from '../../controllers/discount.controller';
-import catchError from '../../middlewares/catchError.middleware';
-import validateRequestBody from '../../middlewares/joiValidate.middleware';
-import { authenticate } from '../../middlewares/jwt.middleware';
-import { createDiscountSchema } from '../../validations/joi/discount.joi';
+import DiscountController from '@/controllers/discount.controller.js';
+import catchError from '@/middlewares/catchError.middleware.js';
+import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
+import { authenticate } from '@/middlewares/jwt.middleware.js';
+import { createDiscountSchema } from '@/validations/joi/discount.joi.js';
 
 const discountPostRoute = Router();
 const discountPostRouteValidated = Router();

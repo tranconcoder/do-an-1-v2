@@ -1,8 +1,11 @@
 import { Router } from 'express';
-import ProductController from '../../controllers/product.controller';
-import catchError from '../../middlewares/catchError.middleware';
-import { validateRequestParams } from '../../middlewares/joiValidate.middleware';
-import { setDraftProductSchema, SetPublishProductSchema } from '../../validations/joi/product/index.joi';
+import ProductController from '@/controllers/product.controller.js';
+import catchError from '@/middlewares/catchError.middleware.js';
+import { validateRequestParams } from '@/middlewares/joiValidate.middleware.js';
+import {
+    setDraftProductSchema,
+    SetPublishProductSchema
+} from '@/validations/joi/product/index.joi.js';
 
 const productPatchRoute = Router();
 
@@ -20,4 +23,4 @@ productPatchRoute.patch(
     catchError(ProductController.setPublishProduct)
 );
 
-export default productPatchRoute
+export default productPatchRoute;

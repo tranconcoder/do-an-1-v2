@@ -1,10 +1,10 @@
 /* ----------------------- Service ---------------------- */
-import Clothes from '../api/services/product/clothes.service.js';
-import Phone from '../api/services/product/phone.service.js';
+import Clothes from '@/services/product/clothes.service.js';
+import Phone from '@/services/product/phone.service.js';
 
 /* ------------------------ Utils ----------------------- */
 // import { importProductService } from '../api/utils/product.util.js';
-import { clothesModel, phoneModel } from '../api/models/product.model.js';
+import { clothesModel, phoneModel } from '@/models/product.model.js';
 
 type GetKeyType<T, K> = K extends keyof T ? T[K] : any;
 

@@ -1,4 +1,4 @@
-import { phoneModel } from '../../product.model.js';
+import { phoneModel } from '@/models/product.model.js';
 
 /* ------------------------------------------------------ */
 /*                         Create                         */

@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import mongoose from 'mongoose';
 
 // Models
-import keyTokenModel from '../models/keyToken.model';
+import keyTokenModel from '@/models/keyToken.model.js';
 
 export default class KeyTokenService {
     /* ------------------------------------------------------ */

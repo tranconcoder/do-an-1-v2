@@ -1,5 +1,4 @@
-import '';
-import { CategoryEnum } from '../../enums/product.enum';
+import type { CategoryEnum } from '@/enums/product.enum.js';
 
 declare global {
     module joiTypes {

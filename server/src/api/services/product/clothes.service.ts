@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import { Product } from './product.service';
-import { clothesModel } from '../../models/product.model';
-import { BadRequestErrorResponse } from '../../response/error.response';
-import { get$SetNestedFromObject } from '../../utils/mongoose.util';
-import { deleteOneClothes } from '../../models/repository/product/clothesModel.repo';
+import { Product } from './product.service.js';
+import { clothesModel } from '@/models/product.model.js';
+import { BadRequestErrorResponse } from '@/response/error.response.js';
+import { get$SetNestedFromObject } from '@/utils/mongoose.util.js';
+import { deleteOneClothes } from '@/models/repository/product/clothesModel.repo.js';
 
 export default class Clothes extends Product {
     /* ------------------- Create product ------------------- */
@@ -32,11 +32,7 @@ export default class Clothes extends Product {
 
         return await Promise.all([
             super.updateProduct(),
-            clothesModel.findOneAndUpdate(
-                { _id: super.getProductId() },
-                { $set },
-                { new: true }
-            )
+            clothesModel.findOneAndUpdate({ _id: super.getProductId() }, { $set }, { new: true })
         ]).then(([product]) => product);
     }
 

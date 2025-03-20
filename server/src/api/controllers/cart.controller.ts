@@ -1,7 +1,7 @@
-import type { RequestWithBody, RequestWithParams } from '../types/request';
+import type { RequestWithBody, RequestWithParams } from '@/types/request.js';
 
-import { CreatedResponse, OkResponse } from '../response/success.response';
-import CartService from '../services/cart.service';
+import { CreatedResponse, OkResponse } from '@/response/success.response.js';
+import CartService from '@/services/cart.service.js';
 import { RequestHandler } from 'express';
 
 export default class CartController {

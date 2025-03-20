@@ -1,4 +1,4 @@
-import { NODE_ENV } from './server.config';
+import { NODE_ENV } from './server.config.js';
 
 export default {
     accessToken: {

@@ -1,6 +1,6 @@
-import { RequestWithBody } from '../types/request';
-import { OkResponse } from '../response/success.response';
-import checkoutService from '../services/checkout.service';
+import { RequestWithBody } from '@/types/request.js';
+import { OkResponse } from '@/response/success.response.js';
+import checkoutService from '@/services/checkout.service.js';
 
 export default class CheckoutController {
     public static checkout: RequestWithBody<joiTypes.checkout.Checkout> = async (req, res, _) => {

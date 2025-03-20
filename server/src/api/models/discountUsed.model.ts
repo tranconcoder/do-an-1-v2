@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { required } from '../../configs/mongoose.config.js';
+import { required } from '@/configs/mongoose.config.js';
 import { DISCOUNT_MODEL_NAME } from './discount.model.js';
 import { USER_MODEL_NAME } from './user.model.js';
 

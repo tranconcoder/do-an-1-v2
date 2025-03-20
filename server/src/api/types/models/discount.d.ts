@@ -1,5 +1,4 @@
-import '';
-import { DiscountTypeEnum } from '../../enums/discount.enum';
+import type { DiscountTypeEnum } from '@/enums/discount.enum';
 
 declare global {
     namespace modelTypes {

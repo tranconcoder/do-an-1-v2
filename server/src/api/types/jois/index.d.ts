@@ -1,4 +1,4 @@
-import { ArraySchema, BooleanSchema, DateSchema, NumberSchema, StringSchema } from 'joi';
+import type { ArraySchema, BooleanSchema, DateSchema, NumberSchema, StringSchema } from 'joi';
 
 declare global {
     namespace joiTypes {

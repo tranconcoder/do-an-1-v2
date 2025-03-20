@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { required } from '../../configs/mongoose.config.js';
-import { USER_MODEL_NAME } from '../models/user.model.js';
+import { required } from '@/configs/mongoose.config.js';
+import { USER_MODEL_NAME } from '@/models/user.model.js';
 import path from 'path';
 
 export const addProductShopToSchema = <T = any>(schema: T) => {

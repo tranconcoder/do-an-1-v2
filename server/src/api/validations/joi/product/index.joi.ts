@@ -1,8 +1,8 @@
 import Joi from 'joi';
-import { CategoryEnum } from '../../../enums/product.enum';
-import { createPhoneSchema, updatePhoneSchema } from './phone.joi';
-import { createClothesSchema, updateClothesSchema } from './clothes.joi';
-import { mongooseId, pageSplitting } from '../../../../configs/joi.config';
+import { CategoryEnum } from '@/enums/product.enum.js';
+import { createPhoneSchema, updatePhoneSchema } from './phone.joi.js';
+import { createClothesSchema, updateClothesSchema } from './clothes.joi.js';
+import { mongooseId, pageSplitting } from '@/configs/joi.config.js';
 
 /* ------------------------------------------------------ */
 /*                     Create product                     */

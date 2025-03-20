@@ -1,5 +1,5 @@
-import type { PaymentType } from 'src/api/enums/payment.enum';
-import type { OrderStatus } from 'src/api/enums/order.enum';
+import type { PaymentType } from '@/enums/payment.enum.js';
+import type { OrderStatus } from '@/enums/order.enum.js';
 
 declare global {
     namespace modelTypes {

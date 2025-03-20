@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
 // Route child
-import authRoute from './auth';
-import productRoute from './product';
-import discountRoute from './discount';
-import cartRoute from './cart';
-import orderRoute from './order/index';
+import authRoute from './auth/index.js';
+import productRoute from './product/index.js';
+import discountRoute from './discount/index.js';
+import cartRoute from './cart/index.js';
+import orderRoute from './order/index.js';
 
 const rootRoute = Router();
 

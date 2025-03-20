@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import DiscountController from '../../controllers/discount.controller';
-import validateRequestBody from '../../middlewares/joiValidate.middleware';
+// import DiscountController from '@/controllers/discount.controller.js';
+import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
 import {
     setAvailableDiscountSchema,
     setUnavailableDiscountSchema
-} from '../../validations/joi/discount.joi';
+} from '@/validations/joi/discount.joi.js';
 
 const patchRoute = Router();
 const patchRouteValidated = Router();
@@ -14,15 +14,9 @@ const patchRouteValidated = Router();
 /* ---------------------------------------------------------- */
 
 /* ----------------- Set available discount ----------------- */
-patchRouteValidated.patch(
-    '/set-available',
-    validateRequestBody(setAvailableDiscountSchema)
-);
+patchRouteValidated.patch('/set-available', validateRequestBody(setAvailableDiscountSchema));
 
 /* ---------------- Set unavailable discount ---------------- */
-patchRouteValidated.patch(
-    '/set-unavailable',
-    validateRequestBody(setUnavailableDiscountSchema)
-);
+patchRouteValidated.patch('/set-unavailable', validateRequestBody(setUnavailableDiscountSchema));
 
 export default patchRoute;

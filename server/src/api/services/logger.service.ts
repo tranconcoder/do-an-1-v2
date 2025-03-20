@@ -1,7 +1,7 @@
 import * as winston from 'winston';
 import 'winston-daily-rotate-file';
-import { getFileTransport } from '../../configs/logger.config';
-import { NODE_ENV } from '../../configs/server.config';
+import { getFileTransport } from '@/configs/logger.config.js';
+import { NODE_ENV } from '@/configs/server.config.js';
 
 // Singleton pattern
 export default class LoggerService {
@@ -37,40 +37,24 @@ export default class LoggerService {
         return this.instance;
     };
 
-    public debug = (
-        message: string,
-        metadata: commonTypes.object.ObjectAnyKeys = {}
-    ) => {
+    public debug = (message: string, metadata: commonTypes.object.ObjectAnyKeys = {}) => {
         this.logDebug.debug(message, metadata);
     };
 
-    public info = (
-        message: string,
-        metadata: commonTypes.object.ObjectAnyKeys = {}
-    ) => {
+    public info = (message: string, metadata: commonTypes.object.ObjectAnyKeys = {}) => {
         this.logInfo.info(message, metadata);
     };
 
-    public error = (
-        message: string,
-        metadata: commonTypes.object.ObjectAnyKeys = {}
-    ) => {
+    public error = (message: string, metadata: commonTypes.object.ObjectAnyKeys = {}) => {
         this.logError.error(message, metadata);
     };
 
-    public warn = (
-        message: string,
-        metadata: commonTypes.object.ObjectAnyKeys = {}
-    ) => {
+    public warn = (message: string, metadata: commonTypes.object.ObjectAnyKeys = {}) => {
         this.logWarn.warn(message, metadata);
     };
 
-    private getListTransport = (
-        level: Parameters<typeof getFileTransport>[0]
-    ) => {
-        const transportList: Array<winston.transport> = [
-            getFileTransport(level)
-        ];
+    private getListTransport = (level: Parameters<typeof getFileTransport>[0]) => {
+        const transportList: Array<winston.transport> = [getFileTransport(level)];
 
         if (NODE_ENV === 'development') {
             const consoleTransport = new winston.transports.Console();

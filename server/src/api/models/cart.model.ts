@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
-import { timestamps, required, unique } from '../../configs/mongoose.config';
-import { CartItemStatus } from '../enums/cart.enum';
-import { PRODUCT_MODEL_NAME } from './product.model';
-import { userModel, USER_MODEL_NAME } from './user.model';
+import { timestamps, required } from '@/configs/mongoose.config.js';
+import { CartItemStatus } from '@/enums/cart.enum.js';
+import { PRODUCT_MODEL_NAME } from './product.model.js';
+import { USER_MODEL_NAME } from './user.model.js';
 
 export const CART_MODEL_NAME = 'Cart';
 export const CART_COLLECTION_NAME = 'carts';

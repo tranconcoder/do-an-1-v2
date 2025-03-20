@@ -1,12 +1,9 @@
 import mongoose from 'mongoose';
-import { phoneModel } from '../../models/product.model';
-import { BadRequestErrorResponse } from '../../response/error.response';
-import { get$SetNestedFromObject } from '../../utils/mongoose.util';
-import {
-    createPhone,
-    deleteOnePhone
-} from '../../models/repository/product/phoneModel.repo';
-import { Product } from './product.service';
+import { phoneModel } from '@/models/product.model.js';
+import { BadRequestErrorResponse } from '@/response/error.response.js';
+import { get$SetNestedFromObject } from '@/utils/mongoose.util.js';
+import { createPhone, deleteOnePhone } from '@/models/repository/product/phoneModel.repo.js';
+import { Product } from './product.service.js';
 
 export default class Phone extends Product {
     /* ------------------- Create product ------------------- */
@@ -27,7 +24,7 @@ export default class Phone extends Product {
         ])
             .then(([product]) => product)
             .catch((error) => {
-                const message = error?.messgae || 'Save product failed';
+                const message = error?.messgae || 'Save product failed.js';
                 throw new BadRequestErrorResponse(message);
             });
     }

@@ -1,4 +1,4 @@
-import type { PaymentBank, PaymentType } from 'src/api/enums/payment.enum';
+import type { PaymentBank, PaymentType } from '@/enums/payment.enum.js';
 
 declare global {
     namespace serviceTypes {

@@ -1,20 +1,20 @@
-import { NotFoundErrorResponse } from '../response/error.response.js';
+import { NotFoundErrorResponse } from '@/response/error.response.js';
 
 /* -------------------------- Enum -------------------------- */
-import { CartItemStatus } from '../enums/cart.enum.js';
+import { CartItemStatus } from '@/enums/cart.enum.js';
 
 /* ------------------------- Utils  ------------------------- */
-import { calculateDiscount } from '../utils/discount.util.js';
+import { calculateDiscount } from '@/utils/discount.util.js';
 import _ from 'lodash';
 
 /* ------------------------ Services ------------------------ */
 import DiscountService from './discount.service.js';
 
 /* ------------------------- Models ------------------------- */
-import { userModel } from '../models/user.model.js';
-import { findOneCartByUser } from '../models/repository/cart/index.js';
-import { findDiscountByCode } from '../models/repository/discount/index.js';
-import { findOneAndUpdateCheckout } from '../models/repository/checkout/index.js';
+import { userModel } from '@/models/user.model.js';
+import { findOneCartByUser } from '@/models/repository/cart/index.js';
+import { findDiscountByCode } from '@/models/repository/discount/index.js';
+import { findOneAndUpdateCheckout } from '@/models/repository/checkout/index.js';
 
 export default new (class CheckoutService {
     public async checkout({

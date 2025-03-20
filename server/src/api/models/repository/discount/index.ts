@@ -1,15 +1,15 @@
 import _ from 'lodash';
-import discountModel from '../../discount.model.js';
+import discountModel from '@/models/discount.model.js';
 import {
     convertToMongooseId,
     generateFindAllPageSplit,
     generateFindOneAndUpdate,
     generateUpdateAll
-} from '../../../utils/mongoose.util.js';
+} from '@/utils/mongoose.util.js';
 import { ProjectionType } from 'mongoose';
-import discountUsedModel from '../../discountUsed.model.js';
-import { pessimisticLock } from 'src/api/services/redis.service.js';
-import { PessimisticKeys } from 'src/api/enums/redis.enum.js';
+import discountUsedModel from '@/models/discountUsed.model.js';
+import { pessimisticLock } from '@/services/redis.service.js';
+import { PessimisticKeys } from '@/enums/redis.enum.js';
 
 /* ---------------------------------------------------------- */
 /*                           Common                           */

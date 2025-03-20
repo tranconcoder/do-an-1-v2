@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import deleteRouter from './delete.route';
-import getRouter from './get.route';
-import patchRouter from './patch.route';
-import postRouter from './post.route';
+import deleteRouter from './delete.route.js';
+import getRouter from './get.route.js';
+import patchRouter from './patch.route.js';
+import postRouter from './post.route.js';
 
 const router = Router();
 

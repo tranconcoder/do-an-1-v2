@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
-import { required, timestamps } from '../../configs/mongoose.config';
-import { USER_MODEL_NAME } from './user.model';
-import { addSlug } from './middlewares/product.middleware';
-import { CategoryEnum } from '../enums/product.enum';
+import { required, timestamps } from '@/configs/mongoose.config.js';
+import { USER_MODEL_NAME } from './user.model.js';
+import { addSlug } from '@/models/middlewares/product.middleware.js';
+import { CategoryEnum } from '../enums/product.enum.js';
 
 const PRODUCT_SHOP_FIELD = {
     product_shop: {

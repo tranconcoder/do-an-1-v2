@@ -1,19 +1,10 @@
-import cartModel from '../models/cart.model';
-import {
-    findOneAndUpdateCart,
-    findAndRemoveProductFromCart,
-    findOneCartByUser
-} from '../models/repository/cart/index';
+import { findAndRemoveProductFromCart, findOneCartByUser } from '@/models/repository/cart/index.js';
+
 import {
     checkProductsIsAvailableToUse,
-    findAllProduct,
     findProductById
-} from '../models/repository/product/index';
-import {
-    BadRequestErrorResponse,
-    ForbiddenErrorResponse,
-    NotFoundErrorResponse
-} from '../response/error.response';
+} from '@/models/repository/product/index.js';
+import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 
 export default class CartService {
     /* ---------------------------------------------------------- */

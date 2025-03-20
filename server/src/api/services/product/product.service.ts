@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import { CategoryEnum } from '../../enums/product.enum.js';
-import { productModel } from '../../models/product.model.js';
-import { createProduct, deleteOneProduct } from '../../models/repository/product/index.js';
-import { get$SetNestedFromObject } from '../../utils/mongoose.util.js';
-import { createInventory, updateInventoryStock } from '../../models/repository/inventory/index.js';
-import { BadRequestErrorResponse } from '../../response/error.response.js';
+import { CategoryEnum } from '@/enums/product.enum.js';
+import { productModel } from '@/models/product.model.js';
+import { createProduct, deleteOneProduct } from '@/models/repository/product/index.js';
+import { get$SetNestedFromObject } from '@/utils/mongoose.util.js';
+import { createInventory, updateInventoryStock } from '@/models/repository/inventory/index.js';
+import { BadRequestErrorResponse } from '@/response/error.response.js';
 
 export abstract class Product implements serviceTypes.product.definition.Product {
     public _id?: string | mongoose.Types.ObjectId;

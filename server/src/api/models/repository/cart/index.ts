@@ -1,6 +1,6 @@
-import { NotFoundErrorResponse } from '../../../response/error.response.js';
-import { generateFindOneAndUpdate } from '../../../utils/mongoose.util.js';
-import cartModel from '../../cart.model.js';
+import { NotFoundErrorResponse } from '@/response/error.response.js';
+import { generateFindOneAndUpdate } from '@/utils/mongoose.util.js';
+import cartModel from '@/models/cart.model.js';
 
 export const findOneAndUpdateCart = generateFindOneAndUpdate<modelTypes.cart.CartSchema>(cartModel);
 

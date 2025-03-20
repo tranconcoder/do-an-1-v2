@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import ProductController from '../../controllers/product.controller';
-import catchError from '../../middlewares/catchError.middleware';
+import ProductController from '@/controllers/product.controller.js';
+import catchError from '@/middlewares/catchError.middleware.js';
 import {
     validateRequestParams,
     validateRequestQuery
-} from '../../middlewares/joiValidate.middleware';
-import { authenticate, authenticateNotRequired } from '../../middlewares/jwt.middleware';
+} from '@/middlewares/joiValidate.middleware.js';
+import { authenticate, authenticateNotRequired } from '@/middlewares/jwt.middleware.js';
 import {
     getAllProductByShopParamsSchema,
     getAllProductByShopQuerySchema,
@@ -13,7 +13,7 @@ import {
     getAllProductPublishByShopSchema,
     getProductByIdSchema,
     searchProductSchema
-} from '../../validations/joi/product/index.joi';
+} from '@/validations/joi/product/index.joi.js';
 
 const productGetRoute = Router();
 const productGetRouteValidateOrNot = Router();

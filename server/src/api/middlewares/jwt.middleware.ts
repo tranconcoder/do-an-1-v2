@@ -1,7 +1,7 @@
-import { ForbiddenErrorResponse, NotFoundErrorResponse } from '../response/error.response';
-import catchError from './catchError.middleware';
-import JwtService from '../services/jwt.service';
-import KeyTokenService from '../services/keyToken.service';
+import { ForbiddenErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
+import catchError from './catchError.middleware.js';
+import JwtService from '@/services/jwt.service.js';
+import KeyTokenService from '@/services/keyToken.service.js';
 
 export const authenticate = catchError(async (req, _, next) => {
     if (req.userId) return next();

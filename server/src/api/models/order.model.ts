@@ -1,9 +1,9 @@
 import { Schema, model } from 'mongoose';
-import { required, timestamps } from 'src/configs/mongoose.config';
-import { DiscountTypeEnum } from '../enums/discount.enum';
-import { OrderStatus } from '../enums/order.enum';
-import { PaymentBank, PaymentType } from '../enums/payment.enum';
-import { checkoutSchema } from './checkout.model';
+import { required, timestamps } from '@/configs/mongoose.config.js';
+import { DiscountTypeEnum } from '@/enums/discount.enum.js';
+import { OrderStatus } from '@/enums/order.enum.js';
+import { PaymentBank, PaymentType } from '@/enums/payment.enum.js';
+import { checkoutSchema } from './checkout.model.js';
 
 export const ORDER_MODEL_NAME = 'Order';
 export const ORDER_COLLECTION_NAME = 'orders';

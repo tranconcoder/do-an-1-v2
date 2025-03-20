@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { USER_MODEL_NAME } from './user.model';
-import { required, timestamps } from '../../configs/mongoose.config';
+import { USER_MODEL_NAME } from './user.model.js';
+import { required, timestamps } from '@/configs/mongoose.config.js';
 
 export const KEY_TOKEN_MODEL_NAME = 'KeyToken';
 export const KEY_TOKEN_COLLECTION_NAME = 'key_tokens';

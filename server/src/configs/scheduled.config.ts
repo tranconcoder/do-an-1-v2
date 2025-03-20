@@ -1,4 +1,4 @@
-import LoggerService from '../api/services/logger.service';
+import LoggerService from '@/services/logger.service.js';
 
 export const TIMEZONE = 'Asia/Ho_Chi_Minh';
 
@@ -9,12 +9,9 @@ export const CLEAN_UP_KEY_TOKEN_CRON_TIME =
     process.env.CLEAN_UP_KEY_TOKEN_CRON_TIME || CRON_TIME_DEV;
 
 // Cleanup product remove failed scheduled
-export const CLEAN_UP_PRODUCT_CRON_TIME =
-    process.env.CLEAN_UP_PRODUCT_CRON_TIME || CRON_TIME_DEV;
+export const CLEAN_UP_PRODUCT_CRON_TIME = process.env.CLEAN_UP_PRODUCT_CRON_TIME || CRON_TIME_DEV;
 
-export const getCronOptions = (
-    options: serviceTypes.scheduled.arguments.GetCronOption
-) => {
+export const getCronOptions = (options: serviceTypes.scheduled.arguments.GetCronOption) => {
     return {
         timeZone: TIMEZONE,
         start: false,

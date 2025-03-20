@@ -1,4 +1,4 @@
-import { DiscountTypeEnum } from '../enums/discount.enum.js';
+import type { DiscountTypeEnum } from '@/enums/discount.enum.js';
 
 export const calculateDiscount = (
     price: number,

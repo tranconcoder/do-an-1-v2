@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import slugify from 'slugify';
-import { timestamps, required } from '../../configs/mongoose.config';
+import { timestamps, required } from '@/configs/mongoose.config.js';
 
 /* ---------------------------------------------------------- */
 /*                          Province                          */
@@ -24,7 +24,7 @@ const provinceSchema = new Schema(
     }
 );
 provinceSchema.pre('save', function (next) {
-    this.province_slug = slugify(this.province_name, { lower: true });
+    this.province_slug = slugify.default(this.province_name, { lower: true });
 
     next();
 });

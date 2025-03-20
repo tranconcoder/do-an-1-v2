@@ -1,8 +1,8 @@
 import Joi, { ArraySchema, NumberSchema } from 'joi';
 import _ from 'lodash';
-import { mongooseId } from '../../../configs/joi.config';
-import { DiscountTypeEnum } from '../../enums/discount.enum';
-import { toOptionalObject } from '../../utils/joi.util';
+import { mongooseId } from '@/configs/joi.config.js';
+import { DiscountTypeEnum } from '@/enums/discount.enum.js';
+import { toOptionalObject } from '@/utils/joi.util.js';
 
 const schema = {
     _id: mongooseId,
@@ -48,10 +48,9 @@ const schema = {
 /* ---------------------------------------------------------- */
 /*                           Create                           */
 /* ---------------------------------------------------------- */
-export const createDiscountSchema = Joi.object<
-    joiTypes.discount.CreateDiscount,
-    true
->(_.omit(schema, '_id'));
+export const createDiscountSchema = Joi.object<joiTypes.discount.CreateDiscount, true>(
+    _.omit(schema, '_id')
+);
 
 /* ---------------------------------------------------------- */
 /*                            Get                             */
@@ -90,33 +89,31 @@ export const getAllProductDiscountByCodeParamsSchema =
 /* ---------------------------------------------------------- */
 /*                           Update                           */
 /* ---------------------------------------------------------- */
-export const updateDiscountSchema =
-    Joi.object<joiTypes.discount.UpdateDiscount>({
-        ...toOptionalObject({
-            discount_name: schema.discount_name,
-            discount_description: schema.discount_description,
-            discount_code: schema.discount_code,
-            discount_type: schema.discount_type,
-            discount_value: schema.discount_value,
-            discount_count: schema.discount_count,
-            discount_products: schema.discount_products,
-            discount_start_at: schema.discount_start_at,
-            discount_end_at: schema.discount_end_at,
-            discount_max_value: schema.discount_max_value,
-            discount_min_order_cost: schema.discount_min_order_cost,
-            discount_user_max_use: schema.discount_user_max_use,
-            is_apply_all_product: schema.is_apply_all_product,
-            is_available: schema.is_available,
-            is_publish: schema.is_publish
-        }),
-        _id: schema._id.required()
-    });
+export const updateDiscountSchema = Joi.object<joiTypes.discount.UpdateDiscount>({
+    ...toOptionalObject({
+        discount_name: schema.discount_name,
+        discount_description: schema.discount_description,
+        discount_code: schema.discount_code,
+        discount_type: schema.discount_type,
+        discount_value: schema.discount_value,
+        discount_count: schema.discount_count,
+        discount_products: schema.discount_products,
+        discount_start_at: schema.discount_start_at,
+        discount_end_at: schema.discount_end_at,
+        discount_max_value: schema.discount_max_value,
+        discount_min_order_cost: schema.discount_min_order_cost,
+        discount_user_max_use: schema.discount_user_max_use,
+        is_apply_all_product: schema.is_apply_all_product,
+        is_available: schema.is_available,
+        is_publish: schema.is_publish
+    }),
+    _id: schema._id.required()
+});
 
 /* ----------------- Set available discount ----------------- */
-export const setAvailableDiscountSchema = Joi.object<
-    joiTypes.discount.SetAvailableDiscount,
-    true
->(_.pick(schema, '_id'));
+export const setAvailableDiscountSchema = Joi.object<joiTypes.discount.SetAvailableDiscount, true>(
+    _.pick(schema, '_id')
+);
 
 /* ---------------- Set unavailable discount ---------------- */
 export const setUnavailableDiscountSchema = setAvailableDiscountSchema;
@@ -126,7 +123,6 @@ export const setUnavailableDiscountSchema = setAvailableDiscountSchema;
 /* ---------------------------------------------------------- */
 
 /* -------------------- Delete discount  -------------------- */
-export const deleteDiscountSchema =
-    Joi.object<joiTypes.discount.DeleteDiscount>({
-        discountId: mongooseId
-    });
+export const deleteDiscountSchema = Joi.object<joiTypes.discount.DeleteDiscount>({
+    discountId: mongooseId
+});

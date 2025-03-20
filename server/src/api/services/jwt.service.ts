@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 import { jwtDecode } from 'jwt-decode';
-import { jwtSignAsync } from '../utils/jwt.util';
-import LoggerService from './logger.service';
-import jwtConfig from '../../configs/jwt.config';
-import { jwtDecodeSchema } from '../validations/joi/jwt.joi';
+import { jwtSignAsync } from '@/utils/jwt.util.js';
+import LoggerService from './logger.service.js';
+import jwtConfig from '@/../configs/jwt.config.js';
+import { jwtDecodeSchema } from '@/validations/joi/jwt.joi.js';
 
 export default class JwtService {
     /* ------------------------------------------------------ */

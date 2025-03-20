@@ -1,17 +1,17 @@
 import { Router } from 'express';
-import DiscountController from '../../controllers/discount.controller.js';
-import catchError from '../../middlewares/catchError.middleware.js';
+import DiscountController from '@/controllers/discount.controller.js';
+import catchError from '@/middlewares/catchError.middleware.js';
 import {
     validateRequestParams,
     validateRequestQuery
-} from '../../middlewares/joiValidate.middleware.js';
-import { authenticate } from '../../middlewares/jwt.middleware.js';
+} from '@/middlewares/joiValidate.middleware.js';
+import { authenticate } from '@/middlewares/jwt.middleware.js';
 import {
     getAllDiscountCodeInShopQuerySchema,
     getAllDiscountCodeInShopParamsSchema,
     getAllProductDiscountByCodeQuerySchema,
     getAllProductDiscountByCodeParamsSchema
-} from '../../validations/joi/discount.joi.js';
+} from '@/validations/joi/discount.joi.js';
 
 const discountGetRoute = Router();
 const discountGetRouteValidated = Router();

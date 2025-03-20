@@ -1,11 +1,11 @@
-import { getProductModel } from '../../../../configs/product.config.js';
-import { ITEM_PER_PAGE } from '../../../../configs/server.config.js';
+import { getProductModel } from '@/configs/product.config.js';
+import { ITEM_PER_PAGE } from '@/configs/server.config.js';
 import ErrorResponse, {
     ForbiddenErrorResponse,
     NotFoundErrorResponse
-} from '../../../response/error.response.js';
-import { generateFindAllPageSplit } from '../../../utils/mongoose.util.js';
-import { productModel } from '../../product.model.js';
+} from '@/response/error.response.js';
+import { generateFindAllPageSplit } from '@/utils/mongoose.util.js';
+import { productModel } from '@/models/product.model.js';
 
 // Common
 export const queryPaginate = async (query: object, page: number) => {

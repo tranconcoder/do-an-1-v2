@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
-import { timestamps, required, ObjectId } from '../../configs/mongoose.config.js';
-import { DiscountTypeEnum } from '../enums/discount.enum.js';
+import { timestamps, required, ObjectId } from '@/configs/mongoose.config.js';
+import { DiscountTypeEnum } from '@/enums/discount.enum.js';
 import { PRODUCT_MODEL_NAME } from './product.model.js';
 import { USER_MODEL_NAME } from './user.model.js';
 

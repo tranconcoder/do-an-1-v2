@@ -1,4 +1,4 @@
-import type { CartItemStatus } from '../../enums/cart.enum';
+import type { CartItemStatus } from '@/enums/cart.enum.js';
 
 declare global {
     namespace modelTypes {

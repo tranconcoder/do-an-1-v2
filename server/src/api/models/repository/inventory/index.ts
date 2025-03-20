@@ -1,5 +1,5 @@
-import { generateFindOne, generateFindOneAndUpdate } from 'src/api/utils/mongoose.util.js';
-import inventoryModel from '../../inventory.model.js';
+import { generateFindOne, generateFindOneAndUpdate } from '@/utils/mongoose.util.js';
+import inventoryModel from '@/models/inventory.model.js';
 
 /* ---------------------------------------------------------- */
 /*                           Create                           */
