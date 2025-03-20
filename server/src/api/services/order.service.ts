@@ -73,13 +73,7 @@ export default new (class OrderService {
                 const orderedInventory = await pessimisticLock(
                     PessimisticKeys.INVENTORY,
                     inventory._id,
-                    async () => {
-                        console.log('Running...');
-                        console.log(quantity)
-                        const result = await orderProductInventory(id, quantity);
-                        console.log('Stopping...');
-                        return result;
-                    }
+                    async () => await orderProductInventory(id, quantity)
                 );
                 if (!orderedInventory) {
                     throw new BadRequestErrorResponse('Product stock is not enough!', true);
@@ -124,6 +118,7 @@ export default new (class OrderService {
                 return Promise.reject(firstRejectMessage);
             })
             .then(async () => {
+                console.log('success');
                 /* ------------------ Handle create order  ------------------ */
                 return await orderModel.create({
                     /* ------------------------ Customer ------------------------ */
@@ -139,6 +134,9 @@ export default new (class OrderService {
                     payment_paid: false,
                     price_to_payment: checkout.total_checkout,
                     price_total_raw: checkout.total_price_raw,
+
+                    /* ------------------------ Discount ------------------------ */
+                    discount: discountAdmin,
 
                     /* ------------------------- Order  ------------------------- */
                     order_checkout: checkout,

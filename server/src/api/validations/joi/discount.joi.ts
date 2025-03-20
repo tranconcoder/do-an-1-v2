@@ -3,12 +3,13 @@ import _ from 'lodash';
 import { mongooseId } from '@/configs/joi.config.js';
 import { DiscountTypeEnum } from '@/enums/discount.enum.js';
 import { toOptionalObject } from '@/utils/joi.util.js';
+import { discountCode } from '@/configs/joi.config.js';
 
-const schema = {
+export const schema = {
     _id: mongooseId,
     discount_name: Joi.string().required(),
     discount_description: Joi.string(),
-    discount_code: Joi.string().alphanum().length(6).required(),
+    discount_code: discountCode,
     discount_type: Joi.string()
         .valid(...Object.values(DiscountTypeEnum))
         .required(),

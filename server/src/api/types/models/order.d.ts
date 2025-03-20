@@ -1,5 +1,6 @@
 import type { PaymentType } from '@/enums/payment.enum.js';
 import type { OrderStatus } from '@/enums/order.enum.js';
+import type { DiscountTypeEnum } from '@/enums/discount.enum.ts';
 
 declare global {
     namespace modelTypes {
@@ -20,6 +21,15 @@ declare global {
 
                     /* ------------------------ Products ------------------------ */
                     order_checkout: modelTypes.checkout.CheckoutSchema;
+
+                    /* ------------------------ Discount ------------------------ */
+                    discount?: {
+                        discount_id: moduleTypes.mongoose.ObjectId;
+                        discount_code: string;
+                        discount_name: string;
+                        discount_type: DiscountTypeEnum;
+                        discount_value: number;
+                    };
 
                     /* ------------------------- Price  ------------------------- */
                     price_total_raw: number;

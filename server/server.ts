@@ -16,7 +16,7 @@ const server = app.listen(PORT, HOST, () => {
     console.log(`Server is running on ${BASE_URL}`);
 });
 
-process.on('SIGINT', () => {
+process.on('SIGINT', async () => {
     // Close database connection
     MongoDB.getInstance().disconnect();
 

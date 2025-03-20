@@ -1,4 +1,4 @@
-import { NotFoundErrorResponse } from '@/response/error.response.js';
+import { ForbiddenErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 
 /* -------------------------- Enum -------------------------- */
 import { CartItemStatus } from '@/enums/cart.enum.js';
@@ -22,17 +22,17 @@ export default new (class CheckoutService {
         shopsDiscount = [],
         discountCode
     }: serviceTypes.checkout.arguments.Checkout) {
-        /* --------- Check user address, phone number --------------- */
-
         /* ----------------------- Check cart ----------------------- */
         const cart = await findOneCartByUser({ user: user });
 
+        /* ----------- Select all item selected from cart ----------- */
         cart.cart_shop.forEach((shop) => {
             shop.products = shop.products.filter(
                 (product) => product.status === CartItemStatus.Active
             );
         });
 
+        /* ------------------ Initial result data  ------------------ */
         const checkoutResult: serviceTypes.checkout.definition.CheckoutResult = {
             total_price_raw: 0,
             total_fee_ship: 0,
@@ -48,6 +48,10 @@ export default new (class CheckoutService {
         const discountAdmin = discountCode && (await findDiscountByCode(discountCode));
 
         if (discountAdmin) {
+            if (!discountAdmin.is_admin_voucher)
+                throw new ForbiddenErrorResponse('Invalid voucher!');
+
+            /* -------------- Add admin discount to result -------------- */
             checkoutResult.discount = {
                 ..._.pick(discountAdmin, [
                     'discount_code',
@@ -66,15 +70,19 @@ export default new (class CheckoutService {
                 if (!foundShop) throw new NotFoundErrorResponse('Not found shop!');
 
                 const FEE_SHIP_DEFAULT = 30_000;
-                let totalPriceRaw = 0;
 
-                /* --------------- Calculating discount price --------------- */
+                /* -------------- Initial total price raw shop -------------- */
+                let totalPriceRawShop = 0;
+
+                /* ----------------- Get discount shop info ----------------- */
                 const discountInfo = shopsDiscount.find(
-                    (discount) => discount.shopId === shop.shop
+                    (discount) => discount.shopId === shop.shop.toString()
                 );
                 const discount =
-                    discountInfo && (await findDiscountByCode(discountInfo?.discountCode));
-                const discountPrice = discountInfo
+                    discountInfo && (await findDiscountByCode(discountInfo.discountCode));
+
+                /* ------------- Get amount of discount by shop ------------- */
+                const discountPriceShop = discount
                     ? (
                           await DiscountService.getDiscountAmount({
                               discountCode: discountInfo.discountCode,
@@ -85,8 +93,9 @@ export default new (class CheckoutService {
                           })
                       ).totalDiscount
                     : 0;
+
                 const productsInfo = shop.products.map((product) => {
-                    totalPriceRaw += product.quantity * product.price;
+                    totalPriceRawShop += product.quantity * product.price;
 
                     /* --------------- Calculating admin discount --------------- */
                     if (
@@ -124,36 +133,35 @@ export default new (class CheckoutService {
                           }
                         : undefined,
                     fee_ship: FEE_SHIP_DEFAULT,
-                    total_discount_price: discountPrice,
-                    total_price_raw: totalPriceRaw,
+                    total_discount_price: discountPriceShop,
+                    total_price_raw: totalPriceRawShop,
                     products_info: productsInfo
                 });
             })
         );
 
-        checkoutResult.total_price_raw = checkoutResult.shops_info.reduce(
+        checkoutResult.shops_info.reduce(
             (acc, cur) => cur.total_price_raw + acc,
-            0
+            checkoutResult.total_price_raw
         );
-        checkoutResult.total_fee_ship = checkoutResult.shops_info.reduce(
+        checkoutResult.shops_info.reduce(
             (acc, cur) => cur.fee_ship + acc,
-            0
+            checkoutResult.total_fee_ship
         );
-        checkoutResult.total_discount_shop_price = checkoutResult.shops_info.reduce(
+        checkoutResult.shops_info.reduce(
             (acc, cur) => cur.total_discount_price + acc,
-            0
+            checkoutResult.total_discount_shop_price
         );
         checkoutResult.total_discount_admin_price = discountAdmin
             ? calculateDiscount(
+                  discountAdmin.discount_type,
                   totalPriceProductToApplyAdminVoucher,
                   discountAdmin.discount_value,
-                  discountAdmin.discount_type,
                   discountAdmin.discount_max_value
               )
             : 0;
         checkoutResult.total_discount_price =
             checkoutResult.total_discount_shop_price + checkoutResult.total_discount_admin_price;
-
         checkoutResult.total_checkout =
             checkoutResult.total_price_raw +
             checkoutResult.total_fee_ship -

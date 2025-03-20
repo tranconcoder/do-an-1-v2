@@ -19,18 +19,16 @@ const orderSchema = new Schema<modelTypes.order.OrderSchema>(
         customer_phone: { type: String, required },
 
         /* ------------------------ Discount ------------------------ */
-        discount_admin: {
-            discount_name: { type: String, required },
-            discount_description: String,
-            discount_type: { type: String, enum: DiscountTypeEnum, required },
-            discount_value: { type: Number, required },
-            discount_code: { type: String, required },
-            discount_start_at: { type: Date, required },
-            discount_end_at: { type: Date, required }
+        discount: {
+            type: {
+                discount_id: { type: Schema.Types.ObjectId, required },
+                discount_name: { type: String, required },
+                discount_type: { type: String, enum: DiscountTypeEnum, required },
+                discount_value: { type: Number, required },
+                discount_code: { type: String, required }
+            },
+            required: false
         },
-        discount_price_admin: { type: Number, default: 0 },
-        discount_price_shop: { type: Number, default: 0 },
-        discount_price_total: { type: Number, default: 0 },
 
         /* ----------------------- Order shop ----------------------- */
         order_checkout: checkoutSchema,

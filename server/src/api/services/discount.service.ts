@@ -240,9 +240,9 @@ export default class DiscountService {
             !discount.discount_min_order_cost
         ) {
             totalDiscount = calculateDiscount(
+                discount.discount_type,
                 totalProductPriceToDiscount,
                 discount.discount_value,
-                discount.discount_type,
                 discount.discount_max_value
             );
         }

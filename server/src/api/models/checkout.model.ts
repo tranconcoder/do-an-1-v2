@@ -16,22 +16,28 @@ export const checkoutSchema = new Schema<modelTypes.checkout.CheckoutSchema>(
         total_discount_price: { type: Number, required },
         total_checkout: { type: Number, required },
         discount: {
-            discount_id: { type: Schema.Types.ObjectId, required },
-            discount_code: { type: String, required },
-            discount_name: { type: String, required },
-            discount_type: { type: String, enum: DiscountTypeEnum, required },
-            discount_value: { type: Number, required }
+            type: {
+                discount_id: { type: Schema.Types.ObjectId, required },
+                discount_code: { type: String, required },
+                discount_name: { type: String, required },
+                discount_type: { type: String, enum: DiscountTypeEnum, required },
+                discount_value: { type: Number, required }
+            },
+            required: false
         },
         shops_info: [
             {
                 shop_id: { type: String, required },
                 shop_name: { type: String, required },
                 discount: {
-                    discount_id: { type: Schema.Types.ObjectId, required },
-                    discount_code: { type: String, required },
-                    discount_name: { type: String, required },
-                    discount_type: { type: String, enum: DiscountTypeEnum, required },
-                    discount_value: { type: Number, required }
+                    type: {
+                        discount_id: { type: Schema.Types.ObjectId, required },
+                        discount_code: { type: String, required },
+                        discount_name: { type: String, required },
+                        discount_type: { type: String, enum: DiscountTypeEnum, required },
+                        discount_value: { type: Number, required }
+                    },
+                    required: false
                 },
                 products_info: {
                     type: [
