@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { ObjectId } from '@/configs/mongoose.config.js';
 import { ROLE_MODEL_NAME } from './role.model.js';
 import { required, unique, timestamps } from '@/configs/mongoose.config.js';
 
@@ -11,7 +12,7 @@ const userSchema = new Schema<modelTypes.auth.UserSchema>(
         email: { type: String, unique },
         password: { type: String, required },
         fullName: { type: String, required },
-        role: { type: Schema.Types.ObjectId, required, ref: ROLE_MODEL_NAME },
+        role: { type: ObjectId, required, ref: ROLE_MODEL_NAME },
         dayOfBirth: Date
     },
     {

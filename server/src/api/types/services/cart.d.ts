@@ -42,6 +42,12 @@ declare global {
 
                 /* ---------------- Delete product from cart ---------------- */
                 interface DeleteProductFromCart extends AddToCart {}
+
+                /* --------------- Delete products from cart  --------------- */
+                interface DeleteProductsFromCart {
+                    user: string;
+                    products: string[];
+                }
             }
         }
     }

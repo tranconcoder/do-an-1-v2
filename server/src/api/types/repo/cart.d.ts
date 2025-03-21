@@ -19,10 +19,8 @@ declare global {
             /* ---------------------------------------------------------- */
             /*                           Delete                           */
             /* ---------------------------------------------------------- */
-            interface DeleteProductsFromCart {
-                user: string;
-                products: string[];
-            }
+            interface DeleteProductsFromCart
+                extends serviceTypes.cart.arguments.DeleteProductsFromCart {}
         }
     }
 }

@@ -24,6 +24,7 @@ import DiscountService from './discount.service.js';
 import { assertFulfilled, assertRejected, sleep } from '@/utils/promise.util.js';
 
 import _ from 'lodash';
+import CartService from './cart.service.js';
 
 export default new (class OrderService {
     public async createOrder({ userId, paymentType }: serviceTypes.order.arguments.CreateOrder) {
@@ -117,9 +118,14 @@ export default new (class OrderService {
             })
             .then(async () => {
                 /* ------------- Remove product ordered in cart ------------- */
-
-
-
+                console.log(
+                    await CartService.deleteProductsFromCart({
+                        user: userId,
+                        products: shops.map((x) => x.id)
+                    })
+                );
+            })
+            .then(async () => {
                 /* ------------------ Handle create order  ------------------ */
                 return await orderModel.create({
                     /* ------------------------ Customer ------------------------ */

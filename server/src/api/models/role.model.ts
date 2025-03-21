@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { ObjectId } from '@/configs/mongoose.config.js';
 import { unique, required, timestamps } from '@/configs/mongoose.config.js';
 
 export const ROLE_MODEL_NAME = 'Role';

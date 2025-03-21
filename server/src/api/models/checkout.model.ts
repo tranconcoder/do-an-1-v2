@@ -2,13 +2,14 @@ import { Schema, model } from 'mongoose';
 import { CHECKOUT_EXPIRES_TIME } from '@/configs/model.config.js';
 import { timestamps, required } from '@/configs/mongoose.config.js';
 import { DiscountTypeEnum } from '@/enums/discount.enum.js';
+import { ObjectId } from '@/configs/mongoose.config.js';
 
 export const CHECKOUT_MODEL_NAME = 'Checkout';
 export const CHECKOUT_COLLECTION_NAME = 'checkouts';
 
 export const checkoutSchema = new Schema<modelTypes.checkout.CheckoutSchema>(
     {
-        user: { type: Schema.Types.ObjectId, required, index: true },
+        user: { type: ObjectId, required, index: true },
         total_price_raw: { type: Number, required },
         total_fee_ship: { type: Number, required },
         total_discount_shop_price: { type: Number, required },
@@ -17,7 +18,7 @@ export const checkoutSchema = new Schema<modelTypes.checkout.CheckoutSchema>(
         total_checkout: { type: Number, required },
         discount: {
             type: {
-                discount_id: { type: Schema.Types.ObjectId, required },
+                discount_id: { type: ObjectId, required },
                 discount_code: { type: String, required },
                 discount_name: { type: String, required },
                 discount_type: { type: String, enum: DiscountTypeEnum, required },
@@ -31,7 +32,7 @@ export const checkoutSchema = new Schema<modelTypes.checkout.CheckoutSchema>(
                 shop_name: { type: String, required },
                 discount: {
                     type: {
-                        discount_id: { type: Schema.Types.ObjectId, required },
+                        discount_id: { type: ObjectId, required },
                         discount_code: { type: String, required },
                         discount_name: { type: String, required },
                         discount_type: { type: String, enum: DiscountTypeEnum, required },

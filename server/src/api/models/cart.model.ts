@@ -3,22 +3,23 @@ import { timestamps, required } from '@/configs/mongoose.config.js';
 import { CartItemStatus } from '@/enums/cart.enum.js';
 import { PRODUCT_MODEL_NAME } from './product.model.js';
 import { USER_MODEL_NAME } from './user.model.js';
+import { ObjectId } from '@/configs/mongoose.config.js';
 
 export const CART_MODEL_NAME = 'Cart';
 export const CART_COLLECTION_NAME = 'carts';
 
 const cartSchema = new Schema<modelTypes.cart.CartSchema>(
     {
-        user: { type: Schema.Types.ObjectId, ref: USER_MODEL_NAME, required },
+        user: { type: ObjectId, ref: USER_MODEL_NAME, required },
         cart_shop: {
             type: [
                 {
-                    shop: { type: Schema.Types.ObjectId, ref: USER_MODEL_NAME },
+                    shop: { type: ObjectId, ref: USER_MODEL_NAME },
                     products: {
                         type: [
                             {
                                 id: {
-                                    type: Schema.Types.ObjectId,
+                                    type: ObjectId,
                                     required,
                                     ref: PRODUCT_MODEL_NAME
                                 },

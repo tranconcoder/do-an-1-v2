@@ -1,6 +1,7 @@
 import { NotFoundErrorResponse } from '@/response/error.response.js';
 import { generateFindOneAndUpdate } from '@/utils/mongoose.util.js';
 import cartModel from '@/models/cart.model.js';
+import mongoose from 'mongoose';
 
 export const findOneAndUpdateCart = generateFindOneAndUpdate<modelTypes.cart.CartSchema>(cartModel);
 
@@ -56,10 +57,23 @@ export const checkShopListExistsInCart = async ({
 /* ---------------------------------------------------------- */
 
 /* ---------------- Delete products from cart ---------------- */
-export const deleteProductsFromCart = async (user: string) => {
+export const deleteProductsFromCart = async ({
+    user,
+    products
+}: repoTypes.cart.DeleteProductsFromCart) => {
     return findOneAndUpdateCart({
-        query: {
-            
+        query: { user },
+        update: {
+            'cart_shop.products': {
+                $pull: {
+                    $elemMatch: {
+                        id: products
+                    }
+                }
+            }
+        },
+        options: {
+            new: true
         }
-    })
-}
+    });
+};

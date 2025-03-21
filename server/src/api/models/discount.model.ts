@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import { ObjectId } from '@/configs/mongoose.config.js';
 import { timestamps, required, ObjectId } from '@/configs/mongoose.config.js';
 import { DiscountTypeEnum } from '@/enums/discount.enum.js';
 import { PRODUCT_MODEL_NAME } from './product.model.js';

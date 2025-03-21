@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { ObjectId } from '@/configs/mongoose.config.js';
 import { required, timestamps } from '@/configs/mongoose.config.js';
 import { USER_MODEL_NAME } from './user.model.js';
 import { addSlug } from '@/models/middlewares/product.middleware.js';
@@ -6,7 +7,7 @@ import { CategoryEnum } from '../enums/product.enum.js';
 
 const PRODUCT_SHOP_FIELD = {
     product_shop: {
-        type: Schema.Types.ObjectId,
+        type: ObjectId,
         required,
         ref: USER_MODEL_NAME
     }

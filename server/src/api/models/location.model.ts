@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { ObjectId } from '@/configs/mongoose.config.js';
 import slugify from 'slugify';
 import { timestamps, required } from '@/configs/mongoose.config.js';
 
@@ -40,7 +41,7 @@ export const CITY_COLLECTION_NAME = 'cities';
 const citySchema = new Schema(
     {
         province: {
-            type: Schema.Types.ObjectId,
+            type: ObjectId,
             ref: PROVINCE_MODEL_NAME,
             required
         },
@@ -76,12 +77,12 @@ export const DISTRICT_COLLECTION_NAME = 'districts';
 const districtSchema = new Schema(
     {
         province: {
-            type: Schema.Types.ObjectId,
+            type: ObjectId,
             ref: PROVINCE_MODEL_NAME,
             required
         },
         city: {
-            type: Schema.Types.ObjectId,
+            type: ObjectId,
             ref: CITY_MODEL_NAME,
             required
         },

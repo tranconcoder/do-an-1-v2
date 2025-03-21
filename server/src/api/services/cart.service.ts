@@ -1,4 +1,8 @@
-import { findAndRemoveProductFromCart, findOneCartByUser } from '@/models/repository/cart/index.js';
+import {
+    deleteProductsFromCart,
+    findAndRemoveProductFromCart,
+    findOneCartByUser
+} from '@/models/repository/cart/index.js';
 
 import {
     checkProductsIsAvailableToUse,
@@ -21,16 +25,16 @@ export default class CartService {
         /* --------------- Add new cart product item  --------------- */
         const cart = await findOneCartByUser({ user: userId });
 
-        const cartShop = cart.cart_shop.find(
-            (x) => x.shop.toString() === foundProduct.product_shop.toString()
-        );
         /* --------------- Add new shop if not exists --------------- */
+        const cartShop = cart.cart_shop.find(
+            (x) => x.shop === foundProduct.product_shop.toString()
+        );
         if (!cartShop) {
             cart.cart_shop.push({
                 shop: foundProduct.product_shop,
                 products: [
                     {
-                        id: foundProduct._id.toString(),
+                        id: foundProduct._id,
                         name: foundProduct.product_name,
                         quantity: 1,
                         price: foundProduct.product_cost,
@@ -39,16 +43,14 @@ export default class CartService {
                 ]
             });
         } else {
-            const cartProduct = cartShop.products.find(
-                (product) => product.id.toString() === productId
-            );
+            const cartProduct = cartShop.products.find((product) => product.id === productId);
 
             /* ----- Increase quantity if product is exists in cart ----- */
             if (cartProduct) cartProduct.quantity++;
             else {
                 /* ------- Add new product to cart if shop is exists ------- */
                 cartShop.products.push({
-                    id: foundProduct._id.toString(),
+                    id: foundProduct._id,
                     name: foundProduct.product_name,
                     quantity: 1,
                     price: foundProduct.product_cost,
@@ -150,6 +152,16 @@ export default class CartService {
         return cart;
     }
 
-    /* ----------------- Remove product ordered ----------------- */
-    public static async removeProductOrdered(userId: string) {}
+    /* --------------- Delete products from cart  --------------- */
+    public static async deleteProductsFromCart({
+        user,
+        products
+    }: serviceTypes.cart.arguments.DeleteProductsFromCart) {
+        const cart = await deleteProductsFromCart({
+            user,
+            products
+        });
+
+        return !!cart;
+    }
 }

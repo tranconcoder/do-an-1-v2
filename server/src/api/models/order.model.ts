@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { ObjectId } from '@/configs/mongoose.config.js';
 import { required, timestamps } from '@/configs/mongoose.config.js';
 import { DiscountTypeEnum } from '@/enums/discount.enum.js';
 import { OrderStatus } from '@/enums/order.enum.js';
@@ -11,7 +12,7 @@ export const ORDER_COLLECTION_NAME = 'orders';
 const orderSchema = new Schema<modelTypes.order.OrderSchema>(
     {
         /* ------------------------ Customer ------------------------ */
-        customer: { type: Schema.Types.ObjectId, required: true },
+        customer: { type: ObjectId, required: true },
         customer_full_name: { type: String, required },
         customer_address: { type: String, required },
         customer_avatar: String,
@@ -21,7 +22,7 @@ const orderSchema = new Schema<modelTypes.order.OrderSchema>(
         /* ------------------------ Discount ------------------------ */
         discount: {
             type: {
-                discount_id: { type: Schema.Types.ObjectId, required },
+                discount_id: { type: ObjectId, required },
                 discount_name: { type: String, required },
                 discount_type: { type: String, enum: DiscountTypeEnum, required },
                 discount_value: { type: Number, required },

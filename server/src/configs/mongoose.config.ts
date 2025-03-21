@@ -8,4 +8,14 @@ export const timestamps = {
     updatedAt: 'updated_at'
 };
 
-export const ObjectId = mongoose.Schema.Types.ObjectId;
+const ObjectId = mongoose.Schema.Types.ObjectId;
+
+ObjectId.get((x) => x.toString());
+ObjectId.prototype.valueOf = function () {
+    return this.toString();
+};
+ObjectId.prototype.get = function () {
+    return this.toString() as any;
+};
+
+export { ObjectId };
