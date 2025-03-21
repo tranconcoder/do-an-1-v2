@@ -5,6 +5,11 @@ import _ from 'lodash';
 import mongoose from 'mongoose';
 
 export default class UserService {
+    public static getUserById = async (id: string) => {
+
+    }
+
+
     public static newInstance = (user: serviceTypes.user.arguments.NewInstance) => {
         return new userModel(user);
     };
