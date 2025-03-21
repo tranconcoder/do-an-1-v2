@@ -37,15 +37,35 @@ declare global {
                 (isDocument extends true ? HydratedDocument<T & D> : {}) &
                 (isModel extends false ? (isDocument extends false ? T & D : {}) : {});
 
+            interface GetProjection<T> {
+                projection: ObjectAnyKeys<number> | string;
+                only: Array<keyof T>;
+                select: Array<keyof T>;
+                omit: Array<keyof T> | 'metadata';
+            }
+
             /* ----- Argument of generateFindAllPageSlitting utils  ----- */
-            interface FindAllWithPageSlittingArgs<T = any> {
+            interface FindAllWithPageSlittingArgs<T = any> extends Partial<GetProjection<T>> {
                 query: RootFilterQuery<T>;
-                projection?: ProjectionType;
                 sort?: any;
                 limit?: number;
                 page?: number;
-                select?: Array<keyof T>;
-                omit?: Array<keyof T>;
+            }
+
+            /* --------------- Generate findOneAndUpdate  --------------- */
+            interface FindOneAndUpdate<T = any> extends Partial<GetProjection<T>> {
+                query: RootFilterQuery<T>;
+                update: UpdateQuery<T>;
+                options?: QueryOptions<T>;
+                sort?: any;
+            }
+
+            /* -------------------- Generate findOne -------------------- */
+            interface FindOne<T = any> extends Omit<FindOneAndUpdate<T>, 'update'> {}
+
+            /* ------------------- Generate findById  ------------------- */
+            interface FindById<T = any> extends Omit<FindOne<T>, 'query'> {
+                id: string | mongooseBase.Types.ObjectId;
             }
 
             /* ------------- Arguments of generateUpdateAll ------------- */
@@ -53,20 +73,6 @@ declare global {
                 query: RootFilterQuery<T>;
                 update: Partial<T>;
             }
-
-            /* --------------- Generate findOneAndUpdate  --------------- */
-            interface FindOneAndUpdate<T = any> {
-                query: RootFilterQuery<T>;
-                update: UpdateQuery<T>;
-                options?: QueryOptions<T>;
-                projection?: ProjectionType;
-                sort?: any;
-                select?: Array<keyof T>;
-                omit?: Array<keyof T> | 'metadata';
-            }
-
-            /* -------------------- Generate findOne -------------------- */
-            interface FindOne<T = any> extends Omit<FindOneAndUpdate<T>, 'update'> {}
         }
     }
 

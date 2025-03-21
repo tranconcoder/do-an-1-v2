@@ -37,21 +37,58 @@ export const omitFields = <T = string>(fields: T[]) => {
     return results;
 };
 
+export const getProjection = <T = any>({
+    projection = '',
+    only = [],
+    select = [],
+    omit = []
+}: moduleTypes.mongoose.GetProjection<T>) => {
+    /* ------------------ Get metadata of omit ------------------ */
+    if (omit === 'metadata') omit = ['__v', ...Object.values(timestamps)] as any;
+
+    if (typeof projection !== 'string') {
+        projection = Object.keys(projection).reduce((acc, cur) => {
+            return `${acc} ${projection[cur] ? `${cur}` : `-${cur}`}`;
+        }, '');
+    }
+
+    for (const field of only) {
+        projection += ` ${field.toString()}`;
+    }
+
+    for (const field of select) {
+        projection += ` +${field.toString()}`;
+    }
+
+    for (const field of omit) {
+        projection += ` -${field.toString()}`;
+    }
+
+    projection = projection.trim();
+
+    return projection;
+};
+
 /* -------------------- Find all wrapper -------------------- */
 export const generateFindAllPageSplit = <T = any>(model: any) => {
     return async ({
         query,
-        projection = {},
         sort = {},
         limit = 50,
         page = 1,
+        projection = '',
+        only = [],
         select = [],
         omit = []
     }: moduleTypes.mongoose.FindAllWithPageSlittingArgs<T>): Promise<T[]> => {
         const skip = limit * (page - 1);
 
-        for (const field of select) projection[field] = 1;
-        for (const field of omit) projection[field] = 0;
+        projection = getProjection<T>({
+            projection,
+            select,
+            omit,
+            only
+        });
 
         return await model.find(query, projection).sort(sort).skip(skip).limit(limit).lean();
     };
@@ -72,22 +109,20 @@ export const generateFindOneAndUpdate = <T = any>(model: any) => {
         query,
         update,
         options = {},
-        select = [],
-        omit = [],
         sort = 'ctime',
-        projection = {}
+        projection = '',
+        only = [],
+        select = [],
+        omit = []
     }: moduleTypes.mongoose.FindOneAndUpdate<T>) => {
         type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findOneAndUpdate', {}>;
 
-        /* ------------------------- Select ------------------------- */
-        for (const field of select) projection[field] = 1;
-
-        /* -------------------------- Omit -------------------------- */
-        if (omit === 'metadata') {
-            const metadataField = ['__v', ...Object.values(timestamps)];
-
-            for (const field of metadataField) projection[field] = 0;
-        } else for (const field of omit) projection[field] = 0;
+        projection = getProjection<T>({
+            projection,
+            only,
+            select,
+            omit
+        });
 
         const result: Query = model
             .findOneAndUpdate(query, update, options)
@@ -103,40 +138,45 @@ export const generateFindOne = <T = any>(model: any) => {
     return ({
         query,
         options = {},
+        only = [],
         select = [],
         omit = [],
         projection = {}
     }: moduleTypes.mongoose.FindOne<T>) => {
         type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findOne', {}>;
 
-        for (const field of select) {
-            if (typeof projection === 'string') {
-                projection += ` ${field.toString()}`;
-            } else {
-                projection[field] = 1;
-            }
-        }
-
-        if (omit === 'metadata') {
-            const metadataField = ['__v', ...Object.values(timestamps)];
-
-            for (const field of metadataField) {
-                if (typeof projection === 'string') {
-                    projection += ` -${field.toString()}`;
-                } else {
-                    projection[field] = 0;
-                }
-            }
-        } else
-            for (const field of omit) {
-                if (typeof projection === 'string') {
-                    projection += ` -${field.toString()}`;
-                } else {
-                    projection[field] = 0;
-                }
-            }
+        projection = getProjection<T>({
+            projection,
+            only,
+            select,
+            omit
+        });
 
         const result: Query = model.findOne(query, projection, options);
+
+        return result;
+    };
+};
+
+export const generateFindById = <T = any>(model: any) => {
+    return ({
+        id,
+        options = {},
+        only = [],
+        select = [],
+        omit = [],
+        projection = {}
+    }: moduleTypes.mongoose.FindById<T>) => {
+        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findById', {}>;
+
+        projection = getProjection<T>({
+            projection,
+            only,
+            select,
+            omit
+        });
+
+        const result: Query = model.findById(id, projection, options);
 
         return result;
     };

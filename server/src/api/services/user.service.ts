@@ -8,6 +8,7 @@ export default class UserService {
     public static newInstance = (user: serviceTypes.user.arguments.NewInstance) => {
         return new userModel(user);
     };
+
     public static saveInstance = async (user: ReturnType<typeof this.newInstance>) => {
         return await user.save();
     };

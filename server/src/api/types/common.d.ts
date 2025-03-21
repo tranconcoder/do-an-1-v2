@@ -67,6 +67,7 @@ declare global {
                 page?: number;
             }
 
+
             type ObjectAnyKeys<T = any> = Object & {
                 [key: string]: T;
             };
