@@ -8,9 +8,7 @@ import AuthLayout from '../layouts/AuthLayout';
 // Pages
 import Login from '../pages/Login';
 import Register from '../pages/Register/Register';
-
-// Home page component (placeholder - create this file later)
-const Home = () => <div>Home Page Content</div>;
+import Home from '../pages/Home';
 
 const AppRoutes = () => {
     return (
