@@ -13,7 +13,7 @@ const calculatePercentageDiscount = (price: number, value: number, max: number =
 
     if (discounted > price) discounted = price;
 
-    return price - discounted;
+    return discounted;
 };
 
 const strategies = {
@@ -29,4 +29,9 @@ export const calculateDiscount = (
     price: number,
     value: number,
     max?: number
-) => calculateDiscountStrategy(type)(price, value, max);
+) => {
+    if (!Object.values(DiscountTypeEnum).includes(type))
+        throw new Error('Type is not in DiscountTypeEnum!');
+
+    return calculateDiscountStrategy(type)(price, value, max);
+};

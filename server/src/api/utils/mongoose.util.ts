@@ -109,13 +109,32 @@ export const generateFindOne = <T = any>(model: any) => {
     }: moduleTypes.mongoose.FindOne<T>) => {
         type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findOne', {}>;
 
-        for (const field of select) projection[field] = 1;
+        for (const field of select) {
+            if (typeof projection === 'string') {
+                projection += ` ${field.toString()}`;
+            } else {
+                projection[field] = 1;
+            }
+        }
 
         if (omit === 'metadata') {
             const metadataField = ['__v', ...Object.values(timestamps)];
 
-            for (const field of metadataField) projection[field] = 0;
-        } else for (const field of omit) projection[field] = 0;
+            for (const field of metadataField) {
+                if (typeof projection === 'string') {
+                    projection += ` -${field.toString()}`;
+                } else {
+                    projection[field] = 0;
+                }
+            }
+        } else
+            for (const field of omit) {
+                if (typeof projection === 'string') {
+                    projection += ` -${field.toString()}`;
+                } else {
+                    projection[field] = 0;
+                }
+            }
 
         const result: Query = model.findOne(query, projection, options);
 

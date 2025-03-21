@@ -87,7 +87,7 @@ export default new (class CheckoutService {
                           await DiscountService.getDiscountAmount({
                               discountCode: discountInfo.discountCode,
                               products: shop.products.map((x) => ({
-                                  id: x.id,
+                                  id: x.id.toString(),
                                   quantity: x.quantity
                               }))
                           })
@@ -102,13 +102,15 @@ export default new (class CheckoutService {
                         discountAdmin &&
                         discountAdmin.is_available &&
                         (discountAdmin.is_apply_all_product ||
-                            discountAdmin?.discount_products?.includes(product.id))
+                            discountAdmin?.discount_products
+                                ?.map((x) => x.toString())
+                                ?.includes(product.id.toString()))
                     ) {
                         totalPriceProductToApplyAdminVoucher += product.quantity * product.price;
                     }
 
                     return {
-                        id: product.id,
+                        id: product.id.toString(),
                         name: product.name,
                         quantity: product.quantity,
                         thumb: product.thumb,
@@ -140,17 +142,17 @@ export default new (class CheckoutService {
             })
         );
 
-        checkoutResult.shops_info.reduce(
+        checkoutResult.total_price_raw = checkoutResult.shops_info.reduce(
             (acc, cur) => cur.total_price_raw + acc,
-            checkoutResult.total_price_raw
+            0
         );
-        checkoutResult.shops_info.reduce(
+        checkoutResult.total_fee_ship = checkoutResult.shops_info.reduce(
             (acc, cur) => cur.fee_ship + acc,
-            checkoutResult.total_fee_ship
+            0
         );
-        checkoutResult.shops_info.reduce(
+        checkoutResult.total_discount_shop_price = checkoutResult.shops_info.reduce(
             (acc, cur) => cur.total_discount_price + acc,
-            checkoutResult.total_discount_shop_price
+            0
         );
         checkoutResult.total_discount_admin_price = discountAdmin
             ? calculateDiscount(
@@ -160,8 +162,10 @@ export default new (class CheckoutService {
                   discountAdmin.discount_max_value
               )
             : 0;
+
         checkoutResult.total_discount_price =
             checkoutResult.total_discount_shop_price + checkoutResult.total_discount_admin_price;
+
         checkoutResult.total_checkout =
             checkoutResult.total_price_raw +
             checkoutResult.total_fee_ship -

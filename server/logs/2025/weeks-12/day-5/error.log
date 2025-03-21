@@ -1,0 +1,25 @@
+[2025-03-20T17:08:15.411Z] [error]: HIDE::500::ValidationError::"discount_products" is not allowed::
+[2025-03-20T17:09:21.713Z] [error]: HIDE::500::ValidationError::"discount_products" is not allowed::
+[2025-03-20T17:10:14.258Z] [error]: HIDE::404::NotFound::User is exists!::
+[2025-03-20T18:50:36.686Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-20T18:51:11.302Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-20T18:51:33.300Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-20T18:51:36.974Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-20T18:52:34.188Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-20T18:52:50.968Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-20T18:53:03.419Z] [error]: HIDE::500::TypeError::calculateDiscountStrategy(...) is not a function::
+[2025-03-20T18:53:31.998Z] [error]: HIDE::500::TypeError::calculateDiscountStrategy(...) is not a function::
+[2025-03-20T18:55:00.090Z] [error]: HIDE::500::Error::Type is not in DiscountTypeEnum!::
+[2025-03-20T18:55:19.905Z] [error]: HIDE::500::CastError::Cast to Number failed for value "NaN" (type number) at path "total_discount_shop_price"::
+[2025-03-20T18:56:09.946Z] [error]: HIDE::500::TypeError::findDiscountValidByCode(...).lean is not a function::
+[2025-03-20T18:56:57.273Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-20T18:58:22.189Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-20T18:58:45.531Z] [error]: HIDE::500::Error::Type is not in DiscountTypeEnum!::
+[2025-03-21T01:48:36.238Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-21T02:13:56.607Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-21T02:16:57.929Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-21T02:17:26.031Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-21T02:17:35.157Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-21T02:17:51.392Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-21T02:17:55.880Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::
+[2025-03-21T02:18:40.424Z] [error]: HIDE::500::TypeError::Cannot read properties of undefined (reading 'toString')::

@@ -3,6 +3,7 @@ import discountModel from '@/models/discount.model.js';
 import {
     convertToMongooseId,
     generateFindAllPageSplit,
+    generateFindOne,
     generateFindOneAndUpdate,
     generateUpdateAll
 } from '@/utils/mongoose.util.js';
@@ -44,6 +45,8 @@ export const isExistsDiscount = async (shop: string, code: string) => {
 export const findOneAndUpdateDiscount =
     generateFindOneAndUpdate<modelTypes.discount.DiscountSchema>(discountModel);
 
+export const findOneDiscount = generateFindOne<modelTypes.discount.DiscountSchema>(discountModel);
+
 /* ------------------ Find discount by id ------------------ */
 export const findDiscountById = async (
     discountId: string,
@@ -58,20 +61,23 @@ export const findDiscountByCode = async (discountCode: string) => {
 };
 
 /* -------------- Find discount valid by code  -------------- */
-export const findDiscountValidByCode = async (discountCode: string) => {
-    return await discountModel.findOne({
-        discount_code: discountCode,
-        is_available: true,
-        discount_start_at: { $lte: new Date() },
-        discount_end_at: { $gte: new Date() },
-        $or: [
-            { discount_count: null },
-            {
-                $expr: {
-                    $lt: ['discount_used_count', 'discount_count']
+export const findDiscountValidByCode = (discountCode: string) => {
+    return findOneDiscount({
+        query: {
+            discount_code: discountCode,
+            is_available: true,
+            discount_start_at: { $lte: new Date() },
+            discount_end_at: { $gte: new Date() },
+            $or: [
+                { discount_count: null },
+                {
+                    $expr: {
+                        $lt: ['discount_used_count', 'discount_count']
+                    }
                 }
-            }
-        ]
+            ]
+        },
+        projection: '+is_admin_voucher +is_apply_all_product'
     });
 };
 

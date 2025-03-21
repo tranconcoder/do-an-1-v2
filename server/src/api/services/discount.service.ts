@@ -185,8 +185,9 @@ export default class DiscountService {
         const discount = await findDiscountValidByCode(discountCode);
         if (!discount)
             throw new NotFoundErrorResponse('Not found discount or discount is invalid!');
-        if (discount.discount_count === 0)
+        if (discount.discount_count && discount.discount_count <= discount.discount_used_count)
             throw new BadRequestErrorResponse('Discount is out of code!');
+        const discountProducts = discount?.discount_products?.map((x) => x.toString()) || [];
 
         /* ----------- Check product is available to use  ----------- */
         const productIds = products.map((x) => x.id);
@@ -197,9 +198,7 @@ export default class DiscountService {
             throw new BadRequestErrorResponse('Product is not available to apply discount!');
 
         /* ---------------------- Get products ---------------------- */
-        const foundProducts = await productModel.find({
-            _id: { $in: productIds }
-        });
+        const foundProducts = await productModel.find({ _id: { $in: productIds } }).lean();
         if (foundProducts.length !== productIds.length)
             throw new BadRequestErrorResponse('Get products failed!');
 
@@ -209,26 +208,33 @@ export default class DiscountService {
         let totalProductPriceToDiscount = 0; // To check min to apply product
 
         await Promise.all(
-            foundProducts.map(async (product, index) => {
-                totalPrice += product.product_cost * products[index].quantity;
+            foundProducts.map(async (product) => {
+                const productQuantity =
+                    products.find((x) => x.id.toString() === product._id.toString())?.quantity || 0;
+                const priceRaw = product.product_cost * productQuantity;
+
+                totalPrice += priceRaw;
 
                 if (
                     // Admin -> all
                     (discount.is_admin_voucher && discount.is_apply_all_product) ||
                     // Admin -> specific
                     (discount.is_admin_voucher &&
-                        discount?.discount_products?.includes(product._id)) ||
+                        discount?.discount_products
+                            ?.map((x) => x?.toString())
+                            ?.includes(product._id.toString())) ||
                     // Shop -> all
                     (!discount.is_admin_voucher &&
                         discount.is_apply_all_product &&
-                        product.product_shop === discount.discount_shop) ||
+                        product.product_shop.toString() === discount.discount_shop.toString()) ||
                     // Shop -> specific
                     (!discount.is_admin_voucher &&
                         !discount.is_apply_all_product &&
-                        product.product_shop === discount.discount_shop &&
-                        discount?.discount_products?.includes(product._id))
-                )
-                    totalProductPriceToDiscount += product.product_cost * products[index].quantity;
+                        product.product_shop.toString() === discount.discount_shop.toString() &&
+                        discountProducts.includes(product._id.toString()))
+                ) {
+                    totalProductPriceToDiscount += priceRaw;
+                }
             })
         );
 

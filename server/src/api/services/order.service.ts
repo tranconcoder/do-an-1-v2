@@ -38,16 +38,14 @@ export default new (class OrderService {
         if (!checkout) throw new NotFoundErrorResponse('Not found checkout info!');
 
         /* ---------- Check product quantity in inventory  ---------- */
-        const shops = checkout.shops_info
-            .filter((x) => x.discount)
-            .flatMap((shop) =>
-                shop.products_info.map((x) => ({
-                    discount_code: '',
-                    discount_id: '',
-                    ..._.pick(x, ['id', 'quantity']),
-                    ..._.pick(shop.discount, ['discount_code', 'discount_id'])
-                }))
-            );
+        const shops = checkout.shops_info.flatMap((shop) =>
+            shop.products_info.map((x) => ({
+                discount_code: '',
+                discount_id: '',
+                ..._.pick(x, ['id', 'quantity']),
+                ..._.pick(shop.discount, ['discount_code', 'discount_id'])
+            }))
+        );
 
         /* ------------- Check admin discount if exists ------------- */
         const discountAdmin = checkout.discount;

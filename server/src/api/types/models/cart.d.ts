@@ -8,7 +8,7 @@ declare global {
                 cart_shop: Array<{
                     shop: moduleTypes.mongoose.ObjectId;
                     products: Array<{
-                        id: string;
+                        id: moduleTypes.mongoose.ObjectId;
                         name: string;
                         thumb: string;
                         quantity: number;

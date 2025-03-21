@@ -16,7 +16,7 @@ declare global {
                     discount_type: DiscountTypeEnum;
                     discount_value: number;
                     discount_count?: number;
-                    discount_used_count?: number;
+                    discount_used_count: number;
                     discount_min_order_cost?: number; // Minimum cost to apply discount
                     discount_products?: Array<moduleTypes.mongoose.ObjectId>;
                     discount_start_at: Date;
