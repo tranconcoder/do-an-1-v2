@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "create-next-app": "^15.2.3",
     "jsonfile": "^6.1.0",
     "redis": "^4.7.0"
   },

@@ -40,7 +40,12 @@ app.use(morgan('dev'));
 // Helmet for security
 app.use(helmet());
 // CORS
-app.use(cors());
+app.use(
+    cors({
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
+    })
+);
 // Compression
 app.use(compression());
 

@@ -3,6 +3,7 @@
   "workspaces": {
     "": {
       "dependencies": {
+        "create-next-app": "^15.2.3",
         "jsonfile": "^6.1.0",
         "redis": "^4.7.0",
       },
@@ -32,6 +33,8 @@
     "@types/node": ["@types/node@22.13.10", "", { "dependencies": { "undici-types": "~6.20.0" } }, "sha512-I6LPUvlRH+O6VRUqYOcMudhaIdUVWfsjnZavnsraHvpBwaEyMN29ry+0UVJhImYL16xsscu0aske3yA+uPOWfw=="],
 
     "cluster-key-slot": ["cluster-key-slot@1.1.2", "", {}, "sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA=="],
+
+    "create-next-app": ["create-next-app@15.2.3", "", { "bin": { "create-next-app": "dist/index.js" } }, "sha512-2gwSKla1BRw/o4V56a3LHOOOIeHx2GkZ3ewOh6WDXTOXwxX27/w97I66DZcXxySLa3gypsA0vwXFhZ1zoMUEew=="],
 
     "generic-pool": ["generic-pool@3.9.0", "", {}, "sha512-hymDOu5B53XvN4QT9dBmZxPX4CWhBPPLguTZ9MMFeFa/Kg0xWVfylOVNlJji/E7yTZWFd/q9GO5TxDLq156D7g=="],
 

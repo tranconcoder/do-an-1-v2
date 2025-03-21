@@ -1,0 +1,9 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 15, "column": 0}, "map": {"version":3,"sources":["file:///home/tvconss/Workspace/do-an-1/client/src/lib/redux/store.ts"],"sourcesContent":["import { configureStore } from '@reduxjs/toolkit';\n\nexport const store = configureStore({\n    // reducer: {\n    //     // Add other reducers here as needed\n    // }\n});\n\n// Infer the `RootState` and `AppDispatch` types from the store itself\nexport type RootState = ReturnType<typeof store.getState>;\nexport type AppDispatch = typeof store.dispatch;\n"],"names":[],"mappings":";;;AAAA;;AAEO,MAAM,QAAQ,CAAA,GAAA,2LAAA,CAAA,iBAAc,AAAD,EAAE;AAIpC"}},
+    {"offset": {"line": 22, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 28, "column": 0}, "map": {"version":3,"sources":["file:///home/tvconss/Workspace/do-an-1/client/src/providers/ReduxProvider.tsx"],"sourcesContent":["'use client';\n\nimport { store } from '@/lib/redux/store';\nimport { Provider } from 'react-redux';\n\nexport function ReduxProvider({ children }: { children: React.ReactNode }) {\n    return <Provider store={store}>{children}</Provider>;\n}\n"],"names":[],"mappings":";;;;AAEA;AACA;AAHA;;;;AAKO,SAAS,cAAc,EAAE,QAAQ,EAAiC;IACrE,qBAAO,8OAAC,yJAAA,CAAA,WAAQ;QAAC,OAAO,4HAAA,CAAA,QAAK;kBAAG;;;;;;AACpC"}},
+    {"offset": {"line": 48, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

@@ -2830,7 +2830,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$ico
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$ai$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/react-icons/ai/index.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature(), _s1 = __turbopack_refresh__.signature();
-"use client";
+'use client';
 ;
 ;
 ;
@@ -2846,8 +2846,8 @@ var _s = __turbopack_refresh__.signature(), _s1 = __turbopack_refresh__.signatur
 const products = [
     {
         id: 1,
-        name: "iPhone 15 Pro 256GB",
-        image: "/iphone.png",
+        name: 'iPhone 15 Pro 256GB',
+        image: '/iphone.png',
         originalPrice: 32990000,
         discountedPrice: 29990000,
         discount: 9,
@@ -2856,8 +2856,8 @@ const products = [
     },
     {
         id: 2,
-        name: "Samsung Galaxy S24 Ultra",
-        image: "/iphone1.png",
+        name: 'Samsung Galaxy S24 Ultra',
+        image: '/iphone1.png',
         originalPrice: 33990000,
         discountedPrice: 30990000,
         discount: 8,
@@ -2866,8 +2866,8 @@ const products = [
     },
     {
         id: 3,
-        name: "Xiaomi 14 Pro",
-        image: "/iphone.png",
+        name: 'Xiaomi 14 Pro',
+        image: '/iphone.png',
         originalPrice: 28990000,
         discountedPrice: 26990000,
         discount: 7,
@@ -2876,8 +2876,8 @@ const products = [
     },
     {
         id: 4,
-        name: "Oppo Find X7 Pro",
-        image: "/iphone1.png",
+        name: 'Oppo Find X7 Pro',
+        image: '/iphone1.png',
         originalPrice: 29990000,
         discountedPrice: 27990000,
         discount: 6,
@@ -2886,8 +2886,8 @@ const products = [
     },
     {
         id: 5,
-        name: "Google Pixel 8 Pro",
-        image: "/iphone.png",
+        name: 'Google Pixel 8 Pro',
+        image: '/iphone.png',
         originalPrice: 31990000,
         discountedPrice: 29990000,
         discount: 5,
@@ -2896,8 +2896,8 @@ const products = [
     },
     {
         id: 6,
-        name: "Vivo X100 Pro",
-        image: "/iphone1.png",
+        name: 'Vivo X100 Pro',
+        image: '/iphone1.png',
         originalPrice: 27990000,
         discountedPrice: 25990000,
         discount: 4,
@@ -2906,8 +2906,8 @@ const products = [
     },
     {
         id: 7,
-        name: "OnePlus 12",
-        image: "/iphone.png",
+        name: 'OnePlus 12',
+        image: '/iphone.png',
         originalPrice: 26990000,
         discountedPrice: 24990000,
         discount: 3,
@@ -2916,8 +2916,8 @@ const products = [
     },
     {
         id: 8,
-        name: "Honor Magic6 Pro",
-        image: "/iphone1.png",
+        name: 'Honor Magic6 Pro',
+        image: '/iphone1.png',
         originalPrice: 25990000,
         discountedPrice: 23990000,
         discount: 2,
@@ -2926,12 +2926,12 @@ const products = [
     }
 ];
 const bannerImages = [
-    "/qc1.webp",
-    "/qc2.jpg"
+    '/qc1.webp',
+    '/qc2.jpg'
 ];
 const videoUrls = [
-    "https://www.youtube.com/embed/xv9UmH3RsX0?si=KI76NTiTHvb-t5Vc",
-    "https://www.youtube.com/embed/mRApZVPSsps?si=eI2jtTt4vGWKPcrf"
+    'https://www.youtube.com/embed/xv9UmH3RsX0?si=KI76NTiTHvb-t5Vc',
+    'https://www.youtube.com/embed/mRApZVPSsps?si=eI2jtTt4vGWKPcrf'
 ];
 const HomeSlider = ()=>{
     _s();
@@ -2991,15 +2991,15 @@ const HomeSlider = ()=>{
                         width: 700,
                         height: 300,
                         style: {
-                            objectFit: "cover",
-                            width: "100%",
-                            height: "100%"
+                            objectFit: 'cover',
+                            width: '100%',
+                            height: '100%'
                         },
                         priority: true
                     }, void 0, false, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 149,
-                        columnNumber: 9
+                        lineNumber: 146,
+                        columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].carouselButtons,
@@ -3009,38 +3009,38 @@ const HomeSlider = ()=>{
                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].carouselButton,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$bs$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BsChevronLeft"], {}, void 0, false, {
                                     fileName: "[project]/src/app/page.tsx",
-                                    lineNumber: 159,
-                                    columnNumber: 13
+                                    lineNumber: 156,
+                                    columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.tsx",
-                                lineNumber: 158,
-                                columnNumber: 11
+                                lineNumber: 155,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: goToNextImage,
                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].carouselButton,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$bs$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BsChevronRight"], {}, void 0, false, {
                                     fileName: "[project]/src/app/page.tsx",
-                                    lineNumber: 162,
-                                    columnNumber: 13
+                                    lineNumber: 159,
+                                    columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.tsx",
-                                lineNumber: 161,
-                                columnNumber: 11
+                                lineNumber: 158,
+                                columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 157,
-                        columnNumber: 9
+                        lineNumber: 154,
+                        columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 144,
-                columnNumber: 7
+                lineNumber: 141,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].videoGrid,
@@ -3055,24 +3055,24 @@ const HomeSlider = ()=>{
                             allowFullScreen: true
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 170,
-                            columnNumber: 13
+                            lineNumber: 167,
+                            columnNumber: 25
                         }, this)
                     }, index, false, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 169,
-                        columnNumber: 11
+                        lineNumber: 166,
+                        columnNumber: 21
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 167,
-                columnNumber: 7
+                lineNumber: 164,
+                columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/page.tsx",
-        lineNumber: 143,
-        columnNumber: 5
+        lineNumber: 140,
+        columnNumber: 9
     }, this);
 };
 _s(HomeSlider, "IQmSnsVEqBTnCbJstGp4ledklFY=");
@@ -3116,16 +3116,16 @@ function Home() {
                     setShowSupport(currentScrollPosition > 20);
                 }
             }["Home.useEffect.handleScroll"];
-            window.addEventListener("scroll", handleScroll);
+            window.addEventListener('scroll', handleScroll);
             return ({
-                "Home.useEffect": ()=>window.removeEventListener("scroll", handleScroll)
+                "Home.useEffect": ()=>window.removeEventListener('scroll', handleScroll)
             })["Home.useEffect"];
         }
     }["Home.useEffect"], []);
     const backToTop = ()=>{
         window.scrollTo({
             top: 0,
-            behavior: "smooth"
+            behavior: 'smooth'
         });
     };
     const toggleSupportOptions = ()=>{
@@ -3238,18 +3238,18 @@ function Home() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$HomeHeader$2f$index$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 334,
-                columnNumber: 7
+                lineNumber: 329,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$HomeBoxChat$2f$index$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 335,
-                columnNumber: 7
+                lineNumber: 330,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(HomeSlider, {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 336,
-                columnNumber: 7
+                lineNumber: 331,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].hotsaleSection,
@@ -3259,37 +3259,37 @@ function Home() {
                         children: "Hotsale cuối tuần"
                     }, void 0, false, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 339,
-                        columnNumber: 9
+                        lineNumber: 334,
+                        columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].countdownTimer,
                         children: [
                             "Kết thúc sau:",
-                            " ",
+                            ' ',
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 children: [
-                                    String(countdown.days).padStart(2, "0"),
+                                    String(countdown.days).padStart(2, '0'),
                                     " :",
-                                    " ",
-                                    String(countdown.hours).padStart(2, "0"),
+                                    ' ',
+                                    String(countdown.hours).padStart(2, '0'),
                                     " :",
-                                    " ",
-                                    String(countdown.minutes).padStart(2, "0"),
+                                    ' ',
+                                    String(countdown.minutes).padStart(2, '0'),
                                     " :",
-                                    " ",
-                                    String(countdown.seconds).padStart(2, "0")
+                                    ' ',
+                                    String(countdown.seconds).padStart(2, '0')
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/page.tsx",
-                                lineNumber: 342,
-                                columnNumber: 11
+                                lineNumber: 337,
+                                columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 340,
-                        columnNumber: 9
+                        lineNumber: 335,
+                        columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].productListContainer,
@@ -3299,13 +3299,13 @@ function Home() {
                                 onClick: goToPreviousProduct,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$bs$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BsChevronLeft"], {}, void 0, false, {
                                     fileName: "[project]/src/app/page.tsx",
-                                    lineNumber: 355,
-                                    columnNumber: 13
+                                    lineNumber: 347,
+                                    columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.tsx",
-                                lineNumber: 351,
-                                columnNumber: 11
+                                lineNumber: 346,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].productList,
@@ -3324,16 +3324,16 @@ function Home() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/page.tsx",
-                                                lineNumber: 365,
-                                                columnNumber: 17
+                                                lineNumber: 357,
+                                                columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].installmentLabel,
                                                 children: "Trả góp 0%"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/page.tsx",
-                                                lineNumber: 368,
-                                                columnNumber: 17
+                                                lineNumber: 358,
+                                                columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].imageContainer,
@@ -3343,27 +3343,27 @@ function Home() {
                                                     width: 200,
                                                     height: 200,
                                                     style: {
-                                                        objectFit: "contain",
-                                                        width: "100%",
-                                                        height: "100%"
+                                                        objectFit: 'contain',
+                                                        width: '100%',
+                                                        height: '100%'
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/page.tsx",
-                                                    lineNumber: 370,
-                                                    columnNumber: 19
+                                                    lineNumber: 360,
+                                                    columnNumber: 37
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/page.tsx",
-                                                lineNumber: 369,
-                                                columnNumber: 17
+                                                lineNumber: 359,
+                                                columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].productName,
                                                 children: product.name
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/page.tsx",
-                                                lineNumber: 383,
-                                                columnNumber: 17
+                                                lineNumber: 373,
+                                                columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].priceContainer,
@@ -3371,38 +3371,38 @@ function Home() {
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].discountedPrice,
                                                         children: [
-                                                            product.discountedPrice.toLocaleString("vi-VN"),
+                                                            product.discountedPrice.toLocaleString('vi-VN'),
                                                             "₫"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/page.tsx",
-                                                        lineNumber: 385,
-                                                        columnNumber: 19
+                                                        lineNumber: 375,
+                                                        columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].originalPrice,
                                                         children: [
-                                                            product.originalPrice.toLocaleString("vi-VN"),
+                                                            product.originalPrice.toLocaleString('vi-VN'),
                                                             "₫"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/page.tsx",
-                                                        lineNumber: 388,
-                                                        columnNumber: 19
+                                                        lineNumber: 378,
+                                                        columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/page.tsx",
-                                                lineNumber: 384,
-                                                columnNumber: 17
+                                                lineNumber: 374,
+                                                columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].description,
                                                 children: "Trả góp 0% - Ưu đãi độc quyền"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/page.tsx",
-                                                lineNumber: 392,
-                                                columnNumber: 17
+                                                lineNumber: 382,
+                                                columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].rating,
@@ -3410,16 +3410,16 @@ function Home() {
                                                     ...Array(5)
                                                 ].map((_, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$ai$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AiFillStar"], {
                                                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].star,
-                                                        color: index < Math.floor(product.rating) ? "#ffc107" : "#ddd"
+                                                        color: index < Math.floor(product.rating) ? '#ffc107' : '#ddd'
                                                     }, index, false, {
                                                         fileName: "[project]/src/app/page.tsx",
-                                                        lineNumber: 397,
-                                                        columnNumber: 21
+                                                        lineNumber: 385,
+                                                        columnNumber: 41
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/page.tsx",
-                                                lineNumber: 395,
-                                                columnNumber: 17
+                                                lineNumber: 383,
+                                                columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].buttonContainer,
@@ -3430,8 +3430,8 @@ function Home() {
                                                         children: "Thêm vào giỏ hàng"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/page.tsx",
-                                                        lineNumber: 407,
-                                                        columnNumber: 19
+                                                        lineNumber: 397,
+                                                        columnNumber: 37
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].buyNowButton,
@@ -3439,75 +3439,75 @@ function Home() {
                                                         children: "Mua ngay"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/page.tsx",
-                                                        lineNumber: 413,
-                                                        columnNumber: 19
+                                                        lineNumber: 403,
+                                                        columnNumber: 37
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/page.tsx",
-                                                lineNumber: 406,
-                                                columnNumber: 17
+                                                lineNumber: 396,
+                                                columnNumber: 33
                                             }, this)
                                         ]
                                     }, product.id, true, {
                                         fileName: "[project]/src/app/page.tsx",
-                                        lineNumber: 359,
-                                        columnNumber: 15
+                                        lineNumber: 351,
+                                        columnNumber: 29
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.tsx",
-                                lineNumber: 357,
-                                columnNumber: 11
+                                lineNumber: 349,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module$2e$scss$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].productScrollButton,
                                 onClick: goToNextProduct,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$bs$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BsChevronRight"], {}, void 0, false, {
                                     fileName: "[project]/src/app/page.tsx",
-                                    lineNumber: 427,
-                                    columnNumber: 13
+                                    lineNumber: 414,
+                                    columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.tsx",
-                                lineNumber: 423,
-                                columnNumber: 11
+                                lineNumber: 413,
+                                columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/page.tsx",
-                        lineNumber: 350,
-                        columnNumber: 9
+                        lineNumber: 345,
+                        columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 338,
-                columnNumber: 7
+                lineNumber: 333,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$HomeFeaturedPhones$2f$index$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 432,
-                columnNumber: 7
+                lineNumber: 419,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$HomeAccessory$2f$index$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 433,
-                columnNumber: 7
+                lineNumber: 420,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$HomeNewsSection$2f$index$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 434,
-                columnNumber: 7
+                lineNumber: 421,
+                columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$HomeFooter$2f$index$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 435,
-                columnNumber: 7
+                lineNumber: 422,
+                columnNumber: 13
             }, this)
         ]
     }, void 0, true);
 }
-_s1(Home, "7xsi7PeBvibC2+BksumkmV9u0YY=");
+_s1(Home, "6YMlAqKuebjvRucMsNdZ7tQu7hE=");
 _c1 = Home;
 var _c, _c1;
 __turbopack_refresh__.register(_c, "HomeSlider");

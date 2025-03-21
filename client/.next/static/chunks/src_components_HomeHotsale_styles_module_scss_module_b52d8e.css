@@ -1,0 +1,200 @@
+/* [project]/src/components/HomeHotsale/styles.module.scss.module.css [app-client] (css) */
+.styles-module-scss-module__HR6Bra__hotsaleSection {
+  padding: 20px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.styles-module-scss-module__HR6Bra__hotsaleTitle {
+  color: #d70018;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.styles-module-scss-module__HR6Bra__countdownTimer {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.styles-module-scss-module__HR6Bra__countdownTimer span {
+  font-weight: bold;
+  color: #d70018;
+}
+
+.styles-module-scss-module__HR6Bra__productListContainer {
+  position: relative;
+  padding: 0 40px;
+  margin-bottom: 20px;
+}
+
+.styles-module-scss-module__HR6Bra__productList {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.styles-module-scss-module__HR6Bra__productList::-webkit-scrollbar {
+  display: none;
+}
+
+.styles-module-scss-module__HR6Bra__productScrollButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fffc;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 5px #0003;
+}
+
+.styles-module-scss-module__HR6Bra__productScrollButton:first-child {
+  left: 0;
+}
+
+.styles-module-scss-module__HR6Bra__productScrollButton:last-child {
+  right: 0;
+}
+
+.styles-module-scss-module__HR6Bra__productItem {
+  flex: 0 0 250px;
+  margin-right: 10px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px #0000001a;
+  position: relative;
+  transition: transform .3s;
+}
+
+.styles-module-scss-module__HR6Bra__productItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px #0000001a;
+}
+
+.styles-module-scss-module__HR6Bra__discountLabel {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #d70018;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.styles-module-scss-module__HR6Bra__installmentLabel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.styles-module-scss-module__HR6Bra__imageContainer {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.styles-module-scss-module__HR6Bra__productName {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.styles-module-scss-module__HR6Bra__priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.styles-module-scss-module__HR6Bra__discountedPrice {
+  font-weight: bold;
+  color: #d70018;
+  font-size: 16px;
+}
+
+.styles-module-scss-module__HR6Bra__originalPrice {
+  text-decoration: line-through;
+  color: #666;
+  font-size: 14px;
+}
+
+.styles-module-scss-module__HR6Bra__description {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.styles-module-scss-module__HR6Bra__rating {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.styles-module-scss-module__HR6Bra__star {
+  margin-right: 2px;
+}
+
+.styles-module-scss-module__HR6Bra__buttonContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.styles-module-scss-module__HR6Bra__addToCartButton, .styles-module-scss-module__HR6Bra__buyNowButton {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  transition: background-color .2s;
+}
+
+.styles-module-scss-module__HR6Bra__addToCartButton {
+  background-color: #f8f9fa;
+  color: #2f80ed;
+  border: 1px solid #2f80ed;
+}
+
+.styles-module-scss-module__HR6Bra__addToCartButton:hover {
+  background-color: #e9ecef;
+}
+
+.styles-module-scss-module__HR6Bra__buyNowButton {
+  background-color: #d70018;
+  color: #fff;
+}
+
+.styles-module-scss-module__HR6Bra__buyNowButton:hover {
+  background-color: #c00;
+}
+
+/*# sourceMappingURL=src_components_HomeHotsale_styles_module_scss_module_b52d8e.css.map*/

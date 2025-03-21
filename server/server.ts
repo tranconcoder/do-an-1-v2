@@ -13,15 +13,6 @@ import { provinceModel, cityModel, districtModel } from './src/api/models/locati
 import path from 'path';
 import { getProjection } from '@/utils/mongoose.util.js';
 
-console.log(
-    getProjection({
-        projection: {},
-        only: [],
-        select: ['c', 'd'],
-        omit: ['e', 'f']
-    })
-);
-
 const server = app.listen(PORT, HOST, () => {
     console.log(`Server is running on ${BASE_URL}`);
 });

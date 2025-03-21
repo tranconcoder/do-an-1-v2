@@ -111,7 +111,7 @@ export default class AuthService {
         if (!keyTokenId) throw new ForbiddenErrorResponse('Save key token failed!');
 
         return {
-            user: _.pick(user, ['_id', 'phoneNumber', 'fullName', 'email', 'role']),
+            user: _.pick(user, ['phoneNumber', 'fullName', 'email', 'role']),
             token: jwtPair
         };
     };

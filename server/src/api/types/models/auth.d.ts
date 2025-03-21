@@ -15,7 +15,9 @@ declare global {
                 },
                 isModel,
                 isDoc,
-                {}
+                {
+                    _id: string;
+                }
             >;
         }
     }
