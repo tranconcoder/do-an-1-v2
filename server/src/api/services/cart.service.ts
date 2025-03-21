@@ -149,4 +149,7 @@ export default class CartService {
 
         return cart;
     }
+
+    /* ----------------- Remove product ordered ----------------- */
+    public static async removeProductOrdered(userId: string) {}
 }

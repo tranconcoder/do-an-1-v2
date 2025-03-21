@@ -116,7 +116,8 @@ export default new (class OrderService {
                 return Promise.reject(firstRejectMessage);
             })
             .then(async () => {
-                console.log('success');
+                /* ------------- Remove product ordered in cart ------------- */
+
                 /* ------------------ Handle create order  ------------------ */
                 return await orderModel.create({
                     /* ------------------------ Customer ------------------------ */
