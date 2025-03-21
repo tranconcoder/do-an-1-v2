@@ -50,3 +50,16 @@ export const checkShopListExistsInCart = async ({
         shopList.length
     );
 };
+
+/* ---------------------------------------------------------- */
+/*                           Delete                           */
+/* ---------------------------------------------------------- */
+
+/* ---------------- Delete products from cart ---------------- */
+export const deleteProductsFromCart = async (user: string) => {
+    return findOneAndUpdateCart({
+        query: {
+            
+        }
+    })
+}

@@ -15,6 +15,14 @@ declare global {
                 user: string;
                 shopList: string[];
             }
+
+            /* ---------------------------------------------------------- */
+            /*                           Delete                           */
+            /* ---------------------------------------------------------- */
+            interface DeleteProductsFromCart {
+                user: string;
+                products: string[];
+            }
         }
     }
 }

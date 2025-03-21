@@ -118,6 +118,8 @@ export default new (class OrderService {
             .then(async () => {
                 /* ------------- Remove product ordered in cart ------------- */
 
+
+
                 /* ------------------ Handle create order  ------------------ */
                 return await orderModel.create({
                     /* ------------------------ Customer ------------------------ */

@@ -86,7 +86,7 @@ export default class AuthService {
 
         /* ------------------ Check password ------------------ */
         const hashPassword = user.password;
-        const isPasswordMatch = bcrypt.compare(password, hashPassword);
+        const isPasswordMatch = await bcrypt.compare(password, hashPassword);
         if (!isPasswordMatch)
             throw new ForbiddenErrorResponse('Username or password is not correct!');
 
