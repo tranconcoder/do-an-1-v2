@@ -1,33 +1,46 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faSearch,
+    faTimes,
+    faHistory,
+    faArrowTrendUp, // Changed from faTrendingUp to faArrowTrendUp
+    faRandom
+} from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import styles from './SearchBar.module.scss';
-import SearchIcon from '../../assets/icons/SearchIcon';
+import { useProducts } from '../../configs/ProductsData';
 
 const cx = classNames.bind(styles);
 
-// Sample search suggestions - replace with actual API data in production
-const suggestionsByQuery = {
-    phone: ['iPhone 13', 'Samsung Galaxy', 'Google Pixel', 'Phone cases'],
-    laptop: ['MacBook Pro', 'Dell XPS', 'HP Spectre', 'Laptop accessories'],
-    watch: ['Apple Watch', 'Samsung Galaxy Watch', 'Fitness trackers', 'Watch bands'],
-    headphone: ['Sony WH-1000XM4', 'AirPods Pro', 'Bose QuietComfort', 'Wireless earbuds'],
-    camera: ['Canon EOS', 'Sony Alpha', 'Nikon D850', 'Camera lenses']
-};
-
 const SearchBar = () => {
+    const { getAllProducts } = useProducts();
     const [searchQuery, setSearchQuery] = useState('');
     const [isExpanded, setIsExpanded] = useState(false);
     const [searchHistory, setSearchHistory] = useState([]);
     const [suggestions, setSuggestions] = useState([]);
+    const [popularSearches] = useState([
+        'wireless headphones',
+        'smartphone',
+        'fitness tracker',
+        'bluetooth speaker',
+        'laptop'
+    ]);
+    const [matchedProducts, setMatchedProducts] = useState([]);
     const searchRef = useRef(null);
     const inputRef = useRef(null);
     const navigate = useNavigate();
 
     // Load search history from localStorage on component mount
     useEffect(() => {
-        const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
-        setSearchHistory(history);
+        try {
+            const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            setSearchHistory(history);
+        } catch (error) {
+            console.error('Error loading search history:', error);
+            setSearchHistory([]);
+        }
     }, []);
 
     // Handle clicks outside search component to close dropdown
@@ -42,48 +55,58 @@ const SearchBar = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // Update suggestions when search query changes
+    // Find product matches as user types
     useEffect(() => {
-        if (searchQuery.length > 1) {
-            // Find matching suggestions from our sample data
-            const matchingQueries = Object.keys(suggestionsByQuery).filter((key) =>
-                key.includes(searchQuery.toLowerCase())
-            );
+        if (searchQuery.length >= 2) {
+            const allProducts = getAllProducts();
 
-            // Collect all suggestions for matching queries
-            let matchingSuggestions = [];
-            matchingQueries.forEach((query) => {
-                matchingSuggestions = [...matchingSuggestions, ...suggestionsByQuery[query]];
+            // Find matching products
+            const productMatches = allProducts
+                .filter(
+                    (product) =>
+                        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        (product.tags &&
+                            product.tags.some((tag) =>
+                                tag.toLowerCase().includes(searchQuery.toLowerCase())
+                            ))
+                )
+                .slice(0, 3); // Limit to 3 products
+
+            setMatchedProducts(productMatches);
+
+            // Generate search suggestions based on popular terms or product categories
+            const allTags = new Set();
+            allProducts.forEach((product) => {
+                if (product.tags) {
+                    product.tags.forEach((tag) => {
+                        if (tag.toLowerCase().includes(searchQuery.toLowerCase())) {
+                            allTags.add(tag);
+                        }
+                    });
+                }
             });
 
-            // Filter out duplicates and limit to 5 suggestions
-            setSuggestions([...new Set(matchingSuggestions)].slice(0, 5));
+            // Get category suggestions too
+            const categoryMatches = popularSearches.filter((term) =>
+                term.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+
+            setSuggestions(
+                [...Array.from(allTags).slice(0, 3), ...categoryMatches.slice(0, 2)].slice(0, 5)
+            ); // Ensure we have max 5 suggestions
         } else {
             setSuggestions([]);
+            setMatchedProducts([]);
         }
-    }, [searchQuery]);
+    }, [searchQuery, getAllProducts, popularSearches]);
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        if (searchQuery.trim()) {
-            // Add to search history
-            const updatedHistory = [
-                searchQuery,
-                ...searchHistory.filter((item) => item !== searchQuery)
-            ].slice(0, 5);
-
-            setSearchHistory(updatedHistory);
-            localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
-
-            // Navigate to search results
-            navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-            setIsExpanded(false);
-        }
+        submitSearch(searchQuery);
     };
 
-    const handleSearchItemClick = (query) => {
-        setSearchQuery(query);
-        setIsExpanded(false);
+    const submitSearch = (query) => {
+        if (!query.trim()) return;
 
         // Add to search history
         const updatedHistory = [query, ...searchHistory.filter((item) => item !== query)].slice(
@@ -95,7 +118,18 @@ const SearchBar = () => {
         localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
 
         // Navigate to search results
-        navigate(`/search?q=${encodeURIComponent(query)}`);
+        navigate(`/products?search=${encodeURIComponent(query)}`);
+        setIsExpanded(false);
+    };
+
+    const handleSearchItemClick = (query) => {
+        setSearchQuery(query);
+        submitSearch(query);
+    };
+
+    const handleProductClick = (slug) => {
+        navigate(`/product/${slug}`);
+        setIsExpanded(false);
     };
 
     const handleClearHistory = () => {
@@ -103,7 +137,6 @@ const SearchBar = () => {
         localStorage.removeItem('searchHistory');
     };
 
-    // Show search history immediately when clicked, even without text
     const handleSearchFocus = () => {
         setIsExpanded(true);
     };
@@ -113,67 +146,141 @@ const SearchBar = () => {
         setIsExpanded(true);
     };
 
+    const clearSearch = () => {
+        setSearchQuery('');
+        inputRef.current.focus();
+    };
+
     return (
         <div className={cx('search-container')} ref={searchRef}>
             <form className={cx('search-form')} onSubmit={handleSearchSubmit}>
-                <input
-                    ref={inputRef}
-                    type="text"
-                    placeholder="Search products..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onFocus={handleSearchFocus}
-                    onClick={handleInputClick}
-                    className={cx('search-input')}
-                />
-                <button type="submit" className={cx('search-button')} aria-label="Search">
-                    <SearchIcon />
+                <div className={cx('search-input-container')}>
+                    <FontAwesomeIcon icon={faSearch} className={cx('search-icon')} />
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        placeholder="Search for products, brands, and more..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onFocus={handleSearchFocus}
+                        onClick={handleInputClick}
+                        className={cx('search-input')}
+                    />
+                    {searchQuery && (
+                        <button type="button" className={cx('clear-search')} onClick={clearSearch}>
+                            <FontAwesomeIcon icon={faTimes} />
+                        </button>
+                    )}
+                </div>
+                <button type="submit" className={cx('search-button')}>
+                    <FontAwesomeIcon icon={faSearch} />
                 </button>
             </form>
 
             {isExpanded && (
                 <div className={cx('search-dropdown')}>
-                    {/* Search history - show when dropdown is expanded but no query */}
-                    {searchHistory.length > 0 && !searchQuery && (
+                    {/* Product matches - show when typing */}
+                    {searchQuery.length >= 2 && matchedProducts.length > 0 && (
                         <div className={cx('search-section')}>
-                            <div className={cx('search-section-header')}>
-                                <h4>Recent Searches</h4>
-                                <button className={cx('clear-button')} onClick={handleClearHistory}>
-                                    Clear
-                                </button>
+                            <div className={cx('section-header')}>
+                                <h4>Products</h4>
                             </div>
-                            <ul className={cx('search-list')}>
-                                {searchHistory.map((query, index) => (
+                            <ul className={cx('product-list')}>
+                                {matchedProducts.map((product) => (
                                     <li
-                                        key={`history-${index}`}
-                                        className={cx('search-item')}
-                                        onClick={() => handleSearchItemClick(query)}
+                                        key={`product-${product.id}`}
+                                        className={cx('product-item')}
+                                        onClick={() => handleProductClick(product.slug)}
                                     >
-                                        <span className={cx('item-icon', 'history-icon')}>⏱️</span>
-                                        {query}
+                                        <div className={cx('product-image')}>
+                                            <img
+                                                src={product.thumbnail || product.images?.[0]}
+                                                alt={product.name}
+                                            />
+                                        </div>
+                                        <div className={cx('product-info')}>
+                                            <span className={cx('product-name')}>
+                                                {product.name}
+                                            </span>
+                                            <span className={cx('product-price')}>
+                                                ${product.price.toFixed(2)}
+                                            </span>
+                                        </div>
                                     </li>
                                 ))}
                             </ul>
                         </div>
                     )}
 
-                    {/* Search suggestions - show only when typing */}
-                    {searchQuery.length > 1 && suggestions.length > 0 && (
+                    {/* Search suggestions - show when typing */}
+                    {searchQuery.length >= 2 && suggestions.length > 0 && (
                         <div className={cx('search-section')}>
-                            <div className={cx('search-section-header')}>
+                            <div className={cx('section-header')}>
                                 <h4>Suggestions</h4>
                             </div>
-                            <ul className={cx('search-list')}>
+                            <ul className={cx('suggestion-list')}>
                                 {suggestions.map((suggestion, index) => (
                                     <li
                                         key={`suggestion-${index}`}
-                                        className={cx('search-item')}
+                                        className={cx('suggestion-item')}
                                         onClick={() => handleSearchItemClick(suggestion)}
                                     >
-                                        <span className={cx('item-icon', 'suggestion-icon')}>
-                                            🔍
-                                        </span>
-                                        {suggestion}
+                                        <FontAwesomeIcon
+                                            icon={faSearch}
+                                            className={cx('suggestion-icon')}
+                                        />
+                                        <span>{suggestion}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    {/* Search history - show when dropdown is opened without query */}
+                    {searchQuery.length < 2 && searchHistory.length > 0 && (
+                        <div className={cx('search-section')}>
+                            <div className={cx('section-header')}>
+                                <h4>Recent Searches</h4>
+                                <button className={cx('clear-button')} onClick={handleClearHistory}>
+                                    Clear
+                                </button>
+                            </div>
+                            <ul className={cx('history-list')}>
+                                {searchHistory.map((query, index) => (
+                                    <li
+                                        key={`history-${index}`}
+                                        className={cx('history-item')}
+                                        onClick={() => handleSearchItemClick(query)}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faHistory}
+                                            className={cx('history-icon')}
+                                        />
+                                        <span>{query}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    {/* Popular searches - show when dropdown is opened without query */}
+                    {searchQuery.length < 2 && (
+                        <div className={cx('search-section')}>
+                            <div className={cx('section-header')}>
+                                <h4>Popular Searches</h4>
+                            </div>
+                            <ul className={cx('popular-list')}>
+                                {popularSearches.map((query, index) => (
+                                    <li
+                                        key={`popular-${index}`}
+                                        className={cx('popular-item')}
+                                        onClick={() => handleSearchItemClick(query)}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faArrowTrendUp}
+                                            className={cx('popular-icon')}
+                                        />
+                                        <span>{query}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -181,15 +288,24 @@ const SearchBar = () => {
                     )}
 
                     {/* Show message when no results */}
-                    {searchQuery.length > 1 && suggestions.length === 0 && (
-                        <div className={cx('no-results')}>
-                            No suggestions found for "{searchQuery}"
-                        </div>
-                    )}
+                    {searchQuery.length >= 2 &&
+                        suggestions.length === 0 &&
+                        matchedProducts.length === 0 && (
+                            <div className={cx('no-results')}>
+                                <FontAwesomeIcon
+                                    icon={faSearch}
+                                    className={cx('no-results-icon')}
+                                />
+                                <p>No suggestions found for "{searchQuery}"</p>
+                            </div>
+                        )}
 
                     {/* Show message when dropdown is empty */}
-                    {!searchQuery && searchHistory.length === 0 && (
-                        <div className={cx('no-results')}>No recent searches</div>
+                    {searchQuery.length < 2 && searchHistory.length === 0 && (
+                        <div className={cx('no-history')}>
+                            <FontAwesomeIcon icon={faRandom} className={cx('no-history-icon')} />
+                            <p>Try searching for products, brands, or categories</p>
+                        </div>
                     )}
                 </div>
             )}

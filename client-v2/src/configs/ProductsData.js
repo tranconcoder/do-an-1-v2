@@ -704,7 +704,24 @@ export const getProductBySlug = (slug) => {
  * Get products for flash sale
  */
 export const getFlashSaleProducts = () => {
-    return allProducts.filter((product) => product.isFlashSale);
+    // Increase the number of flash sale products
+    const flashSaleProducts = allProducts.filter((product) => product.isFlashSale);
+
+    // If we have less than 10 flash sale products, add more
+    if (flashSaleProducts.length < 10) {
+        // Find some products that aren't already flash sale products
+        const additionalProducts = allProducts
+            .filter((product) => !product.isFlashSale && product.discount > 0)
+            .slice(0, 10 - flashSaleProducts.length);
+
+        // Mark them as flash sale products
+        additionalProducts.forEach((product) => (product.isFlashSale = true));
+
+        // Return the combined list
+        return [...flashSaleProducts, ...additionalProducts];
+    }
+
+    return flashSaleProducts;
 };
 
 /**
