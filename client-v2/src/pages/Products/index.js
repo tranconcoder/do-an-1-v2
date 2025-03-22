@@ -1,12 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Products.module.scss';
 import { useProducts } from '../../configs/ProductsData';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faSearch,
+    faFilter,
+    faSort,
+    faStar,
+    faStarHalf,
+    faTrash,
+    faChevronDown,
+    faTag,
+    faBoxOpen,
+    faShoppingCart,
+    faSortAmountDown,
+    faSortAmountUp,
+    faArrowDown,
+    faArrowUp,
+    faArrowRight,
+    faClock,
+    faTrophy,
+    faBullseye,
+    faArrowDownWideShort,
+    faArrowUpWideShort,
+    faListUl,
+    faTshirt,
+    faLaptop,
+    faHome,
+    faHeadphones,
+    faMobileAlt,
+    faGamepad,
+    faBaby,
+    faUtensils,
+    faBook,
+    faFootball,
+    faGift,
+    faEye
+} from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-// Add this constant for fallback image - using a real image instead of text placeholder
 const DEFAULT_IMAGE =
     'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&auto=format&fit=crop&q=80';
 
@@ -17,25 +52,115 @@ function Products() {
     const searchParam = searchParams.get('search');
 
     const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [filters, setFilters] = useState({
-        categoryId: categoryParam ? parseInt(categoryParam) : null,
-        minPrice: null,
-        maxPrice: null,
-        onSale: false,
-        inStock: true
-    });
 
+    // Search, sort, and filter state
+    const [searchTerm, setSearchTerm] = useState('');
+    const [sortOption, setSortOption] = useState('relevance');
+    const [filterOptions, setFilterOptions] = useState({
+        categoryId: categoryParam ? parseInt(categoryParam) : null,
+        minPrice: '',
+        maxPrice: '',
+        onSale: false,
+        inStock: true,
+        rating: 0
+    });
+    const [showFilters, setShowFilters] = useState(false);
+    const [isFilterPanelAnimating, setIsFilterPanelAnimating] = useState(false);
+
+    // Dropdown states
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+
+    const categories = getAllCategories();
+
+    // Refs for dropdowns
+    const dropdownRef = useRef(null);
+    const categoryDropdownRef = useRef(null);
+
+    // Sort options with icons
+    const sortOptions = [
+        { value: 'relevance', label: 'Relevance', icon: faBullseye },
+        { value: 'price-asc', label: 'Price: Low to High', icon: faArrowDownWideShort },
+        { value: 'price-desc', label: 'Price: High to Low', icon: faArrowUpWideShort },
+        { value: 'newest', label: 'Newest', icon: faClock },
+        { value: 'popularity', label: 'Best Selling', icon: faTrophy },
+        { value: 'rating', label: 'Highest Rated', icon: faStar }
+    ];
+
+    // Category icon mapping
+    const getCategoryIcon = (categoryId) => {
+        const iconMap = {
+            1: faLaptop,
+            2: faTshirt,
+            3: faHome,
+            4: faHeadphones,
+            5: faMobileAlt,
+            6: faGamepad,
+            7: faBaby,
+            8: faUtensils,
+            9: faBook,
+            10: faFootball,
+            11: faGift
+        };
+
+        return iconMap[categoryId] || faTag;
+    };
+
+    // Handle click outside for sort dropdown
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+            }
+        }
+
+        if (isDropdownOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+            document.body.classList.add('dropdown-open');
+        } else {
+            document.body.classList.remove('dropdown-open');
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.body.classList.remove('dropdown-open');
+        };
+    }, [isDropdownOpen]);
+
+    // Handle click outside for category dropdown
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (
+                categoryDropdownRef.current &&
+                !categoryDropdownRef.current.contains(event.target)
+            ) {
+                setIsCategoryDropdownOpen(false);
+            }
+        }
+
+        if (isCategoryDropdownOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isCategoryDropdownOpen]);
+
+    // Fetch initial products
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 setLoading(true);
-                let filteredProducts = [];
+                let initialProducts = [];
 
                 if (searchParam) {
-                    // If there's a search query, filter products by that
-                    filteredProducts = getAllProducts().filter(
+                    initialProducts = getAllProducts().filter(
                         (product) =>
                             product.name.toLowerCase().includes(searchParam.toLowerCase()) ||
                             product.description.toLowerCase().includes(searchParam.toLowerCase()) ||
@@ -45,11 +170,14 @@ function Products() {
                                 ))
                     );
                 } else {
-                    // Otherwise apply regular filters
-                    filteredProducts = filterProducts(filters);
+                    initialProducts = filterProducts({
+                        categoryId: filterOptions.categoryId,
+                        inStock: filterOptions.inStock
+                    });
                 }
 
-                setProducts(filteredProducts);
+                setProducts(initialProducts);
+                setFilteredProducts(initialProducts);
                 setError(null);
             } catch (err) {
                 console.error('Error fetching products:', err);
@@ -60,50 +188,258 @@ function Products() {
         };
 
         fetchProducts();
-    }, [filters, searchParam, getAllProducts, filterProducts]);
+    }, [
+        searchParam,
+        filterOptions.categoryId,
+        filterOptions.inStock,
+        getAllProducts,
+        filterProducts
+    ]);
 
-    const handleFilterChange = (newFilters) => {
-        setFilters({ ...filters, ...newFilters });
+    // Apply search, sort, and filter
+    useEffect(() => {
+        if (products.length === 0) return;
+
+        let results = [...products];
+
+        // Apply search filter
+        if (searchTerm.trim()) {
+            results = results.filter(
+                (product) =>
+                    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    (product.description &&
+                        product.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                    (product.tags &&
+                        product.tags.some((tag) =>
+                            tag.toLowerCase().includes(searchTerm.toLowerCase())
+                        ))
+            );
+        }
+
+        // Apply price filter
+        if (filterOptions.minPrice !== '') {
+            results = results.filter((product) => product.price >= Number(filterOptions.minPrice));
+        }
+
+        if (filterOptions.maxPrice !== '') {
+            results = results.filter((product) => product.price <= Number(filterOptions.maxPrice));
+        }
+
+        // Apply sale filter
+        if (filterOptions.onSale) {
+            results = results.filter((product) => product.discount > 0);
+        }
+
+        // Apply rating filter
+        if (filterOptions.rating > 0) {
+            results = results.filter(
+                (product) => Math.round(product.rating) >= filterOptions.rating
+            );
+        }
+
+        // Apply sorting
+        switch (sortOption) {
+            case 'price-asc':
+                results.sort((a, b) => a.price - b.price);
+                break;
+            case 'price-desc':
+                results.sort((a, b) => b.price - a.price);
+                break;
+            case 'newest':
+                results.sort((a, b) => b.id - a.id); // Assuming higher id means newer product
+                break;
+            case 'popularity':
+                results.sort((a, b) => b.sold - a.sold);
+                break;
+            case 'rating':
+                results.sort((a, b) => b.rating - a.rating);
+                break;
+            default:
+                // Default 'relevance' sort - keep original order
+                break;
+        }
+
+        setFilteredProducts(results);
+    }, [products, searchTerm, sortOption, filterOptions]);
+
+    // Event handlers
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    // Toggle dropdowns
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const toggleCategoryDropdown = () => {
+        setIsCategoryDropdownOpen(!isCategoryDropdownOpen);
+    };
+
+    // Handle option selections
+    const handleSortOptionSelect = (value) => {
+        setSortOption(value);
+        setIsDropdownOpen(false);
+    };
+
+    const handleCategorySelect = (categoryId) => {
+        setFilterOptions((prev) => ({
+            ...prev,
+            categoryId: categoryId === '' ? null : parseInt(categoryId)
+        }));
+        setIsCategoryDropdownOpen(false);
+    };
+
+    // Get current selections
+    const getCurrentSortOption = () => {
+        return sortOptions.find((option) => option.value === sortOption) || sortOptions[0];
+    };
+
+    const getCurrentCategory = () => {
+        if (filterOptions.categoryId === null) {
+            return { id: '', name: 'All Categories', icon: faListUl };
+        }
+
+        const selectedCategory = categories.find((c) => c.id === filterOptions.categoryId);
+        if (!selectedCategory) return { id: '', name: 'All Categories', icon: faListUl };
+
+        return {
+            id: selectedCategory.id,
+            name: selectedCategory.name,
+            icon: getCategoryIcon(selectedCategory.id)
+        };
+    };
+
+    const handleFilterChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFilterOptions((prev) => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    const handleRatingFilter = (rating) => {
+        setFilterOptions((prev) => ({
+            ...prev,
+            rating: rating === prev.rating ? 0 : rating
+        }));
+    };
+
+    const resetFilters = () => {
+        setFilterOptions({
+            categoryId: categoryParam ? parseInt(categoryParam) : null,
+            minPrice: '',
+            maxPrice: '',
+            onSale: false,
+            inStock: true,
+            rating: 0
+        });
+        setSearchTerm('');
+        setSortOption('relevance');
     };
 
     const handleAddToCart = (productId, event) => {
-        event.preventDefault(); // Prevent navigating to product page
-        event.stopPropagation(); // Stop event from bubbling up
+        event.preventDefault();
+        event.stopPropagation();
         addToCart(productId, 1);
+    };
+
+    const toggleFilters = () => {
+        setIsFilterPanelAnimating(true);
+        setShowFilters(!showFilters);
+        setTimeout(() => setIsFilterPanelAnimating(false), 300);
+    };
+
+    // Generate star rating display
+    const renderStarRating = (rating) => {
+        const stars = [];
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 >= 0.5;
+
+        for (let i = 0; i < fullStars; i++) {
+            stars.push(<FontAwesomeIcon key={`full-${i}`} icon={faStar} />);
+        }
+
+        if (hasHalfStar) {
+            stars.push(<FontAwesomeIcon key="half" icon={faStarHalf} />);
+        }
+
+        const emptyStars = 5 - stars.length;
+        for (let i = 0; i < emptyStars; i++) {
+            stars.push(
+                <FontAwesomeIcon key={`empty-${i}`} icon={faStar} className={cx('empty-star')} />
+            );
+        }
+
+        return stars;
+    };
+
+    // Add this method to calculate dropdown position
+    const calculateDropdownPosition = (dropdownRef) => {
+        if (!dropdownRef.current) return {};
+
+        const rect = dropdownRef.current.getBoundingClientRect();
+        const toggleButton = dropdownRef.current.querySelector(`.${cx('dropdown-toggle')}`);
+        const toggleRect = toggleButton ? toggleButton.getBoundingClientRect() : rect;
+
+        return {
+            top: toggleRect.bottom + 5 + 'px',
+            left: toggleRect.left + 'px',
+            width: toggleRect.width + 'px'
+        };
     };
 
     return (
         <div className={cx('products-container')}>
             <h1 className={cx('page-title')}>
-                {searchParam
-                    ? `Search Results for "${searchParam}"`
-                    : categoryParam
-                    ? `Products in ${
-                          getAllCategories().find((c) => c.id === parseInt(categoryParam))?.name ||
-                          'Category'
-                      }`
-                    : 'All Products'}
+                {searchParam ? (
+                    <>
+                        <FontAwesomeIcon icon={faSearch} className={cx('title-icon')} /> Search
+                        Results for "{searchParam}"
+                    </>
+                ) : categoryParam ? (
+                    <>
+                        <FontAwesomeIcon icon={faTag} className={cx('title-icon')} />{' '}
+                        {categories.find((c) => c.id === parseInt(categoryParam))?.name ||
+                            'Category'}
+                    </>
+                ) : (
+                    <>All Products</>
+                )}
             </h1>
 
-            {/* Filter sidebar could go here */}
-
-            {loading && <div className={cx('loading')}>Loading products...</div>}
+            {loading && (
+                <div className={cx('loading')}>
+                    <div className={cx('loading-spinner')}></div>
+                    <p>Loading products...</p>
+                </div>
+            )}
 
             {error && <div className={cx('error')}>{error}</div>}
 
-            {!loading && products.length === 0 && !error && (
-                <div className={cx('no-products')}>No products found</div>
+            {!loading && filteredProducts.length === 0 && !error && (
+                <div className={cx('no-products')}>
+                    <div className={cx('empty-state-icon')}>
+                        <FontAwesomeIcon icon={faSearch} size="3x" />
+                    </div>
+                    <p>No products found matching your criteria.</p>
+                    <button className={cx('reset-search')} onClick={resetFilters}>
+                        Reset Filters
+                    </button>
+                </div>
             )}
 
             <div className={cx('products-grid')}>
-                {products.map((product) => (
+                {filteredProducts.map((product) => (
                     <div key={product.id} className={cx('product-card')}>
                         <Link
                             to={`/product/${product.slug}`}
                             className={cx('product-image-container')}
                         >
                             {product.discount > 0 && (
-                                <div className={cx('discount-badge')}>-{product.discount}%</div>
+                                <div className={cx('discount-badge')}>
+                                    <FontAwesomeIcon icon={faTag} /> {product.discount}%
+                                </div>
                             )}
                             {product.isNew && <div className={cx('new-badge')}>New</div>}
                             <img
@@ -114,6 +450,11 @@ function Products() {
                                     e.target.src = DEFAULT_IMAGE;
                                 }}
                             />
+                            <div className={cx('quick-view')}>
+                                <span>
+                                    <FontAwesomeIcon icon={faEye} /> Quick View
+                                </span>
+                            </div>
                         </Link>
                         <div className={cx('product-details')}>
                             <Link to={`/product/${product.slug}`} className={cx('product-name')}>
@@ -130,14 +471,19 @@ function Products() {
                             </div>
 
                             <div className={cx('product-stock')}>
-                                <span className={cx('stock-info')}>{product.stock} in stock</span>
+                                <span className={cx('stock-info')}>
+                                    <FontAwesomeIcon
+                                        icon={faBoxOpen}
+                                        className={cx('stock-icon')}
+                                    />
+                                    {product.stock} in stock
+                                </span>
                                 <span className={cx('sold-info')}>{product.sold} sold</span>
                             </div>
 
                             <div className={cx('product-rating')}>
                                 <span className={cx('stars')}>
-                                    {'★'.repeat(Math.floor(product.rating))}
-                                    {'☆'.repeat(5 - Math.floor(product.rating))}
+                                    {renderStarRating(product.rating)}
                                 </span>
                                 <span className={cx('review-count')}>({product.reviewCount})</span>
                             </div>
@@ -146,6 +492,10 @@ function Products() {
                                 className={cx('add-to-cart-btn')}
                                 onClick={(e) => handleAddToCart(product.id, e)}
                             >
+                                <FontAwesomeIcon
+                                    icon={faShoppingCart}
+                                    className={cx('cart-icon')}
+                                />
                                 Add to Cart
                             </button>
                         </div>
