@@ -499,7 +499,7 @@ const products = [
     }
 ];
 
-// Generate additional products for testing variety (20 more products)
+// Generate additional products for testing variety (100 more products)
 const generateAdditionalProducts = () => {
     const additionalProducts = [];
     const productTypes = [
@@ -508,7 +508,21 @@ const generateAdditionalProducts = () => {
         'Phone Stand',
         'Bluetooth Earbuds',
         'Desk Lamp',
-        'Fitness Tracker'
+        'Fitness Tracker',
+        'Wireless Keyboard',
+        'Gaming Mouse',
+        'External Hard Drive',
+        'Power Bank',
+        'Smart Speaker',
+        'Digital Camera',
+        'Backpack',
+        'Wallet',
+        'Sunglasses',
+        'Watch',
+        'Sneakers',
+        'Water Bottle',
+        'Yoga Mat',
+        'Hair Dryer'
     ];
 
     // Real image collections by product type
@@ -623,51 +637,324 @@ const generateAdditionalProducts = () => {
                 thumbnail:
                     'https://images.unsplash.com/photo-1576699378482-a627469d4d36?w=300&h=300&auto=format&fit=crop&q=80'
             }
+        ],
+        'Wireless Keyboard': [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1627844718626-4c6976e329d0?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        'Gaming Mouse': [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1586816879360-6771751f6d9a?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        'External Hard Drive': [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1531492746076-161ca9bcad58?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1606135185526-0265a898ccca?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1531492746076-161ca9bcad58?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        'Power Bank': [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1609592299358-9a6328deb0ed?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1619489646924-b4fdb8783421?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1622463461333-75b1154e4878?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1609592299358-9a6328deb0ed?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        'Smart Speaker': [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1589949219566-5284a2225978?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1558389186-438424b40ede?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1543512214-318c7553f230?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1589949219566-5284a2225978?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        'Digital Camera': [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1565155003033-252a7073802c?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        Backpack: [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        Wallet: [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1606503825008-909a67e63c3d?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1575908539614-ff89490f4a78?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1627123424574-724758594e93?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        Sunglasses: [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1577803645773-f96470509666?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        Watch: [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        Sneakers: [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        'Water Bottle': [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1589365278144-c9e705f843ba?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1606922619805-b08e016a7263?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        'Yoga Mat': [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1596357395217-80de13130e92?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1603988363607-e1e4a4184aba?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=300&h=300&auto=format&fit=crop&q=80'
+            }
+        ],
+        'Hair Dryer': [
+            {
+                images: [
+                    'https://images.unsplash.com/photo-1522338140262-f46f5913618a?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600&h=600&auto=format&fit=crop&q=80',
+                    'https://images.unsplash.com/photo-1631730359585-38a4935cbf8e?w=600&h=600&auto=format&fit=crop&q=80'
+                ],
+                thumbnail:
+                    'https://images.unsplash.com/photo-1522338140262-f46f5913618a?w=300&h=300&auto=format&fit=crop&q=80'
+            }
         ]
     };
 
-    const brands = ['TechBrand', 'HomeStyle', 'FitGear', 'AudioPlus', 'SmartLife'];
+    // Default images for any product type not in the collection
+    const defaultImages = {
+        images: [
+            'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&auto=format&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?w=600&h=600&auto=format&fit=crop&q=80',
+            'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&auto=format&fit=crop&q=80'
+        ],
+        thumbnail:
+            'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&auto=format&fit=crop&q=80'
+    };
 
-    for (let i = 0; i < 20; i++) {
+    const brands = [
+        'TechBrand',
+        'HomeStyle',
+        'FitGear',
+        'AudioPlus',
+        'SmartLife',
+        'ElectroPro',
+        'GadgetWorld',
+        'FashionHub',
+        'ActiveLife',
+        'TechMaster',
+        'EcoStyle',
+        'ModernHome',
+        'ProGear',
+        'UrbanEdge',
+        'NatureBasics'
+    ];
+
+    const colors = [
+        'Black',
+        'White',
+        'Silver',
+        'Gray',
+        'Blue',
+        'Red',
+        'Green',
+        'Yellow',
+        'Purple',
+        'Pink',
+        'Brown',
+        'Orange',
+        'Teal',
+        'Navy',
+        'Gold'
+    ];
+
+    for (let i = 0; i < 100; i++) {
         const type = productTypes[Math.floor(Math.random() * productTypes.length)];
         const brand = brands[Math.floor(Math.random() * brands.length)];
-        const basePrice = 50 + Math.floor(Math.random() * 450);
-        const discount = 10 + Math.floor(Math.random() * 40);
-        const originalPrice = basePrice / (1 - discount / 100);
+        const basePrice = 50 + Math.floor(Math.random() * 950);
+        const discount = 5 + Math.floor(Math.random() * 45);
+        const originalPrice = Math.round((basePrice / (1 - discount / 100)) * 100) / 100;
         const stock = 10 + Math.floor(Math.random() * 90);
         const sold = Math.floor(Math.random() * stock);
 
+        // Select random colors
+        const randomColorCount = 1 + Math.floor(Math.random() * 3);
+        const productColors = [];
+        for (let c = 0; c < randomColorCount; c++) {
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            if (!productColors.includes(randomColor)) {
+                productColors.push(randomColor);
+            }
+        }
+
         // Get random image set for this product type
-        const imageCollection = productImages[type];
+        const imageCollection = productImages[type] || [defaultImages];
         const randomImageSet = imageCollection[Math.floor(Math.random() * imageCollection.length)];
+
+        // Create a more descriptive product name
+        const adjectives = [
+            'Premium',
+            'Ultra',
+            'Pro',
+            'Elite',
+            'Advanced',
+            'Smart',
+            'Deluxe',
+            'Classic',
+            'Modern',
+            'Compact'
+        ];
+        const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+
+        const modelNumber = Math.floor(Math.random() * 9000) + 1000;
+        const productName = `${adjective} ${brand} ${type} ${modelNumber}`;
+
+        // Generate more robust specifications based on product type
+        const specifications = {
+            brand: brand,
+            model: `${type}-${modelNumber}`,
+            color: productColors,
+            warranty: Math.floor(Math.random() * 3) + 1 + ' years'
+        };
+
+        if (type === 'Laptop' || type === 'Tablet') {
+            specifications.processor = [
+                'Intel Core i5',
+                'Intel Core i7',
+                'AMD Ryzen 5',
+                'Apple M1'
+            ][Math.floor(Math.random() * 4)];
+            specifications.ram = [4, 8, 16, 32][Math.floor(Math.random() * 4)] + 'GB';
+            specifications.storage = [128, 256, 512, 1024][Math.floor(Math.random() * 4)] + 'GB';
+            specifications.screen =
+                [10.9, 12.9, 13.3, 14, 15.6, 16][Math.floor(Math.random() * 6)] + '" Display';
+        } else if (type === 'Bluetooth Earbuds' || type === 'Wireless Keyboard') {
+            specifications.batteryLife = Math.floor(Math.random() * 20) + 10 + ' hours';
+            specifications.connectivity = 'Bluetooth 5.0';
+        } else if (type === 'Fitness Tracker' || type === 'Smart Watch' || type === 'Watch') {
+            specifications.features = [
+                'Heart Rate Monitor',
+                'Step Counter',
+                'Sleep Tracking',
+                'GPS'
+            ][Math.floor(Math.random() * 4)];
+            specifications.waterResistant = Math.random() > 0.3;
+        }
+
+        // Generate tags
+        const tags = [
+            type.toLowerCase().replace(' ', '-'),
+            brand.toLowerCase(),
+            ...productColors.map((color) => color.toLowerCase())
+        ];
+
+        if (Math.random() > 0.5) tags.push('best-seller');
+        if (Math.random() > 0.7) tags.push('new-arrival');
+        if (discount > 30) tags.push('on-sale');
 
         additionalProducts.push({
             id: products.length + i + 1,
-            name: `${brand} ${type} ${1000 + i}`,
-            slug: `${brand.toLowerCase()}-${type.toLowerCase().replace(' ', '-')}-${1000 + i}`,
+            name: productName,
+            slug: productName
+                .toLowerCase()
+                .replace(/[^\w\s]/gi, '')
+                .replace(/\s+/g, '-'),
             price: basePrice,
-            originalPrice: parseFloat(originalPrice.toFixed(2)), // Convert to number
+            originalPrice: originalPrice,
             discount: discount,
             images: randomImageSet.images,
             thumbnail: randomImageSet.thumbnail,
-            description: `High-quality ${type} from ${brand} with the latest features and technology.`,
+            description: `High-quality ${type} from ${brand} with premium features. Perfect for ${
+                type.toLowerCase() === 'laptop' || type.toLowerCase() === 'tablet'
+                    ? 'work and entertainment'
+                    : 'everyday use'
+            }.`,
             stock: stock,
             sold: sold,
             rating: (3 + Math.random() * 2).toFixed(1),
-            reviewCount: Math.floor(Math.random() * 100),
-            categoryId: Math.floor(Math.random() * categories.length) + 1,
-            shopId: Math.floor(Math.random() * shops.length) + 1,
+            reviewCount: Math.floor(Math.random() * 150),
+            categoryId: Math.ceil(Math.random() * categories.length),
+            shopId: Math.ceil(Math.random() * shops.length),
             isNew: Math.random() > 0.7,
             isFeatured: Math.random() > 0.7,
             isPopular: Math.random() > 0.7,
             isFlashSale: Math.random() > 0.8,
             isRecommended: Math.random() > 0.5,
-            specifications: {
-                brand: brand,
-                model: `${type}-${1000 + i}`,
-                color: ['Black', 'White', Math.random() > 0.5 ? 'Blue' : 'Red']
-            },
-            tags: [type.toLowerCase(), brand.toLowerCase(), 'electronics', 'gadget']
+            specifications: specifications,
+            tags: tags
         });
     }
 
