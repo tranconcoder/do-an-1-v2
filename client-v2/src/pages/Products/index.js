@@ -6,37 +6,11 @@ import { useProducts } from '../../configs/ProductsData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faSearch,
-    faFilter,
-    faSort,
     faStar,
     faStarHalf,
-    faTrash,
-    faChevronDown,
     faTag,
     faBoxOpen,
     faShoppingCart,
-    faSortAmountDown,
-    faSortAmountUp,
-    faArrowDown,
-    faArrowUp,
-    faArrowRight,
-    faClock,
-    faTrophy,
-    faBullseye,
-    faArrowDownWideShort,
-    faArrowUpWideShort,
-    faListUl,
-    faTshirt,
-    faLaptop,
-    faHome,
-    faHeadphones,
-    faMobileAlt,
-    faGamepad,
-    faBaby,
-    faUtensils,
-    faBook,
-    faFootball,
-    faGift,
     faEye
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -79,35 +53,6 @@ function Products() {
     // Refs for dropdowns
     const dropdownRef = useRef(null);
     const categoryDropdownRef = useRef(null);
-
-    // Sort options with icons
-    const sortOptions = [
-        { value: 'relevance', label: 'Relevance', icon: faBullseye },
-        { value: 'price-asc', label: 'Price: Low to High', icon: faArrowDownWideShort },
-        { value: 'price-desc', label: 'Price: High to Low', icon: faArrowUpWideShort },
-        { value: 'newest', label: 'Newest', icon: faClock },
-        { value: 'popularity', label: 'Best Selling', icon: faTrophy },
-        { value: 'rating', label: 'Highest Rated', icon: faStar }
-    ];
-
-    // Category icon mapping
-    const getCategoryIcon = (categoryId) => {
-        const iconMap = {
-            1: faLaptop,
-            2: faTshirt,
-            3: faHome,
-            4: faHeadphones,
-            5: faMobileAlt,
-            6: faGamepad,
-            7: faBaby,
-            8: faUtensils,
-            9: faBook,
-            10: faFootball,
-            11: faGift
-        };
-
-        return iconMap[categoryId] || faTag;
-    };
 
     // Handle click outside for sort dropdown
     useEffect(() => {
@@ -262,69 +207,6 @@ function Products() {
         setFilteredProducts(results);
     }, [products, searchTerm, sortOption, filterOptions]);
 
-    // Event handlers
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
-    };
-
-    // Toggle dropdowns
-    const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
-    };
-
-    const toggleCategoryDropdown = () => {
-        setIsCategoryDropdownOpen(!isCategoryDropdownOpen);
-    };
-
-    // Handle option selections
-    const handleSortOptionSelect = (value) => {
-        setSortOption(value);
-        setIsDropdownOpen(false);
-    };
-
-    const handleCategorySelect = (categoryId) => {
-        setFilterOptions((prev) => ({
-            ...prev,
-            categoryId: categoryId === '' ? null : parseInt(categoryId)
-        }));
-        setIsCategoryDropdownOpen(false);
-    };
-
-    // Get current selections
-    const getCurrentSortOption = () => {
-        return sortOptions.find((option) => option.value === sortOption) || sortOptions[0];
-    };
-
-    const getCurrentCategory = () => {
-        if (filterOptions.categoryId === null) {
-            return { id: '', name: 'All Categories', icon: faListUl };
-        }
-
-        const selectedCategory = categories.find((c) => c.id === filterOptions.categoryId);
-        if (!selectedCategory) return { id: '', name: 'All Categories', icon: faListUl };
-
-        return {
-            id: selectedCategory.id,
-            name: selectedCategory.name,
-            icon: getCategoryIcon(selectedCategory.id)
-        };
-    };
-
-    const handleFilterChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFilterOptions((prev) => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
-    };
-
-    const handleRatingFilter = (rating) => {
-        setFilterOptions((prev) => ({
-            ...prev,
-            rating: rating === prev.rating ? 0 : rating
-        }));
-    };
-
     const resetFilters = () => {
         setFilterOptions({
             categoryId: categoryParam ? parseInt(categoryParam) : null,
@@ -457,35 +339,44 @@ function Products() {
                             </div>
                         </Link>
                         <div className={cx('product-details')}>
-                            <Link to={`/product/${product.slug}`} className={cx('product-name')}>
-                                {product.name}
-                            </Link>
+                            <div className={cx('product-info')}>
+                                <Link
+                                    to={`/product/${product.slug}`}
+                                    className={cx('product-name')}
+                                >
+                                    {product.name}
+                                </Link>
 
-                            <div className={cx('product-price-container')}>
-                                <p className={cx('product-price')}>${product.price.toFixed(2)}</p>
-                                {product.originalPrice > product.price && (
-                                    <p className={cx('original-price')}>
-                                        ${Number(product.originalPrice).toFixed(2)}
+                                <div className={cx('product-price-container')}>
+                                    <p className={cx('product-price')}>
+                                        ${product.price.toFixed(2)}
                                     </p>
-                                )}
-                            </div>
+                                    {product.originalPrice > product.price && (
+                                        <p className={cx('original-price')}>
+                                            ${Number(product.originalPrice).toFixed(2)}
+                                        </p>
+                                    )}
+                                </div>
 
-                            <div className={cx('product-stock')}>
-                                <span className={cx('stock-info')}>
-                                    <FontAwesomeIcon
-                                        icon={faBoxOpen}
-                                        className={cx('stock-icon')}
-                                    />
-                                    {product.stock} in stock
-                                </span>
-                                <span className={cx('sold-info')}>{product.sold} sold</span>
-                            </div>
+                                <div className={cx('product-stock')}>
+                                    <span className={cx('stock-info')}>
+                                        <FontAwesomeIcon
+                                            icon={faBoxOpen}
+                                            className={cx('stock-icon')}
+                                        />
+                                        {product.stock} in stock
+                                    </span>
+                                    <span className={cx('sold-info')}>{product.sold} sold</span>
+                                </div>
 
-                            <div className={cx('product-rating')}>
-                                <span className={cx('stars')}>
-                                    {renderStarRating(product.rating)}
-                                </span>
-                                <span className={cx('review-count')}>({product.reviewCount})</span>
+                                <div className={cx('product-rating')}>
+                                    <span className={cx('stars')}>
+                                        {renderStarRating(product.rating)}
+                                    </span>
+                                    <span className={cx('review-count')}>
+                                        ({product.reviewCount})
+                                    </span>
+                                </div>
                             </div>
 
                             <button
