@@ -1,15 +1,18 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import Navbar from '../components/Navbar';
 import styles from './HomeLayout.module.scss';
 
 const cx = classNames.bind(styles);
 
-function HomeLayout({ children }) {
+function HomeLayout() {
     return (
         <div className={cx('home-layout')}>
             <Navbar />
-            <main className={cx('main')}>{children}</main>
+            <main className={cx('main')}>
+                <Outlet />
+            </main>
             <footer className={cx('footer')}>
                 <div className={cx('footer-content')}>
                     <div className={cx('footer-section')}>

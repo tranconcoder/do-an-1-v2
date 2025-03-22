@@ -1,15 +1,15 @@
 import React from 'react';
 import HeroImageSlider from '../components/HeroImageSlider';
-import HomeCategory from '../components/HomeCategory';
 import FlashSale from '../components/FlashSale';
 import PopularSearches from '../components/PopularSearches';
 import RecommendedProducts from '../components/RecommendedProducts';
+import Categories from '../components/Categories';
 
 function Home() {
     return (
         <div>
             <HeroImageSlider />
-            <HomeCategory />
+            <Categories />
             <FlashSale />
             <PopularSearches />
             <RecommendedProducts />

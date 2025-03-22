@@ -2,124 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './PopularSearches.module.scss';
+import { useProducts } from '../../configs/ProductsData';
 
 const cx = classNames.bind(styles);
-
-// Mock data for popular searched products - replace with actual API data in production
-const popularProducts = [
-    {
-        id: 1,
-        name: 'Wireless Noise Cancelling Headphones',
-        price: 199.99,
-        originalPrice: 299.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'wireless-noise-cancelling-headphones',
-        soldCount: 1542,
-        discountCode: 'AUDIO20'
-    },
-    {
-        id: 2,
-        name: '4K Smart LED TV 55-inch',
-        price: 549.99,
-        originalPrice: 699.99,
-        image: 'https://via.placeholder.com/300',
-        slug: '4k-smart-led-tv-55-inch',
-        soldCount: 1238,
-        discountCode: 'TV150'
-    },
-    {
-        id: 3,
-        name: 'Professional DSLR Camera with Lens',
-        price: 899.99,
-        originalPrice: 1199.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'professional-dslr-camera-with-lens',
-        soldCount: 1075,
-        discountCode: 'PHOTO25'
-    },
-    {
-        id: 4,
-        name: 'Ultra-thin Laptop 15.6" 16GB RAM',
-        price: 1299.99,
-        originalPrice: 1499.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'ultra-thin-laptop-16gb-ram',
-        soldCount: 984,
-        discountCode: 'LAPTOP200'
-    },
-    {
-        id: 5,
-        name: 'Premium Smartphone with Triple Camera',
-        price: 799.99,
-        originalPrice: 999.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'premium-smartphone-triple-camera',
-        soldCount: 892,
-        discountCode: 'PHONE100'
-    },
-    {
-        id: 6,
-        name: 'Air Purifier with HEPA Filter',
-        price: 149.99,
-        originalPrice: 199.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'air-purifier-hepa-filter',
-        soldCount: 725,
-        discountCode: 'CLEAN25'
-    },
-    {
-        id: 7,
-        name: 'Smart Watch with Heart Rate Monitor',
-        price: 179.99,
-        originalPrice: 229.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'smart-watch-heart-rate-monitor',
-        soldCount: 681,
-        discountCode: 'WATCH50'
-    },
-    {
-        id: 8,
-        name: 'Bluetooth Portable Speaker Waterproof',
-        price: 89.99,
-        originalPrice: 119.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'bluetooth-portable-speaker-waterproof',
-        soldCount: 594,
-        discountCode: 'SOUND30'
-    },
-    {
-        id: 9,
-        name: 'Robot Vacuum Cleaner with Mapping',
-        price: 349.99,
-        originalPrice: 449.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'robot-vacuum-cleaner-with-mapping',
-        soldCount: 512,
-        discountCode: 'ROBOT100'
-    },
-    {
-        id: 10,
-        name: 'Gaming Console Latest Edition',
-        price: 499.99,
-        originalPrice: 599.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'gaming-console-latest-edition',
-        soldCount: 478,
-        discountCode: 'GAME100'
-    }
-];
 
 // Format large numbers with commas
 const formatNumber = (num) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-// Calculate discount percentage
-const calculateDiscount = (originalPrice, currentPrice) => {
-    return Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
-};
+// Add this constant for fallback image - using a real image instead of text placeholder
+const DEFAULT_IMAGE =
+    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&auto=format&fit=crop&q=80';
 
 const PopularSearches = () => {
+    const { getPopularProducts } = useProducts();
+    const popularProducts = getPopularProducts();
+
     return (
         <section className={cx('popular-searches-section')}>
             <div className={cx('section-header')}>
@@ -139,20 +38,22 @@ const PopularSearches = () => {
             </div>
 
             <div className={cx('products-grid')}>
-                {popularProducts.map((product, index) => (
+                {popularProducts.slice(0, 5).map((product, index) => (
                     <div className={cx('product-card')} key={product.id}>
                         <span className={cx('rank-badge')}>#{index + 1}</span>
-                        <span className={cx('discount-badge')}>
-                            -{calculateDiscount(product.originalPrice, product.price)}%
-                        </span>
+                        <span className={cx('discount-badge')}>-{product.discount}%</span>
                         <Link
                             to={`/product/${product.slug}`}
                             className={cx('product-image-container')}
                         >
                             <img
-                                src={product.image}
+                                src={product.thumbnail || product.images?.[0] || DEFAULT_IMAGE}
                                 alt={product.name}
                                 className={cx('product-image')}
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = DEFAULT_IMAGE;
+                                }}
                             />
                         </Link>
                         <div className={cx('product-info')}>
@@ -164,7 +65,7 @@ const PopularSearches = () => {
                                     ${product.price.toFixed(2)}
                                 </span>
                                 <span className={cx('original-price')}>
-                                    ${product.originalPrice.toFixed(2)}
+                                    ${Number(product.originalPrice).toFixed(2)}
                                 </span>
                             </div>
                             <div className={cx('sale-label')}>
@@ -173,7 +74,7 @@ const PopularSearches = () => {
                             </div>
                             <div className={cx('sold-count')}>
                                 <span className={cx('sold-icon')}>🛒</span>
-                                <span>{formatNumber(product.soldCount)} sold</span>
+                                <span>{formatNumber(product.sold)} sold</span>
                             </div>
                         </div>
                     </div>

@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import classNames from 'classnames/bind';
 import styles from './FlashSale.module.scss';
+import { useProducts } from '../../configs/ProductsData';
 
 // Import swiper styles
 import 'swiper/css';
@@ -12,62 +13,14 @@ import 'swiper/css/pagination';
 
 const cx = classNames.bind(styles);
 
-// Sample flash sale products - replace with your actual data
-const flashSaleProducts = [
-    {
-        id: 1,
-        name: 'Wireless Bluetooth Earbuds',
-        originalPrice: 99.99,
-        salePrice: 49.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'wireless-bluetooth-earbuds',
-        stock: 50,
-        sold: 30
-    },
-    {
-        id: 2,
-        name: 'Smart Watch Series 5',
-        originalPrice: 199.99,
-        salePrice: 129.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'smart-watch-series-5',
-        stock: 100,
-        sold: 85
-    },
-    {
-        id: 3,
-        name: 'Portable Bluetooth Speaker',
-        originalPrice: 79.99,
-        salePrice: 39.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'portable-bluetooth-speaker',
-        stock: 75,
-        sold: 45
-    },
-    {
-        id: 4,
-        name: 'Noise Cancelling Headphones',
-        originalPrice: 149.99,
-        salePrice: 89.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'noise-cancelling-headphones',
-        stock: 60,
-        sold: 42
-    },
-    {
-        id: 5,
-        name: 'Ultra HD 4K Action Camera',
-        originalPrice: 249.99,
-        salePrice: 149.99,
-        image: 'https://via.placeholder.com/300',
-        slug: 'ultra-hd-4k-action-camera',
-        stock: 40,
-        sold: 15
-    }
-    // Removed the last item to make room for view all
-];
+// Add this constant for fallback image - using a real image instead of text placeholder
+const DEFAULT_IMAGE =
+    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&auto=format&fit=crop&q=80';
 
 const FlashSale = () => {
+    const { getFlashSaleProducts, addToCart } = useProducts();
+    const flashSaleProducts = getFlashSaleProducts();
+
     // Set end time for the flash sale (24 hours from now)
     const [timeLeft, setTimeLeft] = useState({
         hours: 23,
@@ -109,6 +62,10 @@ const FlashSale = () => {
     // Calculate discount percentage
     const calculateDiscount = (original, sale) => {
         return Math.round(((original - sale) / original) * 100);
+    };
+
+    const handleAddToCart = (productId) => {
+        addToCart(productId, 1);
     };
 
     return (
@@ -158,34 +115,31 @@ const FlashSale = () => {
                     pagination={{ clickable: true }}
                     className={cx('swiper-container')}
                     breakpoints={{
-                        // When window width is >= 640px
-                        640: {
-                            slidesPerView: 2
-                        },
-                        // When window width is >= 768px
-                        768: {
-                            slidesPerView: 3
-                        },
-                        // When window width is >= 1024px
-                        1024: {
-                            slidesPerView: 4
-                        }
+                        640: { slidesPerView: 2 },
+                        768: { slidesPerView: 3 },
+                        1024: { slidesPerView: 4 }
                     }}
                 >
                     {flashSaleProducts.map((product) => (
                         <SwiperSlide key={product.id}>
                             <div className={cx('product-card')}>
-                                <div className={cx('discount-badge')}>
-                                    -{calculateDiscount(product.originalPrice, product.salePrice)}%
-                                </div>
+                                <div className={cx('discount-badge')}>-{product.discount}%</div>
                                 <Link
                                     to={`/product/${product.slug}`}
                                     className={cx('product-image-container')}
                                 >
                                     <img
-                                        src={product.image}
+                                        src={
+                                            product.thumbnail ||
+                                            product.images?.[0] ||
+                                            DEFAULT_IMAGE
+                                        }
                                         alt={product.name}
                                         className={cx('product-image')}
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = DEFAULT_IMAGE;
+                                        }}
                                     />
                                 </Link>
                                 <div className={cx('product-info')}>
@@ -197,10 +151,10 @@ const FlashSale = () => {
                                     </Link>
                                     <div className={cx('product-price')}>
                                         <span className={cx('sale-price')}>
-                                            ${product.salePrice.toFixed(2)}
+                                            ${product.price.toFixed(2)}
                                         </span>
                                         <span className={cx('original-price')}>
-                                            ${product.originalPrice.toFixed(2)}
+                                            ${Number(product.originalPrice).toFixed(2)}
                                         </span>
                                     </div>
                                     <div className={cx('stock-progress')}>
@@ -219,13 +173,17 @@ const FlashSale = () => {
                                             <span>{product.stock - product.sold} left</span>
                                         </div>
                                     </div>
-                                    <button className={cx('add-to-cart-btn')}>Add to Cart</button>
+                                    <button
+                                        className={cx('add-to-cart-btn')}
+                                        onClick={() => handleAddToCart(product.id)}
+                                    >
+                                        Add to Cart
+                                    </button>
                                 </div>
                             </div>
                         </SwiperSlide>
                     ))}
 
-                    {/* View All Deals slide */}
                     <SwiperSlide>
                         <Link to="/flash-sale" className={cx('product-card', 'view-all-card')}>
                             <div className={cx('view-all-content')}>
@@ -239,8 +197,6 @@ const FlashSale = () => {
                     </SwiperSlide>
                 </Swiper>
             </div>
-
-            {/* Removed the separate view more container since it's now in the slider */}
         </section>
     );
 };

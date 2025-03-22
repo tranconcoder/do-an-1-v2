@@ -1,47 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout, selectUserInfo } from '../redux/slices/userSlice';
+import { logout, selectUserInfo } from '../../redux/slices/userSlice';
 import classNames from 'classnames/bind';
 import styles from './Navbar.module.scss';
 
 // Import icons from assets
-import SearchIcon from '../assets/icons/SearchIcon';
-import CartIcon from '../assets/icons/CartIcon';
-import UserIcon from '../assets/icons/UserIcon';
-import MenuIcon from '../assets/icons/MenuIcon';
-import CloseIcon from '../assets/icons/CloseIcon';
+import UserIcon from '../../assets/icons/UserIcon';
+import MenuIcon from '../../assets/icons/MenuIcon';
+import CloseIcon from '../../assets/icons/CloseIcon';
+
+// Import components
+import CartDropdown from '../CartDropdown';
+import SearchBar from '../SearchBar'; // Import the new SearchBar component
 
 const cx = classNames.bind(styles);
 
 function Navbar() {
-    const [searchQuery, setSearchQuery] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-    const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
     const user = useSelector(selectUserInfo);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userMenuRef = useRef(null);
-    const categoriesMenuRef = useRef(null);
-
-    // Sample categories for e-commerce - replace with your actual categories
-    const categories = [
-        { id: 1, name: 'Electronics', url: '/category/electronics' },
-        { id: 2, name: 'Clothing', url: '/category/clothing' },
-        { id: 3, name: 'Home & Kitchen', url: '/category/home-kitchen' },
-        { id: 4, name: 'Books', url: '/category/books' },
-        { id: 5, name: 'Beauty & Personal Care', url: '/category/beauty' }
-    ];
-
-    // Handle search submission
-    const handleSearchSubmit = (e) => {
-        e.preventDefault();
-        if (searchQuery.trim()) {
-            navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-            setSearchQuery('');
-        }
-    };
+    const wishlistItems = useSelector((state) => state.wishlist.items);
 
     // Handle logout
     const handleLogout = () => {
@@ -55,9 +37,6 @@ function Navbar() {
         const handleClickOutside = (event) => {
             if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
                 setIsUserMenuOpen(false);
-            }
-            if (categoriesMenuRef.current && !categoriesMenuRef.current.contains(event.target)) {
-                setIsCategoriesOpen(false);
             }
         };
 
@@ -103,33 +82,6 @@ function Navbar() {
 
                 {/* Navigation Links and Search - visible on desktop, toggleable on mobile */}
                 <div className={cx('nav-content', { 'mobile-open': isMenuOpen })}>
-                    {/* Categories dropdown */}
-                    <div className={cx('categories-dropdown')} ref={categoriesMenuRef}>
-                        <button
-                            className={cx('categories-button')}
-                            onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
-                        >
-                            Categories
-                            <span className={cx('dropdown-arrow', { open: isCategoriesOpen })}>
-                                ▼
-                            </span>
-                        </button>
-                        {isCategoriesOpen && (
-                            <div className={cx('categories-menu')}>
-                                {categories.map((category) => (
-                                    <Link
-                                        to={category.url}
-                                        key={category.id}
-                                        onClick={() => setIsCategoriesOpen(false)}
-                                        className={cx('category-item')}
-                                    >
-                                        {category.name}
-                                    </Link>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-
                     {/* Other nav links */}
                     <nav className={cx('nav-links')}>
                         <Link to="/" className={cx('nav-link')}>
@@ -141,36 +93,20 @@ function Navbar() {
                         <Link to="/deals" className={cx('nav-link')}>
                             Deals
                         </Link>
-                        <Link to="/about" className={cx('nav-link')}>
-                            About Us
-                        </Link>
-                        <Link to="/contact" className={cx('nav-link')}>
-                            Contact
+                        <Link to="/wishlist" className={cx('nav-link')}>
+                            <i className="bi bi-heart"></i> Wishlist{' '}
+                            {wishlistItems.length > 0 && `(${wishlistItems.length})`}
                         </Link>
                     </nav>
 
-                    {/* Search form */}
-                    <form className={cx('search-form')} onSubmit={handleSearchSubmit}>
-                        <input
-                            type="text"
-                            placeholder="Search products..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className={cx('search-input')}
-                        />
-                        <button type="submit" className={cx('search-button')} aria-label="Search">
-                            <SearchIcon />
-                        </button>
-                    </form>
+                    {/* Use the new SearchBar component instead of the search form */}
+                    <SearchBar />
                 </div>
 
                 {/* User actions section */}
                 <div className={cx('user-actions')}>
-                    {/* Cart button with item count */}
-                    <Link to="/cart" className={cx('cart-button')}>
-                        <CartIcon />
-                        <span className={cx('cart-count')}>0</span>
-                    </Link>
+                    {/* Replace the Cart button with CartDropdown component */}
+                    <CartDropdown />
 
                     {/* User menu - check for authentication status properly */}
                     {user && user.phoneNumber ? (

@@ -6,13 +6,16 @@ import Routes from './routes';
 import './styles/reset.css';
 import './styles/global.scss';
 import AuthCheck from './components/AuthCheck';
+import { ProductsProvider } from './configs/ProductsData';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <AuthCheck />
-            <Routes />
-        </Provider>
+        <ProductsProvider>
+            <Provider store={store}>
+                <AuthCheck />
+                <Routes />
+            </Provider>
+        </ProductsProvider>
     </React.StrictMode>
 );
