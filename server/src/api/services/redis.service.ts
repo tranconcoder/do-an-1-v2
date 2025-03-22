@@ -8,6 +8,7 @@ import {
     PESSIMISTIC_RETRY_TIMES,
     PESSIMISTIC_WAITING_TIME
 } from '@/configs/redis.config.js';
+import { getPessimisticKey, getUserProfileKey } from '@/utils/redis.util.js';
 
 const redisClient = await createClient()
     .on('error', (err) => {
@@ -20,12 +21,15 @@ const redisClient = await createClient()
     })
     .connect();
 
+/* ---------------------------------------------------------- */
+/*                    Concurrency handling                    */
+/* ---------------------------------------------------------- */
 export const pessimisticLock = async <T = any>(
     key: PessimisticKeys,
     id: string,
     cb: () => Promise<T>
 ): Promise<commonTypes.utils.AutoType<T> | null> => {
-    const redisKey = `pessLock_${key}_${id}`;
+    const redisKey = getPessimisticKey(key, id);
 
     for (let i = 0; i < PESSIMISTIC_RETRY_TIMES; i++) {
         const isUnlock =
@@ -39,7 +43,7 @@ export const pessimisticLock = async <T = any>(
 
             /* --------------------- Handle access  --------------------- */
             return (await cb()
-                .catch((err) => {
+                .catch(() => {
                     return null;
                 })
                 .finally(async () => {
@@ -55,4 +59,15 @@ export const pessimisticLock = async <T = any>(
     }
 
     return null;
+};
+
+/* ---------------------------------------------------------- */
+/*                      Get user profile                      */
+/* ---------------------------------------------------------- */
+export const getUserProfile = async (id: string) => {
+    const key = getUserProfileKey(id);
+    const { keys } = await redisClient.scan(0, { MATCH: key });
+    if (!keys.length) return null;
+
+    return await redisClient.mGet(keys);
 };
