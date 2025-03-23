@@ -32,16 +32,9 @@ export const shopRegisterSchema = Yup.object().shape({
             'File too large',
             (value) => (value ? value.size <= 5 * 1024 * 1024 : true) // 5MB
         ),
-    shop_certificate: Yup.mixed()
-        .required('Business certificate is required')
-        .test('fileFormat', 'Unsupported file format', (value) =>
-            value ? SUPPORTED_DOCUMENT_FORMATS.includes(value.type) : true
-        )
-        .test(
-            'fileSize',
-            'File too large',
-            (value) => (value ? value.size <= 10 * 1024 * 1024 : true) // 10MB
-        ),
+    shop_certificate: Yup.string()
+        .matches(/^[0-9A-Za-z-]{5,20}$/, 'Invalid certificate number')
+        .required('Business certificate number is required'),
     shop_phoneNumber: Yup.string()
         .matches(/^[0-9+\s-]{8,15}$/, 'Invalid phone number')
         .required('Shop phone number is required'),

@@ -81,10 +81,25 @@ function Register() {
             return true;
         } catch (err) {
             const newErrors = {};
-            err.inner.forEach((error) => {
-                newErrors[error.path] = error.message;
-            });
+            if (err.inner && err.inner.length > 0) {
+                err.inner.forEach((error) => {
+                    newErrors[error.path] = error.message;
+                });
+            } else {
+                // Handle case where error doesn't have inner array
+                setGeneralError(err.message || 'Validation failed. Please check your inputs.');
+            }
             setErrors(newErrors);
+            
+            // Scroll to the first error
+            if (err.inner && err.inner.length > 0) {
+                const firstErrorField = document.querySelector(`[name="${err.inner[0].path}"]`);
+                if (firstErrorField) {
+                    firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstErrorField.focus();
+                }
+            }
+            
             return false;
         }
     };
@@ -92,29 +107,27 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setGeneralError('');
-
-        const isValid = await validateForm();
-        if (!isValid) return;
-
-        setLoading(true);
+        setErrors({});
 
         try {
+            const isValid = await validateForm();
+            if (!isValid) return;
+
+            setLoading(true);
+
             const formDataToSend = new FormData();
 
             // Append all text fields
             Object.keys(formData).forEach((key) => {
-                if (
-                    key !== 'shop_logo' &&
-                    key !== 'shop_certificate' &&
-                    key !== 'confirmPassword'
-                ) {
+                if (key !== 'shop_logo' && key !== 'confirmPassword') {
                     formDataToSend.append(key, formData[key]);
                 }
             });
 
             // Append files
-            formDataToSend.append('shop_logo', formData.shop_logo);
-            formDataToSend.append('shop_certificate', formData.shop_certificate);
+            if (formData.shop_logo) {
+                formDataToSend.append('shop_logo', formData.shop_logo);
+            }
 
             const response = await axiosClient.post('/shops/register', formDataToSend, {
                 headers: {
@@ -126,12 +139,37 @@ function Register() {
             navigate('/login');
         } catch (err) {
             console.error('Registration error:', err);
-            setGeneralError(
-                err.response?.data?.message || 'Registration failed. Please try again.'
-            );
+            
+            // Handle server validation errors if they exist
+            if (err.response?.data?.errors) {
+                const serverErrors = err.response.data.errors;
+                const newErrors = { ...errors };
+                
+                Object.keys(serverErrors).forEach(field => {
+                    newErrors[field] = serverErrors[field];
+                });
+                
+                setErrors(newErrors);
+            } else {
+                setGeneralError(
+                    err.response?.data?.message || 'Registration failed. Please try again.'
+                );
+            }
         } finally {
             setLoading(false);
         }
+    };
+
+    // Helper function to determine if a field has an error
+    const hasError = (fieldName) => {
+        return errors[fieldName] ? true : false;
+    };
+    
+    // Helper function to render error message
+    const renderErrorMessage = (fieldName) => {
+        return errors[fieldName] ? (
+            <div className={cx('error-text')}>{errors[fieldName]}</div>
+        ) : null;
     };
 
     return (
@@ -145,7 +183,7 @@ function Register() {
 
                 {generalError && <div className={cx('error-message')}>{generalError}</div>}
 
-                <form className={cx('register-form')} onSubmit={handleSubmit}>
+                <form className={cx('register-form')} onSubmit={handleSubmit} noValidate>
                     {/* Authentication Section */}
                     <div className={cx('form-section')}>
                         <h2>Authentication</h2>
@@ -157,11 +195,9 @@ function Register() {
                                 name="shop_email"
                                 value={formData.shop_email}
                                 onChange={handleChange}
-                                className={errors.shop_email ? cx('has-error') : ''}
+                                className={hasError('shop_email') ? cx('has-error') : ''}
                             />
-                            {errors.shop_email && (
-                                <div className={cx('error-text')}>{errors.shop_email}</div>
-                            )}
+                            {renderErrorMessage('shop_email')}
                         </div>
 
                         <div className={cx('form-group')}>
@@ -172,11 +208,22 @@ function Register() {
                                 name="shop_password"
                                 value={formData.shop_password}
                                 onChange={handleChange}
-                                className={errors.shop_password ? cx('has-error') : ''}
+                                className={hasError('shop_password') ? cx('has-error') : ''}
                             />
-                            {errors.shop_password && (
-                                <div className={cx('error-text')}>{errors.shop_password}</div>
-                            )}
+                            {renderErrorMessage('shop_password')}
+                        </div>
+
+                        <div className={cx('form-group')}>
+                            <label htmlFor="confirmPassword">Confirm Password *</label>
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                className={hasError('confirmPassword') ? cx('has-error') : ''}
+                            />
+                            {renderErrorMessage('confirmPassword')}
                         </div>
                     </div>
 
@@ -232,18 +279,17 @@ function Register() {
                         </div>
 
                         <div className={cx('form-group')}>
-                            <label htmlFor="shop_certificate">Business Certificate *</label>
+                            <label htmlFor="shop_certificate">Business Certificate Number *</label>
                             <input
-                                type="file"
+                                type="text"
                                 id="shop_certificate"
                                 name="shop_certificate"
-                                onChange={handleFileChange}
-                                className={errors.shop_certificate ? cx('has-error') : ''}
-                                accept=".pdf,.jpg,.jpeg,.png"
+                                value={formData.shop_certificate}
+                                onChange={handleChange}
+                                className={hasError('shop_certificate') ? cx('has-error') : ''}
+                                placeholder="Enter certificate number"
                             />
-                            {errors.shop_certificate && (
-                                <div className={cx('error-text')}>{errors.shop_certificate}</div>
-                            )}
+                            {renderErrorMessage('shop_certificate')}
                         </div>
 
                         <div className={cx('form-group')}>
