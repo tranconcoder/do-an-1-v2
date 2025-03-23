@@ -19,6 +19,10 @@ import Products from './pages/products/Products';
 import ProductForm from './pages/products/ProductForm';
 import Settings from './pages/settings/Settings';
 
+// Shop Registration Pages
+import ShopRegistrations from './pages/shops/ShopRegistrations';
+import ShopRegistrationDetail from './pages/shops/ShopRegistrationDetail';
+
 // Auth Guard
 import AuthGuard from './components/guards/AuthGuard';
 
@@ -78,6 +82,13 @@ function App() {
                         <Route path="products/add" element={<ProductForm />} />
                         <Route path="products/edit/:id" element={<ProductForm />} />
                         <Route path="settings" element={<Settings />} />
+
+                        {/* Shop Registration Routes */}
+                        <Route path="shops/registrations" element={<ShopRegistrations />} />
+                        <Route
+                            path="shops/registrations/:id"
+                            element={<ShopRegistrationDetail />}
+                        />
                     </Route>
 
                     {/* Redirect root to admin dashboard */}
