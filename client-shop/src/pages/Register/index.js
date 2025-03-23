@@ -90,7 +90,7 @@ function Register() {
                 setGeneralError(err.message || 'Validation failed. Please check your inputs.');
             }
             setErrors(newErrors);
-            
+
             // Scroll to the first error
             if (err.inner && err.inner.length > 0) {
                 const firstErrorField = document.querySelector(`[name="${err.inner[0].path}"]`);
@@ -99,7 +99,7 @@ function Register() {
                     firstErrorField.focus();
                 }
             }
-            
+
             return false;
         }
     };
@@ -139,16 +139,16 @@ function Register() {
             navigate('/login');
         } catch (err) {
             console.error('Registration error:', err);
-            
+
             // Handle server validation errors if they exist
             if (err.response?.data?.errors) {
                 const serverErrors = err.response.data.errors;
                 const newErrors = { ...errors };
-                
-                Object.keys(serverErrors).forEach(field => {
+
+                Object.keys(serverErrors).forEach((field) => {
                     newErrors[field] = serverErrors[field];
                 });
-                
+
                 setErrors(newErrors);
             } else {
                 setGeneralError(
@@ -164,7 +164,7 @@ function Register() {
     const hasError = (fieldName) => {
         return errors[fieldName] ? true : false;
     };
-    
+
     // Helper function to render error message
     const renderErrorMessage = (fieldName) => {
         return errors[fieldName] ? (
