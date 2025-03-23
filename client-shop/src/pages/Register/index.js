@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
+import { shopRegisterSchema } from '../../validations/shop.validation';
 import styles from './Register.module.scss';
 import axiosClient from '../../configs/axios';
 
@@ -9,14 +10,28 @@ const cx = classNames.bind(styles);
 function Register() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        shopName: '',
-        ownerName: '',
-        email: '',
-        phone: '',
-        password: '',
+        // Authentication
+        shop_email: '',
+        shop_password: '',
         confirmPassword: '',
-        businessType: 'individual',
-        acceptTerms: false
+
+        // Shop Information
+        shop_name: '',
+        shop_type: 'INDIVIDUAL',
+        shop_logo: '',
+        shop_certificate: '',
+        shop_address: '',
+        shop_phoneNumber: '',
+        shop_description: '',
+
+        // Shop Owner Information
+        shop_owner_fullName: '',
+        shop_owner_email: '',
+        shop_owner_phoneNumber: '',
+        shop_owner_cardID: '',
+
+        // Optional Warehouse Info
+        shop_warehouses: []
     });
 
     const [errors, setErrors] = useState({});
@@ -39,77 +54,74 @@ function Register() {
         }
     };
 
-    const validateForm = () => {
-        const newErrors = {};
+    const handleFileChange = (e) => {
+        const { name, files } = e.target;
+        if (files && files[0]) {
+            // Here you would normally upload the file to your server
+            // For now, we'll just store the file object
+            setFormData((prev) => ({
+                ...prev,
+                [name]: files[0]
+            }));
 
-        // Shop name validation
-        if (!formData.shopName.trim()) {
-            newErrors.shopName = 'Shop name is required';
+            // Clear error when file is selected
+            if (errors[name]) {
+                setErrors((prev) => ({
+                    ...prev,
+                    [name]: ''
+                }));
+            }
         }
+    };
 
-        // Owner name validation
-        if (!formData.ownerName.trim()) {
-            newErrors.ownerName = 'Owner name is required';
+    const validateForm = async () => {
+        try {
+            await shopRegisterSchema.validate(formData, { abortEarly: false });
+            setErrors({});
+            return true;
+        } catch (err) {
+            const newErrors = {};
+            err.inner.forEach((error) => {
+                newErrors[error.path] = error.message;
+            });
+            setErrors(newErrors);
+            return false;
         }
-
-        // Email validation
-        if (!formData.email.trim()) {
-            newErrors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Email is invalid';
-        }
-
-        // Phone validation
-        if (formData.phone && !/^[0-9+\s-]{8,15}$/.test(formData.phone)) {
-            newErrors.phone = 'Phone number is invalid';
-        }
-
-        // Password validation
-        if (!formData.password) {
-            newErrors.password = 'Password is required';
-        } else if (formData.password.length < 6) {
-            newErrors.password = 'Password must be at least 6 characters';
-        }
-
-        // Confirm password validation
-        if (formData.password !== formData.confirmPassword) {
-            newErrors.confirmPassword = 'Passwords do not match';
-        }
-
-        // Terms validation
-        if (!formData.acceptTerms) {
-            newErrors.acceptTerms = 'You must accept the terms and conditions';
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setGeneralError('');
 
-        if (!validateForm()) {
-            return;
-        }
+        const isValid = await validateForm();
+        if (!isValid) return;
 
         setLoading(true);
 
         try {
-            // In a real application, this would be an API call
-            // const response = await axiosClient.post('/auth/register', {
-            //     shopName: formData.shopName,
-            //     ownerName: formData.ownerName,
-            //     email: formData.email,
-            //     phone: formData.phone,
-            //     password: formData.password,
-            //     businessType: formData.businessType
-            // });
+            const formDataToSend = new FormData();
 
-            // Simulate API call with timeout
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            // Append all text fields
+            Object.keys(formData).forEach((key) => {
+                if (
+                    key !== 'shop_logo' &&
+                    key !== 'shop_certificate' &&
+                    key !== 'confirmPassword'
+                ) {
+                    formDataToSend.append(key, formData[key]);
+                }
+            });
 
-            // For demo purposes, show success message and redirect to login
+            // Append files
+            formDataToSend.append('shop_logo', formData.shop_logo);
+            formDataToSend.append('shop_certificate', formData.shop_certificate);
+
+            const response = await axiosClient.post('/shops/register', formDataToSend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
             alert('Registration successful! Please log in with your new account.');
             navigate('/login');
         } catch (err) {
@@ -134,165 +146,202 @@ function Register() {
                 {generalError && <div className={cx('error-message')}>{generalError}</div>}
 
                 <form className={cx('register-form')} onSubmit={handleSubmit}>
+                    {/* Authentication Section */}
+                    <div className={cx('form-section')}>
+                        <h2>Authentication</h2>
+                        <div className={cx('form-group')}>
+                            <label htmlFor="shop_email">Shop Email *</label>
+                            <input
+                                type="email"
+                                id="shop_email"
+                                name="shop_email"
+                                value={formData.shop_email}
+                                onChange={handleChange}
+                                className={errors.shop_email ? cx('has-error') : ''}
+                            />
+                            {errors.shop_email && (
+                                <div className={cx('error-text')}>{errors.shop_email}</div>
+                            )}
+                        </div>
+
+                        <div className={cx('form-group')}>
+                            <label htmlFor="shop_password">Password *</label>
+                            <input
+                                type="password"
+                                id="shop_password"
+                                name="shop_password"
+                                value={formData.shop_password}
+                                onChange={handleChange}
+                                className={errors.shop_password ? cx('has-error') : ''}
+                            />
+                            {errors.shop_password && (
+                                <div className={cx('error-text')}>{errors.shop_password}</div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Shop Information Section */}
                     <div className={cx('form-section')}>
                         <h2>Shop Information</h2>
-
                         <div className={cx('form-group')}>
-                            <label htmlFor="shopName">Shop Name *</label>
+                            <label htmlFor="shop_name">Shop Name *</label>
                             <input
                                 type="text"
-                                id="shopName"
-                                name="shopName"
-                                value={formData.shopName}
+                                id="shop_name"
+                                name="shop_name"
+                                value={formData.shop_name}
                                 onChange={handleChange}
-                                placeholder="Enter your shop name"
-                                className={errors.shopName ? cx('has-error') : ''}
+                                className={errors.shop_name ? cx('has-error') : ''}
                             />
-                            {errors.shopName && (
-                                <div className={cx('error-text')}>{errors.shopName}</div>
+                            {errors.shop_name && (
+                                <div className={cx('error-text')}>{errors.shop_name}</div>
                             )}
                         </div>
 
                         <div className={cx('form-group')}>
-                            <label htmlFor="businessType">Business Type</label>
+                            <label htmlFor="shop_type">Shop Type *</label>
                             <select
-                                id="businessType"
-                                name="businessType"
-                                value={formData.businessType}
+                                id="shop_type"
+                                name="shop_type"
+                                value={formData.shop_type}
                                 onChange={handleChange}
+                                className={errors.shop_type ? cx('has-error') : ''}
                             >
-                                <option value="individual">Individual / Sole Proprietor</option>
-                                <option value="company">Company / Corporation</option>
-                                <option value="partnership">Partnership</option>
+                                <option value="INDIVIDUAL">Individual Business</option>
+                                <option value="COMPANY">Company/Corporation</option>
+                                <option value="PARTNERSHIP">Partnership</option>
                             </select>
-                        </div>
-                    </div>
-
-                    <div className={cx('form-section')}>
-                        <h2>Personal Information</h2>
-
-                        <div className={cx('form-group')}>
-                            <label htmlFor="ownerName">Owner Name *</label>
-                            <input
-                                type="text"
-                                id="ownerName"
-                                name="ownerName"
-                                value={formData.ownerName}
-                                onChange={handleChange}
-                                placeholder="Enter your full name"
-                                className={errors.ownerName ? cx('has-error') : ''}
-                            />
-                            {errors.ownerName && (
-                                <div className={cx('error-text')}>{errors.ownerName}</div>
+                            {errors.shop_type && (
+                                <div className={cx('error-text')}>{errors.shop_type}</div>
                             )}
                         </div>
 
-                        <div className={cx('form-row')}>
-                            <div className={cx('form-group')}>
-                                <label htmlFor="email">Email Address *</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    placeholder="Enter your email"
-                                    className={errors.email ? cx('has-error') : ''}
-                                />
-                                {errors.email && (
-                                    <div className={cx('error-text')}>{errors.email}</div>
-                                )}
-                            </div>
-
-                            <div className={cx('form-group')}>
-                                <label htmlFor="phone">Phone Number</label>
-                                <input
-                                    type="tel"
-                                    id="phone"
-                                    name="phone"
-                                    value={formData.phone}
-                                    onChange={handleChange}
-                                    placeholder="Enter your phone number"
-                                    className={errors.phone ? cx('has-error') : ''}
-                                />
-                                {errors.phone && (
-                                    <div className={cx('error-text')}>{errors.phone}</div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={cx('form-section')}>
-                        <h2>Account Security</h2>
-
-                        <div className={cx('form-row')}>
-                            <div className={cx('form-group')}>
-                                <label htmlFor="password">Password *</label>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    placeholder="Create a password"
-                                    className={errors.password ? cx('has-error') : ''}
-                                />
-                                {errors.password && (
-                                    <div className={cx('error-text')}>{errors.password}</div>
-                                )}
-                            </div>
-
-                            <div className={cx('form-group')}>
-                                <label htmlFor="confirmPassword">Confirm Password *</label>
-                                <input
-                                    type="password"
-                                    id="confirmPassword"
-                                    name="confirmPassword"
-                                    value={formData.confirmPassword}
-                                    onChange={handleChange}
-                                    placeholder="Confirm your password"
-                                    className={errors.confirmPassword ? cx('has-error') : ''}
-                                />
-                                {errors.confirmPassword && (
-                                    <div className={cx('error-text')}>{errors.confirmPassword}</div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={cx('terms-container')}>
-                        <label className={cx('checkbox-label')}>
+                        <div className={cx('form-group')}>
+                            <label htmlFor="shop_logo">Shop Logo *</label>
                             <input
-                                type="checkbox"
-                                name="acceptTerms"
-                                checked={formData.acceptTerms}
-                                onChange={handleChange}
+                                type="file"
+                                id="shop_logo"
+                                name="shop_logo"
+                                onChange={handleFileChange}
+                                className={errors.shop_logo ? cx('has-error') : ''}
+                                accept="image/*"
                             />
-                            <span>
-                                I agree to the{' '}
-                                <a href="#terms" className={cx('terms-link')}>
-                                    Terms and Conditions
-                                </a>
-                            </span>
-                        </label>
-                        {errors.acceptTerms && (
-                            <div className={cx('error-text')}>{errors.acceptTerms}</div>
-                        )}
+                            {errors.shop_logo && (
+                                <div className={cx('error-text')}>{errors.shop_logo}</div>
+                            )}
+                        </div>
+
+                        <div className={cx('form-group')}>
+                            <label htmlFor="shop_certificate">Business Certificate *</label>
+                            <input
+                                type="file"
+                                id="shop_certificate"
+                                name="shop_certificate"
+                                onChange={handleFileChange}
+                                className={errors.shop_certificate ? cx('has-error') : ''}
+                                accept=".pdf,.jpg,.jpeg,.png"
+                            />
+                            {errors.shop_certificate && (
+                                <div className={cx('error-text')}>{errors.shop_certificate}</div>
+                            )}
+                        </div>
+
+                        <div className={cx('form-group')}>
+                            <label htmlFor="shop_phoneNumber">Shop Phone Number *</label>
+                            <input
+                                type="tel"
+                                id="shop_phoneNumber"
+                                name="shop_phoneNumber"
+                                value={formData.shop_phoneNumber}
+                                onChange={handleChange}
+                                className={errors.shop_phoneNumber ? cx('has-error') : ''}
+                            />
+                            {errors.shop_phoneNumber && (
+                                <div className={cx('error-text')}>{errors.shop_phoneNumber}</div>
+                            )}
+                        </div>
+
+                        <div className={cx('form-group')}>
+                            <label htmlFor="shop_description">Shop Description</label>
+                            <textarea
+                                id="shop_description"
+                                name="shop_description"
+                                value={formData.shop_description}
+                                onChange={handleChange}
+                                rows="4"
+                            />
+                        </div>
                     </div>
 
-                    <button type="submit" className={cx('register-button')} disabled={loading}>
-                        {loading ? 'Creating your shop...' : 'Create Shop Account'}
+                    {/* Shop Owner Information Section */}
+                    <div className={cx('form-section')}>
+                        <h2>Owner Information</h2>
+                        <div className={cx('form-group')}>
+                            <label htmlFor="shop_owner_fullName">Owner Full Name *</label>
+                            <input
+                                type="text"
+                                id="shop_owner_fullName"
+                                name="shop_owner_fullName"
+                                value={formData.shop_owner_fullName}
+                                onChange={handleChange}
+                                className={errors.shop_owner_fullName ? cx('has-error') : ''}
+                            />
+                            {errors.shop_owner_fullName && (
+                                <div className={cx('error-text')}>{errors.shop_owner_fullName}</div>
+                            )}
+                        </div>
+
+                        <div className={cx('form-group')}>
+                            <label htmlFor="shop_owner_email">Owner Email *</label>
+                            <input
+                                type="email"
+                                id="shop_owner_email"
+                                name="shop_owner_email"
+                                value={formData.shop_owner_email}
+                                onChange={handleChange}
+                                className={errors.shop_owner_email ? cx('has-error') : ''}
+                            />
+                            {errors.shop_owner_email && (
+                                <div className={cx('error-text')}>{errors.shop_owner_email}</div>
+                            )}
+                        </div>
+
+                        <div className={cx('form-group')}>
+                            <label htmlFor="shop_owner_phoneNumber">Owner Phone Number *</label>
+                            <input
+                                type="tel"
+                                id="shop_owner_phoneNumber"
+                                name="shop_owner_phoneNumber"
+                                value={formData.shop_owner_phoneNumber}
+                                onChange={handleChange}
+                                className={errors.shop_owner_phoneNumber ? cx('has-error') : ''}
+                            />
+                            {errors.shop_owner_phoneNumber && (
+                                <div className={cx('error-text')}>
+                                    {errors.shop_owner_phoneNumber}
+                                </div>
+                            )}
+                        </div>
+
+                        <div className={cx('form-group')}>
+                            <label htmlFor="shop_owner_cardID">Owner ID Card Number *</label>
+                            <input
+                                type="text"
+                                id="shop_owner_cardID"
+                                name="shop_owner_cardID"
+                                value={formData.shop_owner_cardID}
+                                onChange={handleChange}
+                                className={errors.shop_owner_cardID ? cx('has-error') : ''}
+                            />
+                            {errors.shop_owner_cardID && (
+                                <div className={cx('error-text')}>{errors.shop_owner_cardID}</div>
+                            )}
+                        </div>
+                    </div>
+                    <button type="submit" className={cx('submit-btn')} disabled={loading}>
+                        {loading ? 'Creating Shop...' : 'Create Shop'}
                     </button>
                 </form>
-
-                <div className={cx('footer-note')}>
-                    <p>
-                        Already have a shop?{' '}
-                        <Link to="/login" className={cx('login-link')}>
-                            Log in here
-                        </Link>
-                    </p>
-                </div>
             </div>
         </div>
     );

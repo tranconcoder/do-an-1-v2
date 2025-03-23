@@ -3,26 +3,22 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #f8f9fa;
-    background-image: linear-gradient(
-        135deg,
-        rgba(44, 140, 153, 0.1) 0%,
-        rgba(38, 100, 111, 0.1) 100%
-    );
-    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    padding: 3rem 1rem;
 }
 
 .register-card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom right, #ffffff, #fafbfc);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     width: 100%;
     max-width: 700px;
-    padding: 2.5rem;
+    padding: 3rem;
     margin: 2rem 0;
 
     @media (max-width: 768px) {
-        padding: 1.5rem;
+        padding: 2rem;
     }
 }
 
@@ -31,24 +27,30 @@
     margin-bottom: 2rem;
 
     .logo {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        background-color: #1a535c;
-        color: white;
-        width: 80px;
-        height: 80px;
+        font-size: 2.5rem;
+        width: 90px;
+        height: 90px;
+        background: linear-gradient(135deg, #4ecdc4 0%, #2ab5ac 100%);
+        box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto 1.5rem;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
     }
 
     h1 {
-        font-size: 2rem;
-        font-weight: 600;
+        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 2.2rem;
+        font-weight: 700;
         margin-bottom: 0.5rem;
-        color: #2c3e50;
     }
 
     .subtitle {
@@ -58,29 +60,54 @@
 }
 
 .error-message {
-    background-color: rgba(231, 76, 60, 0.1);
-    color: #e74c3c;
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    color: #c53030;
     padding: 1rem;
-    border-radius: 4px;
-    margin-bottom: 1.5rem;
-    font-size: 0.9rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+        content: '⚠';
+        font-size: 1.2rem;
+    }
 }
 
 .register-form {
     .form-section {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 2rem;
         margin-bottom: 2rem;
-        padding-bottom: 1.5rem;
-        border-bottom: 1px solid #ecf0f1;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        border: 1px solid #f0f0f0;
 
         &:last-of-type {
             border-bottom: none;
         }
 
         h2 {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: #2c3e50;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
             font-weight: 600;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f0f0f0;
+            position: relative;
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 50px;
+                height: 2px;
+                background: #4ecdc4;
+            }
         }
     }
 
@@ -105,31 +132,36 @@
         label {
             display: block;
             font-weight: 500;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-size: 0.95rem;
             color: #34495e;
         }
 
         input,
-        select {
+        select,
+        textarea {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            background: #f8fafc;
+            border: 2px solid #edf2f7;
+            border-radius: 8px;
+            padding: 0.875rem 1rem;
             font-size: 1rem;
-            transition: all 0.2s;
+            color: #2d3748;
+            transition: all 0.2s ease;
 
             &:focus {
+                background: #fff;
                 border-color: #4ecdc4;
                 outline: none;
-                box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+                box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.15);
             }
 
             &.has-error {
-                border-color: #e74c3c;
+                border-color: #fc8181;
+                background: #fff5f5;
 
                 &:focus {
-                    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+                    box-shadow: 0 0 0 3px rgba(252, 129, 129, 0.15);
                 }
             }
         }
@@ -142,12 +174,25 @@
             background-size: 0.65rem auto;
             padding-right: 2rem;
         }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
     }
 
     .error-text {
-        color: #e74c3c;
-        font-size: 0.85rem;
-        margin-top: 0.35rem;
+        color: #e53e3e;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+
+        &::before {
+            content: '⚠';
+            font-size: 0.875rem;
+        }
     }
 
     .checkbox-label {
@@ -170,6 +215,20 @@
         &:hover {
             text-decoration: underline;
         }
+    }
+}
+
+input[type='file'] {
+    background: #fff;
+    padding: 0.75rem;
+    border: 2px dashed #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: #4ecdc4;
+        background: #f7fffe;
     }
 }
 
@@ -203,6 +262,37 @@
     &:disabled {
         background-color: #95a5a6;
         cursor: not-allowed;
+    }
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #4ecdc4 0%, #2ab5ac 100%);
+    color: white;
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    &:disabled {
+        background: #cbd5e0;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
     }
 }
 

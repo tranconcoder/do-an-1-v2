@@ -1,5 +1,4 @@
-import '';
-import type { ShopStatus } from '@/enums/shop.enum.ts';
+import type { ShopStatus, ShopType } from '@/enums/shop.enum.ts';
 
 declare global {
     namespace model {
@@ -12,6 +11,7 @@ declare global {
                 /* -------------------- Shop information -------------------- */
                 shop_name: string;
                 shop_logo: string;
+                shop_type: ShopType;
                 shop_certificate: string;
                 shop_address: moduleTypes.mongoose.ObjectId;
                 shop_phoneNumber: string;

@@ -5,3 +5,9 @@ export enum ShopStatus {
     LOCKING = 'locking',
     BANNED = 'banned'
 }
+
+export enum ShopType {
+    INDIVIDUAL = 'INDIVIDUAL',
+    COMPANY = 'COMPANY',
+    PARTNERSHIP = 'PARTNERSHIP'
+}

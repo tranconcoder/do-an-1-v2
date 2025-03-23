@@ -1,0 +1,5 @@
+export const ShopType = {
+    INDIVIDUAL: 'INDIVIDUAL',
+    COMPANY: 'COMPANY',
+    PARTNERSHIP: 'PARTNERSHIP'
+};
