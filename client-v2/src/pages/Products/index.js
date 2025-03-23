@@ -42,6 +42,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 // Import the debounce hook
 import useDebounce from '../../hooks/useDebounce';
+import WishlistButton from '../../components/WishlistButton';
 
 const cx = classNames.bind(styles);
 
@@ -1014,16 +1015,19 @@ function Products() {
                                 </div>
                             </div>
 
-                            <button
-                                className={cx('add-to-cart-btn')}
-                                onClick={(e) => handleAddToCart(product.id, e)}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faShoppingCart}
-                                    className={cx('cart-icon')}
-                                />
-                                Add to Cart
-                            </button>
+                            <div className={cx('product-actions')}>
+                                <button
+                                    className={cx('add-to-cart-btn')}
+                                    onClick={(e) => handleAddToCart(product.id, e)}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faShoppingCart}
+                                        className={cx('cart-icon')}
+                                    />
+                                    Add to Cart
+                                </button>
+                                <WishlistButton productId={product.id} />
+                            </div>
                         </div>
                     </div>
                 ))}

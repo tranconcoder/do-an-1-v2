@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './PopularSearches.module.scss';
 import { useProducts } from '../../configs/ProductsData';
+import WishlistButton from '../WishlistButton';
 
 const cx = classNames.bind(styles);
 
@@ -16,24 +17,30 @@ const DEFAULT_IMAGE =
     'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&auto=format&fit=crop&q=80';
 
 const PopularSearches = () => {
-    const { getPopularProducts } = useProducts();
+    const { getPopularProducts, addToCart } = useProducts();
     const popularProducts = getPopularProducts();
+
+    const handleAddToCart = (productId, event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        addToCart(productId, 1);
+    };
 
     return (
         <section className={cx('popular-searches-section')}>
             <div className={cx('section-header')}>
                 <div className={cx('header-content')}>
                     <div className={cx('title-container')}>
-                        <h2 className={cx('section-title')}>Most Popular Products</h2>
+                        <h2 className={cx('section-title')}>Sản Phẩm Nổi Bật</h2>
                         <div className={cx('search-icon')}>🔍</div>
                     </div>
                     <p className={cx('section-subtitle')}>
-                        Discover our best-selling products loved by customers
+                        Khám phá những sản phẩm bán chạy nhất được yêu thích
                     </p>
                 </div>
                 <div className={cx('trending-tag')}>
                     <span className={cx('trending-icon')}>📈</span>
-                    <span>Top sellers</span>
+                    <span>Bán chạy</span>
                 </div>
             </div>
 
@@ -70,11 +77,20 @@ const PopularSearches = () => {
                             </div>
                             <div className={cx('sale-label')}>
                                 <span className={cx('sale-icon')}>🔥</span>
-                                <span className={cx('sale-text')}>ON SALE</span>
+                                <span className={cx('sale-text')}>GIẢM GIÁ</span>
                             </div>
                             <div className={cx('sold-count')}>
                                 <span className={cx('sold-icon')}>🛒</span>
-                                <span>{formatNumber(product.sold)} sold</span>
+                                <span>{formatNumber(product.sold)} đã bán</span>
+                            </div>
+                            <div className={cx('product-actions')}>
+                                <button
+                                    className={cx('add-to-cart-btn')}
+                                    onClick={(e) => handleAddToCart(product.id, e)}
+                                >
+                                    Thêm vào giỏ hàng
+                                </button>
+                                <WishlistButton productId={product.id} />
                             </div>
                         </div>
                     </div>
@@ -83,7 +99,7 @@ const PopularSearches = () => {
 
             <div className={cx('view-all-container')}>
                 <Link to="/popular-products" className={cx('view-all-button')}>
-                    View All Popular Products
+                    Xem Tất Cả Sản Phẩm Nổi Bật
                     <span className={cx('arrow-icon')}>→</span>
                 </Link>
             </div>

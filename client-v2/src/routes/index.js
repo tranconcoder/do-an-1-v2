@@ -30,6 +30,7 @@ const AppRoutes = () => {
                     <Route path="cart" element={<Cart />} />
                     <Route path="orders" element={<Order />} />
                     <Route path="checkout" element={<Checkout />} />
+                    <Route path="wishlist" element={<Wishlist />} />
                 </Route>
 
                 {/* Auth routes with AuthLayout */}
@@ -40,8 +41,6 @@ const AppRoutes = () => {
 
                 <Route path="/login" element={<Navigate to="/auth/login" replace />} />
                 <Route path="/register" element={<Navigate to="/auth/register" replace />} />
-
-                <Route path="/wishlist" element={<Wishlist />} />
 
                 <Route path="*" element={<div>Page not found</div>} />
             </Routes>

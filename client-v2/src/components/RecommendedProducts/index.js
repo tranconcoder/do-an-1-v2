@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './RecommendedProducts.module.scss';
 import { useProducts } from '../../configs/ProductsData';
+import WishlistButton from '../WishlistButton';
 
 const cx = classNames.bind(styles);
 
@@ -53,16 +54,16 @@ const RecommendedProducts = () => {
             <div className={cx('section-header')}>
                 <div className={cx('header-content')}>
                     <div className={cx('title-container')}>
-                        <h2 className={cx('section-title')}>Recommended For You</h2>
+                        <h2 className={cx('section-title')}>Gợi Ý Cho Bạn</h2>
                         <div className={cx('recommendation-icon')}>💫</div>
                     </div>
                     <p className={cx('section-subtitle')}>
-                        Products we think you'll love based on your preferences
+                        Những sản phẩm bạn có thể thích dựa trên sở thích của bạn
                     </p>
                 </div>
                 <div className={cx('just-for-you')}>
                     <span className={cx('heart-icon')}>❤️</span>
-                    <span>Personalized for you</span>
+                    <span>Dành riêng cho bạn</span>
                 </div>
             </div>
 
@@ -76,7 +77,7 @@ const RecommendedProducts = () => {
                             {product.discount > 0 && (
                                 <div className={cx('discount-badge')}>-{product.discount}%</div>
                             )}
-                            {product.isNew && <div className={cx('new-badge')}>New</div>}
+                            {product.isNew && <div className={cx('new-badge')}>Mới</div>}
                             <img
                                 src={product.thumbnail || product.images?.[0] || DEFAULT_IMAGE}
                                 alt={product.name}
@@ -104,8 +105,8 @@ const RecommendedProducts = () => {
                             </div>
 
                             <div className={cx('product-stock')}>
-                                <span className={cx('stock-info')}>{product.stock} in stock</span>
-                                <span className={cx('sold-info')}>{product.sold} sold</span>
+                                <span className={cx('stock-info')}>{product.stock} trong kho</span>
+                                <span className={cx('sold-info')}>{product.sold} đã bán</span>
                             </div>
 
                             <div className={cx('product-actions')}>
@@ -113,8 +114,9 @@ const RecommendedProducts = () => {
                                     className={cx('add-to-cart-btn')}
                                     onClick={(e) => handleAddToCart(product.id, e)}
                                 >
-                                    Add to Cart
+                                    Thêm vào giỏ hàng
                                 </button>
+                                <WishlistButton productId={product.id} />
                             </div>
                         </div>
                     </div>
@@ -127,7 +129,7 @@ const RecommendedProducts = () => {
                     onClick={goToPreviousPage}
                     disabled={currentPage === 1}
                 >
-                    &lt; Prev
+                    &lt; Trước
                 </button>
 
                 {totalPages <= 5 ? (
@@ -198,14 +200,13 @@ const RecommendedProducts = () => {
                     onClick={goToNextPage}
                     disabled={currentPage === totalPages}
                 >
-                    Next &gt;
+                    Sau &gt;
                 </button>
             </div>
 
             <div className={cx('view-all-container')}>
                 <Link to="/recommended-products" className={cx('view-all-button')}>
-                    View All Recommendations
-                    <span className={cx('arrow-icon')}>→</span>
+                    Xem Tất Cả Gợi Ý<span className={cx('arrow-icon')}>→</span>
                 </Link>
             </div>
         </section>

@@ -12,11 +12,17 @@ import {
     faChevronLeft,
     faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
+import WishlistButton from '../WishlistButton';
 
 const cx = classNames.bind(styles);
 
 const DEFAULT_IMAGE =
     'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&auto=format&fit=crop&q=80';
+
+// Add helper function for VND formatting
+const formatVND = (price) => {
+    return new Intl.NumberFormat('vi-VN').format(Math.round(price * 23000)) + '₫';
+};
 
 function FlashSale() {
     const { getFlashSaleProducts, addToCart } = useProducts();
@@ -132,7 +138,7 @@ function FlashSale() {
             <div className={cx('flash-sale-header')}>
                 <div className={cx('title-container')}>
                     <FontAwesomeIcon icon={faBolt} className={cx('flash-icon')} />
-                    <h2 className={cx('section-title')}>Flash Sale</h2>
+                    <h2 className={cx('section-title')}>Khuyến Mãi Sốc</h2>
                     <span className={cx('fire-icon')}>
                         <FontAwesomeIcon icon={faFire} />
                     </span>
@@ -142,17 +148,17 @@ function FlashSale() {
                     <div className={cx('countdown')}>
                         <div className={cx('time-block')}>
                             <span className={cx('time')}>{formatTime(timeLeft.hours)}</span>
-                            <span className={cx('label')}>Hours</span>
+                            <span className={cx('label')}>Giờ</span>
                         </div>
                         <span className={cx('separator')}>:</span>
                         <div className={cx('time-block')}>
                             <span className={cx('time')}>{formatTime(timeLeft.minutes)}</span>
-                            <span className={cx('label')}>Mins</span>
+                            <span className={cx('label')}>Phút</span>
                         </div>
                         <span className={cx('separator')}>:</span>
                         <div className={cx('time-block')}>
                             <span className={cx('time')}>{formatTime(timeLeft.seconds)}</span>
-                            <span className={cx('label')}>Secs</span>
+                            <span className={cx('label')}>Giây</span>
                         </div>
                     </div>
                 </div>
@@ -166,7 +172,7 @@ function FlashSale() {
                         })}
                         onClick={handlePrevPage}
                         disabled={currentPage === 0 || isAnimating}
-                        aria-label="Previous products"
+                        aria-label="Sản phẩm trước"
                     >
                         <FontAwesomeIcon icon={faChevronLeft} />
                     </button>
@@ -208,10 +214,10 @@ function FlashSale() {
                                         <h3 className={cx('product-name')}>{product.name}</h3>
                                         <div className={cx('price-container')}>
                                             <span className={cx('sale-price')}>
-                                                ${product.price.toFixed(2)}
+                                                {formatVND(product.price)}
                                             </span>
                                             <span className={cx('original-price')}>
-                                                ${Number(product.originalPrice).toFixed(2)}
+                                                {formatVND(Number(product.originalPrice))}
                                             </span>
                                         </div>
                                         <div className={cx('progress-container')}>
@@ -228,21 +234,24 @@ function FlashSale() {
                                                 ></div>
                                             </div>
                                             <span className={cx('sold-text')}>
-                                                {product.sold} sold
+                                                {product.sold} đã bán
                                             </span>
                                         </div>
                                     </div>
                                 </Link>
-                                <button
-                                    className={cx('buy-now-btn')}
-                                    onClick={(e) => handleAddToCart(product.id, e)}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faShoppingCart}
-                                        className={cx('cart-icon')}
-                                    />
-                                    Buy Now
-                                </button>
+                                <div className={cx('product-actions')}>
+                                    <button
+                                        className={cx('buy-now-btn')}
+                                        onClick={(e) => handleAddToCart(product.id, e)}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faShoppingCart}
+                                            className={cx('cart-icon')}
+                                        />
+                                        Mua Ngay
+                                    </button>
+                                    <WishlistButton productId={product.id} />
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -260,7 +269,7 @@ function FlashSale() {
                             (currentPage + 1) * productsPerPage >= flashSaleProducts.length ||
                             isAnimating
                         }
-                        aria-label="Next products"
+                        aria-label="Sản phẩm tiếp theo"
                     >
                         <FontAwesomeIcon icon={faChevronRight} />
                     </button>
@@ -282,7 +291,7 @@ function FlashSale() {
                                             (index === currentPage || index === currentPage - 1)))
                             })}
                             onClick={() => handleDotClick(index)}
-                            aria-label={`Go to page ${index + 1}`}
+                            aria-label={`Đến trang ${index + 1}`}
                             disabled={isAnimating}
                         />
                     ))}
@@ -291,7 +300,7 @@ function FlashSale() {
 
             <div className={cx('view-more-container')}>
                 <Link to="/flash-sale" className={cx('view-more-btn')}>
-                    View All Flash Deals
+                    Xem Tất Cả
                 </Link>
             </div>
         </section>

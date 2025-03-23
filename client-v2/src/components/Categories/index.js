@@ -31,10 +31,8 @@ const Categories = () => {
     return (
         <section className={cx('categories-section')}>
             <div className={cx('section-header')}>
-                <h2 className={cx('section-title')}>Shop by Category</h2>
-                <p className={cx('section-subtitle')}>
-                    Explore our wide range of products by categories
-                </p>
+                <h2 className={cx('section-title')}>Danh Mục Sản Phẩm</h2>
+                <p className={cx('section-subtitle')}>Khám phá đa dạng sản phẩm theo danh mục</p>
             </div>
 
             <div className={cx('categories-container')}>
