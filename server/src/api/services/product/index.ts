@@ -22,9 +22,9 @@ export default class ProductFactory {
     /* ------------------------------------------------------ */
     /*                     Create product                     */
     /* ------------------------------------------------------ */
-    public static createProduct = async <K extends modelTypes.product.ProductList>(
+    public static createProduct = async <K extends model.product.ProductList>(
         type: K,
-        payload: serviceTypes.product.arguments.CreateProduct
+        payload: service.product.arguments.CreateProduct
     ) => {
         const serviceClass = await getProduct<K>(type);
         if (!serviceClass) throw new NotFoundErrorResponse('Not found product service');
@@ -37,7 +37,7 @@ export default class ProductFactory {
     /* ------------------------------------------------------ */
     /*                         Search                         */
     /* ------------------------------------------------------ */
-    public static searchProduct = async (payload: serviceTypes.product.arguments.SearchProduct) => {
+    public static searchProduct = async (payload: service.product.arguments.SearchProduct) => {
         return await searchProduct(payload);
     };
 
@@ -48,15 +48,12 @@ export default class ProductFactory {
     public static getProductById = async ({
         userId,
         productId
-    }: serviceTypes.product.arguments.GetProductById) => {
+    }: service.product.arguments.GetProductById) => {
         return await findProductById({ userId, productId });
     };
 
     /* -------------------- Get all products -------------------- */
-    public static getAll = async ({
-        limit,
-        page
-    }: serviceTypes.product.arguments.GetAllProducts) => {
+    public static getAll = async ({ limit, page }: service.product.arguments.GetAllProducts) => {
         return await findAllProduct({
             query: { is_publish: true },
             limit,
@@ -70,7 +67,7 @@ export default class ProductFactory {
     public static getAllProductByShop = async ({
         userId,
         ...payload
-    }: serviceTypes.product.arguments.GetAllProductByShop) => {
+    }: service.product.arguments.GetAllProductByShop) => {
         const isOwner =
             Boolean(await checkUserIsShop({ userId })) && payload.product_shop === userId;
 
@@ -82,28 +79,28 @@ export default class ProductFactory {
 
     /* ------------ Get all product draft by shop ----------- */
     public static getAllProductDraftByShop = async (
-        payload: serviceTypes.product.arguments.GetAllProductDraftByShop
+        payload: service.product.arguments.GetAllProductDraftByShop
     ) => {
         return await findAllProductDraftByShop(payload);
     };
 
     /* ----------- Get all product publish by shop ---------- */
     public static getAllProductPublishByShop = async (
-        payload: serviceTypes.product.arguments.GetAllProductPublishByShop
+        payload: service.product.arguments.GetAllProductPublishByShop
     ) => {
         return await findAllProductPublishByShop(payload);
     };
 
     /* ------------ Get all product undraft by shop  ------------ */
     public static getAllProductUndraftByShop = async (
-        payload: serviceTypes.product.arguments.GetAllProductUndraftByShop
+        payload: service.product.arguments.GetAllProductUndraftByShop
     ) => {
         return await findAllProductDraftByShop(payload);
     };
 
     /* ----------- Get all product unpublish by shop ---------- */
     public static getAllProductUnpublishByShop = async (
-        payload: serviceTypes.product.arguments.GetAllProductUnpublishByShop
+        payload: service.product.arguments.GetAllProductUnpublishByShop
     ) => {
         return await findAllProductPublishByShop(payload);
     };
@@ -114,7 +111,7 @@ export default class ProductFactory {
     public static updateProduct = async ({
         product_id: _id,
         ...payload
-    }: serviceTypes.product.arguments.UpdateProduct) => {
+    }: service.product.arguments.UpdateProduct) => {
         const product = await findOneProduct({
             _id,
             product_shop: payload.product_shop,
@@ -143,15 +140,13 @@ export default class ProductFactory {
     };
 
     /* ----------------- Set draft product  ----------------- */
-    public static setDraftProduct = async (
-        payload: serviceTypes.product.arguments.SetDraftProduct
-    ) => {
+    public static setDraftProduct = async (payload: service.product.arguments.SetDraftProduct) => {
         return await setDraftProduct(payload);
     };
 
     /* ---------------- Set publish product  ---------------- */
     public static setPublishProduct = async (
-        payload: serviceTypes.product.arguments.SetPublishProduct
+        payload: service.product.arguments.SetPublishProduct
     ) => {
         return await setPublishProduct(payload);
     };
@@ -160,11 +155,11 @@ export default class ProductFactory {
     /*                     Remove product                     */
     /* ------------------------------------------------------ */
     public static removeProduct = async (
-        id: serviceTypes.product.arguments.RemoveProduct,
+        id: service.product.arguments.RemoveProduct,
         userId: string
     ) => {
         /* ------------------ Get product type ------------------ */
-        const type: modelTypes.product.ProductList | undefined = await findProductCategoryById(id);
+        const type: model.product.ProductList | undefined = await findProductCategoryById(id);
         if (!type) throw new NotFoundErrorResponse('Product not found!');
 
         /* ----------------- Init service class ----------------- */

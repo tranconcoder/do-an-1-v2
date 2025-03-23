@@ -22,7 +22,7 @@ export default class KeyTokenService {
         privateKey,
         publicKey,
         refreshToken
-    }: serviceTypes.key.arguments.SaveKeyToken) => {
+    }: service.key.arguments.SaveKeyToken) => {
         const keyToken = await keyTokenModel.findOneAndReplace(
             {
                 user: userId
@@ -49,7 +49,7 @@ export default class KeyTokenService {
         userId,
         refreshToken,
         oldRefreshToken
-    }: serviceTypes.key.arguments.ReplaceRefreshTokenWithNew) => {
+    }: service.key.arguments.ReplaceRefreshTokenWithNew) => {
         const updateResult = await keyTokenModel.updateOne(
             { user: userId, 'refresh_tokens.$': oldRefreshToken },
             {

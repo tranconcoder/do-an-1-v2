@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 declare global {
-    namespace modelTypes {
+    namespace model {
         namespace inventory {
             interface CommonTypes {
                 _id: string;

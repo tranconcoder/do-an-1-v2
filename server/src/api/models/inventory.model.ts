@@ -1,5 +1,4 @@
 import { model, Schema } from 'mongoose';
-import { ObjectId } from '@/configs/mongoose.config.js';
 import { timestamps, required, ObjectId } from '@/configs/mongoose.config.js';
 import { PRODUCT_MODEL_NAME } from './product.model.js';
 import { USER_MODEL_NAME } from './user.model.js';
@@ -7,7 +6,7 @@ import { USER_MODEL_NAME } from './user.model.js';
 export const INVENTORY_MODEL_NAME = 'Inventory';
 export const INVENTORY_COLLECTION_NAME = 'inventories';
 
-const inventorySchema = new Schema<modelTypes.inventory.InventorySchema>(
+const inventorySchema = new Schema<model.inventory.InventorySchema>(
     {
         inventory_product: {
             type: ObjectId,

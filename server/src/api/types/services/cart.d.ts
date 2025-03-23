@@ -1,7 +1,7 @@
 import type { CartItemStatus } from '@/enums/cart.enum.js';
 
 declare global {
-    namespace serviceTypes {
+    namespace service {
         namespace cart {
             /* ---------------------------------------------------------- */
             /*                         Arguments                          */

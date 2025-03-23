@@ -1,14 +1,14 @@
 import '';
 
 declare global {
-    namespace serviceTypes {
+    namespace service {
         namespace checkout {
             /* ---------------------------------------------------------- */
             /*                         Definition                         */
             /* ---------------------------------------------------------- */
             namespace definition {
                 interface CheckoutResult
-                    extends Omit<modelTypes.checkout.CheckoutSchema, 'user' | '_id'> {}
+                    extends Omit<model.checkout.CheckoutSchema, 'user' | '_id'> {}
             }
 
             /* ---------------------------------------------------------- */

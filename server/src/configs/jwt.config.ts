@@ -13,4 +13,4 @@ export default {
             algorithm: 'RS512'
         }
     }
-} as serviceTypes.jwt.definition.JwtConfig;
+} as service.jwt.definition.JwtConfig;

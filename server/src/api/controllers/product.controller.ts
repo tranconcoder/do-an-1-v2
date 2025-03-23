@@ -22,24 +22,27 @@ export default class ProductController {
     /* ------------------------------------------------------ */
     /*                         Search                         */
     /* ------------------------------------------------------ */
-    public static searchProduct: RequestWithQuery<serviceTypes.product.arguments.SearchProduct> =
-        async (req, res, _) => {
-            new SuccessResponse({
-                name: 'Search product',
-                message: 'Search product success',
-                statusCode: 200,
-                metadata: await ProductFactory.searchProduct({
-                    page: Number(req.query.page),
-                    query: req.query.query
-                })
-            }).send(res);
-        };
+    public static searchProduct: RequestWithQuery<service.product.arguments.SearchProduct> = async (
+        req,
+        res,
+        _
+    ) => {
+        new SuccessResponse({
+            name: 'Search product',
+            message: 'Search product success',
+            statusCode: 200,
+            metadata: await ProductFactory.searchProduct({
+                page: Number(req.query.page),
+                query: req.query.query
+            })
+        }).send(res);
+    };
 
     /* ------------------------------------------------------ */
     /*                      Get product                       */
     /* ------------------------------------------------------ */
     /* ----------------- Get product by id  ----------------- */
-    public static getProductById: RequestWithParams<serviceTypes.product.arguments.GetProductById> =
+    public static getProductById: RequestWithParams<service.product.arguments.GetProductById> =
         async (req, res, _) => {
             new SuccessResponse({
                 name: 'Get product by id',
@@ -155,19 +158,22 @@ export default class ProductController {
     /*                     Update product                     */
     /* ------------------------------------------------------ */
     /* ------------------- Update product ------------------- */
-    public static updateProduct: RequestWithBody<serviceTypes.product.arguments.UpdateProduct> =
-        async (req, res, _) => {
-            new SuccessResponse({
-                name: 'Update product',
-                statusCode: 200,
-                message: 'Update product success',
-                metadata:
-                    (await ProductFactory.updateProduct({
-                        ...req.body,
-                        product_shop: req.userId as string
-                    })) || {}
-            }).send(res);
-        };
+    public static updateProduct: RequestWithBody<service.product.arguments.UpdateProduct> = async (
+        req,
+        res,
+        _
+    ) => {
+        new SuccessResponse({
+            name: 'Update product',
+            statusCode: 200,
+            message: 'Update product success',
+            metadata:
+                (await ProductFactory.updateProduct({
+                    ...req.body,
+                    product_shop: req.userId as string
+                })) || {}
+        }).send(res);
+    };
 
     /* ----------------- Set draft product  ----------------- */
     public static setDraftProduct: RequestWithBody<joiTypes.product.definition.SetDraftProductSchema> =

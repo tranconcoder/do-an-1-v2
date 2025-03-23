@@ -1,21 +1,21 @@
 import type { CategoryEnum } from '@/enums/product.enum.js';
 
 declare global {
-    namespace serviceTypes {
+    namespace service {
         namespace product {
             /* ====================================================== */
             /*                       DEFINITION                       */
             /* ====================================================== */
             namespace definition {
                 interface Product
-                    extends Partial<modelTypes.product.ProductSchema>,
+                    extends Partial<model.product.ProductSchema>,
                         Partial<
                             Pick<
                                 joiTypes.product.definition.UpdateProductSchema,
                                 'product_new_category'
                             >
                         > {
-                    product_attributes?: modelTypes.product.ProductSchemaList;
+                    product_attributes?: model.product.ProductSchemaList;
                 }
             }
 
@@ -50,7 +50,7 @@ declare global {
 
                 /* --------------- Get all product by shop -------------- */
                 interface GetAllProductByShop
-                    extends Pick<modelTypes.product.ProductSchema, 'product_shop'>,
+                    extends Pick<model.product.ProductSchema, 'product_shop'>,
                         commonTypes.object.PageSlitting {
                     userId: string;
                 }
@@ -67,8 +67,8 @@ declare global {
                 /* ------------------- Update product ------------------- */
                 interface UpdateProduct
                     extends joiTypes.product.definition.UpdateProductSchema,
-                        Pick<modelTypes.product.ProductSchema, 'product_shop'> {
-                    product_attributes: modelTypes.product.ProductSchemaList;
+                        Pick<model.product.ProductSchema, 'product_shop'> {
+                    product_attributes: model.product.ProductSchemaList;
                 }
 
                 interface SetDraftProduct

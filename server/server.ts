@@ -11,7 +11,6 @@ import loggerService from './src/api/services/logger.service.js';
 import MongoDB from './src/app/db.app.js';
 import { provinceModel, cityModel, districtModel } from './src/api/models/location.model.js';
 import path from 'path';
-import { getProjection } from '@/utils/mongoose.util.js';
 
 const server = app.listen(PORT, HOST, () => {
     console.log(`Server is running on ${BASE_URL}`);

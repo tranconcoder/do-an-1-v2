@@ -1,7 +1,7 @@
 import type keyTokenModel from '@/models/keyToken.model.js';
 
 declare global {
-    namespace modelTypes {
+    namespace model {
         namespace keyToken {
             interface KeyTokenSchema {
                 user: mongoose.Types.ObjectId;

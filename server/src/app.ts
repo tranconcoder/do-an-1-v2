@@ -57,9 +57,9 @@ await MongoDB.getInstance().connect();
 // Start service
 ScheduledService.startScheduledService();
 
-/* ====================================================== */
-/*                         ROUTES;                        */
-/* ====================================================== */
+/* ---------------------------------------------------------- */
+/*                           Routes                           */
+/* ---------------------------------------------------------- */
 // Append newest API version if not found
 app.use([`/${API_VERSION}/api`, '/'], rootRoute);
 

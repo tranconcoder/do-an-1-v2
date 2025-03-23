@@ -18,9 +18,7 @@ export const addProductShopToSchema = <T = any>(schema: T) => {
     } as commonTypes.utils.AutoType<T> & typeof productShop;
 };
 
-export const importProductModel = async <T extends modelTypes.product.ProductList>(
-    productName: T
-) => {
+export const importProductModel = async <T extends model.product.ProductList>(productName: T) => {
     const PRODUCT_MODEL_PATH = path.join(import.meta.dirname, '../models/product.model.js');
 
     return await import(PRODUCT_MODEL_PATH).then((x) => x[`${productName.toLowerCase()}Schema`]);

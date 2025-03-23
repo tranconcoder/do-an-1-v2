@@ -1,7 +1,7 @@
 import { CronJob } from 'cron';
 
 declare global {
-    namespace serviceTypes {
+    namespace service {
         namespace scheduled {
             /* ====================================================== */
             /*                   FUNCTION ARGUMENTS                   */

@@ -1,7 +1,7 @@
 import '';
 
 declare global {
-    namespace serviceTypes {
+    namespace service {
         namespace key {
             /* ====================================================== */
             /*                       DEFINITION                       */

@@ -19,7 +19,7 @@ const PRODUCT_SHOP_FIELD = {
 export const PRODUCT_MODEL_NAME = 'Product';
 export const PRODUCT_COLLECTION_NAME = 'products';
 
-const productSchema = new Schema<modelTypes.product.ProductSchema, true>(
+const productSchema = new Schema<model.product.ProductSchema, true>(
     {
         ...PRODUCT_SHOP_FIELD,
         product_name: { type: String, required },
@@ -67,7 +67,7 @@ export const productModel = model(PRODUCT_MODEL_NAME, productSchema);
 export const PHONE_MODEL_NAME = CategoryEnum.Phone;
 export const PHONE_COLLECTION_NAME = 'phone';
 
-const phoneSchema = new Schema<modelTypes.product.PhoneSchema>(
+const phoneSchema = new Schema<model.product.PhoneSchema>(
     {
         ...PRODUCT_SHOP_FIELD,
         phone_processor: { type: String, required },
@@ -121,7 +121,7 @@ export const phoneModel = model(PHONE_MODEL_NAME, phoneSchema);
 export const CLOTHES_MODEL_NAME = CategoryEnum.Clothes;
 export const CLOTHES_COLLECTION_NAME = 'clothes';
 
-const clothesSchema = new Schema<modelTypes.product.ClothesSchema>(
+const clothesSchema = new Schema<model.product.ClothesSchema>(
     {
         ...PRODUCT_SHOP_FIELD,
         size: { type: String, required },

@@ -6,7 +6,7 @@ import { get$SetNestedFromObject } from '@/utils/mongoose.util.js';
 import { createInventory, updateInventoryStock } from '@/models/repository/inventory/index.js';
 import { BadRequestErrorResponse } from '@/response/error.response.js';
 
-export abstract class Product implements serviceTypes.product.definition.Product {
+export abstract class Product implements service.product.definition.Product {
     public _id?: string | mongoose.Types.ObjectId;
     public product_slug?: string;
     public product_rating_avg?: number;
@@ -18,7 +18,7 @@ export abstract class Product implements serviceTypes.product.definition.Product
     public product_description?: string;
     public product_category?: CategoryEnum;
     public product_new_category?: CategoryEnum;
-    public product_attributes?: modelTypes.product.ProductSchemaList;
+    public product_attributes?: model.product.ProductSchemaList;
     public is_draft?: boolean;
     public is_publish?: boolean;
 
@@ -36,7 +36,7 @@ export abstract class Product implements serviceTypes.product.definition.Product
         product_attributes,
         is_draft,
         is_publish
-    }: serviceTypes.product.definition.Product) {
+    }: service.product.definition.Product) {
         this._id = _id;
         this.product_slug = product_slug;
         this.product_rating_avg = product_rating_avg;
@@ -108,7 +108,7 @@ export abstract class Product implements serviceTypes.product.definition.Product
     }
 
     private getValidProperties() {
-        const validProperties: serviceTypes.product.definition.Product = {};
+        const validProperties: service.product.definition.Product = {};
 
         Object.keys(this).forEach((k) => {
             const key = k as keyof typeof validProperties;

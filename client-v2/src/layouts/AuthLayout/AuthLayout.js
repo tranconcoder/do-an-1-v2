@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet, useLocation, useNavigate, Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './AuthLayout.module.scss';
-import ImageSlider from '../components/ImageSlider';
+import ImageSlider from '../../components/ImageSlider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faHome } from '@fortawesome/free-solid-svg-icons';
 

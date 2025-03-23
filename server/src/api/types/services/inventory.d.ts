@@ -1,11 +1,10 @@
-declare namespace serviceTypes {
+declare namespace service {
     namespace inventory {
         /* ---------------------------------------------------------- */
         /*                         Arguments                          */
         /* ---------------------------------------------------------- */
         namespace arguments {
-            interface CreateInventory
-                extends modelTypes.inventory.InventorySchema {}
+            interface CreateInventory extends model.inventory.InventorySchema {}
         }
     }
 }

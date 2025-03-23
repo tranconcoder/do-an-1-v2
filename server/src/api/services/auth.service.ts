@@ -24,7 +24,7 @@ export default class AuthService {
         email,
         password,
         fullName
-    }: serviceTypes.auth.arguments.SignUp) => {
+    }: service.auth.arguments.SignUp) => {
         /* --------------- Check if user is exists -------------- */
         const userIsExist = await UserService.checkUserExist({
             $or: [{ phoneNumber }, { email }]
@@ -79,7 +79,7 @@ export default class AuthService {
     /* ------------------------------------------------------ */
     /*                         Login                          */
     /* ------------------------------------------------------ */
-    public static login = async ({ phoneNumber, password }: serviceTypes.auth.arguments.Login) => {
+    public static login = async ({ phoneNumber, password }: service.auth.arguments.Login) => {
         /* -------------- Check if user is exists ------------- */
         const user = await UserService.findOne({ phoneNumber });
         if (!user) throw new NotFoundErrorResponse('Username or password is not correct!');
@@ -127,7 +127,7 @@ export default class AuthService {
     /* ------------------------------------------------------ */
     /*                  Handle refresh token                  */
     /* ------------------------------------------------------ */
-    public static newToken = async ({ refreshToken }: serviceTypes.auth.arguments.NewToken) => {
+    public static newToken = async ({ refreshToken }: service.auth.arguments.NewToken) => {
         /* -------------- Get user info in token -------------- */
         const payload = JwtService.parseJwtPayload(refreshToken);
         if (!payload) throw new ForbiddenErrorResponse('Token is not generate by server!');

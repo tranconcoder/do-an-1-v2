@@ -1,7 +1,7 @@
 import type { PaymentBank, PaymentType } from '@/enums/payment.enum.js';
 
 declare global {
-    namespace serviceTypes {
+    namespace service {
         namespace order {
             /* ---------------------------------------------------------- */
             /*                         Arguments                          */

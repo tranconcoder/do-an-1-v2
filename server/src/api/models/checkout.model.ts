@@ -7,7 +7,7 @@ import { ObjectId } from '@/configs/mongoose.config.js';
 export const CHECKOUT_MODEL_NAME = 'Checkout';
 export const CHECKOUT_COLLECTION_NAME = 'checkouts';
 
-export const checkoutSchema = new Schema<modelTypes.checkout.CheckoutSchema>(
+export const checkoutSchema = new Schema<model.checkout.CheckoutSchema>(
     {
         user: { type: ObjectId, required, index: true },
         total_price_raw: { type: Number, required },

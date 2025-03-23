@@ -84,7 +84,7 @@ export const setUserProfile = async ({
     email,
     phoneNumber,
     role
-}: serviceTypes.redis.SetUserProfile) => {
+}: service.redis.SetUserProfile) => {
     await redisClient.hSet(getUserProfileKey(id), {
         fullName,
         email,

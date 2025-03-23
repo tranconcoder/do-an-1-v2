@@ -1,7 +1,7 @@
 import type { DiscountTypeEnum } from '@/enums/discount.enum.js';
 
 declare global {
-    namespace modelTypes {
+    namespace model {
         namespace checkout {
             interface CommonTypes {
                 _id: string;

@@ -16,7 +16,7 @@ export default class CartService {
     /* ---------------------------------------------------------- */
 
     /* ---------------------- Add to cart  ---------------------- */
-    public static async addToCart({ productId, userId }: serviceTypes.cart.arguments.AddToCart) {
+    public static async addToCart({ productId, userId }: service.cart.arguments.AddToCart) {
         /* ---------------- Check product is active  ---------------- */
         const foundProduct = await findProductById({ productId });
         if (!foundProduct || !foundProduct.is_publish)
@@ -67,7 +67,7 @@ export default class CartService {
     /* ---------------------------------------------------------- */
 
     /* ------------------------ Get cart ------------------------ */
-    public static async getCart({ user }: serviceTypes.cart.arguments.GetCart) {
+    public static async getCart({ user }: service.cart.arguments.GetCart) {
         const cart = await findOneCartByUser({ user });
 
         return cart;
@@ -78,7 +78,7 @@ export default class CartService {
     /* ---------------------------------------------------------- */
 
     /* ---------------------- Update cart  ---------------------- */
-    public static async updateCart({ user, cartShop }: serviceTypes.cart.arguments.UpdateCart) {
+    public static async updateCart({ user, cartShop }: service.cart.arguments.UpdateCart) {
         const cart = await findOneCartByUser({
             user
         });
@@ -141,7 +141,7 @@ export default class CartService {
     public static async deleteProductFromCart({
         productId,
         userId
-    }: serviceTypes.cart.arguments.DeleteProductFromCart) {
+    }: service.cart.arguments.DeleteProductFromCart) {
         /* ----------------------- Check cart ----------------------- */
         const cart = await findAndRemoveProductFromCart({
             product: productId,
@@ -156,7 +156,7 @@ export default class CartService {
     public static async deleteProductsFromCart({
         user,
         products
-    }: serviceTypes.cart.arguments.DeleteProductsFromCart) {
+    }: service.cart.arguments.DeleteProductsFromCart) {
         const cart = await deleteProductsFromCart({
             user,
             products

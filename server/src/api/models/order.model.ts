@@ -9,7 +9,7 @@ import { checkoutSchema } from './checkout.model.js';
 export const ORDER_MODEL_NAME = 'Order';
 export const ORDER_COLLECTION_NAME = 'orders';
 
-const orderSchema = new Schema<modelTypes.order.OrderSchema>(
+const orderSchema = new Schema<model.order.OrderSchema>(
     {
         /* ------------------------ Customer ------------------------ */
         customer: { type: ObjectId, required: true },

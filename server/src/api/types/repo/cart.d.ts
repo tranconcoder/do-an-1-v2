@@ -1,7 +1,7 @@
 import '';
 
 declare global {
-    namespace repoTypes {
+    namespace reop {
         namespace cart {
             interface FindAndRemoveProductFromCart {
                 product: string;
@@ -20,7 +20,7 @@ declare global {
             /*                           Delete                           */
             /* ---------------------------------------------------------- */
             interface DeleteProductsFromCart
-                extends serviceTypes.cart.arguments.DeleteProductsFromCart {}
+                extends service.cart.arguments.DeleteProductsFromCart {}
         }
     }
 }

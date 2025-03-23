@@ -2,7 +2,7 @@ import type { JwtPayload as BaseJwtPayload, SignOptions } from 'jsonwebtoken';
 import { isArguments } from 'lodash';
 
 declare global {
-    namespace serviceTypes {
+    namespace service {
         namespace jwt {
             /* ====================================================== */
             /*                       DEFINITION                       */
@@ -15,7 +15,7 @@ declare global {
 
                 interface JwtPayload
                     extends moduleTypes.mongoose.ConvertObjectIdToString<
-                        Pick<modelTypes.auth.UserSchema, 'role'>
+                        Pick<model.auth.UserSchema, 'role'>
                     > {
                     id: string;
                 }
@@ -25,7 +25,7 @@ declare global {
                         Required<Pick<BaseJwtPayload, 'iat' | 'exp'>> {}
 
                 type JwtConfig = {
-                    [key in keyof serviceTypes.jwt.definition.JwtPair]: {
+                    [key in keyof service.jwt.definition.JwtPair]: {
                         options: SignOptions;
                     };
                 };

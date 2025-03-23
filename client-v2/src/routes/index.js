@@ -2,8 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 
 // Layouts
-import HomeLayout from '../layouts/HomeLayout';
-import AuthLayout from '../layouts/AuthLayout';
+import HomeLayout from '../layouts/HomeLayout/HomeLayout';
+import AuthLayout from '../layouts/AuthLayout/AuthLayout';
+import AdminLayout from '../layouts/AdminLayout';
 
 // Pages
 import Login from '../pages/Login';
@@ -39,9 +40,29 @@ const AppRoutes = () => {
                     <Route path="register" element={<Register />} />
                 </Route>
 
+                {/* Admin routes with AdminLayout */}
+                <Route path="/admin" element={<AdminLayout />}>
+                    <Route index element={<Navigate to="/admin/dashboard" replace />} />
+                    <Route path="dashboard" element={<h1>hello world!</h1>} />
+                </Route>
+
+                {/* Redirects for shop manager functionality to the new application */}
+                <Route
+                    path="/shop-manager/*"
+                    element={
+                        <div className="redirect-notice">
+                            <h2>Shop Manager has moved</h2>
+                            <p>Shop Manager functionality is now available at a dedicated URL.</p>
+                            <p>
+                                Please visit:{' '}
+                                <a href="http://shop.example.com">http://shop.example.com</a>
+                            </p>
+                        </div>
+                    }
+                />
+
                 <Route path="/login" element={<Navigate to="/auth/login" replace />} />
                 <Route path="/register" element={<Navigate to="/auth/register" replace />} />
-
                 <Route path="*" element={<div>Page not found</div>} />
             </Routes>
         </Router>

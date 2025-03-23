@@ -20,7 +20,7 @@ export const queryPaginate = async (query: object, page: number) => {
 };
 
 export const queryProductByShop = async (
-    query: Partial<modelTypes.product.ProductSchema>,
+    query: Partial<model.product.ProductSchema>,
     productShop: string
 ) => {
     const product = await productModel.findById(query);
@@ -34,7 +34,7 @@ export const queryProductByShop = async (
 /* ---------------------------------------------------------- */
 /*                           Create                           */
 /* ---------------------------------------------------------- */
-export const createProduct = async (payload: serviceTypes.product.arguments.CreateProduct) => {
+export const createProduct = async (payload: service.product.arguments.CreateProduct) => {
     return await productModel.create(payload);
 };
 
@@ -42,10 +42,7 @@ export const createProduct = async (payload: serviceTypes.product.arguments.Crea
 /*                         Search                         */
 /* ------------------------------------------------------ */
 /* ------------------- Search product ------------------- */
-export const searchProduct = async ({
-    page,
-    query
-}: serviceTypes.product.arguments.SearchProduct) => {
+export const searchProduct = async ({ page, query }: service.product.arguments.SearchProduct) => {
     if (!page || page < 1) throw new NotFoundErrorResponse('Current page invalid!');
 
     return await productModel
@@ -68,7 +65,7 @@ export const searchProduct = async ({
 /*                          Find one                          */
 /* ---------------------------------------------------------- */
 /* ----------------- Find product by id ----------------- */
-export const findProductById = async ({ productId, userId }: repoTypes.product.FindProductById) => {
+export const findProductById = async ({ productId, userId }: reop.product.FindProductById) => {
     const product = await productModel.findById(productId, '+is_publish').lean();
     if (!product) throw new NotFoundErrorResponse('Not found product!');
 
@@ -80,7 +77,7 @@ export const findProductById = async ({ productId, userId }: repoTypes.product.F
     throw new ForbiddenErrorResponse('Not permission to get this product!');
 };
 
-export const findOneProduct = async (payload: Partial<modelTypes.product.ProductSchema>) => {
+export const findOneProduct = async (payload: Partial<model.product.ProductSchema>) => {
     return await productModel.findOne(payload);
 };
 
@@ -94,11 +91,11 @@ export const findProductCategoryById = async (id: string) => {
 /* ------------------------------------------------------ */
 /* -------------------- Find all product -------------------- */
 export const findAllProduct =
-    generateFindAllPageSplit<modelTypes.product.ProductSchema<false, true>>(productModel);
+    generateFindAllPageSplit<model.product.ProductSchema<false, true>>(productModel);
 
 /* ------------ Find all product id as string ------------ */
 export const findAllProductId = async (
-    payload: repoTypes.product.FindAllProductId<modelTypes.product.ProductSchema>
+    payload: reop.product.FindAllProductId<model.product.ProductSchema>
 ) => {
     return findAllProduct({
         query: {},
@@ -117,7 +114,7 @@ export const findAllProductByShop = async ({
     limit,
     page,
     isOwner
-}: repoTypes.product.FindAllProductByShop) => {
+}: reop.product.FindAllProductByShop) => {
     return await findAllProduct({
         query: isOwner ? { product_shop } : { product_shop, is_publish: true },
         limit,
@@ -132,7 +129,7 @@ export const findAllProductDraftByShop = async ({
     product_shop,
     limit,
     page
-}: serviceTypes.product.arguments.GetAllProductDraftByShop) => {
+}: service.product.arguments.GetAllProductDraftByShop) => {
     return findAllProduct({
         query: { product_shop, is_draft: true },
         limit,
@@ -146,8 +143,8 @@ export const findAllProductPublishByShop = async ({
     product_shop,
     page,
     limit
-}: serviceTypes.product.arguments.GetAllProductPublishByShop) => {
-    const query: Partial<modelTypes.product.ProductSchema> = {
+}: service.product.arguments.GetAllProductPublishByShop) => {
+    const query: Partial<model.product.ProductSchema> = {
         product_shop,
         is_publish: true
     };
@@ -168,7 +165,7 @@ export const findAllProductUndraftByShop = async ({
     product_shop,
     limit,
     page
-}: serviceTypes.product.arguments.GetAllProductUndraftByShop) => {
+}: service.product.arguments.GetAllProductUndraftByShop) => {
     return await findAllProduct({
         query: {
             product_shop,
@@ -184,7 +181,7 @@ export const findAllProductUnpublishByShop = async ({
     product_shop,
     limit,
     page
-}: serviceTypes.product.arguments.GetAllProductUnpublishByShop) => {
+}: service.product.arguments.GetAllProductUnpublishByShop) => {
     return await findAllProduct({
         query: {
             product_shop,
@@ -198,13 +195,13 @@ export const findAllProductUnpublishByShop = async ({
 
 /* ------------- Find product by shop and id ------------ */
 export const findProductByShopAndId = async (
-    payload: Pick<modelTypes.product.ProductSchema, 'product_shop' | '_id'>
+    payload: Pick<model.product.ProductSchema, 'product_shop' | '_id'>
 ) => {
     return await productModel.findOne(payload);
 };
 
 /* ------------------- Check user is shop ------------------- */
-export const checkUserIsShop = async ({ userId }: repoTypes.product.CheckUserIsShop) => {
+export const checkUserIsShop = async ({ userId }: reop.product.CheckUserIsShop) => {
     return await productModel.exists({ product_shop: userId });
 };
 
@@ -212,7 +209,7 @@ export const checkUserIsShop = async ({ userId }: repoTypes.product.CheckUserIsS
 export const checkProductsIsAvailableToUse = async ({
     productIds,
     shopId
-}: repoTypes.product.CheckProductsIsAvailableToApplyDiscount) => {
+}: reop.product.CheckProductsIsAvailableToApplyDiscount) => {
     return !(await productModel.exists({
         _id: { $in: productIds },
         $or: [{ is_publish: false }, { product_shop: { $ne: shopId } }]
@@ -222,7 +219,7 @@ export const checkProductsIsAvailableToUse = async ({
 /* --------------- Check products is publish  --------------- */
 export const checkProductsIsPublish = async ({
     productIds
-}: repoTypes.product.CheckProductsIsPublish) => {
+}: reop.product.CheckProductsIsPublish) => {
     return !(await productModel.exists({
         _id: { $in: productIds },
         is_publish: false
@@ -236,7 +233,7 @@ export const checkProductsIsPublish = async ({
 export const setDraftProduct = async ({
     product_id: _id,
     product_shop
-}: serviceTypes.product.arguments.SetDraftProduct) => {
+}: service.product.arguments.SetDraftProduct) => {
     /* ------------------ Validate product ------------------ */
     const product = await queryProductByShop({ _id }, product_shop);
 
@@ -251,7 +248,7 @@ export const setDraftProduct = async ({
 export const setPublishProduct = async ({
     product_id: _id,
     product_shop
-}: serviceTypes.product.arguments.SetPublishProduct) => {
+}: service.product.arguments.SetPublishProduct) => {
     const product = await queryProductByShop({ _id }, product_shop);
 
     product.is_publish = true;
@@ -277,7 +274,7 @@ export const deleteProductById = async (_id: string) => {
 };
 
 /* ----------------- Delete one product ----------------- */
-export const deleteOneProduct = async (payload: Partial<modelTypes.product.ProductSchema>) => {
+export const deleteOneProduct = async (payload: Partial<model.product.ProductSchema>) => {
     const { deletedCount } = await productModel.deleteOne(payload);
     return deletedCount;
 };

@@ -1,5 +1,5 @@
 import '';
 
 declare global {
-    namespace modelTypes {}
+    namespace model {}
 }

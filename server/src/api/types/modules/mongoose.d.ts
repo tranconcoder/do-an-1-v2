@@ -25,12 +25,12 @@ declare global {
                 [K in keyof T]: NonNullable<T[K]> extends ObjectId
                     ? string
                     : NonNullable<T[K]> extends mongooseBase.Types.ObjectId
-                      ? string
-                      : NonNullable<T[K]> extends ObjectId[]
-                        ? string[]
-                        : NonNullable<T[K]> extends mongooseBase.Types.ObjectId[]
-                          ? string[]
-                          : T[K];
+                    ? string
+                    : NonNullable<T[K]> extends ObjectId[]
+                    ? string[]
+                    : NonNullable<T[K]> extends mongooseBase.Types.ObjectId[]
+                    ? string[]
+                    : T[K];
             };
 
             type IsModel<T = false, K = any> = T extends true

@@ -1,7 +1,7 @@
 import '';
 
 declare global {
-    namespace repoTypes {
+    namespace reop {
         namespace product {
             interface FindAllProductId<T>
                 extends Omit<
@@ -33,10 +33,10 @@ declare global {
             /* ---------------------------------------------------------- */
             /*                            Find                            */
             /* ---------------------------------------------------------- */
-            interface FindProductById extends serviceTypes.product.arguments.GetProductById {}
+            interface FindProductById extends service.product.arguments.GetProductById {}
 
             interface FindAllProductByShop
-                extends Omit<serviceTypes.product.arguments.GetAllProductByShop, 'userId'> {
+                extends Omit<service.product.arguments.GetAllProductByShop, 'userId'> {
                 isOwner: boolean;
             }
         }

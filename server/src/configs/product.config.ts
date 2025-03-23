@@ -18,7 +18,7 @@ const models = {
     Phone: phoneModel
 };
 
-export const getProduct = async <T extends modelTypes.product.ProductList>(category: T) => {
+export const getProduct = async <T extends model.product.ProductList>(category: T) => {
     return services[category] as GetKeyType<typeof services, T>;
 };
 

@@ -1,7 +1,7 @@
 import '';
 
 declare global {
-    namespace repoTypes {
+    namespace reop {
         namespace discount {
             /* ---------------------------------------------------------- */
             /*                         Arguments                          */
@@ -10,21 +10,17 @@ declare global {
                 /* ---------------------------------------------------------- */
                 /*                           Common                           */
                 /* ---------------------------------------------------------- */
-                interface QueryCreate
-                    extends Omit<modelTypes.discount.DiscountSchema, '_id'> {}
+                interface QueryCreate extends Omit<model.discount.DiscountSchema, '_id'> {}
 
                 interface CheckConflictDiscountInShop
                     extends Pick<
-                        modelTypes.discount.DiscountSchema,
-                        | 'discount_shop'
-                        | 'discount_code'
-                        | 'discount_start_at'
-                        | 'discount_end_at'
+                        model.discount.DiscountSchema,
+                        'discount_shop' | 'discount_code' | 'discount_start_at' | 'discount_end_at'
                     > {}
 
                 interface CheckDiscountOwnByShop
                     extends Pick<
-                        modelTypes.discount.DiscountSchema<false, true>,
+                        model.discount.DiscountSchema<false, true>,
                         'discount_shop' | '_id'
                     > {}
 

@@ -27,7 +27,7 @@ import _ from 'lodash';
 import CartService from './cart.service.js';
 
 export default new (class OrderService {
-    public async createOrder({ userId, paymentType }: serviceTypes.order.arguments.CreateOrder) {
+    public async createOrder({ userId, paymentType }: service.order.arguments.CreateOrder) {
         /* ------------------- Check information  ------------------- */
         const shipInfo = {
             // ...

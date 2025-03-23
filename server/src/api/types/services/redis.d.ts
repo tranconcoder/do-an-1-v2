@@ -1,13 +1,10 @@
 import '';
 
 declare global {
-    namespace serviceTypes {
+    namespace service {
         namespace redis {
             interface SetUserProfile
-                extends Pick<
-                    modelTypes.auth.UserSchema,
-                    'phoneNumber' | 'email' | 'role' | 'fullName'
-                > {
+                extends Pick<model.auth.UserSchema, 'phoneNumber' | 'email' | 'role' | 'fullName'> {
                 id: string;
             }
         }

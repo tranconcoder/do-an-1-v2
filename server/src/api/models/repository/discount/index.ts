@@ -15,14 +15,14 @@ import { PessimisticKeys } from '@/enums/redis.enum.js';
 /* ---------------------------------------------------------- */
 /*                           Common                           */
 /* ---------------------------------------------------------- */
-const queryCreate = async (data: repoTypes.discount.arguments.QueryCreate) => {
+const queryCreate = async (data: reop.discount.arguments.QueryCreate) => {
     return await discountModel.create(data);
 };
 
 /* ---------------------------------------------------------- */
 /*                           Create                           */
 /* ---------------------------------------------------------- */
-export const createDiscount = async (data: repoTypes.discount.arguments.QueryCreate) => {
+export const createDiscount = async (data: reop.discount.arguments.QueryCreate) => {
     /* -------------------- Create discount  -------------------- */
     const discount = await queryCreate(data);
 
@@ -43,14 +43,14 @@ export const isExistsDiscount = async (shop: string, code: string) => {
 /*                            Find                            */
 /* ---------------------------------------------------------- */
 export const findOneAndUpdateDiscount =
-    generateFindOneAndUpdate<modelTypes.discount.DiscountSchema>(discountModel);
+    generateFindOneAndUpdate<model.discount.DiscountSchema>(discountModel);
 
-export const findOneDiscount = generateFindOne<modelTypes.discount.DiscountSchema>(discountModel);
+export const findOneDiscount = generateFindOne<model.discount.DiscountSchema>(discountModel);
 
 /* ------------------ Find discount by id ------------------ */
 export const findDiscountById = async (
     discountId: string,
-    projection: ProjectionType<modelTypes.discount.DiscountSchema> = {}
+    projection: ProjectionType<model.discount.DiscountSchema> = {}
 ) => {
     return await discountModel.findById(discountId, projection).lean();
 };
@@ -87,7 +87,7 @@ export const findDiscountValidByCode = (discountCode: string) => {
 
 /* ------------------- Find all discount  ------------------- */
 export const findAllDiscount =
-    generateFindAllPageSplit<modelTypes.discount.DiscountSchema>(discountModel);
+    generateFindAllPageSplit<model.discount.DiscountSchema>(discountModel);
 
 /* ----------- Find all discount in shop by code ------------ */
 export const checkConflictDiscountInShop = async ({
@@ -95,7 +95,7 @@ export const checkConflictDiscountInShop = async ({
     discount_end_at,
     discount_code,
     discount_shop
-}: repoTypes.discount.arguments.CheckConflictDiscountInShop) => {
+}: reop.discount.arguments.CheckConflictDiscountInShop) => {
     return await discountModel
         .findOne({
             discount_code,

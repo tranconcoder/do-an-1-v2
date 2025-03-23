@@ -28,6 +28,7 @@ export const authenticate = catchError(async (req, _, next) => {
 
     /* --------------- Attach payload to req ------------ */
     req.userId = payload.id;
+    req.role = payload.role;
 
     next();
 });
@@ -55,6 +56,7 @@ export const authenticateNotRequired = catchError(async (req, _, next) => {
 
     /* --------------- Attach payload to req ------------ */
     req.userId = payload.id;
+    req.role = payload.role;
 
     next();
 });

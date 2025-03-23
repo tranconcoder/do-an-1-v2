@@ -1,5 +1,4 @@
 import { model, Schema } from 'mongoose';
-import { ObjectId } from '@/configs/mongoose.config.js';
 import { timestamps, required, ObjectId } from '@/configs/mongoose.config.js';
 import { DiscountTypeEnum } from '@/enums/discount.enum.js';
 import { PRODUCT_MODEL_NAME } from './product.model.js';
@@ -8,7 +7,7 @@ import { USER_MODEL_NAME } from './user.model.js';
 export const DISCOUNT_MODEL_NAME = 'Discount';
 export const DISCOUNT_COLLECTION_NAME = 'discounts';
 
-const discountSchema = new Schema<modelTypes.discount.DiscountSchema>(
+const discountSchema = new Schema<model.discount.DiscountSchema>(
     {
         discount_shop: { type: ObjectId, ref: USER_MODEL_NAME, required },
         discount_name: { type: String, required },

@@ -1,7 +1,7 @@
 import type { DiscountTypeEnum } from '@/enums/discount.enum';
 
 declare global {
-    namespace modelTypes {
+    namespace model {
         namespace discount {
             interface CommonType {
                 _id: moduleTypes.mongoose.ObjectId;

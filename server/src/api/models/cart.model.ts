@@ -8,7 +8,7 @@ import { ObjectId } from '@/configs/mongoose.config.js';
 export const CART_MODEL_NAME = 'Cart';
 export const CART_COLLECTION_NAME = 'carts';
 
-const cartSchema = new Schema<modelTypes.cart.CartSchema>(
+const cartSchema = new Schema<model.cart.CartSchema>(
     {
         user: { type: ObjectId, ref: USER_MODEL_NAME, required },
         cart_shop: {

@@ -1,7 +1,7 @@
 import '';
 
 declare global {
-    namespace serviceTypes {
+    namespace service {
         namespace discount {
             /* ---------------------------------------------------------- */
             /*                         Arguments                          */
@@ -12,7 +12,7 @@ declare global {
                 /* ---------------------------------------------------------- */
                 interface CreateDiscount
                     extends Omit<
-                        modelTypes.discount.DiscountSchema,
+                        model.discount.DiscountSchema,
                         'is_admin_voucher' | 'discount_shop' | '_id'
                     > {
                     userId: string;
@@ -57,7 +57,7 @@ declare global {
                 interface UpdateDiscount
                     extends commonTypes.utils.PartialWithout<
                         moduleTypes.mongoose.ConvertObjectIdToString<
-                            Omit<modelTypes.discount.DiscountSchema, 'is_admin_voucher'>
+                            Omit<model.discount.DiscountSchema, 'is_admin_voucher'>
                         >,
                         '_id' | 'discount_shop'
                     > {}

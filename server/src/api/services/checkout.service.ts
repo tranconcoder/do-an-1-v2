@@ -21,7 +21,7 @@ export default new (class CheckoutService {
         user,
         shopsDiscount = [],
         discountCode
-    }: serviceTypes.checkout.arguments.Checkout) {
+    }: service.checkout.arguments.Checkout) {
         /* ----------------------- Check cart ----------------------- */
         const cart = await findOneCartByUser({ user: user });
 
@@ -33,7 +33,7 @@ export default new (class CheckoutService {
         });
 
         /* ------------------ Initial result data  ------------------ */
-        const checkoutResult: serviceTypes.checkout.definition.CheckoutResult = {
+        const checkoutResult: service.checkout.definition.CheckoutResult = {
             total_price_raw: 0,
             total_fee_ship: 0,
             total_discount_admin_price: 0,

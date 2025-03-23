@@ -1,0 +1,229 @@
+.shop-sidebar {
+    width: 250px;
+    background-color: #1a535c;
+    color: white;
+    padding: 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-y: auto;
+    height: auto; /* Change to auto */
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    position: relative;
+
+    &.collapsed {
+        width: 70px;
+
+        .shop-info {
+            justify-content: center;
+            padding: 1.5rem 0.5rem;
+        }
+
+        .nav-menu {
+            a {
+                justify-content: center;
+                padding: 0.85rem;
+            }
+        }
+    }
+}
+
+.shop-info {
+    padding: 1.5rem 1rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.shop-logo {
+    font-size: 1.8rem;
+    margin-right: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05);
+        background-color: rgba(46, 204, 113, 0.3);
+    }
+}
+
+.shop-name {
+    font-weight: 500;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// Remove the old absolute positioned toggle button styles
+.toggle-btn {
+    display: none; // Hide the old button
+}
+
+.toggle-btn-nav {
+    display: flex;
+    align-items: center;
+    padding: 0.85rem 1.5rem;
+    color: rgba(236, 240, 241, 0.85);
+    background: none;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 3px;
+        background-color: transparent;
+        transition: all 0.2s ease;
+    }
+
+    &:hover {
+        background-color: rgba(44, 62, 80, 0.5);
+        color: #ffffff;
+
+        &:before {
+            background-color: rgba(46, 204, 113, 0.5);
+        }
+    }
+
+    .collapsed & {
+        justify-content: center;
+        padding: 0.85rem;
+    }
+
+    .nav-icon {
+        font-size: 1.3rem;
+        color: #2ecc71;
+        transition: transform 0.3s ease;
+    }
+
+    &:hover .nav-icon {
+        transform: scale(1.2);
+    }
+}
+
+.nav-menu {
+    padding: 0.5rem 0;
+    flex-grow: 1; /* Allow menu to grow and fill available space */
+    width: 100%; /* Ensure menu takes full width */
+    display: flex;
+    flex-direction: column;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex-grow: 1; /* Allow the list to expand */
+        display: flex;
+        flex-direction: column;
+    }
+
+    li {
+        margin: 0.25rem 0;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &.toggle-item {
+            margin-top: auto; /* Push to the bottom */
+            margin-bottom: 1rem;
+        }
+    }
+
+    a {
+        display: flex;
+        align-items: center;
+        padding: 0.85rem 1.5rem;
+        color: rgba(236, 240, 241, 0.85);
+        text-decoration: none;
+        transition: all 0.2s ease;
+        font-size: 0.95rem;
+        position: relative;
+        width: 100%; /* Ensure links take full width */
+        box-sizing: border-box; /* Include padding in width calculation */
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: transparent;
+            transition: all 0.2s ease;
+        }
+
+        &:hover {
+            background-color: rgba(44, 62, 80, 0.5);
+            color: #ffffff;
+
+            &:before {
+                background-color: rgba(46, 204, 113, 0.5);
+            }
+        }
+
+        &.active {
+            background-color: rgba(46, 204, 113, 0.3);
+            font-weight: 500;
+            color: #ffffff;
+
+            &:before {
+                background-color: #2ecc71;
+            }
+        }
+
+        &:hover .nav-icon {
+            transform: scale(1.2);
+            color: #2ecc71;
+        }
+
+        &.active .nav-icon {
+            color: #2ecc71;
+        }
+    }
+}
+
+.nav-icon {
+    margin-right: 12px;
+    font-size: 1.3rem;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+
+    .collapsed & {
+        margin-right: 0;
+        font-size: 1.4rem;
+    }
+}
+
+.nav-text {
+    white-space: nowrap;
+    transition: opacity 0.3s, transform 0.3s;
+}

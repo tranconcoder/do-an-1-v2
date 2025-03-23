@@ -7,9 +7,9 @@ declare global {
             /*                       DEFINITION                       */
             /* ====================================================== */
             namespace definition {
-                interface JwtPayload extends serviceTypes.jwt.definition.JwtPayload {}
+                interface JwtPayload extends service.jwt.definition.JwtPayload {}
 
-                interface JwtDecode extends serviceTypes.jwt.definition.JwtDecode {}
+                interface JwtDecode extends service.jwt.definition.JwtDecode {}
             }
         }
     }

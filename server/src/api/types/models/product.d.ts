@@ -4,7 +4,7 @@ import type { CategoryEnum } from '@/enums/product.enum.js';
 import { Product } from '@/services/product/index.js';
 
 declare global {
-    namespace modelTypes {
+    namespace model {
         namespace product {
             type ProductListKey = keyof typeof CategoryEnum;
             type ProductList = CategoryEnum;

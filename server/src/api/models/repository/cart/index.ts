@@ -3,7 +3,7 @@ import { generateFindOneAndUpdate } from '@/utils/mongoose.util.js';
 import cartModel from '@/models/cart.model.js';
 import mongoose from 'mongoose';
 
-export const findOneAndUpdateCart = generateFindOneAndUpdate<modelTypes.cart.CartSchema>(cartModel);
+export const findOneAndUpdateCart = generateFindOneAndUpdate<model.cart.CartSchema>(cartModel);
 
 /* ---------------------------------------------------------- */
 /*                            Find                            */
@@ -24,7 +24,7 @@ export const findOneCartByUser = async ({
 export const findAndRemoveProductFromCart = async ({
     product,
     user
-}: repoTypes.cart.FindAndRemoveProductFromCart) => {
+}: reop.cart.FindAndRemoveProductFromCart) => {
     return await findOneAndUpdateCart({
         query: { user },
         update: { $pull: { cart_product: { product } } },
@@ -39,7 +39,7 @@ export const findAndRemoveProductFromCart = async ({
 export const checkShopListExistsInCart = async ({
     user,
     shopList
-}: repoTypes.cart.CheckShopListExistsInCart) => {
+}: reop.cart.CheckShopListExistsInCart) => {
     const cart = await cartModel.findOne({
         user
     });
@@ -60,7 +60,7 @@ export const checkShopListExistsInCart = async ({
 export const deleteProductsFromCart = async ({
     user,
     products
-}: repoTypes.cart.DeleteProductsFromCart) => {
+}: reop.cart.DeleteProductsFromCart) => {
     return findOneAndUpdateCart({
         query: { user },
         update: {

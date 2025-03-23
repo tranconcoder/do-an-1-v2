@@ -6,7 +6,7 @@ import { required, timestamps } from '@/configs/mongoose.config.js';
 export const KEY_TOKEN_MODEL_NAME = 'KeyToken';
 export const KEY_TOKEN_COLLECTION_NAME = 'key_tokens';
 
-const keyTokenSchema = new Schema<modelTypes.keyToken.KeyTokenSchema>(
+const keyTokenSchema = new Schema<model.keyToken.KeyTokenSchema>(
     {
         user: { type: ObjectId, required, ref: USER_MODEL_NAME },
         private_key: { type: String, required },

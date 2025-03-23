@@ -1,14 +1,13 @@
 import '';
 
 declare global {
-    namespace serviceTypes {
+    namespace service {
         namespace user {
             /* ====================================================== */
             /*                        ARGUMENTS                       */
             /* ====================================================== */
             namespace arguments {
-                interface NewInstance
-                    extends modelTypes.auth.UserSchema<false, false> {}
+                interface NewInstance extends model.auth.UserSchema<false, false> {}
             }
         }
     }

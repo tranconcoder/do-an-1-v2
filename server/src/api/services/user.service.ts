@@ -15,7 +15,7 @@ export default class UserService {
         });
     };
 
-    public static newInstance = (user: serviceTypes.user.arguments.NewInstance) => {
+    public static newInstance = (user: service.user.arguments.NewInstance) => {
         return new userModel(user);
     };
 
@@ -23,15 +23,15 @@ export default class UserService {
         return await user.save();
     };
 
-    public static findOne = async (query: RootFilterQuery<modelTypes.auth.UserSchema>) => {
+    public static findOne = async (query: RootFilterQuery<model.auth.UserSchema>) => {
         return await findOneUser({ query }).lean();
     };
 
-    public static checkUserExist = async (query: RootFilterQuery<modelTypes.auth.UserSchema>) => {
+    public static checkUserExist = async (query: RootFilterQuery<model.auth.UserSchema>) => {
         return await userModel.exists(query).lean();
     };
 
-    public static saveUser = async (data: modelTypes.auth.UserSchema) => {
+    public static saveUser = async (data: model.auth.UserSchema) => {
         const user = await userModel.create(data);
 
         return user ? _.pick(user, ['role', 'id']) : null;

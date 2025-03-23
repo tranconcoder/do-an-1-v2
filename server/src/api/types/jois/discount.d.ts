@@ -5,10 +5,7 @@ declare global {
         namespace discount {
             /* -------------------- Create discount  -------------------- */
             interface CreateDiscount
-                extends Omit<
-                    serviceTypes.discount.arguments.CreateDiscount,
-                    'userId'
-                > {}
+                extends Omit<service.discount.arguments.CreateDiscount, 'userId'> {}
 
             /* ---------------------------------------------------------- */
             /*                            Get                             */
@@ -19,13 +16,13 @@ declare global {
             /* ------------------------- Query  ------------------------- */
             interface GetAllDiscountCodeInShopQuery
                 extends Pick<
-                    serviceTypes.discount.arguments.GetAllDiscountCodeInShop,
+                    service.discount.arguments.GetAllDiscountCodeInShop,
                     GetAllDiscountCodeInShopQueryKey
                 > {}
             /* ------------------------- Params ------------------------- */
             interface GetAllDiscountCodeInShopParams
                 extends Omit<
-                    serviceTypes.discount.arguments.GetAllDiscountCodeInShop,
+                    service.discount.arguments.GetAllDiscountCodeInShop,
                     GetAllDiscountCodeInShopQueryKey
                 > {}
 
@@ -34,13 +31,13 @@ declare global {
             type GetAllProductDiscountByCodeQueryKey = 'limit' | 'page';
             interface GetAllProductDiscountByCodeQuery
                 extends Pick<
-                    serviceTypes.discount.arguments.GetAllProductDiscountByCode,
+                    service.discount.arguments.GetAllProductDiscountByCode,
                     GetAllProductDiscountByCodeQueryKey
                 > {}
             /* ------------------------- Params ------------------------- */
             interface GetAllProductDiscountByCodeParams
                 extends Omit<
-                    serviceTypes.discount.arguments.GetAllProductDiscountByCode,
+                    service.discount.arguments.GetAllProductDiscountByCode,
                     GetAllProductDiscountByCodeQueryKey
                 > {}
 
@@ -48,14 +45,10 @@ declare global {
             /*                           Update                           */
             /* ---------------------------------------------------------- */
             interface UpdateDiscount
-                extends Omit<
-                    serviceTypes.discount.arguments.UpdateDiscount,
-                    'discount_shop'
-                > {}
+                extends Omit<service.discount.arguments.UpdateDiscount, 'discount_shop'> {}
 
             /* ----------------- Set available discount ----------------- */
-            interface SetAvailableDiscount
-                extends Pick<modelTypes.discount.DiscountUsed, '_id'> {}
+            interface SetAvailableDiscount extends Pick<model.discount.DiscountUsed, '_id'> {}
 
             /* ---------------- Set unavailable discount ---------------- */
             interface SetUnavailableDiscount extends SetAvailableDiscount {}
@@ -65,8 +58,7 @@ declare global {
             /* ---------------------------------------------------------- */
 
             /* -------------------- Delete discount  -------------------- */
-            interface DeleteDiscount
-                extends serviceTypes.discount.arguments.DeleteDiscount {}
+            interface DeleteDiscount extends service.discount.arguments.DeleteDiscount {}
         }
     }
 }

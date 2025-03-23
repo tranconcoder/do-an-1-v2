@@ -13,7 +13,7 @@ export default class JwtService {
         privateKey,
         payload,
         type
-    }: serviceTypes.jwt.arguments.JwtSign) => {
+    }: service.jwt.arguments.JwtSign) => {
         try {
             const { options } = jwtConfig[type];
             return await jwtSignAsync(payload, privateKey, options);
@@ -25,7 +25,7 @@ export default class JwtService {
     public static signJwtPair = async ({
         privateKey,
         payload
-    }: serviceTypes.jwt.arguments.JwtSignPair) => {
+    }: service.jwt.arguments.JwtSignPair) => {
         try {
             const [accessToken, refreshToken] = await Promise.all([
                 jwtSignAsync(payload, privateKey, jwtConfig.accessToken.options),
@@ -50,7 +50,7 @@ export default class JwtService {
     public static verifyJwt = async ({
         token,
         publicKey
-    }: serviceTypes.jwt.arguments.VerifyJwt): serviceTypes.jwt.returnType.VerifyJwt => {
+    }: service.jwt.arguments.VerifyJwt): service.jwt.returnType.VerifyJwt => {
         return new Promise((resolve) => {
             jwt.verify(token, publicKey, (error: any, decoded: any) => {
                 if (error) resolve(null);
@@ -62,9 +62,9 @@ export default class JwtService {
     /* ------------------------------------------------------ */
     /*                  Parse token payload                   */
     /* ------------------------------------------------------ */
-    public static parseJwtPayload = (token: string): serviceTypes.jwt.arguments.ParseJwtPayload => {
+    public static parseJwtPayload = (token: string): service.jwt.arguments.ParseJwtPayload => {
         try {
-            const payload = jwtDecode<serviceTypes.jwt.definition.JwtDecode>(token);
+            const payload = jwtDecode<service.jwt.definition.JwtDecode>(token);
             const { error: joiError, value } = jwtDecodeSchema.validate(payload);
 
             if (joiError) {

@@ -35,7 +35,7 @@ export default class DiscountService {
     public static createDiscount = async ({
         userId,
         ...payload
-    }: serviceTypes.discount.arguments.CreateDiscount) => {
+    }: service.discount.arguments.CreateDiscount) => {
         /* ---------------------------------------------------------- */
         /*           Missing check is admin voucher by shop           */
         /* ---------------------------------------------------------- */
@@ -81,7 +81,7 @@ export default class DiscountService {
     /* ------------------- Get discount by id ------------------- */
     public static getDiscountById = async ({
         discountId
-    }: serviceTypes.discount.arguments.GetDiscountById) => {
+    }: service.discount.arguments.GetDiscountById) => {
         const discount = await findDiscountById(discountId);
 
         if (!discount) throw new NotFoundErrorResponse('Not found discount!');
@@ -95,7 +95,7 @@ export default class DiscountService {
         shopId,
         limit,
         page
-    }: serviceTypes.discount.arguments.GetAllDiscountCodeInShop) => {
+    }: service.discount.arguments.GetAllDiscountCodeInShop) => {
         return await findAllDiscount({
             query: {
                 discount_shop: shopId,
@@ -114,7 +114,7 @@ export default class DiscountService {
         productId,
         limit,
         page
-    }: serviceTypes.discount.arguments.GetAllDiscountCodeWithProduct) => {
+    }: service.discount.arguments.GetAllDiscountCodeWithProduct) => {
         await findAllDiscount({
             query: {
                 discount_start_at: { $gte: new Date() },
@@ -137,7 +137,7 @@ export default class DiscountService {
         discountId,
         limit,
         page
-    }: serviceTypes.discount.arguments.GetAllProductDiscountByCode) => {
+    }: service.discount.arguments.GetAllProductDiscountByCode) => {
         const discount = await findDiscountById(discountId, '+is_apply_all_product');
         if (!discount) throw new NotFoundErrorResponse('Not found discount!');
         if (!discount.is_available) throw new ForbiddenErrorResponse('Discount is not available!');
@@ -180,7 +180,7 @@ export default class DiscountService {
     public static getDiscountAmount = async ({
         discountCode,
         products
-    }: serviceTypes.discount.arguments.GetDiscountAmount) => {
+    }: service.discount.arguments.GetDiscountAmount) => {
         /* --------------------- Check discount --------------------- */
         const discount = await findDiscountValidByCode(discountCode);
         if (!discount)
@@ -266,7 +266,7 @@ export default class DiscountService {
     public static updateDiscount = async ({
         _id,
         ...payload
-    }: serviceTypes.discount.arguments.UpdateDiscount) => {
+    }: service.discount.arguments.UpdateDiscount) => {
         const {
             discount_shop,
             discount_code,
@@ -333,7 +333,7 @@ export default class DiscountService {
         userId,
         discountId,
         discountCode
-    }: serviceTypes.discount.arguments.UseDiscount) => {
+    }: service.discount.arguments.UseDiscount) => {
         if (!discountId || !discountCode) return;
 
         const newDiscount = await pessimisticLock(
@@ -391,7 +391,7 @@ export default class DiscountService {
     public static deleteDiscount = async ({
         discountId,
         productShop
-    }: serviceTypes.discount.arguments.DeleteDiscount) => {
+    }: service.discount.arguments.DeleteDiscount) => {
         /* --------------- Check shop is own of code  --------------- */
         const isOwn = await discountModel.findOne({
             _id: discountId,

@@ -4,17 +4,14 @@ import inventoryModel from '@/models/inventory.model.js';
 /* ---------------------------------------------------------- */
 /*                           Create                           */
 /* ---------------------------------------------------------- */
-export const createInventory = async (
-    payload: serviceTypes.inventory.arguments.CreateInventory
-) => {
+export const createInventory = async (payload: service.inventory.arguments.CreateInventory) => {
     return await inventoryModel.create(payload);
 };
 
 /* ---------------------------------------------------------- */
 /*                          Find one                          */
 /* ---------------------------------------------------------- */
-export const findOneInventory =
-    generateFindOne<modelTypes.inventory.InventorySchema>(inventoryModel);
+export const findOneInventory = generateFindOne<model.inventory.InventorySchema>(inventoryModel);
 
 /* ---------------------------------------------------------- */
 /*                           Update                           */
@@ -22,7 +19,7 @@ export const findOneInventory =
 
 /* ------------------ Find one and update  ------------------ */
 export const findOneAndUpdateInventory =
-    generateFindOneAndUpdate<modelTypes.inventory.InventorySchema>(inventoryModel);
+    generateFindOneAndUpdate<model.inventory.InventorySchema>(inventoryModel);
 
 /* --------------------- Order product  --------------------- */
 export const orderProductInventory = (productId: string, orderQuantity: number) => {

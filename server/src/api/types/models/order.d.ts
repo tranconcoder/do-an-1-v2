@@ -3,7 +3,7 @@ import type { OrderStatus } from '@/enums/order.enum.js';
 import type { DiscountTypeEnum } from '@/enums/discount.enum.ts';
 
 declare global {
-    namespace modelTypes {
+    namespace model {
         namespace order {
             interface CommonTypes {
                 _id: string;
@@ -20,7 +20,7 @@ declare global {
                     customer_address: string;
 
                     /* ------------------------ Products ------------------------ */
-                    order_checkout: modelTypes.checkout.CheckoutSchema;
+                    order_checkout: model.checkout.CheckoutSchema;
 
                     /* ------------------------ Discount ------------------------ */
                     discount?: {

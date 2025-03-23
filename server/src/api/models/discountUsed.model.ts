@@ -7,7 +7,7 @@ import { USER_MODEL_NAME } from './user.model.js';
 export const DISCOUNT_USED_MODEL_NAME = 'DiscountUsed';
 export const DISCOUNT_USED_COLLECTION_NAME = 'discounts_used';
 
-const discountUsedSchema = new Schema<modelTypes.discount.DiscountUsed>(
+const discountUsedSchema = new Schema<model.discount.DiscountUsed>(
     {
         discount_used_discount: { type: ObjectId, required, ref: DISCOUNT_MODEL_NAME },
         discount_used_user: { type: ObjectId, required, ref: USER_MODEL_NAME },

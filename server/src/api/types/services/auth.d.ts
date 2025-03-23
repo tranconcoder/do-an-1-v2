@@ -1,7 +1,7 @@
 import '';
 
 declare global {
-    namespace serviceTypes {
+    namespace service {
         namespace auth {
             /* ====================================================== */
             /*                       DEFINITION                       */
@@ -9,10 +9,10 @@ declare global {
             namespace definition {
                 interface LoginResponse {
                     user: Pick<
-                        modelTypes.auth.UserSchema<true>,
+                        model.auth.UserSchema<true>,
                         'phoneNumber' | 'email' | 'fullName' | 'role' | '_id'
                     >;
-                    token: serviceTypes.jwt.definition.JwtPair;
+                    token: service.jwt.definition.JwtPair;
                 }
             }
 
