@@ -3,6 +3,7 @@ import { getProduct } from '@/configs/product.config.js';
 import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 import {
     checkUserIsShop,
+    findAllProduct,
     findAllProductByShop,
     findAllProductDraftByShop,
     findAllProductPublishByShop,
@@ -49,6 +50,20 @@ export default class ProductFactory {
         productId
     }: serviceTypes.product.arguments.GetProductById) => {
         return await findProductById({ userId, productId });
+    };
+
+    /* -------------------- Get all products -------------------- */
+    public static getAll = async ({
+        limit,
+        page
+    }: serviceTypes.product.arguments.GetAllProducts) => {
+        return await findAllProduct({
+            query: { is_publish: true },
+            limit,
+            page,
+            omit: ['is_draft', 'is_publish', '__v', 'created_at', 'updated_at'],
+            sort: { created_at: -1 }
+        });
     };
 
     /* --------------- Get all product by shop -------------- */

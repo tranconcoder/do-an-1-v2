@@ -1,9 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":["turbopack://[project]/src/app/DangNhap/QuenMatKhau/styles.module.scss.module.css [app-client] (css module)"],"sourcesContent":["__turbopack_export_value__({\n  \"arrow\": \"styles-module-scss-module__Eew-MW__arrow\",\n  \"auth-links\": \"styles-module-scss-module__Eew-MW__auth-links\",\n  \"back-button\": \"styles-module-scss-module__Eew-MW__back-button\",\n  \"button-group\": \"styles-module-scss-module__Eew-MW__button-group\",\n  \"facebook-button\": \"styles-module-scss-module__Eew-MW__facebook-button\",\n  \"forgot-password\": \"styles-module-scss-module__Eew-MW__forgot-password\",\n  \"form-group\": \"styles-module-scss-module__Eew-MW__form-group\",\n  \"google-button\": \"styles-module-scss-module__Eew-MW__google-button\",\n  \"login-button\": \"styles-module-scss-module__Eew-MW__login-button\",\n  \"login-container\": \"styles-module-scss-module__Eew-MW__login-container\",\n  \"login-form\": \"styles-module-scss-module__Eew-MW__login-form\",\n  \"outside-container\": \"styles-module-scss-module__Eew-MW__outside-container\",\n  \"register-button\": \"styles-module-scss-module__Eew-MW__register-button\",\n  \"remember-me\": \"styles-module-scss-module__Eew-MW__remember-me\",\n  \"separator\": \"styles-module-scss-module__Eew-MW__separator\",\n  \"social-buttons\": \"styles-module-scss-module__Eew-MW__social-buttons\",\n});\n"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA"}},
-    {"offset": {"line": 24, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
-    {"offset": {"line": 44, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":""}},
-    {"offset": {"line": 44, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}

@@ -25,7 +25,7 @@ const cartSchema = new Schema<modelTypes.cart.CartSchema>(
                                 },
                                 name: { type: String, required },
                                 thumb: { type: String, required },
-                               quantity: { type: Number, required },
+                                quantity: { type: Number, required },
                                 price: { type: Number, required },
                                 status: {
                                     type: String,

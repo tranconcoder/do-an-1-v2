@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack://[project]/src/app/GioiThieu/styles.module.scss.module.css"],"sourcesContent":[".container{max-width:1200px;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;margin-top:80px;margin-bottom:20px}.section{margin-bottom:40px;min-height:300px}.item{margin-bottom:30px}.gridContainer{display:grid;grid-template-columns:1fr;gap:20px}@media(min-width: 768px){.gridContainer{grid-template-columns:1fr 1fr}}.text{order:1}.imageContainer{order:2;text-align:center}.image{max-width:100%;height:auto;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1)}.title{font-size:1.5rem;font-weight:bold;margin-bottom:10px;color:#333}.description{font-size:1rem;color:#666;line-height:1.6}.link{color:#0070f3;text-decoration:underline}.link:hover{color:#0052cc}@media(min-width: 768px){.text{order:1}.imageContainer{order:2;text-align:left}}@media(min-width: 992px){.title{font-size:1.75rem}.description{font-size:1.1rem}}@media(min-width: 1200px){.container{margin-top:120px}}"],"names":[],"mappings":"AAAA;;;;;;;;;;AAAuI;;;;;AAA6C;;;;AAAyB;;;;;;AAA+D;EAAyB;;;;;AAA8C;;;;AAAc;;;;;AAA0C;;;;;;;AAAwF;;;;;;;AAAuE;;;;;;AAAuD;;;;;AAA8C;;;;AAA0B;EAAyB;;;;EAAc;;;;;;AAAyC;EAAyB;;;;EAAyB;;;;;AAA+B;EAA0B"}},
-    {"offset": {"line": 96, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}

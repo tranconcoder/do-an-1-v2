@@ -51,6 +51,8 @@ declare global {
                 /* ====================================================== */
                 /*                         GET ALL                        */
                 /* ====================================================== */
+                interface GetAllProductsSchema extends joiTypes.PageSplitting {}
+
                 interface GetAllProductByShopQuery extends joiTypes.PageSplitting {}
                 interface GetAllProductByShopParams {
                     shopId: string;

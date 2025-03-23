@@ -52,6 +52,24 @@ export default class ProductController {
             }).send(res);
         };
 
+    /* ---------------------------------------------------------- */
+    /*                          Get all                           */
+    /* ---------------------------------------------------------- */
+
+    /* -------------------- Get all products -------------------- */
+    public static getAllProducts: RequestWithQuery<joiTypes.product.definition.GetAllProductsSchema> =
+        async (req, res, _) => {
+            new SuccessResponse({
+                name: 'Get all products',
+                message: 'Get all products success',
+                statusCode: 200,
+                metadata: await ProductFactory.getAll({
+                    limit: req.query.limit || ITEM_PER_PAGE,
+                    page: req.query.page || 1
+                })
+            }).send(res);
+        };
+
     /* --------------- Get all product by shop -------------- */
     public static getAllProductByShop: RequestHandler<
         joiTypes.product.definition.GetAllProductByShopParams,

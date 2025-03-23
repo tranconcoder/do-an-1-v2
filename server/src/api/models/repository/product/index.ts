@@ -92,20 +92,21 @@ export const findProductCategoryById = async (id: string) => {
 /* ------------------------------------------------------ */
 /*                        Find all                        */
 /* ------------------------------------------------------ */
-
 /* -------------------- Find all product -------------------- */
 export const findAllProduct =
-    generateFindAllPageSplit<modelTypes.product.ProductSchema>(productModel);
+    generateFindAllPageSplit<modelTypes.product.ProductSchema<false, true>>(productModel);
 
 /* ------------ Find all product id as string ------------ */
-export const findAllProductId = async (payload: repoTypes.product.FindAllProductId) => {
+export const findAllProductId = async (
+    payload: repoTypes.product.FindAllProductId<modelTypes.product.ProductSchema>
+) => {
     return findAllProduct({
         query: {},
         projection: payload.projection,
         limit: payload.limit,
         omit: payload.omit,
         page: payload.page,
-        select: ['id'],
+        select: ['id'] as any,
         sort: payload.sort
     }).then((products) => products.map(({ _id }) => _id.toString()));
 };
@@ -172,7 +173,9 @@ export const findAllProductUndraftByShop = async ({
         query: {
             product_shop,
             is_draft: false
-        }
+        },
+        page,
+        limit
     });
 };
 

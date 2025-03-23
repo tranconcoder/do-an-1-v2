@@ -42,10 +42,16 @@ declare global {
                     userId?: string;
                 }
 
+                /* ---------------------------------------------------------- */
+                /*                          Get all                           */
+                /* ---------------------------------------------------------- */
+                /* -------------------- Get all products -------------------- */
+                interface GetAllProducts extends commonTypes.object.PageSlitting {}
+
                 /* --------------- Get all product by shop -------------- */
                 interface GetAllProductByShop
                     extends Pick<modelTypes.product.ProductSchema, 'product_shop'>,
-                        Pick<moduleTypes.mongoose.FindAllWithPageSlittingArgs, 'limit' | 'page'> {
+                        commonTypes.object.PageSlitting {
                     userId: string;
                 }
 

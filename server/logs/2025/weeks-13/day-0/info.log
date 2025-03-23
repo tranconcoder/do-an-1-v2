@@ -1595,3 +1595,81 @@
 [2025-03-23T04:11:04.379Z] [info]: Server closed
 [2025-03-23T04:11:04.400Z] [info]: Server closed
 [2025-03-23T04:11:04.411Z] [info]: Server closed
+[2025-03-23T06:21:00.051Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:21:00.052Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:21:00.065Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:22:00.005Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:22:00.005Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:22:00.008Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:23:00.027Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:23:00.028Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:23:00.035Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:24:00.029Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:24:00.029Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:24:00.033Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:25:00.007Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:25:00.007Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:25:00.011Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:26:00.007Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:26:00.007Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:26:00.009Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:27:00.005Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:27:00.006Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:27:00.009Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:28:00.003Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:28:00.003Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:28:00.008Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:29:00.005Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:29:00.006Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:29:00.010Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:30:00.021Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:30:00.022Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:30:00.029Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:31:00.030Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:31:00.031Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:31:00.040Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:32:00.005Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:32:00.006Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:32:00.012Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:33:00.006Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:33:00.006Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:33:00.010Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:34:00.005Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:34:00.005Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:34:00.010Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:35:00.007Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:35:00.007Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:35:00.011Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:36:00.007Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:36:00.007Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:36:00.011Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:37:00.010Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:37:00.011Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:37:00.020Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:38:00.007Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:38:00.007Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:38:00.009Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:39:00.010Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:39:00.011Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:39:00.016Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:40:00.013Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:40:00.013Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:40:00.018Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:41:00.005Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:41:00.005Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:41:00.012Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:42:00.016Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:42:00.017Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:42:00.022Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:43:00.004Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:43:00.004Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:43:00.006Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:44:00.005Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:44:00.006Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:44:00.008Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:45:00.005Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:45:00.005Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:45:00.007Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-23T06:46:00.008Z] [info]: Cleanup key token: 0 key token cleaned
+[2025-03-23T06:46:00.008Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-23T06:46:00.013Z] [info]: Cleanup product: Cleaned 0 products

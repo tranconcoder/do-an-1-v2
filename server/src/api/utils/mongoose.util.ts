@@ -1,6 +1,6 @@
 import mongoose, { HydratedDocument, QueryWithHelpers } from 'mongoose';
 import { timestamps } from '@/configs/mongoose.config.js';
-import { PESSIMISTIC_EXPIRE_TIME, PESSIMISTIC_QUERY_TIME } from '@/configs/redis.config.js';
+import { PESSIMISTIC_QUERY_TIME } from '@/configs/redis.config.js';
 
 export const convertToMongooseId = (id: string) => new mongoose.Types.ObjectId(id);
 

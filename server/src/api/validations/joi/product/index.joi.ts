@@ -57,6 +57,13 @@ export const getProductByIdSchema = Joi.object<
     productId: mongooseId
 });
 
+/* ---------------------------------------------------------- */
+/*                          Get all                           */
+/* ---------------------------------------------------------- */
+
+/* -------------------- Get all products -------------------- */
+export const getAllProductsSchema = pageSplitting;
+
 /* --------------- Get all product by shop -------------- */
 export const getAllProductByShopParamsSchema =
     Joi.object<joiTypes.product.definition.GetAllProductByShopParams>({

@@ -13,6 +13,12 @@ import mongooseLib, { Document, model, Model } from 'mongoose';
 declare global {
     namespace moduleTypes {
         namespace mongoose {
+            interface Metadata {
+                created_at?: Date;
+                updated_at?: Date;
+                __v?: number;
+            }
+
             type ObjectId = mongooseBase.Types.ObjectId | string;
 
             type ConvertObjectIdToString<T> = {
@@ -34,7 +40,7 @@ declare global {
             type MongooseType<T, isModel, isDocument, D> = (isModel extends true
                 ? Model<{}, {}, {}, {}, HydratedDocument<T & D>>
                 : {}) &
-                (isDocument extends true ? HydratedDocument<T & D> : {}) &
+                (isDocument extends true ? HydratedDocument<T & D & Metadata> : {}) &
                 (isModel extends false ? (isDocument extends false ? T & D : {}) : {});
 
             interface GetProjection<T> {
@@ -45,11 +51,11 @@ declare global {
             }
 
             /* ----- Argument of generateFindAllPageSlitting utils  ----- */
-            interface FindAllWithPageSlittingArgs<T = any> extends Partial<GetProjection<T>> {
+            interface FindAllWithPageSlittingArgs<T = any>
+                extends Partial<GetProjection<T>>,
+                    commonTypes.object.PageSlitting {
                 query: RootFilterQuery<T>;
                 sort?: any;
-                limit?: number;
-                page?: number;
             }
 
             /* --------------- Generate findOneAndUpdate  --------------- */

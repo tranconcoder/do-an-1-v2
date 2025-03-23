@@ -7,6 +7,7 @@ import {
 } from '@/middlewares/joiValidate.middleware.js';
 import { authenticate, authenticateNotRequired } from '@/middlewares/jwt.middleware.js';
 import {
+    getAllProductsSchema,
     getAllProductByShopParamsSchema,
     getAllProductByShopQuerySchema,
     getAllProductDraftByShopSchema,
@@ -19,6 +20,15 @@ const productGetRoute = Router();
 const productGetRouteValidateOrNot = Router();
 const productGetRouteValidate = Router();
 
+/* ---------------------------------------------------------- */
+/*                          Get all                           */
+/* ---------------------------------------------------------- */
+/* ------------- Get all product draft by shop  ------------- */
+productGetRoute.get(
+    '/',
+    validateRequestQuery(getAllProductsSchema),
+    catchError(ProductController.getAllProducts)
+);
 /* ------------------------------------------------------ */
 /*                         Search                         */
 /* ------------------------------------------------------ */
@@ -55,7 +65,6 @@ productGetRouteValidate.get(
 productGetRouteValidateOrNot.use(productGetRouteValidate);
 productGetRouteValidate.use(authenticate);
 
-/* ------------- Get all product draft by shop  ------------- */
 productGetRouteValidate.get(
     '/product-shop/draft/all',
     validateRequestQuery(getAllProductDraftByShopSchema),

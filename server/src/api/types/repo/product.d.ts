@@ -3,9 +3,9 @@ import '';
 declare global {
     namespace repoTypes {
         namespace product {
-            interface FindAllProductId
+            interface FindAllProductId<T>
                 extends Omit<
-                    moduleTypes.mongoose.FindAllWithPageSlittingArgs,
+                    moduleTypes.mongoose.FindAllWithPageSlittingArgs<T>,
                     'query' | 'select'
                 > {}
 
