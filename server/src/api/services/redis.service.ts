@@ -1,5 +1,4 @@
 import { sleep } from '../utils/promise.util.js';
-import ms from 'ms';
 import { createClient } from 'redis';
 import { PessimisticKeys } from '../enums/redis.enum.js';
 import LoggerService from './logger.service.js';
@@ -8,7 +7,11 @@ import {
     PESSIMISTIC_RETRY_TIMES,
     PESSIMISTIC_WAITING_TIME
 } from '@/configs/redis.config.js';
-import { getPessimisticKey, getUserProfileKey } from '@/utils/redis.util.js';
+import {
+    getPessimisticKey,
+    getUserProfileFieldKey,
+    getUserProfileKey
+} from '@/utils/redis.util.js';
 
 const redisClient = await createClient()
     .on('error', (err) => {
@@ -62,12 +65,30 @@ export const pessimisticLock = async <T = any>(
 };
 
 /* ---------------------------------------------------------- */
-/*                      Get user profile                      */
+/*                            User                            */
 /* ---------------------------------------------------------- */
+
+/* -------------------- Get user profile -------------------- */
 export const getUserProfile = async (id: string) => {
     const key = getUserProfileKey(id);
-    const { keys } = await redisClient.scan(0, { MATCH: key });
-    if (!keys.length) return null;
+    const user = await redisClient.hGetAll(key);
+    if (!Object.keys(user).length) return null;
 
-    return await redisClient.mGet(keys);
+    return user;
+};
+
+/* -------------------- Set user profile -------------------- */
+export const setUserProfile = async ({
+    id,
+    fullName,
+    email,
+    phoneNumber,
+    role
+}: serviceTypes.redis.SetUserProfile) => {
+    await redisClient.hSet(getUserProfileKey(id), {
+        fullName,
+        email,
+        phoneNumber,
+        role: role.toString()
+    });
 };

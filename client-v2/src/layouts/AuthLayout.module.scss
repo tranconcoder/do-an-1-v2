@@ -100,6 +100,45 @@
     }
 }
 
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.back-button,
+.home-button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    color: #555;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #000;
+    }
+
+    span {
+        margin-left: 6px;
+    }
+}
+
+.home-button {
+    color: #1a85ff;
+    text-decoration: none;
+
+    &:hover {
+        background-color: rgba(26, 133, 255, 0.1);
+        color: #0066cc;
+    }
+}
+
 // Responsive adjustments
 @media (max-width: 768px) {
     .auth-wrapper {

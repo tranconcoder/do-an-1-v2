@@ -34,7 +34,11 @@ import {
     faBook,
     faDumbbell,
     faSpa,
-    faPaw
+    faPaw,
+    faArrowLeft,
+    faArrowRight,
+    faAngleLeft,
+    faAngleRight
 } from '@fortawesome/free-solid-svg-icons';
 // Import the debounce hook
 import useDebounce from '../../hooks/useDebounce';
@@ -275,10 +279,8 @@ function Products() {
                                 ))
                     );
                 } else {
-                    initialProducts = filterProducts({
-                        categoryId: filterOptions.categoryId,
-                        inStock: filterOptions.inStock
-                    });
+                    // Get all products instead of using filters initially
+                    initialProducts = getAllProducts();
                 }
 
                 setProducts(initialProducts);
@@ -293,13 +295,7 @@ function Products() {
         };
 
         fetchProducts();
-    }, [
-        searchParam,
-        filterOptions.categoryId,
-        filterOptions.inStock,
-        getAllProducts,
-        filterProducts
-    ]);
+    }, [searchParam, getAllProducts]);
 
     // Apply debounced price range to filter options
     useEffect(() => {
@@ -311,10 +307,11 @@ function Products() {
         }));
     }, [debouncedPriceRange]);
 
-    // Apply search, sort, and filter
+    // Apply search, sort, and filter with debugging
     useEffect(() => {
         if (products.length === 0) return;
 
+        console.log('Filtering products. Total before filtering:', products.length);
         let results = [...products];
 
         // Apply search filter
@@ -329,15 +326,24 @@ function Products() {
                             tag.toLowerCase().includes(searchTerm.toLowerCase())
                         ))
             );
+            console.log('After search filter:', results.length);
         }
 
-        // Apply price filter
-        if (filterOptions.minPrice !== '') {
-            results = results.filter((product) => product.price >= Number(filterOptions.minPrice));
+        // Apply category filter only if explicitly selected
+        if (filterOptions.categoryId) {
+            results = results.filter((product) => product.categoryId === filterOptions.categoryId);
+            console.log('After category filter:', results.length);
         }
 
-        if (filterOptions.maxPrice !== '') {
-            results = results.filter((product) => product.price <= Number(filterOptions.maxPrice));
+        // Apply price filter with safety checks
+        if (typeof filterOptions.minPrice === 'number' && filterOptions.minPrice > 0) {
+            results = results.filter((product) => product.price >= filterOptions.minPrice);
+            console.log('After min price filter:', results.length);
+        }
+
+        if (typeof filterOptions.maxPrice === 'number' && filterOptions.maxPrice < 100) {
+            results = results.filter((product) => product.price <= filterOptions.maxPrice);
+            console.log('After max price filter:', results.length);
         }
 
         // Apply sale filter
@@ -395,6 +401,7 @@ function Products() {
                 break;
         }
 
+        console.log('Final filtered products:', results.length);
         setFilteredProducts(results);
 
         // Count active filters for display
@@ -492,6 +499,51 @@ function Products() {
         setUiPriceRange(newRange);
     };
 
+    // Pagination state
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10); // Default items per page
+    const [totalPages, setTotalPages] = useState(1);
+
+    // Calculate total pages when filtered products change
+    useEffect(() => {
+        setTotalPages(Math.ceil(filteredProducts.length / itemsPerPage));
+        // Reset to page 1 when filters change
+        if (
+            currentPage > Math.ceil(filteredProducts.length / itemsPerPage) &&
+            filteredProducts.length > 0
+        ) {
+            setCurrentPage(1);
+        }
+    }, [filteredProducts, itemsPerPage, currentPage]);
+
+    // Calculate the current items to display based on pagination
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredProducts.slice(
+        indexOfFirstItem,
+        Math.min(indexOfLastItem, filteredProducts.length)
+    );
+
+    // Pagination control functions
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+    const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+
+    // Generate page numbers for pagination
+    const pageNumbers = [];
+    const maxPageButtons = 5; // Maximum number of page buttons to show
+
+    let startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
+    let endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+
+    if (endPage - startPage + 1 < maxPageButtons) {
+        startPage = Math.max(1, endPage - maxPageButtons + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+        pageNumbers.push(i);
+    }
+
     return (
         <div className={cx('products-container')}>
             <h1 className={cx('page-title')}>
@@ -510,6 +562,14 @@ function Products() {
                     <>All Products</>
                 )}
             </h1>
+
+            {/* Debug info - helpful for developers */}
+            {!loading && (
+                <div style={{ marginBottom: '10px', color: '#888', fontSize: '0.9rem' }}>
+                    Total Products: {products.length}, Filtered: {filteredProducts.length}, Current
+                    Page: {currentPage}/{totalPages}, Showing: {currentItems.length} items
+                </div>
+            )}
 
             {loading && (
                 <div className={cx('loading')}>
@@ -550,7 +610,7 @@ function Products() {
                             aria-controls="filter-panel"
                         >
                             <FontAwesomeIcon icon={faFilter} />
-                            Filters{' '}
+                            Filters
                             {activeFilters > 0 && (
                                 <span className={cx('filter-badge')}>{activeFilters}</span>
                             )}
@@ -878,14 +938,16 @@ function Products() {
             {!loading && filteredProducts.length > 0 && !error && (
                 <div className={cx('results-info')}>
                     <span className={cx('results-count')}>
-                        Showing {filteredProducts.length}{' '}
+                        Showing {indexOfFirstItem + 1}-
+                        {Math.min(indexOfLastItem, filteredProducts.length)} of{' '}
+                        {filteredProducts.length}{' '}
                         {filteredProducts.length === 1 ? 'product' : 'products'}
                     </span>
                 </div>
             )}
 
             <div className={cx('products-grid')}>
-                {filteredProducts.map((product) => (
+                {currentItems.map((product) => (
                     <div key={product.id} className={cx('product-card')}>
                         <Link
                             to={`/product/${product.slug}`}
@@ -966,6 +1028,83 @@ function Products() {
                     </div>
                 ))}
             </div>
+
+            {/* Pagination controls */}
+            {totalPages > 1 && (
+                <div className={cx('pagination')}>
+                    <button
+                        onClick={prevPage}
+                        disabled={currentPage === 1}
+                        className={cx('pagination-button', { disabled: currentPage === 1 })}
+                        aria-label="Previous page"
+                    >
+                        <FontAwesomeIcon icon={faAngleLeft} />
+                    </button>
+
+                    {startPage > 1 && (
+                        <>
+                            <button onClick={() => paginate(1)} className={cx('pagination-button')}>
+                                1
+                            </button>
+                            {startPage > 2 && <span className={cx('pagination-dots')}>...</span>}
+                        </>
+                    )}
+
+                    {pageNumbers.map((number) => (
+                        <button
+                            key={number}
+                            onClick={() => paginate(number)}
+                            className={cx('pagination-button', { active: currentPage === number })}
+                        >
+                            {number}
+                        </button>
+                    ))}
+
+                    {endPage < totalPages && (
+                        <>
+                            {endPage < totalPages - 1 && (
+                                <span className={cx('pagination-dots')}>...</span>
+                            )}
+                            <button
+                                onClick={() => paginate(totalPages)}
+                                className={cx('pagination-button')}
+                            >
+                                {totalPages}
+                            </button>
+                        </>
+                    )}
+
+                    <button
+                        onClick={nextPage}
+                        disabled={currentPage === totalPages}
+                        className={cx('pagination-button', {
+                            disabled: currentPage === totalPages
+                        })}
+                        aria-label="Next page"
+                    >
+                        <FontAwesomeIcon icon={faAngleRight} />
+                    </button>
+                </div>
+            )}
+
+            {/* Items per page selector */}
+            {filteredProducts.length > 5 && (
+                <div className={cx('items-per-page')}>
+                    <span>Show:</span>
+                    {[10, 20, 30, 50].map((number) => (
+                        <button
+                            key={number}
+                            onClick={() => setItemsPerPage(number)}
+                            className={cx('items-per-page-button', {
+                                active: itemsPerPage === number
+                            })}
+                        >
+                            {number}
+                        </button>
+                    ))}
+                    <span>per page</span>
+                </div>
+            )}
         </div>
     );
 }
