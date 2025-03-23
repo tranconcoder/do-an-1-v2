@@ -1,3 +1,6 @@
+import '';
+import type { ShopStatus } from '@/enums/shop.enum.ts';
+
 declare global {
     namespace model {
         namespace shop {
@@ -26,6 +29,10 @@ declare global {
                 shop_owner_email: string;
                 shop_owner_phoneNumber: string;
                 shop_owner_cardID: string;
+
+                /* --------------------- Shop status --------------------- */
+                shop_status: ShopStatus;
+                is_brand: boolean;
             }
         }
     }

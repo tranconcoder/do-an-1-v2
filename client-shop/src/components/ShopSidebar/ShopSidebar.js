@@ -7,7 +7,6 @@ import {
     MdDashboard,
     MdInventory,
     MdShoppingCart,
-    MdAnalytics,
     MdPeople,
     MdOutlineSettings,
     MdStore,
