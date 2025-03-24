@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 import { ObjectId } from '@/configs/mongoose.config.js';
 import slugify from 'slugify';
 import { timestamps, required } from '@/configs/mongoose.config.js';
+import {CityType, DistrictType, ProvinceType} from '@/enums/location.enum.js';
 
 /* ---------------------------------------------------------- */
 /*                          Province                          */
@@ -15,7 +16,7 @@ const provinceSchema = new Schema(
         province_type: {
             type: String,
             required,
-            enum: ['tỉnh', 'thành phố trung ương']
+            enum: ProvinceType
         },
         province_slug: String
     },
@@ -52,7 +53,7 @@ const citySchema = new Schema(
         city_type: {
             type: String,
             required,
-            enum: ['quận', 'huyện', 'thành phố', 'thị xã']
+            enum: CityType,
         },
         city_slug: String
     },
@@ -62,7 +63,7 @@ const citySchema = new Schema(
     }
 );
 citySchema.pre('save', function (next) {
-    this.city_slug = slugify(this.city_name, { lower: true });
+    this.city_slug = slugify.default(this.city_name, { lower: true });
     next();
 });
 
@@ -93,7 +94,7 @@ const districtSchema = new Schema(
         district_type: {
             type: String,
             required,
-            enum: ['phường', 'xã', 'thị trấn']
+            enum: DistrictType
         },
         district_slug: String
     },
@@ -103,8 +104,20 @@ const districtSchema = new Schema(
     }
 );
 citySchema.pre('save', function (next) {
-    this.city_slug = slugify(this.city_name, { lower: true });
+    this.city_slug = slugify.default(this.city_name, { lower: true });
     next();
 });
 
 export const districtModel = model(DISTRICT_MODEL_NAME, districtSchema);
+
+
+/* ---------------------------------------------------------- */
+/*                          Location                          */
+/* ---------------------------------------------------------- */
+export const LOCATION_MODEL_NAME = 'Location';
+export const LOCATION_COLLECTION_NAME = 'locations';
+
+
+export const locationSchema = new Schema({
+        
+})

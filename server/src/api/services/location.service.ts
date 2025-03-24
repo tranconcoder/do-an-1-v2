@@ -1,1 +1,1 @@
-export default class LocationService {}
+export default new class LocationService {}

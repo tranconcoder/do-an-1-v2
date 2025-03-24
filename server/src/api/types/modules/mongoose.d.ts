@@ -25,12 +25,12 @@ declare global {
                 [K in keyof T]: NonNullable<T[K]> extends ObjectId
                     ? string
                     : NonNullable<T[K]> extends mongooseBase.Types.ObjectId
-                    ? string
-                    : NonNullable<T[K]> extends ObjectId[]
-                    ? string[]
-                    : NonNullable<T[K]> extends mongooseBase.Types.ObjectId[]
-                    ? string[]
-                    : T[K];
+                      ? string
+                      : NonNullable<T[K]> extends ObjectId[]
+                        ? string[]
+                        : NonNullable<T[K]> extends mongooseBase.Types.ObjectId[]
+                          ? string[]
+                          : T[K];
             };
 
             type IsModel<T = false, K = any> = T extends true
@@ -48,6 +48,11 @@ declare global {
                 only: Array<keyof T>;
                 select: Array<keyof T>;
                 omit: Array<keyof T> | 'metadata';
+            }
+
+            /* -------------------- Generate findAll -------------------- */
+            interface FindAll<T = any> extends Partial<GetProjection<T>> {
+                query: RootFilterQuery<T>;
             }
 
             /* ----- Argument of generateFindAllPageSlitting utils  ----- */

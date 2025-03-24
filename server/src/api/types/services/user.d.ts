@@ -7,7 +7,8 @@ declare global {
             /*                        ARGUMENTS                       */
             /* ====================================================== */
             namespace arguments {
-                interface NewInstance extends model.auth.UserSchema<false, false> {}
+                interface NewInstance
+                    extends Omit<model.auth.UserSchema<false, false>, '_id' | 'avatar'> {}
             }
         }
     }

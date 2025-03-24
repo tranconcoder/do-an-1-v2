@@ -15,6 +15,8 @@ import KeyTokenService from './keyToken.service.js';
 import JwtService from './jwt.service.js';
 import LoggerService from './logger.service.js';
 
+import { isExistsShop } from '@/models/repository/shop/index.js';
+
 export default class AuthService {
     /* ------------------------------------------------------ */
     /*                        Sign up                         */
@@ -74,6 +76,26 @@ export default class AuthService {
         });
 
         return jwtTokenPair;
+    };
+
+    /* ---------------------------------------------------------- */
+    /*                        Sign up shop                        */
+    /* ---------------------------------------------------------- */
+    public static signUpShop = async ({
+        ...payload
+    }: service.shop.arguments.SignUp) => {
+        /* ------------------ Check unique fields  ------------------ */
+        const isExists = await isExistsShop({
+            shop_certificate: payload.shop_certificate,
+            shop_email: payload.shop_email,
+            shop_name: payload.shop_name,
+            shop_owner_cardID: payload.shop_owner_cardID,
+            shop_phoneNumber: payload.shop_phoneNumber
+        })
+        if (isExists) throw new NotFoundErrorResponse('Shop is exists!');
+
+        const hashPassword = await bcrypt.hash(payload.shop_password, BCRYPT_SALT_ROUND);
+
     };
 
     /* ------------------------------------------------------ */

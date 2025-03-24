@@ -70,6 +70,26 @@ export const getProjection = <T = any>({
 };
 
 /* -------------------- Find all wrapper -------------------- */
+export const generateFindAll = <T = any>(model: any) => {
+    return async ({
+        query,
+        omit = [],
+        only = [],
+        projection = {},
+        select = []
+    }: moduleTypes.mongoose.FindAll<T>) => {
+        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'find', {}>;
+
+        projection = getProjection<T>({
+            projection,
+            only,
+            select,
+            omit
+        });
+
+        return model.find(query, projection) as Query;
+    };
+};
 export const generateFindAllPageSplit = <T = any>(model: any) => {
     return async ({
         query,
@@ -97,6 +117,7 @@ export const generateFindAllPageSplit = <T = any>(model: any) => {
 /* ------------------- Update all wrapper ------------------- */
 export const generateUpdateAll = <T = any>(model: any) => {
     return async ({ query, update }: moduleTypes.mongoose.UpdateAllArgs<T>) => {
+
         return (
             (await model.updateMany(query, update).maxTimeMS(PESSIMISTIC_QUERY_TIME)
                 .modifiedCount) > 0
