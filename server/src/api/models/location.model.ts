@@ -103,8 +103,8 @@ const districtSchema = new Schema(
         collections: CITY_COLLECTION_NAME
     }
 );
-citySchema.pre('save', function (next) {
-    this.city_slug = slugify.default(this.city_name, { lower: true, locale: "vi" });
+districtSchema.pre('save', function (next) {
+    this.district_slug= slugify.default(this.district_name, { lower: true, locale: "vi" });
     next()
 });
 
