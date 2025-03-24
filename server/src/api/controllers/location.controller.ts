@@ -7,8 +7,9 @@ export default new (class LocationController {
     public createLocation: RequestWithBody<any> = (req, res, _) => {};
 
     /* ---------------------------------------------------------- */
-    /*                         Provinces                          */
+    /*                          Get all                           */
     /* ---------------------------------------------------------- */
+
     /* ------------------- Get all provinces  ------------------- */
     public getAllProvince: RequestHandler = async (req, res, _) => {
         new OkResponse({
@@ -16,6 +17,26 @@ export default new (class LocationController {
             metadata: await locationService.getAllProvince()
         }).send(res);
     };
+
+    /* --------------------- Get all cities --------------------- */
+    public getAllCity: RequestHandler = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get all cities',
+            metadata: await locationService.getAllCity()
+        }).send(res);
+    };
+
+    /* -------------------- Get all district -------------------- */
+    public getAllDistrict: RequestHandler = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get all district',
+            metadata: await locationService.getAllDistrict()
+        }).send(res);
+    };
+
+    /* ---------------------------------------------------------- */
+    /*                         Get by id                          */
+    /* ---------------------------------------------------------- */
 
     /* ------------------- Get province by id ------------------- */
     public getProvinceById: RequestHandler = async (req, res, _) => {
@@ -25,6 +46,26 @@ export default new (class LocationController {
         }).send(res);
     };
 
+    /* --------------------- Get city by id ---------------------- */
+    public getCityById: RequestHandler = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get city by id',
+            metadata: await locationService.getCityById(req.params.id)
+        }).send(res);
+    };
+
+    /* ------------------- Get district by id ------------------- */
+    public getDistrictById: RequestHandler = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get district by id',
+            metadata: await locationService.getDistrictById(req.params.id)
+        }).send(res);
+    };
+
+    /* ---------------------------------------------------------- */
+    /*                        Get by name                         */
+    /* ---------------------------------------------------------- */
+
     /* ------------------ Get province by name ------------------ */
     public getProvinceByName: RequestHandler = async (req, res, _) => {
         new OkResponse({
@@ -32,6 +73,26 @@ export default new (class LocationController {
             metadata: await locationService.getProvinceByName(req.params.name)
         }).send(res);
     };
+
+    /* -------------------- Get city by name --------------------- */
+    public getCityByName: RequestHandler = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get city by name',
+            metadata: await locationService.getCityByName(req.params.name)
+        }).send(res);
+    };
+
+    /* ------------------ Get district by name ------------------ */
+    public getDistrictByName: RequestHandler = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get district by name',
+            metadata: await locationService.getDistrictByName(req.params.name)
+        }).send(res);
+    };
+
+    /* ---------------------------------------------------------- */
+    /*                          Get with                          */
+    /* ---------------------------------------------------------- */
 
     /* ----------------- Get province with city ----------------- */
     public getProvinceWithCity: RequestHandler = async (req, res, _) => {
@@ -49,34 +110,6 @@ export default new (class LocationController {
         }).send(res);
     };
 
-    /* ---------------------------------------------------------- */
-    /*                           Cities                           */
-    /* ---------------------------------------------------------- */
-
-    /* --------------------- Get all cities --------------------- */
-    public getAllCity: RequestHandler = async (req, res, _) => {
-        new OkResponse({
-            message: 'Get all cities',
-            metadata: await locationService.getAllCity()
-        }).send(res);
-    };
-
-    /* --------------------- Get city by id ---------------------- */
-    public getCityById: RequestHandler = async (req, res, _) => {
-        new OkResponse({
-            message: 'Get city by id',
-            metadata: await locationService.getCityById(req.params.id)
-        }).send(res);
-    };
-
-    /* -------------------- Get city by name --------------------- */
-    public getCityByName: RequestHandler = async (req, res, _) => {
-        new OkResponse({
-            message: 'Get city by name',
-            metadata: await locationService.getCityByName(req.params.name)
-        }).send(res);
-    };
-
     /* ------------------- Get city with district ---------------- */
     public getCityWithDistrict: RequestHandler = async (req, res, _) => {
         new OkResponse({
@@ -86,30 +119,30 @@ export default new (class LocationController {
     };
 
     /* ---------------------------------------------------------- */
-    /*                          District                          */
+    /*                           Get in                           */
     /* ---------------------------------------------------------- */
 
-    /* -------------------- Get all district -------------------- */
-    public getAllDistrict: RequestHandler = async (req, res, _) => {
+    /* --------------- Get all cities in province --------------- */
+    public getCitiesInProvince: RequestHandler = async (req, res, _) => {
         new OkResponse({
-            message: 'Get all district',
-            metadata: await locationService.getAllDistrict()
+            message: 'Get city in province',
+            metadata: await locationService.getCitiesInProvince(req.params.province)
         }).send(res);
     };
 
-    /* ------------------- Get district by id ------------------- */
-    public getDistrictById: RequestHandler = async (req, res, _) => {
+    /* ------------- Get all districts in province  ------------- */
+    public getDistrictsInProvince: RequestHandler = async (req, res, _) => {
         new OkResponse({
-            message: 'Get district by id',
-            metadata: await locationService.getDistrictById(req.params.id)
+            message: 'Get district in province',
+            metadata: await locationService.getDistrictsInProvince(req.params.province)
         }).send(res);
     };
 
-    /* ------------------ Get district by name ------------------ */
-    public getDistrictByName: RequestHandler = async (req, res, _) => {
+    /* ------------- Get all districts in city  ------------- */
+    public getDistrictsInCity: RequestHandler = async (req, res, _) => {
         new OkResponse({
-            message: 'Get district by name',
-            metadata: await locationService.getDistrictByName(req.params.name)
+            message: 'Get district in city',
+            metadata: await locationService.getDistrictsInCity(req.params.city)
         }).send(res);
     };
 })();

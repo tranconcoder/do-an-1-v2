@@ -63,7 +63,7 @@ export default new (class LocationService {
     /* -------------------- Get city by name -------------------- */
     async getCityByName(name: string) {
         return await findOneCity({
-            query: { city_slug : name },
+            query: { city_slug: name },
             omit: 'metadata'
         });
     }
@@ -98,11 +98,39 @@ export default new (class LocationService {
     }
 
     /* ----------------- Get city with district ----------------- */
-    async getCityWithDistrict(districtId: string) { 
+    async getCityWithDistrict(districtId: string) {
         return await findOneDistrict({
             query: { _id: districtId },
             select: ['city'],
             omit: 'metadata'
         }).populate('city');
+    }
+
+    /* ---------------------------------------------------------- */
+    /*                           Get in                           */
+    /* ---------------------------------------------------------- */
+
+    /* --------------- Get all cities in province --------------- */
+    async getCitiesInProvince(provinceId: string) {
+        return await findCity({
+            query: { province: provinceId },
+            omit: 'metadata'
+        });
+    }
+
+    /* ------------- Get all districts in province  ------------- */
+    async getDistrictsInProvince(provinceId: string) {
+        return await findDistrict({
+            query: { province: provinceId },
+            omit: 'metadata'
+        });
+    }
+
+    /* ---------------- Get all districts in city --------------- */
+    async getDistrictsInCity(cityId: string) {
+        return await findDistrict({
+            query: { city: cityId },
+            omit: 'metadata'
+        });
     }
 })();
