@@ -76,7 +76,8 @@ export const generateFindAll = <T = any>(model: any) => {
         omit = [],
         only = [],
         projection = {},
-        select = []
+        select = [],
+        sort = {}
     }: moduleTypes.mongoose.FindAll<T>) => {
         type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'find', {}>;
 
@@ -87,7 +88,9 @@ export const generateFindAll = <T = any>(model: any) => {
             omit
         });
 
-        return model.find(query, projection) as Query;
+        const result: Query = await model.find(query, projection).sort(sort);
+
+        return result;
     };
 };
 export const generateFindAllPageSplit = <T = any>(model: any) => {

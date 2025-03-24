@@ -16,11 +16,11 @@ const authRouteValidate = Router();
 
 authRoute.post('/sign-up', joiValidate(signUpSchema), catchError(AuthController.signUp));
 
-authRoute.post(
-    '/sign-up-shop',
-    joiValidate(signUpShopSchema),
-    catchError(AuthController.signUpShop)
-);
+// authRoute.post(
+//     '/sign-up-shop',
+//     joiValidate(signUpShopSchema),
+//     catchError(AuthController.signUpShop)
+// );
 
 authRoute.post('/login', joiValidate(loginSchema), catchError(AuthController.login));
 

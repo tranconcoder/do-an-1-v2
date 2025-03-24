@@ -40,19 +40,25 @@ jsonfile.readFile(provinceJsonFile, (err, data) => {
         return console.error(err);
     }
 
-    provinceModel.insertMany(data).catch(() => {});
+    Promise.all(data.map(async (item: any) => {
+        return provinceModel.create(item);
+    })).catch(() => {});
 });
 jsonfile.readFile(citiesJsonFile, (err, data) => {
     if (err) {
         return console.error(err);
     }
 
-    cityModel.insertMany(data).catch(() => {});
+    Promise.all(data.map(async (item: any) => {
+        return cityModel.create(item);
+    })).catch(() => {});
 });
 jsonfile.readFile(districtJsonFile, (err, data) => {
     if (err) {
         return console.error(err);
     }
 
-    districtModel.insertMany(data).catch(() => {});
+    Promise.all(data.map(async (item: any) => {
+        return districtModel.create(item);
+    })).catch(() => {});
 });

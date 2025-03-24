@@ -53,6 +53,7 @@ declare global {
             /* -------------------- Generate findAll -------------------- */
             interface FindAll<T = any> extends Partial<GetProjection<T>> {
                 query: RootFilterQuery<T>;
+                sort?: any;
             }
 
             /* ----- Argument of generateFindAllPageSlitting utils  ----- */
