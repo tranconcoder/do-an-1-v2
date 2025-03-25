@@ -53,6 +53,7 @@ declare global {
                     city: moduleTypes.mongoose.ObjectId;
                     district: moduleTypes.mongoose.ObjectId;
                     address: string;
+                    text: string;
                 },
                 isModel,
                 isDoc,

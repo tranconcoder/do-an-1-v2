@@ -22,7 +22,6 @@ router.get('/province/district/:district', catchError(locationController.getProv
 /* ---------------------------------------------------------- */
 /*                            City                            */
 /* ---------------------------------------------------------- */
-
 router.get('/city', catchError(locationController.getAllCity));
 
 router.get('/city/:id', catchError(locationController.getCityById));

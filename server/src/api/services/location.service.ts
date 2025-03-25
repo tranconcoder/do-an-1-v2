@@ -20,22 +20,26 @@ export default new (class LocationService {
         address
     }: service.location.CreateLocation) {
         /* ---------------------- Check exists ---------------------- */
-        const provinceExists = await provinceModel.exists({ _id: provinceId });
-        if (!provinceExists) throw new BadRequestErrorResponse('Province is invalid!');
+        const province = await provinceModel.findOne({ _id: provinceId }).lean();
+        if (!province) throw new BadRequestErrorResponse('Province is invalid!');
 
-        const cityExists = await cityModel.exists({ _id: cityId });
-        if (!cityExists) throw new BadRequestErrorResponse('City is invalid!');
+        const city= await cityModel.findOne({ _id: cityId }).lean();
+        if (!city) throw new BadRequestErrorResponse('City is invalid!');
 
-        const district = !districtId || (await districtModel.exists({ _id: districtId }));
+        const district = !districtId || (await districtModel.findOne({ _id: districtId }).lean());
         if (!district) throw new BadRequestErrorResponse('District is invalid!');
 
         /* ----------------- Handle create location ----------------- */
+        const districtText = typeof district === "boolean" ? ',' : district.district_name + ", ";
+        const locationText = `${address}, ${districtText}${city.city_name}, ${province.province_name}`;
         const saved = await locationModel.create({
             province: provinceId,
             city: cityId,
             district: districtId,
-            address
+            address,
+            text: locationText
         });
+
         if (!saved) throw new BadRequestErrorResponse('Create location failed!');
 
         return saved;

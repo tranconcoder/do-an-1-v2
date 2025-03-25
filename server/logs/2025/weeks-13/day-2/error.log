@@ -1,2 +1,9 @@
 [2025-03-25T00:22:10.395Z] [error]: HIDE::500::MongoServerError::Cannot do exclusion on field __v in inclusion projection::
 [2025-03-25T00:24:30.390Z] [error]: HIDE::500::MongoServerError::Cannot do exclusion on field __v in inclusion projection::
+[2025-03-25T01:23:25.871Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-25T01:23:34.471Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-03-25T01:23:44.919Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-25T01:23:46.586Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-25T01:24:22.821Z] [error]: HIDE::500::ValidationError::"provinceId" is required::
+[2025-03-25T01:24:36.458Z] [error]: HIDE::500::ValidationError::"provinceId" length must be 24 characters long::
+[2025-03-25T01:28:29.571Z] [error]: HIDE::500::ValidationError::"cityId" is required::

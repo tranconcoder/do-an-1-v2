@@ -8,10 +8,10 @@ export default new (class LocationController {
     /* ---------------------------------------------------------- */
     /*                      Create location                       */
     /* ---------------------------------------------------------- */
-    public createLocation: RequestWithBody<any> = (req, res, _) => {
+    public createLocation: RequestWithBody<any> = async (req, res, _) => {
         new CreatedResponse({
             message: "Location created",
-            metadata: locationService.createLocation(req.body)
+            metadata: await locationService.createLocation(req.body)
         }).send(res)
     };
 

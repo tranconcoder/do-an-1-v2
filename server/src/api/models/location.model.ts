@@ -132,7 +132,9 @@ export const locationSchema = new Schema<model.location.LocationSchema>({
 
     district: { type: ObjectId, ref: DISTRICT_MODEL_NAME, required },
 
-    address: { type: String, maxLength: 200, required }
+    address: { type: String, maxLength: 200, required },
+
+    text: {type: String, required}
 }, {
     timestamps,
     collection: LOCATION_COLLECTION_NAME
