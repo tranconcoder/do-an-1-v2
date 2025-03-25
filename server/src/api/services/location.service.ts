@@ -1,12 +1,12 @@
 import {
-    findCity,
     findDistrict,
-    findOneCity,
+    findWard,
     findOneDistrict,
+    findOneWard,
     findOneProvince,
     findProvince
 } from '@/models/repository/location/index.js';
-import { provinceModel, cityModel, districtModel, locationModel } from '@/models/location.model.js';
+import { provinceModel, districtModel, wardModel, locationModel } from '@/models/location.model.js';
 import { BadRequestErrorResponse } from '@/response/error.response.js';
 
 export default new (class LocationService {
@@ -15,27 +15,27 @@ export default new (class LocationService {
     /* ---------------------------------------------------------- */
     async createLocation({
         provinceId,
-        cityId,
         districtId,
+        wardId,
         address
     }: service.location.CreateLocation) {
         /* ---------------------- Check exists ---------------------- */
         const province = await provinceModel.findOne({ _id: provinceId }).lean();
         if (!province) throw new BadRequestErrorResponse('Province is invalid!');
 
-        const city= await cityModel.findOne({ _id: cityId }).lean();
-        if (!city) throw new BadRequestErrorResponse('City is invalid!');
-
-        const district = !districtId || (await districtModel.findOne({ _id: districtId }).lean());
+        const district = await districtModel.findOne({ _id: districtId }).lean();
         if (!district) throw new BadRequestErrorResponse('District is invalid!');
 
+        const ward = !wardId || (await wardModel.findOne({ _id: wardId }).lean());
+        if (!ward) throw new BadRequestErrorResponse('Ward is invalid!');
+
         /* ----------------- Handle create location ----------------- */
-        const districtText = typeof district === "boolean" ? ',' : district.district_name + ", ";
-        const locationText = `${address}, ${districtText}${city.city_name}, ${province.province_name}`;
+        const wardText = typeof ward === 'boolean' ? ',' : ward.ward_name + ', ';
+        const locationText = `${address}, ${wardText}${district.district_name}, ${province.province_name}`;
         const saved = await locationModel.create({
             province: provinceId,
-            city: cityId,
             district: districtId,
+            ward: wardId,
             address,
             text: locationText
         });
@@ -54,14 +54,14 @@ export default new (class LocationService {
         return await findProvince({ query: {}, omit: 'metadata' });
     }
 
-    /* ---------------------- Get all city ---------------------- */
-    async getAllCity() {
-        return await findCity({ query: {}, omit: 'metadata' });
-    }
-
-    /* -------------------- Get all district -------------------- */
+    /* ---------------------- Get all district ---------------------- */
     async getAllDistrict() {
         return await findDistrict({ query: {}, omit: 'metadata' });
+    }
+
+    /* -------------------- Get all ward -------------------- */
+    async getAllWard() {
+        return await findWard({ query: {}, omit: 'metadata' });
     }
 
     /* ---------------------------------------------------------- */
@@ -73,14 +73,14 @@ export default new (class LocationService {
             omit: 'metadata'
         });
     }
-    async getCityById(id: string) {
-        return await findOneCity({
+    async getDistrictById(id: string) {
+        return await findOneDistrict({
             query: { _id: id },
             omit: 'metadata'
         });
     }
-    async getDistrictById(id: string) {
-        return await findOneDistrict({
+    async getWardById(id: string) {
+        return await findOneWard({
             query: { _id: id },
             omit: 'metadata'
         });
@@ -97,17 +97,17 @@ export default new (class LocationService {
             omit: 'metadata'
         });
     }
-    /* -------------------- Get city by name -------------------- */
-    async getCityByName(name: string) {
-        return await findOneCity({
-            query: { city_slug: name },
-            omit: 'metadata'
-        });
-    }
-    /* ------------------ Get district by name ------------------ */
+    /* -------------------- Get district by name -------------------- */
     async getDistrictByName(name: string) {
         return await findOneDistrict({
             query: { district_slug: name },
+            omit: 'metadata'
+        });
+    }
+    /* ------------------ Get ward by name ------------------ */
+    async getWardByName(name: string) {
+        return await findOneWard({
+            query: { ward_slug: name },
             omit: 'metadata'
         });
     }
@@ -116,43 +116,35 @@ export default new (class LocationService {
     /*                         Get with                          */
     /* ---------------------------------------------------------- */
 
-    /* ----------------- Get province with city ----------------- */
-    async getProvinceWithCity(cityId: string) {
-        return await findOneCity({
-            query: { _id: cityId },
-            only: ['province']
-        }).populate('province');
-    }
-
-    /* --------------- Get province with district --------------- */
+    /* ----------------- Get province with district ----------------- */
     async getProvinceWithDistrict(districtId: string) {
         return await findOneDistrict({
             query: { _id: districtId },
-            only: ['province']
+            only: ['province', "district_name", "district_type", "district_slug"]
         }).populate('province');
     }
 
-    /* ----------------- Get city with district ----------------- */
-    async getCityWithDistrict(districtId: string) {
-        return await findOneDistrict({
-            query: { _id: districtId },
-            only: ['city']
-        }).populate('city');
+    /* --------------- Get province with ward --------------- */
+    async getProvinceWithWard(wardId: string) {
+        return await findOneWard({
+            query: { _id: wardId },
+            only: ['province', "ward_name", "ward_type", "ward_slug"]
+        }).populate('province');
+    }
+
+    /* ----------------- Get district with ward ----------------- */
+    async getDistrictWithWard(wardId: string) {
+        return await findOneWard({
+            query: { _id: wardId },
+            only: ['district', "ward_name", "ward_type", "ward_slug"]
+        }).populate('district');
     }
 
     /* ---------------------------------------------------------- */
     /*                         Get child                          */
     /* ---------------------------------------------------------- */
 
-    /* --------------- Get all cities in province --------------- */
-    async getAllCitiesInProvince(provinceId: string) {
-        return await findCity({
-            query: { province: provinceId },
-            omit: 'metadata'
-        });
-    }
-
-    /* ------------- Get all districts in province  ------------- */
+    /* --------------- Get all districts in province --------------- */
     async getAllDistrictsInProvince(provinceId: string) {
         return await findDistrict({
             query: { province: provinceId },
@@ -160,10 +152,18 @@ export default new (class LocationService {
         });
     }
 
-    /* --------------- Get all districts in city  --------------- */
-    async getAllDistrictsInCity(cityId: string) {
-        return await findDistrict({
-            query: { city: cityId },
+    /* ------------- Get all wards in province  ------------- */
+    async getAllWardsInProvince(provinceId: string) {
+        return await findWard({
+            query: { province: provinceId },
+            omit: 'metadata'
+        });
+    }
+
+    /* --------------- Get all wards in district  --------------- */
+    async getAllWardsInDistrict(districtId: string) {
+        return await findWard({
+            query: { district: districtId },
             omit: 'metadata'
         });
     }

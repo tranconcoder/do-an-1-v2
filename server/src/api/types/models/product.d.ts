@@ -44,7 +44,7 @@ declare global {
                     phone_storage: number;
                     phone_color: string;
                     phone_battery: {
-                        capacity: number;
+                        capadistrict: number;
                         battery_techology: string;
                         charge_technology?: string;
                     };

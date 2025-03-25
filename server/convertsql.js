@@ -64,7 +64,7 @@ const sourceProvinces = `(1, "Thành phố Hà Nội", "thành phố trung ươn
     (94, "Tỉnh Sóc Trăng", "tỉnh", "tinh_soc_trang"),
     (95, "Tỉnh Bạc Liêu", "tỉnh", "tinh_bac_lieu"),
     (96, "Tỉnh Cà Mau", "tỉnh", "tinh_ca_mau"),`;
-const citiesSource = `	(1, 1, "Quận Ba Đình", "quận", "quan_ba_dinh"),
+const districtsSource = `	(1, 1, "Quận Ba Đình", "quận", "quan_ba_dinh"),
 	(2, 1, "Quận Hoàn Kiếm", "quận", "quan_hoan_kiem"),
 	(3, 1, "Quận Tây Hồ", "quận", "quan_tay_ho"),
 	(4, 1, "Quận Long Biên", "quận", "quan_long_bien"),
@@ -770,7 +770,7 @@ const citiesSource = `	(1, 1, "Quận Ba Đình", "quận", "quan_ba_dinh"),
 	(972, 96, "Huyện Phú Tân", "huyện", "huyen_phu_tan"),
     (973, 96, "Huyện Ngọc Hiển", "huyện", "huyen_ngoc_hien");`;
 
-const districtSource = `	(1, 1, 1, "Phường Phúc Xá", "phường", "phuong_phuc_xa"),
+const wardSource = `	(1, 1, 1, "Phường Phúc Xá", "phường", "phuong_phuc_xa"),
 	(4, 1, 1, "Phường Trúc Bạch", "phường", "phuong_truc_bach"),
 	(6, 1, 1, "Phường Vĩnh Phúc", "phường", "phuong_vinh_phuc"),
 	(7, 1, 1, "Phường Cống Vị", "phường", "phuong_cong_vi"),
@@ -11370,8 +11370,8 @@ const districtSource = `	(1, 1, 1, "Phường Phúc Xá", "phường", "phuong_p
 	(32248, 96, 973, "Xã Đất Mũi", "xã", "xa_dat_mui")`;
 
 const provinces = [];
-const cities = [];
 const districts = [];
+const wards = [];
 
 sourceProvinces
     .split('\n')
@@ -11394,33 +11394,9 @@ const insertManyProvince = `[${provinces
 console.log(insertManyProvince);
 
 /* ---------------------------------------------------------- */
-/*                            City                            */
+/*                            District                            */
 /* ---------------------------------------------------------- */
-citiesSource
-    .split('\n')
-    .map((x) => x.substring(x.indexOf('(') + 1, x.lastIndexOf(')')))
-    .forEach((line) => {
-        const content = line.split(', ').map((x) => x.replaceAll('"', ''));
-
-        cities.push({
-            _id: new mongoose.Types.ObjectId(),
-            id: content[0],
-            province: provinces.find((p) => p.id === content[1])._id,
-            city_name: content[2],
-            city_type: content[3]
-        });
-    });
-
-const insertManyCity = `[${cities
-    .map((city) => JSON.stringify(_.omit(city, ['id'])))
-    .join(',\n')}]`;
-
-console.log(insertManyCity);
-
-/* ---------------------------------------------------------- */
-/*                          District                          */
-/* ---------------------------------------------------------- */
-districtSource
+districtsSource
     .split('\n')
     .map((x) => x.substring(x.indexOf('(') + 1, x.lastIndexOf(')')))
     .forEach((line) => {
@@ -11430,14 +11406,38 @@ districtSource
             _id: new mongoose.Types.ObjectId(),
             id: content[0],
             province: provinces.find((p) => p.id === content[1])._id,
-            city: cities.find((d) => d.id === content[2])._id,
-            district_name: content[3],
-            district_type: content[4]
+            district_name: content[2],
+            district_type: content[3]
         });
     });
 
 const insertManyDistrict = `[${districts
-    .map((city) => JSON.stringify(_.omit(city, ['id'])))
+    .map((district) => JSON.stringify(_.omit(district, ['id'])))
     .join(',\n')}]`;
 
 console.log(insertManyDistrict);
+
+/* ---------------------------------------------------------- */
+/*                          Ward                          */
+/* ---------------------------------------------------------- */
+wardSource
+    .split('\n')
+    .map((x) => x.substring(x.indexOf('(') + 1, x.lastIndexOf(')')))
+    .forEach((line) => {
+        const content = line.split(', ').map((x) => x.replaceAll('"', ''));
+
+        wards.push({
+            _id: new mongoose.Types.ObjectId(),
+            id: content[0],
+            province: provinces.find((p) => p.id === content[1])._id,
+            district: districts.find((d) => d.id === content[2])._id,
+            ward_name: content[3],
+            ward_type: content[4]
+        });
+    });
+
+const insertManyWard = `[${wards
+    .map((district) => JSON.stringify(_.omit(district, ['id'])))
+    .join(',\n')}]`;
+
+console.log(insertManyWard);

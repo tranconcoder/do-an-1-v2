@@ -1,6 +1,9 @@
 import Joi from 'joi';
 import _ from 'lodash';
 import { passwordType } from '@/configs/joi.config.js';
+import {ShopStatus, ShopType} from '@/enums/shop.enum.js';
+import { required } from '@/configs/mongoose.config.js';
+import { ObjectId } from '@/configs/mongoose.config.js';
 
 /* ------------------------------------------------------ */
 /*                      User schema                       */
@@ -45,11 +48,11 @@ export const signUpShop = Joi.object<joiTypes.auth.SignUpShop>(
         shop_location: Joi.object<joiTypes.auth.SignUpShop["shop_location"]>({
 
         }),
-        shop_phoneNumber: { type: String, required },
-        shop_description: String,
+        /* shop_phoneNumber: { type: String, required },
+        shop_description: String, */
 
         /* -------------------- Shop inventories -------------------- */
-        shop_warehouses: {
+        /* shop_warehouses: {
             type: [
                 {
                     name: { type: String, required },
@@ -58,17 +61,17 @@ export const signUpShop = Joi.object<joiTypes.auth.SignUpShop>(
                 }
             ],
             default: []
-        },
+        }, */
 
         /* ----------------------- Shop owner ----------------------- */
-        shop_owner_fullName: { type: String, required },
+        /* shop_owner_fullName: { type: String, required },
         shop_owner_email: { type: String, required },
         shop_owner_phoneNumber: { type: String, required },
-        shop_owner_cardID: { type: String, required },
+        shop_owner_cardID: { type: String, required }, */
 
         /* --------------------- Shop status --------------------- */
-        shop_status: { type: String, enum: ShopStatus, default: ShopStatus.PENDING },
-        is_brand: { type: Boolean, default: false }
+        /* shop_status: { type: String, enum: ShopStatus, default: ShopStatus.PENDING },
+        is_brand: { type: Boolean, default: false } */
     }
 );
 

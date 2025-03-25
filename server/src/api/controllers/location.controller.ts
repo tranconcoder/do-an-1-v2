@@ -10,9 +10,9 @@ export default new (class LocationController {
     /* ---------------------------------------------------------- */
     public createLocation: RequestWithBody<joi.location.CreateLocation> = async (req, res, _) => {
         new CreatedResponse({
-            message: "Location created",
+            message: 'Location created',
             metadata: await locationService.createLocation(req.body)
-        }).send(res)
+        }).send(res);
     };
 
     /* ---------------------------------------------------------- */
@@ -27,19 +27,19 @@ export default new (class LocationController {
         }).send(res);
     };
 
-    /* --------------------- Get all cities --------------------- */
-    public getAllCity: RequestHandler = async (req, res, _) => {
+    /* --------------------- Get all districts --------------------- */
+    public getAllDistrict: RequestHandler = async (req, res, _) => {
         new OkResponse({
-            message: 'Get all cities',
-            metadata: await locationService.getAllCity()
+            message: 'Get all districts',
+            metadata: await locationService.getAllDistrict()
         }).send(res);
     };
 
-    /* -------------------- Get all district -------------------- */
-    public getAllDistrict: RequestHandler = async (req, res, _) => {
+    /* -------------------- Get all ward -------------------- */
+    public getAllWard: RequestHandler = async (req, res, _) => {
         new OkResponse({
-            message: 'Get all district',
-            metadata: await locationService.getAllDistrict()
+            message: 'Get all ward',
+            metadata: await locationService.getAllWard()
         }).send(res);
     };
 
@@ -55,19 +55,19 @@ export default new (class LocationController {
         }).send(res);
     };
 
-    /* --------------------- Get city by id ---------------------- */
-    public getCityById: RequestHandler = async (req, res, _) => {
-        new OkResponse({
-            message: 'Get city by id',
-            metadata: await locationService.getCityById(req.params.id)
-        }).send(res);
-    };
-
-    /* ------------------- Get district by id ------------------- */
+    /* --------------------- Get district by id ---------------------- */
     public getDistrictById: RequestHandler = async (req, res, _) => {
         new OkResponse({
             message: 'Get district by id',
             metadata: await locationService.getDistrictById(req.params.id)
+        }).send(res);
+    };
+
+    /* ------------------- Get ward by id ------------------- */
+    public getWardById: RequestHandler = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get ward by id',
+            metadata: await locationService.getWardById(req.params.id)
         }).send(res);
     };
 
@@ -83,15 +83,7 @@ export default new (class LocationController {
         }).send(res);
     };
 
-    /* -------------------- Get city by name --------------------- */
-    public getCityByName: RequestHandler = async (req, res, _) => {
-        new OkResponse({
-            message: 'Get city by name',
-            metadata: await locationService.getCityByName(req.params.name)
-        }).send(res);
-    };
-
-    /* ------------------ Get district by name ------------------ */
+    /* -------------------- Get district by name --------------------- */
     public getDistrictByName: RequestHandler = async (req, res, _) => {
         new OkResponse({
             message: 'Get district by name',
@@ -99,19 +91,19 @@ export default new (class LocationController {
         }).send(res);
     };
 
+    /* ------------------ Get ward by name ------------------ */
+    public getWardByName: RequestHandler = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get ward by name',
+            metadata: await locationService.getWardByName(req.params.name)
+        }).send(res);
+    };
+
     /* --------------------------------------------------------- */
     /*                          Get with                          */
     /* ---------------------------------------------------------- */
 
-    /* ----------------- Get province with city ----------------- */
-    public getProvinceWithCity: RequestHandler = async (req, res, _) => {
-        new OkResponse({
-            message: 'Get province with city',
-            metadata: await locationService.getProvinceWithCity(req.params.city)
-        }).send(res);
-    };
-
-    /* --------------- Get province with district --------------- */
+    /* ----------------- Get province with district ----------------- */
     public getProvinceWithDistrict: RequestHandler = async (req, res, _) => {
         new OkResponse({
             message: 'Get province with district',
@@ -119,11 +111,19 @@ export default new (class LocationController {
         }).send(res);
     };
 
-    /* ------------------- Get city with district ---------------- */
-    public getCityWithDistrict: RequestHandler = async (req, res, _) => {
+    /* --------------- Get province with ward --------------- */
+    public getProvinceWithWard: RequestHandler = async (req, res, _) => {
         new OkResponse({
-            message: 'Get city with district',
-            metadata: await locationService.getCityWithDistrict(req.params.district)
+            message: 'Get province with ward',
+            metadata: await locationService.getProvinceWithWard(req.params.ward)
+        }).send(res);
+    };
+
+    /* ------------------- Get district with ward ---------------- */
+    public getDistrictWithWard: RequestHandler = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get district with ward',
+            metadata: await locationService.getDistrictWithWard(req.params.ward)
         }).send(res);
     };
 
@@ -131,15 +131,7 @@ export default new (class LocationController {
     /*                         Get child                          */
     /* ---------------------------------------------------------- */
 
-    /* --------------- Get all cities in province --------------- */
-    public getAllCitiesInProvince: RequestHandler = async (req, res, _) => {
-        new OkResponse({
-            message: 'Get city in province',
-            metadata: await locationService.getAllCitiesInProvince(req.params.province)
-        }).send(res);
-    };
-
-    /* ------------- Get all districts in province  ------------- */
+    /* --------------- Get all districts in province --------------- */
     public getAllDistrictsInProvince: RequestHandler = async (req, res, _) => {
         new OkResponse({
             message: 'Get district in province',
@@ -147,11 +139,19 @@ export default new (class LocationController {
         }).send(res);
     };
 
-    /* ------------- Get all districts in city  ------------- */
-    public getAllDistrictsInCity: RequestHandler = async (req, res, _) => {
+    /* ------------- Get all wards in province  ------------- */
+    public getAllWardsInProvince: RequestHandler = async (req, res, _) => {
         new OkResponse({
-            message: 'Get district in city',
-            metadata: await locationService.getAllDistrictsInCity(req.params.city)
+            message: 'Get ward in province',
+            metadata: await locationService.getAllWardsInProvince(req.params.province)
+        }).send(res);
+    };
+
+    /* ------------- Get all wards in district  ------------- */
+    public getAllWardsInDistrict: RequestHandler = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get ward in district',
+            metadata: await locationService.getAllWardsInDistrict(req.params.district)
         }).send(res);
     };
 })();

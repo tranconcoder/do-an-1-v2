@@ -3,35 +3,25 @@ import Joi from 'joi';
 /* ====================================================== */
 /*                      PHONE PRODUCT                     */
 /* ====================================================== */
-export const createPhoneSchema = Joi.object<
-    joiTypes.product.definition.CreatePhoneSchema,
-    true
->({
+export const createPhoneSchema = Joi.object<joiTypes.product.definition.CreatePhoneSchema, true>({
     phone_processor: Joi.string().required(),
     phone_brand: Joi.string().required(),
     phone_memory: Joi.string().required(),
     phone_storage: Joi.number().required(),
     phone_color: Joi.string().required(),
-    phone_battery: Joi.object<
-        joiTypes.product.definition.CreatePhoneSchema['phone_battery'],
-        true
-    >({
-        capacity: Joi.number().required(),
-        battery_techology: Joi.string().required(),
-        charge_technology: Joi.string()
-    }).required(),
+    phone_battery: Joi.object<joiTypes.product.definition.CreatePhoneSchema['phone_battery'], true>(
+        {
+            capadistrict: Joi.number().required(),
+            battery_techology: Joi.string().required(),
+            charge_technology: Joi.string()
+        }
+    ).required(),
     phone_warranty: Joi.string().required(),
-    phone_camera: Joi.object<
-        joiTypes.product.definition.CreatePhoneSchema['phone_camera'],
-        true
-    >({
+    phone_camera: Joi.object<joiTypes.product.definition.CreatePhoneSchema['phone_camera'], true>({
         front: Joi.string().optional(),
         back: Joi.string().optional()
     }),
-    phone_screen: Joi.object<
-        joiTypes.product.definition.CreatePhoneSchema['phone_screen'],
-        true
-    >({
+    phone_screen: Joi.object<joiTypes.product.definition.CreatePhoneSchema['phone_screen'], true>({
         size: Joi.number().required(),
         resolution: Joi.object({
             width: Joi.number().required(),
@@ -58,10 +48,7 @@ export const createPhoneSchema = Joi.object<
     is_smartphone: Joi.boolean().required()
 });
 
-export const updatePhoneSchema = Joi.object<
-    joiTypes.product.definition.UpdatePhoneSchema,
-    true
->({
+export const updatePhoneSchema = Joi.object<joiTypes.product.definition.UpdatePhoneSchema, true>({
     phone_processor: Joi.string(),
     phone_brand: Joi.string(),
     phone_memory: Joi.string(),
@@ -71,7 +58,7 @@ export const updatePhoneSchema = Joi.object<
         Required<joiTypes.product.definition.UpdatePhoneSchema>['phone_battery'],
         true
     >({
-        capacity: Joi.number(),
+        capadistrict: Joi.number(),
         battery_techology: Joi.string(),
         charge_technology: Joi.string()
     }),

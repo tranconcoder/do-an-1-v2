@@ -9,7 +9,7 @@ import { HOST, PORT, BASE_URL } from './src/configs/server.config.js';
 import app from './src/app.js';
 import loggerService from './src/api/services/logger.service.js';
 import MongoDB from './src/app/db.app.js';
-import { provinceModel, cityModel, districtModel } from './src/api/models/location.model.js';
+import { provinceModel, districtModel, wardModel } from './src/api/models/location.model.js';
 import path from 'path';
 
 const server = app.listen(PORT, HOST, () => {
@@ -33,32 +33,40 @@ process.on('SIGINT', async () => {
 /*                        Initial data                        */
 /* ---------------------------------------------------------- */
 const provinceJsonFile = path.join(import.meta.dirname, './src/api/assets/provinces.json');
-const citiesJsonFile = path.join(import.meta.dirname, './src/api/assets/cities.json');
-const districtJsonFile = path.join(import.meta.dirname, './src/api/assets/districts.json');
+const districtsJsonFile = path.join(import.meta.dirname, './src/api/assets/districts.json');
+const wardJsonFile = path.join(import.meta.dirname, './src/api/assets/wards.json');
 jsonfile.readFile(provinceJsonFile, (err, data) => {
     if (err) {
         return console.error(err);
     }
 
-    Promise.all(data.map(async (item: any) => {
-        return provinceModel.create(item);
-    })).catch(() => {});
+    Promise.all(
+        data.map(async (item: any) => {
+            return provinceModel.create(item);
+        })
+    ).catch(() => {});
 });
-jsonfile.readFile(citiesJsonFile, (err, data) => {
+jsonfile.readFile(districtsJsonFile, (err, data) => {
     if (err) {
         return console.error(err);
     }
 
-    Promise.all(data.map(async (item: any) => {
-        return cityModel.create(item);
-    })).catch(() => {});
+    Promise.all(
+        data.map(async (item: any) => {
+            return districtModel.create(item);
+        })
+    ).catch(() => {});
 });
-jsonfile.readFile(districtJsonFile, (err, data) => {
+jsonfile.readFile(wardJsonFile, (err, data) => {
     if (err) {
         return console.error(err);
     }
 
-    Promise.all(data.map(async (item: any) => {
-        return districtModel.create(item);
-    })).catch(() => {});
+    Promise.all(
+        data.map(async (item: any) => {
+            return wardModel.create(item);
+        })
+    ).catch((err) => {
+        console.log(err)
+    });
 });

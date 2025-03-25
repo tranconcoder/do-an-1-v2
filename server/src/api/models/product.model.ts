@@ -75,7 +75,7 @@ const phoneSchema = new Schema<model.product.PhoneSchema>(
         phone_storage: { type: Number, required },
         phone_color: { type: String, required },
         phone_battery: {
-            capacity: { type: Number, required },
+            capadistrict: { type: Number, required },
             battery_techology: { type: String, required },
             charge_technology: String
         },

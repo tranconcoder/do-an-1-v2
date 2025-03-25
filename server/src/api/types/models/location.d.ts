@@ -1,4 +1,4 @@
-import type { ProvinceType, CityType, DistrictType } from '@/enums/location.enum.js';
+import type { ProvinceType, DistrictType, WardType } from '@/enums/location.enum.js';
 
 declare global {
     namespace model {
@@ -17,27 +17,11 @@ declare global {
             }>;
 
             /* ---------------------------------------------------------- */
-            /*                            City                            */
-            /* ---------------------------------------------------------- */
-            type City<isModel = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
-                {
-                    province: moduleTypes.mongoose.ObjectId;
-                    city_name: string;
-                    city_type: CityType;
-                    city_slug: string;
-                },
-                isModel,
-                isDoc,
-                CommonTypes
-            >;
-
-            /* ---------------------------------------------------------- */
-            /*                          District                          */
+            /*                            District                            */
             /* ---------------------------------------------------------- */
             type District<isModel = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
                 {
                     province: moduleTypes.mongoose.ObjectId;
-                    city: moduleTypes.mongoose.ObjectId;
                     district_name: string;
                     district_type: DistrictType;
                     district_slug: string;
@@ -47,11 +31,27 @@ declare global {
                 CommonTypes
             >;
 
+            /* ---------------------------------------------------------- */
+            /*                          Ward                          */
+            /* ---------------------------------------------------------- */
+            type Ward<isModel = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
+                {
+                    province: moduleTypes.mongoose.ObjectId;
+                    district: moduleTypes.mongoose.ObjectId;
+                    ward_name: string;
+                    ward_type: WardType;
+                    ward_slug: string;
+                },
+                isModel,
+                isDoc,
+                CommonTypes
+            >;
+
             type LocationSchema<isModel = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
                 {
                     province: moduleTypes.mongoose.ObjectId;
-                    city: moduleTypes.mongoose.ObjectId;
                     district: moduleTypes.mongoose.ObjectId;
+                    ward: moduleTypes.mongoose.ObjectId;
                     address: string;
                     text: string;
                 },
@@ -62,8 +62,8 @@ declare global {
 
             interface LocationSource {
                 province: string;
-                city: string;
-                district?: string;
+                district: string;
+                ward?: string;
                 address: string;
             }
         }
