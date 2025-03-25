@@ -7,11 +7,9 @@ declare global {
             /*                         Arguments                          */
             /* ---------------------------------------------------------- */
             namespace arguments {
-                interface SignUpShop extends model.shop.ShopSchema {
+                interface SignUp extends model.shop.ShopSchema, joiTypes.auth.SignUpShop {
                     shop_logo: Express.Multer.File;
-                    shop_address: {
-
-                    }
+                    shop_address: string;
                 }
             }
         }

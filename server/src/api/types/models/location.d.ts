@@ -59,6 +59,13 @@ declare global {
                 isDoc,
                 CommonTypes
             >;
+
+            interface LocationSource {
+                province: string;
+                city: string;
+                district?: string;
+                address: string;
+            }
         }
     }
 }

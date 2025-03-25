@@ -16,7 +16,7 @@ export const shopSchema = new Schema<model.shop.ShopSchema>(
         shop_type: { type: String, enum: ShopType, required },
         shop_logo: { type: String, required },
         shop_certificate: { type: String, required },
-        shop_address: { type: ObjectId },
+        shop_location: { type: ObjectId, required },
         shop_phoneNumber: { type: String, required },
         shop_description: String,
 

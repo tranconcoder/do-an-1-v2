@@ -94,7 +94,21 @@ export default class AuthService {
         })
         if (isExists) throw new NotFoundErrorResponse('Shop is exists!');
 
-        const hashPassword = await bcrypt.hash(payload.shop_password, BCRYPT_SALT_ROUND);
+        
+        /* --------- Handle create shop warehouses location --------- */
+        const shopWarehousesLocation = await Promise.all(
+            payload.shop_warehouses.map(async (warehouse) => {
+                const warehouseLocation = await LocationService.createLocation({
+                    address: warehouse.address,
+                    phoneNumber: warehouse.phoneNumber
+                });
+                if (!warehouseLocation) throw new ForbiddenErrorResponse('Create warehouse location failed!');
+
+                return warehouseLocation.id;
+            })
+        )
+
+        // const hashPassword = await bcrypt.hash(payload.shop_password, BCRYPT_SALT_ROUND);
 
     };
 

@@ -13,7 +13,7 @@ declare global {
                 shop_logo: string;
                 shop_type: ShopType;
                 shop_certificate: string;
-                shop_address: moduleTypes.mongoose.ObjectId;
+                shop_location: moduleTypes.mongoose.ObjectId;
                 shop_phoneNumber: string;
                 shop_description: string;
 

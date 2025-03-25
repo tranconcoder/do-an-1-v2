@@ -16,7 +16,14 @@ declare global {
                     'email' | 'fullName' | 'password' | 'phoneNumber'
                 > {}
 
-            interface SignUpShop extends model.shop.ShopSchema {}
+                interface SignUpShop extends Omit<model.shop.ShopSchema, "shop_logo"> {
+                    shop_location: model.location.LocationSource;
+                    shop_warehouses: Array<{
+                        name: string;
+                        address: model.location.LocationSource;
+                        phoneNumber: string;
+                    }>
+                }
 
             interface NewTokenSchema {
                 refreshToken: string;
