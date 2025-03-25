@@ -13,11 +13,13 @@ export const PROVINCE_COLLECTION_NAME = 'provinces';
 const provinceSchema = new Schema(
     {
         province_name: { type: String, required },
+
         province_type: {
             type: String,
             required,
             enum: ProvinceType
         },
+
         province_slug: String
     },
     {
@@ -46,15 +48,18 @@ const citySchema = new Schema(
             ref: PROVINCE_MODEL_NAME,
             required
         },
+        
         city_name: {
             type: String,
             required
         },
+
         city_type: {
             type: String,
             required,
             enum: CityType
         },
+
         city_slug: String
     },
     {
@@ -82,20 +87,24 @@ const districtSchema = new Schema(
             ref: PROVINCE_MODEL_NAME,
             required
         },
+
         city: {
             type: ObjectId,
             ref: CITY_MODEL_NAME,
             required
         },
+
         district_name: {
             type: String,
             required
         },
+
         district_type: {
             type: String,
             required,
             enum: DistrictType
         },
+
         district_slug: String
     },
     {
@@ -118,8 +127,11 @@ export const LOCATION_COLLECTION_NAME = 'locations';
 
 export const locationSchema = new Schema<model.location.LocationSchema>({
     province: { type: ObjectId, ref: PROVINCE_MODEL_NAME, required },
+
     city: { type: ObjectId, ref: CITY_MODEL_NAME, required },
+
     district: { type: ObjectId, ref: DISTRICT_MODEL_NAME, required },
+
     address: { type: String, maxLength: 100, required }
 }, {
     timestamps,

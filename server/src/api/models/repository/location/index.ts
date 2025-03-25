@@ -28,7 +28,7 @@ export const findOneLocation = generateFindOne<model.location.LocationSchema>(lo
 
 export const findOneProvince = generateFindOne<model.location.Province>(provinceModel);
 
-export const findOneCity = generateFindOne<model.location.City>(cityModel);
+export const findOneCity = generateFindOne<model.location.City<false, true>>(cityModel);
 
 export const findOneDistrict = generateFindOne<model.location.District>(districtModel);
 

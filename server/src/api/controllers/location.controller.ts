@@ -90,7 +90,7 @@ export default new (class LocationController {
         }).send(res);
     };
 
-    /* ---------------------------------------------------------- */
+    /* --------------------------------------------------------- */
     /*                          Get with                          */
     /* ---------------------------------------------------------- */
 
@@ -119,30 +119,30 @@ export default new (class LocationController {
     };
 
     /* ---------------------------------------------------------- */
-    /*                           Get in                           */
+    /*                         Get child                          */
     /* ---------------------------------------------------------- */
 
     /* --------------- Get all cities in province --------------- */
-    public getCitiesInProvince: RequestHandler = async (req, res, _) => {
+    public getAllCitiesInProvince: RequestHandler = async (req, res, _) => {
         new OkResponse({
             message: 'Get city in province',
-            metadata: await locationService.getCitiesInProvince(req.params.province)
+            metadata: await locationService.getAllCitiesInProvince(req.params.province)
         }).send(res);
     };
 
     /* ------------- Get all districts in province  ------------- */
-    public getDistrictsInProvince: RequestHandler = async (req, res, _) => {
+    public getAllDistrictsInProvince: RequestHandler = async (req, res, _) => {
         new OkResponse({
             message: 'Get district in province',
-            metadata: await locationService.getDistrictsInProvince(req.params.province)
+            metadata: await locationService.getAllDistrictsInProvince(req.params.province)
         }).send(res);
     };
 
     /* ------------- Get all districts in city  ------------- */
-    public getDistrictsInCity: RequestHandler = async (req, res, _) => {
+    public getAllDistrictsInCity: RequestHandler = async (req, res, _) => {
         new OkResponse({
             message: 'Get district in city',
-            metadata: await locationService.getDistrictsInCity(req.params.city)
+            metadata: await locationService.getAllDistrictsInCity(req.params.city)
         }).send(res);
     };
 })();

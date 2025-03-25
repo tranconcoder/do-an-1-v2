@@ -33,6 +33,8 @@ router.get('/city/name/:name', catchError(locationController.getCityByName));
 
 router.get("/city/district/:district", catchError(locationController.getCityWithDistrict));
 
+router.get('/city/province/:province', catchError(locationController.getAllCitiesInProvince));
+
 
 /* ---------------------------------------------------------- */
 /*                          District                          */
@@ -43,6 +45,10 @@ router.get('/district', catchError(locationController.getAllDistrict));
 router.get('/district/:id', catchError(locationController.getDistrictById));
 
 router.get('/district/name/:name', catchError(locationController.getDistrictByName));
+
+router.get("/district/city/:city", catchError(locationController.getAllDistrictsInCity));
+
+router.get('/district/province/:province', catchError(locationController.getAllDistrictsInProvince));
 
 /* ---------------------------------------------------------- */
 /*                       Authenticated                        */

@@ -11391,7 +11391,7 @@ const insertManyProvince = `[${provinces
     .map((province) => JSON.stringify(_.omit(province, ['id'])))
     .join(',\n')}]`;
 
-// console.log(insertManyProvince);
+console.log(insertManyProvince);
 
 /* ---------------------------------------------------------- */
 /*                            City                            */
@@ -11440,4 +11440,4 @@ const insertManyDistrict = `[${districts
     .map((city) => JSON.stringify(_.omit(city, ['id'])))
     .join(',\n')}]`;
 
-// console.log(insertManyDistrict);
+console.log(insertManyDistrict);

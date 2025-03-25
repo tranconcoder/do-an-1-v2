@@ -10,12 +10,4 @@ export const timestamps = {
 
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-ObjectId.get((x) => x.toString());
-ObjectId.prototype.valueOf = function () {
-    return this.toString();
-};
-ObjectId.prototype.get = function () {
-    return this.toString() as any;
-};
-
 export { ObjectId };

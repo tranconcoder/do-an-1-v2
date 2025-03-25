@@ -1,4 +1,3 @@
-import { findOneDiscount } from '@/models/repository/discount/index.js';
 import {
     findCity,
     findDistrict,
@@ -7,6 +6,7 @@ import {
     findOneProvince,
     findProvince
 } from '@/models/repository/location/index.js';
+import { cityModel } from '@/models/location.model.js';
 
 export default new (class LocationService {
     /* ---------------------------------------------------------- */
@@ -43,7 +43,7 @@ export default new (class LocationService {
         });
     }
     async getDistrictById(id: string) {
-        return await findOneDiscount({
+        return await findOneDistrict({
             query: { _id: id },
             omit: 'metadata'
         });
@@ -69,7 +69,7 @@ export default new (class LocationService {
     }
     /* ------------------ Get district by name ------------------ */
     async getDistrictByName(name: string) {
-        return await findOneDiscount({
+        return await findOneDistrict({
             query: { district_slug: name },
             omit: 'metadata'
         });
@@ -83,8 +83,7 @@ export default new (class LocationService {
     async getProvinceWithCity(cityId: string) {
         return await findOneCity({
             query: { _id: cityId },
-            select: ['province'],
-            omit: 'metadata'
+            only: ['province']
         }).populate('province');
     }
 
@@ -92,8 +91,7 @@ export default new (class LocationService {
     async getProvinceWithDistrict(districtId: string) {
         return await findOneDistrict({
             query: { _id: districtId },
-            select: ['province'],
-            omit: 'metadata'
+            only: ['province']
         }).populate('province');
     }
 
@@ -101,17 +99,16 @@ export default new (class LocationService {
     async getCityWithDistrict(districtId: string) {
         return await findOneDistrict({
             query: { _id: districtId },
-            select: ['city'],
-            omit: 'metadata'
+            only: ['city']
         }).populate('city');
     }
 
     /* ---------------------------------------------------------- */
-    /*                           Get in                           */
+    /*                         Get child                          */
     /* ---------------------------------------------------------- */
 
     /* --------------- Get all cities in province --------------- */
-    async getCitiesInProvince(provinceId: string) {
+    async getAllCitiesInProvince(provinceId: string) {
         return await findCity({
             query: { province: provinceId },
             omit: 'metadata'
@@ -119,15 +116,15 @@ export default new (class LocationService {
     }
 
     /* ------------- Get all districts in province  ------------- */
-    async getDistrictsInProvince(provinceId: string) {
+    async getAllDistrictsInProvince(provinceId: string) {
         return await findDistrict({
             query: { province: provinceId },
             omit: 'metadata'
         });
     }
 
-    /* ---------------- Get all districts in city --------------- */
-    async getDistrictsInCity(cityId: string) {
+    /* --------------- Get all districts in city  --------------- */
+    async getAllDistrictsInCity(cityId: string) {
         return await findDistrict({
             query: { city: cityId },
             omit: 'metadata'
