@@ -6,12 +6,45 @@ import {
     findOneProvince,
     findProvince
 } from '@/models/repository/location/index.js';
-import { cityModel } from '@/models/location.model.js';
+import { provinceModel, cityModel, districtModel, locationModel } from '@/models/location.model.js';
+import { BadRequestErrorResponse } from '@/response/error.response.js';
 
 export default new (class LocationService {
     /* ---------------------------------------------------------- */
+    /*                           Create                           */
+    /* ---------------------------------------------------------- */
+    async createLocation({
+        provinceId,
+        cityId,
+        districtId,
+        address
+    }: service.location.CreateLocation) {
+        /* ---------------------- Check exists ---------------------- */
+        const provinceExists = await provinceModel.exists({ _id: provinceId });
+        if (!provinceExists) throw new BadRequestErrorResponse('Province is invalid!');
+
+        const cityExists = await cityModel.exists({ _id: cityId });
+        if (!cityExists) throw new BadRequestErrorResponse('City is invalid!');
+
+        const district = !districtId || (await districtModel.exists({ _id: districtId }));
+        if (!district) throw new BadRequestErrorResponse('District is invalid!');
+
+        /* ----------------- Handle create location ----------------- */
+        const saved = await locationModel.create({
+            province: provinceId,
+            city: cityId,
+            district: districtId,
+            address
+        });
+        if (!saved) throw new BadRequestErrorResponse('Create location failed!');
+
+        return saved;
+    }
+
+    /* ---------------------------------------------------------- */
     /*                          Get all                           */
     /* ---------------------------------------------------------- */
+
     /* -------------------- Get all province -------------------- */
     async getAllProvince() {
         return await findProvince({ query: {}, omit: 'metadata' });

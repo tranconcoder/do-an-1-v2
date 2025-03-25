@@ -1,10 +1,19 @@
-import { OkResponse } from '@/response/success.response.js';
-import locationService from '@/services/location.service.js';
 import type { RequestWithBody } from '@/types/request.js';
+
+import { CreatedResponse, OkResponse } from '@/response/success.response.js';
+import locationService from '@/services/location.service.js';
 import { RequestHandler } from 'express';
 
 export default new (class LocationController {
-    public createLocation: RequestWithBody<any> = (req, res, _) => {};
+    /* ---------------------------------------------------------- */
+    /*                      Create location                       */
+    /* ---------------------------------------------------------- */
+    public createLocation: RequestWithBody<any> = (req, res, _) => {
+        new CreatedResponse({
+            message: "Location created",
+            metadata: locationService.createLocation(req.body)
+        }).send(res)
+    };
 
     /* ---------------------------------------------------------- */
     /*                          Get all                           */
