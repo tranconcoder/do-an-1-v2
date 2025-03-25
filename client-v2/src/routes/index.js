@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-
 // Layouts
 import HomeLayout from '../layouts/HomeLayout/HomeLayout';
 import AuthLayout from '../layouts/AuthLayout/AuthLayout';
-import AdminLayout from '../layouts/AdminLayout';
 
 // Pages
 import Login from '../pages/Login';
@@ -38,12 +37,6 @@ const AppRoutes = () => {
                 <Route path="/auth" element={<AuthLayout />}>
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />
-                </Route>
-
-                {/* Admin routes with AdminLayout */}
-                <Route path="/admin" element={<AdminLayout />}>
-                    <Route index element={<Navigate to="/admin/dashboard" replace />} />
-                    <Route path="dashboard" element={<h1>hello world!</h1>} />
                 </Route>
 
                 {/* Redirects for shop manager functionality to the new application */}
