@@ -6,7 +6,7 @@ export enum MediaTypes {
     OTHER = 'other'
 }
 
-export enum MediaMimeType {
+export enum MediaMimeTypes {
     /* ------------------------- Images ------------------------- */
     IMAGE_JPEG = 'image/jpeg',
     IMAGE_PNG = 'image/png',
