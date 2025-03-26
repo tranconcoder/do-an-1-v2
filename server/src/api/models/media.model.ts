@@ -17,7 +17,7 @@ export const mediaSchema = new Schema<model.media.MediaSchema>({
     media_fileType: { type: String, enum: MediaTypes, required: true },
     media_mimeType: { type: String, enum: MediaMimeTypes, required: true },
     media_fileSize: { type: Number, required: true },
-    media_parent: { type: ObjectId, ref: MEDIA_MODEL_NAME, default: null },
+    media_parent: { type: ObjectId, ref: MEDIA_MODEL_NAME, required: false },
 
     /* ------------------- Folder information ------------------- */
     media_isFolder: { type: Boolean, default: false },

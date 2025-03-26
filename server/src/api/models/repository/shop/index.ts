@@ -1,4 +1,5 @@
 import shopModel from "@/models/shop.model.js"
+import {generateFindOne} from "@/utils/mongoose.util.js"
 
 export const isExistsShop = async ({
     shop_certificate,
@@ -17,3 +18,5 @@ export const isExistsShop = async ({
         ]
     })
 }
+
+export const findOneShop = generateFindOne<model.shop.ShopSchema>(shopModel)

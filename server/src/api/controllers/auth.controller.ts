@@ -1,8 +1,10 @@
 import type { RequestWithBody } from '@/types/request.js';
-import type { RequestHandler } from 'express';
+import type { ErrorRequestHandler, RequestHandler } from 'express';
 
 import AuthService from '@/services/auth.service.js';
 import { CreatedResponse, OkResponse } from '@/response/success.response.js';
+import mediaService from '@/services/media.service.js';
+import LoggerService from '@/services/logger.service.js';
 
 export default class AuthController {
     /* ------------------------------------------------------ */
@@ -15,25 +17,27 @@ export default class AuthController {
         }).send(res);
     };
 
-    public static signUpShop: RequestWithBody<joiTypes.auth.SignUpShop> = async (
-        req,
-        res,
-        next
-    ) => {
+    public static signUpShop: RequestWithBody<joiTypes.auth.SignUpShop> = async (req, res, _) => {
+        new CreatedResponse({
+            message: 'Sign up shop success!',
+            metadata: await AuthService.signUpShop({
+                ...req.body,
+                shop_logo: req.mediaId as string,
+                shop_userId: req.userId as string
+            })
+        }).send(res);
+    };
+    public static cleanUpSignUpShop: ErrorRequestHandler = async (error, req, _, next) => {
         try {
-            new CreatedResponse({
-                message: 'Sign up shop success!',
-                metadata: await AuthService.signUpShop({
-                    ...req.body,
-                    shop_logo: req.mediaId as string,
-                    shop_userId: req.userId as string
-                })
-            }).send(res);
-        } catch (error) {
             /* ------------------ Handle remove avatar ------------------ */
+            await mediaService.hardRemoveMedia(req.mediaId as string);
+        } catch (error) {
+            const logger = LoggerService.getInstance();
 
-            next(error);
+            logger.error(error instanceof Error ? error.message : 'Error while cleanup avatar!');
         }
+
+        next(error);
     };
 
     /* ------------------------------------------------------ */

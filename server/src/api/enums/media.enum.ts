@@ -9,6 +9,7 @@ export enum MediaTypes {
 export enum MediaExtensions {
     /* ------------------------- Images ------------------------- */
     IMAGE_JPEG = 'jpeg',
+    IMAGE_JPG = 'jpg',
     IMAGE_PNG = 'png',
     IMAGE_GIF = 'gif',
     IMAGE_BMP = 'bmp',

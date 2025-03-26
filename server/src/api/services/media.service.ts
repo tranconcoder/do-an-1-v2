@@ -3,6 +3,7 @@ import { findOneAndUpdateMedia, findOneMedia } from '@/models/repository/media/i
 import { NotFoundErrorResponse } from '@/response/error.response.js';
 import { createMedia } from '@/validations/joi/media.joi.js';
 import fs from 'fs/promises';
+import { existsSync } from 'fs';
 
 export default new (class MediaService {
     /* ---------------------------------------------------------- */
@@ -22,13 +23,8 @@ export default new (class MediaService {
     async softRemoveMedia(mediaId: string) {
         /* -------------------- Check media info -------------------- */
         return await findOneAndUpdateMedia({
-            query: {
-                _id: mediaId
-            },
-            update: {
-                is_deleted: true,
-                deleted_at: new Date()
-            }
+            query: { _id: mediaId },
+            update: { is_deleted: true, deleted_at: new Date() }
         });
     }
 
@@ -40,7 +36,7 @@ export default new (class MediaService {
 
         /* --------------------- Remove media file ------------------- */
         const filePath = `${mediaInfo.media_filePath}/${mediaInfo.media_fileName}`;
-        if (await fs.exists(filePath)) await fs.unlink(filePath);
+        if (existsSync(filePath)) await fs.unlink(filePath);
 
         /* ---------------------- Remove media info ------------------- */
         return await mediaInfo.deleteOne();

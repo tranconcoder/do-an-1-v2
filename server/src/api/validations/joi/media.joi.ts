@@ -12,11 +12,10 @@ export const createMedia = Joi.object<joiTypes.media.CreateMedia>({
     media_fileType: Joi.string().required(),
     media_mimeType: Joi.string().required(),
     media_fileSize: Joi.number().min(0).required(),
-    media_parent: mongooseId,
+    media_parent: mongooseId.optional(),
 
     /* ------------------- Folder information ------------------- */
     media_isFolder: Joi.boolean(),
-    media_childrenList: Joi.array().items(Joi.string()).default([]),
 
     /* ------------------------ Metadata ------------------------ */
     media_owner: mongooseId.optional()

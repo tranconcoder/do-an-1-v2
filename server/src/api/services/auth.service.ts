@@ -17,7 +17,7 @@ import LoggerService from './logger.service.js';
 import locationService from './location.service.js';
 
 // Models
-import { isExistsShop } from '@/models/repository/shop/index.js';
+import { findOneShop, isExistsShop } from '@/models/repository/shop/index.js';
 import shopModel from '@/models/shop.model.js';
 
 export default class AuthService {
@@ -85,6 +85,12 @@ export default class AuthService {
     /*                        Sign up shop                        */
     /* ---------------------------------------------------------- */
     public static signUpShop = async ({ ...payload }: service.shop.arguments.SignUp) => {
+        /* ---------- Check user is register shop account  ---------- */
+        const isRegistered = await findOneShop({
+            query: { shop_userId: payload.shop_userId }
+        }).lean();
+        if (isRegistered) return isRegistered;
+
         /* ------------------ Check unique fields  ------------------ */
         const isExists = await isExistsShop({
             shop_certificate: payload.shop_certificate,
