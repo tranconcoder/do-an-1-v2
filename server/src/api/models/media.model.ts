@@ -1,6 +1,6 @@
 import { MediaMimeTypes, MediaTypes } from '@/enums/media.enum.js';
-import { ObjectId } from '@/configs/mongoose.config.js';
-import { Schema, model as createModel } from 'mongoose';
+import { ObjectId, timestamps } from '@/configs/mongoose.config.js';
+import { Schema, model } from 'mongoose';
 import { USER_MODEL_NAME } from './user.model.js';
 
 export const MEDIA_MODEL_NAME = 'Media';
@@ -28,6 +28,15 @@ export const mediaSchema = new Schema<model.media.MediaSchema>({
 
     /* ------------------------ Metadata ------------------------ */
     media_owner: { type: ObjectId, ref: USER_MODEL_NAME, default: null },
+
+    is_deleted: { type: Boolean, default: false },
     deleted_at: { type: Date, default: null },
-    accessed_at: { type: Date, default: null }
+
+    accessed_at: { type: Date, default: null },
+
+}, {
+    timestamps,
+    collection: MEDIA_COLLECTION_NAME
 });
+
+export default model(MEDIA_MODEL_NAME, mediaSchema);

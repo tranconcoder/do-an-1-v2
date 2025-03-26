@@ -4,12 +4,10 @@ declare global {
     namespace model {
         namespace shop {
             interface ShopSchema {
-                /* ---------------------- Authenticate ---------------------- */
-                shop_email: string;
-                shop_password: string;
-
                 /* -------------------- Shop information -------------------- */
+                shop_userId: moduleTypes.mongoose.ObjectId;
                 shop_name: string;
+                shop_email: string;
                 shop_logo: string;
                 shop_type: ShopType;
                 shop_certificate: string;

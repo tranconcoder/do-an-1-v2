@@ -15,6 +15,27 @@ export default class AuthController {
         }).send(res);
     };
 
+    public static signUpShop: RequestWithBody<joiTypes.auth.SignUpShop> = async (
+        req,
+        res,
+        next
+    ) => {
+        try {
+            new CreatedResponse({
+                message: 'Sign up shop success!',
+                metadata: await AuthService.signUpShop({
+                    ...req.body,
+                    shop_logo: req.mediaId as string,
+                    shop_userId: req.userId as string
+                })
+            }).send(res);
+        } catch (error) {
+            /* ------------------ Handle remove avatar ------------------ */
+
+            next(error);
+        }
+    };
+
     /* ------------------------------------------------------ */
     /*                         Login                          */
     /* ------------------------------------------------------ */

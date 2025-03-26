@@ -21,7 +21,7 @@ export default class MongoDB {
 
         mongoose.connection.on('error', (error: MongooseError) => {
             if (NODE_ENV === 'production') {
-                loggerService.getInstance().error(`${error.name}: ${error.message}`);
+                LoggerService.getInstance().error(`${error.name}: ${error.message}`);
             }
 
             console.log('MongoDB error: \n', error);

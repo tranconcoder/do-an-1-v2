@@ -6,6 +6,53 @@ export enum MediaTypes {
     OTHER = 'other'
 }
 
+export enum MediaExtensions {
+    /* ------------------------- Images ------------------------- */
+    IMAGE_JPEG = 'jpeg',
+    IMAGE_PNG = 'png',
+    IMAGE_GIF = 'gif',
+    IMAGE_BMP = 'bmp',
+    IMAGE_WEBP = 'webp',
+    IMAGE_SVG = 'svg',
+    IMAGE_TIFF = 'tiff',
+    IMAGE_ICO = 'ico',
+
+    /* ------------------------- Video  ------------------------- */
+    VIDEO_MP4 = 'mp4',
+    VIDEO_WEBM = 'webm',
+    VIDEO_OGG = 'ogg',
+    VIDEO_FLV = 'flv',
+
+    /* ------------------------- Audio  ------------------------- */
+    AUDIO_MP3 = 'mp3',
+    AUDIO_OGG = 'ogg',
+    AUDIO_WAV = 'wav',
+    AUDIO_FLAC = 'flac',
+    AUDIO_AAC = 'aac',
+    AUDIO_WMA = 'wma',
+
+    /* ------------------------- Document  ------------------------- */
+    DOC_PDF = 'pdf',
+    DOC_DOC = 'doc',
+    DOC_DOCX = 'docx',
+    DOC_XLS = 'xls',
+    DOC_XLSX = 'xlsx',
+    DOC_PPT = 'ppt',
+    DOC_PPTX = 'pptx',
+    DOC_TXT = 'txt',
+    DOC_CSV = 'csv',
+    DOC_HTML = 'html',
+
+    /* ---------------------- Compression  ---------------------- */
+    ZIP = 'zip',
+    RAR = 'rar',
+    TAR = 'tar',
+    GZIP = 'gzip',
+    BZIP = 'bzip',
+    BZIP2 = 'bzip2',
+    SEVENZIP = '7z'
+}
+
 export enum MediaMimeTypes {
     /* ------------------------- Images ------------------------- */
     IMAGE_JPEG = 'image/jpeg',
@@ -51,4 +98,12 @@ export enum MediaMimeTypes {
     BZIP = 'application/x-bzip',
     BZIP2 = 'application/x-bzip2',
     SEVENZIP = 'application/x-7z-compressed'
+}
+
+/* ---------------------------------------------------------- */
+/*                        Avatar field                        */
+/* ---------------------------------------------------------- */
+export enum AvatarFields {
+    AVATAR = 'avatar',
+    SHOP_LOGO = 'shop_logo'
 }

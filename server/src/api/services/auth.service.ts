@@ -14,9 +14,10 @@ import UserService from './user.service.js';
 import KeyTokenService from './keyToken.service.js';
 import JwtService from './jwt.service.js';
 import LoggerService from './logger.service.js';
-
-import { isExistsShop } from '@/models/repository/shop/index.js';
 import locationService from './location.service.js';
+
+// Models
+import { isExistsShop } from '@/models/repository/shop/index.js';
 import shopModel from '@/models/shop.model.js';
 
 export default class AuthService {
@@ -83,9 +84,7 @@ export default class AuthService {
     /* ---------------------------------------------------------- */
     /*                        Sign up shop                        */
     /* ---------------------------------------------------------- */
-    public static signUpShop = async ({
-        ...payload
-    }: service.shop.arguments.SignUp) => {
+    public static signUpShop = async ({ ...payload }: service.shop.arguments.SignUp) => {
         /* ------------------ Check unique fields  ------------------ */
         const isExists = await isExistsShop({
             shop_certificate: payload.shop_certificate,
@@ -93,7 +92,7 @@ export default class AuthService {
             shop_name: payload.shop_name,
             shop_owner_cardID: payload.shop_owner_cardID,
             shop_phoneNumber: payload.shop_phoneNumber
-        })
+        });
         if (isExists) throw new NotFoundErrorResponse('Shop is exists!');
 
         /* ------------------- Save location shop ------------------- */
@@ -102,9 +101,8 @@ export default class AuthService {
             districtId: payload.shop_location.district,
             provinceId: payload.shop_location.province,
             address: payload.shop_location.address
-        })
+        });
 
-        
         /* --------- Handle create shop warehouses location --------- */
         const shopWarehousesLocation = await Promise.all(
             payload.shop_warehouses.map(async (warehouse) => {
@@ -124,6 +122,7 @@ export default class AuthService {
 
         /* -------------------- Handle save shop -------------------- */
         return await shopModel.create({
+            shop_userId: payload.shop_userId,
             shop_certificate: payload.shop_certificate,
             shop_email: payload.shop_email,
             shop_location: shopLocation.id,
@@ -143,7 +142,7 @@ export default class AuthService {
                 phoneNumber: warehouse.phoneNumber
             })),
             is_brand: payload.is_brand
-        })
+        });
     };
 
     /* ------------------------------------------------------ */
