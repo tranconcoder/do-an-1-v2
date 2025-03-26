@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+// Route child
+var index_js_1 = require("./auth/index.js");
+var index_js_2 = require("./product/index.js");
+var index_js_3 = require("./discount/index.js");
+var index_js_4 = require("./cart/index.js");
+var index_js_5 = require("./order/index.js");
+var index_js_6 = require("./user/index.js");
+var index_js_7 = require("./location/index.js");
+var rootRoute = (0, express_1.Router)();
+rootRoute.use('/auth', index_js_1.default);
+rootRoute.use('/product', index_js_2.default);
+rootRoute.use('/discount', index_js_3.default);
+rootRoute.use('/cart', index_js_4.default);
+rootRoute.use('/order', index_js_5.default);
+rootRoute.use('/user', index_js_6.default);
+rootRoute.use('/location', index_js_7.default);
+exports.default = rootRoute;

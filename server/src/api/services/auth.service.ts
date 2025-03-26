@@ -16,6 +16,8 @@ import JwtService from './jwt.service.js';
 import LoggerService from './logger.service.js';
 
 import { isExistsShop } from '@/models/repository/shop/index.js';
+import locationService from './location.service.js';
+import shopModel from '@/models/shop.model.js';
 
 export default class AuthService {
     /* ------------------------------------------------------ */
@@ -94,22 +96,54 @@ export default class AuthService {
         })
         if (isExists) throw new NotFoundErrorResponse('Shop is exists!');
 
+        /* ------------------- Save location shop ------------------- */
+        const shopLocation = await locationService.createLocation({
+            wardId: payload.shop_location.ward,
+            districtId: payload.shop_location.district,
+            provinceId: payload.shop_location.province,
+            address: payload.shop_location.address
+        })
+
         
         /* --------- Handle create shop warehouses location --------- */
         const shopWarehousesLocation = await Promise.all(
             payload.shop_warehouses.map(async (warehouse) => {
-                const warehouseLocation = await LocationService.createLocation({
-                    address: warehouse.address,
-                    phoneNumber: warehouse.phoneNumber
+                /* --------------------- Save location  --------------------- */
+                const warehouseLocation = await locationService.createLocation({
+                    wardId: warehouse.address.ward,
+                    districtId: warehouse.address.district,
+                    provinceId: warehouse.address.province,
+                    address: warehouse.address.address
                 });
-                if (!warehouseLocation) throw new ForbiddenErrorResponse('Create warehouse location failed!');
+                if (!warehouseLocation)
+                    throw new ForbiddenErrorResponse('Create warehouse location failed!');
 
                 return warehouseLocation.id;
             })
-        )
+        );
 
-        // const hashPassword = await bcrypt.hash(payload.shop_password, BCRYPT_SALT_ROUND);
-
+        /* -------------------- Handle save shop -------------------- */
+        return await shopModel.create({
+            shop_certificate: payload.shop_certificate,
+            shop_email: payload.shop_email,
+            shop_location: shopLocation.id,
+            shop_logo: payload.shop_logo,
+            shop_name: payload.shop_name,
+            shop_owner_cardID: payload.shop_owner_cardID,
+            shop_owner_email: payload.shop_owner_email,
+            shop_owner_fullName: payload.shop_owner_fullName,
+            shop_owner_phoneNumber: payload.shop_owner_phoneNumber,
+            shop_phoneNumber: payload.shop_phoneNumber,
+            shop_status: payload.shop_status,
+            shop_type: payload.shop_type,
+            shop_description: payload.shop_description,
+            shop_warehouses: payload.shop_warehouses.map((warehouse, index) => ({
+                name: warehouse.name,
+                address: shopWarehousesLocation[index],
+                phoneNumber: warehouse.phoneNumber
+            })),
+            is_brand: payload.is_brand
+        })
     };
 
     /* ------------------------------------------------------ */
