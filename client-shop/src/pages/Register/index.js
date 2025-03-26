@@ -10,10 +10,9 @@ const cx = classNames.bind(styles);
 function Register() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        // Authentication
-        shop_email: '',
-        shop_password: '',
-        confirmPassword: '',
+        // Authentication - Changed to use customer account
+        customer_username: '',
+        customer_password: '',
 
         // Shop Information
         shop_name: '',
@@ -119,7 +118,7 @@ function Register() {
 
             // Append all text fields
             Object.keys(formData).forEach((key) => {
-                if (key !== 'shop_logo' && key !== 'confirmPassword') {
+                if (key !== 'shop_logo') {
                     formDataToSend.append(key, formData[key]);
                 }
             });
@@ -184,46 +183,37 @@ function Register() {
                 {generalError && <div className={cx('error-message')}>{generalError}</div>}
 
                 <form className={cx('register-form')} onSubmit={handleSubmit} noValidate>
-                    {/* Authentication Section */}
+                    {/* Authentication Section - Modified to use customer account */}
                     <div className={cx('form-section')}>
                         <h2>Authentication</h2>
+                        <p className={cx('auth-note')}>
+                            Use your existing customer account to register as a seller
+                        </p>
+
                         <div className={cx('form-group')}>
-                            <label htmlFor="shop_email">Shop Email *</label>
+                            <label htmlFor="customer_username">Customer Username *</label>
                             <input
-                                type="email"
-                                id="shop_email"
-                                name="shop_email"
-                                value={formData.shop_email}
+                                type="text"
+                                id="customer_username"
+                                name="customer_username"
+                                value={formData.customer_username}
                                 onChange={handleChange}
-                                className={hasError('shop_email') ? cx('has-error') : ''}
+                                className={hasError('customer_username') ? cx('has-error') : ''}
                             />
-                            {renderErrorMessage('shop_email')}
+                            {renderErrorMessage('customer_username')}
                         </div>
 
                         <div className={cx('form-group')}>
-                            <label htmlFor="shop_password">Password *</label>
+                            <label htmlFor="customer_password">Customer Password *</label>
                             <input
                                 type="password"
-                                id="shop_password"
-                                name="shop_password"
-                                value={formData.shop_password}
+                                id="customer_password"
+                                name="customer_password"
+                                value={formData.customer_password}
                                 onChange={handleChange}
-                                className={hasError('shop_password') ? cx('has-error') : ''}
+                                className={hasError('customer_password') ? cx('has-error') : ''}
                             />
-                            {renderErrorMessage('shop_password')}
-                        </div>
-
-                        <div className={cx('form-group')}>
-                            <label htmlFor="confirmPassword">Confirm Password *</label>
-                            <input
-                                type="password"
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                                className={hasError('confirmPassword') ? cx('has-error') : ''}
-                            />
-                            {renderErrorMessage('confirmPassword')}
+                            {renderErrorMessage('customer_password')}
                         </div>
                     </div>
 

@@ -86,3 +86,5 @@
 [2025-03-26T15:43:32.287Z] [error]: HIDE::404::NotFound::Shop is exists!::
 [2025-03-26T16:16:34.310Z] [error]: Error while cleanup avatar!
 [2025-03-26T16:16:34.312Z] [error]: HIDE::500::MulterError::Unexpected field::
+[2025-03-26T16:28:22.988Z] [error]: HIDE::404::NotFound::Route not exist!::
+[2025-03-26T16:28:25.662Z] [error]: HIDE::404::NotFound::Route not exist!::
