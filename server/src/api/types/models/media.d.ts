@@ -22,10 +22,10 @@ declare global {
 
                 /* ------------------- Folder information ------------------- */
                 media_isFolder: boolean;
-                media_childs: string[] | null;
+                media_childrenList: moduleTypes.mongoose.ObjectId[];
 
-                media_owner: string | null;
-
+                /* ------------------------ Metadata ------------------------ */
+                media_owner: moduleTypes.mongoose.ObjectId | null;
                 deleted_at: Date | null;
                 accessed_at: Date | null;
             }
