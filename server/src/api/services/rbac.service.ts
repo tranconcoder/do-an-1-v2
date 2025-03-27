@@ -1,7 +1,23 @@
 import { Resources, RoleActions, RoleNames, RoleStatus } from '@/enums/rbac.enum.js';
-import { findOneAndUpdateResource, findOneAndUpdateRole } from '@/models/repository/rbac/index.js';
+import {
+    findOneAndUpdateResource,
+    findOneAndUpdateRole,
+    findRoles
+} from '@/models/repository/rbac/index.js';
 
-export default new (class RBACService {
+export default class RBACService {
+    public static instance: RBACService;
+
+    private constructor() {}
+
+    public static getInstance() {
+        if (!this.instance) {
+            this.instance = new RBACService();
+        }
+
+        return this.instance;
+    }
+
     async initRBAC() {
         /* --------------------- Init resources --------------------- */
         const resources = Object.values(Resources);
@@ -157,9 +173,17 @@ export default new (class RBACService {
                         attributes: '*'
                     }
                 ]
-            }
+            },
+            options: { upsert: true, new: true }
         });
     }
 
-    async createRole() {}
-})();
+    async getAccessControlList() {
+        const roles = await findRoles({
+            query: {},
+            options: { populate: 'role_granted.resource' }
+        });
+
+        return roles;
+    }
+}

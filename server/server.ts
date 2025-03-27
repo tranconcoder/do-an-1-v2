@@ -37,7 +37,7 @@ process.on('SIGINT', async () => {
 /* ---------------------------------------------------------- */
 const isInit = false;
 
-await rbacService.initRBAC();
+await rbacService.getInstance().initRBAC();
 
 if (isInit) {
     const provinceJsonFile = path.join(import.meta.dirname, './src/api/assets/provinces.json');

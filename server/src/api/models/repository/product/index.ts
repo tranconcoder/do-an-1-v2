@@ -9,7 +9,7 @@ import { productModel } from '@/models/product.model.js';
 
 // Common
 export const queryPaginate = async (query: object, page: number) => {
-    if (!page || page < 1) throw new NotFoundErrorResponse('Current page invalid!');
+    if (!page || page < 1) throw new NotFoundErrorResponse({ message: 'Current page invalid!' });
 
     return await productModel
         .find(query)
@@ -24,9 +24,9 @@ export const queryProductByShop = async (
     productShop: string
 ) => {
     const product = await productModel.findById(query);
-    if (!product) throw new NotFoundErrorResponse('Not found product!');
+    if (!product) throw new NotFoundErrorResponse({ message: 'Not found product!' });
     if (product.product_shop.toString() !== productShop)
-        throw new ForbiddenErrorResponse('Product shop is not match!');
+        throw new ForbiddenErrorResponse({ message: 'Product shop is not match!' });
 
     return product;
 };
@@ -43,7 +43,7 @@ export const createProduct = async (payload: service.product.arguments.CreatePro
 /* ------------------------------------------------------ */
 /* ------------------- Search product ------------------- */
 export const searchProduct = async ({ page, query }: service.product.arguments.SearchProduct) => {
-    if (!page || page < 1) throw new NotFoundErrorResponse('Current page invalid!');
+    if (!page || page < 1) throw new NotFoundErrorResponse({ message: 'Current page invalid!' });
 
     return await productModel
         .find(
@@ -67,14 +67,14 @@ export const searchProduct = async ({ page, query }: service.product.arguments.S
 /* ----------------- Find product by id ----------------- */
 export const findProductById = async ({ productId, userId }: reop.product.FindProductById) => {
     const product = await productModel.findById(productId, '+is_publish').lean();
-    if (!product) throw new NotFoundErrorResponse('Not found product!');
+    if (!product) throw new NotFoundErrorResponse({ message: 'Not found product!' });
 
     if (product.is_publish) return product;
 
     /* ------------ Check is shop when not publish  ------------ */
     if (product.product_shop === userId) return product;
 
-    throw new ForbiddenErrorResponse('Not permission to get this product!');
+    throw new ForbiddenErrorResponse({ message: 'Not permission to get this product!' });
 };
 
 export const findOneProduct = async (payload: Partial<model.product.ProductSchema>) => {
@@ -103,8 +103,7 @@ export const findAllProductId = async (
         limit: payload.limit,
         omit: payload.omit,
         page: payload.page,
-        select: ['id'] as any,
-        sort: payload.sort
+        select: ['id'] as any
     }).then((products) => products.map(({ _id }) => _id.toString()));
 };
 
@@ -117,10 +116,10 @@ export const findAllProductByShop = async ({
 }: reop.product.FindAllProductByShop) => {
     return await findAllProduct({
         query: isOwner ? { product_shop } : { product_shop, is_publish: true },
+        options: { sort: 'ctime' },
         limit,
         page,
-        omit: ['__v', 'created_at', 'updated_at'],
-        sort: { updated_at: -1 }
+        omit: ['__v', 'created_at', 'updated_at']
     });
 };
 
@@ -132,9 +131,9 @@ export const findAllProductDraftByShop = async ({
 }: service.product.arguments.GetAllProductDraftByShop) => {
     return findAllProduct({
         query: { product_shop, is_draft: true },
+        options: { sort: 'ctime' },
         limit,
-        page,
-        sort: { updated_at: -1 }
+        page
     });
 };
 
@@ -154,9 +153,11 @@ export const findAllProductPublishByShop = async ({
             product_shop,
             is_publish: true
         },
+        options: {
+            sort: 'ctime'
+        },
         limit,
-        page,
-        sort: { updated_at: -1 }
+        page
     });
 };
 
@@ -167,10 +168,7 @@ export const findAllProductUndraftByShop = async ({
     page
 }: service.product.arguments.GetAllProductUndraftByShop) => {
     return await findAllProduct({
-        query: {
-            product_shop,
-            is_draft: false
-        },
+        query: { product_shop, is_draft: false },
         page,
         limit
     });
@@ -187,9 +185,9 @@ export const findAllProductUnpublishByShop = async ({
             product_shop,
             is_publish: false
         },
+        options: { sort: 'ctime' },
         limit,
-        page,
-        sort: { updated_at: -1 }
+        page
     });
 };
 
@@ -263,10 +261,10 @@ export const setPublishProduct = async ({
 /* ---------------- Delete product by id ---------------- */
 export const deleteProductById = async (_id: string) => {
     const product = await productModel.findByIdAndDelete(_id, { new: true });
-    if (!product) throw new ErrorResponse(400, 'Delete product failed!');
+    if (!product) throw new ErrorResponse({ message: 'Delete product failed!', statusCode: 400 });
 
     const productChildModel = getProductModel(product.product_category);
-    if (!productChildModel) throw new NotFoundErrorResponse('Not found product!');
+    if (!productChildModel) throw new NotFoundErrorResponse({ message: 'Not found product!' });
 
     const { deletedCount } = await productChildModel.deleteOne({ _id });
 

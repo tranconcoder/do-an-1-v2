@@ -16,8 +16,7 @@ export const findOneCartByUser = async ({
         query: { user, ...options.query },
         update: {},
         options: { new: true, upsert: true },
-        omit: 'metadata',
-        sort: options.sort
+        omit: 'metadata'
     });
 };
 
@@ -44,7 +43,7 @@ export const checkShopListExistsInCart = async ({
         user
     });
 
-    if (!cart) throw new NotFoundErrorResponse('Not found cart!');
+    if (!cart) throw new NotFoundErrorResponse({ message: 'Not found cart!' });
 
     return (
         cart?.cart_shop?.filter((x) => shopList.includes(x.shop.toString())).length ===

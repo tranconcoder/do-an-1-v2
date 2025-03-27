@@ -118,17 +118,16 @@ export default class DiscountService {
         limit,
         page
     }: service.discount.arguments.GetAllDiscountCodeWithProduct) => {
-        await findAllDiscount({
+        return await findAllDiscount({
             query: {
-                discount_start_at: { $gte: new Date() },
-                discount_end_at: { $lte: new Date() },
+                discount_start_at: { $lte: new Date() },
+                discount_end_at: { $gte: new Date() },
                 is_available: true,
                 is_publish: true,
                 $or: [{ discount_products: [productId] }, { is_apply_all_product: true }]
             },
-            sort: {
-                is_admin_voucher: -1,
-                updated_at: -1
+            options: {
+                sort: { is_admin_voucher: -1, updated_at: -1 }
             },
             limit,
             page
@@ -168,7 +167,7 @@ export default class DiscountService {
                 },
                 limit,
                 page,
-                sort: { updated_at: -1 }
+                options: { sort: { updated_at: -1 } }
             });
         } else {
             /* ------------------ Get specific product ------------------ */
@@ -180,7 +179,7 @@ export default class DiscountService {
                 },
                 limit,
                 page,
-                sort: { updated_at: -1 }
+                options: { sort: { updated_at: -1 } }
             });
         }
     };

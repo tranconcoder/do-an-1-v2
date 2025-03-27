@@ -25,12 +25,12 @@ declare global {
                 [K in keyof T]: NonNullable<T[K]> extends ObjectId
                     ? string
                     : NonNullable<T[K]> extends mongooseBase.Types.ObjectId
-                      ? string
-                      : NonNullable<T[K]> extends ObjectId[]
-                        ? string[]
-                        : NonNullable<T[K]> extends mongooseBase.Types.ObjectId[]
-                          ? string[]
-                          : T[K];
+                    ? string
+                    : NonNullable<T[K]> extends ObjectId[]
+                    ? string[]
+                    : NonNullable<T[K]> extends mongooseBase.Types.ObjectId[]
+                    ? string[]
+                    : T[K];
             };
 
             type IsModel<T = false, K = any> = T extends true
@@ -53,7 +53,7 @@ declare global {
             /* -------------------- Generate findAll -------------------- */
             interface FindAll<T = any> extends Partial<GetProjection<T>> {
                 query: RootFilterQuery<T>;
-                sort?: any;
+                options?: QueryOptions<T>;
             }
 
             /* ----- Argument of generateFindAllPageSlitting utils  ----- */
@@ -61,7 +61,7 @@ declare global {
                 extends Partial<GetProjection<T>>,
                     commonTypes.object.PageSlitting {
                 query: RootFilterQuery<T>;
-                sort?: any;
+                options?: QueryOptions<T>;
             }
 
             /* --------------- Generate findOneAndUpdate  --------------- */
@@ -69,7 +69,6 @@ declare global {
                 query: RootFilterQuery<T>;
                 update: UpdateQuery<T>;
                 options?: QueryOptions<T>;
-                sort?: any;
             }
 
             /* -------------------- Generate findOne -------------------- */

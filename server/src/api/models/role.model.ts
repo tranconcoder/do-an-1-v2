@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import { unique, required, timestamps } from '@/configs/mongoose.config.js';
 import { ObjectId } from '@/configs/mongoose.config.js';
 import { RESOURCE_MODEL_NAME } from './resource.model.js';
-import { RoleNames, RoleStatus, ResourceStatus, RoleActions } from '@/enums/rbac.enum.js';
+import { RoleNames, RoleStatus, RoleActions } from '@/enums/rbac.enum.js';
 import slugify from 'slugify';
 
 export const ROLE_MODEL_NAME = 'Role';
@@ -29,8 +29,11 @@ const roleSchema = new Schema<model.rbac.RoleSchema>(
     { collection: ROLE_COLLECTION_NAME, timestamps }
 );
 
-roleSchema.pre('save', function (next) {
-    this.role_slug = slugify.default(this.role_name, { lower: true, locale: 'vi' });
+roleSchema.pre('findOneAndUpdate', function (next) {
+    this._update.$set.role_slug = slugify.default(this._update.role_name.replaceAll('_', ' '), {
+        lower: true,
+        locale: 'vi'
+    });
 
     next();
 });

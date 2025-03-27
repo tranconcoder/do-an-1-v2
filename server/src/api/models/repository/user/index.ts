@@ -1,4 +1,8 @@
-import { generateFindById, generateFindOne } from '@/utils/mongoose.util.js';
+import {
+    generateFindById,
+    generateFindOne,
+    generateFindOneAndUpdate
+} from '@/utils/mongoose.util.js';
 import { userModel } from '@/models/user.model.js';
 import { getUserProfile, setUserProfile } from '@/services/redis.service.js';
 
@@ -28,3 +32,6 @@ generateFindById<model.auth.UserSchema>(userModel);
 
 /* --------------------- Find one user  --------------------- */
 export const findOneUser = generateFindOne<model.auth.UserSchema>(userModel);
+
+/* ------------------- Find one and update ------------------ */
+export const findOneAndUpdateUser = generateFindOneAndUpdate<model.auth.UserSchema>(userModel);

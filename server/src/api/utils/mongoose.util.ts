@@ -1,6 +1,7 @@
 import mongoose, { HydratedDocument, QueryWithHelpers } from 'mongoose';
 import { timestamps } from '@/configs/mongoose.config.js';
 import { PESSIMISTIC_QUERY_TIME } from '@/configs/redis.config.js';
+import { userModel } from '@/models/user.model.js';
 
 export const convertToMongooseId = (id: string) => new mongoose.Types.ObjectId(id);
 
@@ -76,8 +77,8 @@ export const generateFindAll = <T = any>(model: any) => {
         omit = [],
         only = [],
         projection = {},
-        select = [],
-        sort = {}
+        options = {},
+        select = []
     }: moduleTypes.mongoose.FindAll<T>) => {
         type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'find', {}>;
 
@@ -88,7 +89,7 @@ export const generateFindAll = <T = any>(model: any) => {
             omit
         });
 
-        const result: Query = await model.find(query, projection).sort(sort);
+        const result: Query = await model.find(query, projection, options);
 
         return result;
     };
@@ -96,7 +97,7 @@ export const generateFindAll = <T = any>(model: any) => {
 export const generateFindAllPageSplit = <T = any>(model: any) => {
     return async ({
         query,
-        sort = {},
+        options = {},
         limit = 50,
         page = 1,
         projection = '',
@@ -113,14 +114,19 @@ export const generateFindAllPageSplit = <T = any>(model: any) => {
             only
         });
 
-        return await model.find(query, projection).sort(sort).skip(skip).limit(limit).lean();
+        return await model.find(query, projection, {
+            sort: { [timestamps.updatedAt]: -1 },
+            skip,
+            limit,
+            lean: true,
+            ...options
+        });
     };
 };
 
 /* ------------------- Update all wrapper ------------------- */
 export const generateUpdateAll = <T = any>(model: any) => {
     return async ({ query, update }: moduleTypes.mongoose.UpdateAllArgs<T>) => {
-
         return (
             (await model.updateMany(query, update).maxTimeMS(PESSIMISTIC_QUERY_TIME)
                 .modifiedCount) > 0
@@ -133,7 +139,6 @@ export const generateFindOneAndUpdate = <T = any>(model: any) => {
         query,
         update,
         options = {},
-        sort = 'ctime',
         projection = '',
         only = [],
         select = [],
@@ -149,9 +154,11 @@ export const generateFindOneAndUpdate = <T = any>(model: any) => {
         });
 
         const result: Query = model
-            .findOneAndUpdate(query, update, options)
+            .findOneAndUpdate(query, update, {
+                sort: options.sort === 'ctime' ? { [timestamps.updatedAt]: -1 } : options.sort,
+                ...options
+            })
             .select(projection)
-            .sort(sort === 'ctime' ? { [timestamps.updatedAt]: -1 } : sort)
             .maxTimeMS(PESSIMISTIC_QUERY_TIME);
 
         return result;

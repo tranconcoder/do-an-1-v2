@@ -57,10 +57,10 @@ export default class ProductFactory {
     public static getAll = async ({ limit, page }: service.product.arguments.GetAllProducts) => {
         return await findAllProduct({
             query: { is_publish: true },
+            options: { sort: 'ctime' },
             limit,
             page,
-            omit: ['is_draft', 'is_publish', '__v', 'created_at', 'updated_at'],
-            sort: { created_at: -1 }
+            omit: ['is_draft', 'is_publish', '__v', 'created_at', 'updated_at']
         });
     };
 

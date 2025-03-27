@@ -122,7 +122,7 @@ export default new (class CheckoutService {
                 /* ---------------------- Each product ---------------------- */
                 checkoutResult.shops_info.push({
                     shop_id: foundShop._id.toString(),
-                    shop_name: foundShop.fullName,
+                    shop_name: foundShop.user_fullName,
                     discount: discount
                         ? {
                               ..._.pick(discount, [

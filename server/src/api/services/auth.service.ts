@@ -20,7 +20,9 @@ import locationService from './location.service.js';
 import { findOneShop, isExistsShop } from '@/models/repository/shop/index.js';
 import shopModel from '@/models/shop.model.js';
 import { userModel } from '@/models/user.model.js';
-import { getUserRoleId } from '@/models/repository/rbac/index.js';
+import { getUserRoleIdByName } from '@/models/repository/rbac/index.js';
+import { findOneAndUpdateUser } from '@/models/repository/user/index.js';
+import { RoleNames } from '@/enums/rbac.enum.js';
 
 export default class AuthService {
     /* ------------------------------------------------------ */
@@ -47,7 +49,7 @@ export default class AuthService {
             user_email,
             user_avatar: '',
             user_fullName,
-            user_role: await getUserRoleId(),
+            user_role: await getUserRoleIdByName(RoleNames.USER),
             user_sex: false
         });
         if (!userInstance) throw new ForbiddenErrorResponse({ message: 'Create user failed!' });
@@ -163,7 +165,13 @@ export default class AuthService {
         );
 
         /* -------------------- Update user role -------------------- */
-        // ...
+        const user = await findOneAndUpdateUser({
+            query: { _id: payload.shop_userId },
+            update: { user_role: await getUserRoleIdByName(RoleNames.SHOP) },
+            options: { new: true }
+        });
+        if (!user)
+            throw new NotFoundErrorResponse({ message: 'Can not change user type to shop!' });
 
         /* -------------------- Handle save shop -------------------- */
         return await shopModel.create({
