@@ -13,6 +13,7 @@ import LockIcon from '../../assets/icons/LockIcon';
 import SpinnerIcon from '../../assets/icons/SpinnerIcon';
 import EyeIcon from '../../assets/icons/EyeIcon';
 import EyeOffIcon from '../../assets/icons/EyeOffIcon';
+import EmailIcon from '../../assets/icons/EmailIcon'; // You may need to create this icon
 
 const cx = classNames.bind(styles);
 
@@ -33,6 +34,7 @@ function Register() {
             .matches(/^\d+$/, 'Phone number can only contain digits')
             .min(10, 'Phone number must be at least 10 digits')
             .required('Phone number is required'),
+        email: Yup.string().email('Enter a valid email address').required('Email is required'),
         password: Yup.string()
             .min(6, 'Password must be at least 6 characters')
             .required('Password is required'),
@@ -49,6 +51,7 @@ function Register() {
         initialValues: {
             name: '',
             phoneNumber: '',
+            email: '',
             password: '',
             confirmPassword: '',
             agreeTerms: false
@@ -61,6 +64,7 @@ function Register() {
                 const result = await axiosClient.register({
                     name: values.name,
                     phoneNumber: values.phoneNumber,
+                    email: values.email,
                     password: values.password
                 });
 
@@ -180,6 +184,32 @@ function Register() {
                                 <div className={cx('error-message')}>
                                     {formik.errors.phoneNumber}
                                 </div>
+                            )}
+                        </div>
+
+                        <div className={cx('form-group')}>
+                            <label htmlFor="email">Email Address</label>
+                            <div className={cx('input-container')}>
+                                <div className={cx('input-icon')}>
+                                    <EmailIcon />
+                                </div>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    placeholder="Enter your email address"
+                                    className={
+                                        formik.touched.email && formik.errors.email
+                                            ? cx('error')
+                                            : ''
+                                    }
+                                />
+                            </div>
+                            {formik.touched.email && formik.errors.email && (
+                                <div className={cx('error-message')}>{formik.errors.email}</div>
                             )}
                         </div>
 

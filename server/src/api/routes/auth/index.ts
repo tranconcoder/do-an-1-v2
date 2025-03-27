@@ -28,6 +28,15 @@ const authRouteValidate = Router();
 
 authRoute.post('/sign-up', joiValidate(signUpSchema), catchError(AuthController.signUp));
 
+authRoute.post(
+    '/sign-up-shop',
+    mediaMiddleware.uploadAvatar(AvatarFields.SHOP_LOGO),
+    joiValidate(signUpShop),
+    catchError(checkCustomerAccountToRegisterShop),
+    catchError(AuthController.signUpShop),
+    cleanUpSignUpShop
+);
+
 authRoute.post('/login', joiValidate(loginSchema), catchError(AuthController.login));
 
 authRoute.post('/new-token', joiValidate(newTokenSchema), catchError(AuthController.newToken));
@@ -38,15 +47,6 @@ authRoute.post('/new-token', joiValidate(newTokenSchema), catchError(AuthControl
 authRoute.use(authRouteValidate);
 
 authRouteValidate.use(authenticate);
-
-authRouteValidate.post(
-    '/sign-up-shop',
-    mediaMiddleware.uploadAvatar(AvatarFields.SHOP_LOGO),
-    joiValidate(signUpShop),
-    catchError(checkCustomerAccountToRegisterShop),
-    catchError(AuthController.signUpShop),
-    cleanUpSignUpShop
-);
 
 authRouteValidate.post('/logout', catchError(AuthController.logout));
 

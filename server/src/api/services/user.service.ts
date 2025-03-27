@@ -10,8 +10,7 @@ export default class UserService {
     public static getUserById = async (id: string) => {
         return await findUserById({
             id,
-            only: ['phoneNumber', 'email', 'role', 'fullName'],
-            omit: ['_id']
+            only: ['_id', 'phoneNumber', 'user_email', 'user_role', 'user_fullName']
         });
     };
 

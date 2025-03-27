@@ -46,7 +46,7 @@ export default class ErrorResponse {
         }
     }
     public get() {
-        const pickList = ['statusCode', 'name', 'message'];
+        const pickList = ['statusCode', 'name', 'message', 'routePath', 'file'];
 
         if (Object.keys(this.metadata).length) pickList.push('metadata');
 

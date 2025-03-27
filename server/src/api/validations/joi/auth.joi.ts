@@ -2,16 +2,22 @@ import Joi from 'joi';
 import _ from 'lodash';
 import { mongooseId, passwordType, phoneNumber } from '@/configs/joi.config.js';
 import { ShopType } from '@/enums/shop.enum.js';
+import { UserStatus } from '@/enums/user.enum.js';
 
 /* ------------------------------------------------------ */
 /*                      User schema                       */
 /* ------------------------------------------------------ */
 const user: joiTypes.utils.ConvertObjectToJoiType<joiTypes.auth.UserSchema> = {
-    email: Joi.string().email().required(),
+    _id: mongooseId,
+    user_status: Joi.string().valid(...Object.values(UserStatus)),
     phoneNumber,
-    fullName: Joi.string().required().min(4).max(30),
     password: passwordType,
-    role: Joi.string().required()
+    user_email: Joi.string().email().required(),
+    user_fullName: Joi.string().required().min(4).max(30),
+    user_role: Joi.string().required(),
+    user_avatar: Joi.string().empty().optional(),
+    user_dayOfBirth: Joi.date().empty().optional(),
+    user_sex: Joi.boolean().empty().optional()
 };
 
 /* ------------------------------------------------------ */
@@ -25,7 +31,7 @@ export const loginSchema = Joi.object<joiTypes.auth.LoginSchema, true>(
 /*                    Sign up schema                      */
 /* ------------------------------------------------------ */
 export const signUpSchema = Joi.object<joiTypes.auth.SignUpSchema, true>(
-    _.pick(user, ['email', 'fullName', 'password', 'phoneNumber'])
+    _.pick(user, ['user_fullName', 'user_email', 'password', 'phoneNumber'])
 );
 
 /* ---------------------------------------------------------- */
@@ -51,7 +57,7 @@ export const signUpShop = Joi.object<joiTypes.auth.SignUpShop>({
     shop_certificate: Joi.string().required(),
     shop_location: shopLocation.required(),
     shop_phoneNumber: Joi.string().required(),
-    shop_description: Joi.string().max(200),
+    shop_description: Joi.string().max(200).empty().optional(),
     shop_warehouses: Joi.array()
         .items(
             Joi.object({

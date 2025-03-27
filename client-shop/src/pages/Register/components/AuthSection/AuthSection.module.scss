@@ -86,3 +86,29 @@
         font-size: 0.875rem;
     }
 }
+
+.form-text {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.auth-note {
+    background: #f0f9ff;
+    border-left: 3px solid #3498db;
+    padding: 0.8rem 1rem;
+    margin-top: 1.5rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #2c3e50;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+
+    &::before {
+        content: 'ℹ️';
+        margin-right: 0.5rem;
+        font-size: 1.1rem;
+    }
+}

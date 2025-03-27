@@ -80,15 +80,16 @@ export const getUserProfile = async (id: string) => {
 /* -------------------- Set user profile -------------------- */
 export const setUserProfile = async ({
     id,
-    fullName,
-    email,
+    user_fullName,
+    user_email,
     phoneNumber,
-    role
+    user_role
 }: service.redis.SetUserProfile) => {
     await redisClient.hSet(getUserProfileKey(id), {
-        fullName,
-        email,
+        _id: id,
+        user_fullName,
+        user_email,
         phoneNumber,
-        role: role.toString()
+        user_role: user_role.toString()
     });
 };

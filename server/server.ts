@@ -11,6 +11,9 @@ import loggerService from './src/api/services/logger.service.js';
 import MongoDB from './src/app/db.app.js';
 import { provinceModel, districtModel, wardModel } from './src/api/models/location.model.js';
 import path from 'path';
+import roleModel from '@/models/role.model.js';
+import { RoleNames } from '@/enums/rbac.enum.js';
+import rbacService from '@/services/rbac.service.js';
 
 const server = app.listen(PORT, HOST, () => {
     console.log(`Server is running on ${BASE_URL}`);
@@ -33,6 +36,8 @@ process.on('SIGINT', async () => {
 /*                        Initial data                        */
 /* ---------------------------------------------------------- */
 const isInit = false;
+
+await rbacService.initRBAC();
 
 if (isInit) {
     const provinceJsonFile = path.join(import.meta.dirname, './src/api/assets/provinces.json');
@@ -69,8 +74,6 @@ if (isInit) {
             data.map(async (item: any) => {
                 return wardModel.create(item);
             })
-        ).catch((err) => {
-            console.log(err);
-        });
+        ).catch((err) => {});
     });
 }

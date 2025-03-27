@@ -1,5 +1,5 @@
 // Libs
-import mongoose from 'mongoose';
+import mongoose, { ObjectId } from 'mongoose';
 import bcrypt from 'bcrypt';
 import _, { mean } from 'lodash';
 
@@ -19,6 +19,8 @@ import locationService from './location.service.js';
 // Models
 import { findOneShop, isExistsShop } from '@/models/repository/shop/index.js';
 import shopModel from '@/models/shop.model.js';
+import { userModel } from '@/models/user.model.js';
+import { getUserRoleId } from '@/models/repository/rbac/index.js';
 
 export default class AuthService {
     /* ------------------------------------------------------ */
@@ -26,13 +28,13 @@ export default class AuthService {
     /* ------------------------------------------------------ */
     public static signUp = async ({
         phoneNumber,
-        email,
         password,
-        fullName
+        user_email,
+        user_fullName
     }: service.auth.arguments.SignUp) => {
         /* --------------- Check if user is exists -------------- */
         const userIsExist = await UserService.checkUserExist({
-            $or: [{ phoneNumber }, { email }]
+            $or: [{ phoneNumber }, { user_email }]
         });
         if (userIsExist) throw new NotFoundErrorResponse({ message: 'User is exists!' });
 
@@ -40,10 +42,13 @@ export default class AuthService {
         const hashPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUND);
         const userInstance = UserService.newInstance({
             phoneNumber,
-            email,
             password: hashPassword,
-            fullName,
-            role: new mongoose.Types.ObjectId()
+
+            user_email,
+            user_avatar: '',
+            user_fullName,
+            user_role: await getUserRoleId(),
+            user_sex: false
         });
         if (!userInstance) throw new ForbiddenErrorResponse({ message: 'Create user failed!' });
 
@@ -53,7 +58,7 @@ export default class AuthService {
             privateKey,
             payload: {
                 id: userInstance.id,
-                role: userInstance.role.toString()
+                role: userInstance.user_role.toString()
             }
         });
         if (!jwtTokenPair)
@@ -79,7 +84,16 @@ export default class AuthService {
             }
         });
 
-        return jwtTokenPair;
+        return {
+            token: jwtTokenPair,
+            user: _.pick(userInstance.toObject(), [
+                '_id',
+                'phoneNumber',
+                'user_fullName',
+                'user_email',
+                'user_role'
+            ])
+        };
     };
 
     /* ---------------------------------------------------------- */
@@ -148,6 +162,9 @@ export default class AuthService {
             })
         );
 
+        /* -------------------- Update user role -------------------- */
+        // ...
+
         /* -------------------- Handle save shop -------------------- */
         return await shopModel.create({
             shop_userId: payload.shop_userId,
@@ -178,7 +195,7 @@ export default class AuthService {
     /* ------------------------------------------------------ */
     public static login = async ({ phoneNumber, password }: service.auth.arguments.Login) => {
         /* -------------- Check if user is exists ------------- */
-        const user = await UserService.findOne({ phoneNumber });
+        const user = await userModel.findOne({ phoneNumber }, '+password').lean();
         if (!user)
             throw new NotFoundErrorResponse({ message: 'Username or password is not correct!' });
 
@@ -194,7 +211,7 @@ export default class AuthService {
             privateKey,
             payload: {
                 id: user._id.toString(),
-                role: user.role.toString()
+                role: user.user_role.toString()
             }
         });
         if (!jwtPair) throw new ForbiddenErrorResponse({ message: 'Generate jwt token failed!' });
@@ -209,8 +226,8 @@ export default class AuthService {
         if (!keyTokenId) throw new ForbiddenErrorResponse({ message: 'Save key token failed!' });
 
         return {
-            user: _.pick(user, ['phoneNumber', 'fullName', 'email', 'role']),
-            token: jwtPair
+            token: jwtPair,
+            user: _.pick(user, ['_id', 'phoneNumber', 'user_fullName', 'user_email', 'user_role'])
         };
     };
 

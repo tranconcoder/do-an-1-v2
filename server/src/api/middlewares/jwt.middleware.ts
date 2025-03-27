@@ -28,7 +28,7 @@ export const authenticate = catchError(async (req, _, next) => {
 
     /* --------------- Attach payload to req ------------ */
     req.userId = payload.id;
-    req.role = payload.role;
+    req.role = payload.role as string;
 
     next();
 });

@@ -13,11 +13,9 @@ declare global {
                     refreshToken: string;
                 }
 
-                interface JwtPayload
-                    extends moduleTypes.mongoose.ConvertObjectIdToString<
-                        Pick<model.auth.UserSchema, 'role'>
-                    > {
+                interface JwtPayload {
                     id: string;
+                    role: string;
                 }
 
                 interface JwtDecode

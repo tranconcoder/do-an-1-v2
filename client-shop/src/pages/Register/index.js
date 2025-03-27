@@ -24,8 +24,8 @@ function Register() {
 
     const [formData, setFormData] = useState({
         // Authentication
-        shop_email: '',
-        shop_password: '',
+        phoneNumber: '', // Changed from shop_email to phoneNumber to match backend
+        password: '', // Changed from shop_password to password to match backend
 
         // Shop Information
         shop_name: '',
@@ -56,6 +56,8 @@ function Register() {
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [generalError, setGeneralError] = useState('');
+    const [success, setSuccess] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
 
     // Add state for current warehouse form
     const [currentWarehouse, setCurrentWarehouse] = useState({
@@ -331,17 +333,30 @@ function Register() {
             const newErrors = {};
             if (err.inner && err.inner.length > 0) {
                 err.inner.forEach((error) => {
-                    newErrors[error.path] = error.message;
+                    // Fix path handling for nested objects like shop_location
+                    if (error.path.includes('.')) {
+                        // For nested paths like 'shop_location.province'
+                        newErrors[error.path] = error.message;
+                    } else {
+                        newErrors[error.path] = error.message;
+                    }
                 });
             } else {
                 // Handle case where error doesn't have inner array
                 setGeneralError(err.message || 'Validation failed. Please check your inputs.');
             }
             setErrors(newErrors);
+            console.log('Validation errors:', newErrors);
 
             // Scroll to the first error
             if (err.inner && err.inner.length > 0) {
-                const firstErrorField = document.querySelector(`[name="${err.inner[0].path}"]`);
+                const firstErrorPath = err.inner[0].path;
+                // Handle nested paths differently for querySelector
+                const selector = firstErrorPath.includes('.')
+                    ? `[name="${firstErrorPath.split('.')[1]}"]`
+                    : `[name="${firstErrorPath}"]`;
+
+                const firstErrorField = document.querySelector(selector);
                 if (firstErrorField) {
                     firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     firstErrorField.focus();
@@ -356,10 +371,15 @@ function Register() {
         e.preventDefault();
         setGeneralError('');
         setErrors({});
+        setSuccess(false);
+        setSuccessMessage('');
 
         try {
             const isValid = await validateForm();
-            if (!isValid) return;
+            if (!isValid) {
+                console.log('Form validation failed');
+                return;
+            }
 
             setLoading(true);
 
@@ -379,10 +399,29 @@ function Register() {
                     });
                 } else if (key === 'shop_warehouses') {
                     // Handle warehouses array
-                    formDataToSend.append(
-                        'shop_warehouses',
-                        JSON.stringify(formData.shop_warehouses)
-                    );
+                    formData[key].forEach((warehouse, index) => {
+                        Object.keys(warehouse).forEach((warehouseKey) => {
+                            if (warehouseKey === 'address') {
+                                Object.keys(formData.shop_warehouses[index][warehouseKey]).forEach(
+                                    (warehouseField) => {
+                                        formDataToSend.append(
+                                            `shop_warehouses[${index}][${warehouseKey}][${warehouseField}]`,
+                                            formData.shop_warehouses[index][warehouseKey][
+                                                warehouseField
+                                            ]
+                                        );
+                                    }
+                                );
+                            } else {
+                                formDataToSend.append(
+                                    `shop_warehouses[${index}][${warehouseKey}]`,
+                                    formData.shop_warehouses[index][warehouseKey]
+                                );
+                            }
+                        });
+                    });
+                } else if (key === 'shop_description') {
+                    formDataToSend.append(key, formData[key] || undefined);
                 } else {
                     formDataToSend.append(key, formData[key]);
                 }
@@ -393,15 +432,34 @@ function Register() {
                 formDataToSend.append('shop_logo', formData.shop_logo);
             }
 
-            const response = await axiosClient.post('/shops/register', formDataToSend, {
+            const response = await axiosClient.post('/auth/sign-up-shop', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
 
-            // Use response to show success message or handle the response
-            if (response?.status === 201 || response?.status === 200) {
-                alert('Registration successful! Please log in with your new account.');
+            // Check if response status is 201 (Created)
+            if (response?.status === 201) {
+                const shopName = response?.data?.metadata?.shop_name || 'your shop';
+                setSuccess(true);
+                setSuccessMessage(
+                    `Registration successful! ${shopName} has been created and is pending review.`
+                );
+
+                // Show success alert
+                alert(
+                    `Registration successful! ${shopName} has been created and is pending review. You will be redirected to login page.`
+                );
+
+                // Redirect to login page after a short delay
+                setTimeout(() => {
+                    navigate('/login');
+                }, 1500);
+            } else if (response?.status === 200) {
+                // Handle 200 response if needed
+                setSuccess(true);
+                setSuccessMessage('Registration successful! Your shop is being reviewed.');
+                alert('Registration successful! Your shop is being reviewed.');
                 navigate('/login');
             }
         } catch (err) {
@@ -417,6 +475,15 @@ function Register() {
                 });
 
                 setErrors(newErrors);
+            } else if (err.response?.data?.metadata?.conflictFields) {
+                const conflictFields = err.response.data.metadata.conflictFields;
+                const newErrors = { ...errors };
+
+                conflictFields.forEach((field) => {
+                    newErrors[field] = `This ${field.replace('shop_', '')} is already registered`;
+                });
+
+                setErrors(newErrors);
             } else {
                 setGeneralError(
                     err.response?.data?.message || 'Registration failed. Please try again.'
@@ -429,14 +496,44 @@ function Register() {
 
     // Helper function to determine if a field has an error
     const hasError = (fieldName) => {
-        return errors[fieldName] ? true : false;
+        // Check direct errors
+        if (errors[fieldName]) return true;
+
+        // Check for nested errors (e.g., shop_location.province)
+        if (fieldName.includes('.')) return !!errors[fieldName];
+
+        // For fields like 'province' in shop_location, check 'shop_location.province'
+        const nestedPaths = Object.keys(errors).filter((key) => key.includes('.'));
+        for (const path of nestedPaths) {
+            const parts = path.split('.');
+            if (parts[1] === fieldName) return true;
+        }
+
+        return false;
     };
 
     // Helper function to render error message
     const renderErrorMessage = (fieldName) => {
-        return errors[fieldName] ? (
-            <div className={cx('error-text')}>{errors[fieldName]}</div>
-        ) : null;
+        // Direct error
+        if (errors[fieldName]) {
+            return <div className={cx('error-text')}>{errors[fieldName]}</div>;
+        }
+
+        // Check for nested errors (e.g., shop_location.province)
+        if (fieldName.includes('.') && errors[fieldName]) {
+            return <div className={cx('error-text')}>{errors[fieldName]}</div>;
+        }
+
+        // For fields like 'province' in shop_location, look for 'shop_location.province'
+        const nestedPaths = Object.keys(errors).filter((key) => key.includes('.'));
+        for (const path of nestedPaths) {
+            const parts = path.split('.');
+            if (parts[1] === fieldName) {
+                return <div className={cx('error-text')}>{errors[path]}</div>;
+            }
+        }
+
+        return null;
     };
 
     return (
@@ -449,6 +546,7 @@ function Register() {
                 </div>
 
                 {generalError && <div className={cx('error-message')}>{generalError}</div>}
+                {success && <div className={cx('success-message')}>{successMessage}</div>}
 
                 <form className={cx('register-form')} onSubmit={handleSubmit} noValidate>
                     <AuthSection

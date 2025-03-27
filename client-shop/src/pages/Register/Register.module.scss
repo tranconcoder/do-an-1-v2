@@ -77,6 +77,24 @@
     }
 }
 
+.success-message {
+    background: #f0fff4;
+    border: 1px solid #c6f6d5;
+    color: #2f855a;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+        content: '✅';
+        font-size: 1.2rem;
+    }
+}
+
 .terms-container {
     margin-bottom: 2rem;
 }
@@ -197,4 +215,11 @@
         margin-right: 0.5rem;
         font-size: 1.1rem;
     }
+}
+
+.form-text {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.85rem;
+    color: #6c757d;
 }

@@ -1,5 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 import { joiTypes } from '../joi';
+import type { UserStatus } from '@/enums/user.enum.ts';
 
 declare global {
     namespace model {
@@ -8,14 +9,15 @@ declare global {
                 {
                     phoneNumber: string;
                     password: string;
-                    email: string;
 
-                    avatar: string;
-                    fullName: string;
-                    dayOfBirth?: Date;
+                    user_email: string;
+                    user_avatar: string;
+                    user_fullName: string;
+                    user_dayOfBirth?: Date;
+                    user_sex: boolean;
 
-                    role: mongoose.Types.ObjectId;
-                    is_active?: boolean;
+                    user_role: mongoose.Types.ObjectId;
+                    user_status?: UserStatus;
                 },
                 isModel,
                 isDoc,

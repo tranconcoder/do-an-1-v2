@@ -15,13 +15,15 @@ export default class HandleErrorService {
             errorResponse = new ErrorResponse({
                 statusCode: 400,
                 name: err.name,
-                message: err.message
+                message: err.message,
+                routePath: req.originalUrl
             });
         } else if (!(err instanceof ErrorResponse)) {
             errorResponse = new ErrorResponse({
                 statusCode: 500,
                 name: 'InternalServerError',
-                message: 'Internal server error'
+                message: 'Internal server error',
+                routePath: req.originalUrl
             });
         }
 
