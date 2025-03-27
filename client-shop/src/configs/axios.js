@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with base URL
 const axiosClient = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8080/api/v1'
+    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3002/'
 });
 
 // Add request interceptor for authentication
