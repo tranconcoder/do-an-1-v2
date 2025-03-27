@@ -20,6 +20,7 @@ export default class HandleErrorService {
         } else if (!(err instanceof ErrorResponse)) {
             errorResponse = new ErrorResponse({
                 statusCode: 500,
+                name: 'InternalServerError',
                 message: 'Internal server error'
             });
         }

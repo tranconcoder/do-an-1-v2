@@ -1,7 +1,7 @@
 // Libs
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import _ from 'lodash';
+import _, { mean } from 'lodash';
 
 // Handle error
 import { NotFoundErrorResponse, ForbiddenErrorResponse } from '@/response/error.response.js';
@@ -90,7 +90,11 @@ export default class AuthService {
         const isRegistered = await findOneShop({
             query: { shop_userId: payload.shop_userId }
         }).lean();
-        if (isRegistered) return isRegistered;
+        if (isRegistered)
+            return {
+                ...isRegistered,
+                message: 'User is registered shop account!'
+            };
 
         /* ------------------ Check unique fields  ------------------ */
         const checkKeys: Array<keyof typeof payload> = [

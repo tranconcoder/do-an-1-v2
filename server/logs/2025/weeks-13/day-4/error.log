@@ -68,3 +68,12 @@
 [2025-03-27T04:48:06.682Z] [error]: HIDE::400::ErrorResponse::"shop_email" must be a valid email::
 [2025-03-27T04:50:47.083Z] [error]: HIDE::400::ErrorResponse::"shop_email" must be a valid email::
 [2025-03-27T04:51:18.096Z] [error]: HIDE::400::ValidationError::"shop_email" must be a valid email::
+[2025-03-27T04:52:24.421Z] [error]: HIDE::400::ValidationError::"shop_email" must be a valid email::
+[2025-03-27T04:52:49.944Z] [error]: HIDE::400::ValidationError::"shop_email" must be a valid email::
+[2025-03-27T04:52:54.811Z] [error]: HIDE::404::NotFound::Fields is exists!::
+[2025-03-27T04:53:01.456Z] [error]: HIDE::404::NotFound::Fields is exists!::
+[2025-03-27T04:53:08.023Z] [error]: HIDE::404::NotFound::Fields is exists!::
+[2025-03-27T04:53:14.388Z] [error]: HIDE::404::NotFound::Fields is exists!::
+[2025-03-27T04:54:43.950Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-27T04:55:00.007Z] [error]: Client must be connected before running operations
+[2025-03-27T04:55:00.012Z] [error]: Client must be connected before running operations
