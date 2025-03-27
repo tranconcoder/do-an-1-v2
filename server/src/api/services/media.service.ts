@@ -32,7 +32,7 @@ export default new (class MediaService {
     async hardRemoveMedia(mediaId: string) {
         /* -------------------- Check media info -------------------- */
         const mediaInfo = await findOneMedia({ query: { _id: mediaId } });
-        if (!mediaInfo) throw new NotFoundErrorResponse('Media not found!');
+        if (!mediaInfo) throw new NotFoundErrorResponse({ message: 'Media not found!' });
 
         /* --------------------- Remove media file ------------------- */
         const filePath = `${mediaInfo.media_filePath}/${mediaInfo.media_fileName}`;

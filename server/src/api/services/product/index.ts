@@ -27,7 +27,8 @@ export default class ProductFactory {
         payload: service.product.arguments.CreateProduct
     ) => {
         const serviceClass = await getProduct<K>(type);
-        if (!serviceClass) throw new NotFoundErrorResponse('Not found product service');
+        if (!serviceClass)
+            throw new NotFoundErrorResponse({ message: 'Not found product service' });
 
         const instance = new serviceClass(payload as any);
 
@@ -117,7 +118,7 @@ export default class ProductFactory {
             product_shop: payload.product_shop,
             product_category: payload.product_category
         });
-        if (!product) throw new NotFoundErrorResponse('Not found product in your shop!');
+        if (!product) throw new NotFoundErrorResponse({ message: 'Product not found!' });
 
         /* ----------------- Remove old category ---------------- */
         /* ---------------- When changed category --------------- */
@@ -160,11 +161,12 @@ export default class ProductFactory {
     ) => {
         /* ------------------ Get product type ------------------ */
         const type: model.product.ProductList | undefined = await findProductCategoryById(id);
-        if (!type) throw new NotFoundErrorResponse('Product not found!');
+        if (!type) throw new NotFoundErrorResponse({ message: 'Product not found!' });
 
         /* ----------------- Init service class ----------------- */
         const serviceClass = await getProduct(type);
-        if (!serviceClass) throw new NotFoundErrorResponse('Not found product service');
+        if (!serviceClass)
+            throw new NotFoundErrorResponse({ message: 'Not found product service' });
 
         const instance = new serviceClass({
             _id: id,
@@ -174,7 +176,7 @@ export default class ProductFactory {
         /* -------------------- Handle delete ------------------- */
         const deletedCount = await instance.removeProduct();
         if (deletedCount < 2) {
-            throw new BadRequestErrorResponse('Remove product failed');
+            throw new BadRequestErrorResponse({ message: 'Remove product failed' });
         }
     };
 }

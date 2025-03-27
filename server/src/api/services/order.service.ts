@@ -32,11 +32,11 @@ export default new (class OrderService {
         const shipInfo = {
             // ...
         };
-        if (!shipInfo) throw new NotFoundErrorResponse('Not found ship info!');
+        if (!shipInfo) throw new NotFoundErrorResponse({ message: 'Not found ship info!' });
 
         /* ------------------ Check checkout info  ------------------ */
         const checkout = await findOneCheckout({ query: { user: userId } });
-        if (!checkout) throw new NotFoundErrorResponse('Not found checkout info!');
+        if (!checkout) throw new NotFoundErrorResponse({ message: 'Not found checkout info!' });
 
         /* ---------- Check product quantity in inventory  ---------- */
         const shops = checkout.shops_info.flatMap((shop) =>
@@ -66,7 +66,8 @@ export default new (class OrderService {
                     query: { inventory_product: id },
                     select: ['_id']
                 }).lean();
-                if (!inventory) throw new NotFoundErrorResponse('Not found inventory!');
+                if (!inventory)
+                    throw new NotFoundErrorResponse({ message: 'Not found inventory!' });
 
                 /* ------------ Check and handle inventory stock ------------ */
                 const orderedInventory = await pessimisticLock(
@@ -75,7 +76,10 @@ export default new (class OrderService {
                     async () => await orderProductInventory(id, quantity)
                 );
                 if (!orderedInventory) {
-                    throw new BadRequestErrorResponse('Product stock is not enough!', true);
+                    throw new BadRequestErrorResponse({
+                        message: 'Product stock is not enough!',
+                        hideOnProduction: true
+                    });
                 }
 
                 /* --------------------- Check discount --------------------- */

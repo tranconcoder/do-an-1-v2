@@ -21,7 +21,7 @@ export default class Clothes extends Product {
         ])
             .then(([product]) => product)
             .catch(() => {
-                throw new BadRequestErrorResponse('Save product failed');
+                throw new BadRequestErrorResponse({ message: 'Save product failed' });
             });
     }
 

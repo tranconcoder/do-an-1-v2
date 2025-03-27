@@ -87,7 +87,8 @@ export abstract class Product implements service.product.definition.Product {
                 validProperties.product_quantity
             );
 
-            if (!updateStockSuccess) throw new BadRequestErrorResponse('Error update quantity!');
+            if (!updateStockSuccess)
+                throw new BadRequestErrorResponse({ message: 'Error update quantity!' });
         }
 
         /* ------------------- Init set object ------------------ */

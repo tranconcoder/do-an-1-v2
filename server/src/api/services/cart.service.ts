@@ -20,7 +20,7 @@ export default class CartService {
         /* ---------------- Check product is active  ---------------- */
         const foundProduct = await findProductById({ productId });
         if (!foundProduct || !foundProduct.is_publish)
-            throw new NotFoundErrorResponse('Not found product');
+            throw new NotFoundErrorResponse({ message: 'Not found product' });
 
         /* --------------- Add new cart product item  --------------- */
         const cart = await findOneCartByUser({ user: userId });
@@ -92,11 +92,14 @@ export default class CartService {
                     productIds
                 });
                 if (!productsValidToUse)
-                    throw new BadRequestErrorResponse('Some product is invalid to add cart!');
+                    throw new BadRequestErrorResponse({
+                        message: 'Some product is invalid to add cart!'
+                    });
 
                 /* ----------- Create new cart shop if not exists ----------- */
                 const foundShop = cart.cart_shop.find((x) => x.shop.toString() === shop.shopId);
-                if (!foundShop) throw new NotFoundErrorResponse('Not found shop in cart!');
+                if (!foundShop)
+                    throw new NotFoundErrorResponse({ message: 'Not found shop in cart!' });
 
                 await Promise.all(
                     shop.products.map(async (product) => {
@@ -105,7 +108,9 @@ export default class CartService {
                             (x) => x.id.toString() === product.id
                         );
                         if (!foundProduct)
-                            throw new NotFoundErrorResponse('Not found product in cart!');
+                            throw new NotFoundErrorResponse({
+                                message: 'Not found product in cart!'
+                            });
 
                         /* --------------------- Handle delete  --------------------- */
                         if (product.isDelete) {
@@ -147,7 +152,7 @@ export default class CartService {
             product: productId,
             user: userId
         });
-        if (!cart) throw new NotFoundErrorResponse('Cart not found!');
+        if (!cart) throw new NotFoundErrorResponse({ message: 'Cart not found!' });
 
         return cart;
     }

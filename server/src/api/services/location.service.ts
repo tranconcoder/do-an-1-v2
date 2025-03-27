@@ -21,13 +21,13 @@ export default new (class LocationService {
     }: service.location.CreateLocation) {
         /* ---------------------- Check exists ---------------------- */
         const province = await provinceModel.findOne({ _id: provinceId }).lean();
-        if (!province) throw new BadRequestErrorResponse('Province is invalid!');
+        if (!province) throw new BadRequestErrorResponse({ message: 'Province is invalid!' });
 
         const district = await districtModel.findOne({ _id: districtId }).lean();
-        if (!district) throw new BadRequestErrorResponse('District is invalid!');
+        if (!district) throw new BadRequestErrorResponse({ message: 'District is invalid!' });
 
         const ward = !wardId || (await wardModel.findOne({ _id: wardId }).lean());
-        if (!ward) throw new BadRequestErrorResponse('Ward is invalid!');
+        if (!ward) throw new BadRequestErrorResponse({ message: 'Ward is invalid!' });
 
         /* ----------------- Handle create location ----------------- */
         const wardText = typeof ward === 'boolean' ? ',' : ward.ward_name + ', ';
@@ -40,7 +40,7 @@ export default new (class LocationService {
             text: locationText
         });
 
-        if (!saved) throw new BadRequestErrorResponse('Create location failed!');
+        if (!saved) throw new BadRequestErrorResponse({ message: 'Create location failed!' });
 
         return saved;
     }
@@ -120,7 +120,7 @@ export default new (class LocationService {
     async getProvinceWithDistrict(districtId: string) {
         return await findOneDistrict({
             query: { _id: districtId },
-            only: ['province', "district_name", "district_type", "district_slug"]
+            only: ['province', 'district_name', 'district_type', 'district_slug']
         }).populate('province');
     }
 
@@ -128,7 +128,7 @@ export default new (class LocationService {
     async getProvinceWithWard(wardId: string) {
         return await findOneWard({
             query: { _id: wardId },
-            only: ['province', "ward_name", "ward_type", "ward_slug"]
+            only: ['province', 'ward_name', 'ward_type', 'ward_slug']
         }).populate('province');
     }
 
@@ -136,7 +136,7 @@ export default new (class LocationService {
     async getDistrictWithWard(wardId: string) {
         return await findOneWard({
             query: { _id: wardId },
-            only: ['district', "ward_name", "ward_type", "ward_slug"]
+            only: ['district', 'ward_name', 'ward_type', 'ward_slug']
         }).populate('district');
     }
 

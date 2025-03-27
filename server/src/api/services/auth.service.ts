@@ -101,7 +101,6 @@ export default class AuthService {
             'shop_phoneNumber'
         ];
         const isExists = await isExistsShop(_.pick(payload, checkKeys) as any);
-        console.log(isExists);
         if (isExists) {
             const conflictFields = checkKeys.filter((key: any) => {
                 if (key in isExists) {
@@ -112,11 +111,11 @@ export default class AuthService {
                 }
             });
 
+            console.log(123);
+
             throw new NotFoundErrorResponse({
                 message: 'Fields is exists!',
-                metadata: {
-                    conflictFields
-                }
+                metadata: { conflictFields }
             });
         }
 

@@ -50,10 +50,10 @@ export default class DiscountService {
         });
 
         if (conflictDiscount) {
-            throw new ConflictErrorResponse(
-                `Conflict with discount: ${conflictDiscount.discount_name}`,
-                false
-            );
+            throw new ConflictErrorResponse({
+                message: `Conflict with discount: ${conflictDiscount.discount_name}`,
+                hideOnProduction: false
+            });
         }
 
         /* --------------- Check products is publish  --------------- */
@@ -64,7 +64,9 @@ export default class DiscountService {
             });
 
             if (!isAllProductPublish)
-                throw new NotFoundErrorResponse("Some product in discount code isn't publish!");
+                throw new NotFoundErrorResponse({
+                    message: "Some product in discount code isn't publish!"
+                });
         }
 
         return await createDiscount({
@@ -84,8 +86,9 @@ export default class DiscountService {
     }: service.discount.arguments.GetDiscountById) => {
         const discount = await findDiscountById(discountId);
 
-        if (!discount) throw new NotFoundErrorResponse('Not found discount!');
-        if (!discount.is_available) throw new ForbiddenErrorResponse('Discount is not available!');
+        if (!discount) throw new NotFoundErrorResponse({ message: 'Not found discount!' });
+        if (!discount.is_available)
+            throw new ForbiddenErrorResponse({ message: 'Discount is not available!' });
 
         return discount;
     };
@@ -139,8 +142,14 @@ export default class DiscountService {
         page
     }: service.discount.arguments.GetAllProductDiscountByCode) => {
         const discount = await findDiscountById(discountId, '+is_apply_all_product');
-        if (!discount) throw new NotFoundErrorResponse('Not found discount!');
-        if (!discount.is_available) throw new ForbiddenErrorResponse('Discount is not available!');
+        if (!discount)
+            throw new NotFoundErrorResponse({
+                message: 'Not found discount or discount is invalid'
+            });
+        if (!discount.is_available)
+            throw new ForbiddenErrorResponse({
+                message: 'Discount is not available'
+            });
 
         /* ---------------------------------------------------------- */
         /*     Missing check shop is admin because no RBAC build      */
@@ -184,9 +193,11 @@ export default class DiscountService {
         /* --------------------- Check discount --------------------- */
         const discount = await findDiscountValidByCode(discountCode);
         if (!discount)
-            throw new NotFoundErrorResponse('Not found discount or discount is invalid!');
+            throw new NotFoundErrorResponse({
+                message: 'Not found discount or discount is invalid!'
+            });
         if (discount.discount_count && discount.discount_count <= discount.discount_used_count)
-            throw new BadRequestErrorResponse('Discount is out of code!');
+            throw new BadRequestErrorResponse({ message: 'Discount is out of code!' });
         const discountProducts = discount?.discount_products?.map((x) => x.toString()) || [];
 
         /* ----------- Check product is available to use  ----------- */
@@ -195,12 +206,14 @@ export default class DiscountService {
             productIds
         });
         if (!isProductsAvailable)
-            throw new BadRequestErrorResponse('Product is not available to apply discount!');
+            throw new BadRequestErrorResponse({
+                message: 'Product is not available to apply discount!'
+            });
 
         /* ---------------------- Get products ---------------------- */
         const foundProducts = await productModel.find({ _id: { $in: productIds } }).lean();
         if (foundProducts.length !== productIds.length)
-            throw new BadRequestErrorResponse('Get products failed!');
+            throw new BadRequestErrorResponse({ message: 'Get products failed!' });
 
         /* ---------------------- Handle calc  ---------------------- */
         let totalPrice = 0;
@@ -276,7 +289,8 @@ export default class DiscountService {
         } = payload;
         /* ------------- Check discount is own by shop  ------------- */
         const discount = await discountModel.findOne({ _id, discount_shop });
-        if (!discount) throw new ForbiddenErrorResponse('Not permission to update discount!');
+        if (!discount)
+            throw new ForbiddenErrorResponse({ message: 'Not permission to update discount!' });
 
         /* ---------------- Check start and end time ---------------- */
         if (discount_start_at || discount_end_at) {
@@ -284,15 +298,15 @@ export default class DiscountService {
             const start = new Date(discount_start_at || discount.discount_start_at);
             const end = new Date(discount_end_at || discount.discount_end_at);
             if (start <= now || end <= now)
-                throw new InvalidPayloadErrorResponse(
-                    'Start and end time must greater than now!',
-                    true
-                );
+                throw new InvalidPayloadErrorResponse({
+                    message: 'Start and end time must greater than now!',
+                    hideOnProduction: true
+                });
             if (start >= end)
-                throw new InvalidPayloadErrorResponse(
-                    'Start time must be greater than end time!',
-                    true
-                );
+                throw new InvalidPayloadErrorResponse({
+                    message: 'Start time must be greater than end time!',
+                    hideOnProduction: true
+                });
         }
 
         /* ------------------ Check conflict code  ------------------ */
@@ -303,9 +317,9 @@ export default class DiscountService {
             discount_end_at: discount_end_at || discount.discount_end_at
         });
         if (conflictDiscount && conflictDiscount._id.toString() !== _id)
-            throw new BadRequestErrorResponse(
-                `Conflict with discount: ${conflictDiscount.discount_name}`
-            );
+            throw new BadRequestErrorResponse({
+                message: `Conflict with discount: ${conflictDiscount.discount_name}`
+            });
 
         /* ------- Check products is own by shop and publish  ------- */
         if (discount_products?.length) {
@@ -314,9 +328,9 @@ export default class DiscountService {
                 shopId: discount_shop
             });
             if (!productsIsAvailableToDiscount)
-                throw new BadRequestErrorResponse(
-                    'Some products is unpublish or not permission to discount!'
-                );
+                throw new BadRequestErrorResponse({
+                    message: 'Some products is unpublish or not permission to discount!'
+                });
         }
 
         /* --------------------- Handle update  --------------------- */
@@ -365,7 +379,7 @@ export default class DiscountService {
                     }
                 )
         );
-        if (!newDiscount) throw new BadRequestErrorResponse('Discount is invalid!');
+        if (!newDiscount) throw new BadRequestErrorResponse({ message: 'Discount is invalid!' });
 
         /* -------------------- Add used history -------------------- */
         const discountUsed = await discountUsedModel.create({
@@ -376,7 +390,7 @@ export default class DiscountService {
         });
         if (!discountUsed) {
             await this.cancelDiscount(newDiscount._id);
-            throw new BadRequestErrorResponse('Check discount failed!');
+            throw new BadRequestErrorResponse({ message: 'Check discount failed!' });
         }
     };
 
@@ -398,7 +412,7 @@ export default class DiscountService {
             discount_shop: productShop
         });
         if (!isOwn) {
-            throw new ForbiddenErrorResponse('Not permission to delete!');
+            throw new ForbiddenErrorResponse({ message: 'Not permission to delete!' });
         }
 
         /* --------------- Handle delete discount code  -------------- */

@@ -4,13 +4,13 @@ import { StatusCodes } from 'http-status-codes';
 import _ from 'lodash';
 
 export default class ErrorResponse {
-    private readonly file: commonTypes.string.StringOrUndefined;
-    private readonly statusCode: StatusCodes;
-    private readonly name: commonTypes.string.StringOrUndefined;
-    private readonly message: commonTypes.string.StringOrUndefined;
-    private readonly hideOnProduction: boolean;
-    private readonly routePath: commonTypes.string.StringOrUndefined;
-    private readonly metadata: commonTypes.object.ObjectAnyKeys;
+    public readonly file: commonTypes.string.StringOrUndefined;
+    public readonly statusCode: StatusCodes;
+    public readonly name: commonTypes.string.StringOrUndefined;
+    public readonly message: commonTypes.string.StringOrUndefined;
+    public hideOnProduction: boolean;
+    public readonly routePath: commonTypes.string.StringOrUndefined;
+    public readonly metadata: commonTypes.object.ObjectAnyKeys;
 
     public constructor({
         statusCode,
@@ -46,7 +46,11 @@ export default class ErrorResponse {
         }
     }
     public get() {
-        return _.pick(this, ['statusCode', 'name', 'message', 'metadata']);
+        const pickList = ['statusCode', 'name', 'message'];
+
+        if (Object.keys(this.metadata).length) pickList.push('metadata');
+
+        return _.pick(this, pickList);
     }
 
     public toString() {

@@ -3,6 +3,7 @@ import ErrorResponse from '@/response/error.response.js';
 import loggerService from './logger.service.js';
 import { v7 as uuid } from 'uuid';
 import { NODE_ENV } from '@/../configs/server.config.js';
+import { error } from 'console';
 
 type ErrorHandler = (error: ErrorResponse, req: Request, res: Response, next: NextFunction) => void;
 
@@ -12,7 +13,10 @@ export default class HandleErrorService {
 
         // Convert error to ErrorResponse if it's not already
         if (!(err instanceof ErrorResponse)) {
-            errorResponse = new ErrorResponse(500, err?.name, err?.message);
+            errorResponse = new ErrorResponse({
+                statusCode: 500,
+                message: 'Internal server error'
+            });
         }
 
         // Handle return response
