@@ -111,8 +111,6 @@ export default class AuthService {
                 }
             });
 
-            console.log(123);
-
             throw new NotFoundErrorResponse({
                 message: 'Fields is exists!',
                 metadata: { conflictFields }

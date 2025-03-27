@@ -1,4 +1,4 @@
-import {AVATAR_BASE_PATH} from '@/configs/media.config.js';
+import { AVATAR_BASE_PATH } from '@/configs/media.config.js';
 import { AvatarFields, MediaMimeTypes, MediaTypes } from '@/enums/media.enum.js';
 import * as multerMiddleware from '@/middlewares/multer.middleware.js';
 import { InternalServerErrorResponse } from '@/response/error.response.js';
@@ -18,7 +18,6 @@ export default new (class MediaMiddleware {
                 try {
                     /* -------------- Handle create media document -------------- */
                     const file = req.file as Express.Multer.File;
-                    console.log(AVATAR_BASE_PATH)
 
                     req.mediaId = (
                         await mediaService.createMedia({
@@ -30,10 +29,9 @@ export default new (class MediaMiddleware {
                             media_mimeType: file.mimetype as MediaMimeTypes,
                             media_fileSize: file.size,
                             media_isFolder: false,
-                            media_owner: req.userId,
+                            media_owner: req.userId
                         })
                     ).id;
-                    console.log(req.mediaId)
 
                     next();
                 } catch (err) {

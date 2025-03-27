@@ -32,41 +32,45 @@ process.on('SIGINT', async () => {
 /* ---------------------------------------------------------- */
 /*                        Initial data                        */
 /* ---------------------------------------------------------- */
-const provinceJsonFile = path.join(import.meta.dirname, './src/api/assets/provinces.json');
-const districtsJsonFile = path.join(import.meta.dirname, './src/api/assets/districts.json');
-const wardJsonFile = path.join(import.meta.dirname, './src/api/assets/wards.json');
-jsonfile.readFile(provinceJsonFile, (err, data) => {
-    if (err) {
-        return console.error(err);
-    }
+const isInit = false;
 
-    Promise.all(
-        data.map(async (item: any) => {
-            return provinceModel.create(item);
-        })
-    ).catch(() => {});
-});
-jsonfile.readFile(districtsJsonFile, (err, data) => {
-    if (err) {
-        return console.error(err);
-    }
+if (isInit) {
+    const provinceJsonFile = path.join(import.meta.dirname, './src/api/assets/provinces.json');
+    const districtsJsonFile = path.join(import.meta.dirname, './src/api/assets/districts.json');
+    const wardJsonFile = path.join(import.meta.dirname, './src/api/assets/wards.json');
+    jsonfile.readFile(provinceJsonFile, (err, data) => {
+        if (err) {
+            return console.error(err);
+        }
 
-    Promise.all(
-        data.map(async (item: any) => {
-            return districtModel.create(item);
-        })
-    ).catch(() => {});
-});
-jsonfile.readFile(wardJsonFile, (err, data) => {
-    if (err) {
-        return console.error(err);
-    }
-
-    Promise.all(
-        data.map(async (item: any) => {
-            return wardModel.create(item);
-        })
-    ).catch((err) => {
-        console.log(err)
+        Promise.all(
+            data.map(async (item: any) => {
+                return provinceModel.create(item);
+            })
+        ).catch(() => {});
     });
-});
+    jsonfile.readFile(districtsJsonFile, (err, data) => {
+        if (err) {
+            return console.error(err);
+        }
+
+        Promise.all(
+            data.map(async (item: any) => {
+                return districtModel.create(item);
+            })
+        ).catch(() => {});
+    });
+    jsonfile.readFile(wardJsonFile, (err, data) => {
+        if (err) {
+            return console.error(err);
+        }
+
+        Promise.all(
+            data.map(async (item: any) => {
+                return wardModel.create(item);
+            })
+        ).catch((err) => {
+            console.log(err);
+        });
+    });
+}

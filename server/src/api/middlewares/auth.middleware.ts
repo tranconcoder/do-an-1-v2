@@ -9,6 +9,7 @@ import { ErrorRequestHandler } from 'express';
 export const checkCustomerAccountToRegisterShop: RequestWithBody<
     joiTypes.auth.LoginSchema
 > = async (req, res, next) => {
+    console.log('in checkCustomerAccountToRegisterShop');
     const { phoneNumber, password } = req.body;
 
     /* -------------- Check if user is exists ------------- */
@@ -20,6 +21,8 @@ export const checkCustomerAccountToRegisterShop: RequestWithBody<
     const isPasswordMatch = await bcrypt.compare(password, hashPassword);
     if (!isPasswordMatch)
         throw new ForbiddenErrorResponse({ message: 'Username or password is not correct!' });
+
+    console.log(123);
 
     req.userId = user._id;
     req.role = user.role.toString();
