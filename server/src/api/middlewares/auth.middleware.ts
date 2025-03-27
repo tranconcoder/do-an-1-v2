@@ -13,12 +13,13 @@ export const checkCustomerAccountToRegisterShop: RequestWithBody<
 
     /* -------------- Check if user is exists ------------- */
     const user = await findOneUser({ query: { phoneNumber } });
-    if (!user) throw new NotFoundErrorResponse('Username or password is not correct!');
+    if (!user) throw new NotFoundErrorResponse({ message: 'Username or password is not correct!' });
 
     /* ------------------ Check password ------------------ */
     const hashPassword = user.password;
     const isPasswordMatch = await bcrypt.compare(password, hashPassword);
-    if (!isPasswordMatch) throw new ForbiddenErrorResponse('Username or password is not correct!');
+    if (!isPasswordMatch)
+        throw new ForbiddenErrorResponse({ message: 'Username or password is not correct!' });
 
     req.userId = user._id;
     req.role = user.role.toString();

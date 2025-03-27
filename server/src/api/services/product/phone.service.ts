@@ -25,7 +25,7 @@ export default class Phone extends Product {
             .then(([product]) => product)
             .catch((error) => {
                 const message = error?.message || 'Save product failed.js';
-                throw new BadRequestErrorResponse(message);
+                throw new BadRequestErrorResponse({ message });
             });
     }
 

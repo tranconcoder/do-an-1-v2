@@ -26,14 +26,14 @@ export default class ScheduledService {
     };
 
     /* ------------------------------------------------------ */
-    /*          Clenaup key token expired or banned           */
+    /*          Cleanup key token expired or banned           */
     /* ------------------------------------------------------ */
     private static handleCleanUpKeyToken = async () => {
         const allKeyTokens = await keyTokenModel.find();
 
         /* -------------------- Reset counter ------------------- */
         let keyTokenCleaned = 0,
-            refeshTokenUsedCleaned = 0;
+            refreshTokenUsedCleaned = 0;
 
         await Promise.allSettled(
             allKeyTokens.map(async (keyToken) => {
@@ -65,14 +65,14 @@ export default class ScheduledService {
                 keyToken.set('refresh_tokens_used', newRefreshTokensUsed);
                 await keyToken.save();
 
-                /* --------- Counting refreh token used removed --------- */
-                refeshTokenUsedCleaned +=
+                /* --------- Counting refresh token used removed --------- */
+                refreshTokenUsedCleaned +=
                     keyToken.refresh_tokens_used.length - newRefreshTokensUsed.length;
 
                 return true;
             })
         )
-            /* -------------- Couting key token removed ------------- */
+            /* -------------- Counting key token removed ------------- */
             .then((resultList) => {
                 keyTokenCleaned = resultList.filter((x) => x.status === 'rejected').length;
             })
@@ -82,7 +82,7 @@ export default class ScheduledService {
                     `Cleanup key token: ${keyTokenCleaned} key token cleaned`
                 );
                 LoggerService.getInstance().info(
-                    `Cleanup key token: ${refeshTokenUsedCleaned} refresh token used cleaned`
+                    `Cleanup key token: ${refreshTokenUsedCleaned} refresh token used cleaned`
                 );
             });
     };
