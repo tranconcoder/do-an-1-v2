@@ -27,18 +27,6 @@ export default class AuthController {
             })
         }).send(res);
     };
-    public static cleanUpSignUpShop: ErrorRequestHandler = async (error, req, _, next) => {
-        try {
-            /* ------------------ Handle remove avatar ------------------ */
-            await mediaService.hardRemoveMedia(req.mediaId as string);
-        } catch (error) {
-            const logger = LoggerService.getInstance();
-
-            logger.error(error instanceof Error ? error.message : 'Error while cleanup avatar!');
-        }
-
-        next(error);
-    };
 
     /* ------------------------------------------------------ */
     /*                         Login                          */
@@ -54,7 +42,7 @@ export default class AuthController {
     /*                         Logout                         */
     /* ------------------------------------------------------ */
     public static logout: RequestHandler = async (req, res, _) => {
-        await AuthService.logout(req.userId || '');
+        await AuthService.logout(req.userId as string);
 
         new OkResponse({
             name: 'Logout',

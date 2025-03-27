@@ -34,7 +34,7 @@ export default class AuthService {
         const userIsExist = await UserService.checkUserExist({
             $or: [{ phoneNumber }, { email }]
         });
-        if (userIsExist) throw new NotFoundErrorResponse('User is exists!');
+        if (userIsExist) throw new NotFoundErrorResponse({ message: 'User is exists!' });
 
         /* ------------- Save new user to database ------------ */
         const hashPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUND);
@@ -45,7 +45,7 @@ export default class AuthService {
             fullName,
             role: new mongoose.Types.ObjectId()
         });
-        if (!userInstance) throw new ForbiddenErrorResponse('Create user failed!');
+        if (!userInstance) throw new ForbiddenErrorResponse({ message: 'Create user failed!' });
 
         /* ------------ Generate key and jwt token ------------ */
         const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
@@ -56,7 +56,8 @@ export default class AuthService {
                 role: userInstance.role.toString()
             }
         });
-        if (!jwtTokenPair) throw new ForbiddenErrorResponse('Generate jwt token failed!');
+        if (!jwtTokenPair)
+            throw new ForbiddenErrorResponse({ message: 'Generate jwt token failed!' });
 
         /* ------------ Save key token to database ------------ */
         await Promise.allSettled([
@@ -74,7 +75,7 @@ export default class AuthService {
                 await KeyTokenService.deleteKeyTokenByUserId(userInstance.id);
                 await UserService.removeUser(userInstance.id);
 
-                throw new ForbiddenErrorResponse('Error on save user or key token!');
+                throw new ForbiddenErrorResponse({ message: 'Error on save user or key token!' });
             }
         });
 
@@ -92,14 +93,32 @@ export default class AuthService {
         if (isRegistered) return isRegistered;
 
         /* ------------------ Check unique fields  ------------------ */
-        const isExists = await isExistsShop({
-            shop_certificate: payload.shop_certificate,
-            shop_email: payload.shop_email,
-            shop_name: payload.shop_name,
-            shop_owner_cardID: payload.shop_owner_cardID,
-            shop_phoneNumber: payload.shop_phoneNumber
-        });
-        if (isExists) throw new NotFoundErrorResponse('Shop is exists!');
+        const checkKeys: Array<keyof typeof payload> = [
+            'shop_certificate',
+            'shop_email',
+            'shop_name',
+            'shop_owner_cardID',
+            'shop_phoneNumber'
+        ];
+        const isExists = await isExistsShop(_.pick(payload, checkKeys) as any);
+        console.log(isExists);
+        if (isExists) {
+            const conflictFields = checkKeys.filter((key: any) => {
+                if (key in isExists) {
+                    const sourceValue = payload[key as keyof typeof payload];
+                    const targetValue = isExists[key as keyof typeof isExists];
+
+                    return sourceValue === targetValue;
+                }
+            });
+
+            throw new NotFoundErrorResponse({
+                message: 'Fields is exists!',
+                metadata: {
+                    conflictFields
+                }
+            });
+        }
 
         /* ------------------- Save location shop ------------------- */
         const shopLocation = await locationService.createLocation({
@@ -120,7 +139,9 @@ export default class AuthService {
                     address: warehouse.address.address
                 });
                 if (!warehouseLocation)
-                    throw new ForbiddenErrorResponse('Create warehouse location failed!');
+                    throw new ForbiddenErrorResponse({
+                        message: 'Create warehouse location failed!'
+                    });
 
                 return warehouseLocation.id;
             })
@@ -157,13 +178,14 @@ export default class AuthService {
     public static login = async ({ phoneNumber, password }: service.auth.arguments.Login) => {
         /* -------------- Check if user is exists ------------- */
         const user = await UserService.findOne({ phoneNumber });
-        if (!user) throw new NotFoundErrorResponse('Username or password is not correct!');
+        if (!user)
+            throw new NotFoundErrorResponse({ message: 'Username or password is not correct!' });
 
         /* ------------------ Check password ------------------ */
         const hashPassword = user.password;
         const isPasswordMatch = await bcrypt.compare(password, hashPassword);
         if (!isPasswordMatch)
-            throw new ForbiddenErrorResponse('Username or password is not correct!');
+            throw new ForbiddenErrorResponse({ message: 'Username or password is not correct!' });
 
         /* --------- Generate token and send response --------- */
         const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
@@ -174,7 +196,7 @@ export default class AuthService {
                 role: user.role.toString()
             }
         });
-        if (!jwtPair) throw new ForbiddenErrorResponse('Generate jwt token failed!');
+        if (!jwtPair) throw new ForbiddenErrorResponse({ message: 'Generate jwt token failed!' });
 
         /* ---------------- Save new key token ---------------- */
         const keyTokenId = await KeyTokenService.findOneAndReplace({
@@ -183,7 +205,7 @@ export default class AuthService {
             publicKey,
             refreshToken: jwtPair.refreshToken
         });
-        if (!keyTokenId) throw new ForbiddenErrorResponse('Save key token failed!');
+        if (!keyTokenId) throw new ForbiddenErrorResponse({ message: 'Save key token failed!' });
 
         return {
             user: _.pick(user, ['phoneNumber', 'fullName', 'email', 'role']),
@@ -205,11 +227,12 @@ export default class AuthService {
     public static newToken = async ({ refreshToken }: service.auth.arguments.NewToken) => {
         /* -------------- Get user info in token -------------- */
         const payload = JwtService.parseJwtPayload(refreshToken);
-        if (!payload) throw new ForbiddenErrorResponse('Token is not generate by server!');
+        if (!payload)
+            throw new ForbiddenErrorResponse({ message: 'Token is not generate by server!' });
 
         /* ------------- Find key token by user id ------------ */
         const keyToken = await KeyTokenService.findTokenByUserId(payload.id);
-        if (!keyToken) throw new NotFoundErrorResponse('Key token not found!');
+        if (!keyToken) throw new NotFoundErrorResponse({ message: 'Key token not found!' });
 
         /* ---------- Check refresh is current token ---------- */
         const isRefreshTokenUsed = keyToken.refresh_tokens_used.includes(refreshToken);
@@ -221,7 +244,7 @@ export default class AuthService {
 
             LoggerService.getInstance().error(`Token was stolen! User id: ${payload.id}`);
 
-            throw new ForbiddenErrorResponse('Token was deleted!');
+            throw new ForbiddenErrorResponse({ message: 'Token was deleted!' });
         }
 
         /* --------------- Verify refresh token --------------- */
@@ -229,9 +252,9 @@ export default class AuthService {
             publicKey: keyToken.public_key,
             token: refreshToken
         });
-        if (!decoded) throw new ForbiddenErrorResponse('Token is invalid!');
+        if (!decoded) throw new ForbiddenErrorResponse({ message: 'Token is invalid!' });
         if (refreshToken !== keyToken.refresh_token)
-            throw new ForbiddenErrorResponse('Token is invalid!');
+            throw new ForbiddenErrorResponse({ message: 'Token is invalid!' });
 
         /* ------------ Generate new jwt token pair ----------- */
         const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
@@ -239,7 +262,8 @@ export default class AuthService {
             privateKey,
             payload: _.pick(decoded, ['id', 'role'])
         });
-        if (!newJwtTokenPair) throw new ForbiddenErrorResponse('Generate token failed!');
+        if (!newJwtTokenPair)
+            throw new ForbiddenErrorResponse({ message: 'Generate token failed!' });
 
         /* ------------------ Save key token ------------------ */
         await keyToken.updateOne({

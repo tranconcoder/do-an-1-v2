@@ -49,7 +49,7 @@ export default new (class CheckoutService {
 
         if (discountAdmin) {
             if (!discountAdmin.is_admin_voucher)
-                throw new ForbiddenErrorResponse('Invalid voucher!');
+                throw new ForbiddenErrorResponse({ message: 'Invalid voucher!' });
 
             /* -------------- Add admin discount to result -------------- */
             checkoutResult.discount = {
@@ -67,7 +67,7 @@ export default new (class CheckoutService {
         await Promise.all(
             cart.cart_shop.map(async (shop) => {
                 const foundShop = await userModel.findById(shop.shop);
-                if (!foundShop) throw new NotFoundErrorResponse('Not found shop!');
+                if (!foundShop) throw new NotFoundErrorResponse({ message: 'Not found shop!' });
 
                 const FEE_SHIP_DEFAULT = 30_000;
 

@@ -5,7 +5,6 @@ import path from 'path';
 import { MediaExtensions, MediaMimeTypes } from '@/enums/media.enum.js';
 import { InvalidPayloadErrorResponse } from '@/response/error.response.js';
 
-
 /* ---------------------------------------------------------- */
 /*                           Avatar                           */
 /* ---------------------------------------------------------- */
@@ -17,12 +16,20 @@ export const uploadAvatar = multer({
         /* -------------------- Check extension  -------------------- */
         const extname = path.extname(file.originalname).toLowerCase().replace('.', '');
         if (!Object.values(MediaExtensions).includes(extname as any))
-            return cb(new InvalidPayloadErrorResponse('Invalid file extension') as Error);
+            return cb(
+                new InvalidPayloadErrorResponse({
+                    message: 'Invalid file extension'
+                }) as any as Error
+            );
 
         /* --------------------- Check mimetype --------------------- */
         const mimetype = file.mimetype;
         if (!Object.values(MediaMimeTypes).includes(mimetype as any))
-            return cb(new InvalidPayloadErrorResponse('Invalid file mime type') as Error);
+            return cb(
+                new InvalidPayloadErrorResponse({
+                    message: 'Invalid file mime type'
+                }) as any as Error
+            );
 
         cb(null, true);
     }

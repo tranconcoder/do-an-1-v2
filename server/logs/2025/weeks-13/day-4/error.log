@@ -1,0 +1,28 @@
+[2025-03-26T17:25:51.576Z] [error]: HIDE::500::ValidationError::"phoneNumber" is required::
+[2025-03-26T17:27:00.548Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-26T17:27:22.038Z] [error]: HIDE::404::NotFound::Shop is exists!::
+[2025-03-26T17:27:24.492Z] [error]: HIDE::404::NotFound::Shop is exists!::
+[2025-03-26T17:27:25.240Z] [error]: HIDE::404::NotFound::Shop is exists!::
+[2025-03-26T17:27:25.827Z] [error]: HIDE::404::NotFound::Shop is exists!::
+[2025-03-26T17:33:56.517Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-26T17:33:57.602Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-26T17:33:58.136Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-26T17:34:04.428Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-26T17:34:07.414Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-26T17:34:08.551Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-26T17:34:10.778Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-26T17:34:30.602Z] [error]: HIDE::404::NotFound::Shop is exists!::
+[2025-03-26T17:34:31.926Z] [error]: HIDE::404::NotFound::Shop is exists!::
+[2025-03-26T17:34:32.570Z] [error]: HIDE::404::NotFound::Shop is exists!::
+[2025-03-26T17:54:59.292Z] [error]: HIDE::404::NotFound::Shop is exists!::
+[2025-03-26T17:56:06.128Z] [error]: HIDE::404::NotFound::Shop is exists!::
+[2025-03-27T03:26:16.970Z] [error]: HIDE::404::NotFound::Conflict fields: ::
+[2025-03-27T03:26:19.465Z] [error]: HIDE::404::NotFound::Conflict fields: ::
+[2025-03-27T03:26:49.718Z] [error]: HIDE::404::NotFound::Conflict fields: ::
+[2025-03-27T03:27:17.352Z] [error]: HIDE::404::NotFound::Conflict fields: ::
+[2025-03-27T03:27:18.523Z] [error]: HIDE::404::NotFound::Conflict fields: ::
+[2025-03-27T03:27:54.359Z] [error]: HIDE::404::NotFound::Conflict fields: shop_certificate, shop_email, shop_name, shop_owner_cardID, shop_phoneNumber::
+[2025-03-27T03:31:46.931Z] [error]: VISIBLE::404::NotFound::Fields is exists!::
+[2025-03-27T03:40:35.524Z] [error]: HIDE::404::NotFound::Fields is exists!::
+[2025-03-27T03:41:52.203Z] [error]: HIDE::404::NotFound::Fields is exists!::
+[2025-03-27T03:42:05.086Z] [error]: HIDE::404::NotFound::Fields is exists!::

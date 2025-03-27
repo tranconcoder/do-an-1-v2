@@ -16,7 +16,9 @@ declare global {
                     'email' | 'fullName' | 'password' | 'phoneNumber'
                 > {}
 
-            interface SignUpShop extends Omit<model.shop.ShopSchema, 'shop_logo' | "shop_userId"> {
+            interface SignUpShop
+                extends Omit<model.shop.ShopSchema, 'shop_logo' | 'shop_userId'>,
+                    LoginSchema {
                 shop_location: model.location.LocationSource;
                 shop_warehouses: Array<{
                     name: string;

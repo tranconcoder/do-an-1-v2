@@ -5,21 +5,34 @@ import _ from 'lodash';
 
 export default class ErrorResponse {
     private readonly file: commonTypes.string.StringOrUndefined;
+    private readonly statusCode: StatusCodes;
+    private readonly name: commonTypes.string.StringOrUndefined;
+    private readonly message: commonTypes.string.StringOrUndefined;
+    private readonly hideOnProduction: boolean;
+    private readonly routePath: commonTypes.string.StringOrUndefined;
+    private readonly metadata: commonTypes.object.ObjectAnyKeys;
 
-    public constructor(
-        public readonly statusCode: StatusCodes,
-        public readonly name: string = 'ErrorResponse',
-        public readonly message: commonTypes.string.StringOrUndefined = StatusCodes[
-            statusCode
-        ],
-        public readonly hideOnProduction: boolean = true,
-        public readonly routePath: commonTypes.string.StringOrUndefined = undefined
-    ) {
+    public constructor({
+        statusCode,
+        name = 'ErrorResponse',
+        message = StatusCodes[statusCode],
+        hideOnProduction = true,
+        metadata = {},
+        routePath = undefined
+    }: {
+        statusCode: StatusCodes;
+        name?: string;
+        message?: commonTypes.string.StringOrUndefined;
+        hideOnProduction?: boolean;
+        metadata?: commonTypes.object.ObjectAnyKeys;
+        routePath?: commonTypes.string.StringOrUndefined;
+    }) {
         this.statusCode = statusCode;
         this.name = name;
         this.message = message;
         this.hideOnProduction = hideOnProduction;
         this.routePath = routePath;
+        this.metadata = metadata;
         this.file = new Error()?.stack
             ?.split('\n')
             ?.at(2)
@@ -33,7 +46,7 @@ export default class ErrorResponse {
         }
     }
     public get() {
-        return _.pick(this, ['statusCode', 'name', 'message']);
+        return _.pick(this, ['statusCode', 'name', 'message', 'metadata']);
     }
 
     public toString() {
@@ -44,73 +57,141 @@ export default class ErrorResponse {
 }
 
 export class InternalServerErrorResponse extends ErrorResponse {
-    public constructor(
-        message: string = StatusCodes[StatusCodes.INTERNAL_SERVER_ERROR],
-        hideOnProduction: boolean = true
-    ) {
-        super(
-            StatusCodes.INTERNAL_SERVER_ERROR,
-            'InternalServerError',
+    public constructor({
+        message = StatusCodes[StatusCodes.INTERNAL_SERVER_ERROR],
+        hideOnProduction = true,
+        metadata = {}
+    }: {
+        message?: string;
+        hideOnProduction?: boolean;
+        metadata?: commonTypes.object.ObjectAnyKeys;
+    } = {}) {
+        super({
+            statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+            name: 'InternalServerError',
             message,
-            hideOnProduction
-        );
+            hideOnProduction,
+            metadata
+        });
     }
 }
 
 export class BadRequestErrorResponse extends ErrorResponse {
-    public constructor(
-        message: string = StatusCodes[StatusCodes.BAD_REQUEST],
-        hideOnProduction: boolean = true
-    ) {
-        super(StatusCodes.BAD_REQUEST, 'BadRequest', message, hideOnProduction);
+    public constructor({
+        message = StatusCodes[StatusCodes.BAD_REQUEST],
+        hideOnProduction = true,
+        metadata = {}
+    }: {
+        message?: string;
+        hideOnProduction?: boolean;
+        metadata?: commonTypes.object.ObjectAnyKeys;
+    } = {}) {
+        super({
+            statusCode: StatusCodes.BAD_REQUEST,
+            name: 'BadRequest',
+            message,
+            hideOnProduction,
+            metadata
+        });
     }
 }
 
 export class UnauthorizedErrorResponse extends ErrorResponse {
-    public constructor(
-        message: string = StatusCodes[StatusCodes.UNAUTHORIZED]
-    ) {
-        super(StatusCodes.UNAUTHORIZED, 'Unauthorized', message);
+    public constructor({
+        message = StatusCodes[StatusCodes.UNAUTHORIZED],
+        hideOnProduction = true,
+        metadata = {}
+    }: {
+        message?: string;
+        hideOnProduction?: boolean;
+        metadata?: commonTypes.object.ObjectAnyKeys;
+    } = {}) {
+        super({
+            statusCode: StatusCodes.UNAUTHORIZED,
+            name: 'Unauthorized',
+            message,
+            hideOnProduction,
+            metadata
+        });
     }
 }
 
 export class NotFoundErrorResponse extends ErrorResponse {
-    public constructor(
-        message: string = StatusCodes[StatusCodes.NOT_FOUND],
-        hideOnProduction: boolean = true
-    ) {
-        super(StatusCodes.NOT_FOUND, 'NotFound', message, hideOnProduction);
+    public constructor({
+        message = StatusCodes[StatusCodes.NOT_FOUND],
+        hideOnProduction = true,
+        metadata = {}
+    }: {
+        message?: string;
+        hideOnProduction?: boolean;
+        metadata?: commonTypes.object.ObjectAnyKeys;
+    } = {}) {
+        super({
+            statusCode: StatusCodes.NOT_FOUND,
+            name: 'NotFound',
+            message,
+            hideOnProduction,
+            metadata
+        });
     }
 }
 
 export class ForbiddenErrorResponse extends ErrorResponse {
-    public constructor(
-        message: string = StatusCodes[StatusCodes.FORBIDDEN],
-        hideOnProduction: boolean = true
-    ) {
-        super(StatusCodes.FORBIDDEN, 'Forbidden', message, hideOnProduction);
+    public constructor({
+        message = StatusCodes[StatusCodes.FORBIDDEN],
+        hideOnProduction = true,
+        metadata = {}
+    }: {
+        message?: string;
+        hideOnProduction?: boolean;
+        metadata?: commonTypes.object.ObjectAnyKeys;
+    } = {}) {
+        super({
+            statusCode: StatusCodes.FORBIDDEN,
+            name: 'Forbidden',
+            message,
+            hideOnProduction,
+            metadata
+        });
     }
 }
 
 export class ConflictErrorResponse extends ErrorResponse {
-    public constructor(
-        message: string = StatusCodes[StatusCodes.CONFLICT],
-        hideOnProduction: boolean = true
-    ) {
-        super(StatusCodes.CONFLICT, 'Conflict', message, hideOnProduction);
+    public constructor({
+        message = StatusCodes[StatusCodes.CONFLICT],
+        hideOnProduction = true,
+        metadata = {}
+    }: {
+        message?: string;
+        hideOnProduction?: boolean;
+        metadata?: commonTypes.object.ObjectAnyKeys;
+    } = {}) {
+        super({
+            statusCode: StatusCodes.CONFLICT,
+            name: 'Conflict',
+            message,
+            hideOnProduction,
+            metadata
+        });
     }
 }
 
 export class InvalidPayloadErrorResponse extends ErrorResponse {
-    public constructor(
-        message: string = StatusCodes[StatusCodes.BAD_REQUEST],
-        hideOnProduction: boolean = true
-    ) {
-        super(
-            StatusCodes.BAD_REQUEST,
-            'InvalidPayload',
+    public constructor({
+        message = StatusCodes[StatusCodes.BAD_REQUEST],
+        hideOnProduction = true,
+        metadata = {}
+    }: {
+        message?: string;
+        hideOnProduction?: boolean;
+        metadata?: commonTypes.object.ObjectAnyKeys;
+    } = {}) {
+        super({
+            statusCode: StatusCodes.BAD_REQUEST,
+            name: 'InvalidPayload',
             message,
-            hideOnProduction
-        );
+            hideOnProduction,
+            metadata
+        });
     }
 }

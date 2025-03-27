@@ -1,4 +1,4 @@
-import { ErrorRequestHandler, Router } from 'express';
+import { Router } from 'express';
 
 /* --------------------- Controllers -------------------- */
 import AuthController from '@/controllers/auth.controller.js';
@@ -18,6 +18,10 @@ import { authenticate } from '@/middlewares/jwt.middleware.js';
 import mediaMiddleware from '@/middlewares/media.middleware.js';
 import { AvatarFields } from '@/enums/media.enum.js';
 import multer from 'multer';
+import {
+    checkCustomerAccountToRegisterShop,
+    cleanUpSignUpShop
+} from '@/middlewares/auth.middleware.js';
 
 const authRoute = Router();
 const authRouteValidate = Router();
@@ -39,8 +43,9 @@ authRouteValidate.post(
     '/sign-up-shop',
     mediaMiddleware.uploadAvatar(AvatarFields.SHOP_LOGO),
     joiValidate(signUpShop),
+    catchError(checkCustomerAccountToRegisterShop),
     catchError(AuthController.signUpShop),
-    AuthController.cleanUpSignUpShop
+    cleanUpSignUpShop
 );
 
 authRouteValidate.post('/logout', catchError(AuthController.logout));
