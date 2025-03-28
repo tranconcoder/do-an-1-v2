@@ -25,12 +25,12 @@ declare global {
                 [K in keyof T]: NonNullable<T[K]> extends ObjectId
                     ? string
                     : NonNullable<T[K]> extends mongooseBase.Types.ObjectId
-                    ? string
-                    : NonNullable<T[K]> extends ObjectId[]
-                    ? string[]
-                    : NonNullable<T[K]> extends mongooseBase.Types.ObjectId[]
-                    ? string[]
-                    : T[K];
+                      ? string
+                      : NonNullable<T[K]> extends ObjectId[]
+                        ? string[]
+                        : NonNullable<T[K]> extends mongooseBase.Types.ObjectId[]
+                          ? string[]
+                          : T[K];
             };
 
             type IsModel<T = false, K = any> = T extends true
@@ -70,6 +70,9 @@ declare global {
                 update: UpdateQuery<T>;
                 options?: QueryOptions<T>;
             }
+
+            /* ------------------ Find one and replace ------------------ */
+            interface FindOneAndReplace<T> extends FindOneAndUpdate<T> {}
 
             /* -------------------- Generate findOne -------------------- */
             interface FindOne<T = any> extends Omit<FindOneAndUpdate<T>, 'update'> {}

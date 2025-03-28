@@ -1,4 +1,4 @@
-import mongoose, { HydratedDocument, QueryWithHelpers } from 'mongoose';
+import mongoose, { GetLeanResultType, HydratedDocument, QueryWithHelpers } from 'mongoose';
 import { timestamps } from '@/configs/mongoose.config.js';
 import { PESSIMISTIC_QUERY_TIME } from '@/configs/redis.config.js';
 import { userModel } from '@/models/user.model.js';
@@ -80,7 +80,7 @@ export const generateFindAll = <T = any>(model: any) => {
         options = {},
         select = []
     }: moduleTypes.mongoose.FindAll<T>) => {
-        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'find', {}>;
+        type Query = QueryWithHelpers<GetLeanResultType<T, T[], 'find'>, T, {}, T, 'find', {}>;
 
         projection = getProjection<T>({
             projection,
@@ -89,6 +89,7 @@ export const generateFindAll = <T = any>(model: any) => {
             omit
         });
 
+        userModel.find;
         const result: Query = await model.find(query, projection, options);
 
         return result;
@@ -212,3 +213,34 @@ export const generateFindById = <T = any>(model: any) => {
         return result;
     };
 };
+
+export const generateFindOneAndRepalce = <T = any>(model: any) => {
+    return ({
+        query,
+        update,
+        options = {},
+        projection = '',
+        only = [],
+        select = [],
+        omit = []
+    }: moduleTypes.mongoose.FindOneAndReplace<T>) => {
+        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findOneAndReplace', {}>;
+
+        projection = getProjection<T>({
+            projection,
+            only,
+            select,
+            omit
+        });
+
+        const result: Query = model
+            .findOneAndReplace(query, update, {
+                sort: options.sort === 'ctime' ? { [timestamps.updatedAt]: -1 } : options.sort,
+                ...options
+            })
+            .select(projection)
+            .maxTimeMS(PESSIMISTIC_QUERY_TIME);
+
+        return result;
+    };
+}

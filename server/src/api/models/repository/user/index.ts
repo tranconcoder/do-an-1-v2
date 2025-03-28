@@ -10,7 +10,7 @@ import { getUserProfile, setUserProfile } from '@/services/redis.service.js';
 /*                            Find                            */
 /* ---------------------------------------------------------- */
 
-const findByIdLocal = generateFindById<model.auth.UserSchema>(userModel);
+const findById = generateFindById<model.auth.UserSchema>(userModel);
 
 /* -------------------- Find user by id  -------------------- */
 export const findUserById = async ({
@@ -20,15 +20,13 @@ export const findUserById = async ({
     const redisUser = await getUserProfile(payload.id.toString());
     if (redisUser) return redisUser;
 
-    const user = await findByIdLocal({ ...payload }).lean();
+    const user = await findById({ ...payload }).lean();
 
     /* ----------------- Save profile to redis  ----------------- */
     setUserProfile({ id: payload.id.toString(), ...user });
 
     return user;
 };
-
-generateFindById<model.auth.UserSchema>(userModel);
 
 /* --------------------- Find one user  --------------------- */
 export const findOneUser = generateFindOne<model.auth.UserSchema>(userModel);

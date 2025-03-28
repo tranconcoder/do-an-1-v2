@@ -1,0 +1,119 @@
+[2025-03-27T17:55:00.015Z] [error]: Client must be connected before running operations
+[2025-03-27T17:55:00.031Z] [error]: Client must be connected before running operations
+[2025-03-27T17:56:00.057Z] [error]: Client must be connected before running operations
+[2025-03-27T17:56:00.061Z] [error]: Client must be connected before running operations
+[2025-03-27T17:57:00.043Z] [error]: Client must be connected before running operations
+[2025-03-27T17:57:00.044Z] [error]: Client must be connected before running operations
+[2025-03-27T17:58:00.045Z] [error]: Client must be connected before running operations
+[2025-03-27T17:58:00.047Z] [error]: Client must be connected before running operations
+[2025-03-27T17:59:00.005Z] [error]: Client must be connected before running operations
+[2025-03-27T17:59:00.007Z] [error]: Client must be connected before running operations
+[2025-03-27T18:00:00.062Z] [error]: Client must be connected before running operations
+[2025-03-27T18:00:00.063Z] [error]: Client must be connected before running operations
+[2025-03-27T18:01:00.914Z] [error]: Client must be connected before running operations
+[2025-03-27T18:01:00.916Z] [error]: Client must be connected before running operations
+[2025-03-27T18:02:00.061Z] [error]: Client must be connected before running operations
+[2025-03-27T18:02:00.063Z] [error]: Client must be connected before running operations
+[2025-03-27T18:03:00.060Z] [error]: Client must be connected before running operations
+[2025-03-27T18:03:00.062Z] [error]: Client must be connected before running operations
+[2025-03-27T18:04:00.060Z] [error]: Client must be connected before running operations
+[2025-03-27T18:04:00.062Z] [error]: Client must be connected before running operations
+[2025-03-27T18:05:00.062Z] [error]: Client must be connected before running operations
+[2025-03-27T18:05:00.064Z] [error]: Client must be connected before running operations
+[2025-03-27T18:06:00.061Z] [error]: Client must be connected before running operations
+[2025-03-27T18:06:00.063Z] [error]: Client must be connected before running operations
+[2025-03-27T18:07:00.061Z] [error]: Client must be connected before running operations
+[2025-03-27T18:07:00.063Z] [error]: Client must be connected before running operations
+[2025-03-27T18:08:00.044Z] [error]: Client must be connected before running operations
+[2025-03-27T18:08:00.046Z] [error]: Client must be connected before running operations
+[2025-03-27T18:09:00.060Z] [error]: Client must be connected before running operations
+[2025-03-27T18:09:00.061Z] [error]: Client must be connected before running operations
+[2025-03-27T18:10:00.060Z] [error]: Client must be connected before running operations
+[2025-03-27T18:10:00.063Z] [error]: Client must be connected before running operations
+[2025-03-27T18:11:00.061Z] [error]: Client must be connected before running operations
+[2025-03-27T18:11:00.063Z] [error]: Client must be connected before running operations
+[2025-03-27T18:12:00.060Z] [error]: Client must be connected before running operations
+[2025-03-27T18:12:00.062Z] [error]: Client must be connected before running operations
+[2025-03-27T18:13:00.060Z] [error]: Client must be connected before running operations
+[2025-03-27T18:13:00.062Z] [error]: Client must be connected before running operations
+[2025-03-27T18:14:00.003Z] [error]: Client must be connected before running operations
+[2025-03-27T18:14:00.004Z] [error]: Client must be connected before running operations
+[2025-03-27T18:15:00.003Z] [error]: Client must be connected before running operations
+[2025-03-27T18:15:00.004Z] [error]: Client must be connected before running operations
+[2025-03-27T18:16:00.003Z] [error]: Client must be connected before running operations
+[2025-03-27T18:16:00.004Z] [error]: Client must be connected before running operations
+[2025-03-27T18:17:00.061Z] [error]: Client must be connected before running operations
+[2025-03-27T18:17:00.063Z] [error]: Client must be connected before running operations
+[2025-03-27T18:18:00.060Z] [error]: Client must be connected before running operations
+[2025-03-27T18:18:00.061Z] [error]: Client must be connected before running operations
+[2025-03-27T18:19:00.035Z] [error]: Client must be connected before running operations
+[2025-03-27T18:19:00.036Z] [error]: Client must be connected before running operations
+[2025-03-27T18:20:00.061Z] [error]: Client must be connected before running operations
+[2025-03-27T18:20:00.062Z] [error]: Client must be connected before running operations
+[2025-03-27T18:21:00.060Z] [error]: Client must be connected before running operations
+[2025-03-27T18:21:00.061Z] [error]: Client must be connected before running operations
+[2025-03-27T18:22:00.060Z] [error]: Client must be connected before running operations
+[2025-03-27T18:22:00.062Z] [error]: Client must be connected before running operations
+[2025-03-27T18:23:00.061Z] [error]: Client must be connected before running operations
+[2025-03-27T18:23:00.067Z] [error]: Client must be connected before running operations
+[2025-03-27T18:24:00.063Z] [error]: Client must be connected before running operations
+[2025-03-27T18:24:00.069Z] [error]: Client must be connected before running operations
+[2025-03-27T18:25:00.064Z] [error]: Client must be connected before running operations
+[2025-03-27T18:25:00.069Z] [error]: Client must be connected before running operations
+[2025-03-27T18:26:00.062Z] [error]: Client must be connected before running operations
+[2025-03-27T18:53:11.346Z] [error]: HIDE::404::NotFound::User is exists!::
+[2025-03-27T18:53:24.440Z] [error]: HIDE::400::ValidationError::"password" with value "Anhnam9ce" fails to match the required pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/::
+[2025-03-28T04:55:22.528Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T04:55:22.533Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T04:58:37.121Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T04:58:37.125Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T04:59:40.371Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T04:59:40.378Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:00:55.310Z] [error]: HIDE::404::NotFound::User is exists!::
+[2025-03-28T05:02:17.579Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-03-28T05:02:25.388Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-03-28T05:02:26.387Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-03-28T05:02:27.358Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-03-28T05:02:33.955Z] [error]: HIDE::404::NotFound::User is exists!::
+[2025-03-28T05:02:34.668Z] [error]: HIDE::404::NotFound::User is exists!::
+[2025-03-28T05:02:38.973Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-03-28T05:02:52.867Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-03-28T05:02:56.692Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-03-28T05:11:19.958Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:11:19.970Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:11:23.678Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:11:23.686Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:11:28.937Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:11:28.943Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:11:34.825Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:11:34.831Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:11:36.083Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:11:36.087Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:12:55.972Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:12:55.977Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:13:01.233Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:13:01.238Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:13:04.770Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:13:04.775Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:13:04.779Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:13:04.782Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:14:14.828Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:14:14.838Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:15:39.804Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:15:39.812Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:16:02.174Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:16:02.184Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:17:04.500Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:17:04.511Z] [error]: HIDE::400::TypeError::model.findById is not a function::
+[2025-03-28T05:18:12.552Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T05:18:12.563Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T05:19:28.462Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T05:19:28.485Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T05:19:52.158Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T05:19:52.170Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T05:20:02.872Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T05:20:02.883Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T05:20:06.463Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T05:20:06.472Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T05:20:16.020Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T05:20:16.033Z] [error]: HIDE::400::TypeError::Invalid argument type::

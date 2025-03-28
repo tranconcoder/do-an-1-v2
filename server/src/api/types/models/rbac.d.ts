@@ -17,7 +17,7 @@ declare global {
 
                     role_granted: Array<{
                         resource: moduleTypes.mongoose.ObjectId;
-                        action: string[];
+                        actions: string[];
                         attributes: string;
                     }>;
                 },

@@ -4,7 +4,11 @@ import bcrypt from 'bcrypt';
 import _, { mean } from 'lodash';
 
 // Handle error
-import { NotFoundErrorResponse, ForbiddenErrorResponse } from '@/response/error.response.js';
+import {
+    NotFoundErrorResponse,
+    ForbiddenErrorResponse,
+    ConflictErrorResponse
+} from '@/response/error.response.js';
 
 // Configs
 import { BCRYPT_SALT_ROUND } from '@/configs/bcrypt.config.js';
@@ -23,6 +27,7 @@ import { userModel } from '@/models/user.model.js';
 import { getUserRoleIdByName } from '@/models/repository/rbac/index.js';
 import { findOneAndUpdateUser } from '@/models/repository/user/index.js';
 import { RoleNames } from '@/enums/rbac.enum.js';
+import { deleteKeyToken, setKeyToken } from './redis.service.js';
 
 export default class AuthService {
     /* ------------------------------------------------------ */
@@ -38,7 +43,7 @@ export default class AuthService {
         const userIsExist = await UserService.checkUserExist({
             $or: [{ phoneNumber }, { user_email }]
         });
-        if (userIsExist) throw new NotFoundErrorResponse({ message: 'User is exists!' });
+        if (userIsExist) throw new ConflictErrorResponse({ message: 'User is exists!' });
 
         /* ------------- Save new user to database ------------ */
         const hashPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUND);
@@ -231,6 +236,15 @@ export default class AuthService {
             publicKey,
             refreshToken: jwtPair.refreshToken
         });
+
+        /* ---------------- Save key token to redis  ---------------- */
+        await setKeyToken({
+            user: user._id.toString(),
+            private_key: privateKey,
+            public_key: publicKey,
+            refresh_token: jwtPair.refreshToken,
+            refresh_tokens_used: []
+        });
         if (!keyTokenId) throw new ForbiddenErrorResponse({ message: 'Save key token failed!' });
 
         return {
@@ -244,7 +258,10 @@ export default class AuthService {
     /* ------------------------------------------------------ */
     public static logout = async (userId: string) => {
         /* ----- Handle remove refresh token in valid list ---- */
-        return await KeyTokenService.deleteKeyTokenByUserId(userId);
+        await KeyTokenService.deleteKeyTokenByUserId(userId);
+        await deleteKeyToken(userId);
+
+        return true;
     };
 
     /* ------------------------------------------------------ */
@@ -267,6 +284,7 @@ export default class AuthService {
             // ALERT: Token was stolen!!!
             // Clean up keyToken
             await KeyTokenService.deleteKeyTokenByUserId(payload.id);
+            await deleteKeyToken(payload.id);
 
             LoggerService.getInstance().error(`Token was stolen! User id: ${payload.id}`);
 

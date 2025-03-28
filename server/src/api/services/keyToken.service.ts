@@ -4,14 +4,14 @@ import mongoose from 'mongoose';
 
 // Models
 import keyTokenModel from '@/models/keyToken.model.js';
+import { findKeyTokenById } from '@/models/repository/keyToken/index.js';
 
 export default class KeyTokenService {
     /* ------------------------------------------------------ */
     /*                  Get token by userId                   */
     /* ------------------------------------------------------ */
     public static findTokenByUserId = async (userId: string) => {
-        const id = new mongoose.Types.ObjectId(userId);
-        return await keyTokenModel.findOne({ user: id });
+        return await findKeyTokenById(userId);
     };
 
     /* ------------------------------------------------------ */

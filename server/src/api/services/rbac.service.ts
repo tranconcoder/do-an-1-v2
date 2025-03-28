@@ -181,9 +181,24 @@ export default class RBACService {
     async getAccessControlList() {
         const roles = await findRoles({
             query: {},
-            options: { populate: 'role_granted.resource' }
+            options: { populate: 'role_granted.resource', lean: true }
         });
 
-        return roles;
+        const result = roles.flatMap((role) =>
+            role.role_granted.flatMap((granted) => {
+                const resource = granted.resource as any as model.rbac.ResourceSchema;
+
+                return granted.actions.map((action) => ({
+                    role: role.role_name,
+                    resource: resource.resource_name,
+                    action,
+                    attributes: granted.attributes
+                }));
+            })
+        );
+
+        return result;
     }
 }
+
+RBACService.getInstance().getAccessControlList();

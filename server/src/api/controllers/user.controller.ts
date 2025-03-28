@@ -9,4 +9,11 @@ export default new (class UserController {
             metadata: await UserService.getUserById(req.userId || '')
         }).send(res);
     };
+
+    public getProfileById: RequestHandler = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get user profile success!',
+            metadata: await UserService.getUserById(req.params.id)
+        }).send(res);
+    };
 })();

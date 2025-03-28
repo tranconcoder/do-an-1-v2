@@ -8,8 +8,9 @@ import {
     PESSIMISTIC_WAITING_TIME
 } from '@/configs/redis.config.js';
 import {
+    getKeyTokenKey,
+    getKeyTokenRefreshTokenUsedKey,
     getPessimisticKey,
-    getUserProfileFieldKey,
     getUserProfileKey
 } from '@/utils/redis.util.js';
 
@@ -64,17 +65,20 @@ export const pessimisticLock = async <T = any>(
     return null;
 };
 
+async function hGetRedis(key: string) {
+    const result = await redisClient.hGetAll(key);
+    if (!Object.keys(result).length) return null;
+
+    return result;
+}
+
 /* ---------------------------------------------------------- */
 /*                            User                            */
 /* ---------------------------------------------------------- */
 
 /* -------------------- Get user profile -------------------- */
 export const getUserProfile = async (id: string) => {
-    const key = getUserProfileKey(id);
-    const user = await redisClient.hGetAll(key);
-    if (!Object.keys(user).length) return null;
-
-    return user;
+    return await hGetRedis(getUserProfileKey(id));
 };
 
 /* -------------------- Set user profile -------------------- */
@@ -93,3 +97,40 @@ export const setUserProfile = async ({
         user_role: user_role.toString()
     });
 };
+
+/* ---------------------------------------------------------- */
+/*                          Key token                         */
+/* ---------------------------------------------------------- */
+
+/* ---------------------- Get key token  --------------------- */
+export const getKeyToken = async (id: string): Promise<model.keyToken.KeyTokenSchema> => {
+    return (await hGetRedis(getKeyTokenKey(id))) as any;
+};
+
+/* ---------------------- Set key token  --------------------- */
+export const setKeyToken = async ({
+    user,
+    public_key,
+    private_key,
+    refresh_token,
+    refresh_tokens_used
+}: model.keyToken.KeyTokenSchema) => {
+    const id = user;
+
+    await redisClient.hSet(getKeyTokenKey(id), {
+        user: user,
+        privateKey: private_key,
+        publicKey: public_key,
+        refreshToken: refresh_token
+    });
+
+    await redisClient.rPush(getKeyTokenRefreshTokenUsedKey(id), refresh_tokens_used);
+};
+
+
+/* -------------------- Delete key token -------------------- */
+export const deleteKeyToken = async (userId: string) => {
+    const id = userId;
+    return await redisClient.DEL([getKeyTokenKey(id), getKeyTokenRefreshTokenUsedKey(id)]);
+}
+
