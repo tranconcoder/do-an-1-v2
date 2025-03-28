@@ -13,4 +13,4 @@ export const getUserProfileKey = (id: string) => `user:${id}:profile`;
 /* ------------------------ Key token ----------------------- */
 export const getKeyTokenKey = (id: string) => `user:${id}:keyToken`;
 export const getKeyTokenRefreshTokenUsedKey = (id: string) =>
-    `user:${id}:keyToken:refreshTokenUsed`;
+    `user:${id}:keyToken_refreshTokenUsed`;
