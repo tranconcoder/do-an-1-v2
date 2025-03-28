@@ -4,6 +4,7 @@ import roleModel from '@/models/role.model.js';
 import { NotFoundErrorResponse } from '@/response/error.response.js';
 import {
     generateFindAll,
+    generateFindById,
     generateFindOne,
     generateFindOneAndUpdate
 } from '@/utils/mongoose.util.js';
@@ -14,6 +15,10 @@ export const findOneAndUpdateResource =
     generateFindOneAndUpdate<model.rbac.ResourceSchema>(resourceModel);
 
 export const findOneAndUpdateRole = generateFindOneAndUpdate<model.rbac.RoleSchema>(roleModel);
+
+
+/* ----------------------- Find by id ----------------------- */
+export const findRoleById = generateFindById<model.rbac.RoleSchema>(roleModel);
 
 /* ------------------------ Find one ------------------------ */
 export const findOneRole = generateFindOne<model.rbac.RoleSchema>(roleModel);

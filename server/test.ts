@@ -13,7 +13,7 @@ const result = test.validate({
 });
 
 console.log(result); */
-
+/*
 import express, { Router } from 'express';
 import mongoose, { Schema, model } from 'mongoose';
 
@@ -49,4 +49,8 @@ app.get('/', (req, res, next) => {
     });
 });
 
-app.listen(3000, () => {});
+app.listen(3000, () => {}); */
+
+
+
+/* --------------------- Add stack test --------------------- */

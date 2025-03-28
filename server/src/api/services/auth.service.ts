@@ -1,7 +1,6 @@
 // Libs
-import mongoose, { ObjectId } from 'mongoose';
 import bcrypt from 'bcrypt';
-import _, { mean } from 'lodash';
+import _ from 'lodash';
 
 // Handle error
 import {
@@ -27,8 +26,10 @@ import { userModel } from '@/models/user.model.js';
 import { getUserRoleIdByName } from '@/models/repository/rbac/index.js';
 import { findOneAndUpdateUser } from '@/models/repository/user/index.js';
 import { RoleNames } from '@/enums/rbac.enum.js';
-import { deleteKeyToken, setKeyToken } from './redis.service.js';
+import { deleteKeyToken } from './redis.service.js';
 import { findOneAndUpdateKeyToken } from '@/models/repository/keyToken/index.js';
+import { USER_PUBLIC_FIELDS } from '@/configs/user.config.js';
+import { roleService } from './rbac.service.js';
 
 export default class AuthService {
     /* ------------------------------------------------------ */
@@ -108,11 +109,7 @@ export default class AuthService {
         const isRegistered = await findOneShop({
             query: { shop_userId: payload.shop_userId }
         }).lean();
-        if (isRegistered)
-            return {
-                ...isRegistered,
-                message: 'User is registered shop account!'
-            };
+        if (isRegistered) return { ...isRegistered, message: 'User is registered shop account!' };
 
         /* ------------------ Check unique fields  ------------------ */
         const checkKeys: Array<keyof typeof payload> = [
@@ -256,10 +253,16 @@ export default class AuthService {
         });
         if (!keyTokenId) throw new ForbiddenErrorResponse({ message: 'Save key token failed!' });
 
-        return {
+        const result: commonTypes.object.ObjectAnyKeys = {
             token: jwtPair,
-            user: _.pick(user, ['_id', 'phoneNumber', 'user_fullName', 'user_email', 'user_role'])
+            user: _.pick(user, USER_PUBLIC_FIELDS)
         };
+
+        /* --------------------- Add role data  --------------------- */
+        const roleData = await roleService.getRoleDataById(user.user_role.toString());
+        if (roleData) result[roleData.role_name] = roleData.role_data;
+
+        return result;
     };
 
     /* ------------------------------------------------------ */
@@ -288,6 +291,7 @@ export default class AuthService {
 
         /* ---------- Check refresh is current token ---------- */
         const isRefreshTokenUsed = keyToken.refresh_tokens_used?.includes(refreshToken);
+
         // Token is valid but it was deleted on valid list (because token was used before to get new token)
         if (isRefreshTokenUsed) {
             // ALERT: Token was stolen!!!

@@ -4,13 +4,13 @@ import { StatusCodes } from 'http-status-codes';
 import _ from 'lodash';
 
 export default class ErrorResponse {
-    public readonly file: commonTypes.string.StringOrUndefined;
     public readonly statusCode: StatusCodes;
     public readonly name: commonTypes.string.StringOrUndefined;
     public readonly message: commonTypes.string.StringOrUndefined;
     public hideOnProduction: boolean;
     public readonly routePath: commonTypes.string.StringOrUndefined;
     public readonly metadata: commonTypes.object.ObjectAnyKeys;
+    public readonly stack: string;
 
     public constructor({
         statusCode,
@@ -18,7 +18,8 @@ export default class ErrorResponse {
         message = StatusCodes[statusCode],
         hideOnProduction = true,
         metadata = {},
-        routePath = undefined
+        routePath = undefined,
+        stack = new Error().stack as string
     }: {
         statusCode: StatusCodes;
         name?: string;
@@ -26,6 +27,7 @@ export default class ErrorResponse {
         hideOnProduction?: boolean;
         metadata?: commonTypes.object.ObjectAnyKeys;
         routePath?: commonTypes.string.StringOrUndefined;
+        stack?: string;
     }) {
         this.statusCode = statusCode;
         this.name = name;
@@ -33,21 +35,10 @@ export default class ErrorResponse {
         this.hideOnProduction = hideOnProduction;
         this.routePath = routePath;
         this.metadata = metadata;
-        console.log(new Error().stack)
-        this.file = new Error()?.stack
-            ?.split('\n')
-            ?.at(2)
-            ?.split('/')
-            ?.slice(-2)
-            ?.join('/')
-            ?.slice(0, -1);
-
-        if (this.file && !this.file.includes('index')) {
-            this.file = this.file.split('/').at(-1);
-        }
+        this.stack = stack;
     }
     public get() {
-        const pickList = ['statusCode', 'name', 'message', 'routePath', 'file'];
+        const pickList = ['statusCode', 'name', 'message', 'routePath', 'stack'];
 
         if (Object.keys(this.metadata).length) pickList.push('metadata');
 

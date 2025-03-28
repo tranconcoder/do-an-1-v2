@@ -1,7 +1,6 @@
-import { AVATAR_BASE_PATH } from '@/configs/media.config.js';
 import { AvatarFields, MediaMimeTypes, MediaTypes } from '@/enums/media.enum.js';
 import * as multerMiddleware from '@/middlewares/multer.middleware.js';
-import { InternalServerErrorResponse } from '@/response/error.response.js';
+import { NotFoundErrorResponse } from '@/response/error.response.js';
 import mediaService from '@/services/media.service.js';
 import { RequestHandler } from 'express';
 import catchError from './catchError.middleware.js';
@@ -14,10 +13,16 @@ export default new (class MediaMiddleware {
         catchError(async (req, res, next) => {
             multerMiddleware.uploadAvatar.single(uploadField)(req, res, async (err) => {
                 if (err) return next(err);
+                console.log(req.body);
 
                 try {
                     /* -------------- Handle create media document -------------- */
-                    const file = req.file as Express.Multer.File;
+                    const file = req.file as Express.Multer.File | undefined;
+                    if (!file) {
+                        throw new NotFoundErrorResponse({
+                            message: `File '${uploadField}' not found!`
+                        });
+                    }
 
                     req.mediaId = (
                         await mediaService.createMedia({

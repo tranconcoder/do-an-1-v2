@@ -17,7 +17,6 @@ import joiValidate from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import mediaMiddleware from '@/middlewares/media.middleware.js';
 import { AvatarFields } from '@/enums/media.enum.js';
-import multer from 'multer';
 import {
     checkCustomerAccountToRegisterShop,
     cleanUpSignUpShop

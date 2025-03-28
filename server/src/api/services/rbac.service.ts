@@ -1,11 +1,13 @@
+import { roleHandleGetDataStrategy } from '@/configs/rbac.config.js';
 import { Resources, RoleActions, RoleNames, RoleStatus } from '@/enums/rbac.enum.js';
 import {
     findOneAndUpdateResource,
     findOneAndUpdateRole,
+    findRoleById,
     findRoles
 } from '@/models/repository/rbac/index.js';
 
-export default class RBACService {
+class RBACService {
     public static instance: RBACService;
 
     private constructor() {}
@@ -201,4 +203,23 @@ export default class RBACService {
     }
 }
 
-RBACService.getInstance().getAccessControlList();
+class RoleService {
+    async getRoleDataById(id: string) {
+        const roleName: RoleNames = await findRoleById({ id, options: { lean: true } }).role_name;
+
+        if (!roleName) return null;
+        if (!roleHandleGetDataStrategy[roleName]) return null;
+
+        const roleData = await roleHandleGetDataStrategy[roleName]({ id });
+        if (!roleData) return null;
+
+        return {
+            role_name: roleName,
+            role_data: roleData
+        };
+    }
+}
+
+export default RBACService;
+
+export const roleService = new RoleService();

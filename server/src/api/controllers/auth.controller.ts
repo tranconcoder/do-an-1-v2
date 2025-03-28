@@ -1,10 +1,8 @@
 import type { RequestWithBody } from '@/types/request.js';
-import type { ErrorRequestHandler, RequestHandler } from 'express';
+import type { RequestHandler } from 'express';
 
 import AuthService from '@/services/auth.service.js';
 import { CreatedResponse, OkResponse } from '@/response/success.response.js';
-import mediaService from '@/services/media.service.js';
-import LoggerService from '@/services/logger.service.js';
 
 export default class AuthController {
     /* ------------------------------------------------------ */

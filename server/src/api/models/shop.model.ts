@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 import { required, unique, ObjectId, timestamps } from '@/configs/mongoose.config.js';
 import { ShopStatus, ShopType } from '@/enums/shop.enum.js';
 import { USER_MODEL_NAME } from './user.model.js';
+import { MEDIA_MODEL_NAME } from './media.model.js';
 
 export const SHOP_MODEL_NAME = 'Shop';
 export const SHOP_COLLECTION_NAME = 'shops';
@@ -13,7 +14,7 @@ export const shopSchema = new Schema<model.shop.ShopSchema>(
         shop_name: { type: String, required, unique },
         shop_email: { type: String, required, unique },
         shop_type: { type: String, enum: ShopType, required },
-        shop_logo: { type: String, required },
+        shop_logo: { type: ObjectId, ref: MEDIA_MODEL_NAME },
         shop_certificate: { type: String, required },
         shop_location: { type: ObjectId, required },
         shop_phoneNumber: { type: String, required },

@@ -1,0 +1,70 @@
+[2025-03-28T17:48:57.671Z] [error]: HIDE::400::Error::data and hash arguments required::
+[2025-03-28T17:50:35.413Z] [error]: HIDE::400::Error::data and hash arguments required::
+[2025-03-28T17:51:00.007Z] [error]: Client must be connected before running operations
+[2025-03-28T17:51:00.010Z] [error]: Client must be connected before running operations
+[2025-03-28T17:52:00.030Z] [error]: Client must be connected before running operations
+[2025-03-28T17:52:00.031Z] [error]: Client must be connected before running operations
+[2025-03-28T17:53:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T17:53:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T17:53:36.557Z] [error]: HIDE::400::Error::data and hash arguments required::
+[2025-03-28T17:54:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T17:54:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T17:54:15.862Z] [error]: Error while cleanup avatar!
+[2025-03-28T17:54:15.863Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'originalname')::
+[2025-03-28T17:55:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T17:55:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T17:56:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T17:56:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T17:56:05.237Z] [error]: Error while cleanup avatar!
+[2025-03-28T17:56:05.240Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'originalname')::
+[2025-03-28T17:57:00.013Z] [error]: Client must be connected before running operations
+[2025-03-28T17:57:00.016Z] [error]: Client must be connected before running operations
+[2025-03-28T17:58:00.030Z] [error]: Client must be connected before running operations
+[2025-03-28T17:58:00.033Z] [error]: Client must be connected before running operations
+[2025-03-28T17:58:39.196Z] [error]: Error while cleanup avatar!
+[2025-03-28T17:58:39.199Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'originalname')::
+[2025-03-28T17:58:47.137Z] [error]: HIDE::400::ValidationError::"shop_name" is required::
+[2025-03-28T17:58:52.910Z] [error]: HIDE::400::ValidationError::"shop_name" is required::
+[2025-03-28T17:59:00.050Z] [error]: Client must be connected before running operations
+[2025-03-28T17:59:00.051Z] [error]: Client must be connected before running operations
+[2025-03-28T17:59:17.593Z] [error]: HIDE::400::ValidationError::"shop_name" is required::
+[2025-03-28T17:59:41.600Z] [error]: Error while cleanup avatar!
+[2025-03-28T17:59:41.601Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'originalname')::
+[2025-03-28T18:00:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T18:00:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T18:00:57.154Z] [error]: Error while cleanup avatar!
+[2025-03-28T18:00:57.157Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'originalname')::
+[2025-03-28T18:01:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T18:01:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T18:01:03.656Z] [error]: HIDE::400::ValidationError::"shop_name" is required::
+[2025-03-28T18:01:56.491Z] [error]: HIDE::400::ValidationError::"shop_name" is required::
+[2025-03-28T18:01:59.384Z] [error]: HIDE::400::ValidationError::"shop_name" is required::
+[2025-03-28T18:02:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T18:02:00.067Z] [error]: Client must be connected before running operations
+[2025-03-28T18:02:02.196Z] [error]: Error while cleanup avatar!
+[2025-03-28T18:02:02.197Z] [error]: HIDE::404::NotFound::NOT_FOUND::
+[2025-03-28T18:02:03.539Z] [error]: Error while cleanup avatar!
+[2025-03-28T18:02:03.540Z] [error]: HIDE::404::NotFound::NOT_FOUND::
+[2025-03-28T18:02:33.817Z] [error]: Error while cleanup avatar!
+[2025-03-28T18:02:33.820Z] [error]: HIDE::404::NotFound::File shop_logo not found!::
+[2025-03-28T18:03:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T18:03:00.065Z] [error]: Client must be connected before running operations
+[2025-03-28T18:03:11.783Z] [error]: HIDE::400::ValidationError::"shop_name" is required::
+[2025-03-28T18:03:14.526Z] [error]: HIDE::400::ValidationError::"shop_email" is required::
+[2025-03-28T18:03:16.877Z] [error]: HIDE::400::ValidationError::"shop_type" is required::
+[2025-03-28T18:03:19.098Z] [error]: HIDE::400::ValidationError::"shop_certificate" is required::
+[2025-03-28T18:03:24.214Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-03-28T18:03:37.724Z] [error]: HIDE::400::Error::data and hash arguments required::
+[2025-03-28T18:04:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T18:04:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T18:05:00.013Z] [error]: Client must be connected before running operations
+[2025-03-28T18:05:00.015Z] [error]: Client must be connected before running operations
+[2025-03-28T18:05:37.463Z] [error]: HIDE::400::Error::data and hash arguments required::
+[2025-03-28T18:06:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T18:06:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T18:07:00.022Z] [error]: Client must be connected before running operations
+[2025-03-28T18:07:00.024Z] [error]: Client must be connected before running operations
+[2025-03-28T18:07:10.157Z] [error]: HIDE::400::Error::data and hash arguments required::
+[2025-03-28T18:07:39.969Z] [error]: HIDE::400::Error::data and hash arguments required::
+[2025-03-28T18:08:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T18:08:00.066Z] [error]: Client must be connected before running operations

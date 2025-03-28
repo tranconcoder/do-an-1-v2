@@ -12,7 +12,7 @@ export const checkCustomerAccountToRegisterShop: RequestWithBody<
     const { phoneNumber, password } = req.body;
 
     /* -------------- Check if user is exists ------------- */
-    const user = await findOneUser({ query: { phoneNumber } });
+    const user = await findOneUser({ query: { phoneNumber }, select: ['password'] });
     if (!user) throw new NotFoundErrorResponse({ message: 'Username or password is not correct!' });
 
     /* ------------------ Check password ------------------ */

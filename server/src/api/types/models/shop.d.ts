@@ -8,7 +8,7 @@ declare global {
                 shop_userId: moduleTypes.mongoose.ObjectId;
                 shop_name: string;
                 shop_email: string;
-                shop_logo: string;
+                shop_logo: moduleTypes.mongoose.ObjectId;
                 shop_type: ShopType;
                 shop_certificate: string;
                 shop_location: moduleTypes.mongoose.ObjectId;

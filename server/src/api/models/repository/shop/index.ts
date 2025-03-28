@@ -1,5 +1,5 @@
 import shopModel from '@/models/shop.model.js';
-import { generateFindOne } from '@/utils/mongoose.util.js';
+import { generateFindById, generateFindOne } from '@/utils/mongoose.util.js';
 
 export const isExistsShop = async ({
     shop_certificate,
@@ -21,4 +21,10 @@ export const isExistsShop = async ({
         .lean();
 };
 
+
+/* ------------------------ Find one ------------------------ */
 export const findOneShop = generateFindOne<model.shop.ShopSchema>(shopModel);
+
+
+/* ----------------------- Find by id ----------------------- */
+export const findShopById = generateFindById<model.shop.ShopSchema>(shopModel);

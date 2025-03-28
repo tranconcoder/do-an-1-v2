@@ -12,19 +12,20 @@ export default class HandleErrorService {
 
         // Convert error to ErrorResponse if it's not already
         if (err instanceof Error) {
-            console.log(err.stack)
             errorResponse = new ErrorResponse({
                 statusCode: 400,
                 name: err.name,
                 message: err.message,
-                routePath: req.originalUrl
+                routePath: req.originalUrl,
+                stack: err.stack || ""
             });
         } else if (!(err instanceof ErrorResponse)) {
             errorResponse = new ErrorResponse({
                 statusCode: 500,
                 name: 'InternalServerError',
                 message: 'Internal server error',
-                routePath: req.originalUrl
+                routePath: req.originalUrl,
+                stack: ""
             });
         }
 
@@ -35,6 +36,8 @@ export default class HandleErrorService {
     private static development: ErrorHandler = (error, _, res, next) => {
         // Log error
         loggerService.getInstance().error(error.toString());
+
+        console.log(error.get());
 
         // Send error response
         res.status(error.statusCode).json(error.get());
