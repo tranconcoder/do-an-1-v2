@@ -1,10 +1,9 @@
 // Libs
 import crypto from 'crypto';
-import mongoose from 'mongoose';
 
 // Models
 import keyTokenModel from '@/models/keyToken.model.js';
-import { findKeyTokenById } from '@/models/repository/keyToken/index.js';
+import { findKeyTokenById, findOneAndReplaceKeyToken } from '@/models/repository/keyToken/index.js';
 
 export default class KeyTokenService {
     /* ------------------------------------------------------ */
@@ -23,21 +22,16 @@ export default class KeyTokenService {
         publicKey,
         refreshToken
     }: service.key.arguments.SaveKeyToken) => {
-        const keyToken = await keyTokenModel.findOneAndReplace(
-            {
-                user: userId
-            },
-            {
+        const keyToken = await findOneAndReplaceKeyToken({
+            query: { user: userId },
+            update: {
                 user: userId,
                 private_key: privateKey,
                 public_key: publicKey,
                 refresh_token: refreshToken
             },
-            {
-                upsert: true,
-                returnDocument: 'after'
-            }
-        );
+            options: { upsert: true, returnDocument: 'after' }
+        });
 
         return keyToken ? keyToken._id : null;
     };

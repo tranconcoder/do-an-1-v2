@@ -214,7 +214,7 @@ export const generateFindById = <T = any>(model: any) => {
     };
 };
 
-export const generateFindOneAndRepalce = <T = any>(model: any) => {
+export const generateFindOneAndReplace = <T = any>(model: any) => {
     return ({
         query,
         update,
@@ -243,4 +243,4 @@ export const generateFindOneAndRepalce = <T = any>(model: any) => {
 
         return result;
     };
-}
+};

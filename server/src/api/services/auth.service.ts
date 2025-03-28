@@ -72,7 +72,7 @@ export default class AuthService {
             throw new ForbiddenErrorResponse({ message: 'Generate jwt token failed!' });
 
         /* ------------ Save key token to database ------------ */
-        await Promise.allSettled([
+        await Promise.all([
             UserService.saveInstance(userInstance),
             KeyTokenService.findOneAndReplace({
                 userId: userInstance.id,
@@ -80,15 +80,11 @@ export default class AuthService {
                 publicKey,
                 refreshToken: jwtTokenPair.refreshToken
             })
-        ]).then(async (resultList) => {
-            const hasError = resultList.find((x) => x.status === 'rejected');
+        ]).catch(async () => {
+            await KeyTokenService.deleteKeyTokenByUserId(userInstance.id);
+            await UserService.removeUser(userInstance.id);
 
-            if (hasError) {
-                await KeyTokenService.deleteKeyTokenByUserId(userInstance.id);
-                await UserService.removeUser(userInstance.id);
-
-                throw new ForbiddenErrorResponse({ message: 'Error on save user or key token!' });
-            }
+            throw new ForbiddenErrorResponse({ message: 'Error on save user or key token!' });
         });
 
         return {
@@ -178,8 +174,27 @@ export default class AuthService {
         if (!user)
             throw new NotFoundErrorResponse({ message: 'Can not change user type to shop!' });
 
+        /* ------------------- Generate jwt token ------------------- */
+        const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
+        const jwtTokenPair = await JwtService.signJwtPair({
+            privateKey,
+            payload: {
+                id: user._id.toString(),
+                role: user.user_role.toString()
+            }
+        });
+        if (!jwtTokenPair)
+            throw new ForbiddenErrorResponse({ message: 'Generate jwt token failed!' });
+
+        await KeyTokenService.findOneAndReplace({
+            userId: user._id.toString(),
+            privateKey,
+            publicKey,
+            refreshToken: jwtTokenPair.refreshToken
+        });
+
         /* -------------------- Handle save shop -------------------- */
-        return await shopModel.create({
+        const shop = await shopModel.create({
             shop_userId: payload.shop_userId,
             shop_certificate: payload.shop_certificate,
             shop_email: payload.shop_email,
@@ -201,6 +216,8 @@ export default class AuthService {
             })),
             is_brand: payload.is_brand
         });
+
+        return { shop, token: jwtTokenPair };
     };
 
     /* ------------------------------------------------------ */
@@ -235,15 +252,6 @@ export default class AuthService {
             privateKey,
             publicKey,
             refreshToken: jwtPair.refreshToken
-        });
-
-        /* ---------------- Save key token to redis  ---------------- */
-        await setKeyToken({
-            user: user._id.toString(),
-            private_key: privateKey,
-            public_key: publicKey,
-            refresh_token: jwtPair.refreshToken,
-            refresh_tokens_used: []
         });
         if (!keyTokenId) throw new ForbiddenErrorResponse({ message: 'Save key token failed!' });
 
