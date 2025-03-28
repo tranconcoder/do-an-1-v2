@@ -33,6 +33,7 @@ export default class ErrorResponse {
         this.hideOnProduction = hideOnProduction;
         this.routePath = routePath;
         this.metadata = metadata;
+        console.log(new Error().stack)
         this.file = new Error()?.stack
             ?.split('\n')
             ?.at(2)

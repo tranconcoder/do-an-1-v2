@@ -117,3 +117,238 @@
 [2025-03-28T05:20:06.472Z] [error]: HIDE::400::TypeError::Invalid argument type::
 [2025-03-28T05:20:16.020Z] [error]: HIDE::400::TypeError::Invalid argument type::
 [2025-03-28T05:20:16.033Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T06:14:46.863Z] [error]: HIDE::400::TypeError::Cannot destructure property 'user' of 'object null' as it is null.::
+[2025-03-28T06:14:46.881Z] [error]: HIDE::400::TypeError::Cannot destructure property 'user' of 'object null' as it is null.::
+[2025-03-28T06:14:46.891Z] [error]: HIDE::400::TypeError::Cannot destructure property 'user' of 'object null' as it is null.::
+[2025-03-28T06:14:46.903Z] [error]: HIDE::400::TypeError::Cannot destructure property 'user' of 'object null' as it is null.::
+[2025-03-28T06:14:57.262Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T06:17:10.650Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T06:18:54.154Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T06:19:52.159Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T06:20:51.153Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T06:20:55.638Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T06:22:00.323Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T06:22:54.345Z] [error]: HIDE::400::Error::ERR wrong number of arguments for 'rpush' command::
+[2025-03-28T06:23:13.890Z] [error]: HIDE::400::Error::ERR wrong number of arguments for 'rpush' command::
+[2025-03-28T06:27:55.834Z] [error]: HIDE::400::Error::EXECABORT Transaction discarded because of previous errors.::
+[2025-03-28T06:29:42.603Z] [error]: HIDE::400::Error::EXECABORT Transaction discarded because of previous errors.::
+[2025-03-28T06:29:44.026Z] [error]: HIDE::400::Error::EXECABORT Transaction discarded because of previous errors.::
+[2025-03-28T06:31:13.614Z] [error]: HIDE::400::Error::EXECABORT Transaction discarded because of previous errors.::
+[2025-03-28T06:35:40.339Z] [error]: HIDE::400::Error::EXECABORT Transaction discarded because of previous errors.::
+[2025-03-28T06:35:42.466Z] [error]: HIDE::400::Error::EXECABORT Transaction discarded because of previous errors.::
+[2025-03-28T06:35:46.794Z] [error]: HIDE::400::Error::EXECABORT Transaction discarded because of previous errors.::
+[2025-03-28T06:35:59.430Z] [error]: HIDE::400::Error::EXECABORT Transaction discarded because of previous errors.::
+[2025-03-28T06:36:11.453Z] [error]: HIDE::400::Error::EXECABORT Transaction discarded because of previous errors.::
+[2025-03-28T06:47:19.193Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'includes')::
+[2025-03-28T06:48:15.289Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T06:48:17.505Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T06:48:29.608Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T06:50:02.197Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T06:50:03.697Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T06:51:27.019Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T06:51:52.172Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T06:52:21.887Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T06:54:29.025Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T07:08:36.399Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T07:10:49.369Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T07:12:40.448Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T07:13:21.252Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T07:15:05.650Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T07:15:43.886Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T07:15:55.372Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T07:16:00.004Z] [error]: Client must be connected before running operations
+[2025-03-28T07:16:00.008Z] [error]: Client must be connected before running operations
+[2025-03-28T07:17:00.038Z] [error]: Client must be connected before running operations
+[2025-03-28T07:17:00.040Z] [error]: Client must be connected before running operations
+[2025-03-28T07:17:07.935Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T07:18:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T07:18:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:19:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T07:19:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:20:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T07:20:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:21:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:21:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T07:21:00.913Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T07:22:00.004Z] [error]: Client must be connected before running operations
+[2025-03-28T07:22:00.007Z] [error]: Client must be connected before running operations
+[2025-03-28T07:23:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:23:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T07:24:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:24:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T07:25:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T07:25:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:26:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:26:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T07:26:20.938Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T07:27:00.066Z] [error]: Client must be connected before running operations
+[2025-03-28T07:27:00.072Z] [error]: Client must be connected before running operations
+[2025-03-28T07:27:01.050Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T07:28:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:28:00.066Z] [error]: Client must be connected before running operations
+[2025-03-28T07:29:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T07:29:00.068Z] [error]: Client must be connected before running operations
+[2025-03-28T07:30:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:30:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T07:31:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:31:00.065Z] [error]: Client must be connected before running operations
+[2025-03-28T07:32:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T07:32:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:33:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T07:33:00.071Z] [error]: Client must be connected before running operations
+[2025-03-28T07:34:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:34:00.065Z] [error]: Client must be connected before running operations
+[2025-03-28T07:35:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T07:35:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:36:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T07:36:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:37:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:37:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T07:38:00.065Z] [error]: Client must be connected before running operations
+[2025-03-28T07:38:00.071Z] [error]: Client must be connected before running operations
+[2025-03-28T07:39:00.068Z] [error]: Client must be connected before running operations
+[2025-03-28T07:39:00.077Z] [error]: Client must be connected before running operations
+[2025-03-28T07:40:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T07:40:00.074Z] [error]: Client must be connected before running operations
+[2025-03-28T07:41:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:41:00.066Z] [error]: Client must be connected before running operations
+[2025-03-28T07:42:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:42:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T07:43:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:43:00.067Z] [error]: Client must be connected before running operations
+[2025-03-28T07:44:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:44:00.065Z] [error]: Client must be connected before running operations
+[2025-03-28T07:44:52.916Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-28T07:45:00.065Z] [error]: Client must be connected before running operations
+[2025-03-28T07:45:00.071Z] [error]: Client must be connected before running operations
+[2025-03-28T07:45:04.662Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T07:45:51.077Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T07:46:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T07:46:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T07:46:32.003Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T07:46:46.426Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T07:47:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:47:00.065Z] [error]: Client must be connected before running operations
+[2025-03-28T07:48:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:48:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T07:49:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:49:00.065Z] [error]: Client must be connected before running operations
+[2025-03-28T07:49:09.731Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T07:50:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:50:00.065Z] [error]: Client must be connected before running operations
+[2025-03-28T07:50:50.129Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T07:51:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:51:00.067Z] [error]: Client must be connected before running operations
+[2025-03-28T07:52:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:52:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T07:52:13.387Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T07:53:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:53:00.067Z] [error]: Client must be connected before running operations
+[2025-03-28T07:54:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:54:00.065Z] [error]: Client must be connected before running operations
+[2025-03-28T07:55:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:55:00.066Z] [error]: Client must be connected before running operations
+[2025-03-28T07:55:36.376Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'length')::
+[2025-03-28T07:55:54.458Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'length')::
+[2025-03-28T07:56:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T07:56:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T07:56:19.951Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T07:57:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T07:57:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T07:57:25.998Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T07:58:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T07:58:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T07:59:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T07:59:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:00:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:00:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T08:01:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:01:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:02:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:02:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T08:03:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:03:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:04:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:04:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:05:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:05:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T08:06:00.065Z] [error]: Client must be connected before running operations
+[2025-03-28T08:06:00.067Z] [error]: Client must be connected before running operations
+[2025-03-28T08:07:00.053Z] [error]: Client must be connected before running operations
+[2025-03-28T08:07:00.055Z] [error]: Client must be connected before running operations
+[2025-03-28T08:08:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:08:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T08:09:00.047Z] [error]: Client must be connected before running operations
+[2025-03-28T08:09:00.049Z] [error]: Client must be connected before running operations
+[2025-03-28T08:09:51.328Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T08:10:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T08:10:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:11:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:11:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T08:12:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:12:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:12:10.938Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T08:12:45.709Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T08:13:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:13:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T08:13:22.596Z] [error]: HIDE::400::TypeError::Invalid argument type::
+[2025-03-28T08:14:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:14:00.066Z] [error]: Client must be connected before running operations
+[2025-03-28T08:15:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:15:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T08:16:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T08:16:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:17:00.068Z] [error]: Client must be connected before running operations
+[2025-03-28T08:17:00.075Z] [error]: Client must be connected before running operations
+[2025-03-28T08:18:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T08:18:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T08:19:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:19:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:20:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:20:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T08:21:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:21:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:22:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:22:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:23:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:23:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:24:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:24:00.065Z] [error]: Client must be connected before running operations
+[2025-03-28T08:25:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:25:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:26:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:26:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T08:27:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T08:27:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:28:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T08:28:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:29:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:29:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:30:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:30:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T08:31:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:31:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:32:00.006Z] [error]: Client must be connected before running operations
+[2025-03-28T08:32:00.010Z] [error]: Client must be connected before running operations
+[2025-03-28T08:33:00.058Z] [error]: Client must be connected before running operations
+[2025-03-28T08:33:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:34:00.003Z] [error]: Client must be connected before running operations
+[2025-03-28T08:34:00.005Z] [error]: Client must be connected before running operations
+[2025-03-28T08:35:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:35:00.064Z] [error]: Client must be connected before running operations
+[2025-03-28T08:36:00.042Z] [error]: Client must be connected before running operations
+[2025-03-28T08:36:00.044Z] [error]: Client must be connected before running operations
+[2025-03-28T08:37:00.062Z] [error]: Client must be connected before running operations
+[2025-03-28T08:37:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T08:38:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:38:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T08:39:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:39:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:40:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:40:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:41:00.059Z] [error]: Client must be connected before running operations
+[2025-03-28T08:41:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:42:00.060Z] [error]: Client must be connected before running operations
+[2025-03-28T08:42:00.063Z] [error]: Client must be connected before running operations
+[2025-03-28T08:43:00.061Z] [error]: Client must be connected before running operations
+[2025-03-28T08:43:00.062Z] [error]: Client must be connected before running operations

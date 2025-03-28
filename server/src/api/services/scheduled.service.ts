@@ -18,6 +18,7 @@ import { asyncFilter } from '@/utils/array.utils.js';
 import mongoose from 'mongoose';
 import { CategoryEnum } from '@/enums/product.enum.js';
 import { findAllProductId } from '@/models/repository/product/index.js';
+import { deleteKeyToken, setKeyToken } from './redis.service.js';
 
 export default class ScheduledService {
     public static startScheduledService = () => {
@@ -45,6 +46,8 @@ export default class ScheduledService {
 
                 if (!decoded) {
                     await keyToken.deleteOne();
+                    await deleteKeyToken(keyToken.user.toString());
+
                     throw new Error('Invalid key token');
                 }
 
@@ -63,7 +66,9 @@ export default class ScheduledService {
 
                 /* ----------------- Update cleanup data ---------------- */
                 keyToken.set('refresh_tokens_used', newRefreshTokensUsed);
+
                 await keyToken.save();
+                await setKeyToken(keyToken.toObject());
 
                 /* --------- Counting refresh token used removed --------- */
                 refreshTokenUsedCleaned +=

@@ -3,7 +3,11 @@ import crypto from 'crypto';
 
 // Models
 import keyTokenModel from '@/models/keyToken.model.js';
-import { findKeyTokenById, findOneAndReplaceKeyToken } from '@/models/repository/keyToken/index.js';
+import {
+    deleteOneKeyToken,
+    findKeyTokenById,
+    findOneAndReplaceKeyToken
+} from '@/models/repository/keyToken/index.js';
 
 export default class KeyTokenService {
     /* ------------------------------------------------------ */
@@ -30,7 +34,7 @@ export default class KeyTokenService {
                 public_key: publicKey,
                 refresh_token: refreshToken
             },
-            options: { upsert: true, returnDocument: 'after' }
+            options: { upsert: true, new: true }
         });
 
         return keyToken ? keyToken._id : null;
@@ -77,8 +81,6 @@ export default class KeyTokenService {
     /*                  Remove refresh token                  */
     /* ------------------------------------------------------ */
     public static deleteKeyTokenByUserId = async (userId: string) => {
-        return await keyTokenModel.deleteOne({
-            user: userId
-        });
+        return await deleteOneKeyToken(userId);
     };
 }

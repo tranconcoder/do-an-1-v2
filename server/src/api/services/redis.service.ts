@@ -113,24 +113,33 @@ export const setKeyToken = async ({
     public_key,
     private_key,
     refresh_token,
-    refresh_tokens_used
-}: model.keyToken.KeyTokenSchema) => {
+    refresh_tokens_used = []
+}: moduleTypes.mongoose.ConvertObjectIdToString<model.keyToken.KeyTokenSchema>) => {
     const id = user;
 
-    await redisClient.hSet(getKeyTokenKey(id), {
-        user: user,
-        privateKey: private_key,
-        publicKey: public_key,
-        refreshToken: refresh_token
+    console.log({
+        user,
+        public_key,
+        private_key,
+        refresh_token,
+        refresh_tokens_used
     });
 
-    await redisClient.rPush(getKeyTokenRefreshTokenUsedKey(id), refresh_tokens_used);
-};
+    const cmd = redisClient.multi();
 
+    cmd.hSet(getKeyTokenKey(id), { user, public_key, private_key, refresh_token });
+
+    cmd.del(getKeyTokenRefreshTokenUsedKey(id));
+    if (refresh_tokens_used.length > 0) {
+        cmd.rPush(getKeyTokenRefreshTokenUsedKey(id), refresh_tokens_used);
+    }
+
+    await cmd.exec();
+};
 
 /* -------------------- Delete key token -------------------- */
 export const deleteKeyToken = async (userId: string) => {
     const id = userId;
-    return await redisClient.DEL([getKeyTokenKey(id), getKeyTokenRefreshTokenUsedKey(id)]);
-}
 
+    return await redisClient.DEL([getKeyTokenKey(id), getKeyTokenRefreshTokenUsedKey(id)]);
+};

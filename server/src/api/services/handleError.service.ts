@@ -12,6 +12,7 @@ export default class HandleErrorService {
 
         // Convert error to ErrorResponse if it's not already
         if (err instanceof Error) {
+            console.log(err.stack)
             errorResponse = new ErrorResponse({
                 statusCode: 400,
                 name: err.name,

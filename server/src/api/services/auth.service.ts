@@ -28,6 +28,7 @@ import { getUserRoleIdByName } from '@/models/repository/rbac/index.js';
 import { findOneAndUpdateUser } from '@/models/repository/user/index.js';
 import { RoleNames } from '@/enums/rbac.enum.js';
 import { deleteKeyToken, setKeyToken } from './redis.service.js';
+import { findOneAndUpdateKeyToken } from '@/models/repository/keyToken/index.js';
 
 export default class AuthService {
     /* ------------------------------------------------------ */
@@ -286,7 +287,7 @@ export default class AuthService {
         if (!keyToken) throw new NotFoundErrorResponse({ message: 'Key token not found!' });
 
         /* ---------- Check refresh is current token ---------- */
-        const isRefreshTokenUsed = keyToken.refresh_tokens_used.includes(refreshToken);
+        const isRefreshTokenUsed = keyToken.refresh_tokens_used?.includes(refreshToken);
         // Token is valid but it was deleted on valid list (because token was used before to get new token)
         if (isRefreshTokenUsed) {
             // ALERT: Token was stolen!!!
@@ -304,6 +305,7 @@ export default class AuthService {
             publicKey: keyToken.public_key,
             token: refreshToken
         });
+
         if (!decoded) throw new ForbiddenErrorResponse({ message: 'Token is invalid!' });
         if (refreshToken !== keyToken.refresh_token)
             throw new ForbiddenErrorResponse({ message: 'Token is invalid!' });
@@ -317,13 +319,17 @@ export default class AuthService {
         if (!newJwtTokenPair)
             throw new ForbiddenErrorResponse({ message: 'Generate token failed!' });
 
-        /* ------------------ Save key token ------------------ */
-        await keyToken.updateOne({
-            private_key: privateKey,
-            public_key: publicKey,
-            refresh_token: newJwtTokenPair.refreshToken,
-            $push: { refresh_tokens_used: refreshToken }
+        const newKeyToken = await findOneAndUpdateKeyToken({
+            query: { user: payload.id },
+            update: {
+                private_key: privateKey,
+                public_key: publicKey,
+                refresh_token: newJwtTokenPair.refreshToken,
+                $push: { refresh_tokens_used: refreshToken }
+            },
+            options: { new: true }
         });
+        if (!newKeyToken) throw new ForbiddenErrorResponse({ message: 'Save key token failed!' });
 
         return newJwtTokenPair;
     };
