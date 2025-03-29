@@ -218,7 +218,7 @@ export default class AuthService {
             is_brand: payload.is_brand
         });
 
-        return { shop, token: jwtTokenPair };
+        return { shop, user: user.toObject(), token: jwtTokenPair };
     };
 
     /* ------------------------------------------------------ */

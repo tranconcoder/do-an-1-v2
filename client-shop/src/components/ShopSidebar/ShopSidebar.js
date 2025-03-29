@@ -1,8 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './ShopSidebar.module.scss';
-// Import better icons from react-icons
+import { selectShopInfo } from '../../store/userSlice';
+import { getMediaUrl, getTextPlaceholder } from '../../utils/media';
+// Import icons
 import {
     MdDashboard,
     MdInventory,
@@ -17,7 +20,11 @@ import {
 
 const cx = classNames.bind(styles);
 
-function ShopSidebar({ collapsed, toggleSidebar, shopInfo }) {
+function ShopSidebar({ collapsed, toggleSidebar }) {
+    // Get shop information from Redux state
+    const shopInfo = useSelector(selectShopInfo);
+    console.log(shopInfo);
+
     const navItems = [
         { path: '/dashboard', icon: <MdDashboard className={cx('nav-icon')} />, text: 'Dashboard' },
         {
@@ -47,20 +54,56 @@ function ShopSidebar({ collapsed, toggleSidebar, shopInfo }) {
         }
     ];
 
-    // Get shop name from props or use default
+    // Get shop name from Redux state or use default
     const shopName = shopInfo?.shop_name || 'My Shop';
+    const shopStatus = shopInfo?.shop_status || 'pending';
+
+    // Get logo URL using the media utility
+    const logoUrl = getMediaUrl(shopInfo?.shop.shop_logo);
+
+    // Get text-based placeholder if no logo is available
+    const placeholder = getTextPlaceholder(shopInfo?.shop_name, 40);
 
     return (
         <div className={cx('shop-sidebar', { collapsed })}>
             <div className={cx('shop-info')}>
                 <div className={cx('shop-logo')}>
-                    {shopInfo?.shop_logo ? (
-                        <img src={shopInfo.shop_logo} alt={shopName} />
+                    {logoUrl ? (
+                        <img
+                            src={logoUrl}
+                            alt={shopName}
+                            onError={(e) => {
+                                e.target.onerror = null;
+                                // Use text placeholder instead of external image
+                                const parent = e.target.parentNode;
+                                const div = document.createElement('div');
+                                div.className = cx('shop-logo-placeholder');
+                                div.style.backgroundColor = placeholder.backgroundColor;
+                                div.style.color = placeholder.color;
+                                div.textContent = placeholder.text;
+                                parent.replaceChild(div, e.target);
+                            }}
+                        />
                     ) : (
-                        <MdStore />
+                        <div
+                            className={cx('shop-logo-placeholder')}
+                            style={{
+                                backgroundColor: placeholder.backgroundColor,
+                                color: placeholder.color
+                            }}
+                        >
+                            {placeholder.text}
+                        </div>
                     )}
                 </div>
-                {!collapsed && <div className={cx('shop-name')}>{shopName}</div>}
+                {!collapsed && (
+                    <div className={cx('shop-details')}>
+                        <div className={cx('shop-name')}>{shopName}</div>
+                        <div className={cx('shop-status', shopStatus)}>
+                            {shopStatus.charAt(0).toUpperCase() + shopStatus.slice(1)}
+                        </div>
+                    </div>
+                )}
             </div>
 
             <nav className={cx('nav-menu')}>

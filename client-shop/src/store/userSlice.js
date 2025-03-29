@@ -25,6 +25,32 @@ export const loginUser = createAsyncThunk(
     }
 );
 
+// Async thunk for registering a shop
+export const registerShop = createAsyncThunk(
+    'user/registerShop',
+    async (shopData, { rejectWithValue }) => {
+        try {
+            const response = await axiosClient.post('/auth/sign-up-shop', shopData);
+
+            if (response.statusCode !== 201 && response.statusCode !== 200) {
+                return rejectWithValue(response.message || 'Shop registration failed');
+            }
+
+            // Store tokens in localStorage
+            localStorage.setItem(ACCESS_TOKEN_KEY, response.metadata.token.accessToken);
+            localStorage.setItem(REFRESH_TOKEN_KEY, response.metadata.token.refreshToken);
+
+            // Return both user and shop info from the response
+            return {
+                user: response.metadata.user,
+                shop: response.metadata.shop
+            };
+        } catch (error) {
+            return rejectWithValue(error.response?.data || 'Shop registration failed');
+        }
+    }
+);
+
 // Async thunk for fetching user profile
 export const fetchUserProfile = createAsyncThunk(
     'user/fetchProfile',
@@ -111,6 +137,38 @@ const userSlice = createSlice({
                 state.isAuthenticated = true;
             })
             .addCase(loginUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+
+            // Shop registration actions
+            .addCase(registerShop.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(registerShop.fulfilled, (state, action) => {
+                state.loading = false;
+                // Update user information
+                state.currentUser = {
+                    user_email: action.payload.user.user_email || '',
+                    user_avatar: action.payload.user.user_avatar || '',
+                    user_fullName: action.payload.user.user_fullName || '',
+                    user_dayOfBirth: action.payload.user.user_dayOfBirth || null,
+                    user_sex:
+                        action.payload.user.user_sex !== undefined
+                            ? action.payload.user.user_sex
+                            : false,
+                    user_role: action.payload.user.user_role || null,
+                    phoneNumber: action.payload.user.phoneNumber || '',
+                    _id: action.payload.user._id || '',
+                    // Preserve any other fields
+                    ...action.payload.user
+                };
+                // Store the shop information
+                state.shopInfo = action.payload.shop;
+                state.isAuthenticated = true;
+            })
+            .addCase(registerShop.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })

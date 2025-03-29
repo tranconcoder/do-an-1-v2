@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import classNames from 'classnames/bind';
 import { shopRegisterSchema } from '../../validations/shop.validation';
 import styles from './Register.module.scss';
@@ -7,6 +8,7 @@ import axiosClient from '../../configs/axios';
 import { AuthSection, OwnerInfoSection, ShopInfoSection, WarehouseSection } from './components';
 import LogoCropper from './components/LogoCropper';
 import { useToast } from '../../contexts/ToastContext';
+import { registerShop } from '../../store/userSlice';
 
 // Import components
 
@@ -14,6 +16,7 @@ const cx = classNames.bind(styles);
 
 function Register() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { showToast } = useToast();
 
     // Add state for location data
@@ -465,40 +468,22 @@ function Register() {
                 formDataToSend.append('shop_logo', formData.shop_logo);
             }
 
-            const response = await axiosClient.post('/auth/sign-up-shop', formDataToSend, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            console.log({ response });
+            // Dispatch registerShop action instead of making a direct API call
+            const result = await dispatch(registerShop(formDataToSend)).unwrap();
 
-            // Check if response status is 201 (Created)
-            if (response?.statusCode === 201) {
-                const shopName = response?.data?.metadata?.shop_name || 'your shop';
-                setSuccess(true);
-                const successMsg = `Registration successful! ${shopName} has been created and is pending review.`;
-                setSuccessMessage(successMsg);
+            // Show success message
+            const shopName = result?.shop?.shop_name || formData.shop_name || 'your shop';
+            const successMsg = `Registration successful! ${shopName} has been created.`;
+            setSuccess(true);
+            setSuccessMessage(successMsg);
 
-                // Show toast message instead of alert
-                showToast(successMsg, 'success', 5000);
+            // Show toast message
+            showToast(successMsg, 'success', 5000);
 
-                // Redirect to login page after a short delay
-                setTimeout(() => {
-                    navigate('/login');
-                }, 2000);
-            } else if (response?.status === 200) {
-                // Handle 200 response if needed
-                setSuccess(true);
-                const successMsg = 'Registration successful! Your shop is being reviewed.';
-                setSuccessMessage(successMsg);
-
-                // Show toast message
-                showToast(successMsg, 'success', 5000);
-
-                setTimeout(() => {
-                    navigate('/login');
-                }, 2000);
-            }
+            // Navigate to dashboard since user is now logged in
+            setTimeout(() => {
+                navigate('/dashboard');
+            }, 1500);
         } catch (err) {
             console.error('Registration error:', err);
 
@@ -523,7 +508,9 @@ function Register() {
                 setErrors(newErrors);
             } else {
                 const errorMsg =
-                    err.response?.data?.message || 'Registration failed. Please try again.';
+                    err.message ||
+                    err.response?.data?.message ||
+                    'Registration failed. Please try again.';
                 setGeneralError(errorMsg);
 
                 // Show error toast

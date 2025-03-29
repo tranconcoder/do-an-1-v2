@@ -38,12 +38,19 @@ app.use(express.urlencoded({ extended: true }));
 // Morgan
 app.use(morgan('dev'));
 // Helmet for security
-app.use(helmet());
+app.use(
+    helmet({
+        crossOriginResourcePolicy: { policy: 'cross-origin' },
+        crossOriginEmbedderPolicy: false
+    })
+);
 // CORS
 app.use(
     cors({
         origin: '*',
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+        credentials: true,
+        exposedHeaders: ['Content-Disposition']
     })
 );
 // Compression

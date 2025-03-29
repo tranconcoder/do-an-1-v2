@@ -2,6 +2,9 @@
 import './src/api/helpers/loadEnv.helper';
 import jsonfile from 'jsonfile';
 
+import https from 'https';
+import fs from 'fs/promises';
+
 // Configs
 import { HOST, PORT, BASE_URL } from './src/configs/server.config.js';
 
@@ -13,9 +16,17 @@ import { provinceModel, districtModel, wardModel } from './src/api/models/locati
 import path from 'path';
 import RBACService from '@/services/rbac.service.js';
 
-const server = app.listen(PORT, HOST, () => {
-    console.log(`Server is running on ${BASE_URL}`);
-});
+const server = https
+    .createServer(
+        {
+            key: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.pem')),
+            cert: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.cert'))
+        },
+        app
+    )
+    .listen(PORT, HOST, () => {
+        console.log(`Server is running at ${BASE_URL}`);
+    });
 
 process.on('SIGINT', async () => {
     // Close database connection

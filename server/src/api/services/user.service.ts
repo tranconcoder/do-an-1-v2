@@ -4,14 +4,25 @@ import { userModel } from '@/models/user.model.js';
 import _ from 'lodash';
 import mongoose from 'mongoose';
 import { findOneUser, findUserById } from '@/models/repository/user/index.js';
+import { roleService } from './rbac.service.js';
 
 export default class UserService {
     /* -------------------- Get user by user -------------------- */
     public static getUserById = async (id: string) => {
-        return await findUserById({
+        const user = await findUserById({
             id,
             only: ['_id', 'phoneNumber', 'user_email', 'user_role', 'user_fullName']
         });
+        const result: commonTypes.object.ObjectAnyKeys = { user };
+
+        /* --------------------- Add role data  --------------------- */
+        const roleData = await roleService.getUserRoleData({
+            userId: user._id.toString(),
+            roleId: user.user_role.toString()
+        });
+        if (roleData) result[roleData.role_name] = roleData.role_data;
+
+        return result;
     };
 
     public static newInstance = (user: service.user.arguments.NewInstance) => {

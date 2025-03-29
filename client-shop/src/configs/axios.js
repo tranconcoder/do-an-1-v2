@@ -1,9 +1,13 @@
 import axios from 'axios';
 import { ACCESS_TOKEN_KEY } from './jwt.config';
+import { API_URL } from './env.config';
 
-// Create axios instance with base URL
+// Create axios instance with environment-based URL
 const axiosClient = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3002/'
+    baseURL: API_URL,
+    headers: {
+        'Content-Type': 'application/json'
+    }
 });
 
 // Add request interceptor for authentication
