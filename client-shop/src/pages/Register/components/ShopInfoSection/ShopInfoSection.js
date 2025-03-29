@@ -19,9 +19,9 @@ const ShopInfoSection = ({
 }) => {
     return (
         <div className={cx('form-section')}>
-            <h2>Shop Information</h2>
+            <h2>Thông Tin Cửa Hàng</h2>
             <div className={cx('form-group')}>
-                <label htmlFor="shop_name">Shop Name *</label>
+                <label htmlFor="shop_name">Tên Cửa Hàng *</label>
                 <input
                     type="text"
                     id="shop_name"
@@ -35,7 +35,7 @@ const ShopInfoSection = ({
 
             {/* Add location dropdowns */}
             <div className={cx('form-group')}>
-                <label htmlFor="province">Province/City *</label>
+                <label htmlFor="province">Tỉnh/Thành Phố *</label>
                 <select
                     id="province"
                     name="province"
@@ -43,7 +43,7 @@ const ShopInfoSection = ({
                     onChange={handleLocationChange}
                     className={errors['shop_location.province'] ? cx('has-error') : ''}
                 >
-                    <option value="">Select Province/City</option>
+                    <option value="">Chọn Tỉnh/Thành Phố</option>
                     {provinces.map((province) => (
                         <option key={province._id} value={province._id}>
                             {province.province_name}
@@ -56,7 +56,7 @@ const ShopInfoSection = ({
             </div>
 
             <div className={cx('form-group')}>
-                <label htmlFor="district">District *</label>
+                <label htmlFor="district">Quận/Huyện *</label>
                 <select
                     id="district"
                     name="district"
@@ -65,7 +65,7 @@ const ShopInfoSection = ({
                     disabled={!formData.shop_location.province}
                     className={errors['shop_location.district'] ? cx('has-error') : ''}
                 >
-                    <option value="">Select District</option>
+                    <option value="">Chọn Quận/Huyện</option>
                     {districts.map((district) => (
                         <option key={district._id} value={district._id}>
                             {district.district_name}
@@ -78,7 +78,7 @@ const ShopInfoSection = ({
             </div>
 
             <div className={cx('form-group')}>
-                <label htmlFor="ward">Ward *</label>
+                <label htmlFor="ward">Phường/Xã *</label>
                 <select
                     id="ward"
                     name="ward"
@@ -87,7 +87,7 @@ const ShopInfoSection = ({
                     disabled={!formData.shop_location.district}
                     className={errors['shop_location.ward'] ? cx('has-error') : ''}
                 >
-                    <option value="">Select Ward</option>
+                    <option value="">Chọn Phường/Xã</option>
                     {wards.map((ward) => (
                         <option key={ward._id} value={ward._id}>
                             {ward.ward_name}
@@ -100,7 +100,7 @@ const ShopInfoSection = ({
             </div>
 
             <div className={cx('form-group')}>
-                <label htmlFor="address">Detailed Address *</label>
+                <label htmlFor="address">Địa Chỉ Chi Tiết *</label>
                 <input
                     type="text"
                     id="address"
@@ -108,7 +108,7 @@ const ShopInfoSection = ({
                     value={formData.shop_location.address}
                     onChange={handleLocationChange}
                     className={errors['shop_location.address'] ? cx('has-error') : ''}
-                    placeholder="Street, House number, etc."
+                    placeholder="Đường, Số nhà, v.v."
                 />
                 {errors['shop_location.address'] && (
                     <div className={cx('error-text')}>{errors['shop_location.address']}</div>
@@ -116,7 +116,7 @@ const ShopInfoSection = ({
             </div>
 
             <div className={cx('form-group')}>
-                <label htmlFor="shop_email">Shop Email *</label>
+                <label htmlFor="shop_email">Email Cửa Hàng *</label>
                 <input
                     type="email"
                     id="shop_email"
@@ -124,13 +124,13 @@ const ShopInfoSection = ({
                     value={formData.shop_email}
                     onChange={handleChange}
                     className={hasError('shop_email') ? cx('has-error') : ''}
-                    placeholder="Contact email for your shop"
+                    placeholder="Email liên hệ của cửa hàng"
                 />
                 {renderErrorMessage('shop_email')}
             </div>
 
             <div className={cx('form-group')}>
-                <label htmlFor="shop_type">Shop Type *</label>
+                <label htmlFor="shop_type">Loại Cửa Hàng *</label>
                 <select
                     id="shop_type"
                     name="shop_type"
@@ -138,15 +138,15 @@ const ShopInfoSection = ({
                     onChange={handleChange}
                     className={errors.shop_type ? cx('has-error') : ''}
                 >
-                    <option value="INDIVIDUAL">Individual Business</option>
-                    <option value="COMPANY">Company/Corporation</option>
-                    <option value="PARTNERSHIP">Partnership</option>
+                    <option value="INDIVIDUAL">Doanh Nghiệp Cá Nhân</option>
+                    <option value="COMPANY">Công Ty/Doanh Nghiệp</option>
+                    <option value="PARTNERSHIP">Hợp Tác Xã</option>
                 </select>
                 {errors.shop_type && <div className={cx('error-text')}>{errors.shop_type}</div>}
             </div>
 
             <div className={cx('form-group')}>
-                <label htmlFor="shop_logo">Shop Logo *</label>
+                <label htmlFor="shop_logo">Logo Cửa Hàng *</label>
                 <div className={cx('logo-input-container')}>
                     <div style={{ width: '100%' }}>
                         <input
@@ -157,13 +157,13 @@ const ShopInfoSection = ({
                             className={errors.shop_logo ? cx('has-error') : ''}
                             accept="image/*"
                         />
-                        <small>Recommended size: Square image (1:1 ratio)</small>
+                        <small>Kích thước khuyến nghị: Hình vuông (tỷ lệ 1:1)</small>
                     </div>
                     {logoPreview && (
                         <div className={cx('logo-preview-container')}>
                             <img
                                 src={logoPreview}
-                                alt="Logo preview"
+                                alt="Xem trước logo"
                                 className={cx('logo-preview')}
                             />
                         </div>
@@ -173,7 +173,7 @@ const ShopInfoSection = ({
             </div>
 
             <div className={cx('form-group')}>
-                <label htmlFor="shop_certificate">Business Certificate Number *</label>
+                <label htmlFor="shop_certificate">Mã Số Giấy Phép Kinh Doanh *</label>
                 <input
                     type="text"
                     id="shop_certificate"
@@ -181,13 +181,13 @@ const ShopInfoSection = ({
                     value={formData.shop_certificate}
                     onChange={handleChange}
                     className={hasError('shop_certificate') ? cx('has-error') : ''}
-                    placeholder="Enter certificate number"
+                    placeholder="Nhập mã số giấy phép kinh doanh"
                 />
                 {renderErrorMessage('shop_certificate')}
             </div>
 
             <div className={cx('form-group')}>
-                <label htmlFor="shop_phoneNumber">Shop Phone Number *</label>
+                <label htmlFor="shop_phoneNumber">Số Điện Thoại Cửa Hàng *</label>
                 <input
                     type="tel"
                     id="shop_phoneNumber"
@@ -202,13 +202,14 @@ const ShopInfoSection = ({
             </div>
 
             <div className={cx('form-group')}>
-                <label htmlFor="shop_description">Shop Description</label>
+                <label htmlFor="shop_description">Mô Tả Cửa Hàng</label>
                 <textarea
                     id="shop_description"
                     name="shop_description"
                     value={formData.shop_description}
                     onChange={handleChange}
                     rows="4"
+                    placeholder="Mô tả ngắn gọn về cửa hàng của bạn"
                 />
             </div>
         </div>

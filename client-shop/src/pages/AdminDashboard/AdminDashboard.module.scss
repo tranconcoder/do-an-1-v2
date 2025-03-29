@@ -1,0 +1,55 @@
+@import '../../styles/variables';
+
+.dashboard-container {
+    padding: 20px;
+    width: 100%;
+}
+
+.page-title {
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.dashboard-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    h3 {
+        margin: 15px 0 10px;
+        color: #2c3e50;
+    }
+
+    p {
+        margin: 0;
+        color: #6c757d;
+        font-size: 14px;
+    }
+}
+
+.card-icon {
+    background-color: #f8f9fa;
+    color: #007bff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}

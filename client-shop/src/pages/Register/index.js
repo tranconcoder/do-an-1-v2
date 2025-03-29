@@ -11,7 +11,6 @@ import { useToast } from '../../contexts/ToastContext';
 import { registerShop } from '../../store/userSlice';
 
 // Import components
-
 const cx = classNames.bind(styles);
 
 function Register() {
@@ -19,21 +18,21 @@ function Register() {
     const dispatch = useDispatch();
     const { showToast } = useToast();
 
-    // Add state for location data
+    // Thêm state cho dữ liệu địa điểm
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
 
-    // For warehouse districts and wards
+    // Cho các quận/huyện và phường/xã của kho hàng
     const [warehouseDistricts, setWarehouseDistricts] = useState({});
     const [warehouseWards, setWarehouseWards] = useState({});
 
     const [formData, setFormData] = useState({
-        // Authentication
-        phoneNumber: '', // Changed from shop_email to phoneNumber to match backend
-        password: '', // Changed from shop_password to password to match backend
+        // Xác thực
+        phoneNumber: '', // Thay đổi từ shop_email sang phoneNumber để phù hợp với backend
+        password: '', // Thay đổi từ shop_password sang password để phù hợp với backend
 
-        // Shop Information
+        // Thông tin cửa hàng
         shop_name: '',
         shop_type: 'INDIVIDUAL',
         shop_logo: '',
@@ -41,7 +40,7 @@ function Register() {
         shop_phoneNumber: '',
         shop_description: '',
 
-        // Shop Location
+        // Địa điểm cửa hàng
         shop_location: {
             province: '',
             district: '',
@@ -49,13 +48,13 @@ function Register() {
             address: ''
         },
 
-        // Shop Owner Information
+        // Thông tin chủ cửa hàng
         shop_owner_fullName: '',
         shop_owner_email: '',
         shop_owner_phoneNumber: '',
         shop_owner_cardID: '',
 
-        // Optional Warehouse Info
+        // Thông tin kho hàng (tùy chọn)
         shop_warehouses: []
     });
 
@@ -65,7 +64,7 @@ function Register() {
     const [success, setSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
 
-    // Add state for current warehouse form
+    // Thêm state cho form kho hàng hiện tại
     const [currentWarehouse, setCurrentWarehouse] = useState({
         name: '',
         address: {
@@ -77,31 +76,30 @@ function Register() {
         phoneNumber: ''
     });
 
-    // Add state for logo preview and cropping
+    // Thêm state cho xem trước logo và cắt ảnh
     const [logoPreview, setLogoPreview] = useState('');
     const [showCropper, setShowCropper] = useState(false);
     const [originalImage, setOriginalImage] = useState(null);
 
-    // Fetch provinces on component mount
+    // Lấy danh sách tỉnh/thành phố khi component được mount
     useEffect(() => {
         const fetchProvinces = async () => {
             try {
                 const response = await axiosClient.get('/location/province');
                 setProvinces(response.metadata || []);
             } catch (err) {
-                console.error('Error fetching provinces:', err);
+                console.error('Lỗi khi lấy danh sách tỉnh/thành phố:', err);
             }
         };
         fetchProvinces();
     }, []);
 
-    // Fetch districts when province changes
+    // Lấy danh sách quận/huyện khi tỉnh/thành phố thay đổi
     useEffect(() => {
         if (!formData.shop_location.province) {
             setDistricts([]);
             return;
         }
-
         const fetchDistricts = async () => {
             try {
                 const response = await axiosClient.get(
@@ -109,19 +107,18 @@ function Register() {
                 );
                 setDistricts(response.metadata || []);
             } catch (err) {
-                console.error('Error fetching districts:', err);
+                console.error('Lỗi khi lấy danh sách quận/huyện:', err);
             }
         };
         fetchDistricts();
     }, [formData.shop_location.province]);
 
-    // Fetch wards when district changes
+    // Lấy danh sách phường/xã khi quận/huyện thay đổi
     useEffect(() => {
         if (!formData.shop_location.district) {
             setWards([]);
             return;
         }
-
         const fetchWards = async () => {
             try {
                 const response = await axiosClient.get(
@@ -129,19 +126,18 @@ function Register() {
                 );
                 setWards(response.metadata || []);
             } catch (err) {
-                console.error('Error fetching wards:', err);
+                console.error('Lỗi khi lấy danh sách phường/xã:', err);
             }
         };
         fetchWards();
     }, [formData.shop_location.district]);
 
-    // Fetch districts for warehouse when province changes
+    // Lấy danh sách quận/huyện cho kho hàng khi tỉnh/thành phố thay đổi
     useEffect(() => {
         if (!currentWarehouse.address.province) {
             setWarehouseDistricts({});
             return;
         }
-
         const fetchWarehouseDistricts = async () => {
             try {
                 const response = await axiosClient.get(
@@ -149,19 +145,18 @@ function Register() {
                 );
                 setWarehouseDistricts(response.metadata || []);
             } catch (err) {
-                console.error('Error fetching warehouse districts:', err);
+                console.error('Lỗi khi lấy danh sách quận/huyện cho kho hàng:', err);
             }
         };
         fetchWarehouseDistricts();
     }, [currentWarehouse.address.province]);
 
-    // Fetch wards for warehouse when district changes
+    // Lấy danh sách phường/xã cho kho hàng khi quận/huyện thay đổi
     useEffect(() => {
         if (!currentWarehouse.address.district) {
             setWarehouseWards({});
             return;
         }
-
         const fetchWarehouseWards = async () => {
             try {
                 const response = await axiosClient.get(
@@ -169,7 +164,7 @@ function Register() {
                 );
                 setWarehouseWards(response.metadata || []);
             } catch (err) {
-                console.error('Error fetching warehouse wards:', err);
+                console.error('Lỗi khi lấy danh sách phường/xã cho kho hàng:', err);
             }
         };
         fetchWarehouseWards();
@@ -181,8 +176,7 @@ function Register() {
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }));
-
-        // Clear error when user starts typing
+        // Xóa lỗi khi người dùng bắt đầu nhập
         if (errors[name]) {
             setErrors((prev) => ({
                 ...prev,
@@ -191,7 +185,7 @@ function Register() {
         }
     };
 
-    // Add handler for location fields
+    // Xử lý thay đổi trường địa điểm
     const handleLocationChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -201,8 +195,7 @@ function Register() {
                 [name]: value
             }
         }));
-
-        // Reset dependent fields when parent changes
+        // Đặt lại các trường phụ thuộc khi trường cha thay đổi
         if (name === 'province') {
             setFormData((prev) => ({
                 ...prev,
@@ -223,8 +216,7 @@ function Register() {
                 }
             }));
         }
-
-        // Clear error
+        // Xóa lỗi
         if (errors[`shop_location.${name}`]) {
             setErrors((prev) => ({
                 ...prev,
@@ -236,7 +228,7 @@ function Register() {
     const handleFileChange = (e) => {
         const { name, files } = e.target;
         if (files && files[0]) {
-            // Special handling for shop logo - show cropper
+            // Xử lý đặc biệt cho logo cửa hàng - hiển thị trình cắt ảnh
             if (name === 'shop_logo') {
                 const reader = new FileReader();
                 reader.onload = () => {
@@ -245,14 +237,13 @@ function Register() {
                 };
                 reader.readAsDataURL(files[0]);
             } else {
-                // For other files, just store them
+                // Đối với các file khác, chỉ lưu trữ chúng
                 setFormData((prev) => ({
                     ...prev,
                     [name]: files[0]
                 }));
             }
-
-            // Clear error when file is selected
+            // Xóa lỗi khi file được chọn
             if (errors[name]) {
                 setErrors((prev) => ({
                     ...prev,
@@ -262,7 +253,7 @@ function Register() {
         }
     };
 
-    // Handle the crop completion
+    // Xử lý khi hoàn thành cắt ảnh
     const handleCropComplete = (croppedFile, croppedImageUrl) => {
         setLogoPreview(croppedImageUrl);
         setFormData((prev) => ({
@@ -272,13 +263,13 @@ function Register() {
         setShowCropper(false);
     };
 
-    // Handle canceling the crop
+    // Xử lý khi hủy cắt ảnh
     const handleCropCancel = () => {
         setShowCropper(false);
         setOriginalImage(null);
     };
 
-    // Handle current warehouse field changes
+    // Xử lý thay đổi trường kho hàng hiện tại
     const handleCurrentWarehouseChange = (field, value) => {
         setCurrentWarehouse((prev) => ({
             ...prev,
@@ -286,9 +277,9 @@ function Register() {
         }));
     };
 
-    // Handle current warehouse address changes
+    // Xử lý thay đổi địa chỉ kho hàng hiện tại
     const handleCurrentWarehouseAddressChange = (field, value) => {
-        // Reset dependent fields when parent changes
+        // Đặt lại các trường phụ thuộc khi trường cha thay đổi
         if (field === 'province') {
             setCurrentWarehouse((prev) => ({
                 ...prev,
@@ -319,9 +310,9 @@ function Register() {
         }
     };
 
-    // Add warehouse to list
+    // Thêm kho hàng vào danh sách
     const addWarehouse = () => {
-        // Validate warehouse data before adding
+        // Xác thực dữ liệu kho hàng trước khi thêm
         if (
             !currentWarehouse.name ||
             !currentWarehouse.phoneNumber ||
@@ -329,17 +320,15 @@ function Register() {
             !currentWarehouse.address.district ||
             !currentWarehouse.address.address
         ) {
-            alert('Please fill in all required warehouse fields');
+            alert('Vui lòng điền đầy đủ các trường bắt buộc của kho hàng');
             return;
         }
-
-        // Add current warehouse to the list
+        // Thêm kho hàng hiện tại vào danh sách
         setFormData((prev) => ({
             ...prev,
             shop_warehouses: [...prev.shop_warehouses, { ...currentWarehouse }]
         }));
-
-        // Reset current warehouse form
+        // Đặt lại form kho hàng hiện tại
         setCurrentWarehouse({
             name: '',
             address: {
@@ -352,7 +341,7 @@ function Register() {
         });
     };
 
-    // Remove warehouse
+    // Xóa kho hàng
     const removeWarehouse = (index) => {
         setFormData((prev) => ({
             ...prev,
@@ -369,36 +358,35 @@ function Register() {
             const newErrors = {};
             if (err.inner && err.inner.length > 0) {
                 err.inner.forEach((error) => {
-                    // Fix path handling for nested objects like shop_location
+                    // Xử lý đường dẫn cho các đối tượng lồng nhau như shop_location
                     if (error.path.includes('.')) {
-                        // For nested paths like 'shop_location.province'
+                        // Cho các đường dẫn lồng nhau như 'shop_location.province'
                         newErrors[error.path] = error.message;
                     } else {
                         newErrors[error.path] = error.message;
                     }
                 });
             } else {
-                // Handle case where error doesn't have inner array
-                setGeneralError(err.message || 'Validation failed. Please check your inputs.');
+                // Xử lý trường hợp lỗi không có mảng inner
+                setGeneralError(
+                    err.message || 'Xác thực không thành công. Vui lòng kiểm tra lại thông tin.'
+                );
             }
             setErrors(newErrors);
-            console.log('Validation errors:', newErrors);
-
-            // Scroll to the first error
+            console.log('Lỗi xác thực:', newErrors);
+            // Cuộn đến lỗi đầu tiên
             if (err.inner && err.inner.length > 0) {
                 const firstErrorPath = err.inner[0].path;
-                // Handle nested paths differently for querySelector
+                // Xử lý các đường dẫn lồng nhau khác nhau cho querySelector
                 const selector = firstErrorPath.includes('.')
                     ? `[name="${firstErrorPath.split('.')[1]}"]`
                     : `[name="${firstErrorPath}"]`;
-
                 const firstErrorField = document.querySelector(selector);
                 if (firstErrorField) {
                     firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     firstErrorField.focus();
                 }
             }
-
             return false;
         }
     };
@@ -409,24 +397,22 @@ function Register() {
         setErrors({});
         setSuccess(false);
         setSuccessMessage('');
-
         try {
             const isValid = await validateForm();
             if (!isValid) {
-                console.log('Form validation failed');
+                console.log('Xác thực form không thành công');
                 return;
             }
 
             setLoading(true);
-
             const formDataToSend = new FormData();
 
-            // Append non-file fields
+            // Thêm các trường không phải file
             Object.keys(formData).forEach((key) => {
                 if (key === 'shop_logo') {
                     return;
                 } else if (key === 'shop_location') {
-                    // Handle nested location object
+                    // Xử lý đối tượng địa điểm lồng nhau
                     Object.keys(formData[key]).forEach((locationKey) => {
                         formDataToSend.append(
                             `shop_location[${locationKey}]`,
@@ -434,7 +420,7 @@ function Register() {
                         );
                     });
                 } else if (key === 'shop_warehouses') {
-                    // Handle warehouses array
+                    // Xử lý mảng kho hàng
                     formData[key].forEach((warehouse, index) => {
                         Object.keys(warehouse).forEach((warehouseKey) => {
                             if (warehouseKey === 'address') {
@@ -463,57 +449,51 @@ function Register() {
                 }
             });
 
-            // Append files
+            // Thêm các file
             if (formData.shop_logo) {
                 formDataToSend.append('shop_logo', formData.shop_logo);
             }
 
-            // Dispatch registerShop action instead of making a direct API call
+            // Gửi action đăng ký cửa hàng thay vì gọi API trực tiếp
             const result = await dispatch(registerShop(formDataToSend)).unwrap();
 
-            // Show success message
-            const shopName = result?.shop?.shop_name || formData.shop_name || 'your shop';
-            const successMsg = `Registration successful! ${shopName} has been created.`;
+            // Hiển thị thông báo thành công
+            const shopName = result?.shop?.shop_name || formData.shop_name || 'cửa hàng của bạn';
+            const successMsg = `Đăng ký thành công! ${shopName} đã được tạo.`;
             setSuccess(true);
             setSuccessMessage(successMsg);
 
-            // Show toast message
+            // Hiển thị thông báo toast
             showToast(successMsg, 'success', 5000);
 
-            // Navigate to dashboard since user is now logged in
+            // Chuyển hướng đến trang tổng quan vì người dùng đã đăng nhập
             setTimeout(() => {
                 navigate('/dashboard');
             }, 1500);
         } catch (err) {
-            console.error('Registration error:', err);
-
-            // Handle server validation errors if they exist
+            console.error('Lỗi đăng ký:', err);
+            // Xử lý lỗi xác thực từ server nếu có
             if (err.response?.data?.errors) {
                 const serverErrors = err.response.data.errors;
                 const newErrors = { ...errors };
-
                 Object.keys(serverErrors).forEach((field) => {
                     newErrors[field] = serverErrors[field];
                 });
-
                 setErrors(newErrors);
             } else if (err.response?.data?.metadata?.conflictFields) {
                 const conflictFields = err.response.data.metadata.conflictFields;
                 const newErrors = { ...errors };
-
                 conflictFields.forEach((field) => {
-                    newErrors[field] = `This ${field.replace('shop_', '')} is already registered`;
+                    newErrors[field] = `${field.replace('shop_', '')} này đã được đăng ký`;
                 });
-
                 setErrors(newErrors);
             } else {
                 const errorMsg =
                     err.message ||
                     err.response?.data?.message ||
-                    'Registration failed. Please try again.';
+                    'Đăng ký không thành công. Vui lòng thử lại.';
                 setGeneralError(errorMsg);
-
-                // Show error toast
+                // Hiển thị thông báo lỗi
                 showToast(errorMsg, 'error', 5000);
             }
         } finally {
@@ -521,37 +501,32 @@ function Register() {
         }
     };
 
-    // Helper function to determine if a field has an error
+    // Hàm trợ giúp xác định xem một trường có lỗi không
     const hasError = (fieldName) => {
-        // Check direct errors
+        // Kiểm tra lỗi trực tiếp
         if (errors[fieldName]) return true;
-
-        // Check for nested errors (e.g., shop_location.province)
+        // Kiểm tra lỗi lồng nhau (ví dụ: shop_location.province)
         if (fieldName.includes('.')) return !!errors[fieldName];
-
-        // For fields like 'province' in shop_location, check 'shop_location.province'
+        // Cho các trường như 'province' trong shop_location, kiểm tra 'shop_location.province'
         const nestedPaths = Object.keys(errors).filter((key) => key.includes('.'));
         for (const path of nestedPaths) {
             const parts = path.split('.');
             if (parts[1] === fieldName) return true;
         }
-
         return false;
     };
 
-    // Helper function to render error message
+    // Hàm trợ giúp hiển thị thông báo lỗi
     const renderErrorMessage = (fieldName) => {
-        // Direct error
+        // Lỗi trực tiếp
         if (errors[fieldName]) {
             return <div className={cx('error-text')}>{errors[fieldName]}</div>;
         }
-
-        // Check for nested errors (e.g., shop_location.province)
+        // Kiểm tra lỗi lồng nhau (ví dụ: shop_location.province)
         if (fieldName.includes('.') && errors[fieldName]) {
             return <div className={cx('error-text')}>{errors[fieldName]}</div>;
         }
-
-        // For fields like 'province' in shop_location, look for 'shop_location.province'
+        // Cho các trường như 'province' trong shop_location, tìm 'shop_location.province'
         const nestedPaths = Object.keys(errors).filter((key) => key.includes('.'));
         for (const path of nestedPaths) {
             const parts = path.split('.');
@@ -559,7 +534,6 @@ function Register() {
                 return <div className={cx('error-text')}>{errors[path]}</div>;
             }
         }
-
         return null;
     };
 
@@ -575,13 +549,11 @@ function Register() {
             <div className={cx('register-card')}>
                 <div className={cx('register-header')}>
                     <div className={cx('logo')}>🛒</div>
-                    <h1>Create Your Shop</h1>
-                    <p className={cx('subtitle')}>Start selling your products online</p>
+                    <h1>Tạo Cửa Hàng Của Bạn</h1>
+                    <p className={cx('subtitle')}>Bắt đầu bán sản phẩm của bạn trực tuyến</p>
                 </div>
-
                 {generalError && <div className={cx('error-message')}>{generalError}</div>}
                 {success && <div className={cx('success-message')}>{successMessage}</div>}
-
                 <form className={cx('register-form')} onSubmit={handleSubmit} noValidate>
                     <AuthSection
                         formData={formData}
@@ -590,7 +562,6 @@ function Register() {
                         renderErrorMessage={renderErrorMessage}
                         hasError={hasError}
                     />
-
                     <ShopInfoSection
                         formData={formData}
                         handleChange={handleChange}
@@ -604,13 +575,11 @@ function Register() {
                         hasError={hasError}
                         logoPreview={logoPreview}
                     />
-
                     <OwnerInfoSection
                         formData={formData}
                         handleChange={handleChange}
                         errors={errors}
                     />
-
                     <WarehouseSection
                         currentWarehouse={currentWarehouse}
                         formData={formData}
@@ -622,19 +591,17 @@ function Register() {
                         addWarehouse={addWarehouse}
                         removeWarehouse={removeWarehouse}
                     />
-
                     <button type="submit" className={cx('submit-btn')} disabled={loading}>
-                        {loading ? 'Creating Shop...' : 'Create Shop'}
+                        {loading ? 'Đang Tạo Cửa Hàng...' : 'Tạo Cửa Hàng'}
                     </button>
-
                     <div className={cx('login-link-container')}>
-                        <p>Already have an account?</p>
+                        <p>Đã có tài khoản?</p>
                         <button
                             type="button"
                             className={cx('login-btn')}
                             onClick={() => navigate('/login')}
                         >
-                            Back to Login
+                            Quay Lại Đăng Nhập
                         </button>
                     </div>
                 </form>

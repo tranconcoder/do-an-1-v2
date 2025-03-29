@@ -12,6 +12,8 @@ declare global {
                     shop_logo: string;
                     mediaId: string;
                 }
+
+                interface GetPendingShop extends commonTypes.object.PageSlitting {}
             }
         }
     }

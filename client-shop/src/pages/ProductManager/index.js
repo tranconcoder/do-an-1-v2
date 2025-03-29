@@ -5,12 +5,12 @@ import styles from './ProductManager.module.scss';
 
 const cx = classNames.bind(styles);
 
-// Dummy product data - would be fetched from API
+// Dữ liệu sản phẩm mẫu - trong thực tế sẽ được lấy từ API
 const dummyProducts = [
     {
         id: 1,
-        name: 'Wireless Headphones',
-        price: 89.99,
+        name: 'Tai Nghe Không Dây',
+        price: 1899000,
         inventory: 45,
         status: 'published',
         thumbnail:
@@ -19,8 +19,8 @@ const dummyProducts = [
     },
     {
         id: 2,
-        name: 'Smart Watch',
-        price: 199.99,
+        name: 'Đồng Hồ Thông Minh',
+        price: 4450000,
         inventory: 23,
         status: 'published',
         thumbnail:
@@ -29,8 +29,8 @@ const dummyProducts = [
     },
     {
         id: 3,
-        name: 'Bluetooth Speaker',
-        price: 129.99,
+        name: 'Loa Bluetooth',
+        price: 2790000,
         inventory: 12,
         status: 'draft',
         thumbnail:
@@ -46,12 +46,17 @@ function ProductManager() {
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        // Simulate API fetch
+        // Giả lập việc gọi API
         setTimeout(() => {
             setProducts(dummyProducts);
             setLoading(false);
         }, 800);
     }, []);
+
+    // Chuyển đổi trạng thái sản phẩm sang tiếng Việt
+    const getVietnameseStatus = (status) => {
+        return status === 'published' ? 'Đã Đăng' : status === 'draft' ? 'Bản Nháp' : status;
+    };
 
     const handleStatusChange = (productId, newStatus) => {
         setProducts(
@@ -62,7 +67,7 @@ function ProductManager() {
     };
 
     const handleDeleteProduct = (productId) => {
-        if (window.confirm('Are you sure you want to delete this product?')) {
+        if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
             setProducts(products.filter((product) => product.id !== productId));
         }
     };
@@ -73,12 +78,17 @@ function ProductManager() {
         return matchesFilter && matchesSearch;
     });
 
+    // Định dạng giá tiền theo VND
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+    };
+
     return (
         <div className={cx('product-manager')}>
             <div className={cx('header')}>
-                <h1>Product Manager</h1>
+                <h1>Quản Lý Sản Phẩm</h1>
                 <Link to="/products/new" className={cx('add-product-btn')}>
-                    + Add New Product
+                    + Thêm Sản Phẩm Mới
                 </Link>
             </div>
 
@@ -88,26 +98,25 @@ function ProductManager() {
                         className={cx('filter-btn', filter === 'all' && 'active')}
                         onClick={() => setFilter('all')}
                     >
-                        All Products
+                        Tất Cả Sản Phẩm
                     </button>
                     <button
                         className={cx('filter-btn', filter === 'published' && 'active')}
                         onClick={() => setFilter('published')}
                     >
-                        Published
+                        Đã Đăng
                     </button>
                     <button
                         className={cx('filter-btn', filter === 'draft' && 'active')}
                         onClick={() => setFilter('draft')}
                     >
-                        Drafts
+                        Bản Nháp
                     </button>
                 </div>
-
                 <div className={cx('search')}>
                     <input
                         type="text"
-                        placeholder="Search products..."
+                        placeholder="Tìm kiếm sản phẩm..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -115,18 +124,18 @@ function ProductManager() {
             </div>
 
             {loading ? (
-                <div className={cx('loading')}>Loading products...</div>
+                <div className={cx('loading')}>Đang tải sản phẩm...</div>
             ) : (
                 <>
                     {filteredProducts.length === 0 ? (
                         <div className={cx('no-products')}>
-                            No products found.
+                            Không tìm thấy sản phẩm nào.
                             {filter !== 'all' && (
                                 <button
                                     onClick={() => setFilter('all')}
                                     className={cx('reset-btn')}
                                 >
-                                    Reset filters
+                                    Xóa bộ lọc
                                 </button>
                             )}
                         </div>
@@ -135,12 +144,12 @@ function ProductManager() {
                             <table className={cx('products-table')}>
                                 <thead>
                                     <tr>
-                                        <th>Image</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Inventory</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
+                                        <th>Hình Ảnh</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Giá</th>
+                                        <th>Tồn Kho</th>
+                                        <th>Trạng Thái</th>
+                                        <th>Thao Tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -155,16 +164,16 @@ function ProductManager() {
                                                 </div>
                                             </td>
                                             <td className={cx('product-name')}>{product.name}</td>
-                                            <td>${product.price.toFixed(2)}</td>
-                                            <td>{product.inventory} units</td>
+                                            <td>{formatPrice(product.price)}</td>
+                                            <td>{product.inventory} sản phẩm</td>
                                             <td>
                                                 <span className={cx('status', product.status)}>
-                                                    {product.status}
+                                                    {getVietnameseStatus(product.status)}
                                                 </span>
                                             </td>
                                             <td>
                                                 <div className={cx('actions')}>
-                                                    <button className={cx('edit-btn')}>Edit</button>
+                                                    <button className={cx('edit-btn')}>Sửa</button>
                                                     {product.status === 'draft' ? (
                                                         <button
                                                             className={cx('publish-btn')}
@@ -175,7 +184,7 @@ function ProductManager() {
                                                                 )
                                                             }
                                                         >
-                                                            Publish
+                                                            Đăng
                                                         </button>
                                                     ) : (
                                                         <button
@@ -187,7 +196,7 @@ function ProductManager() {
                                                                 )
                                                             }
                                                         >
-                                                            Unpublish
+                                                            Hủy Đăng
                                                         </button>
                                                     )}
                                                     <button
@@ -196,7 +205,7 @@ function ProductManager() {
                                                             handleDeleteProduct(product.id)
                                                         }
                                                     >
-                                                        Delete
+                                                        Xóa
                                                     </button>
                                                 </div>
                                             </td>

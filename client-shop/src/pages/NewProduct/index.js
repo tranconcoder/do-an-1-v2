@@ -22,13 +22,13 @@ function NewProduct() {
         published: false
     });
 
-    // Sample categories for demonstration
+    // Danh mục mẫu cho mục đích minh họa
     const availableCategories = [
-        { id: 1, name: 'Electronics' },
-        { id: 2, name: 'Clothing' },
-        { id: 3, name: 'Home & Kitchen' },
-        { id: 4, name: 'Books' },
-        { id: 5, name: 'Toys & Games' }
+        { id: 1, name: 'Điện tử' },
+        { id: 2, name: 'Thời trang' },
+        { id: 3, name: 'Nhà cửa & Đời sống' },
+        { id: 4, name: 'Sách' },
+        { id: 5, name: 'Đồ chơi & Trò chơi' }
     ];
 
     const handleInputChange = (e) => {
@@ -59,7 +59,7 @@ function NewProduct() {
     const handleImageUpload = (e) => {
         const files = Array.from(e.target.files);
 
-        // Preview the images
+        // Xem trước hình ảnh
         const newImages = files.map((file) => ({
             file,
             preview: URL.createObjectURL(file),
@@ -82,26 +82,26 @@ function NewProduct() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validate form
+        // Xác thực form
         if (!formData.name || !formData.price) {
-            alert('Please fill in all required fields');
+            alert('Vui lòng điền đầy đủ các trường bắt buộc');
             return;
         }
 
         setLoading(true);
 
         try {
-            // Simulate API call
+            // Giả lập gọi API
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
-            console.log('Product data to submit:', formData);
+            console.log('Dữ liệu sản phẩm để gửi:', formData);
 
-            // On success, redirect to product list
-            alert('Product created successfully!');
+            // Nếu thành công, chuyển hướng đến danh sách sản phẩm
+            alert('Sản phẩm đã được tạo thành công!');
             navigate('/products');
         } catch (error) {
-            console.error('Error creating product:', error);
-            alert('Failed to create product. Please try again.');
+            console.error('Lỗi khi tạo sản phẩm:', error);
+            alert('Không thể tạo sản phẩm. Vui lòng thử lại.');
         } finally {
             setLoading(false);
         }
@@ -118,7 +118,7 @@ function NewProduct() {
     return (
         <div className={cx('new-product')}>
             <div className={cx('header')}>
-                <h1>Create New Product</h1>
+                <h1>Tạo Sản Phẩm Mới</h1>
                 <div className={cx('actions')}>
                     <button
                         type="button"
@@ -126,7 +126,7 @@ function NewProduct() {
                         onClick={saveAsDraft}
                         disabled={loading}
                     >
-                        Save as Draft
+                        Lưu Nháp
                     </button>
                     <button
                         type="button"
@@ -134,7 +134,7 @@ function NewProduct() {
                         onClick={handleSubmit}
                         disabled={loading}
                     >
-                        {loading ? 'Creating...' : 'Create Product'}
+                        {loading ? 'Đang tạo...' : 'Tạo Sản Phẩm'}
                     </button>
                 </div>
             </div>
@@ -143,10 +143,10 @@ function NewProduct() {
                 <div className={cx('form-layout')}>
                     <div className={cx('main-form')}>
                         <div className={cx('form-section')}>
-                            <h2>Basic Information</h2>
+                            <h2>Thông Tin Cơ Bản</h2>
 
                             <div className={cx('form-group')}>
-                                <label htmlFor="name">Product Name *</label>
+                                <label htmlFor="name">Tên Sản Phẩm *</label>
                                 <input
                                     type="text"
                                     id="name"
@@ -158,7 +158,7 @@ function NewProduct() {
                             </div>
 
                             <div className={cx('form-group')}>
-                                <label htmlFor="description">Description</label>
+                                <label htmlFor="description">Mô Tả</label>
                                 <textarea
                                     id="description"
                                     name="description"
@@ -170,9 +170,9 @@ function NewProduct() {
                         </div>
 
                         <div className={cx('form-section')}>
-                            <h2>Media</h2>
+                            <h2>Hình Ảnh</h2>
                             <div className={cx('image-upload')}>
-                                <label htmlFor="images">Add Images</label>
+                                <label htmlFor="images">Thêm Hình Ảnh</label>
                                 <input
                                     type="file"
                                     id="images"
@@ -184,7 +184,7 @@ function NewProduct() {
                                 <div className={cx('image-previews')}>
                                     {formData.images.map((image, index) => (
                                         <div key={index} className={cx('image-preview-item')}>
-                                            <img src={image.preview} alt={`Preview ${index}`} />
+                                            <img src={image.preview} alt={`Xem trước ${index}`} />
                                             <button
                                                 type="button"
                                                 className={cx('remove-image')}
@@ -199,35 +199,35 @@ function NewProduct() {
                         </div>
 
                         <div className={cx('form-section')}>
-                            <h2>Pricing</h2>
+                            <h2>Giá Bán</h2>
                             <div className={cx('form-row')}>
                                 <div className={cx('form-group', 'half')}>
-                                    <label htmlFor="price">Price *</label>
+                                    <label htmlFor="price">Giá Bán *</label>
                                     <div className={cx('price-input')}>
-                                        <span className={cx('currency')}>$</span>
+                                        <span className={cx('currency')}>₫</span>
                                         <input
                                             type="number"
                                             id="price"
                                             name="price"
                                             value={formData.price}
                                             onChange={handleInputChange}
-                                            step="0.01"
+                                            step="1000"
                                             required
                                         />
                                     </div>
                                 </div>
 
                                 <div className={cx('form-group', 'half')}>
-                                    <label htmlFor="comparePrice">Compare-at Price</label>
+                                    <label htmlFor="comparePrice">Giá So Sánh</label>
                                     <div className={cx('price-input')}>
-                                        <span className={cx('currency')}>$</span>
+                                        <span className={cx('currency')}>₫</span>
                                         <input
                                             type="number"
                                             id="comparePrice"
                                             name="comparePrice"
                                             value={formData.comparePrice}
                                             onChange={handleInputChange}
-                                            step="0.01"
+                                            step="1000"
                                         />
                                     </div>
                                 </div>
@@ -235,10 +235,10 @@ function NewProduct() {
                         </div>
 
                         <div className={cx('form-section')}>
-                            <h2>Inventory</h2>
+                            <h2>Kho Hàng</h2>
                             <div className={cx('form-row')}>
                                 <div className={cx('form-group', 'half')}>
-                                    <label htmlFor="sku">SKU (Stock Keeping Unit)</label>
+                                    <label htmlFor="sku">Mã SKU (Đơn Vị Lưu Kho)</label>
                                     <input
                                         type="text"
                                         id="sku"
@@ -249,7 +249,7 @@ function NewProduct() {
                                 </div>
 
                                 <div className={cx('form-group', 'half')}>
-                                    <label htmlFor="barcode">Barcode (ISBN, UPC, GTIN, etc.)</label>
+                                    <label htmlFor="barcode">Mã Vạch (ISBN, UPC, GTIN, v.v.)</label>
                                     <input
                                         type="text"
                                         id="barcode"
@@ -261,7 +261,7 @@ function NewProduct() {
                             </div>
 
                             <div className={cx('form-group')}>
-                                <label htmlFor="quantity">Quantity</label>
+                                <label htmlFor="quantity">Số Lượng</label>
                                 <input
                                     type="number"
                                     id="quantity"
@@ -276,7 +276,7 @@ function NewProduct() {
 
                     <div className={cx('sidebar-form')}>
                         <div className={cx('form-section')}>
-                            <h2>Product Status</h2>
+                            <h2>Trạng Thái Sản Phẩm</h2>
                             <div className={cx('form-group')}>
                                 <label className={cx('switch')}>
                                     <input
@@ -292,16 +292,16 @@ function NewProduct() {
                                     />
                                     <span className={cx('slider')}></span>
                                     <span className={cx('status-text')}>
-                                        {formData.published ? 'Published' : 'Draft'}
+                                        {formData.published ? 'Đã Đăng' : 'Bản Nháp'}
                                     </span>
                                 </label>
                             </div>
                         </div>
 
                         <div className={cx('form-section')}>
-                            <h2>Organization</h2>
+                            <h2>Phân Loại</h2>
                             <div className={cx('form-group')}>
-                                <label className={cx('categories-label')}>Product Categories</label>
+                                <label className={cx('categories-label')}>Danh Mục Sản Phẩm</label>
                                 <div className={cx('categories-list')}>
                                     {availableCategories.map((category) => (
                                         <label

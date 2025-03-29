@@ -7,9 +7,9 @@ const cx = classNames.bind(styles);
 const OwnerInfoSection = ({ formData, handleChange, errors }) => {
     return (
         <div className={cx('form-section')}>
-            <h2>Owner Information</h2>
+            <h2>Thông Tin Chủ Cửa Hàng</h2>
             <div className={cx('form-group')}>
-                <label htmlFor="shop_owner_fullName">Owner Full Name *</label>
+                <label htmlFor="shop_owner_fullName">Họ Tên Chủ Cửa Hàng *</label>
                 <input
                     type="text"
                     id="shop_owner_fullName"
@@ -22,9 +22,8 @@ const OwnerInfoSection = ({ formData, handleChange, errors }) => {
                     <div className={cx('error-text')}>{errors.shop_owner_fullName}</div>
                 )}
             </div>
-
             <div className={cx('form-group')}>
-                <label htmlFor="shop_owner_email">Owner Email *</label>
+                <label htmlFor="shop_owner_email">Email Chủ Cửa Hàng *</label>
                 <input
                     type="email"
                     id="shop_owner_email"
@@ -37,9 +36,8 @@ const OwnerInfoSection = ({ formData, handleChange, errors }) => {
                     <div className={cx('error-text')}>{errors.shop_owner_email}</div>
                 )}
             </div>
-
             <div className={cx('form-group')}>
-                <label htmlFor="shop_owner_phoneNumber">Owner Phone Number *</label>
+                <label htmlFor="shop_owner_phoneNumber">Số Điện Thoại Chủ Cửa Hàng *</label>
                 <input
                     type="tel"
                     id="shop_owner_phoneNumber"
@@ -52,9 +50,8 @@ const OwnerInfoSection = ({ formData, handleChange, errors }) => {
                     <div className={cx('error-text')}>{errors.shop_owner_phoneNumber}</div>
                 )}
             </div>
-
             <div className={cx('form-group')}>
-                <label htmlFor="shop_owner_cardID">Owner ID Card Number *</label>
+                <label htmlFor="shop_owner_cardID">Số CMND/CCCD Chủ Cửa Hàng *</label>
                 <input
                     type="text"
                     id="shop_owner_cardID"

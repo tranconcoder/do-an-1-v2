@@ -17,25 +17,24 @@ const WarehouseSection = ({
 }) => {
     return (
         <div className={cx('form-section')}>
-            <h2>Warehouse Information</h2>
-            <p className={cx('subtitle')}>Add warehouses where you store your products</p>
+            <h2>Thông Tin Kho Hàng</h2>
+            <p className={cx('subtitle')}>Thêm các kho hàng nơi bạn lưu trữ sản phẩm</p>
 
             {/* Warehouse Form */}
             <div className={cx('warehouse-form')}>
-                <h3>Add a Warehouse</h3>
+                <h3>Thêm Kho Hàng</h3>
                 <div className={cx('form-group')}>
-                    <label htmlFor="warehouse-name">Warehouse Name *</label>
+                    <label htmlFor="warehouse-name">Tên Kho Hàng *</label>
                     <input
                         type="text"
                         id="warehouse-name"
                         value={currentWarehouse.name}
                         onChange={(e) => handleCurrentWarehouseChange('name', e.target.value)}
-                        placeholder="Main Warehouse, Secondary Storage, etc."
+                        placeholder="Kho chính, Kho phụ, v.v."
                     />
                 </div>
-
                 <div className={cx('form-group')}>
-                    <label htmlFor="warehouse-phone">Warehouse Phone Number *</label>
+                    <label htmlFor="warehouse-phone">Số Điện Thoại Kho Hàng *</label>
                     <input
                         type="tel"
                         id="warehouse-phone"
@@ -45,9 +44,8 @@ const WarehouseSection = ({
                         }
                     />
                 </div>
-
                 <div className={cx('form-group')}>
-                    <label htmlFor="warehouse-province">Province/City *</label>
+                    <label htmlFor="warehouse-province">Tỉnh/Thành Phố *</label>
                     <select
                         id="warehouse-province"
                         value={currentWarehouse.address.province}
@@ -55,7 +53,7 @@ const WarehouseSection = ({
                             handleCurrentWarehouseAddressChange('province', e.target.value)
                         }
                     >
-                        <option value="">Select Province/City</option>
+                        <option value="">Chọn Tỉnh/Thành Phố</option>
                         {provinces.map((province) => (
                             <option key={province._id} value={province._id}>
                                 {province.province_name}
@@ -63,9 +61,8 @@ const WarehouseSection = ({
                         ))}
                     </select>
                 </div>
-
                 <div className={cx('form-group')}>
-                    <label htmlFor="warehouse-district">District *</label>
+                    <label htmlFor="warehouse-district">Quận/Huyện *</label>
                     <select
                         id="warehouse-district"
                         value={currentWarehouse.address.district}
@@ -74,7 +71,7 @@ const WarehouseSection = ({
                         }
                         disabled={!currentWarehouse.address.province}
                     >
-                        <option value="">Select District</option>
+                        <option value="">Chọn Quận/Huyện</option>
                         {warehouseDistricts.map
                             ? warehouseDistricts.map((district) => (
                                   <option key={district._id} value={district._id}>
@@ -84,9 +81,8 @@ const WarehouseSection = ({
                             : null}
                     </select>
                 </div>
-
                 <div className={cx('form-group')}>
-                    <label htmlFor="warehouse-ward">Ward</label>
+                    <label htmlFor="warehouse-ward">Phường/Xã</label>
                     <select
                         id="warehouse-ward"
                         value={currentWarehouse.address.ward}
@@ -95,7 +91,7 @@ const WarehouseSection = ({
                         }
                         disabled={!currentWarehouse.address.district}
                     >
-                        <option value="">Select Ward</option>
+                        <option value="">Chọn Phường/Xã</option>
                         {warehouseWards.map
                             ? warehouseWards.map((ward) => (
                                   <option key={ward._id} value={ward._id}>
@@ -105,9 +101,8 @@ const WarehouseSection = ({
                             : null}
                     </select>
                 </div>
-
                 <div className={cx('form-group')}>
-                    <label htmlFor="warehouse-address">Detailed Address *</label>
+                    <label htmlFor="warehouse-address">Địa Chỉ Chi Tiết *</label>
                     <input
                         type="text"
                         id="warehouse-address"
@@ -115,35 +110,34 @@ const WarehouseSection = ({
                         onChange={(e) =>
                             handleCurrentWarehouseAddressChange('address', e.target.value)
                         }
-                        placeholder="Street, House number, etc."
+                        placeholder="Đường, Số nhà, v.v."
                     />
                 </div>
-
                 <button type="button" className={cx('add-warehouse-btn')} onClick={addWarehouse}>
-                    + Add Warehouse
+                    + Thêm Kho Hàng
                 </button>
             </div>
 
             {/* Warehouse List */}
             {formData.shop_warehouses.length > 0 && (
                 <div className={cx('warehouses-list')}>
-                    <h3>Added Warehouses</h3>
+                    <h3>Kho Hàng Đã Thêm</h3>
                     {formData.shop_warehouses.map((warehouse, index) => (
                         <div key={index} className={cx('warehouse-item')}>
                             <div className={cx('warehouse-details')}>
                                 <h4>{warehouse.name}</h4>
                                 <p>
-                                    <strong>Phone:</strong> {warehouse.phoneNumber}
+                                    <strong>Điện thoại:</strong> {warehouse.phoneNumber}
                                 </p>
                                 <p>
-                                    <strong>Address:</strong> {warehouse.address.address}
+                                    <strong>Địa chỉ:</strong> {warehouse.address.address}
                                 </p>
                                 <button
                                     type="button"
                                     className={cx('remove-btn')}
                                     onClick={() => removeWarehouse(index)}
                                 >
-                                    Remove
+                                    Xóa
                                 </button>
                             </div>
                             <hr className={cx('warehouse-divider')} />

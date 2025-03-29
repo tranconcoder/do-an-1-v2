@@ -7,6 +7,7 @@ import { selectIsAuthenticated, fetchUserProfile } from '../store/userSlice';
 
 // Layouts
 import ShopManagerLayout from '../layouts/ShopManagerLayout';
+import AdminLayout from '../layouts/AdminLayout';
 
 // Pages
 import Dashboard from '../pages/Dashboard';
@@ -14,6 +15,12 @@ import ProductManager from '../pages/ProductManager';
 import NewProduct from '../pages/NewProduct';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
+import AdminShopRegistrations from '../pages/AdminShopRegistrations';
+import AdminShopRegistrationDetail from '../pages/AdminShopRegistrationDetail';
+
+// Guards
+import ShopStatusGuard from '../components/ShopStatusGuard';
+import AdminGuard from '../components/AdminGuard';
 
 const AppRoutes = () => {
     const dispatch = useDispatch();
@@ -41,12 +48,33 @@ const AppRoutes = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
+                {/* Admin routes */}
+                <Route
+                    path="/admin"
+                    element={
+                        <ProtectedRoute>
+                            <AdminGuard>
+                                <AdminLayout />
+                            </AdminGuard>
+                        </ProtectedRoute>
+                    }
+                >
+                    <Route index element={<Navigate to="/admin/shops" replace />} />
+                    <Route path="shops" element={<AdminShopRegistrations />} />
+                    <Route
+                        path="shops/registrations/:id"
+                        element={<AdminShopRegistrationDetail />}
+                    />
+                </Route>
+
                 {/* Shop Manager routes with ShopManagerLayout */}
                 <Route
                     path="/"
                     element={
                         <ProtectedRoute>
-                            <ShopManagerLayout />
+                            <ShopStatusGuard>
+                                <ShopManagerLayout />
+                            </ShopStatusGuard>
                         </ProtectedRoute>
                     }
                 >

@@ -26,36 +26,36 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
     console.log(shopInfo);
 
     const navItems = [
-        { path: '/dashboard', icon: <MdDashboard className={cx('nav-icon')} />, text: 'Dashboard' },
+        { path: '/dashboard', icon: <MdDashboard className={cx('nav-icon')} />, text: 'Tổng Quan' },
         {
             path: '/products',
             icon: <MdInventory className={cx('nav-icon')} />,
-            text: 'Products'
+            text: 'Sản Phẩm'
         },
         {
             path: '/orders',
             icon: <MdShoppingCart className={cx('nav-icon')} />,
-            text: 'Orders'
+            text: 'Đơn Hàng'
         },
         {
             path: '/discount',
             icon: <MdDiscount className={cx('nav-icon')} />,
-            text: 'Discount'
+            text: 'Khuyến Mãi'
         },
         {
             path: '/customers',
             icon: <MdPeople className={cx('nav-icon')} />,
-            text: 'Customers'
+            text: 'Khách Hàng'
         },
         {
             path: '/settings',
             icon: <MdOutlineSettings className={cx('nav-icon')} />,
-            text: 'Settings'
+            text: 'Cài Đặt'
         }
     ];
 
     // Get shop name from Redux state or use default
-    const shopName = shopInfo?.shop_name || 'My Shop';
+    const shopName = shopInfo?.shop_name || 'Cửa Hàng Của Tôi';
     const shopStatus = shopInfo?.shop_status || 'pending';
 
     // Get logo URL using the media utility
@@ -63,6 +63,17 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
 
     // Get text-based placeholder if no logo is available
     const placeholder = getTextPlaceholder(shopInfo?.shop_name, 40);
+
+    // Hàm chuyển đổi trạng thái shop sang tiếng Việt
+    const getVietnameseStatus = (status) => {
+        const statusMap = {
+            pending: 'Chờ Duyệt',
+            active: 'Hoạt Động',
+            rejected: 'Bị Từ Chối',
+            suspended: 'Tạm Ngưng'
+        };
+        return statusMap[status] || status.charAt(0).toUpperCase() + status.slice(1);
+    };
 
     return (
         <div className={cx('shop-sidebar', { collapsed })}>
@@ -100,12 +111,11 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
                     <div className={cx('shop-details')}>
                         <div className={cx('shop-name')}>{shopName}</div>
                         <div className={cx('shop-status', shopStatus)}>
-                            {shopStatus.charAt(0).toUpperCase() + shopStatus.slice(1)}
+                            {getVietnameseStatus(shopStatus)}
                         </div>
                     </div>
                 )}
             </div>
-
             <nav className={cx('nav-menu')}>
                 <ul>
                     {navItems.map((item, index) => (
@@ -119,7 +129,6 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
                             </NavLink>
                         </li>
                     ))}
-
                     <li className={cx('toggle-item')}>
                         <button className={cx('toggle-btn-nav')} onClick={toggleSidebar}>
                             {collapsed ? (
@@ -127,7 +136,7 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
                             ) : (
                                 <MdChevronLeft className={cx('nav-icon')} />
                             )}
-                            {!collapsed && <span className={cx('nav-text')}>Collapse</span>}
+                            {!collapsed && <span className={cx('nav-text')}>Thu Gọn</span>}
                         </button>
                     </li>
                 </ul>

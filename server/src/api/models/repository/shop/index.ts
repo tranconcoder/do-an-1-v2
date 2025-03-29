@@ -1,5 +1,11 @@
+import { ShopStatus } from '@/enums/shop.enum.js';
 import shopModel from '@/models/shop.model.js';
-import { generateFindById, generateFindOne } from '@/utils/mongoose.util.js';
+import {
+    generateFindAll,
+    generateFindAllPageSplit,
+    generateFindById,
+    generateFindOne
+} from '@/utils/mongoose.util.js';
 
 export const isExistsShop = async ({
     shop_certificate,
@@ -21,10 +27,26 @@ export const isExistsShop = async ({
         .lean();
 };
 
-
 /* ------------------------ Find one ------------------------ */
 export const findOneShop = generateFindOne<model.shop.ShopSchema>(shopModel);
 
-
 /* ----------------------- Find by id ----------------------- */
 export const findShopById = generateFindById<model.shop.ShopSchema>(shopModel);
+
+/* ------------------------ Find all ------------------------ */
+export const findShop = generateFindAll<model.shop.ShopSchema>(shopModel);
+
+export const findShopPageSplit = generateFindAllPageSplit<model.shop.ShopSchema>(shopModel);
+
+export const findAllPendingShop = async (
+    payload: repo.shop.FindPendingShop<model.shop.ShopSchema>
+) => {
+    return await findShopPageSplit({
+        ...payload,
+        query: {
+            shop_status: ShopStatus.PENDING,
+            is_deleted: false
+        },
+        omit: ['__v', 'is_deleted', ...(payload.omit as any)] as any
+    });
+};
