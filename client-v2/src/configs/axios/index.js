@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '../token.config';
 
-const BASE_URL = 'http://localhost:3002';
+const BASE_URL = 'https://localhost:4000';
 
 // Token storage keys
 

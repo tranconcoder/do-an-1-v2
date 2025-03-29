@@ -3,11 +3,7 @@ import adminService from '@/services/admin.service.js';
 import { RequestWithQuery } from '@/types/request.js';
 
 export default new (class AdminController {
-    getAllPendingShop: RequestWithQuery<commonTypes.object.PageSlitting> = async (
-        req,
-        res,
-        next
-    ) => {
+    getAllPendingShop: RequestWithQuery<commonTypes.object.PageSlitting> = async (req, res, _) => {
         const { limit, page } = req.query;
 
         new OkResponse({
