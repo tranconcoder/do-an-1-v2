@@ -750,3 +750,9 @@
 [2025-03-29T06:27:01.991Z] [info]: Cleanup key token: 1 key token cleaned
 [2025-03-29T06:27:01.993Z] [info]: Cleanup key token: 0 refresh token used cleaned
 [2025-03-29T06:27:01.997Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-29T06:50:02.995Z] [info]: Cleanup key token: 1 key token cleaned
+[2025-03-29T06:50:02.996Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-29T06:50:03.007Z] [info]: Cleanup product: Cleaned 0 products
+[2025-03-29T06:54:00.053Z] [info]: Cleanup key token: 1 key token cleaned
+[2025-03-29T06:54:00.054Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-03-29T06:54:00.065Z] [info]: Cleanup product: Cleaned 0 products

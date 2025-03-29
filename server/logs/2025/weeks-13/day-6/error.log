@@ -292,3 +292,10 @@
 [2025-03-29T05:26:25.778Z] [error]: HIDE::400::BadRequest::District is invalid!::
 [2025-03-29T05:32:27.256Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-03-29T05:32:27.695Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-29T06:51:47.379Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-03-29T06:51:47.387Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-03-29T06:51:47.439Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-03-29T06:51:47.542Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-03-29T06:51:47.694Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-03-29T06:51:47.897Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-03-29T06:51:48.150Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
