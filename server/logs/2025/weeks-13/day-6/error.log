@@ -382,3 +382,56 @@
 [2025-03-29T09:08:50.542Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
 [2025-03-29T09:09:21.965Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
 [2025-03-29T09:09:57.194Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T09:12:21.058Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T09:12:57.343Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T09:14:49.436Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T09:24:00.299Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T09:39:57.599Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:40:16.127Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-29T09:40:19.637Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-29T09:40:21.501Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-29T09:40:40.618Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-29T09:40:50.544Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-29T09:41:06.068Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-29T09:41:07.006Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-29T09:41:07.636Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-29T09:41:12.768Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-29T09:41:30.182Z] [error]: HIDE::400::ValidationError::"id" length must be 24 characters long::
+[2025-03-29T09:41:53.382Z] [error]: HIDE::400::ValidationError::"id" length must be 24 characters long::
+[2025-03-29T09:42:04.273Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T09:42:15.104Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-03-29T09:42:42.974Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-29T09:42:47.773Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-29T09:43:11.573Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-29T09:43:31.476Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-29T09:45:26.217Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-29T09:45:29.213Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-29T09:45:50.390Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T09:47:23.660Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T09:48:04.856Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:15.439Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:17.353Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:17.890Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:18.205Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:23.225Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:31.641Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:43.074Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:43.148Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:43.297Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:43.429Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:43.565Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:43.694Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:43.821Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:43.954Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:48:44.101Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:49:11.657Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:49:12.222Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:49:12.494Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:49:12.636Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:49:12.779Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:49:12.914Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:49:13.063Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:49:13.202Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:49:13.341Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:49:13.501Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-29T09:49:44.511Z] [error]: HIDE::400::BadRequest::Your account already is shop!::

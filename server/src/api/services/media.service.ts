@@ -1,5 +1,9 @@
 import mediaModel from '@/models/media.model.js';
-import { findOneAndUpdateMedia, findOneMedia } from '@/models/repository/media/index.js';
+import {
+    findMediaById,
+    findOneAndUpdateMedia,
+    findOneMedia
+} from '@/models/repository/media/index.js';
 import { NotFoundErrorResponse } from '@/response/error.response.js';
 import { createMedia } from '@/validations/joi/media.joi.js';
 import fs from 'fs/promises';
@@ -14,6 +18,22 @@ export default new (class MediaService {
         const validated = await createMedia.validateAsync(payload);
 
         return await mediaModel.create(validated);
+    }
+
+    /* ---------------------------------------------------------- */
+    /*                            Get                             */
+    /* ---------------------------------------------------------- */
+    async getMediaFile(id: string) {
+        const mediaInfo = await findMediaById({ id, options: { lean: true } });
+        if (!mediaInfo) throw new NotFoundErrorResponse({ message: 'Not found media!' });
+        console.log({ mediaInfo });
+
+        const mediaFilePath = mediaInfo.media_filePath;
+        console.log(mediaFilePath);
+        if (!existsSync(mediaFilePath))
+            throw new NotFoundErrorResponse({ message: 'Not found file!' });
+
+        return mediaFilePath;
     }
 
     /* ---------------------------------------------------------- */

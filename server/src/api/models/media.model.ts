@@ -4,7 +4,7 @@ import { Schema, model } from 'mongoose';
 import { USER_MODEL_NAME } from './user.model.js';
 
 export const MEDIA_MODEL_NAME = 'Media';
-export const MEDIA_COLLECTION_NAME = 'media';
+export const MEDIA_COLLECTION_NAME = 'medias';
 
 export const mediaSchema = new Schema<model.media.MediaSchema>({
     /* ------------------- Common information ------------------- */

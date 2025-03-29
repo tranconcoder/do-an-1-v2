@@ -20,3 +20,8 @@ export const createMedia = Joi.object<joiTypes.media.CreateMedia>({
     /* ------------------------ Metadata ------------------------ */
     media_owner: mongooseId.optional()
 });
+
+/* --------------------- Get media file --------------------- */
+export const getMediaFile = Joi.object<joiTypes.media.GetMediaFile>({
+    id: mongooseId
+});

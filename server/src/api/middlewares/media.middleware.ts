@@ -26,7 +26,7 @@ export default new (class MediaMiddleware {
                     req.mediaId = await mediaService
                         .createMedia({
                             media_title: 'Avatar',
-                            media_desc: `Avatar for ${uploadField}`,
+                            media_desc: `Avatar for '${uploadField}'`,
                             media_fileName: file.filename,
                             media_filePath: file.path,
                             media_fileType: MediaTypes.IMAGE,

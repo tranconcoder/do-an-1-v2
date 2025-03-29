@@ -117,13 +117,13 @@ export const setKeyToken = async ({
 }: moduleTypes.mongoose.ConvertObjectIdToString<model.keyToken.KeyTokenSchema>) => {
     const id = user;
 
-    console.log({
+    /* console.log({
         user,
         public_key,
         private_key,
         refresh_token,
         refresh_tokens_used
-    });
+    }); */
 
     const cmd = redisClient.multi();
 
