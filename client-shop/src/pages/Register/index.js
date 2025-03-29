@@ -6,6 +6,7 @@ import styles from './Register.module.scss';
 import axiosClient from '../../configs/axios';
 import { AuthSection, OwnerInfoSection, ShopInfoSection, WarehouseSection } from './components';
 import LogoCropper from './components/LogoCropper';
+import { useToast } from '../../contexts/ToastContext';
 
 // Import components
 
@@ -13,6 +14,7 @@ const cx = classNames.bind(styles);
 
 function Register() {
     const navigate = useNavigate();
+    const { showToast } = useToast();
 
     // Add state for location data
     const [provinces, setProvinces] = useState([]);
@@ -468,30 +470,34 @@ function Register() {
                     'Content-Type': 'multipart/form-data'
                 }
             });
+            console.log({ response });
 
             // Check if response status is 201 (Created)
-            if (response?.status === 201) {
+            if (response?.statusCode === 201) {
                 const shopName = response?.data?.metadata?.shop_name || 'your shop';
                 setSuccess(true);
-                setSuccessMessage(
-                    `Registration successful! ${shopName} has been created and is pending review.`
-                );
+                const successMsg = `Registration successful! ${shopName} has been created and is pending review.`;
+                setSuccessMessage(successMsg);
 
-                // Show success alert
-                alert(
-                    `Registration successful! ${shopName} has been created and is pending review. You will be redirected to login page.`
-                );
+                // Show toast message instead of alert
+                showToast(successMsg, 'success', 5000);
 
                 // Redirect to login page after a short delay
                 setTimeout(() => {
                     navigate('/login');
-                }, 1500);
+                }, 2000);
             } else if (response?.status === 200) {
                 // Handle 200 response if needed
                 setSuccess(true);
-                setSuccessMessage('Registration successful! Your shop is being reviewed.');
-                alert('Registration successful! Your shop is being reviewed.');
-                navigate('/login');
+                const successMsg = 'Registration successful! Your shop is being reviewed.';
+                setSuccessMessage(successMsg);
+
+                // Show toast message
+                showToast(successMsg, 'success', 5000);
+
+                setTimeout(() => {
+                    navigate('/login');
+                }, 2000);
             }
         } catch (err) {
             console.error('Registration error:', err);
@@ -516,9 +522,12 @@ function Register() {
 
                 setErrors(newErrors);
             } else {
-                setGeneralError(
-                    err.response?.data?.message || 'Registration failed. Please try again.'
-                );
+                const errorMsg =
+                    err.response?.data?.message || 'Registration failed. Please try again.';
+                setGeneralError(errorMsg);
+
+                // Show error toast
+                showToast(errorMsg, 'error', 5000);
             }
         } finally {
             setLoading(false);
