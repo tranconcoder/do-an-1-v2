@@ -33,7 +33,7 @@ process.on('SIGINT', async () => {
 /* ---------------------------------------------------------- */
 /*                        Initial data                        */
 /* ---------------------------------------------------------- */
-const isInit = false;
+const isInit = true;
 
 await RBACService.getInstance().initRBAC();
 

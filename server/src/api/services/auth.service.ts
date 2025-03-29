@@ -22,7 +22,6 @@ import locationService from './location.service.js';
 // Models
 import { findOneShop, isExistsShop } from '@/models/repository/shop/index.js';
 import shopModel from '@/models/shop.model.js';
-import { userModel } from '@/models/user.model.js';
 import { getUserRoleIdByName } from '@/models/repository/rbac/index.js';
 import { findOneAndUpdateUser, findOneUser } from '@/models/repository/user/index.js';
 import { RoleNames } from '@/enums/rbac.enum.js';

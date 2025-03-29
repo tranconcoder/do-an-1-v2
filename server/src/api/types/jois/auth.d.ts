@@ -4,7 +4,7 @@ declare global {
     namespace joiTypes {
         module auth {
             interface UserSchema
-                extends moduleTypes.mongoose.ConvertObjectIdToString<model.auth.UserSchema> {}
+                extends moduleTypes.mongoose.ConvertObjectIdToString<model.auth.UserSchema>{}
 
             interface LoginSchema extends Pick<UserSchema, 'phoneNumber' | 'password'> {}
 

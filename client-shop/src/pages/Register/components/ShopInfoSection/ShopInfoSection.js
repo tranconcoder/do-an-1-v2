@@ -14,7 +14,8 @@ const ShopInfoSection = ({
     wards,
     errors,
     renderErrorMessage,
-    hasError
+    hasError,
+    logoPreview
 }) => {
     return (
         <div className={cx('form-section')}>
@@ -146,14 +147,28 @@ const ShopInfoSection = ({
 
             <div className={cx('form-group')}>
                 <label htmlFor="shop_logo">Shop Logo *</label>
-                <input
-                    type="file"
-                    id="shop_logo"
-                    name="shop_logo"
-                    onChange={handleFileChange}
-                    className={errors.shop_logo ? cx('has-error') : ''}
-                    accept="image/*"
-                />
+                <div className={cx('logo-input-container')}>
+                    <div style={{ width: '100%' }}>
+                        <input
+                            type="file"
+                            id="shop_logo"
+                            name="shop_logo"
+                            onChange={handleFileChange}
+                            className={errors.shop_logo ? cx('has-error') : ''}
+                            accept="image/*"
+                        />
+                        <small>Recommended size: Square image (1:1 ratio)</small>
+                    </div>
+                    {logoPreview && (
+                        <div className={cx('logo-preview-container')}>
+                            <img
+                                src={logoPreview}
+                                alt="Logo preview"
+                                className={cx('logo-preview')}
+                            />
+                        </div>
+                    )}
+                </div>
                 {errors.shop_logo && <div className={cx('error-text')}>{errors.shop_logo}</div>}
             </div>
 

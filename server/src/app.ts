@@ -65,7 +65,7 @@ app.use([`/${API_VERSION}/api`, '/'], rootRoute);
 
 // Handle 404 route
 app.use((_, __, next) => {
-    next(new NotFoundErrorResponse('Route not exist!'));
+    next(new NotFoundErrorResponse({ message: 'Route is not exists' }));
 });
 
 // Error handler

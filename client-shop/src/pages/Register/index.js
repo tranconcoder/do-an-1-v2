@@ -5,6 +5,7 @@ import { shopRegisterSchema } from '../../validations/shop.validation';
 import styles from './Register.module.scss';
 import axiosClient from '../../configs/axios';
 import { AuthSection, OwnerInfoSection, ShopInfoSection, WarehouseSection } from './components';
+import LogoCropper from './components/LogoCropper';
 
 // Import components
 
@@ -70,6 +71,11 @@ function Register() {
         },
         phoneNumber: ''
     });
+
+    // Add state for logo preview and cropping
+    const [logoPreview, setLogoPreview] = useState('');
+    const [showCropper, setShowCropper] = useState(false);
+    const [originalImage, setOriginalImage] = useState(null);
 
     // Fetch provinces on component mount
     useEffect(() => {
@@ -225,12 +231,21 @@ function Register() {
     const handleFileChange = (e) => {
         const { name, files } = e.target;
         if (files && files[0]) {
-            // Here you would normally upload the file to your server
-            // For now, we'll just store the file object
-            setFormData((prev) => ({
-                ...prev,
-                [name]: files[0]
-            }));
+            // Special handling for shop logo - show cropper
+            if (name === 'shop_logo') {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    setOriginalImage(reader.result);
+                    setShowCropper(true);
+                };
+                reader.readAsDataURL(files[0]);
+            } else {
+                // For other files, just store them
+                setFormData((prev) => ({
+                    ...prev,
+                    [name]: files[0]
+                }));
+            }
 
             // Clear error when file is selected
             if (errors[name]) {
@@ -240,6 +255,22 @@ function Register() {
                 }));
             }
         }
+    };
+
+    // Handle the crop completion
+    const handleCropComplete = (croppedFile, croppedImageUrl) => {
+        setLogoPreview(croppedImageUrl);
+        setFormData((prev) => ({
+            ...prev,
+            shop_logo: croppedFile
+        }));
+        setShowCropper(false);
+    };
+
+    // Handle canceling the crop
+    const handleCropCancel = () => {
+        setShowCropper(false);
+        setOriginalImage(null);
     };
 
     // Handle current warehouse field changes
@@ -538,6 +569,13 @@ function Register() {
 
     return (
         <div className={cx('register-container')}>
+            {showCropper && (
+                <LogoCropper
+                    imageUrl={originalImage}
+                    onCropComplete={handleCropComplete}
+                    onCancel={handleCropCancel}
+                />
+            )}
             <div className={cx('register-card')}>
                 <div className={cx('register-header')}>
                     <div className={cx('logo')}>🛒</div>
@@ -568,6 +606,7 @@ function Register() {
                         errors={errors}
                         renderErrorMessage={renderErrorMessage}
                         hasError={hasError}
+                        logoPreview={logoPreview}
                     />
 
                     <OwnerInfoSection
@@ -591,6 +630,17 @@ function Register() {
                     <button type="submit" className={cx('submit-btn')} disabled={loading}>
                         {loading ? 'Creating Shop...' : 'Create Shop'}
                     </button>
+
+                    <div className={cx('login-link-container')}>
+                        <p>Already have an account?</p>
+                        <button
+                            type="button"
+                            className={cx('login-btn')}
+                            onClick={() => navigate('/login')}
+                        >
+                            Back to Login
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

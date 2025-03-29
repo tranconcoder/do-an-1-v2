@@ -1,4 +1,4 @@
-import mongoose, { Document } from 'mongoose';
+import type mongoose, { Document } from 'mongoose';
 import { joiTypes } from '../joi';
 import type { UserStatus } from '@/enums/user.enum.ts';
 

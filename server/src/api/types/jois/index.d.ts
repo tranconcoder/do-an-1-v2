@@ -9,16 +9,16 @@ declare global {
 
         namespace utils {
             type ConvertObjectToJoiType<T> = {
-                [K in keyof T]: T[K] extends string
+                [K in keyof T]: NonNullable<T[K]> extends string
                     ? StringSchema
-                    : T[K] extends number
+                    : NonNullable<T[K]> extends number
                       ? NumberSchema
-                      : T[K] extends Date
+                      : NonNullable<T[K]> extends Date
                         ? DateSchema
-                        : T[K] extends boolean
+                        : NonNullable<T[K]> extends boolean
                           ? BooleanSchema
-                          : T[K] extends Array
-                            ? ArraySchema
+                          : NonNullable<T[K]> extends Array
+                            ? ArraySchema<T[K]>
                             : never;
             };
         }

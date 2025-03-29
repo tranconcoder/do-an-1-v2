@@ -1,0 +1,109 @@
+.cropper-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.cropper-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px; // Increased from 600px
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+    h3 {
+        margin-top: 0;
+        color: #2c3e50;
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.instructions {
+    color: #7f8c8d;
+    margin-bottom: 1.5rem;
+}
+
+.crop-area {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto; // Changed from overflow: hidden to auto
+    max-height: calc(90vh - 200px); // Dynamic height based on viewport
+    width: 100%;
+
+    // Custom scrollbar styling
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+}
+
+.image-to-crop {
+    max-width: 100%;
+    // Remove max-height restriction
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+    }
+cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancel-btn {
+    background: white;
+    border: 2px solid #e2e8f0;
+    color: #4a5568;
+
+    &:hover {
+        background: #f7fafc;
+    }
+}
+
+.apply-btn {
+    background: #4ecdc4;
+    border: 2px solid #4ecdc4;
+    color: white;
+
+    &:hover {
+        background: #43b5ad;
+        border-color: #43b5ad;
+    }
+}

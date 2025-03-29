@@ -8,16 +8,20 @@ import { UserStatus } from '@/enums/user.enum.js';
 /*                      User schema                       */
 /* ------------------------------------------------------ */
 const user: joiTypes.utils.ConvertObjectToJoiType<joiTypes.auth.UserSchema> = {
+    /* -------------------------- Auth -------------------------- */
     _id: mongooseId,
-    user_status: Joi.string().valid(...Object.values(UserStatus)),
     phoneNumber,
     password: passwordType,
+
+    /* ---------------------- Information  ---------------------- */
     user_email: Joi.string().email().required(),
     user_fullName: Joi.string().required().min(4).max(30),
-    user_role: Joi.string().required(),
     user_avatar: Joi.string().empty().optional(),
-    user_dayOfBirth: Joi.date().empty().optional(),
-    user_sex: Joi.boolean().empty().optional()
+    user_sex: Joi.boolean().empty().optional(),
+
+    /* ------------------------ Metadata ------------------------ */
+    user_status: Joi.string().valid(...Object.values(UserStatus)),
+    user_role: Joi.string().required()
 };
 
 /* ------------------------------------------------------ */
