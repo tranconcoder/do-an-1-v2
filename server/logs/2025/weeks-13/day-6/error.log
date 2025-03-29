@@ -299,3 +299,64 @@
 [2025-03-29T06:51:47.694Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
 [2025-03-29T06:51:47.897Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
 [2025-03-29T06:51:48.150Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-03-29T07:10:03.847Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:10:03.848Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-03-29T07:10:35.046Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:10:35.048Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:10:56.815Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:10:56.816Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T07:10:59.805Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:10:59.805Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:11:20.657Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:11:20.659Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:14:08.548Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:14:08.551Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:14:32.273Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:14:32.274Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:15:11.707Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:15:11.709Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:15:48.041Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:15:48.043Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:21:28.111Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:21:28.114Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-03-29T07:22:35.643Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:22:35.645Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:24:44.630Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:24:44.633Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:25:01.199Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:25:01.200Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:25:14.503Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:25:14.505Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:25:25.950Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:25:25.952Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:27:38.526Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:27:38.528Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:29:15.782Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:29:15.785Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T07:29:41.233Z] [error]: Error while cleanup avatar!
+[2025-03-29T07:29:41.236Z] [error]: HIDE::400::Error::Unexpected end of form::
+[2025-03-29T08:05:38.955Z] [error]: HIDE::400::ReferenceError::mediaId is not defined::
+[2025-03-29T08:06:15.722Z] [error]: HIDE::400::ReferenceError::mediaId is not defined::
+[2025-03-29T08:07:42.450Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-03-29T08:10:02.635Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-03-29T08:14:05.423Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-03-29T08:15:15.120Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-03-29T08:15:41.084Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-03-29T08:16:53.923Z] [error]: HIDE::400::BadRequest::BAD_REQUEST::
+[2025-03-29T08:16:58.411Z] [error]: HIDE::400::BadRequest::BAD_REQUEST::
+[2025-03-29T08:17:17.124Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T08:18:32.483Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T08:18:35.024Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T08:18:47.503Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T08:19:28.258Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T08:22:16.415Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T08:22:25.255Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T08:23:50.545Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T08:24:03.962Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T08:24:51.698Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T08:25:42.245Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T08:26:03.255Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-03-29T08:26:37.849Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T08:27:02.713Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T08:27:25.979Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T08:27:34.091Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::

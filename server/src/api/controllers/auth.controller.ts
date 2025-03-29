@@ -21,7 +21,8 @@ export default class AuthController {
             metadata: await AuthService.signUpShop({
                 ...req.body,
                 shop_logo: req.mediaId as string,
-                shop_userId: req.userId as string
+                shop_userId: req.userId as string,
+                mediaId: req.mediaId as string
             })
         }).send(res);
     };

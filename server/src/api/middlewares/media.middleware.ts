@@ -13,7 +13,6 @@ export default new (class MediaMiddleware {
         catchError(async (req, res, next) => {
             multerMiddleware.uploadAvatar.single(uploadField)(req, res, async (err) => {
                 if (err) return next(err);
-                console.log(req.body);
 
                 try {
                     /* -------------- Handle create media document -------------- */
@@ -24,19 +23,18 @@ export default new (class MediaMiddleware {
                         });
                     }
 
-                    req.mediaId = (
-                        await mediaService.createMedia({
-                            media_title: file.originalname,
-                            media_desc: 'Avatar',
+                    req.mediaId = await mediaService
+                        .createMedia({
+                            media_title: 'Avatar',
+                            media_desc: `Avatar for ${uploadField}`,
                             media_fileName: file.filename,
                             media_filePath: file.path,
                             media_fileType: MediaTypes.IMAGE,
                             media_mimeType: file.mimetype as MediaMimeTypes,
                             media_fileSize: file.size,
                             media_isFolder: false,
-                            media_owner: req.userId
                         })
-                    ).id;
+                        .then((x) => x.id);
 
                     next();
                 } catch (err) {

@@ -6,7 +6,8 @@ import _ from 'lodash';
 import {
     NotFoundErrorResponse,
     ForbiddenErrorResponse,
-    ConflictErrorResponse
+    ConflictErrorResponse,
+    BadRequestErrorResponse
 } from '@/response/error.response.js';
 
 // Configs
@@ -29,6 +30,7 @@ import { deleteKeyToken } from './redis.service.js';
 import { findOneAndUpdateKeyToken } from '@/models/repository/keyToken/index.js';
 import { USER_PUBLIC_FIELDS } from '@/configs/user.config.js';
 import { roleService } from './rbac.service.js';
+import { changeMediaOwner } from '@/models/repository/media/index.js';
 
 export default class AuthService {
     /* ------------------------------------------------------ */
@@ -103,12 +105,13 @@ export default class AuthService {
     /* ---------------------------------------------------------- */
     /*                        Sign up shop                        */
     /* ---------------------------------------------------------- */
-    public static signUpShop = async ({ ...payload }: service.shop.arguments.SignUp) => {
+    public static signUpShop = async ({ mediaId, ...payload }: service.shop.arguments.SignUp) => {
         /* ---------- Check user is register shop account  ---------- */
         const isRegistered = await findOneShop({
             query: { shop_userId: payload.shop_userId }
         }).lean();
-        if (isRegistered) return { ...isRegistered, message: 'User is registered shop account!' };
+        if (isRegistered)
+            throw new BadRequestErrorResponse({ message: 'Your account already is shop!' });
 
         /* ------------------ Check unique fields  ------------------ */
         const checkKeys: Array<keyof typeof payload> = [
@@ -170,25 +173,26 @@ export default class AuthService {
         });
         if (!user)
             throw new NotFoundErrorResponse({ message: 'Can not change user type to shop!' });
+        const userId = user._id.toString();
 
         /* ------------------- Generate jwt token ------------------- */
         const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
         const jwtTokenPair = await JwtService.signJwtPair({
             privateKey,
-            payload: {
-                id: user._id.toString(),
-                role: user.user_role.toString()
-            }
+            payload: { id: userId, role: user.user_role.toString() }
         });
         if (!jwtTokenPair)
             throw new ForbiddenErrorResponse({ message: 'Generate jwt token failed!' });
 
         await KeyTokenService.findOneAndReplace({
-            userId: user._id.toString(),
+            userId,
             privateKey,
             publicKey,
             refreshToken: jwtTokenPair.refreshToken
         });
+
+        /* --------------- Change media owner to user --------------- */
+        await changeMediaOwner({ userId, mediaId });
 
         /* -------------------- Handle save shop -------------------- */
         const shop = await shopModel.create({

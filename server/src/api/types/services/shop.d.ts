@@ -10,6 +10,7 @@ declare global {
                 interface SignUp extends joiTypes.auth.SignUpShop {
                     shop_userId: string;
                     shop_logo: string;
+                    mediaId: string;
                 }
             }
         }

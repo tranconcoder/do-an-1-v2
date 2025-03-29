@@ -35,10 +35,16 @@ export default new (class MediaService {
         if (!mediaInfo) throw new NotFoundErrorResponse({ message: 'Media not found!' });
 
         /* --------------------- Remove media file ------------------- */
-        const filePath = `${mediaInfo.media_filePath}/${mediaInfo.media_fileName}`;
+        const filePath = mediaInfo.media_filePath;
         if (existsSync(filePath)) await fs.unlink(filePath);
 
         /* ---------------------- Remove media info ------------------- */
         return await mediaInfo.deleteOne();
     }
+
+    /* ---------------------------------------------------------- */
+    /*                           Upload                           */
+    /* ---------------------------------------------------------- */
+
+    /* --------------------- Upload avatar  --------------------- */
 })();
