@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import classNames from 'classnames/bind';
 import styles from './Register.module.scss';
 import axiosClient from '../../configs/axios';
+import { useDispatch } from 'react-redux';
 
 // Import SVG icons
 import UserIcon from '../../assets/icons/UserIcon';
@@ -14,6 +15,8 @@ import SpinnerIcon from '../../assets/icons/SpinnerIcon';
 import EyeIcon from '../../assets/icons/EyeIcon';
 import EyeOffIcon from '../../assets/icons/EyeOffIcon';
 import EmailIcon from '../../assets/icons/EmailIcon'; // You may need to create this icon
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '../../configs/token.config';
+import { loginSuccess } from '../../redux/slices/userSlice';
 
 const cx = classNames.bind(styles);
 
@@ -24,11 +27,12 @@ function Register() {
     const [registerError, setRegisterError] = useState('');
     const [errorKey, setErrorKey] = useState(0);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // Define validation schema with Yup
     const validationSchema = Yup.object({
         name: Yup.string()
-            .min(2, 'Name must be at least 2 characters')
+            .min(4, 'Name must be at least 4 characters')
             .required('Name is required'),
         phoneNumber: Yup.string()
             .matches(/^\d+$/, 'Phone number can only contain digits')
@@ -36,7 +40,10 @@ function Register() {
             .required('Phone number is required'),
         email: Yup.string().email('Enter a valid email address').required('Email is required'),
         password: Yup.string()
-            .min(6, 'Password must be at least 6 characters')
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                'Please password with at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character'
+            )
             .required('Password is required'),
         confirmPassword: Yup.string()
             .oneOf([Yup.ref('password'), null], 'Passwords must match')
@@ -61,14 +68,22 @@ function Register() {
             setIsLoading(true);
             setRegisterError('');
             try {
-                const result = await axiosClient.register({
-                    name: values.name,
+                const result = await axiosClient.post('/auth/sign-up', {
                     phoneNumber: values.phoneNumber,
-                    email: values.email,
-                    password: values.password
+                    password: values.password,
+                    user_fullName: values.name,
+                    user_email: values.email
                 });
 
                 if (result.data.metadata.token) {
+                    const user = result.data.metadata.user;
+                    const { accessToken, refreshToken } = result.data.metadata.token;
+
+                    localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
+                    localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+
+                    dispatch(loginSuccess({ id: user.id, ...user }));
+
                     navigate('/');
                 } else {
                     // Registration successful but no auto-login

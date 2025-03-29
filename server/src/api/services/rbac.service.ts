@@ -204,14 +204,20 @@ class RBACService {
 }
 
 class RoleService {
-    async getRoleDataById(id: string) {
-        const roleName: RoleNames = await findRoleById({ id, options: { lean: true } }).role_name;
+    async getUserRoleData({ userId, roleId }: service.rbac.arguments.GetUserRoleData) {
+        const roleName: RoleNames = await findRoleById({
+            id: roleId,
+            options: { lean: true }
+        }).then((role) => role.role_name);
 
         if (!roleName) return null;
         if (!roleHandleGetDataStrategy[roleName]) return null;
 
-        const roleData = await roleHandleGetDataStrategy[roleName]({ id });
+        const roleData = await roleHandleGetDataStrategy[roleName](userId);
+        console.log({ roleData });
         if (!roleData) return null;
+
+        console.log({ roleData });
 
         return {
             role_name: roleName,

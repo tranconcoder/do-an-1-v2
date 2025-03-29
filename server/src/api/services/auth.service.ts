@@ -24,7 +24,7 @@ import { findOneShop, isExistsShop } from '@/models/repository/shop/index.js';
 import shopModel from '@/models/shop.model.js';
 import { userModel } from '@/models/user.model.js';
 import { getUserRoleIdByName } from '@/models/repository/rbac/index.js';
-import { findOneAndUpdateUser } from '@/models/repository/user/index.js';
+import { findOneAndUpdateUser, findOneUser } from '@/models/repository/user/index.js';
 import { RoleNames } from '@/enums/rbac.enum.js';
 import { deleteKeyToken } from './redis.service.js';
 import { findOneAndUpdateKeyToken } from '@/models/repository/keyToken/index.js';
@@ -223,7 +223,11 @@ export default class AuthService {
     /* ------------------------------------------------------ */
     public static login = async ({ phoneNumber, password }: service.auth.arguments.Login) => {
         /* -------------- Check if user is exists ------------- */
-        const user = await userModel.findOne({ phoneNumber }, '+password').lean();
+        const user = await findOneUser({
+            query: { phoneNumber },
+            select: ['password'],
+            options: { lean: true }
+        });
         if (!user)
             throw new NotFoundErrorResponse({ message: 'Username or password is not correct!' });
 
@@ -259,7 +263,10 @@ export default class AuthService {
         };
 
         /* --------------------- Add role data  --------------------- */
-        const roleData = await roleService.getRoleDataById(user.user_role.toString());
+        const roleData = await roleService.getUserRoleData({
+            userId: user._id.toString(),
+            roleId: user.user_role.toString()
+        });
         if (roleData) result[roleData.role_name] = roleData.role_data;
 
         return result;

@@ -17,9 +17,9 @@ import {
 
 const cx = classNames.bind(styles);
 
-function ShopSidebar({ collapsed, toggleSidebar }) {
+function ShopSidebar({ collapsed, toggleSidebar, shopInfo }) {
     const navItems = [
-        { path: '/', icon: <MdDashboard className={cx('nav-icon')} />, text: 'Dashboard' },
+        { path: '/dashboard', icon: <MdDashboard className={cx('nav-icon')} />, text: 'Dashboard' },
         {
             path: '/products',
             icon: <MdInventory className={cx('nav-icon')} />,
@@ -36,7 +36,7 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
             text: 'Discount'
         },
         {
-            path: '/',
+            path: '/customers',
             icon: <MdPeople className={cx('nav-icon')} />,
             text: 'Customers'
         },
@@ -47,13 +47,20 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
         }
     ];
 
+    // Get shop name from props or use default
+    const shopName = shopInfo?.shop_name || 'My Shop';
+
     return (
         <div className={cx('shop-sidebar', { collapsed })}>
             <div className={cx('shop-info')}>
                 <div className={cx('shop-logo')}>
-                    <MdStore />
+                    {shopInfo?.shop_logo ? (
+                        <img src={shopInfo.shop_logo} alt={shopName} />
+                    ) : (
+                        <MdStore />
+                    )}
                 </div>
-                {!collapsed && <div className={cx('shop-name')}>My Shop</div>}
+                {!collapsed && <div className={cx('shop-name')}>{shopName}</div>}
             </div>
 
             <nav className={cx('nav-menu')}>
@@ -62,7 +69,6 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
                         <li key={index}>
                             <NavLink
                                 to={item.path}
-                                end={item.path === '/shop'}
                                 className={({ isActive }) => cx({ active: isActive })}
                             >
                                 {item.icon}

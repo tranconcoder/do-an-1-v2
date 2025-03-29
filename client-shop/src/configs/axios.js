@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ACCESS_TOKEN_KEY } from './jwt.config';
 
 // Create axios instance with base URL
 const axiosClient = axios.create({
@@ -8,9 +9,9 @@ const axiosClient = axios.create({
 // Add request interceptor for authentication
 axiosClient.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+        const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+        if (accessToken) {
+            config.headers.Authorization = `Bearer ${accessToken}`;
         }
         return config;
     },

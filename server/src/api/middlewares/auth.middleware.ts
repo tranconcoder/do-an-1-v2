@@ -8,7 +8,7 @@ import { ErrorRequestHandler } from 'express';
 
 export const checkCustomerAccountToRegisterShop: RequestWithBody<
     joiTypes.auth.LoginSchema
-> = async (req, res, next) => {
+> = async (req, _, next) => {
     const { phoneNumber, password } = req.body;
 
     /* -------------- Check if user is exists ------------- */

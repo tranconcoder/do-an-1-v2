@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout, selectUserInfo } from '../../redux/slices/userSlice';
 import classNames from 'classnames/bind';
 import styles from './Navbar.module.scss';
+import axiosClient from '../../configs/axios';
 
 // Import icons from assets
 import UserIcon from '../../assets/icons/UserIcon';
@@ -13,6 +14,7 @@ import CloseIcon from '../../assets/icons/CloseIcon';
 // Import components
 import CartDropdown from '../CartDropdown';
 import SearchBar from '../SearchBar'; // Import the new SearchBar component
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '../../configs/token.config';
 
 const cx = classNames.bind(styles);
 
@@ -26,10 +28,17 @@ function Navbar() {
     const wishlistItems = useSelector((state) => state.wishlist.items);
 
     // Handle logout
-    const handleLogout = () => {
-        dispatch(logout());
-        setIsUserMenuOpen(false);
-        navigate('/auth/login');
+    const handleLogout = async () => {
+        const res = await axiosClient.post('/auth/logout');
+
+        if (res.status === 200) {
+            dispatch(logout());
+            setIsUserMenuOpen(false);
+            navigate('/auth/login');
+
+            localStorage.removeItem(ACCESS_TOKEN_KEY);
+            localStorage.removeItem(REFRESH_TOKEN_KEY);
+        }
     };
 
     // Close menus when clicking outside

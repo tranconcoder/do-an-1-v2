@@ -90,6 +90,27 @@
                 outline: none;
                 box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
             }
+
+            &.input-error {
+                border-color: #e74c3c;
+
+                &:focus {
+                    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+                }
+            }
+        }
+
+        .field-error {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .input-hint {
+            display: block;
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
         }
     }
 }

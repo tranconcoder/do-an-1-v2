@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
+// Redux
+import { selectIsAuthenticated, fetchUserProfile } from '../store/userSlice';
 
 // Layouts
 import ShopManagerLayout from '../layouts/ShopManagerLayout';
@@ -12,14 +16,19 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 
 const AppRoutes = () => {
-    // Simple auth check
-    const isAuthenticated = () => {
-        return localStorage.getItem('token') !== null;
-    };
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector(selectIsAuthenticated);
+
+    // Fetch user profile if authenticated
+    useEffect(() => {
+        if (isAuthenticated) {
+            dispatch(fetchUserProfile());
+        }
+    }, [isAuthenticated, dispatch]);
 
     // Protected route component
     const ProtectedRoute = ({ children }) => {
-        if (!isAuthenticated()) {
+        if (!isAuthenticated) {
             return <Navigate to="/login" replace />;
         }
         return children;

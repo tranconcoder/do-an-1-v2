@@ -1,10 +1,9 @@
 import axios from 'axios';
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '../token.config';
 
 const BASE_URL = 'http://localhost:3002';
 
 // Token storage keys
-const ACCESS_TOKEN_KEY = 'access_token';
-const REFRESH_TOKEN_KEY = 'refresh_token';
 
 class AxiosClient {
     constructor() {
@@ -148,7 +147,6 @@ class AxiosClient {
     // Authentication methods
     async login(credentials) {
         const response = await this.post('/auth/login', credentials);
-        console.log(response.data);
         const { accessToken, refreshToken } = response.data.metadata.token;
         this.setAccessToken(accessToken);
         this.setRefreshToken(refreshToken);
