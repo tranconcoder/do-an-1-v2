@@ -360,3 +360,25 @@
 [2025-03-29T08:27:02.713Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
 [2025-03-29T08:27:25.979Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
 [2025-03-29T08:27:34.091Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T08:45:23.106Z] [error]: Invalid update pipeline operator: "is_deleted"
+[2025-03-29T08:45:23.107Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T08:46:07.778Z] [error]: Invalid update pipeline operator: "is_deleted"
+[2025-03-29T08:46:07.779Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T08:46:28.540Z] [error]: Invalid update pipeline operator: "is_deleted"
+[2025-03-29T08:46:28.542Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T08:46:57.975Z] [error]: Invalid update pipeline operator: "is_deleted"
+[2025-03-29T08:46:57.976Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T08:48:38.174Z] [error]: Invalid update pipeline operator: "is_deleted"
+[2025-03-29T08:48:38.176Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T08:49:47.091Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T08:54:12.362Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T08:54:32.823Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T08:54:52.469Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T09:03:04.734Z] [error]: Invalid update pipeline operator: "$let"
+[2025-03-29T09:03:04.737Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T09:03:55.819Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T09:07:07.447Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T09:07:43.899Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T09:08:50.542Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T09:09:21.965Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-29T09:09:57.194Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::

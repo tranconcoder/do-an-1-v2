@@ -30,7 +30,8 @@ export const checkCustomerAccountToRegisterShop: RequestWithBody<
 export const cleanUpSignUpShop: ErrorRequestHandler = async (error, req, _, next) => {
     try {
         /* ------------------ Handle remove avatar ------------------ */
-        await mediaService.hardRemoveMedia(req.mediaId as string);
+        // await mediaService.hardRemoveMedia(req.mediaId as string);
+        await mediaService.softRemoveMedia(req.mediaId as string);
     } catch (error) {
         const logger = LoggerService.getInstance();
 

@@ -21,11 +21,75 @@ export default new (class MediaService {
     /* ---------------------------------------------------------- */
     /* ---------------------- Soft delete  ---------------------- */
     async softRemoveMedia(mediaId: string) {
+        const REMOVE_LABEL = 'removed_';
+
         /* -------------------- Check media info -------------------- */
-        return await findOneAndUpdateMedia({
+        const result = await findOneAndUpdateMedia({
             query: { _id: mediaId },
-            update: { is_deleted: true, deleted_at: new Date() }
+            update: [
+                {
+                    $set: {
+                        is_deleted: true,
+                        deleted_at: new Date(),
+                        media_fileName: { $concat: [REMOVE_LABEL, '$media_fileName'] },
+                        media_filePath: {
+                            $let: {
+                                vars: {
+                                    folderDir: { $split: ['$media_filePath', '/'] }
+                                },
+                                in: {
+                                    $concat: [
+                                        {
+                                            $reduce: {
+                                                input: {
+                                                    $slice: [
+                                                        '$$folderDir',
+                                                        0,
+                                                        {
+                                                            $subtract: [
+                                                                { $size: '$$folderDir' },
+                                                                1 // Loại bỏ 2 phần tử cuối
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                initialValue: '',
+                                                in: {
+                                                    $concat: [
+                                                        '$$value',
+                                                        {
+                                                            $cond: [
+                                                                { $eq: ['$$value', ''] },
+                                                                '',
+                                                                '/'
+                                                            ]
+                                                        },
+                                                        '$$this'
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        '/',
+                                        REMOVE_LABEL,
+                                        '$media_fileName'
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            options: { lean: true }
         });
+
+        console.log(result);
+
+        /* ---------------------- Rename file  ---------------------- */
+        const newFileName = REMOVE_LABEL + result.media_fileName;
+        const newPath = `${result.media_filePath.split('/').slice(0, -1).join('/')}/${newFileName}`;
+        console.log({ newFileName, newPath });
+
+        if (existsSync(result.media_filePath)) await fs.rename(result.media_filePath, newPath);
     }
 
     /* ---------------------- Hard delete  ---------------------- */
