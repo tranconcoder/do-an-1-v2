@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     selectCurrentUser,
     selectIsAuthenticated,
     selectIsAdmin,
     selectAdmin,
-    selectUserLoading
+    selectUserLoading,
+    logout,
+    logoutUser
 } from '../store/userSlice';
 
 const AdminGuard = ({ children }) => {
@@ -15,6 +17,7 @@ const AdminGuard = ({ children }) => {
     const isAdmin = useSelector(selectIsAdmin);
     const adminData = useSelector(selectAdmin);
     const isLoading = useSelector(selectUserLoading);
+    const dispatch = useDispatch();
 
     // For debugging - log user info to console
     useEffect(() => {
@@ -39,8 +42,8 @@ const AdminGuard = ({ children }) => {
 
     // Check if user has admin permissions
     if (!isAdmin) {
-        console.log('Admin access denied. User is not an admin.');
-        return <Navigate to="/unauthorized" replace />;
+        dispatch(logoutUser());
+        return <Navigate to="/login" replace />;
     }
 
     return children;

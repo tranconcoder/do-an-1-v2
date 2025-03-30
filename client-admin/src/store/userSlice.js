@@ -69,6 +69,26 @@ export const fetchUserProfile = createAsyncThunk(
     }
 );
 
+// Async thunk for logout operation
+export const logoutUser = createAsyncThunk(
+    'user/logout',
+    async (_, { rejectWithValue, dispatch }) => {
+        try {
+            // Call logout endpoint
+            await axiosClient.post('/auth/logout');
+
+            // Clear tokens and state
+            localStorage.removeItem(ACCESS_TOKEN_KEY);
+            localStorage.removeItem(REFRESH_TOKEN_KEY);
+
+            return true;
+        } catch (error) {
+            console.error('Logout error:', error);
+            return rejectWithValue(error.response?.data?.message || 'Logout failed');
+        }
+    }
+);
+
 // User slice
 const userSlice = createSlice({
     name: 'user',
@@ -90,22 +110,6 @@ const userSlice = createSlice({
     },
     reducers: {
         // Synchronous actions
-        logout: (state) => {
-            localStorage.removeItem(ACCESS_TOKEN_KEY);
-            localStorage.removeItem(REFRESH_TOKEN_KEY);
-            state.currentUser = {
-                _id: '',
-                user_email: '',
-                user_avatar: '',
-                user_fullName: '',
-                user_phoneNumber: '',
-                user_role: null,
-                isAdmin: false,
-                admin: null
-            };
-            state.isAuthenticated = false;
-            state.error = null;
-        },
         clearError: (state) => {
             state.error = null;
         },
@@ -171,12 +175,37 @@ const userSlice = createSlice({
             .addCase(fetchUserProfile.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            })
+
+            // Logout actions
+            .addCase(logoutUser.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(logoutUser.fulfilled, (state) => {
+                state.loading = false;
+                state.currentUser = {
+                    _id: '',
+                    user_email: '',
+                    user_avatar: '',
+                    user_fullName: '',
+                    user_phoneNumber: '',
+                    user_role: null,
+                    isAdmin: false,
+                    admin: null
+                };
+                state.isAuthenticated = false;
+                state.error = null;
+            })
+            .addCase(logoutUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     }
 });
 
 // Export actions and reducer
-export const { logout, clearError, updateUserProfile } = userSlice.actions;
+export const { clearError, updateUserProfile } = userSlice.actions;
 export default userSlice.reducer;
 
 // Selectors

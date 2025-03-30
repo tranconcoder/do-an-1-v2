@@ -27,24 +27,24 @@
 
 .categories-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); // Giảm từ 200px xuống 150px
     gap: 1rem;
     padding: 1rem 0;
 
     @media (max-width: 1200px) {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(6, 1fr); // Tăng từ 4 lên 6 columns
     }
 
     @media (max-width: 992px) {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr); // Tăng từ 3 lên 4 columns
     }
 
     @media (max-width: 768px) {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr); // Tăng từ 2 lên 3 columns
     }
 
     @media (max-width: 480px) {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr); // Thay đổi từ 1 thành 2 columns
     }
 }
 
@@ -52,11 +52,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     text-decoration: none;
     color: inherit;
     border-radius: 8px;
-    padding: 0.75rem;
+    padding: 0.5rem; /* Reduced from 1rem to make cards less tall */
     transition: all 0.2s ease-in-out;
     background-color: #f8f9fa;
     height: 100%;
@@ -91,41 +91,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    width: 48px; // Increased from 40px
+    height: 48px; // Increased from 40px
     border-radius: 50%;
     background-color: rgba(0, 123, 255, 0.1);
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 12px; // Added padding for icon
 }
 
 .category-icon {
-    font-size: 1.5rem;
+    font-size: 1.2rem; // Giảm từ 1.5rem xuống 1.2rem
     color: #007bff;
 }
 
 .category-name {
-    margin: 0.75rem 0 0.5rem;
-    font-size: 1rem;
+    margin: 0.25rem 0; /* Reduced margins */
+    font-size: 0.85rem; /* Reduced from 1rem */
     font-weight: 600;
     line-height: 1.2;
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1; /* Changed from 2 to 1 line to make it shorter */
     -webkit-box-orient: vertical;
+    color: #333; // Added better text color
 }
 
 .category-description {
-    font-size: 0.85rem;
-    color: #666;
-    text-align: center;
-    margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    display: none; /* Hide the description to save space */
 }
 
 .compact-name {
@@ -135,18 +129,22 @@
 
 .category-image-container {
     width: 100%;
-    height: 160px;
+    height: 80px; /* Reduced from 120px to make the image container shorter */
     overflow: hidden;
     background-color: #f5f5f5; /* Add background color for when image is loading */
     position: relative;
     border-radius: 8px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem; /* Reduced from 1rem */
+    padding: 0.5rem; /* Reduced from 1rem */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .category-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; // Changed from cover to contain
     transition: transform 0.3s ease;
     display: block; /* Ensure the image is displayed as block */
 }

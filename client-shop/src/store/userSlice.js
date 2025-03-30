@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axiosClient from '../configs/axios';
+import axiosClient, { setAuthTokens } from '../configs/axios';
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '../configs/jwt.config';
 
 // Async thunk for login operation
@@ -53,16 +53,10 @@ export const registerShop = createAsyncThunk(
             console.log('Shop registration response:', response);
 
             // Check response status in response.data or response directly
-            if (
-                response.data?.statusCode !== 201 &&
-                response.data?.statusCode !== 200 &&
-                response.statusCode !== 201 &&
-                response.statusCode !== 200 &&
-                response.status !== 201 &&
-                response.status !== 200
-            ) {
+            if (response.status !== 201) {
                 const errorMessage =
                     response.data?.message || response.message || 'Shop registration failed';
+
                 return rejectWithValue(errorMessage);
             }
 
@@ -110,6 +104,19 @@ export const fetchUserProfile = createAsyncThunk(
         }
     }
 );
+
+// Async thunk for logout operation
+export const logoutUser = createAsyncThunk('user/logout', async (_, { rejectWithValue }) => {
+    try {
+        await axiosClient.post('/auth/logout');
+        localStorage.removeItem(ACCESS_TOKEN_KEY);
+        localStorage.removeItem(REFRESH_TOKEN_KEY);
+        return true;
+    } catch (error) {
+        console.error('Logout error:', error);
+        return rejectWithValue(error.response?.data?.message || 'Logout failed');
+    }
+});
 
 // User slice
 const userSlice = createSlice({
@@ -246,6 +253,22 @@ const userSlice = createSlice({
             .addCase(fetchUserProfile.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            })
+
+            // Logout actions
+            .addCase(logoutUser.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(logoutUser.fulfilled, (state) => {
+                state.loading = false;
+                state.currentUser = null;
+                state.isAuthenticated = false;
+                state.error = null;
+            })
+            .addCase(logoutUser.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     }
 });
@@ -260,8 +283,7 @@ export const selectUserEmail = (state) => state.user.currentUser.user_email;
 export const selectUserAvatar = (state) => state.user.currentUser.user_avatar;
 export const selectUserFullName = (state) => state.user.currentUser.user_fullName;
 export const selectUserDayOfBirth = (state) => state.user.currentUser.user_dayOfBirth;
-export const selectUserSex = (state) => state.user.currentUser.user_sex;
-export const selectUserRole = (state) => state.user.currentUser.user_role;
+export const selectUserSex = (state) => state.user.currentUser;
 export const selectShopInfo = (state) => state.user.shopInfo;
 export const selectIsAuthenticated = (state) => state.user.isAuthenticated;
 export const selectUserLoading = (state) => state.user.loading;

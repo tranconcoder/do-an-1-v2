@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
 // Redux
 import { selectIsAuthenticated, fetchUserProfile, selectUserLoading } from '../store/userSlice';
-
 // Pages
 import Login from '../pages/Login/Login';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import ShopApprovals from '../pages/ShopApprovals/ShopApprovals';
 import ShopDetails from '../pages/ShopDetails/ShopDetails';
-
+import { CategoriesList, CategoryForm } from '../pages/Categories';
 // Guards
 import AdminGuard from '../components/AdminGuard';
 
@@ -73,6 +71,32 @@ const AppRoutes = () => {
                     element={
                         <AdminGuard>
                             <ShopDetails />
+                        </AdminGuard>
+                    }
+                />
+
+                {/* Categories Management Routes */}
+                <Route
+                    path="/categories"
+                    element={
+                        <AdminGuard>
+                            <CategoriesList />
+                        </AdminGuard>
+                    }
+                />
+                <Route
+                    path="/categories/new"
+                    element={
+                        <AdminGuard>
+                            <CategoryForm />
+                        </AdminGuard>
+                    }
+                />
+                <Route
+                    path="/categories/edit/:id"
+                    element={
+                        <AdminGuard>
+                            <CategoryForm />
                         </AdminGuard>
                     }
                 />
