@@ -17,11 +17,10 @@ const findOneAndUpdate = generateFindOneAndUpdate<model.keyToken.KeyTokenSchema>
 export const findKeyTokenById = async (id: string) => {
     let keyToken = await getKeyToken(id);
 
-    if (!keyToken) {
-        keyToken = await findById({ id });
-        console.log(keyToken);
-        await setKeyToken(keyToken);
-    }
+    if (!keyToken) keyToken = await findById({ id });
+    if (!keyToken) return null;
+
+    await setKeyToken(keyToken);
 
     return keyToken;
 };

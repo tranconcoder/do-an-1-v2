@@ -70,6 +70,10 @@ export const getProjection = <T = any>({
     return projection;
 };
 
+/* ---------------------------------------------------------- */
+/*                            Find                            */
+/* ---------------------------------------------------------- */
+
 /* -------------------- Find all wrapper -------------------- */
 export const generateFindAll = <T = any>(model: any) => {
     return async ({
@@ -125,16 +129,57 @@ export const generateFindAllPageSplit = <T = any>(model: any) => {
     };
 };
 
-/* ------------------- Update all wrapper ------------------- */
-export const generateUpdateAll = <T = any>(model: any) => {
-    return async ({ query, update }: moduleTypes.mongoose.UpdateAllArgs<T>) => {
-        return (
-            (await model.updateMany(query, update).maxTimeMS(PESSIMISTIC_QUERY_TIME)
-                .modifiedCount) > 0
-        );
+export const generateFindById = <T = any>(model: any) => {
+    return ({
+        id,
+        options = {},
+        only = [],
+        select = [],
+        omit = [],
+        projection = {}
+    }: moduleTypes.mongoose.FindById<T>) => {
+        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findById', {}>;
+
+        projection = getProjection<T>({
+            projection,
+            only,
+            select,
+            omit
+        });
+
+        const result: Query = model.findById(id, projection, options);
+
+        return result;
     };
 };
 
+export const generateFindOne = <T = any>(model: any) => {
+    return ({
+        query,
+        options = {},
+        only = [],
+        select = [],
+        omit = [],
+        projection = {}
+    }: moduleTypes.mongoose.FindOne<T>) => {
+        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findOne', {}>;
+
+        projection = getProjection<T>({
+            projection,
+            only,
+            select,
+            omit
+        });
+
+        const result: Query = model.findOne(query, projection, options);
+
+        return result;
+    };
+};
+
+/* ---------------------------------------------------------- */
+/*                           Update                           */
+/* ---------------------------------------------------------- */
 export const generateFindOneAndUpdate = <T = any>(model: any) => {
     return ({
         query,
@@ -166,54 +211,19 @@ export const generateFindOneAndUpdate = <T = any>(model: any) => {
     };
 };
 
-export const generateFindOne = <T = any>(model: any) => {
-    return ({
-        query,
-        options = {},
-        only = [],
-        select = [],
-        omit = [],
-        projection = {}
-    }: moduleTypes.mongoose.FindOne<T>) => {
-        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findOne', {}>;
-
-        projection = getProjection<T>({
-            projection,
-            only,
-            select,
-            omit
-        });
-
-        const result: Query = model.findOne(query, projection, options);
-
-        return result;
+/* ------------------- Update all wrapper ------------------- */
+export const generateUpdateAll = <T = any>(model: any) => {
+    return async ({ query, update }: moduleTypes.mongoose.UpdateAllArgs<T>) => {
+        return (
+            (await model.updateMany(query, update).maxTimeMS(PESSIMISTIC_QUERY_TIME)
+                .modifiedCount) > 0
+        );
     };
 };
 
-export const generateFindById = <T = any>(model: any) => {
-    return ({
-        id,
-        options = {},
-        only = [],
-        select = [],
-        omit = [],
-        projection = {}
-    }: moduleTypes.mongoose.FindById<T>) => {
-        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findById', {}>;
-
-        projection = getProjection<T>({
-            projection,
-            only,
-            select,
-            omit
-        });
-
-        const result: Query = model.findById(id, projection, options);
-
-        return result;
-    };
-};
-
+/* ---------------------------------------------------------- */
+/*                           Replace                          */
+/* ---------------------------------------------------------- */
 export const generateFindOneAndReplace = <T = any>(model: any) => {
     return ({
         query,

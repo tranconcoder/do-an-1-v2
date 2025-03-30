@@ -16,7 +16,6 @@ export const findOneAndUpdateResource =
 
 export const findOneAndUpdateRole = generateFindOneAndUpdate<model.rbac.RoleSchema>(roleModel);
 
-
 /* ----------------------- Find by id ----------------------- */
 export const findRoleById = generateFindById<model.rbac.RoleSchema>(roleModel);
 

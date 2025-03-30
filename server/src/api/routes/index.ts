@@ -9,6 +9,7 @@ import orderRoute from './order/index.js';
 import userRoute from './user/index.js';
 import locationRoute from './location/index.js';
 import mediaRoute from './media/index.js';
+import shopRoute from './shop/index.js';
 
 const rootRoute = Router();
 
@@ -27,5 +28,7 @@ rootRoute.use('/user', userRoute);
 rootRoute.use('/location', locationRoute);
 
 rootRoute.use('/media', mediaRoute);
+
+rootRoute.use('/shop', shopRoute);
 
 export default rootRoute;

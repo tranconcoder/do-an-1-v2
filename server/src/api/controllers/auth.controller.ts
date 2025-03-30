@@ -3,6 +3,7 @@ import type { RequestHandler } from 'express';
 
 import AuthService from '@/services/auth.service.js';
 import { CreatedResponse, OkResponse } from '@/response/success.response.js';
+import { ForbiddenErrorResponse } from '@/response/error.response.js';
 
 export default class AuthController {
     /* ------------------------------------------------------ */

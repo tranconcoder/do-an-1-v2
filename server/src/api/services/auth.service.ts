@@ -24,13 +24,14 @@ import locationService from './location.service.js';
 import { findOneShop, isExistsShop } from '@/models/repository/shop/index.js';
 import shopModel from '@/models/shop.model.js';
 import { getUserRoleIdByName } from '@/models/repository/rbac/index.js';
-import { findOneAndUpdateUser, findOneUser } from '@/models/repository/user/index.js';
+import { findOneAndUpdateUser, findOneUser, findUserById } from '@/models/repository/user/index.js';
 import { RoleNames } from '@/enums/rbac.enum.js';
 import { deleteKeyToken } from './redis.service.js';
 import { findOneAndUpdateKeyToken } from '@/models/repository/keyToken/index.js';
 import { USER_PUBLIC_FIELDS } from '@/configs/user.config.js';
 import { roleService } from './rbac.service.js';
 import { changeMediaOwner } from '@/models/repository/media/index.js';
+import { NODE_ENV } from '@/configs/server.config.js';
 
 export default class AuthService {
     /* ------------------------------------------------------ */
@@ -50,6 +51,14 @@ export default class AuthService {
 
         /* ------------- Save new user to database ------------ */
         const hashPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUND);
+
+        let userRole = RoleNames.USER;
+
+        /* ---------------------------------------------------------- */
+        /*                             Dev                            */
+        /* ---------------------------------------------------------- */
+        if (NODE_ENV === 'development' && phoneNumber === '0327781162') userRole = RoleNames.ADMIN;
+
         const userInstance = UserService.newInstance({
             phoneNumber,
             password: hashPassword,
@@ -57,7 +66,7 @@ export default class AuthService {
             user_email,
             user_avatar: '',
             user_fullName,
-            user_role: await getUserRoleIdByName(RoleNames.USER),
+            user_role: await getUserRoleIdByName(userRole),
             user_sex: false
         });
         if (!userInstance) throw new ForbiddenErrorResponse({ message: 'Create user failed!' });
@@ -319,16 +328,19 @@ export default class AuthService {
             publicKey: keyToken.public_key,
             token: refreshToken
         });
-
         if (!decoded) throw new ForbiddenErrorResponse({ message: 'Token is invalid!' });
         if (refreshToken !== keyToken.refresh_token)
             throw new ForbiddenErrorResponse({ message: 'Token is invalid!' });
 
         /* ------------ Generate new jwt token pair ----------- */
+        const user = await findUserById({ id: decoded.id });
         const { privateKey, publicKey } = KeyTokenService.generateTokenPair();
         const newJwtTokenPair = await JwtService.signJwtPair({
             privateKey,
-            payload: _.pick(decoded, ['id', 'role'])
+            payload: {
+                id: user._id.toString(),
+                role: user.user_role.toString()
+            }
         });
         if (!newJwtTokenPair)
             throw new ForbiddenErrorResponse({ message: 'Generate token failed!' });

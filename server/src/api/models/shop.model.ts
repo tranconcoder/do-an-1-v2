@@ -40,7 +40,8 @@ export const shopSchema = new Schema<model.shop.ShopSchema>(
 
         /* --------------------- Shop status --------------------- */
         shop_status: { type: String, enum: ShopStatus, default: ShopStatus.PENDING },
-        is_brand: { type: Boolean, default: false }
+        is_brand: { type: Boolean, default: false },
+        is_deleted: { type: Boolean, default: false }
     },
     {
         timestamps,

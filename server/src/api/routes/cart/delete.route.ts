@@ -12,8 +12,7 @@ const deleteRouterValidated = Router();
 /* ---------------------------------------------------------- */
 /*                      Route validated                       */
 /* ---------------------------------------------------------- */
-deleteRouter.use(deleteRouterValidated);
-deleteRouterValidated.use(authenticate);
+deleteRouter.use(authenticate, deleteRouterValidated);
 
 deleteRouterValidated.delete(
     '/product/:productId',

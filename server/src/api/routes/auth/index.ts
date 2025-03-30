@@ -43,9 +43,7 @@ authRoute.post('/new-token', joiValidate(newTokenSchema), catchError(AuthControl
 /* ------------------------------------------------------ */
 /*                    Validate routes                     */
 /* ------------------------------------------------------ */
-authRoute.use(authRouteValidate);
-
-authRouteValidate.use(authenticate);
+authRoute.use(authenticate, authRouteValidate);
 
 authRouteValidate.post('/logout', catchError(AuthController.logout));
 

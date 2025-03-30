@@ -48,7 +48,12 @@ class RBACService {
                 role_desc: 'Super Administrator',
                 role_granted: resourcesId.map((resource) => ({
                     resource: resource.id,
-                    actions: [RoleActions.ALL],
+                    actions: [
+                        RoleActions.CREATE_ANY,
+                        RoleActions.READ_ANY,
+                        RoleActions.UPDATE_ANY,
+                        RoleActions.DELETE_ANY
+                    ],
                     attributes: '*'
                 }))
             },
@@ -63,33 +68,13 @@ class RBACService {
                 role_desc: 'Administrator',
                 role_granted: [
                     {
-                        resource: resourcesId.find(
-                            (resource) => resource.name === Resources.PROFILE
-                        )?.id,
-                        actions: [RoleActions.ALL],
-                        attributes: '*'
-                    },
-                    {
-                        resource: resourcesId.find((resource) => resource.name === Resources.CART)
-                            ?.id,
-                        actions: [RoleActions.READ_ANY],
-                        attributes: '*'
-                    },
-                    {
-                        resource: resourcesId.find((resource) => resource.name === Resources.ORDER)
+                        resource: resourcesId.find((resource) => resource.name === Resources.SHOP)
                             ?.id,
                         actions: [
                             RoleActions.READ_ANY,
                             RoleActions.UPDATE_ANY,
                             RoleActions.DELETE_ANY
                         ],
-                        attributes: '*'
-                    },
-                    {
-                        resource: resourcesId.find(
-                            (resource) => resource.name === Resources.PRODUCT
-                        )?.id,
-                        actions: [RoleActions.ALL],
                         attributes: '*'
                     }
                 ]
@@ -104,35 +89,7 @@ class RBACService {
                 role_name: RoleNames.SHOP,
                 role_desc: 'Shop',
                 role_status: 'active',
-                role_granted: [
-                    {
-                        resource: resourcesId
-                            .find((resource) => resource.name === Resources.PRODUCT)
-                            ?.id.toString(),
-                        actions: [
-                            RoleActions.CREATE_OWN,
-                            RoleActions.READ_OWN,
-                            RoleActions.READ_ANY,
-                            RoleActions.UPDATE_OWN,
-                            RoleActions.DELETE_OWN
-                        ],
-                        attributes: '*'
-                    },
-                    {
-                        resource: resourcesId
-                            .find((resource) => resource.name === Resources.ORDER)
-                            ?.id.toString(),
-                        actions: [RoleActions.READ_OWN, RoleActions.UPDATE_OWN],
-                        attributes: '*'
-                    },
-                    {
-                        resource: resourcesId
-                            .find((resource) => resource.name === Resources.CART)
-                            ?.id.toString(),
-                        actions: [RoleActions.READ_OWN, RoleActions.UPDATE_OWN],
-                        attributes: '*'
-                    }
-                ]
+                role_granted: []
             },
             options: { upsert: true, new: true }
         });
@@ -147,25 +104,8 @@ class RBACService {
                 role_granted: [
                     {
                         resource: resourcesId.find(
-                            (resource) => resource.name === Resources.PROFILE
+                            (resource) => resource.name === Resources.PRODUCT
                         )?.id,
-                        actions: [RoleActions.READ_OWN, RoleActions.UPDATE_OWN],
-                        attributes: '*'
-                    },
-                    {
-                        resource: resourcesId.find((resource) => resource.name === Resources.CART)
-                            ?.id,
-                        actions: [
-                            RoleActions.CREATE_OWN,
-                            RoleActions.READ_OWN,
-                            RoleActions.UPDATE_OWN,
-                            RoleActions.DELETE_OWN
-                        ],
-                        attributes: '*'
-                    },
-                    {
-                        resource: resourcesId.find((resource) => resource.name === Resources.ORDER)
-                            ?.id,
                         actions: [
                             RoleActions.CREATE_OWN,
                             RoleActions.READ_OWN,
@@ -213,15 +153,9 @@ class RoleService {
         if (!roleName) return null;
         if (!roleHandleGetDataStrategy[roleName]) return null;
 
-        const roleData = await roleHandleGetDataStrategy[roleName](userId);
-        console.log({ roleData });
-        if (!roleData) return null;
-
-        console.log({ roleData });
-
         return {
             role_name: roleName,
-            role_data: roleData
+            role_data: await roleHandleGetDataStrategy[roleName](userId)
         };
     }
 }

@@ -38,7 +38,6 @@ discountGetRoute.get(
 /* ---------------------------------------------------------- */
 /*                      Validated route                       */
 /* ---------------------------------------------------------- */
-discountGetRouteValidated.use(authenticate);
-discountGetRoute.use(discountGetRouteValidated);
+discountGetRoute.use(authenticate, discountGetRouteValidated);
 
 export default discountGetRoute;

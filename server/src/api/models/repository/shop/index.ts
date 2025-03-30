@@ -4,8 +4,10 @@ import {
     generateFindAll,
     generateFindAllPageSplit,
     generateFindById,
-    generateFindOne
+    generateFindOne,
+    generateFindOneAndUpdate
 } from '@/utils/mongoose.util.js';
+import { jwtPayloadSignSchema } from '@/validations/joi/jwt.joi.js';
 
 export const isExistsShop = async ({
     shop_certificate,
@@ -38,15 +40,31 @@ export const findShop = generateFindAll<model.shop.ShopSchema>(shopModel);
 
 export const findShopPageSplit = generateFindAllPageSplit<model.shop.ShopSchema>(shopModel);
 
-export const findAllPendingShop = async (
-    payload: repo.shop.FindPendingShop<model.shop.ShopSchema>
-) => {
+export const findAllPendingShop = async ({
+    omit = [],
+    ...payload
+}: repo.shop.FindPendingShop<model.shop.ShopSchema>) => {
     return await findShopPageSplit({
         ...payload,
-        query: {
-            shop_status: ShopStatus.PENDING,
-            is_deleted: false
-        },
-        omit: ['__v', 'is_deleted', ...(payload.omit as any)] as any
+        query: { shop_status: ShopStatus.PENDING },
+        only: [
+            '_id',
+            'shop_userId',
+            'shop_email',
+            'shop_phoneNumber',
+            'shop_name',
+            'shop_type',
+            'shop_logo',
+            'shop_location',
+            'shop_owner_fullName',
+            'shop_owner_email',
+            'shop_status',
+            'is_brand'
+        ]
     });
 };
+
+/* ---------------------------------------------------------- */
+/*                           Update                           */
+/* ---------------------------------------------------------- */
+export const findOneAndUpdateShop = generateFindOneAndUpdate<model.shop.ShopSchema>(shopModel);

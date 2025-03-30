@@ -13,7 +13,7 @@ const roleSchema = new Schema<model.rbac.RoleSchema>(
         role_name: { type: String, enum: RoleNames, required, unique },
         role_slug: { type: String, unique },
         role_desc: { type: String, default: '' },
-        role_status: { type: String, enum: RoleStatus },
+        role_status: { type: String, enum: RoleStatus, default: RoleStatus.ACTIVE },
 
         role_granted: [
             {

@@ -13,8 +13,7 @@ const routerValidated = Router();
 /* ---------------------------------------------------------- */
 /*                        Authenticate                        */
 /* ---------------------------------------------------------- */
-router.use(routerValidated);
-routerValidated.use(authenticate);
+router.use(authenticate, routerValidated);
 
 routerValidated.post(
     '/add/:productId',

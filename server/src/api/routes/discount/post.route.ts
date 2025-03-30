@@ -5,20 +5,19 @@ import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import { createDiscountSchema } from '@/validations/joi/discount.joi.js';
 
-const discountPostRoute = Router();
-const discountPostRouteValidated = Router();
+const postRoute = Router();
+const postRouteValidated = Router();
 
 /* ---------------------------------------------------------- */
 /*                      Validated route                       */
 /* ---------------------------------------------------------- */
-discountPostRoute.use(discountPostRouteValidated);
-discountPostRouteValidated.use(authenticate);
+postRoute.use(authenticate, postRouteValidated);
 
 /* -------------------- Create discount  -------------------- */
-discountPostRouteValidated.post(
+postRouteValidated.post(
     '/create',
     validateRequestBody(createDiscountSchema),
     catchError(DiscountController.createDiscount)
 );
 
-export default discountPostRoute;
+export default postRoute;

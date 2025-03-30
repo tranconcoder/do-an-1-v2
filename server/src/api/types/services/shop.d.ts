@@ -14,6 +14,10 @@ declare global {
                 }
 
                 interface GetPendingShop extends commonTypes.object.PageSlitting {}
+
+                interface ApproveShop {
+                    shopId: string;
+                }
             }
         }
     }

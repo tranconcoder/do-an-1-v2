@@ -10,8 +10,7 @@ const getRouterValidated = Router();
 /* ---------------------------------------------------------- */
 /*                      Validated route                       */
 /* ---------------------------------------------------------- */
-getRouter.use(getRouterValidated);
-getRouterValidated.use(authenticate);
+getRouter.use(authenticate, getRouterValidated);
 
 getRouterValidated.get('/', catchError(CartController.getCart));
 

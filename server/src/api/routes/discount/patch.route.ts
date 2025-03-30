@@ -5,6 +5,7 @@ import {
     setAvailableDiscountSchema,
     setUnavailableDiscountSchema
 } from '@/validations/joi/discount.joi.js';
+import { authenticate } from '@/middlewares/jwt.middleware.js';
 
 const patchRoute = Router();
 const patchRouteValidated = Router();
@@ -12,6 +13,7 @@ const patchRouteValidated = Router();
 /* ---------------------------------------------------------- */
 /*                      Validated routes                      */
 /* ---------------------------------------------------------- */
+patchRoute.use(authenticate, patchRouteValidated);
 
 /* ----------------- Set available discount ----------------- */
 patchRouteValidated.patch('/set-available', validateRequestBody(setAvailableDiscountSchema));

@@ -1,6 +1,4 @@
 export enum RoleActions {
-    ALL = '*',
-
     /* ------------------------- Create ------------------------- */
     CREATE_ANY = 'create:any',
     CREATE_OWN = 'create:own',
@@ -32,6 +30,7 @@ export enum RoleStatus {
 }
 
 export enum Resources {
+    SHOP = 'shop',
     PROFILE = 'profile',
     ORDER = 'order',
     PRODUCT = 'product',

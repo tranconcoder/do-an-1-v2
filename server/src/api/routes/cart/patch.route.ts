@@ -11,8 +11,7 @@ const patchRouterValidated = Router();
 /* ---------------------------------------------------------- */
 /*                      Validated routes                      */
 /* ---------------------------------------------------------- */
-patchRouter.use(patchRouterValidated);
-patchRouterValidated.use(authenticate);
+patchRouter.use(authenticate, patchRouterValidated);
 
 patchRouterValidated.patch(
     '/update',
