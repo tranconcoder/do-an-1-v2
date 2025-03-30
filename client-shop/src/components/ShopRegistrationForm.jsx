@@ -52,7 +52,6 @@ const ShopRegistrationForm = () => {
             message.success(
                 'Shop registration submitted successfully! Please wait for admin approval.'
             );
-            navigate('/pending-approval');
         } catch (error) {
             if (error.name === 'ValidationError') {
                 error.errors.forEach((err) => message.error(err));

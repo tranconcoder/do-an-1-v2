@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
 import { timestamps, required, ObjectId } from '@/configs/mongoose.config.js';
 import { DiscountTypeEnum } from '@/enums/discount.enum.js';
-import { PRODUCT_MODEL_NAME } from './product.model.js';
+import { SPU_COLLECTION_NAME } from './spu.model.js';
 import { USER_MODEL_NAME } from './user.model.js';
 
 export const DISCOUNT_MODEL_NAME = 'Discount';
@@ -30,7 +30,7 @@ const discountSchema = new Schema<model.discount.DiscountSchema>(
         discount_used_count: { type: Number, default: 0 },
         discount_min_order_cost: Number,
         discount_products: {
-            type: [{ type: ObjectId, ref: PRODUCT_MODEL_NAME }],
+            type: [{ type: ObjectId, ref: SPU_COLLECTION_NAME }],
             default: []
         },
         discount_start_at: { type: Date, required },

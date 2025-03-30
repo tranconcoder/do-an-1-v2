@@ -15,6 +15,8 @@ import MongoDB from './src/app/db.app.js';
 import { provinceModel, districtModel, wardModel } from './src/api/models/location.model.js';
 import path from 'path';
 import RBACService from '@/services/rbac.service.js';
+import mediaService from '@/services/media.service.js';
+import categoryService from '@/services/category.service.js';
 
 const server = https
     .createServer(
@@ -47,6 +49,8 @@ process.on('SIGINT', async () => {
 const isInit = true;
 
 await RBACService.getInstance().initRBAC();
+await mediaService.initMedia();
+await categoryService.initCategory();
 
 if (isInit) {
     const provinceJsonFile = path.join(import.meta.dirname, './src/api/assets/provinces.json');

@@ -30,7 +30,9 @@ const roleSchema = new Schema<model.rbac.RoleSchema>(
 );
 
 roleSchema.pre('findOneAndUpdate', function (next) {
-    this._update.$set.role_slug = slugify.default(this._update.role_name.replaceAll('_', ' '), {
+    const _this = this as any;
+
+    _this._update.$set.role_slug = slugify.default(_this._update.role_name.replaceAll('_', ' '), {
         lower: true,
         locale: 'vi'
     });

@@ -6,7 +6,7 @@ import {
 
 // Models
 import keyTokenModel from '@/models/keyToken.model.js';
-import { productModel } from '@/models/product.model.js';
+import { spuModel } from '@/models/spu.model.js';
 
 // Services
 import JwtService from './jwt.service.js';
@@ -16,8 +16,8 @@ import LoggerService from './logger.service.js';
 import { CronJob } from 'cron';
 import { asyncFilter } from '@/utils/array.utils.js';
 import mongoose from 'mongoose';
-import { CategoryEnum } from '@/enums/product.enum.js';
-import { findAllProductId } from '@/models/repository/product/index.js';
+import { CategoryEnum } from '@/enums/spu.enum.js';
+import { findAllProductId } from '@/models/repository/spu/index.js';
 import { deleteKeyToken, setKeyToken } from './redis.service.js';
 
 export default class ScheduledService {
@@ -117,7 +117,7 @@ export default class ScheduledService {
         const productDifference = productIds.difference(productChildSet);
 
         await Promise.all([
-            productModel.deleteMany({
+            spuModel.deleteMany({
                 _id: { $in: Array.from(productDifference) }
             }),
             ...productChildsList.map(async (childList, index) => {

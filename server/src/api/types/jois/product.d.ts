@@ -1,4 +1,4 @@
-import type { CategoryEnum } from '@/enums/product.enum.js';
+import type { CategoryEnum } from '@/enums/spu.enum.ts';
 
 declare global {
     module joiTypes {
@@ -12,24 +12,24 @@ declare global {
                 /* ====================================================== */
                 interface CreatePhoneSchema
                     extends moduleTypes.mongoose.ConvertObjectIdToString<
-                        Omit<model.product.PhoneSchema, 'product_shop' | '_id'>
+                        Omit<model.spu.PhoneSchema, 'product_shop' | '_id'>
                     > {}
 
                 interface CreateClothesSchema
                     extends moduleTypes.mongoose.ConvertObjectIdToString<
-                        Omit<model.product.ClothesSchema, 'product_shop' | '_id'>
+                        Omit<model.spu.ClothesSchema, 'product_shop' | '_id'>
                     > {}
 
                 interface CreateProductSchema
                     extends Omit<
-                        model.product.ProductSchema,
+                        model.spu.SPUSchema,
                         | 'product_shop'
                         | 'product_rating_avg'
                         | 'product_slug'
                         | 'product_attributes'
                         | '_id'
                     > {
-                    product_attributes: model.product.ProductUnion;
+                    product_attributes: model.spu.ProductUnion;
                 }
 
                 /* ====================================================== */
@@ -46,7 +46,7 @@ declare global {
                 /*                        GET ONE                         */
                 /* ====================================================== */
                 interface GetProductByIdSchema
-                    extends Omit<service.product.arguments.GetProductById, 'userId'> {}
+                    extends Omit<service.spu.arguments.GetProductById, 'userId'> {}
 
                 /* ====================================================== */
                 /*                         GET ALL                        */

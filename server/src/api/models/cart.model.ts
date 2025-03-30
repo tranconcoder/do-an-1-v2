@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { timestamps, required } from '@/configs/mongoose.config.js';
 import { CartItemStatus } from '@/enums/cart.enum.js';
-import { PRODUCT_MODEL_NAME } from './product.model.js';
+import { SPU_COLLECTION_NAME } from './spu.model.js';
 import { USER_MODEL_NAME } from './user.model.js';
 import { ObjectId } from '@/configs/mongoose.config.js';
 
@@ -21,7 +21,7 @@ const cartSchema = new Schema<model.cart.CartSchema>(
                                 id: {
                                     type: ObjectId,
                                     required,
-                                    ref: PRODUCT_MODEL_NAME
+                                    ref: SPU_COLLECTION_NAME
                                 },
                                 name: { type: String, required },
                                 thumb: { type: String, required },

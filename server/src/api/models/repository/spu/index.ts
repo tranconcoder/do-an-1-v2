@@ -1,17 +1,16 @@
-import { getProductModel } from '@/configs/product.config.js';
 import { ITEM_PER_PAGE } from '@/configs/server.config.js';
 import ErrorResponse, {
     ForbiddenErrorResponse,
     NotFoundErrorResponse
 } from '@/response/error.response.js';
 import { generateFindAllPageSplit } from '@/utils/mongoose.util.js';
-import { productModel } from '@/models/product.model.js';
+import { spuModel } from '@/models/spu.model.js';
 
 // Common
 export const queryPaginate = async (query: object, page: number) => {
     if (!page || page < 1) throw new NotFoundErrorResponse({ message: 'Current page invalid!' });
 
-    return await productModel
+    return await spuModel
         .find(query)
         .sort({ created_at: -1 })
         .skip((page - 1) * ITEM_PER_PAGE)
@@ -20,10 +19,10 @@ export const queryPaginate = async (query: object, page: number) => {
 };
 
 export const queryProductByShop = async (
-    query: Partial<model.product.ProductSchema>,
+    query: Partial<model.spu.SPUSchema>,
     productShop: string
 ) => {
-    const product = await productModel.findById(query);
+    const product = await spuModel.findById(query);
     if (!product) throw new NotFoundErrorResponse({ message: 'Not found product!' });
     if (product.product_shop.toString() !== productShop)
         throw new ForbiddenErrorResponse({ message: 'Product shop is not match!' });
@@ -34,18 +33,18 @@ export const queryProductByShop = async (
 /* ---------------------------------------------------------- */
 /*                           Create                           */
 /* ---------------------------------------------------------- */
-export const createProduct = async (payload: service.product.arguments.CreateProduct) => {
-    return await productModel.create(payload);
+export const createProduct = async (payload: service.spu.arguments.CreateProduct) => {
+    return await spuModel.create(payload);
 };
 
 /* ------------------------------------------------------ */
 /*                         Search                         */
 /* ------------------------------------------------------ */
 /* ------------------- Search product ------------------- */
-export const searchProduct = async ({ page, query }: service.product.arguments.SearchProduct) => {
+export const searchProduct = async ({ page, query }: service.spu.arguments.SearchProduct) => {
     if (!page || page < 1) throw new NotFoundErrorResponse({ message: 'Current page invalid!' });
 
-    return await productModel
+    return await spuModel
         .find(
             {
                 is_publish: true,
@@ -66,7 +65,7 @@ export const searchProduct = async ({ page, query }: service.product.arguments.S
 /* ---------------------------------------------------------- */
 /* ----------------- Find product by id ----------------- */
 export const findProductById = async ({ productId, userId }: reop.product.FindProductById) => {
-    const product = await productModel.findById(productId, '+is_publish').lean();
+    const product = await spuModel.findById(productId, '+is_publish').lean();
     if (!product) throw new NotFoundErrorResponse({ message: 'Not found product!' });
 
     if (product.is_publish) return product;
@@ -77,25 +76,24 @@ export const findProductById = async ({ productId, userId }: reop.product.FindPr
     throw new ForbiddenErrorResponse({ message: 'Not permission to get this product!' });
 };
 
-export const findOneProduct = async (payload: Partial<model.product.ProductSchema>) => {
-    return await productModel.findOne(payload);
+export const findOneProduct = async (payload: Partial<model.spu.SPUSchema>) => {
+    return await spuModel.findOne(payload);
 };
 
 /* ------------- Find product category by id ------------ */
 export const findProductCategoryById = async (id: string) => {
-    return await productModel.findById(id).then((x) => x?.product_category);
+    return await spuModel.findById(id).then((x) => x?.product_category);
 };
 
 /* ------------------------------------------------------ */
 /*                        Find all                        */
 /* ------------------------------------------------------ */
 /* -------------------- Find all product -------------------- */
-export const findAllProduct =
-    generateFindAllPageSplit<model.product.ProductSchema<false, true>>(productModel);
+export const findAllProduct = generateFindAllPageSplit<model.spu.SPUSchema<false, true>>(spuModel);
 
 /* ------------ Find all product id as string ------------ */
 export const findAllProductId = async (
-    payload: reop.product.FindAllProductId<model.product.ProductSchema>
+    payload: reop.product.FindAllProductId<model.spu.SPUSchema>
 ) => {
     return findAllProduct({
         query: {},
@@ -128,7 +126,7 @@ export const findAllProductDraftByShop = async ({
     product_shop,
     limit,
     page
-}: service.product.arguments.GetAllProductDraftByShop) => {
+}: service.spu.arguments.GetAllProductDraftByShop) => {
     return findAllProduct({
         query: { product_shop, is_draft: true },
         options: { sort: 'ctime' },
@@ -142,8 +140,8 @@ export const findAllProductPublishByShop = async ({
     product_shop,
     page,
     limit
-}: service.product.arguments.GetAllProductPublishByShop) => {
-    const query: Partial<model.product.ProductSchema> = {
+}: service.spu.arguments.GetAllProductPublishByShop) => {
+    const query: Partial<model.spu.SPUSchema> = {
         product_shop,
         is_publish: true
     };
@@ -166,7 +164,7 @@ export const findAllProductUndraftByShop = async ({
     product_shop,
     limit,
     page
-}: service.product.arguments.GetAllProductUndraftByShop) => {
+}: service.spu.arguments.GetAllProductUndraftByShop) => {
     return await findAllProduct({
         query: { product_shop, is_draft: false },
         page,
@@ -179,7 +177,7 @@ export const findAllProductUnpublishByShop = async ({
     product_shop,
     limit,
     page
-}: service.product.arguments.GetAllProductUnpublishByShop) => {
+}: service.spu.arguments.GetAllProductUnpublishByShop) => {
     return await findAllProduct({
         query: {
             product_shop,
@@ -193,14 +191,14 @@ export const findAllProductUnpublishByShop = async ({
 
 /* ------------- Find product by shop and id ------------ */
 export const findProductByShopAndId = async (
-    payload: Pick<model.product.ProductSchema, 'product_shop' | '_id'>
+    payload: Pick<model.spu.SPUSchema, 'product_shop' | '_id'>
 ) => {
-    return await productModel.findOne(payload);
+    return await spuModel.findOne(payload);
 };
 
 /* ------------------- Check user is shop ------------------- */
 export const checkUserIsShop = async ({ userId }: reop.product.CheckUserIsShop) => {
-    return await productModel.exists({ product_shop: userId });
+    return await spuModel.exists({ product_shop: userId });
 };
 
 /* ------ Check products is available to apply discount ------ */
@@ -208,7 +206,7 @@ export const checkProductsIsAvailableToUse = async ({
     productIds,
     shopId
 }: reop.product.CheckProductsIsAvailableToApplyDiscount) => {
-    return !(await productModel.exists({
+    return !(await spuModel.exists({
         _id: { $in: productIds },
         $or: [{ is_publish: false }, { product_shop: { $ne: shopId } }]
     }));
@@ -218,7 +216,7 @@ export const checkProductsIsAvailableToUse = async ({
 export const checkProductsIsPublish = async ({
     productIds
 }: reop.product.CheckProductsIsPublish) => {
-    return !(await productModel.exists({
+    return !(await spuModel.exists({
         _id: { $in: productIds },
         is_publish: false
     }));
@@ -231,7 +229,7 @@ export const checkProductsIsPublish = async ({
 export const setDraftProduct = async ({
     product_id: _id,
     product_shop
-}: service.product.arguments.SetDraftProduct) => {
+}: service.spu.arguments.SetDraftProduct) => {
     /* ------------------ Validate product ------------------ */
     const product = await queryProductByShop({ _id }, product_shop);
 
@@ -246,7 +244,7 @@ export const setDraftProduct = async ({
 export const setPublishProduct = async ({
     product_id: _id,
     product_shop
-}: service.product.arguments.SetPublishProduct) => {
+}: service.spu.arguments.SetPublishProduct) => {
     const product = await queryProductByShop({ _id }, product_shop);
 
     product.is_publish = true;
@@ -260,7 +258,7 @@ export const setPublishProduct = async ({
 /* ------------------------------------------------------ */
 /* ---------------- Delete product by id ---------------- */
 export const deleteProductById = async (_id: string) => {
-    const product = await productModel.findByIdAndDelete(_id, { new: true });
+    const product = await spuModel.findByIdAndDelete(_id, { new: true });
     if (!product) throw new ErrorResponse({ message: 'Delete product failed!', statusCode: 400 });
 
     const productChildModel = getProductModel(product.product_category);
@@ -272,7 +270,7 @@ export const deleteProductById = async (_id: string) => {
 };
 
 /* ----------------- Delete one product ----------------- */
-export const deleteOneProduct = async (payload: Partial<model.product.ProductSchema>) => {
-    const { deletedCount } = await productModel.deleteOne(payload);
+export const deleteOneProduct = async (payload: Partial<model.spu.SPUSchema>) => {
+    const { deletedCount } = await spuModel.deleteOne(payload);
     return deletedCount;
 };

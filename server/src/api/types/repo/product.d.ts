@@ -33,10 +33,10 @@ declare global {
             /* ---------------------------------------------------------- */
             /*                            Find                            */
             /* ---------------------------------------------------------- */
-            interface FindProductById extends service.product.arguments.GetProductById {}
+            interface FindProductById extends service.spu.arguments.GetProductById {}
 
             interface FindAllProductByShop
-                extends Omit<service.product.arguments.GetAllProductByShop, 'userId'> {
+                extends Omit<service.spu.arguments.GetAllProductByShop, 'userId'> {
                 isOwner: boolean;
             }
         }

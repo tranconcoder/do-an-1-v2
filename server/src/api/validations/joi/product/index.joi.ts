@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { CategoryEnum } from '@/enums/product.enum.js';
+import { CategoryEnum } from '@/enums/spu.enum.js';
 import { createPhoneSchema, updatePhoneSchema } from './phone.joi.js';
 import { createClothesSchema, updateClothesSchema } from './clothes.joi.js';
 import { mongooseId, pageSplitting } from '@/configs/joi.config.js';

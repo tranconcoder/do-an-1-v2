@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 import { timestamps, required, ObjectId } from '@/configs/mongoose.config.js';
-import { PRODUCT_MODEL_NAME } from './product.model.js';
+import { SPU_COLLECTION_NAME } from './spu.model.js';
 import { USER_MODEL_NAME } from './user.model.js';
 
 export const INVENTORY_MODEL_NAME = 'Inventory';
@@ -10,7 +10,7 @@ const inventorySchema = new Schema<model.inventory.InventorySchema>(
     {
         inventory_product: {
             type: ObjectId,
-            ref: PRODUCT_MODEL_NAME,
+            ref: SPU_COLLECTION_NAME,
             required,
             index: true
         },

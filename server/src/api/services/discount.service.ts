@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { PessimisticKeys } from '@/enums/redis.enum.js';
 import discountModel from '@/models/discount.model.js';
 import discountUsedModel from '@/models/discountUsed.model.js';
-import { productModel } from '@/models/product.model.js';
+import { spuModel } from '@/models/spu.model.js';
 import {
     cancelDiscount,
     checkConflictDiscountInShop,
@@ -16,7 +16,7 @@ import {
     findAllProduct,
     checkProductsIsAvailableToUse,
     checkProductsIsPublish
-} from '@/models/repository/product/index.js';
+} from '@/models/repository/spu/index.js';
 import {
     BadRequestErrorResponse,
     ConflictErrorResponse,
@@ -210,7 +210,7 @@ export default class DiscountService {
             });
 
         /* ---------------------- Get products ---------------------- */
-        const foundProducts = await productModel.find({ _id: { $in: productIds } }).lean();
+        const foundProducts = await spuModel.find({ _id: { $in: productIds } }).lean();
         if (foundProducts.length !== productIds.length)
             throw new BadRequestErrorResponse({ message: 'Get products failed!' });
 

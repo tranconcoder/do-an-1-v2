@@ -1,7 +1,6 @@
 import { RequestHandler } from 'express';
 import { ITEM_PER_PAGE } from 'src/configs/server.config.js';
 import SuccessResponse, { CreatedResponse, OkResponse } from '@/response/success.response.js';
-import ProductFactory from '@/services/product/index.js';
 import { RequestWithBody, RequestWithParams, RequestWithQuery } from '@/types/request.js';
 
 export default class ProductController {
@@ -22,7 +21,7 @@ export default class ProductController {
     /* ------------------------------------------------------ */
     /*                         Search                         */
     /* ------------------------------------------------------ */
-    public static searchProduct: RequestWithQuery<service.product.arguments.SearchProduct> = async (
+    public static searchProduct: RequestWithQuery<service.spu.arguments.SearchProduct> = async (
         req,
         res,
         _
@@ -42,18 +41,21 @@ export default class ProductController {
     /*                      Get product                       */
     /* ------------------------------------------------------ */
     /* ----------------- Get product by id  ----------------- */
-    public static getProductById: RequestWithParams<service.product.arguments.GetProductById> =
-        async (req, res, _) => {
-            new SuccessResponse({
-                name: 'Get product by id',
-                message: 'Get product by id success',
-                statusCode: 200,
-                metadata: await ProductFactory.getProductById({
-                    productId: req.params.productId,
-                    userId: req.userId
-                })
-            }).send(res);
-        };
+    public static getProductById: RequestWithParams<service.spu.arguments.GetProductById> = async (
+        req,
+        res,
+        _
+    ) => {
+        new SuccessResponse({
+            name: 'Get product by id',
+            message: 'Get product by id success',
+            statusCode: 200,
+            metadata: await ProductFactory.getProductById({
+                productId: req.params.productId,
+                userId: req.userId
+            })
+        }).send(res);
+    };
 
     /* ---------------------------------------------------------- */
     /*                          Get all                           */
@@ -158,7 +160,7 @@ export default class ProductController {
     /*                     Update product                     */
     /* ------------------------------------------------------ */
     /* ------------------- Update product ------------------- */
-    public static updateProduct: RequestWithBody<service.product.arguments.UpdateProduct> = async (
+    public static updateProduct: RequestWithBody<service.spu.arguments.UpdateProduct> = async (
         req,
         res,
         _

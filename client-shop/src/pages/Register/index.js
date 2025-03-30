@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames/bind';
-import { shopRegisterSchema } from '../../validations/shop.validation';
+import { registerShopSchema } from '../../validations/shop.validation';
 import styles from './Register.module.scss';
 import axiosClient from '../../configs/axios';
 import { AuthSection, OwnerInfoSection, ShopInfoSection, WarehouseSection } from './components';
@@ -86,7 +86,13 @@ function Register() {
         const fetchProvinces = async () => {
             try {
                 const response = await axiosClient.get('/location/province');
-                setProvinces(response.metadata || []);
+                console.log('Provinces response:', response);
+                // Check if data is in response.data.metadata instead of response.metadata
+                if (response.data && response.data.metadata) {
+                    setProvinces(response.data.metadata || []);
+                } else {
+                    setProvinces(response.metadata || []);
+                }
             } catch (err) {
                 console.error('Lỗi khi lấy danh sách tỉnh/thành phố:', err);
             }
@@ -105,7 +111,13 @@ function Register() {
                 const response = await axiosClient.get(
                     `/location/district/province/${formData.shop_location.province}`
                 );
-                setDistricts(response.metadata || []);
+                console.log('Districts response:', response);
+                // Check if data is in response.data.metadata instead of response.metadata
+                if (response.data && response.data.metadata) {
+                    setDistricts(response.data.metadata || []);
+                } else {
+                    setDistricts(response.metadata || []);
+                }
             } catch (err) {
                 console.error('Lỗi khi lấy danh sách quận/huyện:', err);
             }
@@ -124,7 +136,13 @@ function Register() {
                 const response = await axiosClient.get(
                     `/location/ward/district/${formData.shop_location.district}`
                 );
-                setWards(response.metadata || []);
+                console.log('Wards response:', response);
+                // Check if data is in response.data.metadata instead of response.metadata
+                if (response.data && response.data.metadata) {
+                    setWards(response.data.metadata || []);
+                } else {
+                    setWards(response.metadata || []);
+                }
             } catch (err) {
                 console.error('Lỗi khi lấy danh sách phường/xã:', err);
             }
@@ -143,7 +161,13 @@ function Register() {
                 const response = await axiosClient.get(
                     `/location/district/province/${currentWarehouse.address.province}`
                 );
-                setWarehouseDistricts(response.metadata || []);
+                console.log('Warehouse districts response:', response);
+                // Check if data is in response.data.metadata instead of response.metadata
+                if (response.data && response.data.metadata) {
+                    setWarehouseDistricts(response.data.metadata || []);
+                } else {
+                    setWarehouseDistricts(response.metadata || []);
+                }
             } catch (err) {
                 console.error('Lỗi khi lấy danh sách quận/huyện cho kho hàng:', err);
             }
@@ -162,7 +186,13 @@ function Register() {
                 const response = await axiosClient.get(
                     `/location/ward/district/${currentWarehouse.address.district}`
                 );
-                setWarehouseWards(response.metadata || []);
+                console.log('Warehouse wards response:', response);
+                // Check if data is in response.data.metadata instead of response.metadata
+                if (response.data && response.data.metadata) {
+                    setWarehouseWards(response.data.metadata || []);
+                } else {
+                    setWarehouseWards(response.metadata || []);
+                }
             } catch (err) {
                 console.error('Lỗi khi lấy danh sách phường/xã cho kho hàng:', err);
             }
@@ -351,7 +381,7 @@ function Register() {
 
     const validateForm = async () => {
         try {
-            await shopRegisterSchema.validate(formData, { abortEarly: false });
+            await registerShopSchema.validate(formData, { abortEarly: false });
             setErrors({});
             return true;
         } catch (err) {

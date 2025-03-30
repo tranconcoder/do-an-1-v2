@@ -22,6 +22,9 @@ import AdminShopRegistrationDetail from '../pages/AdminShopRegistrationDetail';
 import ShopStatusGuard from '../components/ShopStatusGuard';
 import AdminGuard from '../components/AdminGuard';
 
+// Constants
+import { ShopStatus } from '../constants/shop.enum';
+
 const AppRoutes = () => {
     const dispatch = useDispatch();
     const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -72,7 +75,7 @@ const AppRoutes = () => {
                     path="/"
                     element={
                         <ProtectedRoute>
-                            <ShopStatusGuard>
+                            <ShopStatusGuard requiredStatus={ShopStatus.ACTIVE}>
                                 <ShopManagerLayout />
                             </ShopStatusGuard>
                         </ProtectedRoute>
@@ -86,6 +89,26 @@ const AppRoutes = () => {
                     <Route path="discount" element={<h1>Shop Discounts</h1>} />
                     <Route path="settings" element={<h1>Shop Settings</h1>} />
                 </Route>
+
+                {/* Route for pending approval status */}
+                <Route
+                    path="/pending-approval"
+                    element={
+                        <ProtectedRoute>
+                            <div>Your shop registration is pending approval</div>
+                        </ProtectedRoute>
+                    }
+                />
+
+                {/* Route for rejected shops */}
+                <Route
+                    path="/shop-rejected"
+                    element={
+                        <ProtectedRoute>
+                            <div>Your shop registration has been rejected</div>
+                        </ProtectedRoute>
+                    }
+                />
 
                 <Route path="*" element={<div>Page not found</div>} />
             </Routes>

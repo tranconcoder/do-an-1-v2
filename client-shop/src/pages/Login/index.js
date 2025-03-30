@@ -110,6 +110,7 @@ function Login() {
             return 'Đăng ký cửa hàng của bạn đã bị từ chối. Vui lòng liên hệ hỗ trợ để biết thêm thông tin.';
         }
         if (reduxError) {
+            console.log(reduxError);
             return reduxError.message || 'Số điện thoại hoặc mật khẩu không hợp lệ';
         }
         return null;

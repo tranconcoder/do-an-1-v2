@@ -1,5 +1,5 @@
 import axios from 'axios';
-import jwtConfig from './jwt.config';
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from './jwt.config';
 import { API_URL } from './env.config';
 
 // Create axios instance
@@ -12,8 +12,8 @@ const axiosClient = axios.create({
 });
 
 // Authentication token storage
-let accessToken = localStorage.getItem('accessToken');
-let refreshToken = localStorage.getItem('refreshToken');
+let accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+let refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
 
 // Flag to prevent multiple refresh token requests
 let isRefreshing = false;
@@ -33,6 +33,9 @@ const onRefreshed = (newToken) => {
 // Add request interceptor to attach the token to all requests
 axiosClient.interceptors.request.use(
     (config) => {
+        // Get the current token in case it was updated
+        accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+
         // Skip adding token for login, sign-up, and refresh token routes
         const isAuthRoute =
             config.url.includes('/auth/login') ||
@@ -41,6 +44,11 @@ axiosClient.interceptors.request.use(
 
         if (accessToken && !isAuthRoute) {
             config.headers['Authorization'] = `Bearer ${accessToken}`;
+        }
+
+        // If the request data is FormData, let the browser set the Content-Type automatically
+        if (config.data instanceof FormData) {
+            delete config.headers['Content-Type']; // Let the browser set it to multipart/form-data with boundary
         }
 
         return config;
@@ -66,6 +74,9 @@ axiosClient.interceptors.response.use(
                 originalRequest._retry = true;
 
                 try {
+                    // Get the current refresh token
+                    refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+
                     // Call the refresh token endpoint
                     const response = await axios.post(
                         `${API_URL}/auth/new-token`,
@@ -82,8 +93,8 @@ axiosClient.interceptors.response.use(
                         response.data.metadata;
 
                     // Update tokens in storage
-                    localStorage.setItem('accessToken', newAccessToken);
-                    localStorage.setItem('refreshToken', newRefreshToken);
+                    localStorage.setItem(ACCESS_TOKEN_KEY, newAccessToken);
+                    localStorage.setItem(REFRESH_TOKEN_KEY, newRefreshToken);
                     accessToken = newAccessToken;
                     refreshToken = newRefreshToken;
 
@@ -101,9 +112,8 @@ axiosClient.interceptors.response.use(
                     return axiosClient(originalRequest);
                 } catch (refreshError) {
                     // If refresh token fails, logout the user
-                    localStorage.removeItem('accessToken');
-                    localStorage.removeItem('refreshToken');
-                    localStorage.removeItem('user');
+                    localStorage.removeItem(ACCESS_TOKEN_KEY);
+                    localStorage.removeItem(REFRESH_TOKEN_KEY);
 
                     // Clear tokens in memory
                     accessToken = null;
@@ -124,7 +134,6 @@ axiosClient.interceptors.response.use(
                 });
             }
         }
-
         return Promise.reject(error);
     }
 );
@@ -134,8 +143,8 @@ export const setAuthTokens = (tokens) => {
     if (tokens && tokens.accessToken && tokens.refreshToken) {
         accessToken = tokens.accessToken;
         refreshToken = tokens.refreshToken;
-        localStorage.setItem('accessToken', tokens.accessToken);
-        localStorage.setItem('refreshToken', tokens.refreshToken);
+        localStorage.setItem(ACCESS_TOKEN_KEY, tokens.accessToken);
+        localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refreshToken);
         axiosClient.defaults.headers.common['Authorization'] = `Bearer ${tokens.accessToken}`;
     }
 };
@@ -144,8 +153,8 @@ export const setAuthTokens = (tokens) => {
 export const clearAuthTokens = () => {
     accessToken = null;
     refreshToken = null;
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
     delete axiosClient.defaults.headers.common['Authorization'];
 };
 

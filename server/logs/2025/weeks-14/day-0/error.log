@@ -2328,3 +2328,219 @@
 [2025-03-30T05:30:58.238Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-03-30T05:30:58.253Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-03-30T05:31:49.851Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T05:34:30.103Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-03-30T05:42:32.035Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:42:32.043Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:42:33.074Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:42:33.081Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:42:39.084Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:42:39.088Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:42:51.396Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:42:51.400Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:43:17.896Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:43:17.900Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:43:24.502Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:43:24.510Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:43:42.032Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:43:42.060Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T05:43:42.066Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T05:54:49.842Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-30T05:54:49.845Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-30T05:54:54.393Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-30T05:54:54.394Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-30T05:55:07.901Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-30T05:55:07.911Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-30T05:55:09.061Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:55:09.071Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:56:42.720Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:56:42.725Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:57:08.918Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:57:08.924Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:57:12.515Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T05:57:12.520Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:00:20.917Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:00:20.948Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:00:20.956Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:00:28.696Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:00:28.700Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:00:30.232Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:00:30.237Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:00:35.106Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:00:35.111Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:00:58.393Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:00:58.398Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:09:54.758Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-30T06:09:54.764Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-30T06:10:28.445Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-30T06:10:28.505Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-30T06:11:10.498Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:12:12.438Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:12:35.141Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:12:35.168Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:12:35.174Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:12:51.749Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:12:51.753Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:13:33.997Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:13:34.006Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:13:53.413Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:14:28.390Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:14:28.392Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:14:42.432Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:14:42.464Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:14:42.470Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:15:56.860Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:15:56.867Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:15:57.656Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:15:57.661Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:15:58.836Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:15:58.842Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:15:59.238Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:15:59.244Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:15:59.616Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:15:59.622Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:16:01.726Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:16:01.735Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:16:07.591Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:16:07.595Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:16:16.947Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:16:16.951Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:17:01.449Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:17:01.461Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:17:01.937Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:17:01.943Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:17:03.840Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:17:03.845Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:17:17.699Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:17:17.703Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:17:36.177Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:17:36.206Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:17:36.212Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:19:45.235Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:19:45.237Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:19:46.629Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:19:46.634Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:19:52.300Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:19:52.302Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:20:04.931Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:20:04.956Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:20:04.960Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:20:43.488Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:21:07.273Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:21:07.280Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:21:23.619Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:21:23.621Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:21:43.696Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:21:43.703Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:22:43.190Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:22:44.170Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:22:45.317Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:22:47.195Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:22:53.045Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:22:53.051Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:22:58.956Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:22:58.963Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:23:05.921Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:25:09.950Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:25:09.955Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:25:44.802Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:25:44.808Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:25:54.406Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:25:54.432Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:25:54.438Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:27:40.871Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:28:30.849Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:28:30.864Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:28:31.447Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:28:31.454Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:28:33.799Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:28:33.807Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:28:40.011Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:28:40.037Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:28:40.043Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T06:29:01.981Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:29:47.644Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:29:47.651Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:29.455Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:29.459Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:33.406Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:33.413Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:34.073Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:34.079Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:36.111Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:36.120Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:39.472Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:39.479Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:40.954Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:40.962Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:56.212Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:56.216Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:57.811Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:57.816Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:59.820Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:31:59.826Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:32:34.185Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:32:34.190Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:32:37.785Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:32:37.790Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:32:46.740Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:32:46.742Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:32:56.498Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:32:56.506Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:34:07.020Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:34:07.029Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:34:33.387Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:34:33.393Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:34:34.799Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:34:34.806Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:34:51.015Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:34:51.019Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:35:03.191Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:35:03.196Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:35:11.714Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:36:16.777Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:36:16.783Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T06:52:59.167Z] [error]: Error while cleanup avatar!
+[2025-03-30T06:52:59.168Z] [error]: HIDE::404::NotFound::File 'shop_logo' not found!::
+[2025-03-30T06:53:13.636Z] [error]: Error while cleanup avatar!
+[2025-03-30T06:53:13.637Z] [error]: HIDE::404::NotFound::File 'shop_logo' not found!::
+[2025-03-30T06:53:20.504Z] [error]: Error while cleanup avatar!
+[2025-03-30T06:53:20.504Z] [error]: HIDE::404::NotFound::File 'shop_logo' not found!::
+[2025-03-30T07:16:17.729Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T11:24:00.014Z] [error]: Client must be connected before running operations
+[2025-03-30T11:24:00.021Z] [error]: Client must be connected before running operations
+[2025-03-30T11:25:00.334Z] [error]: Client must be connected before running operations
+[2025-03-30T11:25:00.342Z] [error]: Client must be connected before running operations
+[2025-03-30T11:26:00.359Z] [error]: Client must be connected before running operations
+[2025-03-30T11:26:00.364Z] [error]: Client must be connected before running operations
+[2025-03-30T11:27:00.361Z] [error]: Client must be connected before running operations
+[2025-03-30T11:27:00.368Z] [error]: Client must be connected before running operations
+[2025-03-30T11:28:00.395Z] [error]: Client must be connected before running operations
+[2025-03-30T11:28:00.399Z] [error]: Client must be connected before running operations
+[2025-03-30T11:29:00.347Z] [error]: Client must be connected before running operations
+[2025-03-30T11:29:00.349Z] [error]: Client must be connected before running operations
+[2025-03-30T11:30:00.345Z] [error]: Client must be connected before running operations
+[2025-03-30T11:30:00.348Z] [error]: Client must be connected before running operations
+[2025-03-30T11:31:00.352Z] [error]: Client must be connected before running operations
+[2025-03-30T11:31:00.355Z] [error]: Client must be connected before running operations
+[2025-03-30T11:32:00.372Z] [error]: Client must be connected before running operations
+[2025-03-30T11:32:00.376Z] [error]: Client must be connected before running operations
+[2025-03-30T11:33:00.361Z] [error]: Client must be connected before running operations
+[2025-03-30T11:33:00.363Z] [error]: Client must be connected before running operations
+[2025-03-30T11:34:00.363Z] [error]: Client must be connected before running operations
+[2025-03-30T11:34:00.365Z] [error]: Client must be connected before running operations
+[2025-03-30T11:35:00.373Z] [error]: Client must be connected before running operations
+[2025-03-30T11:35:00.376Z] [error]: Client must be connected before running operations
+[2025-03-30T11:36:00.361Z] [error]: Client must be connected before running operations
+[2025-03-30T11:36:00.363Z] [error]: Client must be connected before running operations
+[2025-03-30T11:37:00.366Z] [error]: Client must be connected before running operations
+[2025-03-30T11:37:00.369Z] [error]: Client must be connected before running operations
+[2025-03-30T11:38:00.340Z] [error]: Client must be connected before running operations
+[2025-03-30T11:38:00.342Z] [error]: Client must be connected before running operations
+[2025-03-30T11:39:00.337Z] [error]: Client must be connected before running operations
+[2025-03-30T11:39:00.339Z] [error]: Client must be connected before running operations
+[2025-03-30T11:40:00.357Z] [error]: Client must be connected before running operations
+[2025-03-30T11:40:00.359Z] [error]: Client must be connected before running operations
+[2025-03-30T11:41:00.357Z] [error]: Client must be connected before running operations
+[2025-03-30T11:41:00.359Z] [error]: Client must be connected before running operations
+[2025-03-30T11:42:00.282Z] [error]: Client must be connected before running operations
+[2025-03-30T11:42:00.284Z] [error]: Client must be connected before running operations

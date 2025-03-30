@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Spin } from 'antd';
-import axios from '../configs/axios';
 import { ShopStatus } from '../constants/shop.enum';
+import { selectShopInfo, logout } from '../store/userSlice';
 
 /**
  * A guard component that controls access based on shop registration status
@@ -13,35 +13,28 @@ import { ShopStatus } from '../constants/shop.enum';
  * @param {string} props.redirectTo - Where to redirect if status doesn't match
  */
 const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/pending-approval' }) => {
-    const [loading, setLoading] = useState(true);
-    const [shopStatus, setShopStatus] = useState(null);
-    const user = useSelector((state) => state.user?.currentUser);
     const location = useLocation();
+    const dispatch = useDispatch();
+    const shopInfo = useSelector(selectShopInfo);
+    const loading = !shopInfo;
 
+    // Get shop status from the Redux store (which is populated from user profile)
+    const shopStatus = shopInfo?.shop_status || null;
+
+    // Set up a timeout to check if shopInfo is loaded within 5 seconds
     useEffect(() => {
-        // Skip checking if no user is logged in
-        if (!user || !user._id) {
-            setLoading(false);
-            return;
-        }
-
-        const checkShopStatus = async () => {
-            try {
-                const response = await axios.get('/shops/status');
-                if (response.data && response.data.metadata) {
-                    setShopStatus(response.data.metadata.status);
-                }
-            } catch (error) {
-                console.error('Error fetching shop status:', error);
-                // If error, assume no shop or not authorized
-                setShopStatus(null);
-            } finally {
-                setLoading(false);
+        const timeoutId = setTimeout(() => {
+            // If after 5 seconds we're still loading or shopInfo is still null, log the user out
+            if (loading || !shopInfo) {
+                console.log('Shop information not loaded within 5 seconds. Logging out...');
+                dispatch(logout());
+                // Redirect handled by ProtectedRoute component since isAuthenticated will be false
             }
-        };
+        }, 5000);
 
-        checkShopStatus();
-    }, [user]);
+        // Clean up the timeout if the component unmounts or shopInfo becomes available
+        return () => clearTimeout(timeoutId);
+    }, [loading, shopInfo, dispatch]);
 
     if (loading) {
         return (
@@ -62,14 +55,13 @@ const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/pending-appr
     if (shopStatus !== requiredStatus) {
         // Special case for pending status - redirect to pending page
         if (shopStatus === ShopStatus.PENDING) {
-            return <Navigate to="/pending-approval" state={{ from: location }} replace />;
+            dispatch(logout());
+            return <Navigate to="/login" state={{ from: location }} replace />;
         }
-
         // If shop is banned/rejected, redirect to a rejected page
-        if (shopStatus === ShopStatus.BANNED) {
+        if (shopStatus === ShopStatus.BANNED || shopStatus === ShopStatus.REJECTED) {
             return <Navigate to="/shop-rejected" state={{ from: location }} replace />;
         }
-
         // For any other mismatch, use the provided redirect
         return <Navigate to={redirectTo} state={{ from: location }} replace />;
     }

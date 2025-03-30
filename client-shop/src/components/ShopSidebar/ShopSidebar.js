@@ -58,8 +58,8 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
     const shopName = shopInfo?.shop_name || 'Cửa Hàng Của Tôi';
     const shopStatus = shopInfo?.shop_status || 'pending';
 
-    // Get logo URL using the media utility
-    const logoUrl = getMediaUrl(shopInfo?.shop.shop_logo);
+    // Get logo URL using the media utility - Fix accessing shop_logo directly from shopInfo
+    const logoUrl = getMediaUrl(shopInfo?.shop_logo);
 
     // Get text-based placeholder if no logo is available
     const placeholder = getTextPlaceholder(shopInfo?.shop_name, 40);

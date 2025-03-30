@@ -84,7 +84,7 @@ const ShopApprovals = () => {
     const handleApproveShop = async (shopId) => {
         try {
             setLoading(true);
-            await axios.put(`/shop/${shopId}/approve`);
+            await axios.patch(`/shop/approve/${shopId}`);
             // Refresh the list after approval
             fetchPendingShops();
             alert('Shop has been approved successfully!');
@@ -111,7 +111,7 @@ const ShopApprovals = () => {
 
         try {
             setLoading(true);
-            await axios.put(`/shop/${selectedShop._id}/reject`, { reason: rejectReason });
+            await axios.patch(`/shop/reject/${selectedShop._id}`);
             // Close dialog and refresh list
             setShowRejectDialog(false);
             setRejectReason('');

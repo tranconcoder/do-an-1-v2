@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import ProductController from '@/controllers/product.controller.js';
+import ProductController from '@/controllers/spu.controller.js';
 import catchError from '@/middlewares/catchError.middleware.js';
 import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
 import { createProductSchema } from '@/validations/joi/product/index.joi.js';

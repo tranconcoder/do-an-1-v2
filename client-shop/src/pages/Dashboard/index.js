@@ -9,12 +9,9 @@ import { getMediaUrl, getTextPlaceholder } from '../../utils/media';
 const cx = classNames.bind(styles);
 
 function Dashboard() {
-    const currentUser = useSelector(selectCurrentUser);
-    const shopInfo = useSelector(selectShopInfo);
-
-    // Extract shop and user info from the nested structure
-    const shop = shopInfo?.shop || {};
-    const user = shopInfo?.user || {};
+    const user = useSelector(selectCurrentUser);
+    const shop = useSelector(selectShopInfo);
+    console.log({ shopInfo: shop, currentUser: user });
 
     // Get logo URL using the media utility
     const logoUrl = getMediaUrl(shop?.shop_logo);

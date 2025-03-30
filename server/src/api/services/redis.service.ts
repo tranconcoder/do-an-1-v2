@@ -94,7 +94,7 @@ export const setUserProfile = async ({
         user_fullName,
         user_email,
         phoneNumber,
-        user_role: user_role.toString()
+        user_role: user_role?.toString()
     });
 };
 

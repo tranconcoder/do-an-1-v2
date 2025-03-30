@@ -9,17 +9,35 @@ export const loginUser = createAsyncThunk(
         try {
             const response = await axiosClient.post('/auth/login', { phoneNumber, password });
 
-            if (response.statusCode !== 200) {
+            if (response.status !== 200) {
                 return rejectWithValue(response.message || 'Login failed');
             }
 
-            // Store tokens in localStorage - tokens are in response.metadata.token
-            localStorage.setItem(ACCESS_TOKEN_KEY, response.metadata.token.accessToken);
-            localStorage.setItem(REFRESH_TOKEN_KEY, response.metadata.token.refreshToken);
+            // Check if 'shop' exists in the response metadata using 'in' operator
+            if (!('shop' in response.data.metadata)) {
+                return rejectWithValue({
+                    message: 'Tài khoản này không phải là tài khoản cửa hàng'
+                });
+            }
 
-            // Return user info from response.metadata.user
-            return response.metadata.user;
+            // Check if shop status is active
+            if (response.data.metadata.shop.shop_status !== 'active') {
+                return rejectWithValue({
+                    message: 'Tài khoản cửa hàng chưa được kích hoạt'
+                });
+            }
+
+            // Only store tokens if the user has shop permissions
+            localStorage.setItem(ACCESS_TOKEN_KEY, response.data.metadata.token.accessToken);
+            localStorage.setItem(REFRESH_TOKEN_KEY, response.data.metadata.token.refreshToken);
+
+            // Return both user info and shop info from the response
+            return {
+                user: response.data.metadata.user,
+                shop: response.data.metadata.shop
+            };
         } catch (error) {
+            console.log({ error });
             return rejectWithValue(error.response?.data || 'Login failed');
         }
     }
@@ -32,20 +50,41 @@ export const registerShop = createAsyncThunk(
         try {
             const response = await axiosClient.post('/auth/sign-up-shop', shopData);
 
-            if (response.statusCode !== 201 && response.statusCode !== 200) {
-                return rejectWithValue(response.message || 'Shop registration failed');
+            console.log('Shop registration response:', response);
+
+            // Check response status in response.data or response directly
+            if (
+                response.data?.statusCode !== 201 &&
+                response.data?.statusCode !== 200 &&
+                response.statusCode !== 201 &&
+                response.statusCode !== 200 &&
+                response.status !== 201 &&
+                response.status !== 200
+            ) {
+                const errorMessage =
+                    response.data?.message || response.message || 'Shop registration failed';
+                return rejectWithValue(errorMessage);
+            }
+
+            // Check if tokens are in response.data.metadata or response.metadata
+            const metadata = response.data?.metadata || response.metadata;
+
+            if (!metadata || !metadata.token) {
+                console.error('Missing token data in registration response', response);
+                return rejectWithValue('Registration completed but token data is missing');
             }
 
             // Store tokens in localStorage
-            localStorage.setItem(ACCESS_TOKEN_KEY, response.metadata.token.accessToken);
-            localStorage.setItem(REFRESH_TOKEN_KEY, response.metadata.token.refreshToken);
+            localStorage.setItem(ACCESS_TOKEN_KEY, metadata.token.accessToken);
+            localStorage.setItem(REFRESH_TOKEN_KEY, metadata.token.refreshToken);
 
             // Return both user and shop info from the response
             return {
-                user: response.metadata.user,
-                shop: response.metadata.shop
+                user: metadata.user,
+                shop: metadata.shop
             };
         } catch (error) {
+            console.error('Shop registration error:', error);
             return rejectWithValue(error.response?.data || 'Shop registration failed');
         }
     }
@@ -57,7 +96,15 @@ export const fetchUserProfile = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const response = await axiosClient.get('/user/profile');
-            return response.metadata || response.data;
+
+            // Make sure we have the shop information in the response
+            if (response.data && response.data.metadata && response.data.metadata.shop) {
+                return {
+                    user: response.data.metadata.user,
+                    shop: response.data.metadata.shop
+                };
+            }
+            return response.data.metadata || response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || 'Failed to fetch profile');
         }
@@ -122,18 +169,21 @@ const userSlice = createSlice({
                 state.loading = false;
                 // Map the user data from the API response to our state structure
                 state.currentUser = {
-                    user_email: action.payload.user_email || '',
-                    user_avatar: action.payload.user_avatar || '',
-                    user_fullName: action.payload.user_fullName || '',
-                    user_dayOfBirth: action.payload.user_dayOfBirth || null,
+                    user_email: action.payload.user.user_email || '',
+                    user_avatar: action.payload.user.user_avatar || '',
+                    user_fullName: action.payload.user.user_fullName || '',
+                    user_dayOfBirth: action.payload.user.user_dayOfBirth || null,
                     user_sex:
-                        action.payload.user_sex !== undefined ? action.payload.user_sex : false,
-                    user_role: action.payload.user_role || null,
-                    phoneNumber: action.payload.phoneNumber || '',
-                    _id: action.payload._id || '',
+                        action.payload.user.user_sex !== undefined
+                            ? action.payload.user.user_sex
+                            : false,
+                    user_role: action.payload.user.user_role || null,
+                    phoneNumber: action.payload.user.phoneNumber || '',
+                    _id: action.payload.user._id || '',
                     // Preserve any other fields that might come from the API
-                    ...action.payload
+                    ...action.payload.user
                 };
+                state.shopInfo = action.payload.shop;
                 state.isAuthenticated = true;
             })
             .addCase(loginUser.rejected, (state, action) => {
@@ -179,9 +229,13 @@ const userSlice = createSlice({
             })
             .addCase(fetchUserProfile.fulfilled, (state, action) => {
                 state.loading = false;
-                state.shopInfo = action.payload;
 
-                // If the profile includes user data, update the user state as well
+                // If we have shop data in the response, update the shopInfo state
+                if (action.payload.shop) {
+                    state.shopInfo = action.payload.shop;
+                }
+
+                // If we have user data in the response, update the user state
                 if (action.payload.user) {
                     state.currentUser = {
                         ...state.currentUser,

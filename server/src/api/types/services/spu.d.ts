@@ -1,23 +1,12 @@
-import type { CategoryEnum } from '@/enums/product.enum.js';
+import type { CategoryEnum } from '@/enums/spu.enum.ts';
 
 declare global {
     namespace service {
-        namespace product {
+        namespace spu {
             /* ====================================================== */
             /*                       DEFINITION                       */
             /* ====================================================== */
-            namespace definition {
-                interface Product
-                    extends Partial<model.product.ProductSchema>,
-                        Partial<
-                            Pick<
-                                joiTypes.product.definition.UpdateProductSchema,
-                                'product_new_category'
-                            >
-                        > {
-                    product_attributes?: model.product.ProductSchemaList;
-                }
-            }
+            namespace definition {}
 
             /* ------------------------------------------------------ */
             /*                   Function arguments                   */
@@ -26,7 +15,19 @@ declare global {
                 /* ------------------------------------------------------ */
                 /*                         Create                         */
                 /* ------------------------------------------------------ */
-                interface CreateProduct extends definition.Product {}
+                interface CreateSPU
+                    extends Pick<
+                        model.spu.SPUSchema,
+                        | 'product_name'
+                        | 'product_cost'
+                        | 'product_quantity'
+                        | 'product_category'
+                        | 'product_attributes'
+                        | 'product_description'
+                        | 'product_shop'
+                        | 'product_variations'
+                        | 'product_thumb'
+                    > {}
 
                 /* ------------------------------------------------------ */
                 /*                         Search                         */
@@ -50,7 +51,7 @@ declare global {
 
                 /* --------------- Get all product by shop -------------- */
                 interface GetAllProductByShop
-                    extends Pick<model.product.ProductSchema, 'product_shop'>,
+                    extends Pick<model.spu.SPUSchema, 'product_shop'>,
                         commonTypes.object.PageSlitting {
                     userId: string;
                 }
@@ -67,8 +68,8 @@ declare global {
                 /* ------------------- Update product ------------------- */
                 interface UpdateProduct
                     extends joiTypes.product.definition.UpdateProductSchema,
-                        Pick<model.product.ProductSchema, 'product_shop'> {
-                    product_attributes: model.product.ProductSchemaList;
+                        Pick<model.spu.SPUSchema, 'product_shop'> {
+                    product_attributes: model.spu.ProductSchemaList;
                 }
 
                 interface SetDraftProduct

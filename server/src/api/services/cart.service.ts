@@ -4,10 +4,7 @@ import {
     findOneCartByUser
 } from '@/models/repository/cart/index.js';
 
-import {
-    checkProductsIsAvailableToUse,
-    findProductById
-} from '@/models/repository/product/index.js';
+import { checkProductsIsAvailableToUse, findProductById } from '@/models/repository/spu/index.js';
 import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 
 export default class CartService {
