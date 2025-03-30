@@ -2565,3 +2565,320 @@
 [2025-03-30T11:50:00.360Z] [error]: Client must be connected before running operations
 [2025-03-30T11:50:00.364Z] [error]: Client must be connected before running operations
 [2025-03-30T11:50:00.374Z] [error]: HIDE::400::ValidationError::"id" length must be 24 characters long::
+[2025-03-30T11:51:00.362Z] [error]: Client must be connected before running operations
+[2025-03-30T11:51:00.370Z] [error]: Client must be connected before running operations
+[2025-03-30T11:52:00.382Z] [error]: Client must be connected before running operations
+[2025-03-30T11:52:00.384Z] [error]: Client must be connected before running operations
+[2025-03-30T11:53:00.378Z] [error]: Client must be connected before running operations
+[2025-03-30T11:53:00.381Z] [error]: Client must be connected before running operations
+[2025-03-30T11:54:00.352Z] [error]: Client must be connected before running operations
+[2025-03-30T11:54:00.354Z] [error]: Client must be connected before running operations
+[2025-03-30T11:55:00.313Z] [error]: Client must be connected before running operations
+[2025-03-30T11:55:00.315Z] [error]: Client must be connected before running operations
+[2025-03-30T11:56:00.314Z] [error]: Client must be connected before running operations
+[2025-03-30T11:56:00.316Z] [error]: Client must be connected before running operations
+[2025-03-30T11:57:00.358Z] [error]: Client must be connected before running operations
+[2025-03-30T11:57:00.360Z] [error]: Client must be connected before running operations
+[2025-03-30T11:58:00.302Z] [error]: Client must be connected before running operations
+[2025-03-30T11:58:00.305Z] [error]: Client must be connected before running operations
+[2025-03-30T11:59:00.642Z] [error]: Client must be connected before running operations
+[2025-03-30T11:59:00.645Z] [error]: Client must be connected before running operations
+[2025-03-30T12:00:00.355Z] [error]: Client must be connected before running operations
+[2025-03-30T12:00:00.357Z] [error]: Client must be connected before running operations
+[2025-03-30T12:01:00.369Z] [error]: Client must be connected before running operations
+[2025-03-30T12:01:00.371Z] [error]: Client must be connected before running operations
+[2025-03-30T12:02:00.367Z] [error]: Client must be connected before running operations
+[2025-03-30T12:02:00.370Z] [error]: Client must be connected before running operations
+[2025-03-30T12:03:00.303Z] [error]: Client must be connected before running operations
+[2025-03-30T12:03:00.306Z] [error]: Client must be connected before running operations
+[2025-03-30T12:04:00.380Z] [error]: Client must be connected before running operations
+[2025-03-30T12:04:00.383Z] [error]: Client must be connected before running operations
+[2025-03-30T12:05:00.374Z] [error]: Client must be connected before running operations
+[2025-03-30T12:05:00.376Z] [error]: Client must be connected before running operations
+[2025-03-30T12:06:00.332Z] [error]: Client must be connected before running operations
+[2025-03-30T12:06:00.334Z] [error]: Client must be connected before running operations
+[2025-03-30T12:07:00.381Z] [error]: Client must be connected before running operations
+[2025-03-30T12:07:00.383Z] [error]: Client must be connected before running operations
+[2025-03-30T12:08:00.385Z] [error]: Client must be connected before running operations
+[2025-03-30T12:08:00.387Z] [error]: Client must be connected before running operations
+[2025-03-30T12:09:00.312Z] [error]: Client must be connected before running operations
+[2025-03-30T12:09:00.314Z] [error]: Client must be connected before running operations
+[2025-03-30T12:10:00.328Z] [error]: Client must be connected before running operations
+[2025-03-30T12:10:00.329Z] [error]: Client must be connected before running operations
+[2025-03-30T12:11:00.312Z] [error]: Client must be connected before running operations
+[2025-03-30T12:11:00.317Z] [error]: Client must be connected before running operations
+[2025-03-30T12:12:00.338Z] [error]: Client must be connected before running operations
+[2025-03-30T12:12:00.341Z] [error]: Client must be connected before running operations
+[2025-03-30T12:13:00.317Z] [error]: Client must be connected before running operations
+[2025-03-30T12:13:00.319Z] [error]: Client must be connected before running operations
+[2025-03-30T12:14:00.323Z] [error]: Client must be connected before running operations
+[2025-03-30T12:14:00.325Z] [error]: Client must be connected before running operations
+[2025-03-30T12:15:00.316Z] [error]: Client must be connected before running operations
+[2025-03-30T12:15:00.318Z] [error]: Client must be connected before running operations
+[2025-03-30T12:16:00.384Z] [error]: Client must be connected before running operations
+[2025-03-30T12:16:00.386Z] [error]: Client must be connected before running operations
+[2025-03-30T12:17:00.388Z] [error]: Client must be connected before running operations
+[2025-03-30T12:17:00.391Z] [error]: Client must be connected before running operations
+[2025-03-30T12:18:00.371Z] [error]: Client must be connected before running operations
+[2025-03-30T12:18:00.372Z] [error]: Client must be connected before running operations
+[2025-03-30T12:19:00.327Z] [error]: Client must be connected before running operations
+[2025-03-30T12:19:00.331Z] [error]: Client must be connected before running operations
+[2025-03-30T12:20:00.315Z] [error]: Client must be connected before running operations
+[2025-03-30T12:20:00.317Z] [error]: Client must be connected before running operations
+[2025-03-30T12:21:00.378Z] [error]: Client must be connected before running operations
+[2025-03-30T12:21:00.380Z] [error]: Client must be connected before running operations
+[2025-03-30T12:22:00.379Z] [error]: Client must be connected before running operations
+[2025-03-30T12:22:00.381Z] [error]: Client must be connected before running operations
+[2025-03-30T12:23:00.361Z] [error]: Client must be connected before running operations
+[2025-03-30T12:23:00.364Z] [error]: Client must be connected before running operations
+[2025-03-30T12:24:00.386Z] [error]: Client must be connected before running operations
+[2025-03-30T12:24:00.393Z] [error]: Client must be connected before running operations
+[2025-03-30T12:25:00.366Z] [error]: Client must be connected before running operations
+[2025-03-30T12:25:00.368Z] [error]: Client must be connected before running operations
+[2025-03-30T12:26:00.342Z] [error]: Client must be connected before running operations
+[2025-03-30T12:26:00.346Z] [error]: Client must be connected before running operations
+[2025-03-30T12:27:00.376Z] [error]: Client must be connected before running operations
+[2025-03-30T12:27:00.390Z] [error]: Client must be connected before running operations
+[2025-03-30T12:28:00.343Z] [error]: Client must be connected before running operations
+[2025-03-30T12:28:00.346Z] [error]: Client must be connected before running operations
+[2025-03-30T12:29:00.345Z] [error]: Client must be connected before running operations
+[2025-03-30T12:29:00.347Z] [error]: Client must be connected before running operations
+[2025-03-30T12:30:00.392Z] [error]: Client must be connected before running operations
+[2025-03-30T12:30:00.394Z] [error]: Client must be connected before running operations
+[2025-03-30T12:31:00.387Z] [error]: Client must be connected before running operations
+[2025-03-30T12:31:00.390Z] [error]: Client must be connected before running operations
+[2025-03-30T12:32:00.387Z] [error]: Client must be connected before running operations
+[2025-03-30T12:32:00.389Z] [error]: Client must be connected before running operations
+[2025-03-30T12:33:00.350Z] [error]: Client must be connected before running operations
+[2025-03-30T12:33:00.352Z] [error]: Client must be connected before running operations
+[2025-03-30T12:34:00.343Z] [error]: Client must be connected before running operations
+[2025-03-30T12:34:00.344Z] [error]: Client must be connected before running operations
+[2025-03-30T12:35:00.359Z] [error]: Client must be connected before running operations
+[2025-03-30T12:35:00.362Z] [error]: Client must be connected before running operations
+[2025-03-30T12:46:43.508Z] [error]: Client must be connected before running operations
+[2025-03-30T12:46:43.509Z] [error]: Client must be connected before running operations
+[2025-03-30T12:47:00.019Z] [error]: Client must be connected before running operations
+[2025-03-30T12:47:00.021Z] [error]: Client must be connected before running operations
+[2025-03-30T12:48:00.340Z] [error]: Client must be connected before running operations
+[2025-03-30T12:48:00.343Z] [error]: Client must be connected before running operations
+[2025-03-30T12:49:00.397Z] [error]: Client must be connected before running operations
+[2025-03-30T12:49:00.399Z] [error]: Client must be connected before running operations
+[2025-03-30T12:50:00.346Z] [error]: Client must be connected before running operations
+[2025-03-30T12:50:00.347Z] [error]: Client must be connected before running operations
+[2025-03-30T12:51:00.411Z] [error]: Client must be connected before running operations
+[2025-03-30T12:51:00.414Z] [error]: Client must be connected before running operations
+[2025-03-30T12:52:00.405Z] [error]: Client must be connected before running operations
+[2025-03-30T12:52:00.407Z] [error]: Client must be connected before running operations
+[2025-03-30T12:53:00.394Z] [error]: Client must be connected before running operations
+[2025-03-30T12:53:00.397Z] [error]: Client must be connected before running operations
+[2025-03-30T12:54:00.404Z] [error]: Client must be connected before running operations
+[2025-03-30T12:54:00.406Z] [error]: Client must be connected before running operations
+[2025-03-30T12:55:00.368Z] [error]: Client must be connected before running operations
+[2025-03-30T12:55:00.375Z] [error]: Client must be connected before running operations
+[2025-03-30T12:56:00.403Z] [error]: Client must be connected before running operations
+[2025-03-30T12:56:00.406Z] [error]: Client must be connected before running operations
+[2025-03-30T12:57:00.399Z] [error]: Client must be connected before running operations
+[2025-03-30T12:57:00.401Z] [error]: Client must be connected before running operations
+[2025-03-30T12:58:00.331Z] [error]: Client must be connected before running operations
+[2025-03-30T12:58:00.333Z] [error]: Client must be connected before running operations
+[2025-03-30T12:59:00.357Z] [error]: Client must be connected before running operations
+[2025-03-30T12:59:00.359Z] [error]: Client must be connected before running operations
+[2025-03-30T13:00:00.403Z] [error]: Client must be connected before running operations
+[2025-03-30T13:00:00.406Z] [error]: Client must be connected before running operations
+[2025-03-30T13:01:00.367Z] [error]: Client must be connected before running operations
+[2025-03-30T13:01:00.369Z] [error]: Client must be connected before running operations
+[2025-03-30T13:02:00.407Z] [error]: Client must be connected before running operations
+[2025-03-30T13:02:00.409Z] [error]: Client must be connected before running operations
+[2025-03-30T13:03:00.386Z] [error]: Client must be connected before running operations
+[2025-03-30T13:03:00.389Z] [error]: Client must be connected before running operations
+[2025-03-30T13:04:00.729Z] [error]: Client must be connected before running operations
+[2025-03-30T13:04:00.731Z] [error]: Client must be connected before running operations
+[2025-03-30T13:05:00.395Z] [error]: Client must be connected before running operations
+[2025-03-30T13:05:00.397Z] [error]: Client must be connected before running operations
+[2025-03-30T13:06:00.347Z] [error]: Client must be connected before running operations
+[2025-03-30T13:06:00.350Z] [error]: Client must be connected before running operations
+[2025-03-30T13:07:00.410Z] [error]: Client must be connected before running operations
+[2025-03-30T13:07:00.413Z] [error]: Client must be connected before running operations
+[2025-03-30T13:08:00.444Z] [error]: Client must be connected before running operations
+[2025-03-30T13:08:00.446Z] [error]: Client must be connected before running operations
+[2025-03-30T13:09:00.443Z] [error]: Client must be connected before running operations
+[2025-03-30T13:09:00.445Z] [error]: Client must be connected before running operations
+[2025-03-30T13:09:50.078Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T13:09:50.084Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T13:09:50.100Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T13:09:50.106Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-30T13:10:00.397Z] [error]: Client must be connected before running operations
+[2025-03-30T13:10:00.399Z] [error]: Client must be connected before running operations
+[2025-03-30T13:11:00.446Z] [error]: Client must be connected before running operations
+[2025-03-30T13:11:00.449Z] [error]: Client must be connected before running operations
+[2025-03-30T13:12:00.454Z] [error]: Client must be connected before running operations
+[2025-03-30T13:12:00.456Z] [error]: Client must be connected before running operations
+[2025-03-30T13:13:00.436Z] [error]: Client must be connected before running operations
+[2025-03-30T13:13:00.440Z] [error]: Client must be connected before running operations
+[2025-03-30T13:14:00.433Z] [error]: Client must be connected before running operations
+[2025-03-30T13:14:00.435Z] [error]: Client must be connected before running operations
+[2025-03-30T13:15:00.683Z] [error]: Client must be connected before running operations
+[2025-03-30T13:15:00.685Z] [error]: Client must be connected before running operations
+[2025-03-30T13:16:00.471Z] [error]: Client must be connected before running operations
+[2025-03-30T13:16:00.473Z] [error]: Client must be connected before running operations
+[2025-03-30T13:17:00.443Z] [error]: Client must be connected before running operations
+[2025-03-30T13:17:00.445Z] [error]: Client must be connected before running operations
+[2025-03-30T13:18:00.683Z] [error]: Client must be connected before running operations
+[2025-03-30T13:18:00.686Z] [error]: Client must be connected before running operations
+[2025-03-30T13:19:00.441Z] [error]: Client must be connected before running operations
+[2025-03-30T13:19:00.443Z] [error]: Client must be connected before running operations
+[2025-03-30T13:20:00.394Z] [error]: Client must be connected before running operations
+[2025-03-30T13:20:00.396Z] [error]: Client must be connected before running operations
+[2025-03-30T13:21:00.390Z] [error]: Client must be connected before running operations
+[2025-03-30T13:21:00.392Z] [error]: Client must be connected before running operations
+[2025-03-30T13:22:00.402Z] [error]: Client must be connected before running operations
+[2025-03-30T13:22:00.405Z] [error]: Client must be connected before running operations
+[2025-03-30T13:23:00.570Z] [error]: Client must be connected before running operations
+[2025-03-30T13:23:00.573Z] [error]: Client must be connected before running operations
+[2025-03-30T13:24:00.379Z] [error]: Client must be connected before running operations
+[2025-03-30T13:24:00.386Z] [error]: Client must be connected before running operations
+[2025-03-30T13:25:00.312Z] [error]: Client must be connected before running operations
+[2025-03-30T13:25:00.314Z] [error]: Client must be connected before running operations
+[2025-03-30T13:26:00.332Z] [error]: Client must be connected before running operations
+[2025-03-30T13:26:00.334Z] [error]: Client must be connected before running operations
+[2025-03-30T13:27:00.679Z] [error]: Client must be connected before running operations
+[2025-03-30T13:27:00.681Z] [error]: Client must be connected before running operations
+[2025-03-30T13:28:00.275Z] [error]: Client must be connected before running operations
+[2025-03-30T13:28:00.277Z] [error]: Client must be connected before running operations
+[2025-03-30T13:29:00.396Z] [error]: Client must be connected before running operations
+[2025-03-30T13:29:00.398Z] [error]: Client must be connected before running operations
+[2025-03-30T13:30:00.381Z] [error]: Client must be connected before running operations
+[2025-03-30T13:30:00.383Z] [error]: Client must be connected before running operations
+[2025-03-30T13:31:00.395Z] [error]: Client must be connected before running operations
+[2025-03-30T13:31:00.397Z] [error]: Client must be connected before running operations
+[2025-03-30T13:32:00.368Z] [error]: Client must be connected before running operations
+[2025-03-30T13:32:00.370Z] [error]: Client must be connected before running operations
+[2025-03-30T13:33:00.378Z] [error]: Client must be connected before running operations
+[2025-03-30T13:33:00.380Z] [error]: Client must be connected before running operations
+[2025-03-30T13:34:00.360Z] [error]: Client must be connected before running operations
+[2025-03-30T13:34:00.361Z] [error]: Client must be connected before running operations
+[2025-03-30T13:35:00.352Z] [error]: Client must be connected before running operations
+[2025-03-30T13:35:00.354Z] [error]: Client must be connected before running operations
+[2025-03-30T13:36:00.334Z] [error]: Client must be connected before running operations
+[2025-03-30T13:36:00.339Z] [error]: Client must be connected before running operations
+[2025-03-30T13:37:00.339Z] [error]: Client must be connected before running operations
+[2025-03-30T13:37:00.341Z] [error]: Client must be connected before running operations
+[2025-03-30T13:38:00.355Z] [error]: Client must be connected before running operations
+[2025-03-30T13:38:00.359Z] [error]: Client must be connected before running operations
+[2025-03-30T13:39:00.348Z] [error]: Client must be connected before running operations
+[2025-03-30T13:39:00.350Z] [error]: Client must be connected before running operations
+[2025-03-30T13:39:01.247Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-30T13:39:01.469Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:01.789Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:01.861Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:01.861Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:01.873Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:01.944Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-30T13:39:02.149Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:02.410Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:02.500Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:02.529Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:02.559Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:20.223Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-30T13:39:20.517Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:20.519Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:20.531Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:20.549Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:20.551Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:30.008Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-30T13:39:30.022Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:30.623Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:30.631Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:30.646Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:30.649Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:50.729Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-30T13:39:50.766Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:50.889Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:51.222Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:51.231Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-30T13:39:51.233Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:51.400Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:51.430Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:51.517Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:51.837Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:51.899Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:39:51.900Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:40:00.329Z] [error]: Client must be connected before running operations
+[2025-03-30T13:40:00.333Z] [error]: Client must be connected before running operations
+[2025-03-30T13:41:00.325Z] [error]: Client must be connected before running operations
+[2025-03-30T13:41:00.327Z] [error]: Client must be connected before running operations
+[2025-03-30T13:41:42.316Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-30T13:41:42.572Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:41:42.614Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:41:42.637Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:41:42.639Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:41:42.673Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:41:55.570Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:41:55.573Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:41:55.867Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:41:55.873Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-30T13:41:55.903Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:41:55.905Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:42:00.310Z] [error]: Client must be connected before running operations
+[2025-03-30T13:42:00.312Z] [error]: Client must be connected before running operations
+[2025-03-30T13:42:24.744Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T13:42:25.071Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-30T13:42:34.814Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-30T13:43:00.300Z] [error]: Client must be connected before running operations
+[2025-03-30T13:43:00.307Z] [error]: Client must be connected before running operations
+[2025-03-30T13:43:05.538Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-30T13:44:00.291Z] [error]: Client must be connected before running operations
+[2025-03-30T13:44:00.294Z] [error]: Client must be connected before running operations
+[2025-03-30T13:44:00.305Z] [error]: Client must be connected before running operations
+[2025-03-30T13:44:00.308Z] [error]: Client must be connected before running operations
+[2025-03-30T13:44:23.219Z] [error]: HIDE::404::NotFound::Not found media!::
+[2025-03-30T13:45:00.304Z] [error]: Client must be connected before running operations
+[2025-03-30T13:45:00.308Z] [error]: Client must be connected before running operations
+[2025-03-30T13:45:00.324Z] [error]: Client must be connected before running operations
+[2025-03-30T13:45:00.326Z] [error]: Client must be connected before running operations
+[2025-03-30T13:45:00.353Z] [error]: Client must be connected before running operations
+[2025-03-30T13:45:00.356Z] [error]: Client must be connected before running operations
+[2025-03-30T13:46:00.330Z] [error]: Client must be connected before running operations
+[2025-03-30T13:46:00.330Z] [error]: Client must be connected before running operations
+[2025-03-30T13:46:00.330Z] [error]: Client must be connected before running operations
+[2025-03-30T13:46:00.332Z] [error]: Client must be connected before running operations
+[2025-03-30T13:46:00.332Z] [error]: Client must be connected before running operations
+[2025-03-30T13:46:00.333Z] [error]: Client must be connected before running operations
+[2025-03-30T13:47:00.327Z] [error]: Client must be connected before running operations
+[2025-03-30T13:47:00.329Z] [error]: Client must be connected before running operations
+[2025-03-30T13:47:00.335Z] [error]: Client must be connected before running operations
+[2025-03-30T13:47:00.337Z] [error]: Client must be connected before running operations
+[2025-03-30T13:47:00.347Z] [error]: Client must be connected before running operations
+[2025-03-30T13:47:00.350Z] [error]: Client must be connected before running operations
+[2025-03-30T13:48:00.296Z] [error]: Client must be connected before running operations
+[2025-03-30T13:48:00.298Z] [error]: Client must be connected before running operations
+[2025-03-30T13:48:00.338Z] [error]: Client must be connected before running operations
+[2025-03-30T13:48:00.341Z] [error]: Client must be connected before running operations
+[2025-03-30T13:48:00.345Z] [error]: Client must be connected before running operations
+[2025-03-30T13:48:00.348Z] [error]: Client must be connected before running operations
+[2025-03-30T13:49:00.360Z] [error]: Client must be connected before running operations
+[2025-03-30T13:49:00.361Z] [error]: Client must be connected before running operations
+[2025-03-30T13:49:00.362Z] [error]: Client must be connected before running operations
+[2025-03-30T13:49:00.364Z] [error]: Client must be connected before running operations
+[2025-03-30T13:49:00.365Z] [error]: Client must be connected before running operations
+[2025-03-30T13:49:00.365Z] [error]: Client must be connected before running operations
+[2025-03-30T13:50:00.340Z] [error]: Client must be connected before running operations
+[2025-03-30T13:50:00.344Z] [error]: Client must be connected before running operations
+[2025-03-30T13:50:00.346Z] [error]: Client must be connected before running operations
+[2025-03-30T13:50:00.355Z] [error]: Client must be connected before running operations
+[2025-03-30T13:50:00.356Z] [error]: Client must be connected before running operations
+[2025-03-30T13:50:00.364Z] [error]: Client must be connected before running operations
+[2025-03-30T13:50:10.481Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-30T13:50:15.937Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-03-30T13:51:00.275Z] [error]: Client must be connected before running operations
+[2025-03-30T13:51:00.278Z] [error]: Client must be connected before running operations
+[2025-03-30T13:51:00.285Z] [error]: Client must be connected before running operations
+[2025-03-30T13:51:00.286Z] [error]: Client must be connected before running operations
+[2025-03-30T13:51:00.288Z] [error]: Client must be connected before running operations
+[2025-03-30T13:51:00.289Z] [error]: Client must be connected before running operations
+[2025-03-30T13:52:00.136Z] [error]: Client must be connected before running operations
+[2025-03-30T13:52:00.139Z] [error]: Client must be connected before running operations
+[2025-03-30T13:52:00.162Z] [error]: Client must be connected before running operations
+[2025-03-30T13:52:00.164Z] [error]: Client must be connected before running operations
+[2025-03-30T13:52:00.186Z] [error]: Client must be connected before running operations
+[2025-03-30T13:52:00.188Z] [error]: Client must be connected before running operations

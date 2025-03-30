@@ -8,9 +8,13 @@
 
 // Import any necessary dependencies
 import { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import axios from 'axios';
 
-// Sample categories for products
-const categories = [
+// API URL - should match your server setup
+const API_URL = process.env.REACT_APP_API_URL || 'https://localhost:4000';
+
+// Sample categories for products (fallback if API fails)
+const categoriesFallback = [
     {
         id: 1,
         name: 'Electronics',
@@ -82,6 +86,49 @@ const categories = [
         icon: '🐶'
     }
 ];
+
+// Server categories (will be populated from API)
+let categories = [];
+
+// Utility function to get media URL
+const getMediaUrl = (mediaId) => {
+    if (!mediaId) return null;
+    return `${API_URL}/media/${mediaId}`;
+};
+
+// Function to fetch categories from API
+export const fetchCategories = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/category/`);
+
+        // Check if we have valid data
+        if (response.data && response.data.metadata && Array.isArray(response.data.metadata)) {
+            // Transform the API response to match our expected format
+            const apiCategories = response.data.metadata.map((category) => ({
+                id: category._id,
+                name: category.category_name,
+                slug:
+                    category.category_slug ||
+                    category.category_name.toLowerCase().replace(/ /g, '-'),
+                description: category.category_description,
+                image: getMediaUrl(category.category_icon),
+                icon: '🛒', // Default icon if none provided
+                level: category.category_level || 0,
+                parent: category.category_parent,
+                productCount: category.category_product_count || 0
+            }));
+
+            // Update the categories array
+            categories = apiCategories;
+            return apiCategories;
+        }
+
+        return categoriesFallback;
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        return categoriesFallback;
+    }
+};
 
 // Sample shops/vendors
 const shops = [
@@ -1088,7 +1135,13 @@ export const filterProducts = ({
  * Get all categories
  */
 export const getAllCategories = () => {
-    return categories;
+    // If categories were fetched from the API, use them
+    if (categories.length > 0) {
+        return categories;
+    }
+
+    // Otherwise, use the fallback categories
+    return categoriesFallback;
 };
 
 /**
@@ -1111,6 +1164,8 @@ export const ProductsProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [wishlist, setWishlist] = useState([]);
     const [recentlyViewed, setRecentlyViewed] = useState([]);
+    const [categoriesData, setCategoriesData] = useState([]);
+    const [isCategoriesLoaded, setIsCategoriesLoaded] = useState(false);
 
     // Load initial state from localStorage if available
     useEffect(() => {
@@ -1122,6 +1177,15 @@ export const ProductsProvider = ({ children }) => {
             if (savedCart) setCart(JSON.parse(savedCart));
             if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
             if (savedRecent) setRecentlyViewed(JSON.parse(savedRecent));
+
+            // Fetch categories from the API when the component mounts
+            const loadCategories = async () => {
+                const data = await fetchCategories();
+                setCategoriesData(data);
+                setIsCategoriesLoaded(true);
+            };
+
+            loadCategories();
         } catch (error) {
             console.error('Error loading saved data:', error);
         }
@@ -1267,11 +1331,16 @@ export const ProductsProvider = ({ children }) => {
         return recentlyViewed.map((item) => getProductById(item.id)).filter(Boolean);
     };
 
+    // Custom getAllCategories function that uses the state
+    const getCategories = useCallback(() => {
+        return isCategoriesLoaded ? categoriesData : categoriesFallback;
+    }, [isCategoriesLoaded, categoriesData]);
+
     // Context value
     const value = {
         // Products data
         products: allProducts,
-        categories,
+        categories: getCategories(),
         shops,
 
         // Products getters
@@ -1287,8 +1356,9 @@ export const ProductsProvider = ({ children }) => {
         getProductsByShop,
         searchProducts,
         filterProducts,
-        getAllCategories,
+        getAllCategories: getCategories,
         getAllShops,
+        getMediaUrl,
 
         // Cart state and functions
         cart,
@@ -1343,6 +1413,8 @@ export default {
     filterProducts,
     getAllCategories,
     getAllShops,
+    getMediaUrl,
+    fetchCategories,
     ProductsProvider,
     useProducts
 };

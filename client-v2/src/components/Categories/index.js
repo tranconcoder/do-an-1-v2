@@ -6,7 +6,7 @@ import { useProducts } from '../../configs/ProductsData';
 
 const cx = classNames.bind(styles);
 
-// Update fallback image to a more reliable source or consider using a local image
+// Default image to show when category image fails to load or is missing
 const DEFAULT_CATEGORY_IMAGE = 'https://via.placeholder.com/300x200?text=Category';
 
 const Categories = () => {
@@ -36,21 +36,33 @@ const Categories = () => {
             </div>
 
             <div className={cx('categories-container')}>
-                <div className={cx('categories-grid', 'compact-grid')}>
+                <div className={cx('categories-grid')}>
                     {categories.map((category) => (
                         <Link
                             to={`/products?category=${category.id}`}
-                            className={cx('category-card', 'compact-card')}
+                            className={cx('category-card')}
                             key={category.id}
                         >
-                            <div className={cx('category-content')}>
-                                <div className={cx('category-icon-wrapper')}>
-                                    <span className={cx('category-icon')}>{category.icon}</span>
-                                </div>
-                                <h3 className={cx('category-name', 'compact-name')}>
-                                    {category.name}
-                                </h3>
+                            <div className={cx('category-image-container')}>
+                                {/* Check if category has an image URL from the API */}
+                                {category.image ? (
+                                    <img
+                                        src={category.image}
+                                        alt={category.name}
+                                        className={cx('category-image')}
+                                        onError={handleImageError(category.id)}
+                                        onLoad={handleImageLoad(category.id)}
+                                    />
+                                ) : (
+                                    <div className={cx('category-icon-wrapper')}>
+                                        <span className={cx('category-icon')}>{category.icon}</span>
+                                    </div>
+                                )}
                             </div>
+                            <h3 className={cx('category-name')}>{category.name}</h3>
+                            {category.description && (
+                                <p className={cx('category-description')}>{category.description}</p>
+                            )}
                         </Link>
                     ))}
                 </div>

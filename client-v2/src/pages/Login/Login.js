@@ -198,7 +198,9 @@ function Login() {
                                 <label htmlFor="remember">Remember me</label>
                             </div>
                             <div className={cx('forgot-password')}>
-                                <Link to="/auth/forgot-password">Forgot password?</Link>
+                                <Link to="/forgot-password" className="forgot-password-link">
+                                    Forgot Password?
+                                </Link>
                             </div>
                         </div>
 

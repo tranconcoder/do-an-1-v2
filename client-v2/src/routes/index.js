@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // Layouts
 import HomeLayout from '../layouts/HomeLayout/HomeLayout';
@@ -18,6 +19,10 @@ import Order from '../pages/Order';
 import Wishlist from '../pages/Wishlist';
 
 const AppRoutes = () => {
+    const auth = useSelector((state) => state.auth);
+    console.log({ auth });
+    // Removed isLoading from destructuring since it's not being used
+
     return (
         <Router basename="">
             <Routes>

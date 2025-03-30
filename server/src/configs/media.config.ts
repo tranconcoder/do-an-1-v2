@@ -11,5 +11,4 @@ export const AVATAR_BASE_PATH = path.join(import.meta.dirname, '../../public/ava
 /* ---------------------------------------------------------- */
 /*                          Category                          */
 /* ---------------------------------------------------------- */
-
 export const CATEGORY_BASE_PATH = path.join(import.meta.dirname, '../../public/categories');

@@ -165,15 +165,15 @@ export default new (class MediaService {
                 media_fileSize: 123456,
                 media_mimeType: MediaMimeTypes.IMAGE_PNG,
                 media_childrenList: [
-                    new mongoose.Types.ObjectId('000000000000000000000010'), // Tivi
-                    new mongoose.Types.ObjectId('000000000000000000000011'), // Tủ lạnh
-                    new mongoose.Types.ObjectId('000000000000000000000012') // Máy lạnh
+                    new mongoose.Types.ObjectId('00000000000000000000000a'), // Tivi
+                    new mongoose.Types.ObjectId('00000000000000000000000b'), // Tủ lạnh
+                    new mongoose.Types.ObjectId('00000000000000000000000c') // Máy lạnh
                 ],
                 media_desc: 'Example media 10',
                 media_isFolder: false
             },
             {
-                _id: new mongoose.Types.ObjectId('000000000000000000000010'),
+                _id: new mongoose.Types.ObjectId('00000000000000000000000a'),
                 media_title: 'Tivi',
                 media_fileName: 'television.png',
                 get media_filePath() {
@@ -187,7 +187,7 @@ export default new (class MediaService {
                 media_isFolder: false
             },
             {
-                _id: new mongoose.Types.ObjectId('000000000000000000000011'),
+                _id: new mongoose.Types.ObjectId('00000000000000000000000b'),
                 media_title: 'Tủ lạnh',
                 media_fileName: 'fridge.png',
                 get media_filePath() {
@@ -201,7 +201,7 @@ export default new (class MediaService {
                 media_isFolder: false
             },
             {
-                _id: new mongoose.Types.ObjectId('000000000000000000000012'),
+                _id: new mongoose.Types.ObjectId('00000000000000000000000c'),
                 media_title: 'Máy lạnh',
                 media_fileName: 'air-conditioner.png',
                 get media_filePath() {
@@ -215,7 +215,7 @@ export default new (class MediaService {
                 media_isFolder: false
             },
             {
-                _id: new mongoose.Types.ObjectId('000000000000000000000013'),
+                _id: new mongoose.Types.ObjectId('00000000000000000000000d'),
                 media_title: 'Đồ nội thất',
                 media_fileName: 'living-room.png',
                 get media_filePath() {
@@ -225,15 +225,15 @@ export default new (class MediaService {
                 media_fileSize: 123456,
                 media_mimeType: MediaMimeTypes.IMAGE_PNG,
                 media_childrenList: [
-                    new mongoose.Types.ObjectId('000000000000000000000014'), // Ghế
-                    new mongoose.Types.ObjectId('000000000000000000000015'), // Bàn
-                    new mongoose.Types.ObjectId('000000000000000000000016') // Sofa
+                    new mongoose.Types.ObjectId('00000000000000000000000e'), // Ghế
+                    new mongoose.Types.ObjectId('00000000000000000000000f'), // Bàn
+                    new mongoose.Types.ObjectId('000000000000000000000010') // Sofa
                 ],
                 media_desc: 'Example media 14',
                 media_isFolder: false
             },
             {
-                _id: new mongoose.Types.ObjectId('000000000000000000000014'),
+                _id: new mongoose.Types.ObjectId('00000000000000000000000e'),
                 media_title: 'Ghế',
                 media_fileName: 'chair.png',
                 get media_filePath() {
@@ -247,7 +247,7 @@ export default new (class MediaService {
                 media_isFolder: false
             },
             {
-                _id: new mongoose.Types.ObjectId('000000000000000000000015'),
+                _id: new mongoose.Types.ObjectId('00000000000000000000000f'),
                 media_title: 'Bàn',
                 media_fileName: 'table.png',
                 get media_filePath() {
@@ -261,7 +261,7 @@ export default new (class MediaService {
                 media_isFolder: false
             },
             {
-                _id: new mongoose.Types.ObjectId('000000000000000000000016'),
+                _id: new mongoose.Types.ObjectId('000000000000000000000010'),
                 media_title: 'Sofa',
                 media_fileName: 'sofa.png',
                 get media_filePath() {

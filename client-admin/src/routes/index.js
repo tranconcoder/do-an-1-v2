@@ -25,7 +25,7 @@ const LoadingScreen = () => (
 
 const AppRoutes = () => {
     const dispatch = useDispatch();
-    const isAuthenticated = useSelector(selectIsAuthenticated);
+    const { isAuthenticated } = useSelector((state) => state.auth);
     const isLoading = useSelector(selectUserLoading);
     const [initialLoadDone, setInitialLoadDone] = useState(false);
 
