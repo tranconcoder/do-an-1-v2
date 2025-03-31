@@ -541,3 +541,114 @@ textarea.form-control {
 .cancel-button:hover {
     background-color: #e0e0e0;
 }
+
+/* Crop Modal Styles */
+.crop-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.crop-container {
+    background-color: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.crop-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.crop-header h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.crop-header p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.cropper-container {
+    position: relative;
+    height: 400px;
+    background-color: #f9f9f9;
+}
+
+.crop-controls {
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+}
+
+.zoom-control {
+    margin-bottom: 15px;
+}
+
+.zoom-control label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+}
+
+.zoom-control input {
+    width: 100%;
+    margin: 5px 0;
+}
+
+.crop-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.crop-cancel-button,
+.crop-apply-button {
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.crop-cancel-button {
+    background-color: #f1f1f1;
+    color: #555;
+}
+
+.crop-apply-button {
+    background: linear-gradient(135deg, #4776e6, #8e54e9);
+    color: white;
+    box-shadow: 0 2px 5px rgba(142, 84, 233, 0.3);
+}
+
+.crop-cancel-button:hover {
+    background-color: #e5e5e5;
+}
+
+.crop-apply-button:hover {
+    background: linear-gradient(135deg, #3d68d8, #7c48cb);
+    box-shadow: 0 4px 8px rgba(142, 84, 233, 0.4);
+}

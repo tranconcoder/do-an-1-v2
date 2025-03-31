@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { FaSave, FaTimes, FaSpinner, FaUpload, FaImage } from 'react-icons/fa';
+import { FaSave, FaTimes, FaSpinner, FaUpload, FaImage, FaCrop, FaCheck } from 'react-icons/fa';
+import Cropper from 'react-easy-crop';
 import axiosClient from '../../configs/axios';
 import { API_URL } from '../../configs/env.config';
 import './Categories.css';
@@ -25,6 +26,13 @@ const CategoryForm = () => {
     const [imageFile, setImageFile] = useState(null);
     const [imagePreview, setImagePreview] = useState('');
     const [uploadProgress, setUploadProgress] = useState(0);
+
+    // Crop related states
+    const [showCropModal, setShowCropModal] = useState(false);
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+    const [imageSrc, setImageSrc] = useState('');
 
     // Fetch all categories for parent dropdown
     useEffect(() => {
@@ -166,10 +174,12 @@ const CategoryForm = () => {
 
         setImageFile(file);
 
-        // Create a preview URL for the image
+        // Create a preview URL for the selected image
         const reader = new FileReader();
         reader.onloadend = () => {
-            setImagePreview(reader.result);
+            // Instead of setting preview directly, we open the crop modal
+            setImageSrc(reader.result);
+            setShowCropModal(true);
         };
         reader.readAsDataURL(file);
     };
@@ -177,6 +187,65 @@ const CategoryForm = () => {
     const handleImageClick = () => {
         // Trigger the hidden file input when the image area is clicked
         fileInputRef.current.click();
+    };
+
+    // Cropper event handlers
+    const onCropComplete = (croppedArea, croppedAreaPixels) => {
+        setCroppedAreaPixels(croppedAreaPixels);
+    };
+
+    const createCroppedImage = async () => {
+        if (!imageSrc || !croppedAreaPixels) return;
+
+        // Create a canvas element to draw the cropped image
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Load the image to get its dimensions
+        const image = new Image();
+        image.src = imageSrc;
+
+        return new Promise((resolve) => {
+            image.onload = () => {
+                // Set canvas dimensions to the cropped size (1:1 aspect ratio)
+                canvas.width = croppedAreaPixels.width;
+                canvas.height = croppedAreaPixels.height;
+
+                // Draw the cropped image on the canvas
+                ctx.drawImage(
+                    image,
+                    croppedAreaPixels.x,
+                    croppedAreaPixels.y,
+                    croppedAreaPixels.width,
+                    croppedAreaPixels.height,
+                    0,
+                    0,
+                    croppedAreaPixels.width,
+                    croppedAreaPixels.height
+                );
+
+                // Convert the canvas to a Blob
+                canvas.toBlob(
+                    (blob) => {
+                        // Create a File object from the Blob
+                        const croppedFile = new File([blob], imageFile.name, {
+                            type: 'image/jpeg',
+                            lastModified: new Date().getTime()
+                        });
+
+                        // Set the cropped file and preview
+                        setImageFile(croppedFile);
+                        setImagePreview(URL.createObjectURL(blob));
+
+                        // Close the crop modal
+                        setShowCropModal(false);
+                        resolve();
+                    },
+                    'image/jpeg',
+                    0.95
+                ); // JPEG format with 95% quality
+            };
+        });
     };
 
     const uploadImage = async () => {
@@ -326,7 +395,7 @@ const CategoryForm = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Category Icon</label>
+                    <label>Category Icon (1:1 Ratio)</label>
                     <div className="image-upload-container" onClick={handleImageClick}>
                         {imagePreview ? (
                             <div className="image-preview">
@@ -359,7 +428,8 @@ const CategoryForm = () => {
                     )}
 
                     <small className="form-text">
-                        The image should be in JPEG or PNG format and less than 5MB.
+                        The image will be cropped to a square (1:1 ratio) and should be less than
+                        5MB.
                     </small>
                 </div>
 
@@ -382,6 +452,60 @@ const CategoryForm = () => {
                     </Link>
                 </div>
             </form>
+
+            {/* Image Cropper Modal */}
+            {showCropModal && (
+                <div className="crop-modal">
+                    <div className="crop-container">
+                        <div className="crop-header">
+                            <h3>Crop Image</h3>
+                            <p>Adjust the crop to create a square icon</p>
+                        </div>
+
+                        <div className="cropper-container">
+                            <Cropper
+                                image={imageSrc}
+                                crop={crop}
+                                zoom={zoom}
+                                aspect={1} // 1:1 aspect ratio
+                                onCropChange={setCrop}
+                                onZoomChange={setZoom}
+                                onCropComplete={onCropComplete}
+                            />
+                        </div>
+
+                        <div className="crop-controls">
+                            <div className="zoom-control">
+                                <label>Zoom</label>
+                                <input
+                                    type="range"
+                                    min={1}
+                                    max={3}
+                                    step={0.1}
+                                    value={zoom}
+                                    onChange={(e) => setZoom(parseFloat(e.target.value))}
+                                />
+                            </div>
+
+                            <div className="crop-actions">
+                                <button
+                                    className="crop-cancel-button"
+                                    onClick={() => {
+                                        setShowCropModal(false);
+                                        setImageFile(null);
+                                        setImageSrc('');
+                                    }}
+                                >
+                                    <FaTimes /> Cancel
+                                </button>
+                                <button className="crop-apply-button" onClick={createCroppedImage}>
+                                    <FaCheck /> Apply Crop
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
