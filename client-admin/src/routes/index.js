@@ -11,6 +11,8 @@ import ShopDetails from '../pages/ShopDetails/ShopDetails';
 import { CategoriesList, CategoryForm } from '../pages/Categories';
 // Guards
 import AdminGuard from '../components/AdminGuard';
+// Layout
+import AdminLayout from '../layouts/AdminLayout/AdminLayout';
 
 // Loading component
 const LoadingScreen = () => (
@@ -20,6 +22,15 @@ const LoadingScreen = () => (
         <h2>Loading...</h2>
     </div>
 );
+
+// Protected route component with AdminLayout
+const ProtectedRoute = ({ children }) => {
+    return (
+        <AdminGuard>
+            <AdminLayout>{children}</AdminLayout>
+        </AdminGuard>
+    );
+};
 
 const AppRoutes = () => {
     const dispatch = useDispatch();
@@ -54,25 +65,25 @@ const AppRoutes = () => {
                 <Route
                     path="/dashboard"
                     element={
-                        <AdminGuard>
+                        <ProtectedRoute>
                             <Dashboard />
-                        </AdminGuard>
+                        </ProtectedRoute>
                     }
                 />
                 <Route
                     path="/pending-shops"
                     element={
-                        <AdminGuard>
+                        <ProtectedRoute>
                             <ShopApprovals />
-                        </AdminGuard>
+                        </ProtectedRoute>
                     }
                 />
                 <Route
                     path="/shop-details/:id"
                     element={
-                        <AdminGuard>
+                        <ProtectedRoute>
                             <ShopDetails />
-                        </AdminGuard>
+                        </ProtectedRoute>
                     }
                 />
 
@@ -80,25 +91,25 @@ const AppRoutes = () => {
                 <Route
                     path="/categories"
                     element={
-                        <AdminGuard>
+                        <ProtectedRoute>
                             <CategoriesList />
-                        </AdminGuard>
+                        </ProtectedRoute>
                     }
                 />
                 <Route
                     path="/categories/new"
                     element={
-                        <AdminGuard>
+                        <ProtectedRoute>
                             <CategoryForm />
-                        </AdminGuard>
+                        </ProtectedRoute>
                     }
                 />
                 <Route
                     path="/categories/edit/:id"
                     element={
-                        <AdminGuard>
+                        <ProtectedRoute>
                             <CategoryForm />
-                        </AdminGuard>
+                        </ProtectedRoute>
                     }
                 />
 
