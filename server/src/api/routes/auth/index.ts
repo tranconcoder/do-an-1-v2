@@ -16,11 +16,8 @@ import catchError from '@/middlewares/catchError.middleware.js';
 import joiValidate from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import { AvatarFields } from '@/enums/media.enum.js';
-import {
-    checkCustomerAccountToRegisterShop,
-    cleanUpSignUpShop
-} from '@/middlewares/auth.middleware.js';
-import { uploadSingleMedia } from '@/middlewares/media.middleware.js';
+import { checkCustomerAccountToRegisterShop } from '@/middlewares/auth.middleware.js';
+import { cleanUpMediaOnError, uploadSingleMedia } from '@/middlewares/media.middleware.js';
 import { uploadAvatar } from '@/middlewares/multer.middleware.js';
 
 const authRoute = Router();
@@ -34,7 +31,7 @@ authRoute.post(
     joiValidate(signUpShop),
     catchError(checkCustomerAccountToRegisterShop),
     catchError(AuthController.signUpShop),
-    cleanUpSignUpShop
+    cleanUpMediaOnError
 );
 
 authRoute.post('/login', joiValidate(loginSchema), catchError(AuthController.login));

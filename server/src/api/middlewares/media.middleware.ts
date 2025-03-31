@@ -3,6 +3,9 @@ import { NotFoundErrorResponse } from '@/response/error.response.js';
 import mediaService from '@/services/media.service.js';
 import catchError from './catchError.middleware.js';
 import { Multer } from 'multer';
+import { ErrorRequestHandler } from 'express';
+import { error } from 'console';
+import LoggerService from '@/services/logger.service.js';
 
 export const uploadSingleMedia = (field: string, multerMiddleware: Multer, title: string) =>
     catchError(async (req, res, next) => {
@@ -37,3 +40,23 @@ export const uploadSingleMedia = (field: string, multerMiddleware: Multer, title
             }
         });
     });
+
+/* ---------------------------------------------------------- */
+/*                      Clean up on error                     */
+/* ---------------------------------------------------------- */
+export const cleanUpMediaOnError: ErrorRequestHandler = async (error, req, res, next) => {
+    /* ------------------- Handle remove media ------------------ */
+    try {
+        if (req.mediaId) await mediaService.hardRemoveMedia(req.mediaId);
+        if (req.mediaIds) {
+            await Promise.all(req.mediaIds.map((id) => mediaService.hardRemoveMedia(id)));
+        }
+    } catch (error: any) {
+        const message = `Error when clean up media on error: ${error?.message}`;
+        LoggerService.getInstance().error(message);
+
+        return next(error);
+    }
+
+    next(error);
+};
