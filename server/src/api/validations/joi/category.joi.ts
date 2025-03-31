@@ -6,14 +6,21 @@ const category = {
     category_name: Joi.string().optional(),
     category_description: Joi.string().optional(),
     category_order: Joi.number().optional(),
-    category_parent: mongooseId.optional()
+    category_parent: mongooseId.optional(),
+    is_active: Joi.boolean().optional()
 };
 
 export const createCategory = Joi.object<joiTypes.category.CreateCategory>({
     category_name: Joi.string().required(),
-    category_description: Joi.string().optional(),
-    category_order: Joi.number(),
-    category_parent: mongooseId.optional()
+    ..._.mapValues(
+        _.pick(category, [
+            'category_description',
+            'category_order',
+            'category_parent',
+            'is_active'
+        ]),
+        (value) => value.optional()
+    )
 });
 
 export const updateCategory = Joi.object<joiTypes.category.UpdateCategory>({

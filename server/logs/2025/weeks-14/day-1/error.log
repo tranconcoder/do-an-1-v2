@@ -463,3 +463,56 @@
 [2025-03-31T09:05:00.015Z] [error]: Client must be connected before running operations
 [2025-03-31T09:06:00.005Z] [error]: Client must be connected before running operations
 [2025-03-31T09:06:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T09:07:00.049Z] [error]: Client must be connected before running operations
+[2025-03-31T09:07:00.051Z] [error]: Client must be connected before running operations
+[2025-03-31T09:08:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T09:08:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T09:09:00.014Z] [error]: Client must be connected before running operations
+[2025-03-31T09:09:00.016Z] [error]: Client must be connected before running operations
+[2025-03-31T09:10:00.119Z] [error]: Client must be connected before running operations
+[2025-03-31T09:10:00.124Z] [error]: Client must be connected before running operations
+[2025-03-31T09:11:00.017Z] [error]: Client must be connected before running operations
+[2025-03-31T09:11:00.022Z] [error]: Client must be connected before running operations
+[2025-03-31T09:12:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T09:12:00.016Z] [error]: Client must be connected before running operations
+[2025-03-31T09:12:11.666Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T09:12:19.121Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T09:13:00.014Z] [error]: Client must be connected before running operations
+[2025-03-31T09:13:00.016Z] [error]: Client must be connected before running operations
+[2025-03-31T09:14:00.012Z] [error]: Client must be connected before running operations
+[2025-03-31T09:14:00.014Z] [error]: Client must be connected before running operations
+[2025-03-31T09:15:00.134Z] [error]: Client must be connected before running operations
+[2025-03-31T09:15:00.136Z] [error]: Client must be connected before running operations
+[2025-03-31T09:16:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T09:16:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T09:17:00.014Z] [error]: Client must be connected before running operations
+[2025-03-31T09:17:00.017Z] [error]: Client must be connected before running operations
+[2025-03-31T09:17:51.033Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T09:18:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T09:18:00.012Z] [error]: Client must be connected before running operations
+[2025-03-31T09:19:00.015Z] [error]: Client must be connected before running operations
+[2025-03-31T09:19:00.019Z] [error]: Client must be connected before running operations
+[2025-03-31T09:19:06.232Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T09:20:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T09:20:00.014Z] [error]: Client must be connected before running operations
+[2025-03-31T09:21:00.012Z] [error]: Client must be connected before running operations
+[2025-03-31T09:21:00.027Z] [error]: Client must be connected before running operations
+[2025-03-31T09:22:00.030Z] [error]: Client must be connected before running operations
+[2025-03-31T09:22:00.033Z] [error]: Client must be connected before running operations
+[2025-03-31T09:23:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T09:23:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T09:23:32.521Z] [error]: HIDE::400::InvalidPayload::Invalid file extension::
+[2025-03-31T09:23:47.608Z] [error]: HIDE::400::ValidationError::"is_active" is not allowed::
+[2025-03-31T09:24:00.020Z] [error]: Client must be connected before running operations
+[2025-03-31T09:24:00.022Z] [error]: Client must be connected before running operations
+[2025-03-31T09:24:22.074Z] [error]: HIDE::400::ValidationError::"is_active" is not allowed::
+[2025-03-31T09:25:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T09:25:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T09:25:55.029Z] [error]: HIDE::400::ValidationError::"is_active" is not allowed::
+[2025-03-31T09:25:55.088Z] [error]: HIDE::400::ValidationError::"is_active" is not allowed::
+[2025-03-31T09:25:55.665Z] [error]: HIDE::400::ValidationError::"is_active" is not allowed::
+[2025-03-31T09:26:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T09:26:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T09:26:10.538Z] [error]: HIDE::400::ValidationError::"is_active" is not allowed::
+[2025-03-31T09:26:16.065Z] [error]: HIDE::400::ValidationError::"is_active" is not allowed::
+[2025-03-31T09:26:23.876Z] [error]: HIDE::404::NotFound::Route is not exists::

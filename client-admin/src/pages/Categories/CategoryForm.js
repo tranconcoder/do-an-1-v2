@@ -12,7 +12,8 @@ import {
     FaLayerGroup,
     FaList,
     FaToggleOn,
-    FaToggleOff
+    FaToggleOff,
+    FaSortNumericDown
 } from 'react-icons/fa';
 import Cropper from 'react-easy-crop';
 import axiosClient from '../../configs/axios';
@@ -30,6 +31,7 @@ const CategoryForm = () => {
         category_description: '',
         category_parent: '',
         category_icon: '', // Using category_icon consistently
+        category_order: 0, // Thêm category_order với giá trị mặc định là 0
         is_active: true // Add is_active field with default value true
     });
     const [categories, setCategories] = useState([]);
@@ -138,6 +140,7 @@ const CategoryForm = () => {
                                 category_description: category.category_description || '',
                                 category_parent: category.category_parent || '',
                                 category_icon: category.category_icon || '',
+                                category_order: category.category_order || 0, // Lấy giá trị category_order từ data hoặc mặc định là 0
                                 is_active:
                                     category.is_active !== undefined ? category.is_active : true // Set is_active from API response
                             });
@@ -272,35 +275,6 @@ const CategoryForm = () => {
         });
     };
 
-    const uploadImage = async () => {
-        if (!imageFile) return null;
-
-        const formData = new FormData();
-        formData.append('file', imageFile);
-
-        try {
-            setUploadProgress(0);
-
-            const response = await axiosClient.post('/media/upload', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-                onUploadProgress: (progressEvent) => {
-                    const percentCompleted = Math.round(
-                        (progressEvent.loaded * 100) / progressEvent.total
-                    );
-                    setUploadProgress(percentCompleted);
-                }
-            });
-
-            // Return the media ID from the response
-            return response.metadata?._id || null;
-        } catch (error) {
-            console.error('Error uploading image:', error);
-            throw new Error('Failed to upload image. Please try again.');
-        }
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -314,37 +288,56 @@ const CategoryForm = () => {
                 return;
             }
 
-            // Upload the image if a new file was selected
-            let mediaId = formData.category_icon;
-            if (imageFile) {
-                mediaId = await uploadImage();
-                if (!mediaId) {
-                    setError('Failed to upload image. Please try again.');
-                    setSubmitting(false);
-                    return;
-                }
+            // Tạo FormData để gửi cả dữ liệu và file hình ảnh
+            const formDataToSend = new FormData();
+
+            // Thêm các trường dữ liệu vào FormData
+            formDataToSend.append('category_name', formData.category_name);
+
+            if (formData.category_description) {
+                formDataToSend.append('category_description', formData.category_description);
             }
 
-            // Prepare payload - omit empty strings for optional fields
-            const payload = {
-                category_name: formData.category_name,
-                ...(formData.category_description && {
-                    category_description: formData.category_description
-                }),
-                ...(formData.category_parent && {
-                    category_parent: formData.category_parent
-                }),
-                ...(mediaId && {
-                    category_icon: mediaId
-                }),
-                is_active: formData.is_active // Add is_active to payload
-            };
+            if (formData.category_parent) {
+                formDataToSend.append('category_parent', formData.category_parent);
+            }
 
-            // Make API calls
+            formDataToSend.append('category_order', formData.category_order);
+            formDataToSend.append('is_active', formData.is_active);
+
+            // Thêm hình ảnh vào FormData nếu có
+            if (imageFile) {
+                formDataToSend.append('category_icon', imageFile);
+            } else if (formData.category_icon && isEditMode) {
+                // Nếu đang ở chế độ edit và không có hình ảnh mới, gửi category_icon hiện tại
+                formDataToSend.append('category_icon', formData.category_icon);
+            }
+
+            // Gửi request với FormData
             if (isEditMode) {
-                await axiosClient.put(`/category/${id}`, payload);
+                await axiosClient.put(`/category/${id}`, formDataToSend, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    onUploadProgress: (progressEvent) => {
+                        const percentCompleted = Math.round(
+                            (progressEvent.loaded * 100) / progressEvent.total
+                        );
+                        setUploadProgress(percentCompleted);
+                    }
+                });
             } else {
-                await axiosClient.post('/category/create', payload);
+                await axiosClient.post('/category/create', formDataToSend, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    onUploadProgress: (progressEvent) => {
+                        const percentCompleted = Math.round(
+                            (progressEvent.loaded * 100) / progressEvent.total
+                        );
+                        setUploadProgress(percentCompleted);
+                    }
+                });
             }
 
             // Redirect back to categories list
@@ -445,6 +438,26 @@ const CategoryForm = () => {
                     </select>
                     <small className="form-text">
                         Select a parent category if this is a subcategory
+                    </small>
+                </div>
+
+                {/* Thêm trường category_order */}
+                <div className="form-group">
+                    <label htmlFor="category_order">
+                        <FaSortNumericDown className="input-icon" /> Display Order
+                    </label>
+                    <input
+                        type="number"
+                        id="category_order"
+                        name="category_order"
+                        className="form-control"
+                        value={formData.category_order}
+                        onChange={handleChange}
+                        placeholder="Enter display order (0 = default)"
+                        min="0"
+                    />
+                    <small className="form-text">
+                        Categories with higher order values will be displayed first
                     </small>
                 </div>
 
