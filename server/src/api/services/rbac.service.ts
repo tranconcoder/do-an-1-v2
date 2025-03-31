@@ -76,6 +76,18 @@ class RBACService {
                             RoleActions.DELETE_ANY
                         ],
                         attributes: '*'
+                    },
+                    {
+                        resource: resourcesId.find(
+                            (resource) => resource.name === Resources.CATEGORY
+                        )?.id,
+                        actions: [
+                            RoleActions.CREATE_ANY,
+                            RoleActions.READ_ANY,
+                            RoleActions.UPDATE_ANY,
+                            RoleActions.DELETE_ANY
+                        ],
+                        attributes: '*'
                     }
                 ]
             },

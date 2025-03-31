@@ -344,3 +344,26 @@
 [2025-03-31T07:55:00.014Z] [error]: Client must be connected before running operations
 [2025-03-31T07:56:00.008Z] [error]: Client must be connected before running operations
 [2025-03-31T07:56:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T07:57:00.015Z] [error]: Client must be connected before running operations
+[2025-03-31T07:57:00.019Z] [error]: Client must be connected before running operations
+[2025-03-31T07:57:29.590Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-31T07:57:31.816Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-31T07:57:36.841Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-03-31T07:58:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T07:58:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T07:58:31.027Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-03-31T07:58:37.791Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-03-31T07:58:49.575Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-03-31T07:59:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T07:59:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T07:59:49.597Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.categories index: category_name_1 dup key: { category_name: "Bóng đá 2" }::
+[2025-03-31T08:00:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T08:00:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T08:00:02.726Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.categories index: category_name_1 dup key: { category_name: "Bóng đá" }::
+[2025-03-31T08:00:08.769Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.categories index: category_name_1 dup key: { category_name: "Bóng đá 1" }::
+[2025-03-31T08:00:35.758Z] [error]: HIDE::400::TypeError::Cannot read properties of null (reading 'category_level')::
+[2025-03-31T08:00:54.928Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.categories index: category_name_1 dup key: { category_name: "Bóng đá 3" }::
+[2025-03-31T08:01:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T08:01:00.014Z] [error]: Client must be connected before running operations
+[2025-03-31T08:01:18.805Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-31T08:01:18.867Z] [error]: HIDE::403::Forbidden::Token is invalid!::
