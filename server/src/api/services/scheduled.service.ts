@@ -17,7 +17,6 @@ import { CronJob } from 'cron';
 import { asyncFilter } from '@/utils/array.utils.js';
 import mongoose from 'mongoose';
 import { CategoryEnum } from '@/enums/spu.enum.js';
-import { findAllProductId } from '@/models/repository/spu/index.js';
 import { deleteKeyToken, setKeyToken } from './redis.service.js';
 
 export default class ScheduledService {

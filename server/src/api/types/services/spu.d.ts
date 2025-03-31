@@ -20,14 +20,19 @@ declare global {
                         model.spu.SPUSchema,
                         | 'product_name'
                         | 'product_cost'
+                        | 'product_shop'
                         | 'product_quantity'
+                        | 'product_description'
                         | 'product_category'
                         | 'product_attributes'
-                        | 'product_description'
-                        | 'product_shop'
                         | 'product_variations'
                         | 'product_thumb'
-                    > {}
+                        | 'product_images'
+                        | 'is_draft'
+                        | 'is_publish'
+                    > {
+                    sku_list: Omit<service.sku.CreateSKU, 'sku_product'>[];
+                }
 
                 /* ------------------------------------------------------ */
                 /*                         Search                         */
