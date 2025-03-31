@@ -16,12 +16,14 @@ declare global {
                     product_name: string;
                     product_cost: number;
                     product_shop: moduleTypes.mongoose.ObjectId;
-                    product_thumb: moduleTypes.mongoose.ObjectId;
                     product_quantity: number;
                     product_description: string;
                     product_category: moduleTypes.mongoose.ObjectId;
                     product_rating_avg: number;
                     product_slug: string;
+
+                    product_thumb: moduleTypes.mongoose.ObjectId;
+                    product_images: Array<moduleTypes.mongoose.ObjectId>;
 
                     /* --------------------------- SPU -------------------------- */
                     product_attributes: Array<{

@@ -20,7 +20,8 @@ import {
     checkCustomerAccountToRegisterShop,
     cleanUpSignUpShop
 } from '@/middlewares/auth.middleware.js';
-import { uploadAvatar } from '@/middlewares/media.middleware.js';
+import { uploadSingleMedia } from '@/middlewares/media.middleware.js';
+import { uploadAvatar } from '@/middlewares/multer.middleware.js';
 
 const authRoute = Router();
 const authRouteValidate = Router();
@@ -29,7 +30,7 @@ authRoute.post('/sign-up', joiValidate(signUpSchema), catchError(AuthController.
 
 authRoute.post(
     '/sign-up-shop',
-    uploadAvatar(AvatarFields.SHOP_LOGO),
+    uploadSingleMedia(AvatarFields.SHOP_LOGO, uploadAvatar, 'Shop logo'),
     joiValidate(signUpShop),
     catchError(checkCustomerAccountToRegisterShop),
     catchError(AuthController.signUpShop),

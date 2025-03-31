@@ -29,11 +29,15 @@ export const categorySchema = new Schema<model.category.Category>(
 
 categorySchema.pre('save', async function (next) {
     /* -------------------- Add category slug ------------------- */
+    const sameNameCount = await mongoose.models[CATEGORY_MODEL_NAME].countDocuments({
+        category_name: this.category_name
+    });
     this.category_slug = slugify.default(this.category_name, {
         lower: true,
         strict: true,
         locale: 'vi'
     });
+    if (sameNameCount > 0) this.category_slug += `-${sameNameCount}`;
 
     /* ------------------- Set category level ------------------- */
     if (this.category_parent) {
@@ -49,11 +53,15 @@ categorySchema.pre('save', async function (next) {
 categorySchema.pre('findOneAndUpdate', async function (next) {
     const _this = this as any;
 
+    const sameNameCount = await mongoose.models[CATEGORY_MODEL_NAME].countDocuments({
+        category_name: _this._update.category_name
+    });
     _this._update.category_slug = slugify.default(_this._update.category_name, {
         lower: true,
         strict: true,
         locale: 'vi'
     });
+    if (sameNameCount > 0) _this._update.category_slug += `-${sameNameCount}`;
 
     if (_this._update.category_parent) {
         const parentLevel = await mongoose.models[CATEGORY_MODEL_NAME].findById(

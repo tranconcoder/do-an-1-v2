@@ -1,11 +1,10 @@
 import { AVATAR_BASE_PATH, CATEGORY_BASE_PATH } from '@/configs/media.config.js';
 import { MediaMimeTypes, MediaTypes } from '@/enums/media.enum.js';
 import { NotFoundErrorResponse } from '@/response/error.response.js';
+import { getRandomFilename } from '@/utils/multer.util.js';
 import fs from 'fs/promises';
 import mongoose from 'mongoose';
 import multer from 'multer';
-import path from 'path';
-import { v4 } from 'uuid';
 
 /* ---------------------------------------------------------- */
 /*                           Avatar                           */
@@ -15,12 +14,7 @@ export const avatarStorage = multer.diskStorage({
         await fs.mkdir(AVATAR_BASE_PATH, { recursive: true });
         cb(null, AVATAR_BASE_PATH);
     },
-    filename: (_req, file, cb) => {
-        const fileName = v4();
-        const extname = path.extname(file.originalname);
-
-        cb(null, `${fileName}${extname}`);
-    }
+    filename: getRandomFilename
 });
 
 /* ---------------------------------------------------------- */
@@ -31,12 +25,7 @@ export const categoryService = multer.diskStorage({
         await fs.mkdir(CATEGORY_BASE_PATH, { recursive: true });
         cb(null, CATEGORY_BASE_PATH);
     },
-    filename: (_req, file, cb) => {
-        const fileName = v4();
-        const extname = path.extname(file.originalname);
-
-        cb(null, `${fileName}${extname}`);
-    }
+    filename: getRandomFilename
 });
 
 export const categoryMedia: Array<model.media.MediaSchema> = [

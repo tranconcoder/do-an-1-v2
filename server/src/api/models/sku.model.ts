@@ -10,7 +10,14 @@ export const skuSchema = new Schema<model.sku.SKU>(
         sku_product: { type: Schema.Types.ObjectId, ref: SPU_COLLECTION_NAME, required: true },
         sku_price: { type: Number, required: true },
         sku_stock: { type: Number, required: true },
+
         sku_thumb: { type: Schema.Types.ObjectId, ref: MEDIA_MODEL_NAME, required: true },
+        sku_images: {
+            type: [Schema.Types.ObjectId],
+            ref: MEDIA_MODEL_NAME,
+            default: []
+        },
+
         sku_tier_idx: {
             type: [[Number]],
             required: true,
