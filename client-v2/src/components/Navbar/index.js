@@ -132,10 +132,10 @@ function Navbar() {
                                 <div className={cx('user-dropdown', 'animate-zoom')}>
                                     <div className={cx('user-info')}>
                                         <span className={cx('user-name')}>
-                                            {user.fullName || user.name || 'User'}
+                                            {user.user_fullName || 'User'}
                                         </span>
                                         <span className={cx('user-email')}>
-                                            {user.email || user.phoneNumber || ''}
+                                            {user.user_email || ''}
                                         </span>
                                     </div>
                                     <div className={cx('dropdown-divider')}></div>

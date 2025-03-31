@@ -7,11 +7,11 @@ export const loginUser = createAsyncThunk(
     'user/login',
     async ({ phoneNumber, password }, { rejectWithValue }) => {
         try {
-            console.log({ response });
             const response = await axiosClient.post('/auth/login', { phoneNumber, password });
             if (response.status !== 200) {
                 return rejectWithValue(response.message || 'Login failed');
             }
+            console.log(response);
 
             // Check if 'shop' exists in the response metadata using 'in' operator
             if (!('shop' in response.data.metadata)) {

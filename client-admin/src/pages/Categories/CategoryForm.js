@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { FaSave, FaTimes, FaSpinner } from 'react-icons/fa';
+import { FaSave, FaTimes, FaSpinner, FaUpload, FaImage } from 'react-icons/fa';
 import axiosClient from '../../configs/axios';
 import './Categories.css';
 
@@ -8,6 +8,7 @@ const CategoryForm = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const isEditMode = !!id;
+    const fileInputRef = useRef(null);
 
     const [formData, setFormData] = useState({
         category_name: '',
@@ -15,11 +16,14 @@ const CategoryForm = () => {
         category_parent: '',
         category_icon: '' // This would typically be a media ID
     });
-
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState(null);
+    const [categoriesHierarchy, setCategoriesHierarchy] = useState([]);
+    const [imageFile, setImageFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState('');
+    const [uploadProgress, setUploadProgress] = useState(0);
 
     // Fetch all categories for parent dropdown
     useEffect(() => {
@@ -35,6 +39,10 @@ const CategoryForm = () => {
                         : response.metadata;
 
                     setCategories(filteredCategories);
+                    
+                    // Build the hierarchy for the dropdown
+                    const hierarchy = buildCategoryHierarchy(filteredCategories);
+                    setCategoriesHierarchy(hierarchy);
                 }
             } catch (err) {
                 console.error('Error fetching categories:', err);
@@ -46,6 +54,48 @@ const CategoryForm = () => {
 
         fetchCategories();
     }, [id, isEditMode]);
+
+    // Build a hierarchical structure of categories
+    const buildCategoryHierarchy = (categoriesList) => {
+        // First, identify root categories (those without a parent or parent is null/empty)
+        const rootCategories = categoriesList.filter(cat => !cat.category_parent);
+        
+        // Then build the tree recursively
+        return rootCategories.map(rootCat => {
+            return {
+                ...rootCat,
+                children: getChildCategories(categoriesList, rootCat._id)
+            };
+        });
+    };
+
+    // Get all child categories for a given parent ID
+    const getChildCategories = (categoriesList, parentId) => {
+        const children = categoriesList.filter(cat => 
+            cat.category_parent && cat.category_parent === parentId
+        );
+        
+        return children.map(child => ({
+            ...child,
+            children: getChildCategories(categoriesList, child._id)
+        }));
+    };
+
+    // Recursively render category options with proper indentation
+    const renderCategoryOptions = (categories, level = 0) => {
+        return categories.map((category) => (
+            <React.Fragment key={category._id}>
+                <option value={category._id}>
+                    {/* Add indentation based on level */}
+                    {"\u00A0".repeat(level * 4)}
+                    {level > 0 ? "└─ " : ""}{category.category_name}
+                </option>
+                {category.children && category.children.length > 0 && 
+                    renderCategoryOptions(category.children, level + 1)
+                }
+            </React.Fragment>
+        ));
+    };
 
     // If in edit mode, fetch the category details
     useEffect(() => {
@@ -66,6 +116,13 @@ const CategoryForm = () => {
                                 category_parent: category.category_parent || '',
                                 category_icon: category.category_icon || ''
                             });
+
+                            // If category has an icon, set the preview
+                            if (category.category_icon) {
+                                // Get the image URL from the server
+                                const imageUrl = `${process.env.REACT_APP_API_URL || ''}/media/${category.category_icon}`;
+                                setImagePreview(imageUrl);
+                            }
                         } else {
                             setError('Category not found');
                         }
@@ -90,9 +147,68 @@ const CategoryForm = () => {
         }));
     };
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Check if the file is an image
+        if (!file.type.match('image.*')) {
+            setError('Please select an image file (JPEG, PNG, etc.)');
+            return;
+        }
+
+        // Check file size (limit to 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            setError('Image size should be less than 5MB');
+            return;
+        }
+
+        setImageFile(file);
+        
+        // Create a preview URL for the image
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagePreview(reader.result);
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const handleImageClick = () => {
+        // Trigger the hidden file input when the image area is clicked
+        fileInputRef.current.click();
+    };
+
+    const uploadImage = async () => {
+        if (!imageFile) return null;
+
+        const formData = new FormData();
+        formData.append('file', imageFile);
+
+        try {
+            setUploadProgress(0);
+
+            const response = await axiosClient.post('/media/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                onUploadProgress: (progressEvent) => {
+                    const percentCompleted = Math.round(
+                        (progressEvent.loaded * 100) / progressEvent.total
+                    );
+                    setUploadProgress(percentCompleted);
+                }
+            });
+
+            // Return the media ID from the response
+            return response.metadata?._id || null;
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            throw new Error('Failed to upload image. Please try again.');
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             setSubmitting(true);
             setError(null);
@@ -100,7 +216,19 @@ const CategoryForm = () => {
             // Validation
             if (!formData.category_name.trim()) {
                 setError('Category name is required');
+                setSubmitting(false);
                 return;
+            }
+
+            // Upload the image if a new file was selected
+            let mediaId = formData.category_icon;
+            if (imageFile) {
+                mediaId = await uploadImage();
+                if (!mediaId) {
+                    setError('Failed to upload image. Please try again.');
+                    setSubmitting(false);
+                    return;
+                }
             }
 
             // Prepare payload - omit empty strings for optional fields
@@ -112,18 +240,16 @@ const CategoryForm = () => {
                 ...(formData.category_parent && {
                     category_parent: formData.category_parent
                 }),
-                ...(formData.category_icon && {
-                    category_icon: formData.category_icon
+                ...(mediaId && {
+                    category_icon: mediaId
                 })
             };
 
-            // In a real app, these would be actual API calls
+            // Make API calls
             if (isEditMode) {
-                // await axiosClient.put(`/category/${id}`, payload);
-                console.log('Updated category', id, payload);
+                await axiosClient.put(`/category/${id}`, payload);
             } else {
-                // await axiosClient.post('/category', payload);
-                console.log('Created category', payload);
+                await axiosClient.post('/category/create', payload);
             }
 
             // Redirect back to categories list
@@ -133,6 +259,7 @@ const CategoryForm = () => {
             setError(err.response?.data?.message || 'Failed to save category. Please try again.');
         } finally {
             setSubmitting(false);
+            setUploadProgress(0);
         }
     };
 
@@ -193,27 +320,48 @@ const CategoryForm = () => {
                         onChange={handleChange}
                     >
                         <option value="">-- None (Root Category) --</option>
-                        {categories.map((category) => (
-                            <option key={category._id} value={category._id}>
-                                {category.category_name}
-                            </option>
-                        ))}
+                        {renderCategoryOptions(categoriesHierarchy)}
                     </select>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="category_icon">Category Icon (Media ID)</label>
-                    <input
-                        type="text"
-                        id="category_icon"
-                        name="category_icon"
-                        className="form-control"
-                        value={formData.category_icon}
-                        onChange={handleChange}
-                        placeholder="Enter media ID for the icon"
-                    />
+                    <label>Category Image</label>
+                    <div 
+                        className="image-upload-container" 
+                        onClick={handleImageClick}
+                    >
+                        {imagePreview ? (
+                            <div className="image-preview">
+                                <img src={imagePreview} alt="Category preview" />
+                            </div>
+                        ) : (
+                            <div className="image-placeholder">
+                                <FaImage />
+                                <p>Click to upload an image</p>
+                            </div>
+                        )}
+                        
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            style={{ display: 'none' }}
+                        />
+                    </div>
+
+                    {uploadProgress > 0 && uploadProgress < 100 && (
+                        <div className="upload-progress">
+                            <div 
+                                className="progress-bar" 
+                                style={{ width: `${uploadProgress}%` }}
+                            ></div>
+                            <span>{uploadProgress}%</span>
+                        </div>
+                    )}
+
                     <small className="form-text">
-                        Note: This should be a valid Media ID from the media library.
+                        The image should be in JPEG or PNG format and less than 5MB.
                     </small>
                 </div>
 

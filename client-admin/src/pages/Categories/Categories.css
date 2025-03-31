@@ -2,10 +2,14 @@
     padding: 30px;
     max-width: 1200px;
     margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* Changed from "margin: 20px" to center the container */
 }
 
 .categories-header {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -13,8 +17,8 @@
 
 .categories-header h1 {
     color: #333;
-    font-size: 28px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    margin-bottom: 8px;
     font-weight: 700;
 }
 
@@ -27,16 +31,16 @@
 .add-category-button {
     display: inline-flex;
     align-items: center;
-    padding: 10px 16px;
-    background: linear-gradient(135deg, #4776e6, #8e54e9);
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #4776e6, #8e54e9); /* Changed from green to purple gradient like login page */
     color: white;
-    border-radius: 6px;
+    border-radius: 4px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 500;
     transition: all 0.3s ease;
     align-self: flex-start;
     font-size: 14px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(142, 84, 233, 0.3); /* Changed shadow color to match button */
     border: none;
     cursor: pointer;
 }
@@ -46,8 +50,9 @@
 }
 
 .add-category-button:hover {
+    background: linear-gradient(135deg, #3d68d8, #7c48cb); /* Darker gradient on hover */
+    box-shadow: 0 6px 12px rgba(142, 84, 233, 0.4);
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(71, 118, 230, 0.2);
 }
 
 .categories-loading {
@@ -58,13 +63,16 @@
     padding: 50px;
     color: #666;
     font-size: 18px;
+    text-align: center;
+    padding: 40px;
 }
 
 .spinner {
     animation: spin 1s linear infinite;
     font-size: 24px;
     margin-bottom: 15px;
-    color: #4776e6;
+    color: #8e54e9; /* Changed to purple */
+    margin-right: 8px;
 }
 
 @keyframes spin {
@@ -84,6 +92,10 @@
     margin-bottom: 20px;
     text-align: center;
     font-weight: 500;
+    color: #e74c3c;
+    background-color: #fdecea;
+    border-radius: 4px;
+    padding: 15px;
 }
 
 .categories-table {
@@ -97,9 +109,9 @@
 
 .categories-table th,
 .categories-table td {
-    padding: 15px;
+    padding: 12px 15px;
     text-align: left;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid #eee;
 }
 
 .categories-table th {
@@ -112,7 +124,7 @@
 }
 
 .categories-table tr:hover {
-    background-color: #f8f9fd;
+    background-color: #f5f5f5;
 }
 
 .categories-table tr:last-child td {
@@ -120,8 +132,41 @@
 }
 
 .category-name {
-    font-weight: 600;
+    font-weight: 500;
     color: #333;
+}
+
+/* Hierarchical category styling */
+.category-name-container {
+    display: flex;
+    align-items: center;
+}
+
+.child-category {
+    background-color: #f9f9f9;
+}
+
+.child-category:hover {
+    background-color: #f2f2f2;
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 8px;
+    color: #777;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    border-radius: 3px;
+}
+
+.toggle-button:hover {
+    color: #333;
+    background-color: #e9ecef;
 }
 
 .category-description {
@@ -138,7 +183,7 @@
 }
 
 .category-count {
-    color: #4776e6;
+    color: #8e54e9; /* Changed from blue to purple */
     font-weight: 500;
     text-align: center;
 }
@@ -152,41 +197,50 @@
 .edit-button,
 .delete-button,
 .move-up-button {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 34px;
     height: 34px;
-    border-radius: 6px;
+    border-radius: 4px;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;
-    color: white;
+    color: #555;
+    padding: 4px;
 }
 
 .edit-button {
-    background-color: #4caf50;
+    background-color: rgba(142, 84, 233, 0.1); /* Changed from green to purple */
+    color: #8e54e9;
 }
 
 .delete-button {
-    background-color: #f44336;
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #f44336;
 }
 
 .move-up-button {
-    background-color: #ff9800;
+    background-color: rgba(255, 152, 0, 0.1);
+    color: #ff9800;
 }
 
-.edit-button:hover,
-.delete-button:hover,
+.edit-button:hover {
+    background-color: rgba(142, 84, 233, 0.2);
+}
+
+.delete-button:hover {
+    background-color: rgba(244, 67, 54, 0.2);
+}
+
 .move-up-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 152, 0, 0.2);
 }
 
 .no-categories {
     text-align: center;
-    color: #666;
-    padding: 30px;
+    color: #888;
+    padding: 30px 0;
     font-style: italic;
 }
 
@@ -196,6 +250,8 @@
     border-radius: 10px;
     padding: 30px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .form-group {
@@ -211,17 +267,17 @@
 
 .form-control {
     width: 100%;
-    padding: 12px 15px;
+    padding: 10px 12px;
     border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 16px;
-    transition: border-color 0.3s;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.2s;
 }
 
 .form-control:focus {
-    border-color: #4776e6;
+    border-color: #8e54e9; /* Changed from green to purple */
     outline: none;
-    box-shadow: 0 0 0 2px rgba(71, 118, 230, 0.2);
+    box-shadow: 0 0 0 2px rgba(142, 84, 233, 0.2);
 }
 
 select.form-control {
@@ -232,9 +288,38 @@ select.form-control {
     background-size: 16px;
 }
 
+/* Hierarchical dropdown styling */
+select.form-control option {
+    padding: 8px 12px;
+}
+
+/* Indent level styling for dropdown options */
+select.form-control option.level-0 {
+    font-weight: bold;
+}
+
+select.form-control option.level-1 {
+    padding-left: 20px;
+}
+
+select.form-control option.level-2 {
+    padding-left: 40px;
+}
+
+select.form-control option.level-3 {
+    padding-left: 60px;
+}
+
 textarea.form-control {
     min-height: 100px;
     resize: vertical;
+}
+
+.form-text {
+    font-size: 12px;
+    color: #777;
+    margin-top: 4px;
+    display: block;
 }
 
 .form-actions {
@@ -244,28 +329,39 @@ textarea.form-control {
 }
 
 .save-button {
-    padding: 12px 20px;
-    background: linear-gradient(135deg, #4776e6, #8e54e9);
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #4776e6, #8e54e9); /* Changed from green to purple gradient */
     color: white;
     border: none;
-    border-radius: 6px;
-    font-weight: 600;
+    border-radius: 4px;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(142, 84, 233, 0.3);
 }
 
 .save-button:hover {
+    background: linear-gradient(135deg, #3d68d8, #7c48cb); /* Darker gradient on hover */
+    box-shadow: 0 6px 12px rgba(142, 84, 233, 0.4);
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(71, 118, 230, 0.2);
+}
+
+.save-button:disabled {
+    background: linear-gradient(135deg, #a2b3e0, #bda7d9);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
 
 .cancel-button {
-    padding: 12px 20px;
-    background-color: #f8f9fa;
+    padding: 10px 20px;
+    background-color: #f1f1f1;
     color: #333;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
@@ -275,5 +371,5 @@ textarea.form-control {
 }
 
 .cancel-button:hover {
-    background-color: #e9ecef;
+    background-color: #e0e0e0;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaPlus, FaEdit, FaTrash, FaArrowUp, FaSpinner } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaArrowUp, FaSpinner, FaChevronRight, FaChevronDown } from 'react-icons/fa';
 import axiosClient from '../../configs/axios';
 import './Categories.css';
 
@@ -9,6 +9,8 @@ const CategoriesList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [parentCategories, setParentCategories] = useState({});
+    const [categoriesHierarchy, setCategoriesHierarchy] = useState([]);
+    const [expandedCategories, setExpandedCategories] = useState({});
 
     // Fetch categories from the API
     useEffect(() => {
@@ -26,6 +28,10 @@ const CategoriesList = () => {
                         parentLookup[cat._id] = cat.category_name;
                     });
                     setParentCategories(parentLookup);
+                    
+                    // Build hierarchical view of categories
+                    const hierarchy = buildCategoryHierarchy(response.metadata);
+                    setCategoriesHierarchy(hierarchy);
                 }
 
                 setError(null);
@@ -39,6 +45,32 @@ const CategoriesList = () => {
 
         fetchCategories();
     }, []);
+
+    // Build a hierarchical structure of categories
+    const buildCategoryHierarchy = (categoriesList) => {
+        // First, identify root categories (those without a parent or parent is null/empty)
+        const rootCategories = categoriesList.filter(cat => !cat.category_parent);
+        
+        // Then build the tree recursively
+        return rootCategories.map(rootCat => {
+            return {
+                ...rootCat,
+                children: getChildCategories(categoriesList, rootCat._id)
+            };
+        });
+    };
+
+    // Get all child categories for a given parent ID
+    const getChildCategories = (categoriesList, parentId) => {
+        const children = categoriesList.filter(cat => 
+            cat.category_parent && cat.category_parent === parentId
+        );
+        
+        return children.map(child => ({
+            ...child,
+            children: getChildCategories(categoriesList, child._id)
+        }));
+    };
 
     const handleDeleteCategory = async (id) => {
         // This would be a real API call in production
@@ -54,6 +86,70 @@ const CategoriesList = () => {
                 setError('Failed to delete category. Please try again.');
             }
         }
+    };
+
+    const toggleCategory = (categoryId) => {
+        setExpandedCategories(prev => ({
+            ...prev,
+            [categoryId]: !prev[categoryId]
+        }));
+    };
+
+    // Recursively render category rows
+    const renderCategoryRows = (categories, level = 0) => {
+        return categories.map((category) => (
+            <React.Fragment key={category._id}>
+                <tr className={level > 0 ? 'child-category' : ''}>
+                    <td className="category-name">
+                        <div style={{ paddingLeft: `${level * 20}px` }} className="category-name-container">
+                            {category.children && category.children.length > 0 && (
+                                <button 
+                                    className="toggle-button"
+                                    onClick={() => toggleCategory(category._id)}
+                                >
+                                    {expandedCategories[category._id] ? 
+                                        <FaChevronDown /> : <FaChevronRight />}
+                                </button>
+                            )}
+                            {category.category_name}
+                        </div>
+                    </td>
+                    <td className="category-description">
+                        {category.category_description || '-'}
+                    </td>
+                    <td className="category-parent">
+                        {category.category_parent
+                            ? parentCategories[category.category_parent] || '-'
+                            : 'Root Category'}
+                    </td>
+                    <td className="category-count">
+                        {category.category_product_count || 0}
+                    </td>
+                    <td className="category-actions">
+                        <Link
+                            to={`/categories/edit/${category._id}`}
+                            className="edit-button"
+                        >
+                            <FaEdit />
+                        </Link>
+                        <button
+                            className="delete-button"
+                            onClick={() => handleDeleteCategory(category._id)}
+                        >
+                            <FaTrash />
+                        </button>
+                        {category.category_level > 0 && (
+                            <button className="move-up-button">
+                                <FaArrowUp />
+                            </button>
+                        )}
+                    </td>
+                </tr>
+                {expandedCategories[category._id] && category.children && category.children.length > 0 && 
+                    renderCategoryRows(category.children, level + 1)
+                }
+            </React.Fragment>
+        ));
     };
 
     if (loading) {
@@ -99,41 +195,7 @@ const CategoriesList = () => {
                                 </td>
                             </tr>
                         ) : (
-                            categories.map((category) => (
-                                <tr key={category._id}>
-                                    <td className="category-name">{category.category_name}</td>
-                                    <td className="category-description">
-                                        {category.category_description || '-'}
-                                    </td>
-                                    <td className="category-parent">
-                                        {category.category_parent
-                                            ? parentCategories[category.category_parent] || '-'
-                                            : 'Root Category'}
-                                    </td>
-                                    <td className="category-count">
-                                        {category.category_product_count || 0}
-                                    </td>
-                                    <td className="category-actions">
-                                        <Link
-                                            to={`/categories/edit/${category._id}`}
-                                            className="edit-button"
-                                        >
-                                            <FaEdit />
-                                        </Link>
-                                        <button
-                                            className="delete-button"
-                                            onClick={() => handleDeleteCategory(category._id)}
-                                        >
-                                            <FaTrash />
-                                        </button>
-                                        {category.category_level > 0 && (
-                                            <button className="move-up-button">
-                                                <FaArrowUp />
-                                            </button>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))
+                            renderCategoryRows(categoriesHierarchy)
                         )}
                     </tbody>
                 </table>

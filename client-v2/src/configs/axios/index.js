@@ -39,12 +39,10 @@ class AxiosClient {
                         config.url.includes('/auth/new-token');
 
                     const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
-                    console.log({ accessToken });
                     if (!accessToken && !isAuthRoute) {
                         return Promise.reject(new Error('No access token found'));
                     }
 
-                    console.log(123);
                     if (accessToken && !isAuthRoute) {
                         config.headers['Authorization'] = `Bearer ${accessToken}`;
                     }
@@ -59,10 +57,15 @@ class AxiosClient {
                 async (error) => {
                     const originalRequest = error.config;
                     const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
-                    console.log(refreshToken);
 
                     // If error is 401 and we haven't tried to refresh the token yet
                     if (error.response?.status === 403 && !originalRequest._retry && refreshToken) {
+                        if (!refreshToken) {
+                            // If no refresh token, redirect to login
+                            window.location.href = '/auth/login';
+                            return Promise.reject(error);
+                        }
+
                         if (this.isRefreshing) {
                             // If we're already refreshing, wait for the new token
                             try {
@@ -94,6 +97,9 @@ class AxiosClient {
                             // Extract tokens from response
                             const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
                                 response.data.metadata.token;
+
+                            localStorage.setItem(ACCESS_TOKEN_KEY, newAccessToken);
+                            localStorage.setItem(REFRESH_TOKEN_KEY, newRefreshToken);
 
                             // Update Authorization header
                             originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;

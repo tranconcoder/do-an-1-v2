@@ -10,12 +10,12 @@ import { ProductsProvider } from './configs/ProductsData';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <ProductsProvider>
-            <Provider store={store}>
-                <AuthCheck />
-                <Routes />
-            </Provider>
-        </ProductsProvider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <ProductsProvider>
+        <Provider store={store}>
+            <AuthCheck />
+            <Routes />
+        </Provider>
+    </ProductsProvider>
+    // </React.StrictMode>
 );
