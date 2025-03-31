@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FaSave, FaTimes, FaSpinner, FaUpload, FaImage } from 'react-icons/fa';
 import axiosClient from '../../configs/axios';
+import { API_URL } from '../../configs/env.config';
 import './Categories.css';
 
 const CategoryForm = () => {
@@ -14,7 +15,7 @@ const CategoryForm = () => {
         category_name: '',
         category_description: '',
         category_parent: '',
-        category_icon: '' // This would typically be a media ID
+        category_icon: '' // Using category_icon consistently
     });
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -39,7 +40,7 @@ const CategoryForm = () => {
                         : response.metadata;
 
                     setCategories(filteredCategories);
-                    
+
                     // Build the hierarchy for the dropdown
                     const hierarchy = buildCategoryHierarchy(filteredCategories);
                     setCategoriesHierarchy(hierarchy);
@@ -58,10 +59,10 @@ const CategoryForm = () => {
     // Build a hierarchical structure of categories
     const buildCategoryHierarchy = (categoriesList) => {
         // First, identify root categories (those without a parent or parent is null/empty)
-        const rootCategories = categoriesList.filter(cat => !cat.category_parent);
-        
+        const rootCategories = categoriesList.filter((cat) => !cat.category_parent);
+
         // Then build the tree recursively
-        return rootCategories.map(rootCat => {
+        return rootCategories.map((rootCat) => {
             return {
                 ...rootCat,
                 children: getChildCategories(categoriesList, rootCat._id)
@@ -71,11 +72,11 @@ const CategoryForm = () => {
 
     // Get all child categories for a given parent ID
     const getChildCategories = (categoriesList, parentId) => {
-        const children = categoriesList.filter(cat => 
-            cat.category_parent && cat.category_parent === parentId
+        const children = categoriesList.filter(
+            (cat) => cat.category_parent && cat.category_parent === parentId
         );
-        
-        return children.map(child => ({
+
+        return children.map((child) => ({
             ...child,
             children: getChildCategories(categoriesList, child._id)
         }));
@@ -87,12 +88,13 @@ const CategoryForm = () => {
             <React.Fragment key={category._id}>
                 <option value={category._id}>
                     {/* Add indentation based on level */}
-                    {"\u00A0".repeat(level * 4)}
-                    {level > 0 ? "└─ " : ""}{category.category_name}
+                    {'\u00A0'.repeat(level * 4)}
+                    {level > 0 ? '└─ ' : ''}
+                    {category.category_name}
                 </option>
-                {category.children && category.children.length > 0 && 
-                    renderCategoryOptions(category.children, level + 1)
-                }
+                {category.children &&
+                    category.children.length > 0 &&
+                    renderCategoryOptions(category.children, level + 1)}
             </React.Fragment>
         ));
     };
@@ -103,7 +105,6 @@ const CategoryForm = () => {
             const fetchCategoryDetails = async () => {
                 try {
                     setLoading(true);
-                    // In a real app, this would be a separate API endpoint
                     const response = await axiosClient.get('/category/');
 
                     if (response.metadata && Array.isArray(response.metadata)) {
@@ -119,8 +120,8 @@ const CategoryForm = () => {
 
                             // If category has an icon, set the preview
                             if (category.category_icon) {
-                                // Get the image URL from the server
-                                const imageUrl = `${process.env.REACT_APP_API_URL || ''}/media/${category.category_icon}`;
+                                // Get the image URL from the server using API_URL from config
+                                const imageUrl = `${API_URL}/media/${category.category_icon}`;
                                 setImagePreview(imageUrl);
                             }
                         } else {
@@ -164,7 +165,7 @@ const CategoryForm = () => {
         }
 
         setImageFile(file);
-        
+
         // Create a preview URL for the image
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -325,22 +326,19 @@ const CategoryForm = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Category Image</label>
-                    <div 
-                        className="image-upload-container" 
-                        onClick={handleImageClick}
-                    >
+                    <label>Category Icon</label>
+                    <div className="image-upload-container" onClick={handleImageClick}>
                         {imagePreview ? (
                             <div className="image-preview">
-                                <img src={imagePreview} alt="Category preview" />
+                                <img src={imagePreview} alt="Category icon preview" />
                             </div>
                         ) : (
                             <div className="image-placeholder">
                                 <FaImage />
-                                <p>Click to upload an image</p>
+                                <p>Click to upload an icon</p>
                             </div>
                         )}
-                        
+
                         <input
                             ref={fileInputRef}
                             type="file"
@@ -352,8 +350,8 @@ const CategoryForm = () => {
 
                     {uploadProgress > 0 && uploadProgress < 100 && (
                         <div className="upload-progress">
-                            <div 
-                                className="progress-bar" 
+                            <div
+                                className="progress-bar"
                                 style={{ width: `${uploadProgress}%` }}
                             ></div>
                             <span>{uploadProgress}%</span>

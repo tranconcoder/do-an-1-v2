@@ -32,7 +32,11 @@
     display: inline-flex;
     align-items: center;
     padding: 10px 20px;
-    background: linear-gradient(135deg, #4776e6, #8e54e9); /* Changed from green to purple gradient like login page */
+    background: linear-gradient(
+        135deg,
+        #4776e6,
+        #8e54e9
+    ); /* Changed from green to purple gradient like login page */
     color: white;
     border-radius: 4px;
     text-decoration: none;
@@ -136,7 +140,7 @@
     color: #333;
 }
 
-/* Hierarchical category styling */
+/* Hierarchical category styling with improved indentation */
 .category-name-container {
     display: flex;
     align-items: center;
@@ -144,12 +148,15 @@
 
 .child-category {
     background-color: #f9f9f9;
+    /* Added border styling to show hierarchy */
+    border-left: 3px solid rgba(142, 84, 233, 0.3);
 }
 
 .child-category:hover {
     background-color: #f2f2f2;
 }
 
+/* Toggle button with smooth animation */
 .toggle-button {
     background: none;
     border: none;
@@ -160,13 +167,78 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s;
+    transition: all 0.3s ease;
     border-radius: 3px;
+    width: 24px;
+    height: 24px;
 }
 
 .toggle-button:hover {
     color: #333;
     background-color: #e9ecef;
+    transform: scale(1.1);
+}
+
+.toggle-button svg {
+    transition: transform 0.3s ease;
+}
+
+/* Adding animation for category children */
+.category-children-container {
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.category-children-container.collapsed {
+    max-height: 0;
+}
+
+.category-children-container.expanded {
+    max-height: 1000px; /* Large enough to fit any reasonable number of child categories */
+}
+
+/* Category image styling for list */
+.category-image-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    border: 1px solid #e0e0e0;
+}
+
+.category-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.category-image.no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #bbb;
+}
+
+.image-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #bbb;
 }
 
 .category-description {
@@ -280,6 +352,98 @@
     box-shadow: 0 0 0 2px rgba(142, 84, 233, 0.2);
 }
 
+/* Image upload container styles */
+.image-upload-container {
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+.image-upload-container:hover {
+    border-color: #8e54e9;
+    background-color: #f5f0ff;
+}
+
+.image-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    padding: 20px;
+    text-align: center;
+}
+
+.image-placeholder svg {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.image-placeholder p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.image-preview {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.image-preview:hover::after {
+    content: 'Click to change image';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(142, 84, 233, 0.8);
+    color: white;
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+}
+
+.upload-progress {
+    margin-top: 10px;
+    width: 100%;
+    height: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4776e6, #8e54e9);
+    transition: width 0.3s ease;
+}
+
+.upload-progress span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    color: #333;
+    font-weight: bold;
+}
+
 select.form-control {
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -330,7 +494,11 @@ textarea.form-control {
 
 .save-button {
     padding: 10px 20px;
-    background: linear-gradient(135deg, #4776e6, #8e54e9); /* Changed from green to purple gradient */
+    background: linear-gradient(
+        135deg,
+        #4776e6,
+        #8e54e9
+    ); /* Changed from green to purple gradient */
     color: white;
     border: none;
     border-radius: 4px;

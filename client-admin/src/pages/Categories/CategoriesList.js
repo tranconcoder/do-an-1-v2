@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaPlus, FaEdit, FaTrash, FaArrowUp, FaSpinner, FaChevronRight, FaChevronDown } from 'react-icons/fa';
+import {
+    FaPlus,
+    FaEdit,
+    FaTrash,
+    FaArrowUp,
+    FaSpinner,
+    FaChevronRight,
+    FaChevronDown,
+    FaImage
+} from 'react-icons/fa';
 import axiosClient from '../../configs/axios';
 import './Categories.css';
+import { API_URL } from '../../configs/env.config';
 
 const CategoriesList = () => {
     const [categories, setCategories] = useState([]);
@@ -28,7 +38,7 @@ const CategoriesList = () => {
                         parentLookup[cat._id] = cat.category_name;
                     });
                     setParentCategories(parentLookup);
-                    
+
                     // Build hierarchical view of categories
                     const hierarchy = buildCategoryHierarchy(response.metadata);
                     setCategoriesHierarchy(hierarchy);
@@ -49,10 +59,10 @@ const CategoriesList = () => {
     // Build a hierarchical structure of categories
     const buildCategoryHierarchy = (categoriesList) => {
         // First, identify root categories (those without a parent or parent is null/empty)
-        const rootCategories = categoriesList.filter(cat => !cat.category_parent);
-        
+        const rootCategories = categoriesList.filter((cat) => !cat.category_parent);
+
         // Then build the tree recursively
-        return rootCategories.map(rootCat => {
+        return rootCategories.map((rootCat) => {
             return {
                 ...rootCat,
                 children: getChildCategories(categoriesList, rootCat._id)
@@ -62,11 +72,11 @@ const CategoriesList = () => {
 
     // Get all child categories for a given parent ID
     const getChildCategories = (categoriesList, parentId) => {
-        const children = categoriesList.filter(cat => 
-            cat.category_parent && cat.category_parent === parentId
+        const children = categoriesList.filter(
+            (cat) => cat.category_parent && cat.category_parent === parentId
         );
-        
-        return children.map(child => ({
+
+        return children.map((child) => ({
             ...child,
             children: getChildCategories(categoriesList, child._id)
         }));
@@ -76,11 +86,15 @@ const CategoriesList = () => {
         // This would be a real API call in production
         if (window.confirm('Are you sure you want to delete this category?')) {
             try {
-                // In a real app, this would be an API call
-                // await axiosClient.delete(`/category/${id}`);
+                await axiosClient.delete(`/category/${id}`);
 
-                // For now, we'll just remove it from state
+                // Update state after successful deletion
                 setCategories(categories.filter((category) => category._id !== id));
+
+                // Rebuild hierarchy
+                const updatedCategories = categories.filter((category) => category._id !== id);
+                const hierarchy = buildCategoryHierarchy(updatedCategories);
+                setCategoriesHierarchy(hierarchy);
             } catch (err) {
                 console.error('Error deleting category:', err);
                 setError('Failed to delete category. Please try again.');
@@ -88,48 +102,88 @@ const CategoriesList = () => {
         }
     };
 
-    const toggleCategory = (categoryId) => {
-        setExpandedCategories(prev => ({
+    const toggleCategory = (categoryId, event) => {
+        // Prevent the click from bubbling up to parent elements
+        event.stopPropagation();
+
+        setExpandedCategories((prev) => ({
             ...prev,
             [categoryId]: !prev[categoryId]
         }));
     };
 
-    // Recursively render category rows
+    // Get image URL for a category
+    const getCategoryImageUrl = (category) => {
+        if (!category.category_icon) return null;
+        return `${API_URL}/media/${category.category_icon}`;
+    };
+
+    // Recursively render category rows with improved animation
     const renderCategoryRows = (categories, level = 0) => {
         return categories.map((category) => (
             <React.Fragment key={category._id}>
                 <tr className={level > 0 ? 'child-category' : ''}>
                     <td className="category-name">
-                        <div style={{ paddingLeft: `${level * 20}px` }} className="category-name-container">
+                        <div
+                            style={{ paddingLeft: `${level * 20}px` }}
+                            className="category-name-container"
+                        >
                             {category.children && category.children.length > 0 && (
-                                <button 
+                                <button
                                     className="toggle-button"
-                                    onClick={() => toggleCategory(category._id)}
+                                    onClick={(e) => toggleCategory(category._id, e)}
+                                    aria-label={
+                                        expandedCategories[category._id] ? 'Collapse' : 'Expand'
+                                    }
                                 >
-                                    {expandedCategories[category._id] ? 
-                                        <FaChevronDown /> : <FaChevronRight />}
+                                    {expandedCategories[category._id] ? (
+                                        <FaChevronDown style={{ transform: 'rotate(0deg)' }} />
+                                    ) : (
+                                        <FaChevronRight style={{ transform: 'rotate(0deg)' }} />
+                                    )}
                                 </button>
                             )}
-                            {category.category_name}
+                            {/* Add extra padding for child categories without children */}
+                            {level > 0 &&
+                                (!category.children || category.children.length === 0) && (
+                                    <div style={{ width: '24px', marginRight: '8px' }}></div>
+                                )}
+
+                            <div className="category-image-name">
+                                {category.category_icon ? (
+                                    <div className="category-image">
+                                        <img
+                                            src={getCategoryImageUrl(category)}
+                                            alt={category.category_name}
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.src = '';
+                                                e.target.style.display = 'none';
+                                                e.target.nextSibling.style.display = 'flex';
+                                            }}
+                                        />
+                                        <div className="image-fallback" style={{ display: 'none' }}>
+                                            <FaImage />
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="category-image no-image">
+                                        <FaImage />
+                                    </div>
+                                )}
+                                <span>{category.category_name}</span>
+                            </div>
                         </div>
                     </td>
-                    <td className="category-description">
-                        {category.category_description || '-'}
-                    </td>
+                    <td className="category-description">{category.category_description || '-'}</td>
                     <td className="category-parent">
                         {category.category_parent
                             ? parentCategories[category.category_parent] || '-'
                             : 'Root Category'}
                     </td>
-                    <td className="category-count">
-                        {category.category_product_count || 0}
-                    </td>
+                    <td className="category-count">{category.category_product_count || 0}</td>
                     <td className="category-actions">
-                        <Link
-                            to={`/categories/edit/${category._id}`}
-                            className="edit-button"
-                        >
+                        <Link to={`/categories/edit/${category._id}`} className="edit-button">
                             <FaEdit />
                         </Link>
                         <button
@@ -145,9 +199,24 @@ const CategoriesList = () => {
                         )}
                     </td>
                 </tr>
-                {expandedCategories[category._id] && category.children && category.children.length > 0 && 
-                    renderCategoryRows(category.children, level + 1)
-                }
+                {/* Render children with animation container */}
+                {category.children && category.children.length > 0 && (
+                    <tr className="category-children-row">
+                        <td colSpan="5" className="p-0">
+                            <div
+                                className={`category-children-container ${
+                                    expandedCategories[category._id] ? 'expanded' : 'collapsed'
+                                }`}
+                            >
+                                <table style={{ width: '100%' }}>
+                                    <tbody>
+                                        {renderCategoryRows(category.children, level + 1)}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                )}
             </React.Fragment>
         ));
     };
