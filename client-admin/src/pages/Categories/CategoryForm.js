@@ -1,6 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { FaSave, FaTimes, FaSpinner, FaUpload, FaImage, FaCrop, FaCheck, FaTags, FaLayerGroup, FaList, FaToggleOn, FaToggleOff } from 'react-icons/fa';
+import {
+    FaSave,
+    FaTimes,
+    FaSpinner,
+    FaUpload,
+    FaImage,
+    FaCrop,
+    FaCheck,
+    FaTags,
+    FaLayerGroup,
+    FaList,
+    FaToggleOn,
+    FaToggleOff
+} from 'react-icons/fa';
 import Cropper from 'react-easy-crop';
 import axiosClient from '../../configs/axios';
 import { API_URL } from '../../configs/env.config';
@@ -125,7 +138,8 @@ const CategoryForm = () => {
                                 category_description: category.category_description || '',
                                 category_parent: category.category_parent || '',
                                 category_icon: category.category_icon || '',
-                                is_active: category.is_active !== undefined ? category.is_active : true // Set is_active from API response
+                                is_active:
+                                    category.is_active !== undefined ? category.is_active : true // Set is_active from API response
                             });
 
                             // If category has an icon, set the preview
@@ -364,12 +378,12 @@ const CategoryForm = () => {
                 <div className="decoration-line line-1"></div>
                 <div className="decoration-line line-2"></div>
             </div>
-            
+
             <div className="categories-header">
                 <h1>{isEditMode ? 'Edit Category' : 'Add New Category'}</h1>
                 <p>
-                    {isEditMode 
-                        ? 'Update your category details to improve product organization and navigation' 
+                    {isEditMode
+                        ? 'Update your category details to improve product organization and navigation'
                         : 'Create a new product category to better organize your inventory and enhance customer navigation'}
                 </p>
                 <div className="category-icon-header">
@@ -447,7 +461,9 @@ const CategoryForm = () => {
                             <div className="image-placeholder">
                                 <FaImage />
                                 <p>Click to upload an icon</p>
-                                <span className="upload-hint">Drag and drop or click to browse</span>
+                                <span className="upload-hint">
+                                    Drag and drop or click to browse
+                                </span>
                             </div>
                         )}
 
@@ -484,11 +500,15 @@ const CategoryForm = () => {
                                 <FaToggleOn className="input-icon toggle-icon active" />
                             ) : (
                                 <FaToggleOff className="input-icon toggle-icon inactive" />
-                            )} 
+                            )}
                             Category Status
                         </span>
                         <div className="toggle-switch-container" onClick={toggleIsActive}>
-                            <div className={`toggle-switch ${formData.is_active ? 'active' : 'inactive'}`}>
+                            <div
+                                className={`toggle-switch ${
+                                    formData.is_active ? 'active' : 'inactive'
+                                }`}
+                            >
                                 <div className="toggle-switch-handle"></div>
                             </div>
                             <span className="toggle-switch-status">
@@ -497,8 +517,8 @@ const CategoryForm = () => {
                         </div>
                     </label>
                     <small className="form-text">
-                        {formData.is_active 
-                            ? 'The category is visible to users and will be shown in the shop.' 
+                        {formData.is_active
+                            ? 'The category is visible to users and will be shown in the shop.'
                             : 'The category is hidden from users and will not be shown in the shop.'}
                     </small>
                 </div>

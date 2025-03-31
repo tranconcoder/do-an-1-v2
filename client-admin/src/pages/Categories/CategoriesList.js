@@ -111,7 +111,6 @@ const CategoriesList = () => {
                 setTimeout(() => {
                     setActionStatus({ message: '', type: '' });
                 }, 3000);
-
             } catch (err) {
                 console.error('Error deleting category:', err);
                 setError('Failed to delete category. Please try again.');
@@ -123,19 +122,17 @@ const CategoriesList = () => {
     const handleToggleActive = async (category) => {
         try {
             const newActiveStatus = !category.is_active;
-            
+
             // Make API call to update the category
             await axiosClient.put(`/category/${category._id}`, {
                 is_active: newActiveStatus
             });
 
             // Update the local state
-            const updatedCategories = categories.map(cat => 
-                cat._id === category._id 
-                    ? { ...cat, is_active: newActiveStatus } 
-                    : cat
+            const updatedCategories = categories.map((cat) =>
+                cat._id === category._id ? { ...cat, is_active: newActiveStatus } : cat
             );
-            
+
             setCategories(updatedCategories);
 
             // Rebuild hierarchy
@@ -152,14 +149,13 @@ const CategoriesList = () => {
             setTimeout(() => {
                 setActionStatus({ message: '', type: '' });
             }, 3000);
-            
         } catch (err) {
             console.error('Error updating category status:', err);
             setActionStatus({
                 message: 'Failed to update category status',
                 type: 'error'
             });
-            
+
             // Clear message after 3 seconds
             setTimeout(() => {
                 setActionStatus({ message: '', type: '' });
@@ -248,7 +244,9 @@ const CategoriesList = () => {
                     </td>
                     <td className="category-count">{category.category_product_count || 0}</td>
                     <td className="category-status">
-                        <span className={`status-badge ${category.is_active ? 'active' : 'inactive'}`}>
+                        <span
+                            className={`status-badge ${category.is_active ? 'active' : 'inactive'}`}
+                        >
                             {category.is_active ? (
                                 <>
                                     <FaCheck className="status-icon" />
@@ -264,7 +262,9 @@ const CategoriesList = () => {
                     </td>
                     <td className="category-actions">
                         <button
-                            className={`toggle-active-button ${category.is_active ? 'active' : 'inactive'}`}
+                            className={`toggle-active-button ${
+                                category.is_active ? 'active' : 'inactive'
+                            }`}
                             onClick={() => handleToggleActive(category)}
                             title={category.is_active ? 'Deactivate Category' : 'Activate Category'}
                         >
@@ -333,9 +333,7 @@ const CategoriesList = () => {
             </div>
 
             {actionStatus.message && (
-                <div className={`action-status ${actionStatus.type}`}>
-                    {actionStatus.message}
-                </div>
+                <div className={`action-status ${actionStatus.type}`}>{actionStatus.message}</div>
             )}
 
             <div className="categories-list">
