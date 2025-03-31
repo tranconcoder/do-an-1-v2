@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { FaSave, FaTimes, FaSpinner, FaUpload, FaImage, FaCrop, FaCheck } from 'react-icons/fa';
+import { FaSave, FaTimes, FaSpinner, FaUpload, FaImage, FaCrop, FaCheck, FaTags, FaLayerGroup, FaList } from 'react-icons/fa';
 import Cropper from 'react-easy-crop';
 import axiosClient from '../../configs/axios';
 import { API_URL } from '../../configs/env.config';
@@ -344,18 +344,40 @@ const CategoryForm = () => {
 
     return (
         <div className="categories-container">
+            <div className="background-decoration">
+                <div className="decoration-circle circle-1"></div>
+                <div className="decoration-circle circle-2"></div>
+                <div className="decoration-dot dot-1"></div>
+                <div className="decoration-dot dot-2"></div>
+                <div className="decoration-dot dot-3"></div>
+                <div className="decoration-line line-1"></div>
+                <div className="decoration-line line-2"></div>
+            </div>
+            
             <div className="categories-header">
                 <h1>{isEditMode ? 'Edit Category' : 'Add New Category'}</h1>
                 <p>
-                    {isEditMode ? 'Update the category details' : 'Create a new product category'}
+                    {isEditMode 
+                        ? 'Update your category details to improve product organization and navigation' 
+                        : 'Create a new product category to better organize your inventory and enhance customer navigation'}
                 </p>
+                <div className="category-icon-header">
+                    <FaTags className="header-icon" />
+                </div>
             </div>
 
-            {error && <div className="categories-error">{error}</div>}
+            {error && (
+                <div className="categories-error">
+                    <div className="error-icon">⚠️</div>
+                    {error}
+                </div>
+            )}
 
             <form className="category-form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="category_name">Category Name *</label>
+                    <label htmlFor="category_name">
+                        <FaList className="input-icon" /> Category Name *
+                    </label>
                     <input
                         type="text"
                         id="category_name"
@@ -369,7 +391,9 @@ const CategoryForm = () => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="category_description">Description</label>
+                    <label htmlFor="category_description">
+                        <FaList className="input-icon" /> Description
+                    </label>
                     <textarea
                         id="category_description"
                         name="category_description"
@@ -381,7 +405,9 @@ const CategoryForm = () => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="category_parent">Parent Category</label>
+                    <label htmlFor="category_parent">
+                        <FaLayerGroup className="input-icon" /> Parent Category
+                    </label>
                     <select
                         id="category_parent"
                         name="category_parent"
@@ -392,10 +418,15 @@ const CategoryForm = () => {
                         <option value="">-- None (Root Category) --</option>
                         {renderCategoryOptions(categoriesHierarchy)}
                     </select>
+                    <small className="form-text">
+                        Select a parent category if this is a subcategory
+                    </small>
                 </div>
 
                 <div className="form-group">
-                    <label>Category Icon (1:1 Ratio)</label>
+                    <label>
+                        <FaImage className="input-icon" /> Category Icon (1:1 Ratio)
+                    </label>
                     <div className="image-upload-container" onClick={handleImageClick}>
                         {imagePreview ? (
                             <div className="image-preview">
@@ -405,6 +436,7 @@ const CategoryForm = () => {
                             <div className="image-placeholder">
                                 <FaImage />
                                 <p>Click to upload an icon</p>
+                                <span className="upload-hint">Drag and drop or click to browse</span>
                             </div>
                         )}
 
