@@ -22,8 +22,7 @@ productRoute.use(productGetRoute);
 /* ====================================================== */
 /*                  AUTHENTICATE ROUTES                   */
 /* ====================================================== */
-productRoute.use(productRouteValidate);
-productRouteValidate.use(authenticate);
+productRoute.use(authenticate, productRouteValidate);
 
 /* ------------------------ POST ------------------------ */
 productRouteValidate.use(productPostRoute);

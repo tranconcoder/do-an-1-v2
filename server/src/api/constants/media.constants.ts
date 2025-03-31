@@ -1,6 +1,5 @@
-import { AVATAR_BASE_PATH, CATEGORY_BASE_PATH } from '@/configs/media.config.js';
+import { AVATAR_BASE_PATH, CATEGORY_BASE_PATH, PRODUCT_BASE_PATH } from '@/configs/media.config.js';
 import { MediaMimeTypes, MediaTypes } from '@/enums/media.enum.js';
-import { NotFoundErrorResponse } from '@/response/error.response.js';
 import { getRandomFilename } from '@/utils/multer.util.js';
 import fs from 'fs/promises';
 import mongoose from 'mongoose';
@@ -20,10 +19,21 @@ export const avatarStorage = multer.diskStorage({
 /* ---------------------------------------------------------- */
 /*                          Category                          */
 /* ---------------------------------------------------------- */
-export const categoryService = multer.diskStorage({
+export const categoryStorage = multer.diskStorage({
     destination: async (_req, _file, cb) => {
         await fs.mkdir(CATEGORY_BASE_PATH, { recursive: true });
         cb(null, CATEGORY_BASE_PATH);
+    },
+    filename: getRandomFilename
+});
+
+/* ---------------------------------------------------------- */
+/*                           Product                          */
+/* ---------------------------------------------------------- */
+export const productStorage = multer.diskStorage({
+    destination: async (_req, _file, cb) => {
+        await fs.mkdir(PRODUCT_BASE_PATH, { recursive: true });
+        cb(null, PRODUCT_BASE_PATH);
     },
     filename: getRandomFilename
 });

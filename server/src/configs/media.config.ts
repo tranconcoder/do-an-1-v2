@@ -11,6 +11,13 @@ export const AVATAR_BASE_PATH = path.join(import.meta.dirname, '../../public/ava
 /* ---------------------------------------------------------- */
 /*                          Category                          */
 /* ---------------------------------------------------------- */
-
 export const CATEGORY_MAX_SIZE = bytes.parse('5MB') as number;
+
 export const CATEGORY_BASE_PATH = path.join(import.meta.dirname, '../../public/categories');
+
+/* ---------------------------------------------------------- */
+/*                           Product                          */
+/* ---------------------------------------------------------- */
+export const PRODUCT_MAX_SIZE = bytes.parse('5MB') as number;
+
+export const PRODUCT_BASE_PATH = path.join(import.meta.dirname, '../../public/products');
