@@ -15,7 +15,7 @@ import LockIcon from '../../assets/icons/LockIcon';
 import SpinnerIcon from '../../assets/icons/SpinnerIcon';
 import EyeIcon from '../../assets/icons/EyeIcon';
 import EyeOffIcon from '../../assets/icons/EyeOffIcon';
-import { loginSuccess, selectUserInfo } from '../../redux/slices/userSlice';
+import { loginSuccess, loginUser, selectUserInfo } from '../../redux/slices/userSlice';
 
 const cx = classNames.bind(styles);
 
@@ -52,26 +52,7 @@ function Login() {
             setLoginError(''); // Clear previous errors
 
             try {
-                const result = await axiosClient.login({
-                    phoneNumber: values.phoneNumber,
-                    password: values.password
-                });
-
-                if (result.data.metadata.token) {
-                    const userInfo = result.data.metadata.user;
-
-                    // Dispatch user info to Redux store
-                    dispatch(
-                        loginSuccess({
-                            phoneNumber: userInfo.phoneNumber,
-                            fullName: userInfo.fullName,
-                            email: userInfo.email,
-                            role: userInfo.role
-                        })
-                    );
-
-                    navigate('/');
-                }
+                dispatch(loginUser({ phoneNumber: values.phoneNumber, password: values.password }));
             } catch (error) {
                 console.error('Login failed:', error);
                 setErrorKey((prev) => prev + 1);

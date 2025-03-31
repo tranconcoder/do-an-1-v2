@@ -1,4 +1,4 @@
-import { response, Router } from 'express';
+import { Router } from 'express';
 
 /* --------------------- Controllers -------------------- */
 import AuthController from '@/controllers/auth.controller.js';
@@ -15,12 +15,12 @@ import {
 import catchError from '@/middlewares/catchError.middleware.js';
 import joiValidate from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
-import mediaMiddleware from '@/middlewares/media.middleware.js';
 import { AvatarFields } from '@/enums/media.enum.js';
 import {
     checkCustomerAccountToRegisterShop,
     cleanUpSignUpShop
 } from '@/middlewares/auth.middleware.js';
+import { uploadAvatar } from '@/middlewares/media.middleware.js';
 
 const authRoute = Router();
 const authRouteValidate = Router();
@@ -29,7 +29,7 @@ authRoute.post('/sign-up', joiValidate(signUpSchema), catchError(AuthController.
 
 authRoute.post(
     '/sign-up-shop',
-    mediaMiddleware.uploadAvatar(AvatarFields.SHOP_LOGO),
+    uploadAvatar(AvatarFields.SHOP_LOGO),
     joiValidate(signUpShop),
     catchError(checkCustomerAccountToRegisterShop),
     catchError(AuthController.signUpShop),
@@ -38,7 +38,15 @@ authRoute.post(
 
 authRoute.post('/login', joiValidate(loginSchema), catchError(AuthController.login));
 
-authRoute.post('/new-token', joiValidate(newTokenSchema), catchError(AuthController.newToken));
+authRoute.post(
+    '/new-token',
+    (req, res, next) => {
+        console.log(req.body);
+        next();
+    },
+    joiValidate(newTokenSchema),
+    catchError(AuthController.newToken)
+);
 
 /* ------------------------------------------------------ */
 /*                    Validate routes                     */

@@ -12,6 +12,12 @@ export const addFieldToSchemaDefinition = <T, K>(schema: T, field: K) => {
     } as commonTypes.utils.AutoType<T> & commonTypes.utils.AutoType<K>;
 };
 
+/**
+ *
+ * @param source source to udpate
+ * @param target target to use $set in mongoose
+ * @param parent temperary key to use in $set
+ */
 export const get$SetNestedFromObject = (
     source: commonTypes.object.ObjectAnyKeys,
     target: commonTypes.object.ObjectAnyKeys,

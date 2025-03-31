@@ -138,24 +138,4 @@ axiosClient.interceptors.response.use(
     }
 );
 
-// Function to update tokens when user logs in
-export const setAuthTokens = (tokens) => {
-    if (tokens && tokens.accessToken && tokens.refreshToken) {
-        accessToken = tokens.accessToken;
-        refreshToken = tokens.refreshToken;
-        localStorage.setItem(ACCESS_TOKEN_KEY, tokens.accessToken);
-        localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refreshToken);
-        axiosClient.defaults.headers.common['Authorization'] = `Bearer ${tokens.accessToken}`;
-    }
-};
-
-// Function to clear tokens when user logs out
-export const clearAuthTokens = () => {
-    accessToken = null;
-    refreshToken = null;
-    localStorage.removeItem(ACCESS_TOKEN_KEY);
-    localStorage.removeItem(REFRESH_TOKEN_KEY);
-    delete axiosClient.defaults.headers.common['Authorization'];
-};
-
 export default axiosClient;

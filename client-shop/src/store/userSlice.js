@@ -7,8 +7,8 @@ export const loginUser = createAsyncThunk(
     'user/login',
     async ({ phoneNumber, password }, { rejectWithValue }) => {
         try {
+            console.log({ response });
             const response = await axiosClient.post('/auth/login', { phoneNumber, password });
-
             if (response.status !== 200) {
                 return rejectWithValue(response.message || 'Login failed');
             }
@@ -28,6 +28,7 @@ export const loginUser = createAsyncThunk(
             }
 
             // Only store tokens if the user has shop permissions
+            console.log(response.data);
             localStorage.setItem(ACCESS_TOKEN_KEY, response.data.metadata.token.accessToken);
             localStorage.setItem(REFRESH_TOKEN_KEY, response.data.metadata.token.refreshToken);
 

@@ -30,6 +30,7 @@ export enum RoleStatus {
 }
 
 export enum Resources {
+    CATEGORY = 'category',
     SHOP = 'shop',
     PROFILE = 'profile',
     ORDER = 'order',

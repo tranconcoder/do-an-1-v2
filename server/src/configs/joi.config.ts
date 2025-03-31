@@ -16,3 +16,9 @@ export const pageSplitting = Joi.object({
     page: Joi.number(),
     limit: Joi.number()
 });
+
+export const paramsId = (fieldName: string, required: boolean = true) => {
+    return Joi.object({
+        [fieldName]: required ? mongooseId.required() : mongooseId.optional()
+    });
+};

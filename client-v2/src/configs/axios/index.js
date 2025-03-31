@@ -8,10 +8,6 @@ class AxiosClient {
         this.instance = null;
         this.isRefreshing = false;
         this.refreshSubscribers = [];
-
-        // Initialize tokens from localStorage
-        this.accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
-        this.refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
     }
 
     static instance = null;
@@ -42,8 +38,15 @@ class AxiosClient {
                         config.url.includes('/auth/sign-up') ||
                         config.url.includes('/auth/new-token');
 
-                    if (this.accessToken && !isAuthRoute) {
-                        config.headers['Authorization'] = `Bearer ${this.accessToken}`;
+                    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+                    console.log({ accessToken });
+                    if (!accessToken && !isAuthRoute) {
+                        return Promise.reject(new Error('No access token found'));
+                    }
+
+                    console.log(123);
+                    if (accessToken && !isAuthRoute) {
+                        config.headers['Authorization'] = `Bearer ${accessToken}`;
                     }
                     return config;
                 },
@@ -55,13 +58,11 @@ class AxiosClient {
                 (response) => response,
                 async (error) => {
                     const originalRequest = error.config;
+                    const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+                    console.log(refreshToken);
 
                     // If error is 401 and we haven't tried to refresh the token yet
-                    if (
-                        error.response?.status === 401 &&
-                        !originalRequest._retry &&
-                        this.refreshToken
-                    ) {
+                    if (error.response?.status === 403 && !originalRequest._retry && refreshToken) {
                         if (this.isRefreshing) {
                             // If we're already refreshing, wait for the new token
                             try {
@@ -84,9 +85,7 @@ class AxiosClient {
                             // Try to refresh the token
                             const response = await axios.post(
                                 `${BASE_URL}/auth/new-token`,
-                                {
-                                    refreshToken: this.refreshToken
-                                },
+                                { refreshToken: refreshToken },
                                 {
                                     headers: { 'Content-Type': 'application/json' }
                                 }
@@ -94,13 +93,7 @@ class AxiosClient {
 
                             // Extract tokens from response
                             const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-                                response.data.metadata;
-
-                            // Update tokens
-                            this.accessToken = newAccessToken;
-                            this.refreshToken = newRefreshToken;
-                            this.setAccessToken(newAccessToken);
-                            this.setRefreshToken(newRefreshToken);
+                                response.data.metadata.token;
 
                             // Update Authorization header
                             originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
@@ -111,11 +104,8 @@ class AxiosClient {
                             return this.instance(originalRequest);
                         } catch (refreshError) {
                             // If refresh token fails, logout user
-                            this.clearTokens();
-
-                            // Also clear in-memory tokens
-                            this.accessToken = null;
-                            this.refreshToken = null;
+                            localStorage.removeItem(ACCESS_TOKEN_KEY);
+                            localStorage.removeItem(REFRESH_TOKEN_KEY);
 
                             // Redirect to login page
                             window.location.href = '/auth/login';
@@ -139,71 +129,6 @@ class AxiosClient {
 
     addRefreshSubscriber(callback) {
         this.refreshSubscribers.push(callback);
-    }
-
-    // Token management methods
-    setAccessToken(token) {
-        this.accessToken = token;
-        localStorage.setItem(ACCESS_TOKEN_KEY, token);
-    }
-
-    getAccessToken() {
-        return this.accessToken || localStorage.getItem(ACCESS_TOKEN_KEY);
-    }
-
-    setRefreshToken(token) {
-        this.refreshToken = token;
-        localStorage.setItem(REFRESH_TOKEN_KEY, token);
-    }
-
-    getRefreshToken() {
-        return this.refreshToken || localStorage.getItem(REFRESH_TOKEN_KEY);
-    }
-
-    clearTokens() {
-        this.accessToken = null;
-        this.refreshToken = null;
-        localStorage.removeItem(ACCESS_TOKEN_KEY);
-        localStorage.removeItem(REFRESH_TOKEN_KEY);
-        localStorage.removeItem('user');
-
-        if (this.instance) {
-            delete this.instance.defaults.headers.common['Authorization'];
-        }
-    }
-
-    // Authentication methods
-    async login(credentials) {
-        const response = await this.post('/auth/login', credentials);
-        const { accessToken, refreshToken } = response.data.metadata.token;
-
-        // Update both memory and localStorage
-        this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
-        this.setAccessToken(accessToken);
-        this.setRefreshToken(refreshToken);
-
-        return response;
-    }
-
-    logout() {
-        this.clearTokens();
-    }
-
-    // Set auth tokens when user logs in
-    setAuthTokens(tokens) {
-        if (tokens && tokens.accessToken && tokens.refreshToken) {
-            this.accessToken = tokens.accessToken;
-            this.refreshToken = tokens.refreshToken;
-            this.setAccessToken(tokens.accessToken);
-            this.setRefreshToken(tokens.refreshToken);
-
-            if (this.instance) {
-                this.instance.defaults.headers.common[
-                    'Authorization'
-                ] = `Bearer ${tokens.accessToken}`;
-            }
-        }
     }
 
     // HTTP methods

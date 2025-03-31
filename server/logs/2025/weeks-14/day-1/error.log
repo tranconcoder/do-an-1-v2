@@ -1,0 +1,119 @@
+[2025-03-31T00:01:35.256Z] [error]: HIDE::400::MongoNotConnectedError::Client must be connected before running operations::
+[2025-03-31T00:01:35.269Z] [error]: HIDE::400::MongoNotConnectedError::Client must be connected before running operations::
+[2025-03-31T00:02:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T00:02:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T00:03:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T00:03:00.012Z] [error]: Client must be connected before running operations
+[2025-03-31T00:03:15.790Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:03:15.793Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:03:15.800Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:03:15.801Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:03:15.970Z] [error]: HIDE::400::ValidationError::"refreshToken" is required::
+[2025-03-31T00:04:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T00:04:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T00:04:04.774Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:04:04.776Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:04:04.782Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:04:04.784Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:04:04.947Z] [error]: HIDE::400::ValidationError::"refreshToken" is required::
+[2025-03-31T00:05:00.018Z] [error]: Client must be connected before running operations
+[2025-03-31T00:05:00.020Z] [error]: Client must be connected before running operations
+[2025-03-31T00:06:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T00:06:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T00:06:12.770Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:06:12.772Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:06:12.779Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:06:12.780Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:06:12.986Z] [error]: HIDE::400::ValidationError::"refreshToken" is required::
+[2025-03-31T00:07:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T00:07:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T00:08:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T00:08:00.012Z] [error]: Client must be connected before running operations
+[2025-03-31T00:09:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T00:09:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T00:09:03.038Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:09:03.040Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:09:03.046Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:09:03.047Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:09:03.238Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:09:03.239Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-31T00:10:00.017Z] [error]: Client must be connected before running operations
+[2025-03-31T00:10:00.019Z] [error]: Client must be connected before running operations
+[2025-03-31T00:10:44.354Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:10:44.356Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:10:44.360Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:10:44.361Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:10:44.535Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:10:44.536Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-31T00:11:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T00:11:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T00:11:03.875Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:11:03.876Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:11:03.881Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:11:03.883Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:11:04.058Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:11:04.058Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-31T00:11:43.928Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:11:43.929Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:11:43.934Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:11:43.935Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:11:44.114Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:11:44.119Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-31T00:11:58.863Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:11:58.864Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:11:58.868Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:11:58.869Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:11:59.033Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:11:59.034Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-31T00:12:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T00:12:00.012Z] [error]: Client must be connected before running operations
+[2025-03-31T00:13:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T00:13:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T00:14:00.002Z] [error]: Client must be connected before running operations
+[2025-03-31T00:14:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T00:14:29.393Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:14:29.394Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:14:29.407Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:14:29.408Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:14:29.438Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:14:29.439Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-31T00:15:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T00:15:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T00:15:33.874Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:15:33.875Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:15:33.880Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:15:33.881Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:15:34.047Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:15:34.049Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-31T00:16:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T00:16:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T00:16:07.522Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:16:07.523Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:16:07.528Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:16:07.529Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:16:07.724Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:16:07.727Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-31T00:16:34.757Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:16:34.758Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:16:34.776Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:16:34.777Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:16:34.808Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:16:34.810Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-31T00:17:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T00:17:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T00:17:35.634Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:17:35.635Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:17:35.652Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:17:35.653Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:17:35.691Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:17:35.692Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-31T00:18:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T00:18:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T00:18:36.675Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:18:36.676Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:18:36.681Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:18:36.681Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-03-31T00:18:36.871Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-03-31T00:18:36.872Z] [error]: HIDE::403::Forbidden::Token is not generate by server!::
+[2025-03-31T00:19:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T00:19:00.007Z] [error]: Client must be connected before running operations

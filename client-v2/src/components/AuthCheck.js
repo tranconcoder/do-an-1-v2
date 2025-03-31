@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../redux/slices/userSlice';
-import { fetchUserProfile } from '../services/userApi';
+import { fetchUser } from '../redux/slices/userSlice';
 
 const AuthCheck = () => {
     const dispatch = useDispatch();
@@ -9,8 +8,8 @@ const AuthCheck = () => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const profile = await fetchUserProfile();
-                dispatch(loginSuccess(profile));
+                // Use the fetchUser thunk to handle authentication state
+                dispatch(fetchUser());
             } catch (error) {
                 console.error('Auth check failed:', error);
             }

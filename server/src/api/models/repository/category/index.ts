@@ -1,11 +1,18 @@
+import categoryModel from '@/models/category.model.js';
+import { generateFindAll, generateFindById, generateFindOneAndUpdate } from '@/utils/mongoose.util.js';
+
 /* ---------------------------------------------------------- */
 /*                          Find one                          */
 /* ---------------------------------------------------------- */
-
-import categoryModel from '@/models/category.model.js';
-import { generateFindAll } from '@/utils/mongoose.util.js';
+export const findCategoryById = generateFindById<model.category.Category>(categoryModel);
 
 /* ---------------------------------------------------------- */
 /*                          Find all                          */
 /* ---------------------------------------------------------- */
 export const findCategories = generateFindAll<model.category.Category>(categoryModel);
+
+/* ---------------------------------------------------------- */
+/*                           Update                           */
+/* ---------------------------------------------------------- */
+export const findOneAndUpdateCategory =
+    generateFindOneAndUpdate<model.category.Category>(categoryModel);
