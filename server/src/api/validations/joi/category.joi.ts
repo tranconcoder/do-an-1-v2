@@ -9,6 +9,13 @@ const category = {
     category_parent: mongooseId.optional()
 };
 
+export const createCategory = Joi.object<joiTypes.category.CreateCategory>({
+    category_name: Joi.string().required(),
+    category_description: Joi.string().optional(),
+    category_order: Joi.number(),
+    category_parent: mongooseId.optional()
+});
+
 export const updateCategory = Joi.object<joiTypes.category.UpdateCategory>({
     /* --------------------- Optional value --------------------- */
     ..._.mapValues(

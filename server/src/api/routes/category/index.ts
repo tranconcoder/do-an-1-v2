@@ -7,7 +7,9 @@ import validateRequestBody, {
     validateRequestParams
 } from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
-import { updateCategory } from '@/validations/joi/category.joi.js';
+import { cleanUpMediaOnError, uploadSingleMedia } from '@/middlewares/media.middleware.js';
+import { uploadCategory } from '@/middlewares/multer.middleware.js';
+import { createCategory, updateCategory } from '@/validations/joi/category.joi.js';
 import { Router } from 'express';
 
 const categoryRoute = Router();
@@ -23,7 +25,14 @@ categoryRoute.use(authenticate, categoryRouteValidate);
 /* ---------------------------------------------------------- */
 /*                           Create                           */
 /* ---------------------------------------------------------- */
-categoryRouteValidate.post('/create', authorization('createAny', Resources.CATEGORY));
+categoryRouteValidate.post(
+    '/create',
+    authorization('createAny', Resources.CATEGORY),
+    uploadSingleMedia('category_icon', uploadCategory, 'Category icon'),
+    validateRequestBody(createCategory),
+    catchError(categoryController.createCategory),
+    cleanUpMediaOnError
+);
 
 categoryRouteValidate.put(
     '/:_id',

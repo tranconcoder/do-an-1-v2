@@ -17,11 +17,9 @@ declare global {
                         model.category.Category,
                         | 'category_description'
                         | 'category_icon'
-                        | 'category_level'
                         | 'category_name'
                         | 'category_order'
                         | 'category_parent'
-                        | 'category_product_count'
                     > {}
 
                 interface UpdateCategory
