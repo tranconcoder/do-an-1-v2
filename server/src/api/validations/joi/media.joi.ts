@@ -1,4 +1,5 @@
 import { mongooseId } from '@/configs/joi.config.js';
+import { MediaMimeTypes, MediaTypes } from '@/enums/media.enum.js';
 import Joi from 'joi';
 
 export const createMedia = Joi.object<joiTypes.media.CreateMedia>({
@@ -9,8 +10,12 @@ export const createMedia = Joi.object<joiTypes.media.CreateMedia>({
     /* -------------------- File information -------------------- */
     media_fileName: Joi.string().required(),
     media_filePath: Joi.string().required(),
-    media_fileType: Joi.string().required(),
-    media_mimeType: Joi.string().required(),
+    media_fileType: Joi.string()
+        .valid(...Object.values(MediaTypes))
+        .required(),
+    media_mimeType: Joi.string()
+        .valid(...Object.values(MediaMimeTypes))
+        .required(),
     media_fileSize: Joi.number().min(0).required(),
     media_parent: mongooseId.optional(),
 

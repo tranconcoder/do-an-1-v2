@@ -305,17 +305,15 @@ const CategoryForm = () => {
             formDataToSend.append('category_order', formData.category_order);
             formDataToSend.append('is_active', formData.is_active);
 
-            // Thêm hình ảnh vào FormData nếu có
+            // Thêm hình ảnh vào FormData chỉ khi có hình ảnh mới
             if (imageFile) {
                 formDataToSend.append('category_icon', imageFile);
-            } else if (formData.category_icon && isEditMode) {
-                // Nếu đang ở chế độ edit và không có hình ảnh mới, gửi category_icon hiện tại
-                formDataToSend.append('category_icon', formData.category_icon);
             }
+            // Không gửi category_icon nếu không có hình ảnh mới
 
             // Gửi request với FormData
             if (isEditMode) {
-                await axiosClient.put(`/category/${id}`, formDataToSend, {
+                await axiosClient.patch(`/category/${id}`, formDataToSend, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     },

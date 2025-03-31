@@ -19,12 +19,10 @@ export const authorization = (action: keyof Query, resources: Resources) => {
                 options: { lean: true }
             });
             if (!role) throw new ForbiddenErrorResponse({ message: 'Invalid role!' });
-            console.log(role);
             if (role.role_status !== RoleStatus.ACTIVE)
                 throw new ForbiddenErrorResponse({ message: 'Role is not active!' });
 
             /* -------------------- Check permission -------------------- */
-            console.log({ role });
             const controlList = await RBACService.getInstance().getAccessControlList();
             const ac = new AccessControl(controlList);
             const permission = ac.can(role.role_name)[action](resources) as Permission;

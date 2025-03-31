@@ -17,6 +17,8 @@ function fileFilter(
 ): void {
     /* -------------------- Check extension  -------------------- */
     const extname = path.extname(file.originalname).toLowerCase().replace('.', '');
+    console.log(`Invalid file extension: ${extname}`);
+
     if (!Object.values(MediaExtensions).includes(extname as any))
         return cb(
             new InvalidPayloadErrorResponse({

@@ -516,3 +516,324 @@
 [2025-03-31T09:26:10.538Z] [error]: HIDE::400::ValidationError::"is_active" is not allowed::
 [2025-03-31T09:26:16.065Z] [error]: HIDE::400::ValidationError::"is_active" is not allowed::
 [2025-03-31T09:26:23.876Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T09:27:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T09:27:00.012Z] [error]: Client must be connected before running operations
+[2025-03-31T09:28:00.012Z] [error]: Client must be connected before running operations
+[2025-03-31T09:28:00.014Z] [error]: Client must be connected before running operations
+[2025-03-31T09:29:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T09:29:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T09:30:00.036Z] [error]: Client must be connected before running operations
+[2025-03-31T09:30:00.037Z] [error]: Client must be connected before running operations
+[2025-03-31T09:31:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T09:31:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T09:31:01.207Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-31T09:31:07.542Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-31T09:32:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T09:32:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T09:32:24.528Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-31T09:32:29.050Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-03-31T09:32:33.760Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-31T09:32:34.833Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-31T09:32:40.649Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-31T09:32:47.675Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-31T09:32:52.645Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-31T09:33:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T09:33:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T09:33:02.768Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T09:33:24.187Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-31T09:33:38.941Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-03-31T09:33:52.272Z] [error]: HIDE::400::Error::slugify: string argument expected::
+[2025-03-31T09:33:53.961Z] [error]: HIDE::400::Error::slugify: string argument expected::
+[2025-03-31T09:34:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T09:34:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T09:35:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T09:35:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T09:35:20.153Z] [error]: HIDE::400::Error::slugify: string argument expected::
+[2025-03-31T09:35:30.145Z] [error]: HIDE::400::Error::slugify: string argument expected::
+[2025-03-31T09:36:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T09:36:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T09:37:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T09:37:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T09:38:00.016Z] [error]: Client must be connected before running operations
+[2025-03-31T09:38:00.019Z] [error]: Client must be connected before running operations
+[2025-03-31T09:38:34.338Z] [error]: HIDE::400::ValidationError::"category_name" is not allowed to be empty::
+[2025-03-31T09:39:00.014Z] [error]: Client must be connected before running operations
+[2025-03-31T09:39:00.026Z] [error]: Client must be connected before running operations
+[2025-03-31T09:40:00.026Z] [error]: Client must be connected before running operations
+[2025-03-31T09:40:00.030Z] [error]: Client must be connected before running operations
+[2025-03-31T09:41:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T09:41:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T09:42:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T09:42:00.016Z] [error]: Client must be connected before running operations
+[2025-03-31T09:42:31.698Z] [error]: HIDE::400::BadRequest::Payload is required!::
+[2025-03-31T09:43:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T09:43:00.015Z] [error]: Client must be connected before running operations
+[2025-03-31T09:43:28.520Z] [error]: HIDE::400::BadRequest::Payload is required!::
+[2025-03-31T09:43:29.791Z] [error]: HIDE::400::BadRequest::Payload is required!::
+[2025-03-31T09:44:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T09:44:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T09:45:00.029Z] [error]: Client must be connected before running operations
+[2025-03-31T09:45:00.031Z] [error]: Client must be connected before running operations
+[2025-03-31T09:45:51.855Z] [error]: HIDE::400::Error::slugify: string argument expected::
+[2025-03-31T09:46:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T09:46:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T09:46:41.764Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.categories index: category_slug_1 dup key: { category_slug: "dien-thoai-1" }::
+[2025-03-31T09:47:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T09:47:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T09:48:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T09:48:00.016Z] [error]: Client must be connected before running operations
+[2025-03-31T09:49:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T09:49:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T09:50:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T09:50:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T09:51:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T09:51:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T09:52:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T09:52:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T09:52:28.286Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.categories index: category_name_1 dup key: { category_name: "Điện thoại" }::
+[2025-03-31T09:53:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T09:53:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T09:54:00.002Z] [error]: Client must be connected before running operations
+[2025-03-31T09:54:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T09:54:06.735Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.categories index: category_name_1 dup key: { category_name: "Điện thoại" }::
+[2025-03-31T09:55:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T09:55:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T09:56:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T09:56:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T09:57:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T09:57:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T09:58:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T09:58:00.012Z] [error]: Client must be connected before running operations
+[2025-03-31T09:58:56.218Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.categories index: category_name_1 dup key: { category_name: "Điện thoại" }::
+[2025-03-31T09:59:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T09:59:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:00:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:00:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:00:45.382Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.categories index: category_name_1 dup key: { category_name: "Điện thoại" }::
+[2025-03-31T10:01:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:01:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:02:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:02:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:02:00.016Z] [error]: Client must be connected before running operations
+[2025-03-31T10:02:00.018Z] [error]: Client must be connected before running operations
+[2025-03-31T10:02:23.856Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.categories index: category_name_1 dup key: { category_name: "Điện thoại" }::
+[2025-03-31T10:03:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:03:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T10:03:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T10:03:00.018Z] [error]: Client must be connected before running operations
+[2025-03-31T10:04:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:04:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T10:04:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T10:04:00.017Z] [error]: Client must be connected before running operations
+[2025-03-31T10:05:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:05:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:05:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:05:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:06:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:06:00.014Z] [error]: Client must be connected before running operations
+[2025-03-31T10:06:00.014Z] [error]: Client must be connected before running operations
+[2025-03-31T10:06:00.016Z] [error]: Client must be connected before running operations
+[2025-03-31T10:07:00.653Z] [error]: Client must be connected before running operations
+[2025-03-31T10:07:00.655Z] [error]: Client must be connected before running operations
+[2025-03-31T10:07:00.655Z] [error]: Client must be connected before running operations
+[2025-03-31T10:07:00.661Z] [error]: Client must be connected before running operations
+[2025-03-31T10:08:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:08:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:08:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:08:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T10:09:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:09:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:09:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:09:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T10:10:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:10:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:10:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:10:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:13:29.049Z] [error]: Client must be connected before running operations
+[2025-03-31T10:13:29.051Z] [error]: Client must be connected before running operations
+[2025-03-31T10:13:29.070Z] [error]: Client must be connected before running operations
+[2025-03-31T10:13:29.071Z] [error]: Client must be connected before running operations
+[2025-03-31T10:14:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:14:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:14:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:14:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:15:00.002Z] [error]: Client must be connected before running operations
+[2025-03-31T10:15:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:15:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:15:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:22:11.519Z] [error]: Client must be connected before running operations
+[2025-03-31T10:22:11.520Z] [error]: Client must be connected before running operations
+[2025-03-31T10:22:11.521Z] [error]: Client must be connected before running operations
+[2025-03-31T10:22:11.522Z] [error]: Client must be connected before running operations
+[2025-03-31T10:23:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T10:23:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T10:23:00.020Z] [error]: Client must be connected before running operations
+[2025-03-31T10:23:00.022Z] [error]: Client must be connected before running operations
+[2025-03-31T10:24:22.946Z] [error]: Client must be connected before running operations
+[2025-03-31T10:24:22.955Z] [error]: Client must be connected before running operations
+[2025-03-31T10:24:22.974Z] [error]: Client must be connected before running operations
+[2025-03-31T10:24:22.984Z] [error]: Client must be connected before running operations
+[2025-03-31T10:24:51.499Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.categories index: category_name_1 dup key: { category_name: "Điện thoại" }::
+[2025-03-31T10:25:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:25:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:25:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T10:25:00.018Z] [error]: Client must be connected before running operations
+[2025-03-31T10:26:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:26:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:26:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T10:26:00.019Z] [error]: Client must be connected before running operations
+[2025-03-31T10:27:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:27:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:27:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:27:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:28:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:28:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:28:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:28:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:29:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:29:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:29:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:29:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:30:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:30:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:30:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:30:00.021Z] [error]: Client must be connected before running operations
+[2025-03-31T10:31:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:31:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:31:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:31:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T10:32:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:32:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:32:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:32:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T10:33:00.002Z] [error]: Client must be connected before running operations
+[2025-03-31T10:33:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:33:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:33:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:34:00.002Z] [error]: Client must be connected before running operations
+[2025-03-31T10:34:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:34:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:34:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:35:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:35:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:35:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:35:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T10:36:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:36:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:36:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:36:00.011Z] [error]: Client must be connected before running operations
+[2025-03-31T10:37:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:37:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:37:00.014Z] [error]: Client must be connected before running operations
+[2025-03-31T10:37:00.016Z] [error]: Client must be connected before running operations
+[2025-03-31T10:38:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:38:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:38:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:38:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:38:21.687Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-03-31T10:38:21.828Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-03-31T10:38:21.918Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-03-31T10:38:54.648Z] [error]: HIDE::400::InvalidPayload::Invalid file extension::
+[2025-03-31T10:39:00.002Z] [error]: Client must be connected before running operations
+[2025-03-31T10:39:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:39:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:39:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:40:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:40:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:40:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:40:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:41:00.002Z] [error]: Client must be connected before running operations
+[2025-03-31T10:41:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:41:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:41:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:42:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:42:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:42:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:42:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:42:29.524Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T10:43:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:43:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:43:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:43:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:43:14.300Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T10:43:17.520Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T10:43:46.101Z] [error]: HIDE::400::InvalidPayload::Invalid file extension::
+[2025-03-31T10:44:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:44:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:44:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:44:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:45:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:45:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:45:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:45:00.013Z] [error]: Client must be connected before running operations
+[2025-03-31T10:46:00.002Z] [error]: Client must be connected before running operations
+[2025-03-31T10:46:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:46:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:46:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:47:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:47:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:47:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:47:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:48:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:48:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:48:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:48:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:48:25.905Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T10:48:41.974Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T10:49:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:49:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:49:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:49:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:49:33.420Z] [error]: HIDE::400::InvalidPayload::Invalid file extension::
+[2025-03-31T10:50:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:50:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:50:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:50:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:50:20.334Z] [error]: HIDE::400::InvalidPayload::Invalid file extension::
+[2025-03-31T10:51:00.002Z] [error]: Client must be connected before running operations
+[2025-03-31T10:51:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:51:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:51:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:52:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:52:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:52:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:52:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:53:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:53:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:53:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:53:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:54:00.002Z] [error]: Client must be connected before running operations
+[2025-03-31T10:54:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:54:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:54:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:54:30.910Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T10:54:37.586Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T10:55:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T10:55:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:55:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:55:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:55:40.490Z] [error]: HIDE::400::ValidationError::"is_active" is not allowed::
+[2025-03-31T10:56:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:56:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:56:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:56:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:56:28.228Z] [error]: HIDE::400::ValidationError::"category_icon" is not allowed::
+[2025-03-31T10:57:00.002Z] [error]: Client must be connected before running operations
+[2025-03-31T10:57:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:57:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:57:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:58:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T10:58:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T10:58:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:58:00.010Z] [error]: Client must be connected before running operations
+[2025-03-31T10:59:00.005Z] [error]: Client must be connected before running operations
+[2025-03-31T10:59:00.007Z] [error]: Client must be connected before running operations
+[2025-03-31T10:59:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T10:59:00.009Z] [error]: Client must be connected before running operations
+[2025-03-31T10:59:52.203Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-03-31T11:00:00.003Z] [error]: Client must be connected before running operations
+[2025-03-31T11:00:00.004Z] [error]: Client must be connected before running operations
+[2025-03-31T11:00:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T11:00:00.006Z] [error]: Client must be connected before running operations
+[2025-03-31T11:00:00.008Z] [error]: Client must be connected before running operations
+[2025-03-31T11:00:00.009Z] [error]: Client must be connected before running operations

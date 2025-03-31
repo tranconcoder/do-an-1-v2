@@ -30,7 +30,8 @@ export const updateCategory = Joi.object<joiTypes.category.UpdateCategory>({
             'category_name',
             'category_description',
             'category_order',
-            'category_parent'
+            'category_parent',
+            'is_active'
         ]),
         (value) => value.optional()
     )

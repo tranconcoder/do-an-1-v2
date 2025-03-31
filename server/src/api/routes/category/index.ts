@@ -34,7 +34,7 @@ categoryRouteValidate.post(
     cleanUpMediaOnError
 );
 
-categoryRouteValidate.put(
+categoryRouteValidate.patch(
     '/:_id',
     authorization('updateAny', Resources.CATEGORY),
     uploadSingleMedia('category_icon', uploadCategory, 'Category icon', false),

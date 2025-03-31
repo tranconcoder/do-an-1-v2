@@ -41,7 +41,7 @@ export default new (class CategoryService {
     /* ------------------- Get all categories ------------------- */
     async getAllCategories() {
         return await findCategories({
-            query: { is_deleted: false, is_active: true }
+            query: { is_deleted: false }
         });
     }
 
@@ -49,7 +49,12 @@ export default new (class CategoryService {
     /*                           Update                           */
     /* ---------------------------------------------------------- */
     async updateCategory(payload: service.category.arguments.UpdateCategory) {
-        const { _id, category_parent } = payload;
+        const { _id, ...others } = payload;
+        const { category_parent } = others;
+
+        if (Object.keys(others).length === 0) {
+            throw new BadRequestErrorResponse({ message: 'Payload is required!' });
+        }
 
         const category = await findCategoryById({ id: _id, options: { lean: true } });
         if (!category) {
