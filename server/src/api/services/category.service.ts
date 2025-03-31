@@ -109,7 +109,7 @@ export default new (class CategoryService {
                 _id: new mongoose.Types.ObjectId(categoryId),
                 is_deleted: false
             },
-            update: { is_deleted: true },
+            update: { is_deleted: true, deleted_at: new Date() },
             options: { new: true, lean: true }
         });
     }

@@ -19,7 +19,8 @@ export const categorySchema = new Schema<model.category.Category>(
 
         /* ------------------------ Metadata ------------------------ */
         is_active: { type: Boolean, default: true },
-        is_deleted: { type: Boolean, default: false, select: false }
+        is_deleted: { type: Boolean, default: false, select: false },
+        deleted_at: { type: Date, default: null, select: false }
     },
     {
         timestamps: timestamps,

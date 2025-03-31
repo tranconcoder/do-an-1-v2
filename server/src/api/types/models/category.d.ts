@@ -21,6 +21,7 @@ declare global {
                     /* ------------------------ Metadata ------------------------ */
                     is_active?: boolean;
                     is_deleted?: boolean;
+                    deleted_at?: Date;
                 },
                 isModel,
                 isDoc,

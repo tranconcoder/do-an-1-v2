@@ -44,4 +44,16 @@ categoryRouteValidate.patch(
     cleanUpMediaOnError
 );
 
+/* ---------------------------------------------------------- */
+/*                           Delete                           */
+/* ---------------------------------------------------------- */
+
+/* ----------------------- Soft delete ---------------------- */
+categoryRouteValidate.delete(
+    '/:_id',
+    authorization('deleteAny', Resources.CATEGORY),
+    validateRequestParams(paramsId('_id')),
+    catchError(categoryController.deleteCategory)
+);
+
 export default categoryRoute;

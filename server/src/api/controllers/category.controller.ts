@@ -1,6 +1,6 @@
 import { OkResponse } from '@/response/success.response.js';
 import categoryService from '@/services/category.service.js';
-import { RequestWithBody } from '@/types/request.js';
+import { RequestWithBody, RequestWithParams } from '@/types/request.js';
 import { RequestHandler } from 'express';
 
 export default new (class CategoryController {
@@ -44,6 +44,16 @@ export default new (class CategoryController {
         new OkResponse({
             message: 'Update category successfully',
             metadata: await categoryService.updateCategory(updatePayload)
+        }).send(res);
+    };
+
+    /* ---------------------------------------------------------- */
+    /*                           Delete                           */
+    /* ---------------------------------------------------------- */
+    deleteCategory: RequestWithParams<{ _id: string }> = async (req, res, _) => {
+        new OkResponse({
+            message: 'Delete category successfully',
+            metadata: await categoryService.deleteCategory(req.params._id)
         }).send(res);
     };
 })();
