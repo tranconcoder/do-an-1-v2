@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { FaSave, FaTimes, FaSpinner, FaUpload, FaImage, FaCrop, FaCheck, FaTags, FaLayerGroup, FaList } from 'react-icons/fa';
+import { FaSave, FaTimes, FaSpinner, FaUpload, FaImage, FaCrop, FaCheck, FaTags, FaLayerGroup, FaList, FaToggleOn, FaToggleOff } from 'react-icons/fa';
 import Cropper from 'react-easy-crop';
 import axiosClient from '../../configs/axios';
 import { API_URL } from '../../configs/env.config';
@@ -16,7 +16,8 @@ const CategoryForm = () => {
         category_name: '',
         category_description: '',
         category_parent: '',
-        category_icon: '' // Using category_icon consistently
+        category_icon: '', // Using category_icon consistently
+        is_active: true // Add is_active field with default value true
     });
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -123,7 +124,8 @@ const CategoryForm = () => {
                                 category_name: category.category_name || '',
                                 category_description: category.category_description || '',
                                 category_parent: category.category_parent || '',
-                                category_icon: category.category_icon || ''
+                                category_icon: category.category_icon || '',
+                                is_active: category.is_active !== undefined ? category.is_active : true // Set is_active from API response
                             });
 
                             // If category has an icon, set the preview
@@ -153,6 +155,14 @@ const CategoryForm = () => {
         setFormData((prevState) => ({
             ...prevState,
             [name]: value
+        }));
+    };
+
+    // Toggle is_active status
+    const toggleIsActive = () => {
+        setFormData((prevState) => ({
+            ...prevState,
+            is_active: !prevState.is_active
         }));
     };
 
@@ -312,7 +322,8 @@ const CategoryForm = () => {
                 }),
                 ...(mediaId && {
                     category_icon: mediaId
-                })
+                }),
+                is_active: formData.is_active // Add is_active to payload
             };
 
             // Make API calls
@@ -462,6 +473,33 @@ const CategoryForm = () => {
                     <small className="form-text">
                         The image will be cropped to a square (1:1 ratio) and should be less than
                         5MB.
+                    </small>
+                </div>
+
+                {/* Add is_active toggle switch */}
+                <div className="form-group">
+                    <label className="toggle-switch-label">
+                        <span className="toggle-label-text">
+                            {formData.is_active ? (
+                                <FaToggleOn className="input-icon toggle-icon active" />
+                            ) : (
+                                <FaToggleOff className="input-icon toggle-icon inactive" />
+                            )} 
+                            Category Status
+                        </span>
+                        <div className="toggle-switch-container" onClick={toggleIsActive}>
+                            <div className={`toggle-switch ${formData.is_active ? 'active' : 'inactive'}`}>
+                                <div className="toggle-switch-handle"></div>
+                            </div>
+                            <span className="toggle-switch-status">
+                                {formData.is_active ? 'Active' : 'Inactive'}
+                            </span>
+                        </div>
+                    </label>
+                    <small className="form-text">
+                        {formData.is_active 
+                            ? 'The category is visible to users and will be shown in the shop.' 
+                            : 'The category is hidden from users and will not be shown in the shop.'}
                     </small>
                 </div>
 

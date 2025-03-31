@@ -55,12 +55,6 @@ export default new (class CategoryService {
         if (!category) {
             throw new BadRequestErrorResponse({ message: 'Category not found!' });
         }
-        if (category.is_deleted) {
-            throw new BadRequestErrorResponse({ message: 'Category is deleted!' });
-        }
-        if (category.is_active) {
-            throw new BadRequestErrorResponse({ message: 'Category is active!' });
-        }
 
         /* ------------------ Check parent category ----------------- */
         if (category_parent) {
@@ -71,13 +65,9 @@ export default new (class CategoryService {
 
         let $set = {};
         get$SetNestedFromObject(payload, $set);
-        console.log({ $set });
 
         return findOneAndUpdateCategory({
-            query: {
-                _id: new mongoose.Types.ObjectId(payload._id),
-                is_deleted: false
-            },
+            query: { _id: new mongoose.Types.ObjectId(payload._id) },
             update: { $set },
             options: { new: true, lean: true }
         });

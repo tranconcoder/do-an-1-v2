@@ -37,8 +37,11 @@ categoryRouteValidate.post(
 categoryRouteValidate.put(
     '/:_id',
     authorization('updateAny', Resources.CATEGORY),
+    uploadSingleMedia('category_icon', uploadCategory, 'Category icon', false),
     validateRequestParams(paramsId('_id')),
-    validateRequestBody(updateCategory)
+    validateRequestBody(updateCategory),
+    catchError(categoryController.updateCategory),
+    cleanUpMediaOnError
 );
 
 export default categoryRoute;

@@ -26,4 +26,24 @@ export default new (class CategoryController {
             metadata: await categoryService.getAllCategories()
         }).send(res);
     };
+
+    /* ---------------------------------------------------------- */
+    /*                           Update                           */
+    /* ---------------------------------------------------------- */
+    updateCategory: RequestHandler<{ _id: string }, any, joiTypes.category.UpdateCategory> = async (
+        req,
+        res,
+        _
+    ) => {
+        const updatePayload: service.category.arguments.UpdateCategory = {
+            ...req.body,
+            _id: req.params._id
+        };
+        if (req.mediaId) updatePayload.category_icon = req.mediaId;
+
+        new OkResponse({
+            message: 'Update category successfully',
+            metadata: await categoryService.updateCategory(updatePayload)
+        }).send(res);
+    };
 })();

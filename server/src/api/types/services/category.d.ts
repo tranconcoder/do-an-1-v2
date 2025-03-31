@@ -23,13 +23,12 @@ declare global {
                     > {}
 
                 interface UpdateCategory
-                    extends Omit<
-                        model.category.Category,
-                        | 'category_slug'
-                        | 'category_level'
-                        | 'category_product_count'
-                        | 'is_active'
-                        | 'is_deleted'
+                    extends commonTypes.utils.PartialWithout<
+                        Omit<
+                            model.category.Category,
+                            'category_slug' | 'category_level' | 'category_product_count'
+                        >,
+                        '_id'
                     > {}
             }
         }

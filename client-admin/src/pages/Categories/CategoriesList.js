@@ -8,7 +8,11 @@ import {
     FaSpinner,
     FaChevronRight,
     FaChevronDown,
-    FaImage
+    FaImage,
+    FaToggleOn,
+    FaToggleOff,
+    FaCheck,
+    FaTimes
 } from 'react-icons/fa';
 import axiosClient from '../../configs/axios';
 import './Categories.css';
@@ -21,6 +25,7 @@ const CategoriesList = () => {
     const [parentCategories, setParentCategories] = useState({});
     const [categoriesHierarchy, setCategoriesHierarchy] = useState([]);
     const [expandedCategories, setExpandedCategories] = useState({});
+    const [actionStatus, setActionStatus] = useState({ message: '', type: '' });
 
     // Fetch categories from the API
     useEffect(() => {
@@ -95,10 +100,70 @@ const CategoriesList = () => {
                 const updatedCategories = categories.filter((category) => category._id !== id);
                 const hierarchy = buildCategoryHierarchy(updatedCategories);
                 setCategoriesHierarchy(hierarchy);
+
+                // Show success message
+                setActionStatus({
+                    message: 'Category deleted successfully',
+                    type: 'success'
+                });
+
+                // Clear message after 3 seconds
+                setTimeout(() => {
+                    setActionStatus({ message: '', type: '' });
+                }, 3000);
+
             } catch (err) {
                 console.error('Error deleting category:', err);
                 setError('Failed to delete category. Please try again.');
             }
+        }
+    };
+
+    // Handle toggling category active status
+    const handleToggleActive = async (category) => {
+        try {
+            const newActiveStatus = !category.is_active;
+            
+            // Make API call to update the category
+            await axiosClient.put(`/category/${category._id}`, {
+                is_active: newActiveStatus
+            });
+
+            // Update the local state
+            const updatedCategories = categories.map(cat => 
+                cat._id === category._id 
+                    ? { ...cat, is_active: newActiveStatus } 
+                    : cat
+            );
+            
+            setCategories(updatedCategories);
+
+            // Rebuild hierarchy
+            const hierarchy = buildCategoryHierarchy(updatedCategories);
+            setCategoriesHierarchy(hierarchy);
+
+            // Show success message
+            setActionStatus({
+                message: `Category ${newActiveStatus ? 'activated' : 'deactivated'} successfully`,
+                type: 'success'
+            });
+
+            // Clear message after 3 seconds
+            setTimeout(() => {
+                setActionStatus({ message: '', type: '' });
+            }, 3000);
+            
+        } catch (err) {
+            console.error('Error updating category status:', err);
+            setActionStatus({
+                message: 'Failed to update category status',
+                type: 'error'
+            });
+            
+            // Clear message after 3 seconds
+            setTimeout(() => {
+                setActionStatus({ message: '', type: '' });
+            }, 3000);
         }
     };
 
@@ -182,7 +247,29 @@ const CategoriesList = () => {
                             : 'Root Category'}
                     </td>
                     <td className="category-count">{category.category_product_count || 0}</td>
+                    <td className="category-status">
+                        <span className={`status-badge ${category.is_active ? 'active' : 'inactive'}`}>
+                            {category.is_active ? (
+                                <>
+                                    <FaCheck className="status-icon" />
+                                    Active
+                                </>
+                            ) : (
+                                <>
+                                    <FaTimes className="status-icon" />
+                                    Inactive
+                                </>
+                            )}
+                        </span>
+                    </td>
                     <td className="category-actions">
+                        <button
+                            className={`toggle-active-button ${category.is_active ? 'active' : 'inactive'}`}
+                            onClick={() => handleToggleActive(category)}
+                            title={category.is_active ? 'Deactivate Category' : 'Activate Category'}
+                        >
+                            {category.is_active ? <FaToggleOn /> : <FaToggleOff />}
+                        </button>
                         <Link to={`/categories/edit/${category._id}`} className="edit-button">
                             <FaEdit />
                         </Link>
@@ -202,7 +289,7 @@ const CategoriesList = () => {
                 {/* Render children with animation container */}
                 {category.children && category.children.length > 0 && (
                     <tr className="category-children-row">
-                        <td colSpan="5" className="p-0">
+                        <td colSpan="6" className="p-0">
                             <div
                                 className={`category-children-container ${
                                     expandedCategories[category._id] ? 'expanded' : 'collapsed'
@@ -245,6 +332,12 @@ const CategoriesList = () => {
                 </Link>
             </div>
 
+            {actionStatus.message && (
+                <div className={`action-status ${actionStatus.type}`}>
+                    {actionStatus.message}
+                </div>
+            )}
+
             <div className="categories-list">
                 <table className="categories-table">
                     <thead>
@@ -253,13 +346,14 @@ const CategoriesList = () => {
                             <th>Description</th>
                             <th>Parent</th>
                             <th>Products</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {categories.length === 0 ? (
                             <tr>
-                                <td colSpan="5" className="no-categories">
+                                <td colSpan="6" className="no-categories">
                                     No categories found. Create your first category.
                                 </td>
                             </tr>
