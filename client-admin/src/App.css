@@ -48,7 +48,6 @@
 main,
 section,
 .page-content {
-    margin-bottom: 70px;
 }
 
 /* Responsive adjustments */
@@ -60,6 +59,5 @@ section,
     main,
     section,
     .page-content {
-        margin-bottom: 75px;
     }
 }
