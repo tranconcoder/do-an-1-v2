@@ -23,9 +23,10 @@ const LoadingScreen = () => (
 
 const AppRoutes = () => {
     const dispatch = useDispatch();
-    const { isAuthenticated } = useSelector((state) => state.auth);
+    const isAuthenticated = useSelector(selectIsAuthenticated);
     const isLoading = useSelector(selectUserLoading);
     const [initialLoadDone, setInitialLoadDone] = useState(false);
+    console.log({ isAuthenticated });
 
     // Fetch user profile on app start if authenticated
     useEffect(() => {

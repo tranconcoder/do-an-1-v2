@@ -123,8 +123,8 @@ const CategoriesList = () => {
         try {
             const newActiveStatus = !category.is_active;
 
-            // Make API call to update the category
-            await axiosClient.put(`/category/${category._id}`, {
+            // Make API call to update only the is_active status
+            await axiosClient.patch(`/category/${category._id}`, {
                 is_active: newActiveStatus
             });
 
@@ -132,7 +132,6 @@ const CategoriesList = () => {
             const updatedCategories = categories.map((cat) =>
                 cat._id === category._id ? { ...cat, is_active: newActiveStatus } : cat
             );
-
             setCategories(updatedCategories);
 
             // Rebuild hierarchy
