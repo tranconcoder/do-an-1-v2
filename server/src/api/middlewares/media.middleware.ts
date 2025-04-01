@@ -2,8 +2,8 @@ import { MediaMimeTypes, MediaTypes } from '@/enums/media.enum.js';
 import { NotFoundErrorResponse } from '@/response/error.response.js';
 import mediaService from '@/services/media.service.js';
 import catchError from './catchError.middleware.js';
-import { Multer } from 'multer';
-import { ErrorRequestHandler } from 'express';
+import { Field, Multer } from 'multer';
+import { ErrorRequestHandler, Request } from 'express';
 import LoggerService from '@/services/logger.service.js';
 
 export const uploadSingleMedia = (
@@ -46,10 +46,62 @@ export const uploadSingleMedia = (
         });
     });
 
-export const uploadMultipleMedia = (fields: Array<string>) => {
+export const uploadFieldsMedia = (
+    fields: commonTypes.object.ObjectAnyKeys<number>,
+    multerMiddleware: Multer,
+    title: string
+) =>
+    catchError(async (req, res, next) => {
+        const keys = Object.keys(fields).filter((key) => fields[key] > 0);
+        const fieldArray: Field[] = keys.map((key) => ({ name: key, maxCount: fields[key] }));
+        const fileCount = fieldArray.reduce((acc, field) => acc + (field.maxCount as number), 0);
 
-}
+        multerMiddleware.fields(fieldArray)(req, res, async (err) => {
+            if (err) return next(err);
 
+            try {
+                /* -------------- Handle create media document -------------- */
+                const files = req.files as
+                    | commonTypes.object.ObjectAnyKeys<Express.Multer.File[]>
+                    | undefined;
+
+                const uploadedFileCount = Object.values(files || {}).reduce(
+                    (acc, file) => acc + file.length,
+                    0
+                );
+                if (!files || uploadedFileCount === 0 || uploadedFileCount < fileCount) {
+                    throw new NotFoundErrorResponse({
+                        message: `Files '${keys.join(', ')}' not found!`
+                    });
+                }
+
+                // if (!req.mediaIds)
+                //     const mediaIds: commonTypes.object.ObjectAnyKeys<Request['mediaIds']> =
+                //         (req.mediaIds = {});
+
+                // await Promise.all(
+                //     Object.keys(files).map((key) => {
+                //         await mediaService
+                //             .createMedia({
+                //                 media_title: title,
+                //                 media_desc: `Media for '${file.fieldname}'`,
+                //                 media_fileName: file.filename,
+                //                 media_filePath: file.path,
+                //                 media_fileType: MediaTypes.IMAGE,
+                //                 media_mimeType: file.mimetype as MediaMimeTypes,
+                //                 media_fileSize: file.size,
+                //                 media_isFolder: false
+                //             })
+                //             .then((x) => x.id);
+                //     })
+                // );
+
+                next();
+            } catch (err) {
+                next(err);
+            }
+        });
+    });
 /* ---------------------------------------------------------- */
 /*                      Clean up on error                     */
 /* ---------------------------------------------------------- */

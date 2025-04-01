@@ -26,6 +26,8 @@ const Login = () => {
     // Redirect if already logged in
     useEffect(() => {
         if (isAuthenticated) {
+            console.log('trang login nhận hấy đã đăng nhập thành công, chuyển hướng đến dashboard');
+           
             navigate('/dashboard');
         }
     }, [isAuthenticated, navigate]);

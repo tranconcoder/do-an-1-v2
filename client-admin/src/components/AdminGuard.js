@@ -5,9 +5,7 @@ import {
     selectCurrentUser,
     selectIsAuthenticated,
     selectIsAdmin,
-    selectAdmin,
     selectUserLoading,
-    logout,
     logoutUser
 } from '../store/userSlice';
 
@@ -15,7 +13,6 @@ const AdminGuard = ({ children }) => {
     const currentUser = useSelector(selectCurrentUser);
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const isAdmin = useSelector(selectIsAdmin);
-    const adminData = useSelector(selectAdmin);
     const isLoading = useSelector(selectUserLoading);
     const dispatch = useDispatch();
 
@@ -25,10 +22,9 @@ const AdminGuard = ({ children }) => {
             currentUser,
             isAuthenticated,
             isAdmin,
-            adminData,
             isLoading
         });
-    }, [currentUser, isAuthenticated, isAdmin, adminData, isLoading]);
+    }, [currentUser, isAuthenticated, isAdmin, isLoading]);
 
     // Show loading indicator while fetching profile
     if (isLoading) {
@@ -42,6 +38,7 @@ const AdminGuard = ({ children }) => {
 
     // Check if user has admin permissions
     if (!isAdmin) {
+        console.log(isAuthenticated);
         dispatch(logoutUser());
         return <Navigate to="/login" replace />;
     }

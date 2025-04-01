@@ -279,7 +279,8 @@ export default class AuthService {
             userId: user._id.toString(),
             roleId: user.user_role.toString()
         });
-        if (roleData) result[roleData.role_name] = roleData.role_data;
+        if (roleData && roleData.role_name !== RoleNames.USER)
+            result[roleData.role_name] = roleData.role_data || true;
 
         return result;
     };

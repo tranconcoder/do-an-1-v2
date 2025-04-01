@@ -19,20 +19,15 @@ export const loginUser = createAsyncThunk(
                 refreshToken: response.metadata.token.refreshToken
             });
 
-            // Check if the user is an admin
-            const isAdmin = 'admin' in response.metadata;
-
-            console.log('Login response:', {
-                user: response.metadata.user,
-                admin: response.metadata.admin,
-                isAdmin
-            });
+            // Check if the user is an admin - properly check the value, not just existence
+            const isAdmin = response.metadata.admin === true;
+            console.log('Login response metadata:', response.metadata);
+            console.log('Is admin from login:', isAdmin);
 
             // Return user info with admin flag
             return {
                 ...response.metadata.user,
-                isAdmin,
-                admin: response.metadata.admin
+                isAdmin
             };
         } catch (error) {
             console.error('Login error:', error);
@@ -48,19 +43,14 @@ export const fetchUserProfile = createAsyncThunk(
         try {
             const response = await axiosClient.get('/user/profile');
 
-            // Check if user is admin
-            const isAdmin = 'admin' in response.metadata;
-
-            console.log('Profile response:', {
-                data: response.metadata || response.data,
-                admin: response.metadata?.admin,
-                isAdmin
-            });
+            // Check if user is admin - properly check the value, not just existence
+            const isAdmin = response.metadata?.admin === true;
+            console.log('Profile metadata:', response.metadata);
+            console.log('Is admin from profile:', isAdmin);
 
             return {
                 ...(response.metadata || response.data),
-                isAdmin,
-                admin: response.metadata?.admin
+                isAdmin
             };
         } catch (error) {
             console.error('Profile fetch error:', error);
@@ -98,10 +88,9 @@ const userSlice = createSlice({
             user_email: '',
             user_avatar: '',
             user_fullName: '',
-            user_phoneNumber: '',
+            phoneNumber: '', // Changed from user_phoneNumber to phoneNumber
             user_role: null,
-            isAdmin: false,
-            admin: null
+            isAdmin: false
             // Other user model properties
         },
         isAuthenticated: !!localStorage.getItem(ACCESS_TOKEN_KEY),
@@ -135,12 +124,11 @@ const userSlice = createSlice({
                     user_email: action.payload.user_email || '',
                     user_avatar: action.payload.user_avatar || '',
                     user_fullName: action.payload.user_fullName || '',
-                    user_phoneNumber: action.payload.phoneNumber || '',
+                    phoneNumber: action.payload.phoneNumber || '', // Changed from user_phoneNumber to phoneNumber
                     user_role: action.payload.user_role || null,
-                    isAdmin: action.payload.isAdmin || false,
-                    admin: action.payload.admin || null,
+                    isAdmin: action.payload.isAdmin || false
                     // Preserve any other fields that might come from the API
-                    ...action.payload
+                    // ...action.payload
                 };
                 state.isAuthenticated = true;
             })
@@ -160,8 +148,7 @@ const userSlice = createSlice({
                 state.currentUser = {
                     ...state.currentUser,
                     ...action.payload,
-                    isAdmin: action.payload.isAdmin || false,
-                    admin: action.payload.admin || null
+                    isAdmin: action.payload.isAdmin || false
                 };
 
                 // If the profile includes nested user data, also merge that
@@ -189,10 +176,9 @@ const userSlice = createSlice({
                     user_email: '',
                     user_avatar: '',
                     user_fullName: '',
-                    user_phoneNumber: '',
+                    phoneNumber: '', // Changed from user_phoneNumber to phoneNumber
                     user_role: null,
-                    isAdmin: false,
-                    admin: null
+                    isAdmin: false
                 };
                 state.isAuthenticated = false;
                 state.error = null;
@@ -213,9 +199,9 @@ export const selectCurrentUser = (state) => state.user.currentUser;
 export const selectUserEmail = (state) => state.user.currentUser.user_email;
 export const selectUserAvatar = (state) => state.user.currentUser.user_avatar;
 export const selectUserFullName = (state) => state.user.currentUser.user_fullName;
+export const selectUserPhoneNumber = (state) => state.user.currentUser.phoneNumber; // Changed from user_phoneNumber to phoneNumber
 export const selectUserRole = (state) => state.user.currentUser.user_role;
 export const selectIsAdmin = (state) => state.user.currentUser.isAdmin;
-export const selectAdmin = (state) => state.user.currentUser.admin;
 export const selectIsAuthenticated = (state) => state.user.isAuthenticated;
 export const selectUserLoading = (state) => state.user.loading;
 export const selectUserError = (state) => state.user.error;

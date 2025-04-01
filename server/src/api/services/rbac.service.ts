@@ -175,11 +175,7 @@ class RoleService {
         }).then((role) => role.role_name);
 
         if (!roleName) return null;
-        if (
-            !roleHandleGetDataStrategy[roleName] ||
-            !(await roleHandleGetDataStrategy[roleName](userId))
-        )
-            return null;
+        if (!roleHandleGetDataStrategy[roleName]) return null;
 
         return {
             role_name: roleName,
