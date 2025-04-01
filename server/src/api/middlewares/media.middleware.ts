@@ -4,7 +4,6 @@ import mediaService from '@/services/media.service.js';
 import catchError from './catchError.middleware.js';
 import { Multer } from 'multer';
 import { ErrorRequestHandler } from 'express';
-import { error } from 'console';
 import LoggerService from '@/services/logger.service.js';
 
 export const uploadSingleMedia = (
@@ -46,6 +45,10 @@ export const uploadSingleMedia = (
             }
         });
     });
+
+export const uploadMultipleMedia = (fields: Array<string>) => {
+
+}
 
 /* ---------------------------------------------------------- */
 /*                      Clean up on error                     */

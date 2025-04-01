@@ -4,7 +4,7 @@ import catchError from './catchError.middleware.js';
 /* --------------- Validate request body  --------------- */
 export default function validateRequestBody(schema: Schema) {
     return catchError(async (req, _, next) => {
-        req.body = await schema.validateAsync(req.body, { convert: true });
+        req.body = await schema.validateAsync(req.body, { convert: true }); // Convert string number ===> number
         next();
     });
 }

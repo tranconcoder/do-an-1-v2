@@ -16,8 +16,8 @@ export const CATEGORY_MAX_SIZE = bytes.parse('5MB') as number;
 export const CATEGORY_BASE_PATH = path.join(import.meta.dirname, '../../public/categories');
 
 /* ---------------------------------------------------------- */
-/*                           Product                          */
+/*                             SPU                            */
 /* ---------------------------------------------------------- */
-export const PRODUCT_MAX_SIZE = bytes.parse('5MB') as number;
+export const SPU_MAX_SIZE = bytes.parse('5MB') as number;
 
-export const PRODUCT_BASE_PATH = path.join(import.meta.dirname, '../../public/products');
+export const SPU_BASE_PATH = path.join(import.meta.dirname, '../../public/products');

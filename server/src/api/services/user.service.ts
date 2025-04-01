@@ -14,12 +14,14 @@ export default class UserService {
             only: ['_id', 'phoneNumber', 'user_email', 'user_role', 'user_fullName']
         });
         const result: commonTypes.object.ObjectAnyKeys = { user };
+        console.log({ result });
 
         /* --------------------- Add role data  --------------------- */
         const roleData = await roleService.getUserRoleData({
             userId: user._id.toString(),
             roleId: user.user_role.toString()
         });
+        console.log({ roleData });
         if (roleData) result[roleData.role_name] = roleData.role_data;
 
         return result;

@@ -16,7 +16,6 @@ import LoggerService from './logger.service.js';
 import { CronJob } from 'cron';
 import { asyncFilter } from '@/utils/array.utils.js';
 import mongoose from 'mongoose';
-import { CategoryEnum } from '@/enums/spu.enum.js';
 import { deleteKeyToken, setKeyToken } from './redis.service.js';
 
 export default class ScheduledService {
@@ -96,49 +95,41 @@ export default class ScheduledService {
     /* ------------------------------------------------------ */
     private static handleCleanUpProduct = async () => {
         /* ----------------- Get product id list ---------------- */
-        const productIds = new Set(await findAllProductId({}));
-
-        /* -------------- Get product child id list ------------- */
-        const productChildModelName = Object.values(CategoryEnum);
-        const productChildsList = await Promise.all(
-            productChildModelName.map(async (modelName) => {
-                const model = mongoose.model(modelName);
-                if (!model) throw new Error(`Model '${modelName}' not found`);
-
-                const childList = await model.find().select('_id').lean();
-
-                return childList.map((x: any) => x._id.toString());
-            })
-        );
-
-        /* --------------- Clean in product model --------------- */
-        const productChildSet = new Set(productChildsList.flat());
-        const productDifference = productIds.difference(productChildSet);
-
-        await Promise.all([
-            spuModel.deleteMany({
-                _id: { $in: Array.from(productDifference) }
-            }),
-            ...productChildsList.map(async (childList, index) => {
-                const childSet = new Set(childList);
-                const difference = childSet.difference(productIds);
-
-                const model = mongoose.model(productChildModelName[index]);
-
-                return await model.deleteMany({
-                    _id: { $in: Array.from(difference) }
-                });
-            })
-        ]).then((results) => {
-            const { deletedCount } = results.flat().reduce(
-                (a, b) => ({
-                    deletedCount: a.deletedCount + b.deletedCount
-                }),
-                { deletedCount: 0 }
-            );
-
-            LoggerService.getInstance().info(`Cleanup product: Cleaned ${deletedCount} products`);
-        });
+        // const productIds = new Set(await findAllProductId({}));
+        // /* -------------- Get product child id list ------------- */
+        // const productChildModelName = Object.values(CategoryEnum);
+        // const productChildsList = await Promise.all(
+        //     productChildModelName.map(async (modelName) => {
+        //         const model = mongoose.model(modelName);
+        //         if (!model) throw new Error(`Model '${modelName}' not found`);
+        //         const childList = await model.find().select('_id').lean();
+        //         return childList.map((x: any) => x._id.toString());
+        //     })
+        // );
+        // /* --------------- Clean in product model --------------- */
+        // const productChildSet = new Set(productChildsList.flat());
+        // const productDifference = productIds.difference(productChildSet);
+        // await Promise.all([
+        //     spuModel.deleteMany({
+        //         _id: { $in: Array.from(productDifference) }
+        //     }),
+        //     ...productChildsList.map(async (childList, index) => {
+        //         const childSet = new Set(childList);
+        //         const difference = childSet.difference(productIds);
+        //         const model = mongoose.model(productChildModelName[index]);
+        //         return await model.deleteMany({
+        //             _id: { $in: Array.from(difference) }
+        //         });
+        //     })
+        // ]).then((results) => {
+        //     const { deletedCount } = results.flat().reduce(
+        //         (a, b) => ({
+        //             deletedCount: a.deletedCount + b.deletedCount
+        //         }),
+        //         { deletedCount: 0 }
+        //     );
+        //     LoggerService.getInstance().info(`Cleanup product: Cleaned ${deletedCount} products`);
+        // });
     };
 
     /* ------------------------------------------------------ */

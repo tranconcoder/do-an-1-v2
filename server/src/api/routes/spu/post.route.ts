@@ -2,18 +2,23 @@ import { Router } from 'express';
 import ProductController from '@/controllers/spu.controller.js';
 import catchError from '@/middlewares/catchError.middleware.js';
 import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
-import { createProductSchema } from '@/validations/joi/product/index.joi.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
 import { Resources } from '@/enums/rbac.enum.js';
 import spuController from '@/controllers/spu.controller.js';
+import { createSPU } from '@/validations/joi/spu.joi.js';
+import { uploadSingleMedia } from '@/middlewares/media.middleware.js';
+import { AvatarFields } from '@/enums/media.enum.js';
+import { uploadAvatar, uploadSPU } from '@/middlewares/multer.middleware.js';
+import { SPUImages } from '@/enums/spu.enum.js';
 
 const spuPostRoute = Router();
 
 /* --------------------- Create product --------------------- */
 spuPostRoute.post(
     '/create',
+    uploadSingleMedia(SPUImages.PRODUCT_THUMB, uploadSPU, 'Product thumbnail'),
     authorization('createOwn', Resources.PRODUCT),
-    validateRequestBody(createProductSchema),
+    validateRequestBody(createSPU),
     catchError(spuController.createSPU)
 );
 

@@ -1,11 +1,6 @@
 import multer from 'multer';
-import { avatarStorage } from '@/constants/media.constants.js';
-import {
-    AVATAR_MAX_SIZE,
-    AVATAR_BASE_PATH,
-    CATEGORY_MAX_SIZE,
-    CATEGORY_BASE_PATH
-} from '@/configs/media.config.js';
+import { avatarStorage, spuStorage } from '@/constants/media.constants.js';
+import { AVATAR_MAX_SIZE, CATEGORY_MAX_SIZE } from '@/configs/media.config.js';
 import path from 'path';
 import { MediaExtensions, MediaMimeTypes } from '@/enums/media.enum.js';
 import { InvalidPayloadErrorResponse } from '@/response/error.response.js';
@@ -44,7 +39,6 @@ function fileFilter(
 export const uploadAvatar = multer({
     storage: avatarStorage,
     limits: { fields: AVATAR_MAX_SIZE },
-    dest: AVATAR_BASE_PATH,
     fileFilter
 });
 
@@ -54,6 +48,14 @@ export const uploadAvatar = multer({
 export const uploadCategory = multer({
     storage: avatarStorage,
     limits: { fields: CATEGORY_MAX_SIZE },
-    dest: CATEGORY_BASE_PATH,
+    fileFilter
+});
+
+/* ---------------------------------------------------------- */
+/*                             SPU                            */
+/* ---------------------------------------------------------- */
+export const uploadSPU = multer({
+    storage: spuStorage,
+    limits: { fields: 100 * 1024 * 1024 }, // 100MB
     fileFilter
 });
