@@ -61,40 +61,47 @@ export const uploadFieldsMedia = (
 
             try {
                 /* -------------- Handle create media document -------------- */
-                const files = req.files as
+                const filesFields = req.files as
                     | commonTypes.object.ObjectAnyKeys<Express.Multer.File[]>
                     | undefined;
 
-                const uploadedFileCount = Object.values(files || {}).reduce(
+                const uploadedFileCount = Object.values(filesFields || {}).reduce(
                     (acc, file) => acc + file.length,
                     0
                 );
-                if (!files || uploadedFileCount === 0 || uploadedFileCount < fileCount) {
+                if (!filesFields || uploadedFileCount === 0 || uploadedFileCount < fileCount) {
                     throw new NotFoundErrorResponse({
                         message: `Files '${keys.join(', ')}' not found!`
                     });
                 }
 
-                // if (!req.mediaIds)
-                //     const mediaIds: commonTypes.object.ObjectAnyKeys<Request['mediaIds']> =
-                //         (req.mediaIds = {});
+                req.mediaIds = {};
+                const mediaIds = req.mediaIds;
 
-                // await Promise.all(
-                //     Object.keys(files).map((key) => {
-                //         await mediaService
-                //             .createMedia({
-                //                 media_title: title,
-                //                 media_desc: `Media for '${file.fieldname}'`,
-                //                 media_fileName: file.filename,
-                //                 media_filePath: file.path,
-                //                 media_fileType: MediaTypes.IMAGE,
-                //                 media_mimeType: file.mimetype as MediaMimeTypes,
-                //                 media_fileSize: file.size,
-                //                 media_isFolder: false
-                //             })
-                //             .then((x) => x.id);
-                //     })
-                // );
+                await Promise.all(
+                    Object.keys(filesFields).map(async (key) => {
+                        const files = filesFields[key];
+                        const ids = await Promise.all(
+                            files.map(
+                                async (file) =>
+                                    await mediaService
+                                        .createMedia({
+                                            media_title: title,
+                                            media_desc: `Media for '${key}'`,
+                                            media_fileName: file.filename,
+                                            media_filePath: file.path,
+                                            media_fileType: MediaTypes.IMAGE,
+                                            media_mimeType: file.mimetype as MediaMimeTypes,
+                                            media_fileSize: file.size,
+                                            media_isFolder: false
+                                        })
+                                        .then((x) => x.id as string)
+                            )
+                        );
+
+                        mediaIds[key] = ids;
+                    })
+                );
 
                 next();
             } catch (err) {

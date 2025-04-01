@@ -3,6 +3,6 @@ declare namespace Express {
         userId?: string;
         role?: string;
         mediaId?: string;
-        mediaIds?: commonTypes.object.ObjectAnyKeys<string>;
+        mediaIds?: commonTypes.object.ObjectAnyKeys<Array<string>>;
     }
 }

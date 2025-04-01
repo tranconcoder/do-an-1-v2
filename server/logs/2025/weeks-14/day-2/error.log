@@ -117,3 +117,5 @@
 [2025-04-01T04:29:33.542Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-04-01T04:29:33.546Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-04-01T06:24:00.920Z] [error]: HIDE::400::InvalidPayload::Invalid file extension::
+[2025-04-01T06:26:02.398Z] [error]: Client must be connected before running operations
+[2025-04-01T12:06:04.052Z] [error]: HIDE::404::NotFound::Route is not exists::
