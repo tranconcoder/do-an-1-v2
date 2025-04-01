@@ -1,0 +1,28 @@
+[2025-04-01T01:01:08.848Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:08.856Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:08.908Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:09.012Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:09.164Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:09.368Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:09.622Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:09.925Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:10.279Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:10.682Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:11.135Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:11.637Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:12.139Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:16.596Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:16.603Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:16.656Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:16.758Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:16.911Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:17.115Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:17.369Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:01:17.673Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-01T01:03:00.056Z] [error]: findAllProductId is not defined
+[2025-04-01T01:03:01.611Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-04-01T01:03:01.746Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-04-01T01:04:00.247Z] [error]: findAllProductId is not defined
+[2025-04-01T01:05:00.299Z] [error]: findAllProductId is not defined
+[2025-04-01T01:06:00.264Z] [error]: findAllProductId is not defined
+[2025-04-01T01:07:00.296Z] [error]: findAllProductId is not defined

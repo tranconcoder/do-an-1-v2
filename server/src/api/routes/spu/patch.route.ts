@@ -7,20 +7,20 @@ import {
     SetPublishProductSchema
 } from '@/validations/joi/product/index.joi.js';
 
-const productPatchRoute = Router();
+const spuPatchRoute = Router();
 
 /* ================= Set draft product  ================= */
-productPatchRoute.patch(
+spuPatchRoute.patch(
     '/set-draft/:product_id',
     validateRequestParams(setDraftProductSchema),
     catchError(ProductController.setDraftProduct)
 );
 
 /* ================ Set publish product  ================ */
-productPatchRoute.patch(
+spuPatchRoute.patch(
     '/set-publish/:product_id',
     validateRequestParams(SetPublishProductSchema),
     catchError(ProductController.setPublishProduct)
 );
 
-export default productPatchRoute;
+export default spuPatchRoute;

@@ -101,7 +101,19 @@ class RBACService {
                 role_name: RoleNames.SHOP,
                 role_desc: 'Shop',
                 role_status: 'active',
-                role_granted: []
+                role_granted: [
+                    {
+                        resource: resourcesId.find((resource) => resource.name === Resources.SHOP)
+                            ?.id,
+                        actions: [
+                            RoleActions.CREATE_OWN,
+                            RoleActions.READ_ANY,
+                            RoleActions.UPDATE_OWN,
+                            RoleActions.DELETE_OWN
+                        ],
+                        attributes: '*'
+                    }
+                ]
             },
             options: { upsert: true, new: true }
         });

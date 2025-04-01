@@ -8,32 +8,32 @@ import { authenticate } from '@/middlewares/jwt.middleware.js';
 
 /* ----------------------- Routes ----------------------- */
 import productGetRoute from './get.route.js';
-import productPatchRoute from './patch.route.js';
+import spuPatchRoute from './patch.route.js';
 import productPutRoute from './put.route.js';
 import productDeleteRoute from './delete.route.js';
-import productPostRoute from './post.route.js';
+import spuPostRoute from './post.route.js';
 
-const productRoute = Router();
-const productRouteValidate = Router();
+const spuRoute = Router();
+const spuRouteValidate = Router();
 
 /* ------------------------ GET  ------------------------ */
-productRoute.use(productGetRoute);
+spuRoute.use(productGetRoute);
 
 /* ====================================================== */
 /*                  AUTHENTICATE ROUTES                   */
 /* ====================================================== */
-productRoute.use(authenticate, productRouteValidate);
+spuRoute.use(authenticate, spuRouteValidate);
 
 /* ------------------------ POST ------------------------ */
-productRouteValidate.use(productPostRoute);
+spuRouteValidate.use(spuPostRoute);
 
 /* ----------------------- PATCH  ----------------------- */
-productRouteValidate.use(productPatchRoute);
+spuRouteValidate.use(spuPatchRoute);
 
 /* ------------------------ PUT  ------------------------ */
-productRouteValidate.use(productPutRoute);
+spuRouteValidate.use(productPutRoute);
 
 /* ----------------------- DELETE ----------------------- */
-productRouteValidate.use(productDeleteRoute);
+spuRouteValidate.use(productDeleteRoute);
 
-export default productRoute;
+export default spuRoute;

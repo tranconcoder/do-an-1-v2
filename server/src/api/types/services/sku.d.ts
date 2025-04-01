@@ -3,7 +3,9 @@ import '';
 declare global {
     namespace service {
         namespace sku {
-            interface CreateSKU extends Omit<model.sku.SKU, '_id'> {}
+            namespace arguments {
+                interface CreateSKU extends Omit<model.sku.SKU, '_id'> {}
+            }
         }
     }
 }

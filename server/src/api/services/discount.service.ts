@@ -12,11 +12,10 @@ import {
     findDiscountById,
     findDiscountValidByCode
 } from '@/models/repository/discount/index.js';
-import {
-    findAllProduct,
-    checkProductsIsAvailableToUse,
-    checkProductsIsPublish
-} from '@/models/repository/spu/index.js';
+import // findAllProduct,
+// checkProductsIsAvailableToUse,
+// checkProductsIsPublish
+'@/models/repository/spu/index.js';
 import {
     BadRequestErrorResponse,
     ConflictErrorResponse,
@@ -27,6 +26,10 @@ import {
 import { calculateDiscount } from '@/utils/discount.util.js';
 import { get$SetNestedFromObject } from '@/utils/mongoose.util.js';
 import { pessimisticLock } from './redis.service.js';
+
+const findAllProduct = () => {};
+const checkProductsIsAvailableToUse = () => {};
+const checkProductsIsPublish = () => {};
 
 export default class DiscountService {
     /* ---------------------------------------------------------- */

@@ -2,7 +2,11 @@ import { ShopStatus } from '@/enums/shop.enum.js';
 import { findOneCategory } from '@/models/repository/category/index.js';
 import { findShopById } from '@/models/repository/shop/index.js';
 import { spuModel } from '@/models/spu.model.js';
-import { ForbiddenErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
+import {
+    BadRequestErrorResponse,
+    ForbiddenErrorResponse,
+    NotFoundErrorResponse
+} from '@/response/error.response.js';
 import skuService from './sku.service.js';
 
 export default new (class SPUService {
@@ -45,7 +49,8 @@ export default new (class SPUService {
         } catch (error) {
             /* ----------------- Handle rollback spu ------------------ */
             await spu.deleteOne();
-            throw error;
+
+            throw new BadRequestErrorResponse({ message: 'Create SKU failed!' });
         }
     }
 })();
