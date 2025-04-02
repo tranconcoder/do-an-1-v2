@@ -1645,6 +1645,107 @@
     background-color: #2980b9;
 }
 
+// New and updated styles for variation selection in SKU Management
+.sku-variations-selection {
+    margin-bottom: 1.5rem;
+
+    h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 1rem;
+    }
+}
+
+.variations-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.variation-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+        font-weight: 600;
+        color: #334155;
+        font-size: 0.9rem;
+    }
+
+    .variation-option-select {
+        padding: 0.8rem 1rem;
+        border: 1px solid #dfe6e9;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        background-color: #fff;
+        color: #2d3436;
+
+        &:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+        }
+
+        option {
+            padding: 0.5rem;
+        }
+    }
+}
+
+.sku-summary {
+    background-color: #f1f5f9;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+
+    h3 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.selected-options-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.option-tag {
+    background-color: #e0f2fe;
+    color: #0284c7;
+    padding: 0.4rem 0.8rem;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.no-options-selected,
+.no-variations-defined {
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.sku-notice {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #ffc107;
+
+    p {
+        margin: 0;
+        font-size: 0.95rem;
+    }
+}
+
 @media (max-width: 992px) {
     .new-product {
         padding: 1.5rem;

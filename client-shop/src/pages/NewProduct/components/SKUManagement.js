@@ -8,6 +8,7 @@ function SKUManagement({ formData, setFormData }) {
     const addSKU = () => {
         const newSKU = {
             sku_tier_idx: [],
+            selected_options: {}, // Store selected options for UI display
             thumb: null,
             images: []
         };
@@ -20,6 +21,34 @@ function SKUManagement({ formData, setFormData }) {
     const updateSKU = (index, field, value) => {
         const newSKUs = [...formData.skus];
         newSKUs[index][field] = value;
+        setFormData((prev) => ({
+            ...prev,
+            skus: newSKUs
+        }));
+    };
+
+    const handleOptionSelect = (skuIndex, variationIndex, optionIndex) => {
+        const newSKUs = [...formData.skus];
+
+        // Update the selected options object for UI
+        const newSelectedOptions = {
+            ...newSKUs[skuIndex].selected_options,
+            [variationIndex]: optionIndex
+        };
+
+        newSKUs[skuIndex].selected_options = newSelectedOptions;
+
+        // Convert selected options to sku_tier_idx format
+        const tierIdxArray = Object.entries(newSelectedOptions)
+            .map(([varIdx, optIdx]) => ({
+                variationIndex: parseInt(varIdx),
+                optionIndex: parseInt(optIdx)
+            }))
+            .sort((a, b) => a.variationIndex - b.variationIndex)
+            .map((item) => item.optionIndex);
+
+        newSKUs[skuIndex].sku_tier_idx = tierIdxArray;
+
         setFormData((prev) => ({
             ...prev,
             skus: newSKUs
@@ -88,12 +117,25 @@ function SKUManagement({ formData, setFormData }) {
         }));
     };
 
+    // Check if there are any variations defined
+    const hasVariations =
+        formData.product_variations &&
+        formData.product_variations.length > 0 &&
+        formData.product_variations.some((v) => v.options && v.options.length > 0);
+
     return (
         <div className={cx('form-section')}>
             <h2>SKU Management</h2>
             <p className={cx('section-description')}>
-                Manage your product SKUs by specifying variation indexes and uploading images.
+                Configure SKUs for your product variations and upload specific images for each
+                combination.
             </p>
+
+            {!hasVariations && (
+                <div className={cx('sku-notice')}>
+                    <p>Please define product variations before adding SKUs.</p>
+                </div>
+            )}
 
             <div className={cx('sku-list')}>
                 {formData.skus.map((sku, skuIndex) => (
@@ -110,23 +152,84 @@ function SKUManagement({ formData, setFormData }) {
                         </div>
 
                         <div className={cx('sku-content')}>
-                            <div className={cx('sku-tier-idx')}>
-                                <label>Variation Indexes:</label>
-                                <input
-                                    type="text"
-                                    placeholder="e.g., 0,1"
-                                    value={sku.sku_tier_idx.join(',')}
-                                    onChange={(e) =>
-                                        updateSKU(
-                                            skuIndex,
-                                            'sku_tier_idx',
-                                            e.target.value.split(',').map(Number)
-                                        )
-                                    }
-                                />
-                                <span className={cx('sku-hint')}>
-                                    Enter comma-separated indexes of variations (0-based)
-                                </span>
+                            {hasVariations && (
+                                <div className={cx('sku-variations-selection')}>
+                                    <h3>Variation Options</h3>
+                                    <div className={cx('variations-options-grid')}>
+                                        {formData.product_variations.map(
+                                            (variation, variationIndex) => (
+                                                <div
+                                                    key={variationIndex}
+                                                    className={cx('variation-selector')}
+                                                >
+                                                    <label>{variation.name}</label>
+                                                    <select
+                                                        value={
+                                                            sku.selected_options?.[
+                                                                variationIndex
+                                                            ] || ''
+                                                        }
+                                                        onChange={(e) =>
+                                                            handleOptionSelect(
+                                                                skuIndex,
+                                                                variationIndex,
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        className={cx('variation-option-select')}
+                                                    >
+                                                        <option value="">
+                                                            -- Select {variation.name} --
+                                                        </option>
+                                                        {variation.options.map(
+                                                            (option, optionIndex) => (
+                                                                <option
+                                                                    key={optionIndex}
+                                                                    value={optionIndex}
+                                                                >
+                                                                    {option}
+                                                                </option>
+                                                            )
+                                                        )}
+                                                    </select>
+                                                </div>
+                                            )
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className={cx('sku-summary')}>
+                                <h3>Selected Combination</h3>
+                                {hasVariations ? (
+                                    <div className={cx('selected-options-tags')}>
+                                        {Object.entries(sku.selected_options || {}).length > 0 ? (
+                                            Object.entries(sku.selected_options || {}).map(
+                                                ([varIdx, optIdx]) => {
+                                                    const variation =
+                                                        formData.product_variations[varIdx];
+                                                    return variation ? (
+                                                        <span
+                                                            key={varIdx}
+                                                            className={cx('option-tag')}
+                                                        >
+                                                            {variation.name}:{' '}
+                                                            {variation.options[optIdx]}
+                                                        </span>
+                                                    ) : null;
+                                                }
+                                            )
+                                        ) : (
+                                            <span className={cx('no-options-selected')}>
+                                                No options selected
+                                            </span>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <span className={cx('no-variations-defined')}>
+                                        No variations defined
+                                    </span>
+                                )}
                             </div>
 
                             <div className={cx('sku-images-content')}>
@@ -209,7 +312,12 @@ function SKUManagement({ formData, setFormData }) {
                 ))}
             </div>
 
-            <button type="button" onClick={addSKU} className={cx('add-variation-btn')}>
+            <button
+                type="button"
+                onClick={addSKU}
+                className={cx('add-variation-btn')}
+                disabled={!hasVariations}
+            >
                 <span className={cx('add-icon')}>+</span> Add New SKU
             </button>
         </div>
