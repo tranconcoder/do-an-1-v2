@@ -541,3 +541,6 @@
 [2025-04-02T11:02:01.496Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
 [2025-04-02T11:02:14.040Z] [error]: HIDE::404::NotFound::Token not found!::
 [2025-04-02T11:09:42.370Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-04-02T12:25:23.639Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
+[2025-04-02T12:25:27.102Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
+[2025-04-02T12:35:15.302Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::

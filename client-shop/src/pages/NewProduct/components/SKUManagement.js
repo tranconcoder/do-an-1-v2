@@ -1,12 +1,76 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from '../NewProduct.module.scss';
+import ImagePreviewModal from '../../../components/ImagePreviewModal';
 
 const cx = classNames.bind(styles);
 
 function SKUManagement({ formData, setFormData }) {
     const [duplicateError, setDuplicateError] = useState(null);
     const [currentSkuIndex, setCurrentSkuIndex] = useState(null);
+
+    // Add state for modal control
+    const [previewImage, setPreviewImage] = useState(null);
+    const [previewType, setPreviewType] = useState(null); // 'thumb' or 'additional'
+    const [selectedSkuIndex, setSelectedSkuIndex] = useState(null);
+    const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+
+    // Handle opening the preview modal
+    const handleOpenPreview = (image, type, skuIndex, imageIndex = null) => {
+        setPreviewImage(image);
+        setPreviewType(type);
+        setSelectedSkuIndex(skuIndex);
+        setSelectedImageIndex(imageIndex);
+    };
+
+    // Handle closing the preview modal
+    const handleClosePreview = () => {
+        setPreviewImage(null);
+        setPreviewType(null);
+        setSelectedSkuIndex(null);
+        setSelectedImageIndex(null);
+    };
+
+    // Handle replacing an image from the modal
+    const handleReplaceImage = (file) => {
+        if (!file || selectedSkuIndex === null) return;
+
+        const reader = new FileReader();
+
+        if (previewType === 'thumb') {
+            reader.onload = () => {
+                const newThumb = {
+                    file,
+                    preview: reader.result
+                };
+
+                const newSKUs = [...formData.skus];
+                newSKUs[selectedSkuIndex].thumb = newThumb;
+
+                setFormData((prev) => ({
+                    ...prev,
+                    skus: newSKUs
+                }));
+            };
+        } else if (previewType === 'additional' && selectedImageIndex !== null) {
+            reader.onload = () => {
+                const newImage = {
+                    file,
+                    preview: reader.result
+                };
+
+                const newSKUs = [...formData.skus];
+                newSKUs[selectedSkuIndex].images[selectedImageIndex] = newImage;
+
+                setFormData((prev) => ({
+                    ...prev,
+                    skus: newSKUs
+                }));
+            };
+        }
+
+        reader.readAsDataURL(file);
+    };
 
     // Clear duplicate error when component re-renders with new formData
     useEffect(() => {
@@ -371,14 +435,20 @@ function SKUManagement({ formData, setFormData }) {
                                     <h3>Thumbnail Image</h3>
                                     <div className={cx('sku-thumb-upload')}>
                                         {sku.thumb ? (
-                                            <div className={cx('sku-thumb-preview')}>
+                                            <div
+                                                className={cx('sku-thumb-preview')}
+                                                onClick={() =>
+                                                    handleOpenPreview(sku.thumb, 'thumb', skuIndex)
+                                                }
+                                            >
                                                 <img src={sku.thumb.preview} alt="SKU thumbnail" />
                                                 <button
                                                     type="button"
                                                     className={cx('replace-thumb')}
-                                                    onClick={() =>
-                                                        updateSKU(skuIndex, 'thumb', null)
-                                                    }
+                                                    onClick={(e) => {
+                                                        e.stopPropagation(); // Prevent opening preview
+                                                        updateSKU(skuIndex, 'thumb', null);
+                                                    }}
                                                 >
                                                     Replace
                                                 </button>
@@ -409,6 +479,14 @@ function SKUManagement({ formData, setFormData }) {
                                                     <div
                                                         key={imageIndex}
                                                         className={cx('sku-image-item')}
+                                                        onClick={() =>
+                                                            handleOpenPreview(
+                                                                image,
+                                                                'additional',
+                                                                skuIndex,
+                                                                imageIndex
+                                                            )
+                                                        }
                                                     >
                                                         <img
                                                             src={image.preview}
@@ -417,9 +495,13 @@ function SKUManagement({ formData, setFormData }) {
                                                         <button
                                                             type="button"
                                                             className={cx('remove-image')}
-                                                            onClick={() =>
-                                                                removeSKUImage(skuIndex, imageIndex)
-                                                            }
+                                                            onClick={(e) => {
+                                                                e.stopPropagation(); // Prevent opening preview
+                                                                removeSKUImage(
+                                                                    skuIndex,
+                                                                    imageIndex
+                                                                );
+                                                            }}
                                                         >
                                                             ×
                                                         </button>
@@ -454,6 +536,15 @@ function SKUManagement({ formData, setFormData }) {
             >
                 <span className={cx('add-icon')}>+</span> Add New SKU
             </button>
+
+            {/* Image Preview Modal */}
+            {previewImage && (
+                <ImagePreviewModal
+                    image={previewImage}
+                    onClose={handleClosePreview}
+                    onReplace={handleReplaceImage}
+                />
+            )}
         </div>
     );
 }

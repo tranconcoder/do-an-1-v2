@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from '../NewProduct.module.scss';
 import { FaUpload, FaTimes, FaExclamationTriangle } from 'react-icons/fa';
+import ImagePreviewModal from '../../../components/ImagePreviewModal';
 
 const cx = classNames.bind(styles);
 
@@ -10,6 +11,66 @@ function ProductImages({ formData, setFormData }) {
         thumbnail: '',
         additionalImages: ''
     });
+
+    // Add state for modal control
+    const [previewImage, setPreviewImage] = useState(null);
+    const [previewType, setPreviewType] = useState(null); // 'thumbnail' or 'additional'
+    const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+
+    // Handle opening the preview modal
+    const handleOpenPreview = (image, type, index = null) => {
+        setPreviewImage(image);
+        setPreviewType(type);
+        setSelectedImageIndex(index);
+    };
+
+    // Handle closing the preview modal
+    const handleClosePreview = () => {
+        setPreviewImage(null);
+        setPreviewType(null);
+        setSelectedImageIndex(null);
+    };
+
+    // Handle replacing an image from the modal
+    const handleReplaceImage = (file) => {
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        if (previewType === 'thumbnail') {
+            reader.onload = () => {
+                const newThumb = {
+                    file,
+                    preview: reader.result,
+                    name: file.name
+                };
+                setFormData((prev) => ({
+                    ...prev,
+                    product_thumb: newThumb
+                }));
+                validateThumbnail(newThumb);
+            };
+        } else if (previewType === 'additional' && selectedImageIndex !== null) {
+            reader.onload = () => {
+                const newImage = {
+                    file,
+                    preview: reader.result,
+                    name: file.name
+                };
+
+                setFormData((prev) => {
+                    const updatedImages = [...prev.product_images];
+                    updatedImages[selectedImageIndex] = newImage;
+                    return {
+                        ...prev,
+                        product_images: updatedImages
+                    };
+                });
+            };
+        }
+
+        reader.readAsDataURL(file);
+    };
 
     const validateThumbnail = (thumb) => {
         if (!thumb) {
@@ -124,12 +185,18 @@ function ProductImages({ formData, setFormData }) {
                 )}
 
                 {formData.product_thumb && (
-                    <div className={cx('image-preview', 'thumbnail-preview')}>
+                    <div
+                        className={cx('image-preview', 'thumbnail-preview')}
+                        onClick={() => handleOpenPreview(formData.product_thumb, 'thumbnail')}
+                    >
                         <img src={formData.product_thumb.preview} alt="Thumbnail Preview" />
                         <button
                             type="button"
                             className={cx('remove-image')}
-                            onClick={removeThumbnail}
+                            onClick={(e) => {
+                                e.stopPropagation(); // Prevent opening preview when clicking remove
+                                removeThumbnail();
+                            }}
                         >
                             <FaTimes />
                         </button>
@@ -170,12 +237,19 @@ function ProductImages({ formData, setFormData }) {
                 <div className={cx('additional-images-container')}>
                     <div className={cx('additional-images-grid')}>
                         {formData.product_images.map((image, index) => (
-                            <div key={index} className={cx('additional-image-preview')}>
+                            <div
+                                key={index}
+                                className={cx('additional-image-preview')}
+                                onClick={() => handleOpenPreview(image, 'additional', index)}
+                            >
                                 <img src={image.preview} alt={`Image ${index + 1}`} />
                                 <button
                                     type="button"
                                     className={cx('remove-image')}
-                                    onClick={() => removeImage(index)}
+                                    onClick={(e) => {
+                                        e.stopPropagation(); // Prevent opening preview when clicking remove
+                                        removeImage(index);
+                                    }}
                                 >
                                     <FaTimes />
                                 </button>
@@ -184,6 +258,15 @@ function ProductImages({ formData, setFormData }) {
                     </div>
                 </div>
             </div>
+
+            {/* Image Preview Modal */}
+            {previewImage && (
+                <ImagePreviewModal
+                    image={previewImage}
+                    onClose={handleClosePreview}
+                    onReplace={handleReplaceImage}
+                />
+            )}
         </div>
     );
 }
