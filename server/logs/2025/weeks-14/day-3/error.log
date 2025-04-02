@@ -481,3 +481,9 @@
 [2025-04-02T09:28:36.962Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-04-02T09:29:49.684Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-04-02T09:31:49.373Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-02T09:47:23.502Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-04-02T09:47:25.742Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-04-02T09:47:27.266Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-04-02T09:47:28.778Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-04-02T09:47:32.278Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-04-02T09:47:38.368Z] [error]: HIDE::403::Forbidden::Token is invalid!::
