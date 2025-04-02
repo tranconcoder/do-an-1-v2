@@ -54,7 +54,9 @@ declare global {
                 /*                          Get all                           */
                 /* ---------------------------------------------------------- */
                 /* -------------------- Get all products -------------------- */
-                interface GetAllProducts extends commonTypes.object.PageSlitting {}
+                interface GetAllShopSPUByOwn{
+                    
+                }
 
                 /* --------------- Get all product by shop -------------- */
                 interface GetAllProductByShop

@@ -3,6 +3,9 @@ import skuModel from '@/models/sku.model.js';
 import { NotFoundErrorResponse } from '@/response/error.response.js';
 
 export default new (class SKUService {
+    /* ---------------------------------------------------------- */
+    /*                           Create                           */
+    /* ---------------------------------------------------------- */
     async createSKU(payload: service.sku.arguments.CreateSKU) {
         const { sku_product, sku_tier_idx } = payload;
 
@@ -24,5 +27,15 @@ export default new (class SKUService {
 
         /* --------------------- Handle save sku -------------------- */
         return await skuModel.create(payload);
+    }
+
+
+    /* ---------------------------------------------------------- */
+    /*                             Get                            */
+    /* ---------------------------------------------------------- */
+
+    /* ----------------------- Get all SPU ---------------------- */
+    async getAllSPU() {
+
     }
 })();

@@ -9,10 +9,12 @@ import {
 } from '@/response/error.response.js';
 import skuService from './sku.service.js';
 import { SKUImages } from '@/enums/sku.enum.js';
-import skuModel from '@/models/sku.model.js';
 import { SPUImages } from '@/enums/spu.enum.js';
 
 export default new (class SPUService {
+    /* ---------------------------------------------------------- */
+    /*                           Create                           */
+    /* ---------------------------------------------------------- */
     async createSPU(payload: service.spu.arguments.CreateSPU) {
         const { product_category, product_shop, sku_list, sku_images_map, mediaIds } = payload;
 
@@ -101,5 +103,13 @@ export default new (class SPUService {
 
             throw new BadRequestErrorResponse({ message: 'Create SKU failed!' });
         }
+    }
+
+    /* ---------------------------------------------------------- */
+    /*                             Get                            */
+    /* ---------------------------------------------------------- */
+    /* ------------------------- By shop ------------------------ */
+    async getAllSpuByShop() {
+        
     }
 })();

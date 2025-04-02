@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './NewProduct.module.scss';
 import axios from 'axios';
 import { FaTimes, FaUpload } from 'react-icons/fa';
+import { API_URL } from '../../configs/env.config';
 
 const cx = classNames.bind(styles);
 
@@ -29,44 +30,54 @@ function NewProduct() {
         sku_list: [] // For SKU variations
     });
 
+    // Helper function to build a hierarchical structure of categories
+    const buildCategoryHierarchy = (categoriesList) => {
+        const rootCategories = categoriesList.filter((cat) => !cat.category_parent);
+        return rootCategories.map((rootCat) => {
+            return {
+                ...rootCat,
+                children: getChildCategories(categoriesList, rootCat._id)
+            };
+        });
+    };
+
+    const getChildCategories = (categoriesList, parentId) => {
+        const children = categoriesList.filter(
+            (cat) => cat.category_parent && cat.category_parent === parentId
+        );
+        return children.map((child) => ({
+            ...child,
+            children: getChildCategories(categoriesList, child._id)
+        }));
+    };
+
+    const renderCategoryOptions = (categories, level = 0) => {
+        return categories.map((category) => (
+            <React.Fragment key={category._id}>
+                <option value={category._id}>
+                    {'\u00A0'.repeat(level * 4)}
+                    {level > 0 ? '└─ ' : ''}
+                    {category.category_name}
+                </option>
+                {category.children &&
+                    category.children.length > 0 &&
+                    renderCategoryOptions(category.children, level + 1)}
+            </React.Fragment>
+        ));
+    };
+
     // Load categories on page load
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 setLoadingCategories(true);
-                // In a real implementation, this would fetch from your API
-                const response = await axios.get('/api/categories');
-                setCategories(response.data || []);
+                const response = await axios.get(`${API_URL}/category`);
+                const categoriesData = response.data.metadata || [];
+                const hierarchy = buildCategoryHierarchy(categoriesData);
+                setCategories(hierarchy);
             } catch (error) {
                 console.error('Error loading categories:', error);
-                // Fallback sample categories for demonstration
-                setCategories([
-                    {
-                        _id: '1',
-                        category_name: 'Điện tử',
-                        category_description: 'Các sản phẩm điện tử'
-                    },
-                    {
-                        _id: '2',
-                        category_name: 'Thời trang',
-                        category_description: 'Quần áo, giày dép'
-                    },
-                    {
-                        _id: '3',
-                        category_name: 'Nhà cửa & Đời sống',
-                        category_description: 'Đồ gia dụng'
-                    },
-                    {
-                        _id: '4',
-                        category_name: 'Sách',
-                        category_description: 'Sách và tài liệu học tập'
-                    },
-                    {
-                        _id: '5',
-                        category_name: 'Đồ chơi & Trò chơi',
-                        category_description: 'Đồ chơi trẻ em'
-                    }
-                ]);
+                setCategories([]); // Clear categories on error
             } finally {
                 setLoadingCategories(false);
             }
@@ -471,11 +482,7 @@ function NewProduct() {
                                     className={cx('category-select')}
                                 >
                                     <option value="">-- Chọn danh mục --</option>
-                                    {categories.map((category) => (
-                                        <option key={category._id} value={category._id}>
-                                            {category.category_name}
-                                        </option>
-                                    ))}
+                                    {renderCategoryOptions(categories)}
                                 </select>
                             </div>
                         </div>

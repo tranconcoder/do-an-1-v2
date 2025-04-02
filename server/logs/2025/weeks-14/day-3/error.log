@@ -319,3 +319,138 @@
 [2025-04-02T07:30:02.419Z] [error]: Client must be connected before running operations
 [2025-04-02T07:30:02.443Z] [error]: Client must be connected before running operations
 [2025-04-02T07:30:02.473Z] [error]: Client must be connected before running operations
+[2025-04-02T07:31:02.567Z] [error]: Client must be connected before running operations
+[2025-04-02T07:31:02.609Z] [error]: Client must be connected before running operations
+[2025-04-02T07:31:02.610Z] [error]: Client must be connected before running operations
+[2025-04-02T07:32:03.389Z] [error]: Client must be connected before running operations
+[2025-04-02T07:32:03.392Z] [error]: Client must be connected before running operations
+[2025-04-02T07:32:03.399Z] [error]: Client must be connected before running operations
+[2025-04-02T07:33:03.323Z] [error]: Client must be connected before running operations
+[2025-04-02T07:33:03.349Z] [error]: Client must be connected before running operations
+[2025-04-02T07:33:03.350Z] [error]: Client must be connected before running operations
+[2025-04-02T07:34:03.375Z] [error]: Client must be connected before running operations
+[2025-04-02T07:34:03.397Z] [error]: Client must be connected before running operations
+[2025-04-02T07:34:03.401Z] [error]: Client must be connected before running operations
+[2025-04-02T07:42:38.758Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:38.763Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:38.815Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:38.917Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:39.068Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:39.271Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:39.523Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:39.825Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:40.177Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:40.580Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:41.033Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:41.536Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:42.038Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:42.540Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:43.042Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:43.544Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:44.045Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:44.547Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:45.049Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:45.550Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:46.051Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:46.553Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:47.056Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:47.558Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:48.059Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:48.561Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:49.063Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:49.566Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:50.069Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:50.571Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:51.073Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:51.575Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:52.078Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:52.580Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:53.082Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:53.585Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:54.088Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:54.590Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:55.091Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:55.593Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:56.095Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:56.597Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:57.099Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:57.601Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:58.103Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:58.605Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:59.106Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:59.608Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:00.109Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:59.315Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:42:59.817Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:00.320Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:00.826Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:01.329Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:01.832Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:02.334Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:02.836Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:03.337Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:03.840Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:04.343Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:04.845Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:05.347Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:05.850Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:06.352Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:06.854Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:05.621Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:06.123Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:06.625Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:07.127Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:07.629Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:08.130Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:08.632Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:09.134Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:09.636Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:10.138Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:10.640Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:11.142Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:11.642Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:12.144Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:12.645Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:13.147Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:13.649Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:14.152Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:14.654Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:16.627Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:17.129Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:17.631Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:18.134Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:18.636Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:19.138Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:19.640Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:20.142Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:20.645Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:21.147Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:21.649Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:22.151Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:22.653Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:23.155Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:23.657Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:24.159Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:24.668Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:25.196Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:25.723Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:26.251Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:26.777Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:27.305Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:27.815Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:28.344Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:28.870Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:29.397Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:29.906Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:30.433Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:30.937Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:31.464Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:31.971Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:32.499Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:33.003Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:33.513Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:34.021Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:34.528Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:35.037Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:35.546Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T07:43:36.055Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
