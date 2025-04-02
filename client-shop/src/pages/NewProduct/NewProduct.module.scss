@@ -886,6 +886,25 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
     }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background-color: #f3f4f6;
+        border-color: #d1d5db;
+        color: #9ca3af;
+
+        &:hover {
+            transform: none;
+            box-shadow: none;
+        }
+    }
+
+    .btn-tooltip {
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+        opacity: 0.8;
+    }
 }
 
 .variation-container {
@@ -1733,16 +1752,23 @@
 }
 
 .sku-notice {
-    background-color: #fff3cd;
-    color: #856404;
     padding: 1rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
-    border-left: 4px solid #ffc107;
+    border-left: 4px solid;
 
     p {
         margin: 0;
-        font-size: 0.95rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    &.error {
+        background-color: #fff5f5;
+        border-left-color: #f56565;
+        color: #c53030;
     }
 }
 
@@ -1938,5 +1964,50 @@
     &:hover::after {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.sku-warning {
+    background-color: #fff3e0;
+    border: 1px solid #ffb74d;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+
+    p {
+        color: #e65100;
+        margin: 0;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+}
+
+.footer-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+    background-color: #fff;
+    border-radius: 0 0 12px 12px;
+
+    .product-summary-container {
+        max-width: 800px;
+        margin: 0 auto 2rem;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: center;
+        gap: 1.2rem;
+        padding: 1.5rem;
+        background-color: #f8fafc;
+        border-top: 1px solid #e2e8f0;
+        border-radius: 0 0 12px 12px;
+
+        .draft-btn,
+        .submit-btn {
+            min-width: 160px;
+        }
     }
 }

@@ -22,8 +22,6 @@ function NewProduct() {
     const [formData, setFormData] = useState({
         product_name: '',
         product_description: '',
-        product_cost: '',
-        product_quantity: 0,
         product_category: '',
         product_attributes: [],
         product_variations: [],
@@ -118,8 +116,6 @@ function NewProduct() {
         // Add basic fields
         formDataToSubmit.append('product_name', data.product_name);
         formDataToSubmit.append('product_description', data.product_description);
-        formDataToSubmit.append('product_cost', data.product_cost);
-        formDataToSubmit.append('product_quantity', data.product_quantity);
         formDataToSubmit.append('product_category', data.product_category);
         formDataToSubmit.append('is_draft', data.is_draft);
         formDataToSubmit.append('is_publish', data.is_publish);
@@ -166,48 +162,50 @@ function NewProduct() {
 
         // Add SKU information
         if (data.sku_list && data.sku_list.length > 0) {
-            // Always initialize sku_images_map as an array with same length as sku_list
-            const skuImagesMap = new Array(data.sku_list.length).fill(0);
-            let hasSkuImages = false;
+            // Check if it's a default SKU (created from product info)
+            const isDefaultSku =
+                data.sku_list.length === 1 &&
+                data.sku_list[0].sku_tier_idx.length === 0 &&
+                Object.keys(data.sku_list[0].selected_options).length === 0;
 
-            // Add SKU thumbnails and data
-            data.sku_list.forEach((sku, index) => {
-                if (sku.thumb && sku.thumb.file) {
-                    formDataToSubmit.append('sku_thumb', sku.thumb.file);
-                }
+            // Only include SKU images if it's not a default SKU
+            if (!isDefaultSku) {
+                // Initialize sku_images_map
+                const skuImagesMap = new Array(data.sku_list.length).fill(0);
+                let hasSkuImages = false;
 
-                // Add SKU images
-                if (sku.images && sku.images.length > 0) {
-                    skuImagesMap[index] = sku.images.length;
-                    hasSkuImages = true;
+                // Add SKU thumbnails and images
+                data.sku_list.forEach((sku, index) => {
+                    if (sku.thumb && sku.thumb.file) {
+                        formDataToSubmit.append('sku_thumb', sku.thumb.file);
+                    }
 
-                    sku.images.forEach((image) => {
-                        if (image.file) {
-                            formDataToSubmit.append('sku_images', image.file);
-                        }
+                    if (sku.images && sku.images.length > 0) {
+                        skuImagesMap[index] = sku.images.length;
+                        hasSkuImages = true;
+
+                        sku.images.forEach((image) => {
+                            if (image.file) {
+                                formDataToSubmit.append('sku_images', image.file);
+                            }
+                        });
+                    }
+                });
+
+                // Handle SKU images map
+                if (hasSkuImages) {
+                    skuImagesMap.forEach((count, index) => {
+                        formDataToSubmit.append(`sku_images_map[${index}]`, count);
                     });
                 }
+            }
 
-                // Add SKU data as array items
+            // Add SKU data
+            data.sku_list.forEach((sku, index) => {
                 formDataToSubmit.append(`sku_list[${index}][sku_tier_idx]`, sku.sku_tier_idx);
                 formDataToSubmit.append(`sku_list[${index}][sku_stock]`, sku.sku_stock);
                 formDataToSubmit.append(`sku_list[${index}][sku_price]`, sku.sku_price);
             });
-
-            // Handle SKU images map
-            if (hasSkuImages) {
-                skuImagesMap.forEach((count, index) => {
-                    formDataToSubmit.append(`sku_images_map[${index}]`, count);
-                });
-            } else {
-                formDataToSubmit.append(
-                    'sku_images',
-                    new Blob([], { type: 'application/octet-stream' })
-                );
-                skuImagesMap.forEach((count, index) => {
-                    formDataToSubmit.append(`sku_images_map[${index}]`, count);
-                });
-            }
         }
 
         return formDataToSubmit;
@@ -242,36 +240,21 @@ function NewProduct() {
                 return;
             }
 
-            // Check if we have any SKUs with filled in data
-            const hasFilledSkus = formData.sku_list.some(
-                (sku) => sku.sku_price || sku.sku_stock > 0 || sku.thumb || sku.images.length > 0
+            // Check if we have at least one valid SKU
+            const hasValidSku = formData.sku_list.some(
+                (sku) => sku.sku_price && sku.sku_stock >= 0 && sku.thumb
             );
 
-            let submissionData;
-
-            // If no SKUs have data entered, create a default SKU from product info
-            if (!hasFilledSkus) {
-                const defaultSku = {
-                    sku_tier_idx: [],
-                    selected_options: {},
-                    thumb: formData.product_thumb,
-                    images: [...formData.product_images],
-                    sku_stock: parseInt(formData.product_quantity) || 0,
-                    sku_price: formData.product_cost || 0
-                };
-
-                submissionData = {
-                    ...formData,
-                    sku_list: [defaultSku]
-                };
-
-                console.log('Created default SKU from product info:', defaultSku);
-            } else {
-                submissionData = formData;
+            if (!hasValidSku) {
+                alert(
+                    'Please add at least one SKU with price, stock quantity, and thumbnail image'
+                );
+                setLoading(false);
+                return;
             }
 
-            // Prepare FormData for submission with correct data
-            const formDataToSubmit = prepareFormDataForSubmission(submissionData);
+            // Prepare FormData for submission
+            const formDataToSubmit = prepareFormDataForSubmission(formData);
 
             // Submit the form data to the API
             const response = await axiosClient.post(`${API_URL}/spu/create`, formDataToSubmit, {
@@ -296,30 +279,6 @@ function NewProduct() {
         <div className={cx('new-product')}>
             <div className={cx('header')}>
                 <h1>Create New Product</h1>
-                <div className={cx('actions')}>
-                    <button
-                        type="button"
-                        className={cx('draft-btn')}
-                        onClick={() => {
-                            setFormData((prev) => ({ ...prev, is_draft: true, is_publish: false }));
-                            document.querySelector('form').requestSubmit();
-                        }}
-                        disabled={loading}
-                    >
-                        Save as Draft
-                    </button>
-                    <button
-                        type="button"
-                        className={cx('submit-btn')}
-                        onClick={() => {
-                            setFormData((prev) => ({ ...prev, is_draft: false, is_publish: true }));
-                            document.querySelector('form').requestSubmit();
-                        }}
-                        disabled={loading}
-                    >
-                        {loading ? 'Publishing...' : 'Publish Product'}
-                    </button>
-                </div>
             </div>
 
             <form onSubmit={handleSubmit} className={cx('product-form')}>
@@ -348,9 +307,44 @@ function NewProduct() {
 
                         <SKUManagement formData={formData} setFormData={setFormData} />
                     </div>
+                </div>
 
-                    <div className={cx('sidebar-form')}>
+                <div className={cx('footer-section')}>
+                    <div className={cx('product-summary-container')}>
                         <ProductSummary formData={formData} />
+                    </div>
+
+                    <div className={cx('actions')}>
+                        <button
+                            type="button"
+                            className={cx('draft-btn')}
+                            onClick={() => {
+                                setFormData((prev) => ({
+                                    ...prev,
+                                    is_draft: true,
+                                    is_publish: false
+                                }));
+                                document.querySelector('form').requestSubmit();
+                            }}
+                            disabled={loading}
+                        >
+                            Save as Draft
+                        </button>
+                        <button
+                            type="button"
+                            className={cx('submit-btn')}
+                            onClick={() => {
+                                setFormData((prev) => ({
+                                    ...prev,
+                                    is_draft: false,
+                                    is_publish: true
+                                }));
+                                document.querySelector('form').requestSubmit();
+                            }}
+                            disabled={loading}
+                        >
+                            {loading ? 'Publishing...' : 'Publish Product'}
+                        </button>
                     </div>
                 </div>
             </form>

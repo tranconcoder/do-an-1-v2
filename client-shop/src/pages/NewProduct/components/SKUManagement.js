@@ -15,6 +15,20 @@ function SKUManagement({ formData, setFormData }) {
     const [selectedSkuIndex, setSelectedSkuIndex] = useState(null);
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
+    // Kiểm tra xem có variations hợp lệ hay không
+    const hasValidVariations = formData.product_variations?.some(
+        (v) =>
+            v.name &&
+            v.options &&
+            v.options.length > 0 &&
+            v.options.some((opt) => opt.trim() !== '')
+    );
+
+    // Kiểm tra xem có SKU nào hợp lệ không
+    const hasValidSku = formData.sku_list.some(
+        (sku) => sku.sku_price && sku.sku_stock >= 0 && sku.thumb
+    );
+
     // Handle opening the preview modal
     const handleOpenPreview = (image, type, skuIndex, imageIndex = null) => {
         setPreviewImage(image);
@@ -90,6 +104,16 @@ function SKUManagement({ formData, setFormData }) {
             }));
         }
     }, [formData.sku_list, setFormData]);
+
+    // Clear SKUs khi không có variations hợp lệ
+    useEffect(() => {
+        if (!hasValidVariations && formData.sku_list.length > 0) {
+            setFormData((prev) => ({
+                ...prev,
+                sku_list: []
+            }));
+        }
+    }, [hasValidVariations]);
 
     // Check if a variation combination already exists
     const checkDuplicateVariation = (skuIndex, selectedOptions) => {
@@ -271,9 +295,20 @@ function SKUManagement({ formData, setFormData }) {
                 combination.
             </p>
 
-            {!hasVariations && (
-                <div className={cx('sku-notice')}>
-                    <p>Please define product variations before adding SKUs.</p>
+            {!hasValidVariations && (
+                <div className={cx('sku-notice', 'error')}>
+                    <p>
+                        ⚠️ You must define at least one variation with options before adding SKUs.
+                    </p>
+                </div>
+            )}
+
+            {!hasValidSku && hasValidVariations && (
+                <div className={cx('sku-warning')}>
+                    <p>
+                        ⚠️ At least one SKU with price, stock quantity, and thumbnail image is
+                        required to create a product.
+                    </p>
                 </div>
             )}
 
@@ -532,9 +567,12 @@ function SKUManagement({ formData, setFormData }) {
                 type="button"
                 onClick={addSKU}
                 className={cx('add-variation-btn')}
-                disabled={!hasVariations}
+                disabled={!hasValidVariations}
             >
                 <span className={cx('add-icon')}>+</span> Add New SKU
+                {!hasValidVariations && (
+                    <span className={cx('btn-tooltip')}>Define variations first</span>
+                )}
             </button>
 
             {/* Image Preview Modal */}

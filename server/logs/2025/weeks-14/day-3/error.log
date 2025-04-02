@@ -644,3 +644,8 @@
 [2025-04-02T18:33:12.591Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
 [2025-04-02T19:10:54.057Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
 [2025-04-02T19:12:32.523Z] [error]: HIDE::400::ValidationError::"sku_list[0].sku_stock" must be greater than or equal to 1::
+[2025-04-02T19:16:11.412Z] [error]: HIDE::400::InvalidPayload::Invalid file extension::
+[2025-04-02T19:17:04.640Z] [error]: HIDE::400::InvalidPayload::Invalid file extension::
+[2025-04-02T19:18:24.166Z] [error]: HIDE::400::InvalidPayload::Invalid file extension::
+[2025-04-02T19:24:31.787Z] [error]: HIDE::400::InvalidPayload::Invalid file extension::
+[2025-04-02T19:26:25.308Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::

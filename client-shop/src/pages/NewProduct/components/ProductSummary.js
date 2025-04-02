@@ -21,15 +21,12 @@ function ProductSummary({ formData }) {
                 </span>
             </div>
             <div className={cx('summary-item')}>
-                <span className={cx('summary-label')}>Price:</span>
-                <span className={cx('summary-value')}>
-                    {formData.product_cost ? `₫${formData.product_cost}` : '(Not specified)'}
-                </span>
-            </div>
-            <div className={cx('summary-item')}>
                 <span className={cx('summary-label')}>Quantity:</span>
                 <span className={cx('summary-value')}>
-                    {formData.product_quantity || '(Not specified)'}
+                    {formData.sku_list.reduce(
+                        (sum, sku) => sum + (parseInt(sku.sku_stock) || 0),
+                        0
+                    )}
                 </span>
             </div>
             <div className={cx('summary-item')}>
