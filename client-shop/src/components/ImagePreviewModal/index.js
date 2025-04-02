@@ -6,11 +6,13 @@ const cx = classNames.bind(styles);
 
 function ImagePreviewModal({ image, onClose, onReplace }) {
     const fileInputRef = useRef(null);
+    const imageContainerRef = useRef(null);
     const [zoomLevel, setZoomLevel] = useState(1);
     const [showZoomIndicator, setShowZoomIndicator] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
     const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+    const [isFullscreen, setIsFullscreen] = useState(false);
 
     useEffect(() => {
         // Add event listener to close modal on ESC key
@@ -31,10 +33,46 @@ function ImagePreviewModal({ image, onClose, onReplace }) {
         };
     }, [onClose]);
 
+    // Set up wheel event with { passive: false } to allow preventDefault()
+    useEffect(() => {
+        const container = imageContainerRef.current;
+        if (!container) return;
+
+        // Handle mouse wheel for zooming
+        const handleWheel = (e) => {
+            e.preventDefault();
+
+            // Determine zoom direction based on wheel delta
+            const zoomDelta = e.deltaY < 0 ? 0.2 : -0.2;
+            // Allow higher zoom levels for fullscreen experience
+            const newZoomLevel = Math.max(0.5, Math.min(5, zoomLevel + zoomDelta));
+
+            // Set full screen mode when zoomed in
+            setIsFullscreen(newZoomLevel > 1);
+            setZoomLevel(newZoomLevel);
+
+            // Show zoom indicator
+            setShowZoomIndicator(true);
+            clearTimeout(window.zoomTimeout);
+            window.zoomTimeout = setTimeout(() => {
+                setShowZoomIndicator(false);
+            }, 1000);
+        };
+
+        // Add wheel event listener with { passive: false } option to allow preventDefault
+        container.addEventListener('wheel', handleWheel, { passive: false });
+
+        // Clean up
+        return () => {
+            container.removeEventListener('wheel', handleWheel);
+        };
+    }, [zoomLevel]);
+
     // Reset position when zoom level changes to 1
     useEffect(() => {
         if (zoomLevel === 1) {
             setPosition({ x: 0, y: 0 });
+            setIsFullscreen(false);
         }
     }, [zoomLevel]);
 
@@ -50,28 +88,11 @@ function ImagePreviewModal({ image, onClose, onReplace }) {
         }
     };
 
-    // Handle mouse wheel for zooming
-    const handleWheel = (e) => {
-        e.preventDefault();
-
-        // Determine zoom direction based on wheel delta
-        const zoomDelta = e.deltaY < 0 ? 0.1 : -0.1;
-        const newZoomLevel = Math.max(0.5, Math.min(3, zoomLevel + zoomDelta));
-
-        setZoomLevel(newZoomLevel);
-
-        // Show zoom indicator
-        setShowZoomIndicator(true);
-        clearTimeout(window.zoomTimeout);
-        window.zoomTimeout = setTimeout(() => {
-            setShowZoomIndicator(false);
-        }, 1000);
-    };
-
     // Reset zoom on double click
     const handleDoubleClick = () => {
         setZoomLevel(1);
         setPosition({ x: 0, y: 0 });
+        setIsFullscreen(false);
         setShowZoomIndicator(true);
         clearTimeout(window.zoomTimeout);
         window.zoomTimeout = setTimeout(() => {
@@ -98,10 +119,9 @@ function ImagePreviewModal({ image, onClose, onReplace }) {
             const newX = e.clientX - dragStart.x;
             const newY = e.clientY - dragStart.y;
 
-            // Optional: Add boundaries to prevent dragging too far
-            // This is a simple implementation - you might want to adjust
-            // the calculation based on the image and container dimensions
-            const maxOffset = (zoomLevel - 1) * 150; // Rough estimate
+            // For fullscreen zooming, we allow more liberal movement
+            // The boundaries are expanded based on zoom level
+            const maxOffset = (zoomLevel - 1) * 500;
 
             const boundedX = Math.max(-maxOffset, Math.min(maxOffset, newX));
             const boundedY = Math.max(-maxOffset, Math.min(maxOffset, newY));
@@ -137,13 +157,13 @@ function ImagePreviewModal({ image, onClose, onReplace }) {
 
     return (
         <div className={cx('modalOverlay')} onClick={handleOverlayClick}>
-            <div className={cx('modalContent')}>
+            <div className={cx('modalContent', { fullscreen: isFullscreen })}>
                 <button className={cx('closeButton')} onClick={onClose}>
                     ×
                 </button>
                 <div
-                    className={cx('imageContainer')}
-                    onWheel={handleWheel}
+                    ref={imageContainerRef}
+                    className={cx('imageContainer', { zoomed: zoomLevel > 1 })}
                     onDoubleClick={handleDoubleClick}
                     onMouseDown={handleMouseDown}
                     onMouseMove={handleMouseMove}
@@ -154,7 +174,7 @@ function ImagePreviewModal({ image, onClose, onReplace }) {
                     <img
                         src={typeof image === 'string' ? image : image.preview}
                         alt="Preview"
-                        className={cx('previewImage')}
+                        className={cx('previewImage', { zoomed: zoomLevel > 1 })}
                         style={{
                             transform: `scale(${zoomLevel}) translate(${
                                 position.x / zoomLevel
@@ -167,7 +187,7 @@ function ImagePreviewModal({ image, onClose, onReplace }) {
                         <div className={cx('zoomIndicator')}>{Math.round(zoomLevel * 100)}%</div>
                     )}
                 </div>
-                <div className={cx('zoomInstructions')}>
+                <div className={cx('zoomInstructions', { fullscreen: isFullscreen })}>
                     <span>Scroll to zoom • Double-click to reset • Drag to move when zoomed</span>
                 </div>
                 <div className={cx('actionButtons')}>
