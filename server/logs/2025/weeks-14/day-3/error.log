@@ -188,3 +188,4 @@
 [2025-04-02T06:53:24.089Z] [error]: HIDE::400::BadRequest::Invalid SKU images map!::
 [2025-04-02T06:54:13.557Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-04-02T06:54:13.563Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-02T06:57:22.643Z] [error]: HIDE::400::BadRequest::Invalid SKU images map!::
