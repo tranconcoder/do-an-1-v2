@@ -10,6 +10,7 @@ import PricingInventory from './components/PricingInventory';
 import ProductVariations from './components/ProductVariations';
 import ProductAttributes from './components/ProductAttributes';
 import ProductSummary from './components/ProductSummary';
+import SKUManagement from './components/SKUManagement';
 import axiosClient from '../../configs/axios';
 
 const cx = classNames.bind(styles);
@@ -30,7 +31,8 @@ function NewProduct() {
         product_images: [],
         is_draft: true,
         is_publish: false,
-        sku_list: []
+        sku_list: [],
+        skus: []
     });
 
     useEffect(() => {
@@ -277,6 +279,8 @@ function NewProduct() {
                             formData={formData}
                             handleAttributeChange={handleInputChange}
                         />
+                        
+                        <SKUManagement formData={formData} setFormData={setFormData} />
                     </div>
 
                     <div className={cx('sidebar-form')}>
