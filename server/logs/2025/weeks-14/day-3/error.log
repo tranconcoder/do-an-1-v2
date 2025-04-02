@@ -246,3 +246,76 @@
 [2025-04-02T07:08:52.772Z] [error]: HIDE::400::TypeError::Cannot read properties of null (reading 'role_name')::
 [2025-04-02T07:09:03.243Z] [error]: Client must be connected before running operations
 [2025-04-02T07:09:03.273Z] [error]: Client must be connected before running operations
+[2025-04-02T07:10:03.280Z] [error]: Client must be connected before running operations
+[2025-04-02T07:10:03.323Z] [error]: Client must be connected before running operations
+[2025-04-02T07:10:49.599Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-04-02T07:10:51.378Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-04-02T07:10:59.565Z] [error]: HIDE::400::TypeError::Cannot read properties of null (reading 'role_name')::
+[2025-04-02T07:11:01.634Z] [error]: Client must be connected before running operations
+[2025-04-02T07:11:01.685Z] [error]: Client must be connected before running operations
+[2025-04-02T07:12:03.284Z] [error]: Client must be connected before running operations
+[2025-04-02T07:12:03.292Z] [error]: Client must be connected before running operations
+[2025-04-02T07:13:03.260Z] [error]: Client must be connected before running operations
+[2025-04-02T07:13:03.281Z] [error]: Client must be connected before running operations
+[2025-04-02T07:14:03.341Z] [error]: Client must be connected before running operations
+[2025-04-02T07:14:03.361Z] [error]: Client must be connected before running operations
+[2025-04-02T07:15:03.295Z] [error]: Client must be connected before running operations
+[2025-04-02T07:15:03.297Z] [error]: Client must be connected before running operations
+[2025-04-02T07:16:03.354Z] [error]: Client must be connected before running operations
+[2025-04-02T07:16:03.355Z] [error]: Client must be connected before running operations
+[2025-04-02T07:16:40.475Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-04-02T07:16:54.720Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-04-02T07:16:54.722Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-04-02T07:17:03.269Z] [error]: Client must be connected before running operations
+[2025-04-02T07:17:03.276Z] [error]: Client must be connected before running operations
+[2025-04-02T07:17:04.358Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-04-02T07:17:15.267Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-04-02T07:17:15.269Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-04-02T07:17:43.877Z] [error]: HIDE::400::BadRequest::Invalid SKU images map!::
+[2025-04-02T07:18:03.321Z] [error]: Client must be connected before running operations
+[2025-04-02T07:18:03.370Z] [error]: Client must be connected before running operations
+[2025-04-02T07:18:27.851Z] [error]: HIDE::404::NotFound::Invalid shop!::
+[2025-04-02T07:18:59.268Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-02T07:19:03.304Z] [error]: Client must be connected before running operations
+[2025-04-02T07:19:03.312Z] [error]: Client must be connected before running operations
+[2025-04-02T07:19:06.517Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-02T07:19:07.759Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-02T07:19:11.099Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-02T07:19:12.445Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-02T07:19:39.817Z] [error]: HIDE::404::NotFound::Invalid shop!::
+[2025-04-02T07:20:03.132Z] [error]: HIDE::404::NotFound::Invalid shop!::
+[2025-04-02T07:20:03.345Z] [error]: Client must be connected before running operations
+[2025-04-02T07:20:03.352Z] [error]: Client must be connected before running operations
+[2025-04-02T07:21:01.675Z] [error]: Client must be connected before running operations
+[2025-04-02T07:21:01.677Z] [error]: Client must be connected before running operations
+[2025-04-02T07:21:20.950Z] [error]: HIDE::403::Forbidden::Shop is not active!::
+[2025-04-02T07:21:43.028Z] [error]: HIDE::400::TypeError::Cannot read properties of null (reading 'role_name')::
+[2025-04-02T07:21:43.040Z] [error]: HIDE::400::TypeError::Cannot read properties of null (reading 'role_name')::
+[2025-04-02T07:22:03.313Z] [error]: Client must be connected before running operations
+[2025-04-02T07:22:03.343Z] [error]: Client must be connected before running operations
+[2025-04-02T07:22:27.953Z] [error]: HIDE::400::ValidationError::SPU validation failed: product_attributes.0.attr_id: Path `attr_id` is required., product_attributes.1.attr_id: Path `attr_id` is required., product_attributes.2.attr_id: Path `attr_id` is required., product_variations.0.variation_id: Path `variation_id` is required.::
+[2025-04-02T07:23:03.338Z] [error]: Client must be connected before running operations
+[2025-04-02T07:23:03.338Z] [error]: Client must be connected before running operations
+[2025-04-02T07:23:12.307Z] [error]: HIDE::400::ValidationError::SPU validation failed: product_attributes.0.attr_id: Path `attr_id` is required., product_attributes.1.attr_id: Path `attr_id` is required., product_attributes.2.attr_id: Path `attr_id` is required., product_variations.0.variation_id: Path `variation_id` is required.::
+[2025-04-02T07:23:35.876Z] [error]: HIDE::400::ValidationError::SPU validation failed: product_attributes.0.attr_id: Path `attr_id` is required., product_attributes.1.attr_id: Path `attr_id` is required., product_attributes.2.attr_id: Path `attr_id` is required., product_variations.0.variation_id: Path `variation_id` is required.::
+[2025-04-02T07:24:03.335Z] [error]: Client must be connected before running operations
+[2025-04-02T07:24:03.336Z] [error]: Client must be connected before running operations
+[2025-04-02T07:24:39.513Z] [error]: HIDE::400::ValidationError::SPU validation failed: product_attributes.0.attr_id: this.splitPath is not a function, product_attributes.1.attr_id: this.splitPath is not a function, product_attributes.2.attr_id: this.splitPath is not a function, product_variations.0.variation_id: Path `variation_id` is required.::
+[2025-04-02T07:25:03.344Z] [error]: Client must be connected before running operations
+[2025-04-02T07:25:03.346Z] [error]: Client must be connected before running operations
+[2025-04-02T07:25:15.719Z] [error]: HIDE::400::ValidationError::SPU validation failed: product_variations.0.variation_id: Path `variation_id` is required.::
+[2025-04-02T07:25:30.733Z] [error]: HIDE::400::BadRequest::Create SKU failed!::
+[2025-04-02T07:26:03.354Z] [error]: Client must be connected before running operations
+[2025-04-02T07:26:03.377Z] [error]: Client must be connected before running operations
+[2025-04-02T07:26:04.472Z] [error]: HIDE::400::BadRequest::Create SKU failed!::
+[2025-04-02T07:26:57.272Z] [error]: HIDE::400::BadRequest::Create SKU failed!::
+[2025-04-02T07:27:03.314Z] [error]: Client must be connected before running operations
+[2025-04-02T07:27:03.314Z] [error]: Client must be connected before running operations
+[2025-04-02T07:27:14.445Z] [error]: HIDE::400::BadRequest::Create SKU failed!::
+[2025-04-02T07:28:03.332Z] [error]: Client must be connected before running operations
+[2025-04-02T07:28:03.365Z] [error]: Client must be connected before running operations
+[2025-04-02T07:29:03.350Z] [error]: Client must be connected before running operations
+[2025-04-02T07:29:03.352Z] [error]: Client must be connected before running operations
+[2025-04-02T07:30:02.419Z] [error]: Client must be connected before running operations
+[2025-04-02T07:30:02.443Z] [error]: Client must be connected before running operations
+[2025-04-02T07:30:02.473Z] [error]: Client must be connected before running operations

@@ -34,7 +34,7 @@ const spuSchema = new Schema<model.spu.SPUSchema, true>(
         product_attributes: {
             type: [
                 {
-                    attr_id: { type: ObjectId, required },
+                    attr_id: { type: ObjectId },
                     attr_name: { type: String, required },
                     attr_value: { type: String, required }
                 }
@@ -44,7 +44,7 @@ const spuSchema = new Schema<model.spu.SPUSchema, true>(
         product_variations: {
             type: [
                 {
-                    variation_id: { type: ObjectId, required },
+                    variation_id: { type: ObjectId },
                     variation_name: { type: String, required },
                     variation_values: { type: [String], required },
                     variation_images: {

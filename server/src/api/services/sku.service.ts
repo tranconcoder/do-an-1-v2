@@ -17,7 +17,7 @@ export default new (class SKUService {
 
         sku_tier_idx.forEach((idx, order) => {
             /* ------------------ Index is out of range ----------------- */
-            if (idx >= spu.product_variations[order].variation_value.length) {
+            if (idx >= spu.product_variations[order].variation_values.length) {
                 throw new NotFoundErrorResponse({ message: 'Invalid tier index!' });
             }
         });

@@ -1,6 +1,6 @@
 import { ShopStatus } from '@/enums/shop.enum.js';
 import { findOneCategory } from '@/models/repository/category/index.js';
-import { findShopById } from '@/models/repository/shop/index.js';
+import { findOneShop, findShopById } from '@/models/repository/shop/index.js';
 import { spuModel } from '@/models/spu.model.js';
 import {
     BadRequestErrorResponse,
@@ -14,7 +14,6 @@ import { SPUImages } from '@/enums/spu.enum.js';
 
 export default new (class SPUService {
     async createSPU(payload: service.spu.arguments.CreateSPU) {
-        console.log({ payload });
         const { product_category, product_shop, sku_list, sku_images_map, mediaIds } = payload;
 
         /* --------------------- Check media ids ------------------ */
@@ -36,8 +35,8 @@ export default new (class SPUService {
         }
 
         /* ---------------------- Check shop ----------------------- */
-        const shop = await findShopById({
-            id: product_shop,
+        const shop = await findOneShop({
+            query: { shop_userId: product_shop },
             options: { lean: true }
         });
         if (!shop) throw new NotFoundErrorResponse({ message: 'Invalid shop!' });
@@ -98,6 +97,7 @@ export default new (class SPUService {
         } catch (error) {
             /* ----------------- Handle rollback spu ------------------ */
             await spu.deleteOne();
+            console.log(error);
 
             throw new BadRequestErrorResponse({ message: 'Create SKU failed!' });
         }
