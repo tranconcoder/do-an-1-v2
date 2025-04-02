@@ -34,7 +34,7 @@ declare global {
                     product_variations: Array<{
                         variation_id: moduleTypes.mongoose.ObjectId;
                         variation_name: string;
-                        variation_value: Array<string>;
+                        variation_values: Array<string>;
                     }>;
 
                     /* ------------------------ Metadata ------------------------ */

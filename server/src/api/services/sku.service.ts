@@ -3,7 +3,7 @@ import skuModel from '@/models/sku.model.js';
 import { NotFoundErrorResponse } from '@/response/error.response.js';
 
 export default new (class SKUService {
-    async createSKU(payload: service.sku.CreateSKU) {
+    async createSKU(payload: service.sku.arguments.CreateSKU) {
         const { sku_product, sku_tier_idx } = payload;
 
         /* -------------------- Check spu product ------------------- */

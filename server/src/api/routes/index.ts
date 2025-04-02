@@ -16,8 +16,6 @@ const rootRoute = Router();
 
 rootRoute.use('/auth', authRoute);
 
-rootRoute.use('/product', spuRoute);
-
 rootRoute.use('/discount', discountRoute);
 
 rootRoute.use('/cart', cartRoute);
@@ -33,5 +31,7 @@ rootRoute.use('/media', mediaRoute);
 rootRoute.use('/shop', shopRoute);
 
 rootRoute.use('/category', categoryRoute);
+
+rootRoute.use('/spu', spuRoute);
 
 export default rootRoute;

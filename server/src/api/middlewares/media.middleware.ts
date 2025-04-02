@@ -3,8 +3,9 @@ import { NotFoundErrorResponse } from '@/response/error.response.js';
 import mediaService from '@/services/media.service.js';
 import catchError from './catchError.middleware.js';
 import { Field, Multer } from 'multer';
-import { ErrorRequestHandler, Request } from 'express';
+import { ErrorRequestHandler } from 'express';
 import LoggerService from '@/services/logger.service.js';
+import Joi from 'joi';
 
 export const uploadSingleMedia = (
     field: string,
@@ -47,43 +48,51 @@ export const uploadSingleMedia = (
     });
 
 export const uploadFieldsMedia = (
-    fields: commonTypes.object.ObjectAnyKeys<number>,
+    fields: commonTypes.object.ObjectAnyKeys<[number, number]>,
     multerMiddleware: Multer,
     title: string
 ) =>
     catchError(async (req, res, next) => {
-        const keys = Object.keys(fields).filter((key) => fields[key] > 0);
-        const fieldArray: Field[] = keys.map((key) => ({ name: key, maxCount: fields[key] }));
-        const fileCount = fieldArray.reduce((acc, field) => acc + (field.maxCount as number), 0);
+        const keys = Object.keys(fields);
+        const fieldArray: Required<Field>[] = keys.map((key) => ({
+            name: key,
+            maxCount: fields[key][1]
+        }));
+
+        const filesSchema = Joi.object(
+            Object.fromEntries(
+                Object.keys(fields).map((key) => [
+                    key,
+                    Joi.array()
+                        .items(Joi.object())
+                        .min(fields[key][0])
+                        .max(fields[key][1])
+                        .required()
+                ])
+            )
+        )
+            .unknown()
+            .required();
 
         multerMiddleware.fields(fieldArray)(req, res, async (err) => {
             if (err) return next(err);
 
             try {
                 /* -------------- Handle create media document -------------- */
-                const filesFields = req.files as
-                    | commonTypes.object.ObjectAnyKeys<Express.Multer.File[]>
-                    | undefined;
+                const filesFields = (await filesSchema.validateAsync(
+                    req.files || {}
+                )) as commonTypes.object.ObjectAnyKeys<Express.Multer.File[]>;
 
-                const uploadedFileCount = Object.values(filesFields || {}).reduce(
-                    (acc, file) => acc + file.length,
-                    0
-                );
-                if (!filesFields || uploadedFileCount === 0 || uploadedFileCount < fileCount) {
-                    throw new NotFoundErrorResponse({
-                        message: `Files '${keys.join(', ')}' not found!`
-                    });
-                }
-
-                req.mediaIds = {};
-                const mediaIds = req.mediaIds;
+                const mediaIds: commonTypes.object.ObjectAnyKeys<string[]> = (req.mediaIds = {});
 
                 await Promise.all(
                     Object.keys(filesFields).map(async (key) => {
                         const files = filesFields[key];
-                        const ids = await Promise.all(
-                            files.map(
-                                async (file) =>
+                        mediaIds[key] = [];
+
+                        await Promise.all(
+                            files.map(async (file) => {
+                                mediaIds[key].push(
                                     await mediaService
                                         .createMedia({
                                             media_title: title,
@@ -96,19 +105,20 @@ export const uploadFieldsMedia = (
                                             media_isFolder: false
                                         })
                                         .then((x) => x.id as string)
-                            )
+                                );
+                            })
                         );
-
-                        mediaIds[key] = ids;
                     })
                 );
 
+                console.log({ mediaIds });
                 next();
             } catch (err) {
                 next(err);
             }
         });
     });
+
 /* ---------------------------------------------------------- */
 /*                      Clean up on error                     */
 /* ---------------------------------------------------------- */
@@ -117,7 +127,21 @@ export const cleanUpMediaOnError: ErrorRequestHandler = async (error, req, res, 
     try {
         if (req.mediaId) await mediaService.hardRemoveMedia(req.mediaId);
         if (req.mediaIds) {
-            await Promise.all(req.mediaIds.map((id) => mediaService.hardRemoveMedia(id)));
+            const mediaIds = req.mediaIds as commonTypes.object.ObjectAnyKeys<string[]>;
+
+            await Promise.all(
+                /* ---------------------- Handle field ---------------------- */
+                Object.keys(mediaIds).map(async (field) => {
+                    const mediaList = mediaIds[field];
+
+                    /* ------------------------ Handle id ----------------------- */
+                    await Promise.all(
+                        mediaList.map(async (id) => {
+                            await mediaService.hardRemoveMedia(id);
+                        })
+                    );
+                })
+            );
         }
     } catch (error: any) {
         const message = `Error when clean up media on error: ${error?.message}`;

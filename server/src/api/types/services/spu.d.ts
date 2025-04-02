@@ -31,7 +31,9 @@ declare global {
                         | 'is_draft'
                         | 'is_publish'
                     > {
-                    sku_list: Omit<service.sku.CreateSKU, 'sku_product'>[];
+                    sku_list: Omit<service.sku.arguments.CreateSKU, 'sku_product'>[];
+                    sku_images_map: Array<number>;
+                    mediaIds: commonTypes.object.ObjectAnyKeys<Array<string>>;
                 }
 
                 /* ------------------------------------------------------ */

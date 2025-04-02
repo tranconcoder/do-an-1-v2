@@ -4,15 +4,11 @@ import { AVATAR_MAX_SIZE, CATEGORY_MAX_SIZE } from '@/configs/media.config.js';
 import path from 'path';
 import { MediaExtensions, MediaMimeTypes } from '@/enums/media.enum.js';
 import { InvalidPayloadErrorResponse } from '@/response/error.response.js';
+import { Request } from 'express';
 
-function fileFilter(
-    req: Express.Request,
-    file: Express.Multer.File,
-    cb: multer.FileFilterCallback
-): void {
+function fileFilter(req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback): void {
     /* -------------------- Check extension  -------------------- */
     const extname = path.extname(file.originalname).toLowerCase().replace('.', '');
-    console.log(`Invalid file extension: ${extname}`);
 
     if (!Object.values(MediaExtensions).includes(extname as any))
         return cb(

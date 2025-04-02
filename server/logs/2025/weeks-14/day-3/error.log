@@ -1,0 +1,190 @@
+[2025-04-02T01:15:00.505Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:00.512Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:00.565Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:00.667Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:00.820Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:01.023Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:01.275Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:01.578Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:01.930Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:02.332Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:02.784Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:03.286Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:03.787Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:04.289Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:04.790Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:05.292Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:05.794Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:06.297Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:06.799Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:07.300Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:07.802Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:08.303Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:08.805Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:09.307Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:09.809Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:10.310Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:10.813Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:11.315Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:11.817Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:12.319Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:12.820Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:13.322Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:13.823Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:14.325Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:14.828Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:15.329Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:15.832Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:16.333Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:16.835Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:17.337Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:17.839Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:18.340Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:18.841Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:19.343Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:19.846Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:20.347Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:21.313Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:21.823Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:22.331Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:22.833Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:23.335Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:23.837Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:24.339Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:24.841Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:25.344Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:25.845Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:26.347Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:26.849Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:27.350Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:27.852Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:28.354Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:28.857Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:29.358Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:29.860Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:30.362Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:30.863Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:31.364Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:31.866Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:32.367Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:32.868Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:33.370Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:33.871Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:34.373Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T01:15:34.927Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:14:58.903Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T05:15:12.804Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T05:15:15.114Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T05:15:21.063Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T05:15:26.031Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-04-02T05:19:54.260Z] [error]: HIDE::400::ValidationError::"value" is required::
+[2025-04-02T05:20:41.791Z] [error]: HIDE::400::TypeError::Cannot convert undefined or null to object::
+[2025-04-02T05:20:50.979Z] [error]: HIDE::400::ValidationError::"value" is required::
+[2025-04-02T05:21:49.316Z] [error]: HIDE::404::NotFound::Files not found!::
+[2025-04-02T05:22:55.170Z] [error]: HIDE::400::ValidationError::"product_images" is required::
+[2025-04-02T05:23:20.175Z] [error]: HIDE::400::ValidationError::"product_images" is required::
+[2025-04-02T05:23:21.717Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-04-02T05:23:23.052Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-04-02T05:23:25.563Z] [error]: HIDE::400::ValidationError::"product_images" is required::
+[2025-04-02T05:23:41.073Z] [error]: HIDE::400::ValidationError::"product_images" is required::
+[2025-04-02T05:23:42.488Z] [error]: HIDE::400::ValidationError::"product_images" is required::
+[2025-04-02T05:23:45.116Z] [error]: HIDE::400::ValidationError::"product_images" is required::
+[2025-04-02T05:23:45.906Z] [error]: HIDE::400::ValidationError::"product_images" is required::
+[2025-04-02T05:23:46.549Z] [error]: HIDE::400::ValidationError::"product_images" is required::
+[2025-04-02T05:23:52.518Z] [error]: HIDE::400::ValidationError::"product_images" is required::
+[2025-04-02T05:23:55.582Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:24:11.137Z] [error]: HIDE::400::ValidationError::"product_images" must contain at least 3 items::
+[2025-04-02T05:24:24.676Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
+[2025-04-02T05:36:07.311Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:36:56.462Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:37:46.315Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:37:47.217Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:38:12.688Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:42:01.708Z] [error]: Client must be connected before running operations
+[2025-04-02T05:43:01.725Z] [error]: Client must be connected before running operations
+[2025-04-02T05:44:01.758Z] [error]: Client must be connected before running operations
+[2025-04-02T05:44:01.793Z] [error]: Client must be connected before running operations
+[2025-04-02T05:44:06.452Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:06.458Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:06.459Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:06.464Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:06.465Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:06.520Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:06.521Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:06.624Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:06.624Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:06.777Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:06.777Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:06.979Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:06.979Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:07.309Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:07.310Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-02T05:44:07.612Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:44:07.964Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:44:08.365Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:44:08.816Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:44:09.317Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:44:09.818Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:44:10.319Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:44:10.821Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:44:11.323Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:44:11.825Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:44:12.326Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:44:12.887Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:44:13.388Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:46.526Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:46.531Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:46.582Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:46.683Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:46.835Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:47.037Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:47.288Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:47.590Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:47.941Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:48.344Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:48.796Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:49.298Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:49.800Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:50.302Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:45:50.803Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-02T05:46:44.532Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-02T05:46:45.084Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-02T05:47:41.104Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-02T05:47:54.703Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:48:24.292Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:48:34.575Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:49:49.128Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:49:52.835Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:50:05.145Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:50:05.373Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T05:56:16.873Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T05:56:25.906Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T05:56:32.947Z] [error]: HIDE::400::ValidationError::"product_images" is required::
+[2025-04-02T05:56:49.759Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
+[2025-04-02T05:57:10.497Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
+[2025-04-02T05:57:15.194Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-04-02T05:57:31.394Z] [error]: HIDE::400::ValidationError::"product_category" must only contain hexadecimal characters::
+[2025-04-02T05:58:21.712Z] [error]: HIDE::400::ValidationError::"sku_images_map" is required::
+[2025-04-02T06:00:01.461Z] [error]: HIDE::400::ValidationError::"sku_images_map" is required::
+[2025-04-02T06:00:16.357Z] [error]: HIDE::400::ValidationError::"sku_images_map" is required::
+[2025-04-02T06:00:45.340Z] [error]: HIDE::400::ValidationError::"sku_images_map[0]" must be a number::
+[2025-04-02T06:00:54.507Z] [error]: HIDE::400::ValidationError::"sku_list" is required::
+[2025-04-02T06:01:01.269Z] [error]: HIDE::400::ValidationError::"sku_list" must be an array::
+[2025-04-02T06:01:49.158Z] [error]: HIDE::400::ValidationError::"sku_list[0]" must be of type object::
+[2025-04-02T06:28:32.578Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-02T06:29:21.899Z] [error]: HIDE::400::ValidationError::"sku_list[0]" must be of type object::
+[2025-04-02T06:37:02.574Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'sku_thumb')::
+[2025-04-02T06:37:27.538Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'sku_thumb')::
+[2025-04-02T06:38:59.147Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'sku_thumb')::
+[2025-04-02T06:41:42.973Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'sku_thumb')::
+[2025-04-02T06:42:18.773Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'sku_thumb')::
+[2025-04-02T06:43:07.041Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'sku_thumb')::
+[2025-04-02T06:44:17.858Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'sku_thumb')::
+[2025-04-02T06:47:19.764Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'sku_thumb')::
+[2025-04-02T06:47:37.227Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'sku_thumb')::
+[2025-04-02T06:48:51.751Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'sku_thumb')::
+[2025-04-02T06:49:55.199Z] [error]: HIDE::400::TypeError::Cannot read properties of undefined (reading 'sku_thumb')::
+[2025-04-02T06:52:39.006Z] [error]: HIDE::400::BadRequest::Invalid SKU images map!::
+[2025-04-02T06:53:24.089Z] [error]: HIDE::400::BadRequest::Invalid SKU images map!::
+[2025-04-02T06:54:13.557Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-02T06:54:13.563Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::

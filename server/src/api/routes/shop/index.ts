@@ -11,7 +11,6 @@ import {
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import { approveShop } from '@/validations/joi/shop.joi.js';
 import { Router } from 'express';
-import { any } from 'joi';
 
 const shopRoute = Router();
 const shopRouterValidated = Router();

@@ -2,9 +2,6 @@ import mongoose from 'mongoose';
 import { RoleNames } from '@/enums/rbac.enum.js';
 import { findOneShop } from '@/models/repository/shop/index.js';
 
-/* ---------------------------------------------------------- */
-/*       WARNING: ONLY USE GENERATE FIND BY ID FUNCTION       */
-/* ---------------------------------------------------------- */
 type RoleHandleGetDataStrategy = {
     [key in RoleNames]: (id: string) => Promise<mongoose.Document | null>;
 };

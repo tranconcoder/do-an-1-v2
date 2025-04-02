@@ -112,6 +112,17 @@ class RBACService {
                             RoleActions.DELETE_OWN
                         ],
                         attributes: '*'
+                    },
+                    {
+                        resource: resourcesId.find(
+                            (resource) => resource.name === Resources.PRODUCT
+                        )?.id,
+                        actions: [
+                            RoleActions.CREATE_OWN,
+                            RoleActions.READ_OWN,
+                            RoleActions.UPDATE_OWN
+                        ],
+                        attributes: '*'
                     }
                 ]
             },

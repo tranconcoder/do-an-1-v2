@@ -8,10 +8,23 @@ import {
     NotFoundErrorResponse
 } from '@/response/error.response.js';
 import skuService from './sku.service.js';
+import { SKUImages } from '@/enums/sku.enum.js';
+import skuModel from '@/models/sku.model.js';
+import { SPUImages } from '@/enums/spu.enum.js';
 
 export default new (class SPUService {
     async createSPU(payload: service.spu.arguments.CreateSPU) {
-        const { product_category, product_shop } = payload;
+        console.log({ payload });
+        const { product_category, product_shop, sku_list, sku_images_map, mediaIds } = payload;
+
+        /* --------------------- Check media ids ------------------ */
+        const skuThumbCount = mediaIds[SKUImages.SKU_THUMB].length;
+
+        if (skuThumbCount !== sku_list.length)
+            throw new BadRequestErrorResponse({ message: 'Invalid SKU thumb count!' });
+
+        if (sku_images_map.length !== sku_list.length)
+            throw new BadRequestErrorResponse({ message: 'Invalid SKU images map!' });
 
         /* --------------------- Check category --------------------- */
         const category = await findOneCategory({
@@ -35,12 +48,48 @@ export default new (class SPUService {
             });
 
         /* --------------------- Handle save spu ------------------- */
-        const spu = await spuModel.create(payload);
+        const spu = await spuModel.create({
+            product_name: payload.product_name,
+            product_cost: payload.product_cost,
+            product_quantity: payload.product_quantity,
+            product_category: category._id,
+            product_description: payload.product_description,
+            product_attributes: payload.product_attributes,
+            product_variations: payload.product_variations,
+            product_shop: shop._id,
+            product_thumb: mediaIds[SPUImages.PRODUCT_THUMB][0],
+            product_images: mediaIds[SPUImages.PRODUCT_IMAGES],
+            is_draft: payload.is_draft,
+            is_publish: payload.is_publish
+        });
+
+        /* --------------------- Handle save sku ------------------- */
         try {
             const { sku_list } = payload;
-            const skuPromises = await Promise.all(
-                sku_list.map((sku) => skuService.createSKU({ ...sku, sku_product: spu._id }))
-            );
+            let skuPromises: model.sku.SKU<false, true>[] = [];
+
+            if (sku_list.length) {
+                skuPromises = await Promise.all(
+                    sku_list.map(async (sku, index) => {
+                        const skuImageStartIdx = sku_images_map
+                            .slice(0, index + 1)
+                            .reduce((acc, cur) => acc + cur, 0);
+                        const skuImageCount = sku_images_map[index];
+
+                        return await skuService.createSKU({
+                            sku_price: sku.sku_price,
+                            sku_stock: sku.sku_stock,
+                            sku_tier_idx: sku.sku_tier_idx,
+                            sku_product: spu._id,
+                            sku_thumb: mediaIds[SKUImages.SKU_THUMB][index],
+                            sku_images: mediaIds[SKUImages.SKU_IMAGES].slice(
+                                skuImageStartIdx,
+                                skuImageStartIdx + skuImageCount
+                            )
+                        });
+                    })
+                );
+            }
 
             return {
                 spu: spu.toObject(),

@@ -46,7 +46,7 @@ const spuSchema = new Schema<model.spu.SPUSchema, true>(
                 {
                     variation_id: { type: ObjectId, required },
                     variation_name: { type: String, required },
-                    variation_value: { type: [String], required },
+                    variation_values: { type: [String], required },
                     variation_images: {
                         type: [{ type: ObjectId, ref: MEDIA_MODEL_NAME }]
                     }
