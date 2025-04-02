@@ -88,13 +88,13 @@ function NewProduct() {
         const { name, value } = e.target;
         // Check if the change is for product_attributes
         if (name === 'product_attributes') {
-            setFormData(prev => ({
+            setFormData((prev) => ({
                 ...prev,
                 product_attributes: value
             }));
         } else {
             // Handle other form field changes
-            setFormData(prev => ({
+            setFormData((prev) => ({
                 ...prev,
                 [name]: value
             }));
@@ -103,7 +103,7 @@ function NewProduct() {
 
     const formatFormDataForSubmission = () => {
         // Convert the product_attributes array format to match the API schema
-        const formattedAttributes = formData.product_attributes.map(attr => ({
+        const formattedAttributes = formData.product_attributes.map((attr) => ({
             attr_name: attr.key,
             attr_value: attr.value
         }));

@@ -26,7 +26,7 @@ function ProductAttributes({ formData, handleAttributeChange }) {
     };
 
     const handleAttributeFieldChange = (index, field, value) => {
-        const updatedAttributes = formData.product_attributes.map((attr, i) => 
+        const updatedAttributes = formData.product_attributes.map((attr, i) =>
             i === index ? { ...attr, [field]: value } : attr
         );
         handleAttributeChange({
@@ -40,7 +40,9 @@ function ProductAttributes({ formData, handleAttributeChange }) {
     return (
         <div className={cx('form-section')}>
             <h2>Product Attributes</h2>
-            <p className={cx('section-description')}>Add custom attributes for your product (e.g. Material: Cotton, Origin: Vietnam)</p>
+            <p className={cx('section-description')}>
+                Add custom attributes for your product (e.g. Material: Cotton, Origin: Vietnam)
+            </p>
 
             {formData.product_attributes.map((attr, index) => (
                 <div key={index} className={cx('form-group', 'attribute-row')}>
@@ -49,14 +51,18 @@ function ProductAttributes({ formData, handleAttributeChange }) {
                             type="text"
                             placeholder="Attribute name"
                             value={attr.key}
-                            onChange={(e) => handleAttributeFieldChange(index, 'key', e.target.value)}
+                            onChange={(e) =>
+                                handleAttributeFieldChange(index, 'key', e.target.value)
+                            }
                             className={cx('attribute-input')}
                         />
                         <input
                             type="text"
-                            placeholder="Attribute value" 
+                            placeholder="Attribute value"
                             value={attr.value}
-                            onChange={(e) => handleAttributeFieldChange(index, 'value', e.target.value)}
+                            onChange={(e) =>
+                                handleAttributeFieldChange(index, 'value', e.target.value)
+                            }
                             className={cx('attribute-input')}
                         />
                     </div>
@@ -70,11 +76,7 @@ function ProductAttributes({ formData, handleAttributeChange }) {
                 </div>
             ))}
 
-            <button
-                type="button"
-                onClick={handleAddAttribute}
-                className={cx('add-attribute-btn')}
-            >
+            <button type="button" onClick={handleAddAttribute} className={cx('add-attribute-btn')}>
                 Add Attribute
             </button>
         </div>

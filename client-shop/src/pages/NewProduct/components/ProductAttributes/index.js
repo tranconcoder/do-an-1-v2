@@ -6,26 +6,23 @@ const cx = classNames.bind(styles);
 
 function ProductAttributes({ formData, setFormData }) {
     const handleAddAttribute = () => {
-        setFormData(prev => ({
+        setFormData((prev) => ({
             ...prev,
-            product_attributes: [
-                ...prev.product_attributes,
-                { key: '', value: '' }
-            ]
+            product_attributes: [...prev.product_attributes, { key: '', value: '' }]
         }));
     };
 
     const handleRemoveAttribute = (index) => {
-        setFormData(prev => ({
+        setFormData((prev) => ({
             ...prev,
             product_attributes: prev.product_attributes.filter((_, i) => i !== index)
         }));
     };
 
     const handleAttributeChange = (index, field, value) => {
-        setFormData(prev => ({
+        setFormData((prev) => ({
             ...prev,
-            product_attributes: prev.product_attributes.map((attr, i) => 
+            product_attributes: prev.product_attributes.map((attr, i) =>
                 i === index ? { ...attr, [field]: value } : attr
             )
         }));
@@ -34,7 +31,9 @@ function ProductAttributes({ formData, setFormData }) {
     return (
         <div className={cx('product-attributes')}>
             <h2>Product Attributes</h2>
-            <p className={cx('description')}>Add custom attributes for your product (e.g. Material: Cotton, Origin: Vietnam)</p>
+            <p className={cx('description')}>
+                Add custom attributes for your product (e.g. Material: Cotton, Origin: Vietnam)
+            </p>
 
             {formData.product_attributes.map((attr, index) => (
                 <div key={index} className={cx('attribute-row')}>
@@ -64,11 +63,7 @@ function ProductAttributes({ formData, setFormData }) {
                 </div>
             ))}
 
-            <button
-                type="button"
-                onClick={handleAddAttribute}
-                className={cx('add-attribute-btn')}
-            >
+            <button type="button" onClick={handleAddAttribute} className={cx('add-attribute-btn')}>
                 Add Attribute
             </button>
         </div>

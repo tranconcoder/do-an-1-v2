@@ -68,7 +68,7 @@ function ProductVariations({ formData, setFormData }) {
     const handleVariationThumbChange = (variationIndex, e) => {
         const file = e.target.files[0];
         if (!file) return;
-        
+
         // Validate file type
         if (!file.type.startsWith('image/')) {
             alert('Please select an image file');
@@ -82,8 +82,8 @@ function ProductVariations({ formData, setFormData }) {
                 file,
                 preview: reader.result
             };
-            
-            setFormData(prev => ({
+
+            setFormData((prev) => ({
                 ...prev,
                 product_variations: newVariations
             }));
@@ -94,15 +94,15 @@ function ProductVariations({ formData, setFormData }) {
     const handleVariationImagesChange = (variationIndex, e) => {
         const files = Array.from(e.target.files);
         if (files.length === 0) return;
-        
+
         // Validate file types
-        const invalidFiles = files.filter(file => !file.type.startsWith('image/'));
+        const invalidFiles = files.filter((file) => !file.type.startsWith('image/'));
         if (invalidFiles.length > 0) {
             alert('Please select only image files');
             return;
         }
 
-        const filePromises = files.map(file => {
+        const filePromises = files.map((file) => {
             return new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.onloadend = () => {
@@ -115,14 +115,14 @@ function ProductVariations({ formData, setFormData }) {
             });
         });
 
-        Promise.all(filePromises).then(newImages => {
+        Promise.all(filePromises).then((newImages) => {
             const newVariations = [...formData.product_variations];
             newVariations[variationIndex].images = [
-                ...newVariations[variationIndex].images || [],
+                ...(newVariations[variationIndex].images || []),
                 ...newImages
             ];
-            
-            setFormData(prev => ({
+
+            setFormData((prev) => ({
                 ...prev,
                 product_variations: newVariations
             }));
@@ -132,8 +132,8 @@ function ProductVariations({ formData, setFormData }) {
     const removeVariationImage = (variationIndex, imageIndex) => {
         const newVariations = [...formData.product_variations];
         newVariations[variationIndex].images.splice(imageIndex, 1);
-        
-        setFormData(prev => ({
+
+        setFormData((prev) => ({
             ...prev,
             product_variations: newVariations
         }));
@@ -151,12 +151,12 @@ function ProductVariations({ formData, setFormData }) {
     const handleDrop = (e, variationIndex, isThumb) => {
         e.preventDefault();
         setDragOver(null);
-        
+
         const files = Array.from(e.dataTransfer.files);
         if (files.length === 0) return;
-        
+
         // Check if all files are images
-        const invalidFiles = files.filter(file => !file.type.startsWith('image/'));
+        const invalidFiles = files.filter((file) => !file.type.startsWith('image/'));
         if (invalidFiles.length > 0) {
             alert('Please drop only image files');
             return;
@@ -172,8 +172,8 @@ function ProductVariations({ formData, setFormData }) {
                     file,
                     preview: reader.result
                 };
-                
-                setFormData(prev => ({
+
+                setFormData((prev) => ({
                     ...prev,
                     product_variations: newVariations
                 }));
@@ -181,7 +181,7 @@ function ProductVariations({ formData, setFormData }) {
             reader.readAsDataURL(file);
         } else {
             // Process all files for additional images
-            const filePromises = files.map(file => {
+            const filePromises = files.map((file) => {
                 return new Promise((resolve) => {
                     const reader = new FileReader();
                     reader.onloadend = () => {
@@ -194,14 +194,14 @@ function ProductVariations({ formData, setFormData }) {
                 });
             });
 
-            Promise.all(filePromises).then(newImages => {
+            Promise.all(filePromises).then((newImages) => {
                 const newVariations = [...formData.product_variations];
                 newVariations[variationIndex].images = [
-                    ...newVariations[variationIndex].images || [],
+                    ...(newVariations[variationIndex].images || []),
                     ...newImages
                 ];
-                
-                setFormData(prev => ({
+
+                setFormData((prev) => ({
                     ...prev,
                     product_variations: newVariations
                 }));
@@ -260,7 +260,10 @@ function ProductVariations({ formData, setFormData }) {
                                             type="button"
                                             className={cx('remove-option')}
                                             onClick={() =>
-                                                removeOptionFromVariation(variationIndex, optionIndex)
+                                                removeOptionFromVariation(
+                                                    variationIndex,
+                                                    optionIndex
+                                                )
                                             }
                                         >
                                             ×
@@ -282,20 +285,27 @@ function ProductVariations({ formData, setFormData }) {
                                 <h3 className={cx('variation-section-title')}>
                                     Thumbnail Image <span className={cx('required-mark')}>*</span>
                                 </h3>
-                                
-                                <div 
-                                    className={cx('variation-thumb-upload', { 'drag-over': dragOver === `thumb-${variationIndex}` })}
+
+                                <div
+                                    className={cx('variation-thumb-upload', {
+                                        'drag-over': dragOver === `thumb-${variationIndex}`
+                                    })}
                                     onDragOver={(e) => handleDragOver(e, `thumb-${variationIndex}`)}
                                     onDragLeave={handleDragLeave}
                                     onDrop={(e) => handleDrop(e, variationIndex, true)}
                                 >
                                     {variation.thumb ? (
                                         <div className={cx('variation-thumb-preview')}>
-                                            <img src={variation.thumb.preview} alt="Variation thumbnail" />
-                                            <button 
-                                                type="button" 
+                                            <img
+                                                src={variation.thumb.preview}
+                                                alt="Variation thumbnail"
+                                            />
+                                            <button
+                                                type="button"
                                                 className={cx('replace-image')}
-                                                onClick={() => updateVariation(variationIndex, 'thumb', null)}
+                                                onClick={() =>
+                                                    updateVariation(variationIndex, 'thumb', null)
+                                                }
                                             >
                                                 Replace
                                             </button>
@@ -304,10 +314,12 @@ function ProductVariations({ formData, setFormData }) {
                                         <>
                                             <div className={cx('upload-icon')}>+</div>
                                             <p>Drag & drop or click to upload thumbnail</p>
-                                            <input 
-                                                type="file" 
-                                                accept="image/*" 
-                                                onChange={(e) => handleVariationThumbChange(variationIndex, e)}
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) =>
+                                                    handleVariationThumbChange(variationIndex, e)
+                                                }
                                                 className={cx('file-input')}
                                             />
                                         </>
@@ -317,34 +329,52 @@ function ProductVariations({ formData, setFormData }) {
 
                             <div className={cx('variation-images-section')}>
                                 <h3 className={cx('variation-section-title')}>Additional Images</h3>
-                                
-                                <div 
-                                    className={cx('variation-images-upload', { 'drag-over': dragOver === `images-${variationIndex}` })}
-                                    onDragOver={(e) => handleDragOver(e, `images-${variationIndex}`)}
+
+                                <div
+                                    className={cx('variation-images-upload', {
+                                        'drag-over': dragOver === `images-${variationIndex}`
+                                    })}
+                                    onDragOver={(e) =>
+                                        handleDragOver(e, `images-${variationIndex}`)
+                                    }
                                     onDragLeave={handleDragLeave}
                                     onDrop={(e) => handleDrop(e, variationIndex, false)}
                                 >
                                     <div className={cx('variation-images-grid')}>
-                                        {variation.images && variation.images.map((image, imageIndex) => (
-                                            <div key={imageIndex} className={cx('variation-image-item')}>
-                                                <img src={image.preview} alt={`Variation ${variationIndex} image ${imageIndex}`} />
-                                                <button 
-                                                    type="button" 
-                                                    className={cx('remove-image')}
-                                                    onClick={() => removeVariationImage(variationIndex, imageIndex)}
+                                        {variation.images &&
+                                            variation.images.map((image, imageIndex) => (
+                                                <div
+                                                    key={imageIndex}
+                                                    className={cx('variation-image-item')}
                                                 >
-                                                    ×
-                                                </button>
-                                            </div>
-                                        ))}
-                                        
+                                                    <img
+                                                        src={image.preview}
+                                                        alt={`Variation ${variationIndex} image ${imageIndex}`}
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        className={cx('remove-image')}
+                                                        onClick={() =>
+                                                            removeVariationImage(
+                                                                variationIndex,
+                                                                imageIndex
+                                                            )
+                                                        }
+                                                    >
+                                                        ×
+                                                    </button>
+                                                </div>
+                                            ))}
+
                                         <div className={cx('add-variation-image')}>
                                             <span>+</span>
-                                            <input 
-                                                type="file" 
-                                                accept="image/*" 
+                                            <input
+                                                type="file"
+                                                accept="image/*"
                                                 multiple
-                                                onChange={(e) => handleVariationImagesChange(variationIndex, e)}
+                                                onChange={(e) =>
+                                                    handleVariationImagesChange(variationIndex, e)
+                                                }
                                                 className={cx('file-input')}
                                             />
                                         </div>
