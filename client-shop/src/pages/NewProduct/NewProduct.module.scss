@@ -1746,6 +1746,134 @@
     }
 }
 
+// Add styling for the duplicate error message
+.duplicate-error {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    background-color: #fff5f5;
+    border-left: 4px solid #f56565;
+    color: #c53030;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .error-icon {
+        font-size: 1.1rem;
+    }
+}
+
+// Add error border styling for select inputs
+.variation-option-select.error-border {
+    border-color: #f56565;
+    box-shadow: 0 0 0 1px rgba(245, 101, 101, 0.2);
+
+    &:focus {
+        border-color: #f56565;
+        box-shadow: 0 0 0 3px rgba(245, 101, 101, 0.15);
+    }
+}
+
+// Styles for SKU inventory and pricing
+.sku-inventory-pricing {
+    background-color: #f8fafc;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e2e8f0;
+
+    h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 1rem;
+    }
+}
+
+.inventory-pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.2rem;
+}
+
+.sku-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+
+    label {
+        font-weight: 600;
+        color: #334155;
+        font-size: 0.9rem;
+    }
+
+    .sku-input {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 1px solid #dfe6e9;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        background-color: #fff;
+
+        &:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+        }
+    }
+
+    .price-input {
+        display: flex;
+        width: 100%;
+
+        .currency {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 0.8rem;
+            background-color: #f0f4f8;
+            border: 1px solid #dfe6e9;
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+            font-weight: 600;
+            color: #2d3436;
+            min-width: 36px;
+        }
+
+        input {
+            flex: 1;
+            border-radius: 0 8px 8px 0 !important;
+            border-left: none;
+            width: calc(100% - 36px);
+        }
+    }
+}
+
+// Disabled input field styling
+.disabled-input {
+    background-color: #f1f5f9 !important;
+    color: #64748b !important;
+    cursor: not-allowed;
+    border-color: #e2e8f0 !important;
+}
+
+.quantity-note {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.help-text {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
 @media (max-width: 992px) {
     .new-product {
         padding: 1.5rem;

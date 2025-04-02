@@ -1,21 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from '../NewProduct.module.scss';
 
 const cx = classNames.bind(styles);
 
 function SKUManagement({ formData, setFormData }) {
+    const [duplicateError, setDuplicateError] = useState(null);
+    const [currentSkuIndex, setCurrentSkuIndex] = useState(null);
+
+    // Clear duplicate error when component re-renders with new formData
+    useEffect(() => {
+        setDuplicateError(null);
+    }, [formData.product_variations]);
+
+    // Update total product quantity whenever SKU quantities change
+    useEffect(() => {
+        if (formData.skus && formData.skus.length > 0) {
+            const totalQuantity = formData.skus.reduce((sum, sku) => {
+                return sum + (parseInt(sku.stock) || 0);
+            }, 0);
+
+            setFormData((prev) => ({
+                ...prev,
+                product_quantity: totalQuantity
+            }));
+        }
+    }, [formData.skus, setFormData]);
+
+    // Check if a variation combination already exists
+    const checkDuplicateVariation = (skuIndex, selectedOptions) => {
+        // Convert selected options to a string for easy comparison
+        const optionsKey = JSON.stringify(
+            Object.entries(selectedOptions)
+                .sort(([a], [b]) => a.localeCompare(b))
+                .map(([key, value]) => `${key}:${value}`)
+        );
+
+        // Check if this combination exists in another SKU
+        const duplicateIndex = formData.skus.findIndex((sku, index) => {
+            if (index === skuIndex) return false; // Skip current SKU
+
+            const skuOptionsKey = JSON.stringify(
+                Object.entries(sku.selected_options || {})
+                    .sort(([a], [b]) => a.localeCompare(b))
+                    .map(([key, value]) => `${key}:${value}`)
+            );
+
+            return skuOptionsKey === optionsKey;
+        });
+
+        return duplicateIndex;
+    };
+
     const addSKU = () => {
         const newSKU = {
             sku_tier_idx: [],
             selected_options: {}, // Store selected options for UI display
             thumb: null,
-            images: []
+            images: [],
+            stock: 0, // Add stock field
+            cost: '' // Add cost field
         };
         setFormData((prev) => ({
             ...prev,
             skus: [...prev.skus, newSKU]
         }));
+        setDuplicateError(null);
+        setCurrentSkuIndex(formData.skus.length);
     };
 
     const updateSKU = (index, field, value) => {
@@ -28,6 +79,7 @@ function SKUManagement({ formData, setFormData }) {
     };
 
     const handleOptionSelect = (skuIndex, variationIndex, optionIndex) => {
+        setCurrentSkuIndex(skuIndex);
         const newSKUs = [...formData.skus];
 
         // Update the selected options object for UI
@@ -36,23 +88,34 @@ function SKUManagement({ formData, setFormData }) {
             [variationIndex]: optionIndex
         };
 
-        newSKUs[skuIndex].selected_options = newSelectedOptions;
+        // Check for duplicates before updating
+        const duplicateIndex = checkDuplicateVariation(skuIndex, newSelectedOptions);
 
-        // Convert selected options to sku_tier_idx format
-        const tierIdxArray = Object.entries(newSelectedOptions)
-            .map(([varIdx, optIdx]) => ({
-                variationIndex: parseInt(varIdx),
-                optionIndex: parseInt(optIdx)
-            }))
-            .sort((a, b) => a.variationIndex - b.variationIndex)
-            .map((item) => item.optionIndex);
+        if (duplicateIndex !== -1) {
+            setDuplicateError({
+                message: `This variation combination already exists in SKU #${duplicateIndex + 1}`,
+                skuIndex: duplicateIndex
+            });
+        } else {
+            setDuplicateError(null);
+            newSKUs[skuIndex].selected_options = newSelectedOptions;
 
-        newSKUs[skuIndex].sku_tier_idx = tierIdxArray;
+            // Convert selected options to sku_tier_idx format
+            const tierIdxArray = Object.entries(newSelectedOptions)
+                .map(([varIdx, optIdx]) => ({
+                    variationIndex: parseInt(varIdx),
+                    optionIndex: parseInt(optIdx)
+                }))
+                .sort((a, b) => a.variationIndex - b.variationIndex)
+                .map((item) => item.optionIndex);
 
-        setFormData((prev) => ({
-            ...prev,
-            skus: newSKUs
-        }));
+            newSKUs[skuIndex].sku_tier_idx = tierIdxArray;
+
+            setFormData((prev) => ({
+                ...prev,
+                skus: newSKUs
+            }));
+        }
     };
 
     const handleSKUThumbChange = (skuIndex, e) => {
@@ -117,6 +180,19 @@ function SKUManagement({ formData, setFormData }) {
         }));
     };
 
+    // Handle stock and cost changes
+    const handleSkuNumberChange = (skuIndex, field, value) => {
+        const numValue = value === '' ? (field === 'stock' ? 0 : '') : Number(value);
+
+        const newSKUs = [...formData.skus];
+        newSKUs[skuIndex][field] = numValue;
+
+        setFormData((prev) => ({
+            ...prev,
+            skus: newSKUs
+        }));
+    };
+
     // Check if there are any variations defined
     const hasVariations =
         formData.product_variations &&
@@ -145,7 +221,10 @@ function SKUManagement({ formData, setFormData }) {
                             <button
                                 type="button"
                                 className={cx('remove-sku')}
-                                onClick={() => removeSKU(skuIndex)}
+                                onClick={() => {
+                                    removeSKU(skuIndex);
+                                    setDuplicateError(null);
+                                }}
                             >
                                 Remove
                             </button>
@@ -176,7 +255,11 @@ function SKUManagement({ formData, setFormData }) {
                                                                 e.target.value
                                                             )
                                                         }
-                                                        className={cx('variation-option-select')}
+                                                        className={cx('variation-option-select', {
+                                                            'error-border':
+                                                                duplicateError &&
+                                                                currentSkuIndex === skuIndex
+                                                        })}
                                                     >
                                                         <option value="">
                                                             -- Select {variation.name} --
@@ -196,8 +279,59 @@ function SKUManagement({ formData, setFormData }) {
                                             )
                                         )}
                                     </div>
+
+                                    {duplicateError && currentSkuIndex === skuIndex && (
+                                        <div className={cx('error-message', 'duplicate-error')}>
+                                            <span className={cx('error-icon')}>⚠️</span>
+                                            {duplicateError.message}
+                                        </div>
+                                    )}
                                 </div>
                             )}
+
+                            {/* Add inventory and pricing fields */}
+                            <div className={cx('sku-inventory-pricing')}>
+                                <h3>Inventory & Pricing</h3>
+                                <div className={cx('inventory-pricing-grid')}>
+                                    <div className={cx('sku-field')}>
+                                        <label>Stock Quantity</label>
+                                        <input
+                                            type="number"
+                                            min="0"
+                                            value={sku.stock}
+                                            onChange={(e) =>
+                                                handleSkuNumberChange(
+                                                    skuIndex,
+                                                    'stock',
+                                                    e.target.value
+                                                )
+                                            }
+                                            className={cx('sku-input')}
+                                        />
+                                    </div>
+                                    <div className={cx('sku-field')}>
+                                        <label>Price</label>
+                                        <div className={cx('price-input')}>
+                                            <span className={cx('currency')}>$</span>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                step="0.01"
+                                                value={sku.cost}
+                                                onChange={(e) =>
+                                                    handleSkuNumberChange(
+                                                        skuIndex,
+                                                        'cost',
+                                                        e.target.value
+                                                    )
+                                                }
+                                                className={cx('sku-input')}
+                                                placeholder="0.00"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div className={cx('sku-summary')}>
                                 <h3>Selected Combination</h3>
