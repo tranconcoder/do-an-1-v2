@@ -5,12 +5,14 @@ import styles from '../NewProduct.module.scss';
 const cx = classNames.bind(styles);
 
 function BasicInformation({ formData, categories, handleInputChange }) {
-    console.log({ categories });
     // Recursively render nested categories
     const renderCategoryOptions = (categoriesLevel, level = 0) => {
         if (!Array.isArray(categoriesLevel)) return null;
 
         return categoriesLevel.map((category) => {
+            const hasChildren =
+                Array.isArray(categoriesLevel) &&
+                categories.some((c) => c.category_parent === category._id);
             return (
                 <React.Fragment key={category._id}>
                     <option value={category._id}>
@@ -18,10 +20,11 @@ function BasicInformation({ formData, categories, handleInputChange }) {
                         {level > 0 ? '└─ ' : ''}
                         {category.category_name}
                     </option>
-                    {renderCategoryOptions(
-                        categories.filter((c) => c.category_parent === category._id),
-                        level + 1
-                    )}
+                    {hasChildren &&
+                        renderCategoryOptions(
+                            categories.filter((c) => c.category_parent === category._id),
+                            level + 1
+                        )}
                 </React.Fragment>
             );
         });

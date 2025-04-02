@@ -116,4 +116,12 @@ export default new (class SPUService {
             options: { lean: true }
         });
     }
+
+    /* ------------------------- By user ------------------------ */
+    async getAllSpuByUser() {
+        return await findAllSPU({
+            query: { is_deleted: false, is_draft: false, is_publish: true },
+            options: { lean: true }
+        });
+    }
 })();
