@@ -487,3 +487,21 @@
 [2025-04-02T09:47:28.778Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
 [2025-04-02T09:47:32.278Z] [error]: HIDE::403::Forbidden::Token is invalid!::
 [2025-04-02T09:47:38.368Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-04-02T09:58:49.899Z] [error]: HIDE::400::PayloadTooLargeError::request entity too large::
+[2025-04-02T09:58:55.307Z] [error]: HIDE::400::PayloadTooLargeError::request entity too large::
+[2025-04-02T10:00:03.869Z] [error]: HIDE::400::PayloadTooLargeError::request entity too large::
+[2025-04-02T10:00:06.636Z] [error]: HIDE::400::PayloadTooLargeError::request entity too large::
+[2025-04-02T10:06:20.081Z] [error]: HIDE::400::PayloadTooLargeError::request entity too large::
+[2025-04-02T10:07:05.782Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-02T10:08:22.902Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:08:24.822Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:09:30.222Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-04-02T10:10:36.901Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-04-02T10:12:33.958Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-04-02T10:13:48.529Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-04-02T10:15:33.430Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-04-02T10:17:09.958Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-04-02T10:17:38.534Z] [error]: HIDE::400::PayloadTooLargeError::request entity too large::
+[2025-04-02T10:18:51.068Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-02T10:18:53.484Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-02T10:19:01.664Z] [error]: HIDE::404::NotFound::Route is not exists::

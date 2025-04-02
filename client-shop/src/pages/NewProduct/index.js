@@ -10,6 +10,7 @@ import PricingInventory from './components/PricingInventory';
 import ProductVariations from './components/ProductVariations';
 import ProductAttributes from './components/ProductAttributes';
 import ProductSummary from './components/ProductSummary';
+import axiosClient from '../../configs/axios';
 
 const cx = classNames.bind(styles);
 
@@ -21,7 +22,6 @@ function NewProduct() {
         product_name: '',
         product_description: '',
         product_cost: '',
-        product_shop: '',
         product_quantity: 0,
         product_category: '',
         product_attributes: [], // Initialize as empty array
@@ -49,22 +49,6 @@ function NewProduct() {
         };
 
         fetchCategories();
-
-        // Set shop ID from authenticated user
-        const getUserShopId = async () => {
-            try {
-                // In a real implementation, get from auth context or API
-                const shopId = localStorage.getItem('shopId') || '123456789';
-                setFormData((prev) => ({
-                    ...prev,
-                    product_shop: shopId
-                }));
-            } catch (error) {
-                console.error('Error getting user shop ID:', error);
-            }
-        };
-
-        getUserShopId();
     }, []);
 
     const handleInputChange = (e) => {
@@ -92,6 +76,22 @@ function NewProduct() {
                 ...prev,
                 product_attributes: value
             }));
+        } else if (name.startsWith('attr_')) {
+            // Handle attribute updates coming from the ProductAttributes component
+            // This assumes attributes are being added with a name like attr_key or attr_value
+            const [prefix, index, field] = name.split('_');
+
+            setFormData((prev) => {
+                const updatedAttributes = [...(prev.product_attributes || [])];
+                if (!updatedAttributes[index]) {
+                    updatedAttributes[index] = { key: '', value: '' };
+                }
+                updatedAttributes[index][field] = value;
+                return {
+                    ...prev,
+                    product_attributes: updatedAttributes
+                };
+            });
         } else {
             // Handle other form field changes
             setFormData((prev) => ({
@@ -103,17 +103,23 @@ function NewProduct() {
 
     const formatFormDataForSubmission = () => {
         // Convert the product_attributes array format to match the API schema
-        const formattedAttributes = formData.product_attributes.map((attr) => ({
-            attr_name: attr.key,
-            attr_value: attr.value
-        }));
+        const formattedAttributes = Array.isArray(formData.product_attributes)
+            ? formData.product_attributes
+                  .filter((attr) => attr && attr.key && attr.value) // Filter out empty attributes
+                  .map((attr) => ({
+                      attr_name: attr.key,
+                      attr_value: attr.value
+                  }))
+            : [];
 
         // Format variations to match the schema
-        const formattedVariations = formData.product_variations.map((variation) => ({
-            variation_name: variation.name,
-            variation_values: variation.options,
-            variation_images: [] // You would add image handling here
-        }));
+        const formattedVariations = Array.isArray(formData.product_variations)
+            ? formData.product_variations.map((variation) => ({
+                  variation_name: variation.name,
+                  variation_values: variation.options,
+                  variation_images: [] // You would add image handling here
+              }))
+            : [];
 
         return {
             ...formData,
@@ -155,7 +161,7 @@ function NewProduct() {
             const formattedData = formatFormDataForSubmission();
 
             // Submit the form data to the API
-            const response = await axios.post(`${API_URL}/product`, formattedData);
+            const response = await axiosClient(`${API_URL}/spu/create`, formattedData);
 
             if (response.data && response.data.statusCode === 201) {
                 alert('Product created successfully!');
