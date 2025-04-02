@@ -123,9 +123,9 @@ function NewProduct() {
 
         // Add product images
         if (formData.product_images && formData.product_images.length > 0) {
-            formData.product_images.forEach((image, index) => {
+            formData.product_images.forEach((image) => {
                 if (image.file) {
-                    formDataToSubmit.append(`product_images`, image.file);
+                    formDataToSubmit.append('product_images', image.file);
                 }
             });
         }
@@ -144,32 +144,58 @@ function NewProduct() {
 
         // Add variations as JSON string
         const formattedVariations = Array.isArray(formData.product_variations)
-            ? formData.product_variations.map((variation) => {
-                  const formattedVariation = {
-                      variation_name: variation.name,
-                      variation_values: variation.options
-                  };
-                  return formattedVariation;
-              })
+            ? formData.product_variations.map((variation) => ({
+                  variation_name: variation.name,
+                  variation_values: variation.options
+              }))
             : [];
 
         formDataToSubmit.append('product_variations', JSON.stringify(formattedVariations));
 
-        // Add variation images separately
-        if (Array.isArray(formData.product_variations)) {
-            formData.product_variations.forEach((variation, variationIndex) => {
-                // Add variation thumbnail
-                if (variation.thumb && variation.thumb.file) {
-                    formDataToSubmit.append(`sku_thumb`, variation.thumb.file);
+        // Add SKU information
+        if (formData.skus && formData.skus.length > 0) {
+            // Always initialize sku_images_map as an array with same length as skus
+            const skuImagesMap = new Array(formData.skus.length).fill(0);
+            let hasSkuImages = false;
+
+            // Add SKU thumbnails
+            formData.skus.forEach((sku, index) => {
+                if (sku.thumb && sku.thumb.file) {
+                    formDataToSubmit.append('sku_thumb', sku.thumb.file);
                 }
 
-                // Add variation images
-                if (variation.images && variation.images.length > 0) {
-                    variation.images.forEach((image) => {
-                        formDataToSubmit.append(`sku_images`, image.file);
+                // Add SKU images and update sku_images_map
+                if (sku.images && sku.images.length > 0) {
+                    skuImagesMap[index] = sku.images.length;
+                    hasSkuImages = true;
+
+                    sku.images.forEach((image) => {
+                        if (image.file) {
+                            formDataToSubmit.append('sku_images', image.file);
+                        }
                     });
                 }
             });
+
+            // Only append sku_images_map if there are any SKU images
+            if (hasSkuImages) {
+                formDataToSubmit.append('sku_images_map', JSON.stringify(skuImagesMap));
+            } else {
+                // If no SKU images, set empty arrays
+                formDataToSubmit.append(
+                    'sku_images',
+                    new Blob([], { type: 'application/octet-stream' })
+                );
+                formDataToSubmit.append('sku_images_map', JSON.stringify(skuImagesMap));
+            }
+
+            // Add SKU data as JSON
+            const skuData = formData.skus.map((sku) => ({
+                sku_tier_idx: sku.sku_tier_idx,
+                stock: sku.stock,
+                cost: sku.cost
+            }));
+            formDataToSubmit.append('skus', JSON.stringify(skuData));
         }
 
         return formDataToSubmit;
@@ -279,7 +305,7 @@ function NewProduct() {
                             formData={formData}
                             handleAttributeChange={handleInputChange}
                         />
-                        
+
                         <SKUManagement formData={formData} setFormData={setFormData} />
                     </div>
 
