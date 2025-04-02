@@ -1,9 +1,13 @@
-import { CreatedResponse } from '@/response/success.response.js';
+import { CreatedResponse, OkResponse } from '@/response/success.response.js';
 import { RequestWithBody } from '@/types/request.js';
 import spuService from '@/services/spu.service.js';
 import { SPUImages } from '@/enums/spu.enum.js';
+import { RequestHandler } from 'express';
 
 export default new (class SPUController {
+    /* ---------------------------------------------------------- */
+    /*                            Crate                           */
+    /* ---------------------------------------------------------- */
     createSPU: RequestWithBody<joiTypes.spu.CreateSPU> = async (req, res, next) => {
         new CreatedResponse({
             message: 'Create product successfully!',
@@ -15,5 +19,19 @@ export default new (class SPUController {
                 mediaIds: req.mediaIds as NonNullable<typeof req.mediaIds>
             })
         }).send(res);
+    };
+
+    /* ---------------------------------------------------------- */
+    /*                             Get                            */
+    /* ---------------------------------------------------------- */
+
+    /* ------------------- Get all spu by shop ------------------ */
+    getAllSPUByShop: RequestHandler = async (req, res, next) => {
+        new OkResponse({
+            message: 'Get all products by shop successfully!',
+            metadata: await spuService.getAllSpuByShop({
+                shopId: req.userId as string
+            })
+        });
     };
 })();

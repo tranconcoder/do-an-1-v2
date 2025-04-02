@@ -10,6 +10,7 @@ import {
 import skuService from './sku.service.js';
 import { SKUImages } from '@/enums/sku.enum.js';
 import { SPUImages } from '@/enums/spu.enum.js';
+import { findAllSPU } from '@/models/repository/spu/index.js';
 
 export default new (class SPUService {
     /* ---------------------------------------------------------- */
@@ -109,7 +110,10 @@ export default new (class SPUService {
     /*                             Get                            */
     /* ---------------------------------------------------------- */
     /* ------------------------- By shop ------------------------ */
-    async getAllSpuByShop() {
-        
+    async getAllSpuByShop({ shopId }: service.spu.arguments.GetAllSpuByShop) {
+        return await findAllSPU({
+            query: { product_shop: shopId, is_deleted: false },
+            options: { lean: true }
+        });
     }
 })();

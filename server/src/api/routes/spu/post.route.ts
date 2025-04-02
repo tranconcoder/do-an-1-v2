@@ -17,7 +17,9 @@ import { SKUImages } from '@/enums/sku.enum.js';
 
 const spuPostRoute = Router();
 
-/* --------------------- Create product --------------------- */
+/* ---------------------------------------------------------- */
+/*                       Create product                       */
+/* ---------------------------------------------------------- */
 spuPostRoute.post(
     '/create',
 
@@ -40,6 +42,16 @@ spuPostRoute.post(
 
     validateRequestBody(createSPU),
     catchError(spuController.createSPU)
+);
+
+/* ---------------------------------------------------------- */
+/*                           Get SPU                          */
+/* ---------------------------------------------------------- */
+
+spuPostRoute.get(
+    '/shop/all/own',
+    authorization('readOwn', Resources.PRODUCT),
+    catchError(spuController.getAllSPUByShop)
 );
 
 export default spuPostRoute;

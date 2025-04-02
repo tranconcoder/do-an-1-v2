@@ -54,8 +54,8 @@ declare global {
                 /*                          Get all                           */
                 /* ---------------------------------------------------------- */
                 /* -------------------- Get all products -------------------- */
-                interface GetAllShopSPUByOwn{
-                    
+                interface GetAllSpuByShop{
+                    shopId: string;
                 }
 
                 /* --------------- Get all product by shop -------------- */

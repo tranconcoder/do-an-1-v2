@@ -3,8 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './NewProduct.module.scss';
 import axios from 'axios';
-import { FaTimes, FaUpload } from 'react-icons/fa';
 import { API_URL } from '../../configs/env.config';
+import BasicInformation from './components/BasicInformation';
+import ProductImages from './components/ProductImages';
+import PricingInventory from './components/PricingInventory';
+import ProductVariations from './components/ProductVariations';
+import ProductAttributes from './components/ProductAttributes';
+import ProductSummary from './components/ProductSummary';
 
 const cx = classNames.bind(styles);
 
@@ -12,84 +17,44 @@ function NewProduct() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
-    const [loadingCategories, setLoadingCategories] = useState(true);
-
     const [formData, setFormData] = useState({
         product_name: '',
         product_description: '',
         product_cost: '',
-        product_shop: '', // Will be filled with user's shop ID from auth
+        product_shop: '',
         product_quantity: 0,
         product_category: '',
-        product_attributes: {}, // Will be dynamically filled based on category
-        product_variations: [], // For variations (color, size, etc.)
-        product_thumb: null, // For main product image
-        product_images: [], // For additional product images
+        product_attributes: {},
+        product_variations: [],
+        product_thumb: null,
+        product_images: [],
         is_draft: true,
         is_publish: false,
-        sku_list: [] // For SKU variations
+        sku_list: []
     });
 
-    // Helper function to build a hierarchical structure of categories
-    const buildCategoryHierarchy = (categoriesList) => {
-        const rootCategories = categoriesList.filter((cat) => !cat.category_parent);
-        return rootCategories.map((rootCat) => {
-            return {
-                ...rootCat,
-                children: getChildCategories(categoriesList, rootCat._id)
-            };
-        });
-    };
-
-    const getChildCategories = (categoriesList, parentId) => {
-        const children = categoriesList.filter(
-            (cat) => cat.category_parent && cat.category_parent === parentId
-        );
-        return children.map((child) => ({
-            ...child,
-            children: getChildCategories(categoriesList, child._id)
-        }));
-    };
-
-    const renderCategoryOptions = (categories, level = 0) => {
-        return categories.map((category) => (
-            <React.Fragment key={category._id}>
-                <option value={category._id}>
-                    {'\u00A0'.repeat(level * 4)}
-                    {level > 0 ? '└─ ' : ''}
-                    {category.category_name}
-                </option>
-                {category.children &&
-                    category.children.length > 0 &&
-                    renderCategoryOptions(category.children, level + 1)}
-            </React.Fragment>
-        ));
-    };
-
-    // Load categories on page load
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                setLoadingCategories(true);
+                setLoading(true);
                 const response = await axios.get(`${API_URL}/category`);
-                const categoriesData = response.data.metadata || [];
-                const hierarchy = buildCategoryHierarchy(categoriesData);
-                setCategories(hierarchy);
+                if (response.data && response.data.metadata) {
+                    setCategories(response.data.metadata);
+                }
             } catch (error) {
-                console.error('Error loading categories:', error);
-                setCategories([]); // Clear categories on error
+                console.error('Error fetching categories:', error);
             } finally {
-                setLoadingCategories(false);
+                setLoading(false);
             }
         };
 
         fetchCategories();
 
-        // Also set the shop ID from authenticated user
+        // Set shop ID from authenticated user
         const getUserShopId = async () => {
             try {
                 // In a real implementation, get from auth context or API
-                const shopId = localStorage.getItem('shopId') || '123456789'; // Example ID
+                const shopId = localStorage.getItem('shopId') || '123456789';
                 setFormData((prev) => ({
                     ...prev,
                     product_shop: shopId
@@ -119,721 +84,169 @@ function NewProduct() {
         }));
     };
 
-    const handleCategoryChange = (e) => {
-        const categoryId = e.target.value;
-
-        // Reset product attributes when category changes
-        setFormData((prev) => ({
-            ...prev,
-            product_category: categoryId,
-            product_attributes: {}
-        }));
-
-        // In a real implementation, you would fetch category-specific attributes here
-        // and update the form accordingly
-    };
-
     const handleAttributeChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            product_attributes: {
-                ...prev.product_attributes,
-                [name]: value
-            }
-        }));
-    };
 
-    const handleThumbUpload = (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+        // Store the attribute data in a format matching the spu.model.ts
+        setFormData((prev) => {
+            // Get the attribute details from the corresponding attribute
+            const attributeDetails = categories
+                .flatMap((cat) => {
+                    // This is a placeholder - in reality you would fetch attribute details from your API
+                    // or store them when fetching attributes in the ProductAttributes component
+                    return [];
+                })
+                .find((attr) => attr._id === name);
 
-        const reader = new FileReader();
-        reader.onload = () => {
-            setFormData((prev) => ({
-                ...prev,
-                product_thumb: {
-                    file,
-                    preview: reader.result,
-                    name: file.name
-                }
-            }));
-        };
-        reader.readAsDataURL(file);
-    };
+            const attrName = attributeDetails?.attribute_name || name;
 
-    const handleImagesUpload = (e) => {
-        const files = Array.from(e.target.files);
-        if (!files.length) return;
+            // Check if this attribute already exists in the array
+            const existingAttrIndex = prev.product_attributes[name] !== undefined ? 0 : -1;
 
-        const newImages = files.map((file) => {
-            const reader = new FileReader();
-            return new Promise((resolve) => {
-                reader.onload = () => {
-                    resolve({
-                        file,
-                        preview: reader.result,
-                        name: file.name
-                    });
-                };
-                reader.readAsDataURL(file);
-            });
-        });
-
-        Promise.all(newImages).then((images) => {
-            setFormData((prev) => ({
-                ...prev,
-                product_images: [...prev.product_images, ...images]
-            }));
-        });
-    };
-
-    const removeThumbImage = () => {
-        setFormData((prev) => ({
-            ...prev,
-            product_thumb: null
-        }));
-    };
-
-    const removeImage = (indexToRemove) => {
-        setFormData((prev) => ({
-            ...prev,
-            product_images: prev.product_images.filter((_, index) => index !== indexToRemove)
-        }));
-    };
-
-    // Add a variation option to the product (e.g., color, size)
-    const addVariation = () => {
-        const newVariation = {
-            name: '',
-            options: ['']
-        };
-
-        setFormData((prev) => ({
-            ...prev,
-            product_variations: [...prev.product_variations, newVariation]
-        }));
-    };
-
-    // Update variation info
-    const updateVariation = (index, field, value) => {
-        const newVariations = [...formData.product_variations];
-        newVariations[index][field] = value;
-
-        setFormData((prev) => ({
-            ...prev,
-            product_variations: newVariations
-        }));
-    };
-
-    // Add an option to a variation
-    const addOptionToVariation = (variationIndex) => {
-        const newVariations = [...formData.product_variations];
-        newVariations[variationIndex].options.push('');
-
-        setFormData((prev) => ({
-            ...prev,
-            product_variations: newVariations
-        }));
-    };
-
-    // Update a specific option within a variation
-    const updateVariationOption = (variationIndex, optionIndex, value) => {
-        const newVariations = [...formData.product_variations];
-        newVariations[variationIndex].options[optionIndex] = value;
-
-        setFormData((prev) => ({
-            ...prev,
-            product_variations: newVariations
-        }));
-    };
-
-    // Remove an option from a variation
-    const removeOptionFromVariation = (variationIndex, optionIndex) => {
-        const newVariations = [...formData.product_variations];
-        newVariations[variationIndex].options.splice(optionIndex, 1);
-
-        setFormData((prev) => ({
-            ...prev,
-            product_variations: newVariations
-        }));
-    };
-
-    // Remove an entire variation
-    const removeVariation = (indexToRemove) => {
-        setFormData((prev) => ({
-            ...prev,
-            product_variations: prev.product_variations.filter(
-                (_, index) => index !== indexToRemove
-            )
-        }));
-    };
-
-    // Generate SKUs based on all possible combinations of variations
-    const generateSkuList = () => {
-        const variations = formData.product_variations;
-        if (!variations.length) return [];
-
-        // Helper function to get all combinations
-        const getCombinations = (arrays, current = [], index = 0) => {
-            if (index === arrays.length) {
-                return [current];
-            }
-
-            return arrays[index].reduce((acc, option) => {
-                return [...acc, ...getCombinations(arrays, [...current, option], index + 1)];
-            }, []);
-        };
-
-        const options = variations.map((v) => v.options);
-        const combinations = getCombinations(options);
-
-        // Create SKU objects for each combination
-        return combinations.map((combination) => {
-            // Create a name combining the options (e.g., "Red-Large")
-            const sku_name = combination.join('-');
-
-            // Create an object mapping variation names to selected options
-            const attributes = {};
-            variations.forEach((variation, index) => {
-                attributes[variation.name] = combination[index];
-            });
+            // Create the new attributes object
+            const updatedAttributes = { ...prev.product_attributes, [name]: value };
 
             return {
-                sku_name,
-                sku_price: formData.product_cost,
-                sku_stock: Math.floor(formData.product_quantity / combinations.length),
-                attributes
+                ...prev,
+                product_attributes: updatedAttributes
             };
         });
     };
 
-    const validateForm = () => {
-        if (!formData.product_name.trim()) {
-            alert('Vui lòng nhập tên sản phẩm');
-            return false;
-        }
+    const formatFormDataForSubmission = () => {
+        // Convert the product_attributes object to the array format expected by the API
+        const formattedAttributes = Object.entries(formData.product_attributes).map(
+            ([attrId, attrValue]) => {
+                // Find the attribute name from your attributes data
+                // This is placeholder logic - you would need to get the actual attribute names
+                const attrName = 'Attribute'; // Replace with actual attribute name lookup
 
-        if (!formData.product_category) {
-            alert('Vui lòng chọn danh mục sản phẩm');
-            return false;
-        }
+                return {
+                    attr_id: attrId,
+                    attr_name: attrName,
+                    attr_value: attrValue
+                };
+            }
+        );
 
-        if (Number(formData.product_cost) <= 0) {
-            alert('Giá sản phẩm phải lớn hơn 0');
-            return false;
-        }
+        // Format variations to match the schema
+        const formattedVariations = formData.product_variations.map((variation) => ({
+            variation_name: variation.name,
+            variation_values: variation.options,
+            variation_images: [] // You would add image handling here
+        }));
 
-        if (Number(formData.product_quantity) <= 0) {
-            alert('Số lượng sản phẩm phải lớn hơn 0');
-            return false;
-        }
-
-        if (!formData.product_thumb) {
-            alert('Vui lòng tải lên hình ảnh chính cho sản phẩm');
-            return false;
-        }
-
-        return true;
+        return {
+            ...formData,
+            product_attributes: formattedAttributes,
+            product_variations: formattedVariations
+        };
     };
 
     const handleSubmit = async (e) => {
-        if (e && e.preventDefault) {
-            e.preventDefault();
-        }
-
-        if (!validateForm()) {
-            return;
-        }
-
-        setLoading(true);
+        e.preventDefault();
 
         try {
-            // Generate SKUs if there are variations
-            const sku_list =
-                formData.product_variations.length > 0
-                    ? generateSkuList()
-                    : [
-                          {
-                              sku_name: formData.product_name,
-                              sku_price: formData.product_cost,
-                              sku_stock: formData.product_quantity,
-                              attributes: {}
-                          }
-                      ];
+            setLoading(true);
 
-            // Prepare data for submission
-            const productData = {
-                ...formData,
-                sku_list
-            };
+            // Validate required fields
+            if (
+                !formData.product_name ||
+                !formData.product_category ||
+                !formData.product_description
+            ) {
+                alert('Please fill in all required fields');
+                setLoading(false);
+                return;
+            }
 
-            // In a real implementation, we'd handle file uploads here
-            // and send the URLs in the request
+            if (!formData.product_thumb) {
+                alert('Thumbnail image is required');
+                setLoading(false);
+                return;
+            }
 
-            console.log('Submitting product data:', productData);
+            if (formData.product_images.length < 3) {
+                alert('At least 3 additional product images are required');
+                setLoading(false);
+                return;
+            }
 
-            // Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            // Format data for API submission
+            const formattedData = formatFormDataForSubmission();
 
-            // Success message
-            alert(
-                `Sản phẩm "${formData.product_name}" đã được ${
-                    formData.is_publish ? 'đăng thành công!' : 'lưu nháp!'
-                }`
-            );
+            // Submit the form data to the API
+            const response = await axios.post(`${API_URL}/product`, formattedData);
 
-            // Redirect to product list
-            navigate('/products');
+            if (response.data && response.data.statusCode === 201) {
+                alert('Product created successfully!');
+                navigate('/products');
+            }
         } catch (error) {
             console.error('Error submitting product:', error);
-            alert('Có lỗi xảy ra khi lưu sản phẩm. Vui lòng thử lại sau.');
+            alert('Failed to create product. Please try again.');
         } finally {
             setLoading(false);
         }
     };
 
-    const saveAsDraft = () => {
-        setFormData((prev) => ({
-            ...prev,
-            is_draft: true,
-            is_publish: false
-        }));
-        handleSubmit();
-    };
-
-    const publishProduct = () => {
-        setFormData((prev) => ({
-            ...prev,
-            is_draft: false,
-            is_publish: true
-        }));
-        handleSubmit();
-    };
-
     return (
         <div className={cx('new-product')}>
             <div className={cx('header')}>
-                <h1>Tạo Sản Phẩm Mới</h1>
+                <h1>Create New Product</h1>
                 <div className={cx('actions')}>
                     <button
                         type="button"
                         className={cx('draft-btn')}
-                        onClick={saveAsDraft}
+                        onClick={() => {
+                            setFormData((prev) => ({ ...prev, is_draft: true, is_publish: false }));
+                            document.querySelector('form').requestSubmit();
+                        }}
                         disabled={loading}
                     >
-                        {loading && formData.is_draft ? 'Đang lưu...' : 'Lưu Nháp'}
+                        Save as Draft
                     </button>
                     <button
                         type="button"
                         className={cx('submit-btn')}
-                        onClick={publishProduct}
+                        onClick={() => {
+                            setFormData((prev) => ({ ...prev, is_draft: false, is_publish: true }));
+                            document.querySelector('form').requestSubmit();
+                        }}
                         disabled={loading}
                     >
-                        {loading && formData.is_publish ? 'Đang đăng...' : 'Đăng Sản Phẩm'}
+                        {loading ? 'Publishing...' : 'Publish Product'}
                     </button>
                 </div>
             </div>
 
-            <form
-                className={cx('product-form')}
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    publishProduct();
-                }}
-            >
+            <form onSubmit={handleSubmit} className={cx('product-form')}>
                 <div className={cx('form-layout')}>
                     <div className={cx('main-form')}>
-                        {/* Basic Information */}
-                        <div className={cx('form-section')}>
-                            <h2>Thông Tin Cơ Bản</h2>
+                        <BasicInformation
+                            formData={formData}
+                            categories={categories}
+                            handleInputChange={handleInputChange}
+                        />
 
-                            <div className={cx('form-group')}>
-                                <label htmlFor="product_name">Tên Sản Phẩm *</label>
-                                <input
-                                    type="text"
-                                    id="product_name"
-                                    name="product_name"
-                                    value={formData.product_name}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-                            </div>
+                        <ProductImages formData={formData} setFormData={setFormData} />
 
-                            <div className={cx('form-group')}>
-                                <label htmlFor="product_description">Mô Tả Sản Phẩm</label>
-                                <textarea
-                                    id="product_description"
-                                    name="product_description"
-                                    value={formData.product_description}
-                                    onChange={handleInputChange}
-                                    rows={5}
-                                />
-                            </div>
+                        <PricingInventory
+                            formData={formData}
+                            handleInputChange={handleInputChange}
+                            handleNumberChange={handleNumberChange}
+                        />
 
-                            <div className={cx('form-group')}>
-                                <label htmlFor="product_category">Danh Mục Sản Phẩm *</label>
-                                <select
-                                    id="product_category"
-                                    name="product_category"
-                                    value={formData.product_category}
-                                    onChange={handleCategoryChange}
-                                    required
-                                    className={cx('category-select')}
-                                >
-                                    <option value="">-- Chọn danh mục --</option>
-                                    {renderCategoryOptions(categories)}
-                                </select>
-                            </div>
-                        </div>
+                        <ProductVariations formData={formData} setFormData={setFormData} />
 
-                        {/* Images */}
-                        <div className={cx('form-section')}>
-                            <h2>Hình Ảnh Sản Phẩm</h2>
-
-                            {/* Main product image (thumbnail) */}
-                            <div className={cx('form-group')}>
-                                <label htmlFor="product_thumb">Hình Ảnh Chính *</label>
-                                <div className={cx('upload-container')}>
-                                    {!formData.product_thumb ? (
-                                        <div className={cx('upload-box')}>
-                                            <input
-                                                type="file"
-                                                id="product_thumb"
-                                                accept="image/*"
-                                                onChange={handleThumbUpload}
-                                                className={cx('file-input')}
-                                            />
-                                            <div className={cx('upload-placeholder')}>
-                                                <FaUpload className={cx('upload-icon')} />
-                                                <span>Tải lên hình ảnh chính</span>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div className={cx('image-preview')}>
-                                            <img
-                                                src={formData.product_thumb.preview}
-                                                alt="Hình ảnh chính"
-                                            />
-                                            <button
-                                                type="button"
-                                                className={cx('remove-image')}
-                                                onClick={removeThumbImage}
-                                            >
-                                                <FaTimes />
-                                            </button>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Additional product images */}
-                            <div className={cx('form-group')}>
-                                <label htmlFor="product_images">Hình Ảnh Phụ (tối đa 5 hình)</label>
-                                <div className={cx('upload-container')}>
-                                    <div className={cx('images-grid')}>
-                                        {formData.product_images.map((image, index) => (
-                                            <div key={index} className={cx('image-preview')}>
-                                                <img
-                                                    src={image.preview}
-                                                    alt={`Hình ảnh ${index + 1}`}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    className={cx('remove-image')}
-                                                    onClick={() => removeImage(index)}
-                                                >
-                                                    <FaTimes />
-                                                </button>
-                                            </div>
-                                        ))}
-
-                                        {formData.product_images.length < 5 && (
-                                            <div className={cx('upload-box')}>
-                                                <input
-                                                    type="file"
-                                                    id="product_images"
-                                                    accept="image/*"
-                                                    multiple
-                                                    onChange={handleImagesUpload}
-                                                    className={cx('file-input')}
-                                                />
-                                                <div className={cx('upload-placeholder')}>
-                                                    <FaUpload className={cx('upload-icon')} />
-                                                    <span>Thêm hình ảnh</span>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Pricing and Inventory */}
-                        <div className={cx('form-section')}>
-                            <h2>Giá & Kho Hàng</h2>
-
-                            <div className={cx('form-row')}>
-                                <div className={cx('form-group', 'half')}>
-                                    <label htmlFor="product_cost">Giá Bán *</label>
-                                    <div className={cx('price-input')}>
-                                        <span className={cx('currency')}>₫</span>
-                                        <input
-                                            type="number"
-                                            id="product_cost"
-                                            name="product_cost"
-                                            value={formData.product_cost}
-                                            onChange={handleNumberChange}
-                                            min="0"
-                                            step="1000"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className={cx('form-group', 'half')}>
-                                    <label htmlFor="product_quantity">Số Lượng *</label>
-                                    <input
-                                        type="number"
-                                        id="product_quantity"
-                                        name="product_quantity"
-                                        value={formData.product_quantity}
-                                        onChange={handleNumberChange}
-                                        min="0"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Product Variations */}
-                        <div className={cx('form-section')}>
-                            <h2>Biến Thể Sản Phẩm</h2>
-                            <p className={cx('section-description')}>
-                                Thêm các biến thể như màu sắc, kích thước để tạo các phiên bản khác
-                                nhau của sản phẩm
-                            </p>
-
-                            {formData.product_variations.map((variation, variationIndex) => (
-                                <div key={variationIndex} className={cx('variation-container')}>
-                                    <div className={cx('variation-header')}>
-                                        <div className={cx('form-group', 'variation-name')}>
-                                            <label>Tên Biến Thể</label>
-                                            <input
-                                                type="text"
-                                                placeholder="VD: Màu sắc, Kích cỡ"
-                                                value={variation.name}
-                                                onChange={(e) =>
-                                                    updateVariation(
-                                                        variationIndex,
-                                                        'name',
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                        <button
-                                            type="button"
-                                            className={cx('remove-variation')}
-                                            onClick={() => removeVariation(variationIndex)}
-                                        >
-                                            <FaTimes /> Xóa Biến Thể
-                                        </button>
-                                    </div>
-
-                                    <div className={cx('options-container')}>
-                                        <label>Tùy Chọn</label>
-                                        {variation.options.map((option, optionIndex) => (
-                                            <div key={optionIndex} className={cx('option-row')}>
-                                                <input
-                                                    type="text"
-                                                    placeholder={`Tùy chọn ${optionIndex + 1}`}
-                                                    value={option}
-                                                    onChange={(e) =>
-                                                        updateVariationOption(
-                                                            variationIndex,
-                                                            optionIndex,
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                />
-                                                <button
-                                                    type="button"
-                                                    className={cx('remove-option')}
-                                                    onClick={() =>
-                                                        removeOptionFromVariation(
-                                                            variationIndex,
-                                                            optionIndex
-                                                        )
-                                                    }
-                                                >
-                                                    <FaTimes />
-                                                </button>
-                                            </div>
-                                        ))}
-                                        <button
-                                            type="button"
-                                            className={cx('add-option')}
-                                            onClick={() => addOptionToVariation(variationIndex)}
-                                        >
-                                            + Thêm Tùy Chọn
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
-
-                            <button
-                                type="button"
-                                className={cx('add-variation')}
-                                onClick={addVariation}
-                            >
-                                + Thêm Biến Thể
-                            </button>
-                        </div>
-
-                        {/* Product Attributes - Only show when category is selected */}
-                        {formData.product_category && (
-                            <div className={cx('form-section')}>
-                                <h2>Thuộc Tính Sản Phẩm</h2>
-                                <p className={cx('section-description')}>
-                                    Thêm thông số kỹ thuật và đặc điểm của sản phẩm
-                                </p>
-
-                                <div className={cx('attributes-container')}>
-                                    {/* Sample attribute fields - in real app, these would be dynamic based on category */}
-                                    <div className={cx('form-group')}>
-                                        <label htmlFor="brand">Thương Hiệu</label>
-                                        <input
-                                            type="text"
-                                            id="brand"
-                                            name="brand"
-                                            value={formData.product_attributes.brand || ''}
-                                            onChange={handleAttributeChange}
-                                        />
-                                    </div>
-
-                                    <div className={cx('form-group')}>
-                                        <label htmlFor="material">Chất Liệu</label>
-                                        <input
-                                            type="text"
-                                            id="material"
-                                            name="material"
-                                            value={formData.product_attributes.material || ''}
-                                            onChange={handleAttributeChange}
-                                        />
-                                    </div>
-
-                                    <div className={cx('form-group')}>
-                                        <label htmlFor="origin">Xuất Xứ</label>
-                                        <input
-                                            type="text"
-                                            id="origin"
-                                            name="origin"
-                                            value={formData.product_attributes.origin || ''}
-                                            onChange={handleAttributeChange}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        )}
+                        <ProductAttributes
+                            formData={formData}
+                            handleAttributeChange={handleAttributeChange}
+                        />
                     </div>
 
-                    {/* Sidebar */}
                     <div className={cx('sidebar-form')}>
-                        <div className={cx('form-section')}>
-                            <h2>Trạng Thái Sản Phẩm</h2>
-                            <div className={cx('status-options')}>
-                                <div className={cx('status-option')}>
-                                    <input
-                                        type="radio"
-                                        id="status-draft"
-                                        name="product_status"
-                                        checked={formData.is_draft && !formData.is_publish}
-                                        onChange={() => {
-                                            setFormData((prev) => ({
-                                                ...prev,
-                                                is_draft: true,
-                                                is_publish: false
-                                            }));
-                                        }}
-                                    />
-                                    <label htmlFor="status-draft">Bản Nháp</label>
-                                    <p className={cx('status-description')}>
-                                        Sản phẩm sẽ được lưu nhưng không hiển thị trong cửa hàng
-                                    </p>
-                                </div>
-
-                                <div className={cx('status-option')}>
-                                    <input
-                                        type="radio"
-                                        id="status-published"
-                                        name="product_status"
-                                        checked={!formData.is_draft && formData.is_publish}
-                                        onChange={() => {
-                                            setFormData((prev) => ({
-                                                ...prev,
-                                                is_draft: false,
-                                                is_publish: true
-                                            }));
-                                        }}
-                                    />
-                                    <label htmlFor="status-published">Xuất Bản</label>
-                                    <p className={cx('status-description')}>
-                                        Sản phẩm sẽ hiển thị và có thể mua trong cửa hàng
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={cx('form-section')}>
-                            <h2>Tóm Tắt Sản Phẩm</h2>
-                            <div className={cx('product-summary')}>
-                                <div className={cx('summary-item')}>
-                                    <span className={cx('summary-label')}>Tên:</span>
-                                    <span className={cx('summary-value')}>
-                                        {formData.product_name || '(Chưa có)'}
-                                    </span>
-                                </div>
-                                <div className={cx('summary-item')}>
-                                    <span className={cx('summary-label')}>Danh mục:</span>
-                                    <span className={cx('summary-value')}>
-                                        {categories.find((c) => c._id === formData.product_category)
-                                            ?.category_name || '(Chưa chọn)'}
-                                    </span>
-                                </div>
-                                <div className={cx('summary-item')}>
-                                    <span className={cx('summary-label')}>Giá:</span>
-                                    <span className={cx('summary-value')}>
-                                        {formData.product_cost
-                                            ? `${Number(formData.product_cost).toLocaleString(
-                                                  'vi-VN'
-                                              )} ₫`
-                                            : '(Chưa có)'}
-                                    </span>
-                                </div>
-                                <div className={cx('summary-item')}>
-                                    <span className={cx('summary-label')}>Số lượng:</span>
-                                    <span className={cx('summary-value')}>
-                                        {formData.product_quantity || '0'}
-                                    </span>
-                                </div>
-                                <div className={cx('summary-item')}>
-                                    <span className={cx('summary-label')}>Trạng thái:</span>
-                                    <span className={cx('summary-value')}>
-                                        {formData.is_draft && !formData.is_publish
-                                            ? 'Bản nháp'
-                                            : 'Xuất bản'}
-                                    </span>
-                                </div>
-                                <div className={cx('summary-item')}>
-                                    <span className={cx('summary-label')}>Hình ảnh:</span>
-                                    <span className={cx('summary-value')}>
-                                        {formData.product_thumb ? '1 chính' : '0 chính'} &{' '}
-                                        {formData.product_images.length} phụ
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                        <ProductSummary formData={formData} />
                     </div>
                 </div>
             </form>
