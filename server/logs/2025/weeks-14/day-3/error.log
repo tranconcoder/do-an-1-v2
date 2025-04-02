@@ -189,3 +189,60 @@
 [2025-04-02T06:54:13.557Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-04-02T06:54:13.563Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-04-02T06:57:22.643Z] [error]: HIDE::400::BadRequest::Invalid SKU images map!::
+[2025-04-02T07:03:01.648Z] [error]: Client must be connected before running operations
+[2025-04-02T07:04:03.280Z] [error]: Client must be connected before running operations
+[2025-04-02T07:04:33.316Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-02T07:04:33.400Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-04-02T07:04:37.811Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-04-02T07:04:38.856Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-04-02T07:04:41.199Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-04-02T07:04:53.896Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-04-02T07:05:03.291Z] [error]: Client must be connected before running operations
+[2025-04-02T07:05:07.322Z] [error]: HIDE::400::ValidationError::"password" with value "Anhnam9ce" fails to match the required pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/::
+[2025-04-02T07:05:22.709Z] [error]: HIDE::400::ValidationError::"password" with value "Anhnam9ce" fails to match the required pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/::
+[2025-04-02T07:05:38.924Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-04-02T07:06:03.261Z] [error]: Client must be connected before running operations
+[2025-04-02T07:06:26.825Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-04-02T07:06:31.703Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-04-02T07:06:45.451Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:45.452Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:45.460Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:45.461Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:45.462Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:45.467Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:46.074Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:46.084Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:46.086Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:46.089Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:46.119Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:46.121Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:46.680Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:46.692Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:46.735Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:46.737Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:06:46.777Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:01.179Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:01.181Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:01.198Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:01.206Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:01.209Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:01.479Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:01.509Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:01.520Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:01.524Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:01.548Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:01.550Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:02.068Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:02.137Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:02.143Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:02.150Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:02.177Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:02.188Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-04-02T07:07:03.327Z] [error]: Client must be connected before running operations
+[2025-04-02T07:08:01.614Z] [error]: Client must be connected before running operations
+[2025-04-02T07:08:03.261Z] [error]: Client must be connected before running operations
+[2025-04-02T07:08:38.919Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-04-02T07:08:42.795Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-04-02T07:08:52.772Z] [error]: HIDE::400::TypeError::Cannot read properties of null (reading 'role_name')::
+[2025-04-02T07:09:03.243Z] [error]: Client must be connected before running operations
+[2025-04-02T07:09:03.273Z] [error]: Client must be connected before running operations

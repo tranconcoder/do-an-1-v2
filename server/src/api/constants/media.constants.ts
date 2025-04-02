@@ -1,4 +1,9 @@
-import { AVATAR_BASE_PATH, CATEGORY_BASE_PATH, SPU_BASE_PATH } from '@/configs/media.config.js';
+import {
+    AVATAR_BASE_PATH,
+    CATEGORY_BASE_PATH,
+    CATEGORY_INIT_BASE_PATH,
+    SPU_BASE_PATH
+} from '@/configs/media.config.js';
 import { MediaMimeTypes, MediaTypes } from '@/enums/media.enum.js';
 import { getRandomFilename } from '@/utils/multer.util.js';
 import fs from 'fs/promises';
@@ -44,7 +49,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Đồ điện tử',
         media_fileName: 'gadgets.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -63,7 +68,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Điện thoại',
         media_fileName: 'iphone.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -77,7 +82,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Laptop',
         media_fileName: 'laptop.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -91,7 +96,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Phụ kiện',
         media_fileName: 'electronic-devices.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -110,7 +115,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Máy tính bảng',
         media_fileName: 'ipad.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -124,7 +129,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Sạc',
         media_fileName: 'phone-charger.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -138,7 +143,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Cáp',
         media_fileName: 'cable.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -152,7 +157,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Tai nghe',
         media_fileName: 'headphones.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -166,7 +171,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Bàn phím',
         media_fileName: 'keyboard.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -180,7 +185,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Đồ gia dụng',
         media_fileName: 'household.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -198,7 +203,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Tivi',
         media_fileName: 'television.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -212,7 +217,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Tủ lạnh',
         media_fileName: 'fridge.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -226,7 +231,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Máy lạnh',
         media_fileName: 'air-conditioner.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -240,7 +245,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Đồ nội thất',
         media_fileName: 'living-room.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -258,7 +263,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Ghế',
         media_fileName: 'chair.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -272,7 +277,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Bàn',
         media_fileName: 'table.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,
@@ -286,7 +291,7 @@ export const categoryMedia: Array<model.media.MediaSchema> = [
         media_title: 'Sofa',
         media_fileName: 'sofa.png',
         get media_filePath() {
-            return `${CATEGORY_BASE_PATH}/${this.media_fileName}`;
+            return `${CATEGORY_INIT_BASE_PATH}/${this.media_fileName}`;
         },
         media_fileType: MediaTypes.IMAGE,
         media_fileSize: 123456,

@@ -15,6 +15,11 @@ export const CATEGORY_MAX_SIZE = bytes.parse('5MB') as number;
 
 export const CATEGORY_BASE_PATH = path.join(import.meta.dirname, '../../public/categories');
 
+export const CATEGORY_INIT_BASE_PATH = path.join(
+    import.meta.dirname,
+    '../api/assets/images/categories'
+);
+
 /* ---------------------------------------------------------- */
 /*                             SPU                            */
 /* ---------------------------------------------------------- */
