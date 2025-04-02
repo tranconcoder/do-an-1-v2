@@ -14,7 +14,6 @@ declare global {
                 {
                     /* ------------------------ Product ------------------------ */
                     product_name: string;
-                    product_cost: number;
                     product_shop: moduleTypes.mongoose.ObjectId;
                     product_quantity: number;
                     product_description: string;

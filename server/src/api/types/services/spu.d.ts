@@ -19,7 +19,6 @@ declare global {
                     extends Pick<
                         model.spu.SPUSchema,
                         | 'product_name'
-                        | 'product_cost'
                         | 'product_shop'
                         | 'product_quantity'
                         | 'product_description'
@@ -54,7 +53,7 @@ declare global {
                 /*                          Get all                           */
                 /* ---------------------------------------------------------- */
                 /* -------------------- Get all products -------------------- */
-                interface GetAllSpuByShop{
+                interface GetAllSpuByShop {
                     shopId: string;
                 }
 

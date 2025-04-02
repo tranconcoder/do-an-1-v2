@@ -44,12 +44,12 @@ function SKUManagement({ formData, setFormData }) {
                     preview: reader.result
                 };
 
-                const newSKUs = [...formData.skus];
+                const newSKUs = [...formData.sku_list];
                 newSKUs[selectedSkuIndex].thumb = newThumb;
 
                 setFormData((prev) => ({
                     ...prev,
-                    skus: newSKUs
+                    sku_list: newSKUs
                 }));
             };
         } else if (previewType === 'additional' && selectedImageIndex !== null) {
@@ -59,12 +59,12 @@ function SKUManagement({ formData, setFormData }) {
                     preview: reader.result
                 };
 
-                const newSKUs = [...formData.skus];
+                const newSKUs = [...formData.sku_list];
                 newSKUs[selectedSkuIndex].images[selectedImageIndex] = newImage;
 
                 setFormData((prev) => ({
                     ...prev,
-                    skus: newSKUs
+                    sku_list: newSKUs
                 }));
             };
         }
@@ -79,9 +79,9 @@ function SKUManagement({ formData, setFormData }) {
 
     // Update total product quantity whenever SKU quantities change
     useEffect(() => {
-        if (formData.skus && formData.skus.length > 0) {
-            const totalQuantity = formData.skus.reduce((sum, sku) => {
-                return sum + (parseInt(sku.stock) || 0);
+        if (formData.sku_list && formData.sku_list.length > 0) {
+            const totalQuantity = formData.sku_list.reduce((sum, sku) => {
+                return sum + (parseInt(sku.sku_stock) || 0);
             }, 0);
 
             setFormData((prev) => ({
@@ -89,7 +89,7 @@ function SKUManagement({ formData, setFormData }) {
                 product_quantity: totalQuantity
             }));
         }
-    }, [formData.skus, setFormData]);
+    }, [formData.sku_list, setFormData]);
 
     // Check if a variation combination already exists
     const checkDuplicateVariation = (skuIndex, selectedOptions) => {
@@ -101,7 +101,7 @@ function SKUManagement({ formData, setFormData }) {
         );
 
         // Check if this combination exists in another SKU
-        const duplicateIndex = formData.skus.findIndex((sku, index) => {
+        const duplicateIndex = formData.sku_list.findIndex((sku, index) => {
             if (index === skuIndex) return false; // Skip current SKU
 
             const skuOptionsKey = JSON.stringify(
@@ -122,29 +122,29 @@ function SKUManagement({ formData, setFormData }) {
             selected_options: {}, // Store selected options for UI display
             thumb: null,
             images: [],
-            stock: 0, // Add stock field
-            cost: '' // Add cost field
+            sku_stock: 0,
+            sku_price: ''
         };
         setFormData((prev) => ({
             ...prev,
-            skus: [...prev.skus, newSKU]
+            sku_list: [...prev.sku_list, newSKU]
         }));
         setDuplicateError(null);
-        setCurrentSkuIndex(formData.skus.length);
+        setCurrentSkuIndex(formData.sku_list.length);
     };
 
     const updateSKU = (index, field, value) => {
-        const newSKUs = [...formData.skus];
+        const newSKUs = [...formData.sku_list];
         newSKUs[index][field] = value;
         setFormData((prev) => ({
             ...prev,
-            skus: newSKUs
+            sku_list: newSKUs
         }));
     };
 
     const handleOptionSelect = (skuIndex, variationIndex, optionIndex) => {
         setCurrentSkuIndex(skuIndex);
-        const newSKUs = [...formData.skus];
+        const newSKUs = [...formData.sku_list];
 
         // Update the selected options object for UI
         const newSelectedOptions = {
@@ -177,7 +177,7 @@ function SKUManagement({ formData, setFormData }) {
 
             setFormData((prev) => ({
                 ...prev,
-                skus: newSKUs
+                sku_list: newSKUs
             }));
         }
     };
@@ -188,14 +188,14 @@ function SKUManagement({ formData, setFormData }) {
 
         const reader = new FileReader();
         reader.onloadend = () => {
-            const newSKUs = [...formData.skus];
+            const newSKUs = [...formData.sku_list];
             newSKUs[skuIndex].thumb = {
                 file,
                 preview: reader.result
             };
             setFormData((prev) => ({
                 ...prev,
-                skus: newSKUs
+                sku_list: newSKUs
             }));
         };
         reader.readAsDataURL(file);
@@ -219,41 +219,41 @@ function SKUManagement({ formData, setFormData }) {
         });
 
         Promise.all(filePromises).then((newImages) => {
-            const newSKUs = [...formData.skus];
+            const newSKUs = [...formData.sku_list];
             newSKUs[skuIndex].images = [...(newSKUs[skuIndex].images || []), ...newImages];
             setFormData((prev) => ({
                 ...prev,
-                skus: newSKUs
+                sku_list: newSKUs
             }));
         });
     };
 
     const removeSKUImage = (skuIndex, imageIndex) => {
-        const newSKUs = [...formData.skus];
+        const newSKUs = [...formData.sku_list];
         newSKUs[skuIndex].images.splice(imageIndex, 1);
         setFormData((prev) => ({
             ...prev,
-            skus: newSKUs
+            sku_list: newSKUs
         }));
     };
 
     const removeSKU = (skuIndex) => {
         setFormData((prev) => ({
             ...prev,
-            skus: prev.skus.filter((_, index) => index !== skuIndex)
+            sku_list: prev.sku_list.filter((_, index) => index !== skuIndex)
         }));
     };
 
-    // Handle stock and cost changes
+    // Handle stock and price changes
     const handleSkuNumberChange = (skuIndex, field, value) => {
-        const numValue = value === '' ? (field === 'stock' ? 0 : '') : Number(value);
+        const numValue = value === '' ? (field === 'sku_stock' ? 0 : '') : Number(value);
 
-        const newSKUs = [...formData.skus];
+        const newSKUs = [...formData.sku_list];
         newSKUs[skuIndex][field] = numValue;
 
         setFormData((prev) => ({
             ...prev,
-            skus: newSKUs
+            sku_list: newSKUs
         }));
     };
 
@@ -278,7 +278,7 @@ function SKUManagement({ formData, setFormData }) {
             )}
 
             <div className={cx('sku-list')}>
-                {formData.skus.map((sku, skuIndex) => (
+                {formData.sku_list.map((sku, skuIndex) => (
                     <div key={skuIndex} className={cx('sku-item')}>
                         <div className={cx('sku-header')}>
                             <span className={cx('sku-title')}>SKU #{skuIndex + 1}</span>
@@ -362,11 +362,11 @@ function SKUManagement({ formData, setFormData }) {
                                         <input
                                             type="number"
                                             min="0"
-                                            value={sku.stock}
+                                            value={sku.sku_stock}
                                             onChange={(e) =>
                                                 handleSkuNumberChange(
                                                     skuIndex,
-                                                    'stock',
+                                                    'sku_stock',
                                                     e.target.value
                                                 )
                                             }
@@ -381,11 +381,11 @@ function SKUManagement({ formData, setFormData }) {
                                                 type="number"
                                                 min="0"
                                                 step="0.01"
-                                                value={sku.cost}
+                                                value={sku.sku_price}
                                                 onChange={(e) =>
                                                     handleSkuNumberChange(
                                                         skuIndex,
-                                                        'cost',
+                                                        'sku_price',
                                                         e.target.value
                                                     )
                                                 }

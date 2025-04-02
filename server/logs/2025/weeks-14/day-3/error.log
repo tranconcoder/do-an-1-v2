@@ -631,3 +631,16 @@
 [2025-04-02T17:47:35.664Z] [error]: HIDE::400::ValidationError::"product_attributes" must be an array::
 [2025-04-02T17:47:48.741Z] [error]: HIDE::400::ValidationError::"product_attributes" must be an array::
 [2025-04-02T17:50:39.349Z] [error]: HIDE::400::ValidationError::"product_attributes" must be an array::
+[2025-04-02T17:53:32.586Z] [error]: HIDE::400::ValidationError::"sku_list" is required::
+[2025-04-02T17:59:36.560Z] [error]: HIDE::400::ValidationError::"sku_list[0].sku_stock" is required::
+[2025-04-02T18:04:30.022Z] [error]: HIDE::400::ValidationError::"product_cost" must be a number::
+[2025-04-02T18:27:26.587Z] [error]: HIDE::400::ValidationError::"sku_list[0].sku_tier_idx" must be an array::
+[2025-04-02T18:27:40.744Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
+[2025-04-02T18:29:56.061Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
+[2025-04-02T18:30:19.439Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
+[2025-04-02T18:31:47.964Z] [error]: HIDE::400::InvalidPayload::Invalid file extension::
+[2025-04-02T18:32:13.387Z] [error]: HIDE::400::ValidationError::"sku_list[0].sku_price" must be a number::
+[2025-04-02T18:32:35.405Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
+[2025-04-02T18:33:12.591Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
+[2025-04-02T19:10:54.057Z] [error]: HIDE::400::ValidationError::"sku_thumb" is required::
+[2025-04-02T19:12:32.523Z] [error]: HIDE::400::ValidationError::"sku_list[0].sku_stock" must be greater than or equal to 1::

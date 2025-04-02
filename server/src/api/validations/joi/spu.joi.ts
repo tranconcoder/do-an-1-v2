@@ -3,7 +3,6 @@ import Joi from 'joi';
 
 export const createSPU = Joi.object<joiTypes.spu.CreateSPU>({
     product_name: Joi.string().required(),
-    product_cost: Joi.number().required(),
     product_quantity: Joi.number().min(0).required(),
     product_category: mongooseId,
     product_description: Joi.string().required(),

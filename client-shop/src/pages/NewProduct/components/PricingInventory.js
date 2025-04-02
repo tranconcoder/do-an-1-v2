@@ -5,44 +5,67 @@ import styles from '../NewProduct.module.scss';
 const cx = classNames.bind(styles);
 
 function PricingInventory({ formData, handleInputChange, handleNumberChange }) {
-    // Check if SKUs are defined
-    const hasSKUs = formData.skus && formData.skus.length > 0;
+    // Check if there are valid variations with options defined
+    const hasValidVariations = formData.product_variations?.some(
+        (v) =>
+            v.name &&
+            v.options &&
+            v.options.length > 0 &&
+            v.options.some((opt) => opt.trim() !== '')
+    );
 
     // Calculate total quantity from SKUs if available
-    const totalSKUQuantity = hasSKUs
-        ? formData.skus.reduce((sum, sku) => sum + (parseInt(sku.stock) || 0), 0)
-        : 0;
+    const totalSkuQuantity = hasValidVariations
+        ? formData.sku_list.reduce((sum, sku) => sum + (parseInt(sku.sku_stock) || 0), 0)
+        : formData.product_quantity;
+
+    // Update product quantity when SKUs change
+    React.useEffect(() => {
+        if (hasValidVariations) {
+            // Update the product_quantity field with the total from SKUs
+            handleNumberChange({
+                target: {
+                    name: 'product_quantity',
+                    value: totalSkuQuantity
+                }
+            });
+        }
+    }, [formData.sku_list, hasValidVariations]);
 
     return (
         <div className={cx('form-section')}>
             <h2>Pricing & Inventory</h2>
             <p className={cx('section-description')}>
-                Set your product's price and manage inventory levels.
+                {hasValidVariations
+                    ? 'When variations are defined, price and stock are managed through SKUs.'
+                    : "Set your product's price and stock quantity."}
             </p>
 
             <div className={cx('form-row')}>
-                <div className={cx('form-group', 'half')}>
-                    <label htmlFor="product_cost">Price</label>
-                    <div className={cx('price-input')}>
-                        <span className={cx('currency')}>$</span>
-                        <input
-                            type="number"
-                            min="0"
-                            step="0.01"
-                            id="product_cost"
-                            name="product_cost"
-                            value={formData.product_cost}
-                            onChange={handleInputChange}
-                            placeholder="0.00"
-                        />
+                {!hasValidVariations && (
+                    <div className={cx('form-group', 'half')}>
+                        <label htmlFor="product_cost">Price</label>
+                        <div className={cx('price-input')}>
+                            <span className={cx('currency')}>$</span>
+                            <input
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                id="product_cost"
+                                name="product_cost"
+                                value={formData.product_cost}
+                                onChange={handleInputChange}
+                                placeholder="0.00"
+                            />
+                        </div>
                     </div>
-                </div>
+                )}
 
-                <div className={cx('form-group', 'half')}>
+                <div className={cx('form-group', hasValidVariations ? 'full' : 'half')}>
                     <label htmlFor="product_quantity">
                         Quantity
-                        {hasSKUs && (
-                            <span className={cx('quantity-note')}> (calculated from SKUs)</span>
+                        {hasValidVariations && (
+                            <span className={cx('quantity-note')}> (Total from SKUs)</span>
                         )}
                     </label>
                     <input
@@ -50,16 +73,16 @@ function PricingInventory({ formData, handleInputChange, handleNumberChange }) {
                         min="0"
                         id="product_quantity"
                         name="product_quantity"
-                        value={hasSKUs ? totalSKUQuantity : formData.product_quantity}
-                        onChange={handleNumberChange}
+                        value={hasValidVariations ? totalSkuQuantity : formData.product_quantity}
+                        onChange={!hasValidVariations ? handleNumberChange : undefined}
                         placeholder="0"
-                        disabled={hasSKUs}
-                        className={cx({ 'disabled-input': hasSKUs })}
+                        disabled={hasValidVariations}
+                        className={cx({ 'disabled-input': hasValidVariations })}
                     />
-                    {hasSKUs && (
+                    {hasValidVariations && (
                         <div className={cx('help-text')}>
-                            This value is the sum of all SKU quantities. To change it, update
-                            individual SKU stock levels.
+                            This value is automatically calculated as the sum of all SKU quantities
+                            and cannot be edited directly.
                         </div>
                     )}
                 </div>

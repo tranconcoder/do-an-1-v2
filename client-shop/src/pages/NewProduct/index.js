@@ -25,14 +25,22 @@ function NewProduct() {
         product_cost: '',
         product_quantity: 0,
         product_category: '',
-        product_attributes: [], // Initialize as empty array
+        product_attributes: [],
         product_variations: [],
         product_thumb: null,
         product_images: [],
         is_draft: true,
         is_publish: false,
-        sku_list: [],
-        skus: []
+        sku_list: [
+            {
+                sku_tier_idx: [],
+                selected_options: {},
+                thumb: null,
+                images: [],
+                sku_stock: 0,
+                sku_price: ''
+            }
+        ]
     });
 
     useEffect(() => {
@@ -103,68 +111,72 @@ function NewProduct() {
         }
     };
 
-    const prepareFormDataForSubmission = () => {
+    const prepareFormDataForSubmission = (data = formData) => {
         // Create a new FormData instance
         const formDataToSubmit = new FormData();
 
         // Add basic fields
-        formDataToSubmit.append('product_name', formData.product_name);
-        formDataToSubmit.append('product_description', formData.product_description);
-        formDataToSubmit.append('product_cost', formData.product_cost);
-        formDataToSubmit.append('product_quantity', formData.product_quantity);
-        formDataToSubmit.append('product_category', formData.product_category);
-        formDataToSubmit.append('is_draft', formData.is_draft);
-        formDataToSubmit.append('is_publish', formData.is_publish);
+        formDataToSubmit.append('product_name', data.product_name);
+        formDataToSubmit.append('product_description', data.product_description);
+        formDataToSubmit.append('product_cost', data.product_cost);
+        formDataToSubmit.append('product_quantity', data.product_quantity);
+        formDataToSubmit.append('product_category', data.product_category);
+        formDataToSubmit.append('is_draft', data.is_draft);
+        formDataToSubmit.append('is_publish', data.is_publish);
 
         // Add thumbnail image
-        if (formData.product_thumb && formData.product_thumb.file) {
-            formDataToSubmit.append('product_thumb', formData.product_thumb.file);
+        if (data.product_thumb && data.product_thumb.file) {
+            formDataToSubmit.append('product_thumb', data.product_thumb.file);
         }
 
         // Add product images
-        if (formData.product_images && formData.product_images.length > 0) {
-            formData.product_images.forEach((image) => {
+        if (data.product_images && data.product_images.length > 0) {
+            data.product_images.forEach((image) => {
                 if (image.file) {
                     formDataToSubmit.append('product_images', image.file);
                 }
             });
         }
 
-        // Add attributes as JSON string
-        const formattedAttributes = Array.isArray(formData.product_attributes)
-            ? formData.product_attributes
-                  .filter((attr) => attr && attr.key && attr.value)
-                  .map((attr) => ({
-                      attr_name: attr.key,
-                      attr_value: attr.value
-                  }))
-            : [];
+        // Add attributes as array
+        if (Array.isArray(data.product_attributes)) {
+            data.product_attributes.forEach((attr, index) => {
+                if (attr && attr.key && attr.value) {
+                    formDataToSubmit.append(`product_attributes[${index}][attr_name]`, attr.key);
+                    formDataToSubmit.append(`product_attributes[${index}][attr_value]`, attr.value);
+                }
+            });
+        }
 
-        formDataToSubmit.append('product_attributes', JSON.stringify(formattedAttributes));
-
-        // Add variations as JSON string
-        const formattedVariations = Array.isArray(formData.product_variations)
-            ? formData.product_variations.map((variation) => ({
-                  variation_name: variation.name,
-                  variation_values: variation.options
-              }))
-            : [];
-
-        formDataToSubmit.append('product_variations', JSON.stringify(formattedVariations));
+        // Add variations as array
+        if (Array.isArray(data.product_variations)) {
+            data.product_variations.forEach((variation, index) => {
+                formDataToSubmit.append(
+                    `product_variations[${index}][variation_name]`,
+                    variation.name
+                );
+                variation.options.forEach((option, optIndex) => {
+                    formDataToSubmit.append(
+                        `product_variations[${index}][variation_values][${optIndex}]`,
+                        option
+                    );
+                });
+            });
+        }
 
         // Add SKU information
-        if (formData.skus && formData.skus.length > 0) {
-            // Always initialize sku_images_map as an array with same length as skus
-            const skuImagesMap = new Array(formData.skus.length).fill(0);
+        if (data.sku_list && data.sku_list.length > 0) {
+            // Always initialize sku_images_map as an array with same length as sku_list
+            const skuImagesMap = new Array(data.sku_list.length).fill(0);
             let hasSkuImages = false;
 
-            // Add SKU thumbnails
-            formData.skus.forEach((sku, index) => {
+            // Add SKU thumbnails and data
+            data.sku_list.forEach((sku, index) => {
                 if (sku.thumb && sku.thumb.file) {
                     formDataToSubmit.append('sku_thumb', sku.thumb.file);
                 }
 
-                // Add SKU images and update sku_images_map
+                // Add SKU images
                 if (sku.images && sku.images.length > 0) {
                     skuImagesMap[index] = sku.images.length;
                     hasSkuImages = true;
@@ -175,27 +187,27 @@ function NewProduct() {
                         }
                     });
                 }
+
+                // Add SKU data as array items
+                formDataToSubmit.append(`sku_list[${index}][sku_tier_idx]`, sku.sku_tier_idx);
+                formDataToSubmit.append(`sku_list[${index}][sku_stock]`, sku.sku_stock);
+                formDataToSubmit.append(`sku_list[${index}][sku_price]`, sku.sku_price);
             });
 
-            // Only append sku_images_map if there are any SKU images
+            // Handle SKU images map
             if (hasSkuImages) {
-                formDataToSubmit.append('sku_images_map', JSON.stringify(skuImagesMap));
+                skuImagesMap.forEach((count, index) => {
+                    formDataToSubmit.append(`sku_images_map[${index}]`, count);
+                });
             } else {
-                // If no SKU images, set empty arrays
                 formDataToSubmit.append(
                     'sku_images',
                     new Blob([], { type: 'application/octet-stream' })
                 );
-                formDataToSubmit.append('sku_images_map', JSON.stringify(skuImagesMap));
+                skuImagesMap.forEach((count, index) => {
+                    formDataToSubmit.append(`sku_images_map[${index}]`, count);
+                });
             }
-
-            // Add SKU data as JSON
-            const skuData = formData.skus.map((sku) => ({
-                sku_tier_idx: sku.sku_tier_idx,
-                stock: sku.stock,
-                cost: sku.cost
-            }));
-            formDataToSubmit.append('skus', JSON.stringify(skuData));
         }
 
         return formDataToSubmit;
@@ -230,10 +242,38 @@ function NewProduct() {
                 return;
             }
 
-            // Prepare FormData for submission
-            const formDataToSubmit = prepareFormDataForSubmission();
+            // Check if we have any SKUs with filled in data
+            const hasFilledSkus = formData.sku_list.some(
+                (sku) => sku.sku_price || sku.sku_stock > 0 || sku.thumb || sku.images.length > 0
+            );
 
-            // Submit the form data to the API using FormData
+            let submissionData;
+
+            // If no SKUs have data entered, create a default SKU from product info
+            if (!hasFilledSkus) {
+                const defaultSku = {
+                    sku_tier_idx: [],
+                    selected_options: {},
+                    thumb: formData.product_thumb,
+                    images: [...formData.product_images],
+                    sku_stock: parseInt(formData.product_quantity) || 0,
+                    sku_price: formData.product_cost || 0
+                };
+
+                submissionData = {
+                    ...formData,
+                    sku_list: [defaultSku]
+                };
+
+                console.log('Created default SKU from product info:', defaultSku);
+            } else {
+                submissionData = formData;
+            }
+
+            // Prepare FormData for submission with correct data
+            const formDataToSubmit = prepareFormDataForSubmission(submissionData);
+
+            // Submit the form data to the API
             const response = await axiosClient.post(`${API_URL}/spu/create`, formDataToSubmit, {
                 headers: {
                     'Content-Type': 'multipart/form-data'

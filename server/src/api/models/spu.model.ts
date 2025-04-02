@@ -15,7 +15,6 @@ const spuSchema = new Schema<model.spu.SPUSchema, true>(
     {
         /* ------------------------ Product ------------------------ */
         product_name: { type: String, required },
-        product_cost: { type: Number, required },
         product_thumb: { type: ObjectId, ref: MEDIA_MODEL_NAME, required },
         product_quantity: { type: Number, required },
         product_description: { type: String, required },

@@ -6,7 +6,11 @@ declare global {
             interface CreateSPU
                 extends Omit<
                     service.spu.arguments.CreateSPU,
-                    'product_shop' | 'product_thumb' | 'product_images' | 'mediaIds'
+                    | 'product_shop'
+                    | 'product_thumb'
+                    | 'product_images'
+                    | 'product_quantity'
+                    | 'mediaIds'
                 > {}
         }
     }
