@@ -24,7 +24,7 @@ function NewProduct() {
         product_shop: '',
         product_quantity: 0,
         product_category: '',
-        product_attributes: {},
+        product_attributes: [], // Initialize as empty array
         product_variations: [],
         product_thumb: null,
         product_images: [],
@@ -86,48 +86,27 @@ function NewProduct() {
 
     const handleAttributeChange = (e) => {
         const { name, value } = e.target;
-
-        // Store the attribute data in a format matching the spu.model.ts
-        setFormData((prev) => {
-            // Get the attribute details from the corresponding attribute
-            const attributeDetails = categories
-                .flatMap((cat) => {
-                    // This is a placeholder - in reality you would fetch attribute details from your API
-                    // or store them when fetching attributes in the ProductAttributes component
-                    return [];
-                })
-                .find((attr) => attr._id === name);
-
-            const attrName = attributeDetails?.attribute_name || name;
-
-            // Check if this attribute already exists in the array
-            const existingAttrIndex = prev.product_attributes[name] !== undefined ? 0 : -1;
-
-            // Create the new attributes object
-            const updatedAttributes = { ...prev.product_attributes, [name]: value };
-
-            return {
+        // Check if the change is for product_attributes
+        if (name === 'product_attributes') {
+            setFormData(prev => ({
                 ...prev,
-                product_attributes: updatedAttributes
-            };
-        });
+                product_attributes: value
+            }));
+        } else {
+            // Handle other form field changes
+            setFormData(prev => ({
+                ...prev,
+                [name]: value
+            }));
+        }
     };
 
     const formatFormDataForSubmission = () => {
-        // Convert the product_attributes object to the array format expected by the API
-        const formattedAttributes = Object.entries(formData.product_attributes).map(
-            ([attrId, attrValue]) => {
-                // Find the attribute name from your attributes data
-                // This is placeholder logic - you would need to get the actual attribute names
-                const attrName = 'Attribute'; // Replace with actual attribute name lookup
-
-                return {
-                    attr_id: attrId,
-                    attr_name: attrName,
-                    attr_value: attrValue
-                };
-            }
-        );
+        // Convert the product_attributes array format to match the API schema
+        const formattedAttributes = formData.product_attributes.map(attr => ({
+            attr_name: attr.key,
+            attr_value: attr.value
+        }));
 
         // Format variations to match the schema
         const formattedVariations = formData.product_variations.map((variation) => ({
@@ -241,7 +220,7 @@ function NewProduct() {
 
                         <ProductAttributes
                             formData={formData}
-                            handleAttributeChange={handleAttributeChange}
+                            handleAttributeChange={handleInputChange}
                         />
                     </div>
 

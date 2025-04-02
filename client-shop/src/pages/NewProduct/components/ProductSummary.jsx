@@ -23,7 +23,7 @@ function ProductSummary({ formData }) {
             <div className={cx('summary-item')}>
                 <span className={cx('summary-label')}>Price:</span>
                 <span className={cx('summary-value')}>
-                    {formData.product_cost || '(Not specified)'}
+                    {formData.product_cost ? `₫${formData.product_cost}` : '(Not specified)'}
                 </span>
             </div>
             <div className={cx('summary-item')}>
@@ -34,13 +34,19 @@ function ProductSummary({ formData }) {
             </div>
             <div className={cx('summary-item')}>
                 <span className={cx('summary-label')}>Attributes:</span>
-                <ul className={cx('summary-value')}>
-                    {Object.entries(formData.product_attributes).map(([key, value]) => (
-                        <li key={key}>
-                            {key}: {value}
-                        </li>
-                    ))}
-                </ul>
+                <div className={cx('summary-value')}>
+                    {formData.product_attributes.length > 0 ? (
+                        <ul className={cx('attributes-list')}>
+                            {formData.product_attributes.map((attr, index) => (
+                                <li key={index}>
+                                    {attr.key}: {attr.value}
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        '(No attributes added)'
+                    )}
+                </div>
             </div>
         </div>
     );
