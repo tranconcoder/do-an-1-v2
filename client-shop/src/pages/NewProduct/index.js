@@ -101,31 +101,76 @@ function NewProduct() {
         }
     };
 
-    const formatFormDataForSubmission = () => {
-        // Convert the product_attributes array format to match the API schema
+    const prepareFormDataForSubmission = () => {
+        // Create a new FormData instance
+        const formDataToSubmit = new FormData();
+
+        // Add basic fields
+        formDataToSubmit.append('product_name', formData.product_name);
+        formDataToSubmit.append('product_description', formData.product_description);
+        formDataToSubmit.append('product_cost', formData.product_cost);
+        formDataToSubmit.append('product_quantity', formData.product_quantity);
+        formDataToSubmit.append('product_category', formData.product_category);
+        formDataToSubmit.append('is_draft', formData.is_draft);
+        formDataToSubmit.append('is_publish', formData.is_publish);
+
+        // Add thumbnail image
+        if (formData.product_thumb && formData.product_thumb.file) {
+            formDataToSubmit.append('product_thumb', formData.product_thumb.file);
+        }
+
+        // Add product images
+        if (formData.product_images && formData.product_images.length > 0) {
+            formData.product_images.forEach((image, index) => {
+                if (image.file) {
+                    formDataToSubmit.append(`product_images`, image.file);
+                }
+            });
+        }
+
+        // Add attributes as JSON string
         const formattedAttributes = Array.isArray(formData.product_attributes)
             ? formData.product_attributes
-                  .filter((attr) => attr && attr.key && attr.value) // Filter out empty attributes
+                  .filter((attr) => attr && attr.key && attr.value)
                   .map((attr) => ({
                       attr_name: attr.key,
                       attr_value: attr.value
                   }))
             : [];
 
-        // Format variations to match the schema
+        formDataToSubmit.append('product_attributes', JSON.stringify(formattedAttributes));
+
+        // Add variations as JSON string
         const formattedVariations = Array.isArray(formData.product_variations)
-            ? formData.product_variations.map((variation) => ({
-                  variation_name: variation.name,
-                  variation_values: variation.options,
-                  variation_images: [] // You would add image handling here
-              }))
+            ? formData.product_variations.map((variation) => {
+                  const formattedVariation = {
+                      variation_name: variation.name,
+                      variation_values: variation.options
+                  };
+                  return formattedVariation;
+              })
             : [];
 
-        return {
-            ...formData,
-            product_attributes: formattedAttributes,
-            product_variations: formattedVariations
-        };
+        formDataToSubmit.append('product_variations', JSON.stringify(formattedVariations));
+
+        // Add variation images separately
+        if (Array.isArray(formData.product_variations)) {
+            formData.product_variations.forEach((variation, variationIndex) => {
+                // Add variation thumbnail
+                if (variation.thumb && variation.thumb.file) {
+                    formDataToSubmit.append(`sku_thumb`, variation.thumb.file);
+                }
+
+                // Add variation images
+                if (variation.images && variation.images.length > 0) {
+                    variation.images.forEach((image) => {
+                        formDataToSubmit.append(`sku_images`, image.file);
+                    });
+                }
+            });
+        }
+
+        return formDataToSubmit;
     };
 
     const handleSubmit = async (e) => {
@@ -157,11 +202,15 @@ function NewProduct() {
                 return;
             }
 
-            // Format data for API submission
-            const formattedData = formatFormDataForSubmission();
+            // Prepare FormData for submission
+            const formDataToSubmit = prepareFormDataForSubmission();
 
-            // Submit the form data to the API
-            const response = await axiosClient(`${API_URL}/spu/create`, formattedData);
+            // Submit the form data to the API using FormData
+            const response = await axiosClient.post(`${API_URL}/spu/create`, formDataToSubmit, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
 
             if (response.data && response.data.statusCode === 201) {
                 alert('Product created successfully!');

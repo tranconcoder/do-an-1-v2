@@ -505,3 +505,39 @@
 [2025-04-02T10:18:51.068Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-04-02T10:18:53.484Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-04-02T10:19:01.664Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-02T10:20:04.245Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-02T10:20:40.080Z] [error]: HIDE::400::PayloadTooLargeError::request entity too large::
+[2025-04-02T10:21:37.386Z] [error]: HIDE::400::PayloadTooLargeError::request entity too large::
+[2025-04-02T10:25:39.808Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T10:49:47.572Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T10:53:14.205Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-02T10:53:14.243Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-02T10:53:14.411Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-04-02T10:53:14.511Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:14.606Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:14.716Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:14.809Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:14.916Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:15.031Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:15.165Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:15.295Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:15.403Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:15.518Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:15.647Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:15.767Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:15.898Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:16.046Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:16.210Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:16.378Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:16.482Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:16.588Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:16.687Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:53:16.838Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T10:57:06.209Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T10:57:12.904Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-02T11:00:04.174Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-04-02T11:01:41.987Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-04-02T11:01:47.076Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-04-02T11:02:01.496Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-04-02T11:02:14.040Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-02T11:09:42.370Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
