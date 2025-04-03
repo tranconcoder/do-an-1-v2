@@ -4,53 +4,66 @@ import styles from './ProductAttributes.module.scss';
 
 const cx = classNames.bind(styles);
 
-function ProductAttributes({ formData, setFormData }) {
+function ProductAttributes({ formData, handleAttributeChange }) {
     const handleAddAttribute = () => {
-        setFormData((prev) => ({
-            ...prev,
-            product_attributes: [...prev.product_attributes, { key: '', value: '' }]
-        }));
+        const currentAttributes = formData.product_attributes || [];
+        handleAttributeChange({
+            target: {
+                name: 'product_attributes',
+                value: [...currentAttributes, { key: '', value: '' }]
+            }
+        });
     };
 
     const handleRemoveAttribute = (index) => {
-        setFormData((prev) => ({
-            ...prev,
-            product_attributes: prev.product_attributes.filter((_, i) => i !== index)
-        }));
+        const newAttributes = formData.product_attributes.filter((_, i) => i !== index);
+        handleAttributeChange({
+            target: {
+                name: 'product_attributes',
+                value: newAttributes
+            }
+        });
     };
 
-    const handleAttributeChange = (index, field, value) => {
-        setFormData((prev) => ({
-            ...prev,
-            product_attributes: prev.product_attributes.map((attr, i) =>
-                i === index ? { ...attr, [field]: value } : attr
-            )
-        }));
+    const handleAttributeFieldChange = (index, field, value) => {
+        const updatedAttributes = formData.product_attributes.map((attr, i) =>
+            i === index ? { ...attr, [field]: value } : attr
+        );
+        handleAttributeChange({
+            target: {
+                name: 'product_attributes',
+                value: updatedAttributes
+            }
+        });
     };
 
     return (
-        <div className={cx('product-attributes')}>
+        <div className={cx('product-attributes', 'form-section')}>
             <h2>Product Attributes</h2>
-            <p className={cx('description')}>
+            <p className={cx('section-description')}>
                 Add custom attributes for your product (e.g. Material: Cotton, Origin: Vietnam)
             </p>
 
             {formData.product_attributes.map((attr, index) => (
-                <div key={index} className={cx('attribute-row')}>
-                    <div className={cx('attribute-inputs')}>
+                <div key={index} className={cx('attributes-row')}>
+                    <div className={cx('attributes-inputs')}>
                         <input
                             type="text"
                             placeholder="Attribute name"
                             value={attr.key}
-                            onChange={(e) => handleAttributeChange(index, 'key', e.target.value)}
-                            className={cx('attribute-input')}
+                            onChange={(e) =>
+                                handleAttributeFieldChange(index, 'key', e.target.value)
+                            }
+                            className={cx('attributes-input')}
                         />
                         <input
                             type="text"
                             placeholder="Attribute value"
                             value={attr.value}
-                            onChange={(e) => handleAttributeChange(index, 'value', e.target.value)}
-                            className={cx('attribute-input')}
+                            onChange={(e) =>
+                                handleAttributeFieldChange(index, 'value', e.target.value)
+                            }
+                            className={cx('attributes-input')}
                         />
                     </div>
                     <button

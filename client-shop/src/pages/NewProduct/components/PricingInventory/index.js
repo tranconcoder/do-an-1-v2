@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import styles from '../NewProduct.module.scss';
+import styles from './PricingInventory.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -27,7 +27,6 @@ function PricingInventory({ formData, handleInputChange, handleNumberChange }) {
                     ? 'When variations are defined, stock is managed through SKUs.'
                     : 'Stock quantity will be managed through SKUs.'}
             </p>
-
             <div className={cx('form-row')}>
                 <div className={cx('form-group', 'full')}>
                     <label htmlFor="product_quantity">

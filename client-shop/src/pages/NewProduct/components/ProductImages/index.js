@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from '../NewProduct.module.scss';
+import styles from './ProductImages.module.scss';
 import { FaUpload, FaTimes, FaExclamationTriangle } from 'react-icons/fa';
-import ImagePreviewModal from '../../../components/ImagePreviewModal';
+import ImagePreviewModal from '../../../../components/ImagePreviewModal';
 
 const cx = classNames.bind(styles);
 
