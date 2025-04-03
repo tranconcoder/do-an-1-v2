@@ -29,12 +29,12 @@ spuPostRoute.post(
     uploadFieldsMedia(
         {
             /* --------------------------- SPU -------------------------- */
-            [SPUImages.PRODUCT_THUMB]: [1, 1],
-            [SPUImages.PRODUCT_IMAGES]: [3, 10],
+            [SPUImages.PRODUCT_THUMB]: { min: 1, max: 1 },
+            [SPUImages.PRODUCT_IMAGES]: { min: 3, max: 10 },
 
             /* --------------------------- SKU -------------------------- */
-            [SKUImages.SKU_THUMB]: [0, 30],
-            [SKUImages.SKU_IMAGES]: [0, 150]
+            [SKUImages.SKU_THUMB]: { min: 0, max: 30, sort: ['name', 'asc'] },
+            [SKUImages.SKU_IMAGES]: { min: 0, max: 150, sort: ['name', 'asc'] }
         },
         uploadSPU,
         'Product images'

@@ -51,9 +51,6 @@ export default new (class SPUService {
 
         /* --------------------- Handle save spu ------------------- */
         const quantity = sku_list.reduce((acc, cur) => acc + cur.sku_stock, 0);
-        console.log({
-            mediaIds
-        });
         const spu = await spuModel.create({
             product_name: payload.product_name,
             product_quantity: quantity,
@@ -77,7 +74,7 @@ export default new (class SPUService {
                 skuPromises = await Promise.all(
                     sku_list.map(async (sku, index) => {
                         const skuImageStartIdx = sku_images_map
-                            .slice(0, index + 1)
+                            .slice(0, index)
                             .reduce((acc, cur) => acc + cur, 0);
                         const skuImageCount = sku_images_map[index];
 

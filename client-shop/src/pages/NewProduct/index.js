@@ -177,20 +177,25 @@ function NewProduct() {
                 // Add SKU thumbnails and images
                 data.sku_list.forEach((sku, index) => {
                     if (sku.thumb && sku.thumb.file) {
-                        formDataToSubmit.append('sku_thumb', sku.thumb.file);
+                        formDataToSubmit.append(`sku_thumb`, sku.thumb.file);
                     }
 
                     if (sku.images && sku.images.length > 0) {
                         skuImagesMap[index] = sku.images.length;
                         hasSkuImages = true;
-
-                        sku.images.forEach((image) => {
-                            if (image.file) {
-                                formDataToSubmit.append('sku_images', image.file);
-                            }
-                        });
                     }
                 });
+
+                data.sku_list
+                    .flatMap((sku) => sku.images)
+                    .forEach((image, index) => {
+                        const name = index + '.' + image.file.name.split('.')[1];
+                        const newFile = new File([image.file], name, { type: image.file.type });
+
+                        console.log(newFile);
+
+                        formDataToSubmit.append('sku_images', newFile);
+                    });
 
                 // Handle SKU images map
                 if (hasSkuImages) {
@@ -268,7 +273,7 @@ function NewProduct() {
 
             if (response.data && response.data.statusCode === 201) {
                 alert('Product created successfully!');
-                navigate('/products');
+                // navigate('/products');
             }
         } catch (error) {
             console.error('Error submitting product:', error);

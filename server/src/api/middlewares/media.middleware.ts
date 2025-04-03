@@ -47,8 +47,35 @@ export const uploadSingleMedia = (
         });
     });
 
+type SortType = 'asc' | 'desc';
+type SortFields = 'name' | 'size';
+
+const sortMethods: {
+    [key in SortType]: {
+        [key in SortFields]: (a: Express.Multer.File, b: Express.Multer.File) => number;
+    };
+} = {
+    asc: {
+        name: (a: Express.Multer.File, b: Express.Multer.File) =>
+            a.originalname.localeCompare(b.originalname),
+        size: (a: Express.Multer.File, b: Express.Multer.File) => a.size - b.size
+    },
+    desc: {
+        name: (a: Express.Multer.File, b: Express.Multer.File) =>
+            b.originalname.localeCompare(a.originalname),
+        size: (a: Express.Multer.File, b: Express.Multer.File) => b.size - a.size
+    }
+};
+const getSortStrategy = (field: SortFields, type: SortType) => {
+    return sortMethods[type][field];
+};
+
 export const uploadFieldsMedia = (
-    fields: commonTypes.object.ObjectAnyKeys<[number, number]>,
+    fields: commonTypes.object.ObjectAnyKeys<{
+        min: number;
+        max: number;
+        sort?: [SortFields, SortType];
+    }>,
     multerMiddleware: Multer,
     title: string
 ) =>
@@ -56,7 +83,7 @@ export const uploadFieldsMedia = (
         const keys = Object.keys(fields);
         const fieldArray: Required<Field>[] = keys.map((key) => ({
             name: key,
-            maxCount: fields[key][1]
+            maxCount: fields[key].max
         }));
 
         const filesSchema = Joi.object(
@@ -65,8 +92,8 @@ export const uploadFieldsMedia = (
                     key,
                     Joi.array()
                         .items(Joi.object())
-                        .min(fields[key][0])
-                        .max(fields[key][1])
+                        .min(fields[key].min)
+                        .max(fields[key].max)
                         .required()
                 ])
             )
@@ -76,6 +103,7 @@ export const uploadFieldsMedia = (
 
         multerMiddleware.fields(fieldArray)(req, res, async (err) => {
             if (err) return next(err);
+            console.log(req.files);
 
             try {
                 /* -------------- Handle create media document -------------- */
@@ -89,6 +117,11 @@ export const uploadFieldsMedia = (
                     Object.keys(filesFields).map(async (key) => {
                         const files = filesFields[key];
                         mediaIds[key] = [];
+
+                        if (fields[key].sort) {
+                            // Strategy pattern
+                            files.sort(getSortStrategy(fields[key].sort[0], fields[key].sort[1]));
+                        }
 
                         await Promise.all(
                             files.map(async (file) => {

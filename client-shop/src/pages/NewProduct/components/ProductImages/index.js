@@ -21,6 +21,9 @@ function ProductImages({ formData, setFormData }) {
     const [isDraggingThumb, setIsDraggingThumb] = useState(false);
     const [isDraggingImages, setIsDraggingImages] = useState(false);
 
+    // Add error state for URL drops
+    const [dragError, setDragError] = useState('');
+
     // Add refs for the file inputs
     const thumbInputRef = useRef(null);
     const imagesInputRef = useRef(null);
@@ -42,6 +45,13 @@ function ProductImages({ formData, setFormData }) {
     // Handle replacing an image from the modal
     const handleReplaceImage = (file) => {
         if (!file) return;
+        
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+            setDragError('Only image files are allowed.');
+            setTimeout(() => setDragError(''), 5000);
+            return;
+        }
 
         const reader = new FileReader();
 
@@ -101,11 +111,39 @@ function ProductImages({ formData, setFormData }) {
         return true;
     };
 
+    const validateFile = (file) => {
+        // Kiểm tra có phải là file hay không
+        if (!file || !(file instanceof File)) {
+            setDragError('Không tìm thấy file hợp lệ. Vui lòng chọn file hình ảnh.');
+            setTimeout(() => setDragError(''), 5000);
+            return false;
+        }
+        
+        // Kiểm tra file có phải là hình ảnh không
+        if (!file.type.startsWith('image/')) {
+            setDragError('Chỉ cho phép tải lên file hình ảnh (jpg, png, jpeg, gif).');
+            setTimeout(() => setDragError(''), 5000);
+            return false;
+        }
+
+        // Kiểm tra kích thước file (tối đa 5MB)
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size > maxSize) {
+            setDragError('Kích thước file không được vượt quá 5MB.');
+            setTimeout(() => setDragError(''), 5000);
+            return false;
+        }
+
+        return true;
+    };
+
     const handleThumbUpload = (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
-        processThumbFile(file);
+        if (validateFile(file)) {
+            processThumbFile(file);
+        }
     };
 
     const processThumbFile = (file) => {
@@ -129,7 +167,10 @@ function ProductImages({ formData, setFormData }) {
         const files = Array.from(e.target.files);
         if (!files.length) return;
 
-        processImageFiles(files);
+        const validFiles = files.filter(file => validateFile(file));
+        if (validFiles.length > 0) {
+            processImageFiles(validFiles);
+        }
     };
 
     const processImageFiles = (files) => {
@@ -162,6 +203,8 @@ function ProductImages({ formData, setFormData }) {
         e.preventDefault();
         e.stopPropagation();
         setIsDraggingThumb(true);
+        // Clear any previous error
+        setDragError('');
     };
 
     const handleThumbDragLeave = (e) => {
@@ -180,9 +223,29 @@ function ProductImages({ formData, setFormData }) {
         e.stopPropagation();
         setIsDraggingThumb(false);
 
-        const files = e.dataTransfer.files;
-        if (files && files.length > 0) {
-            processThumbFile(files[0]);
+        // Kiểm tra liệu browser có hỗ trợ dataTransfer.items hay không
+        if (!e.dataTransfer.items && !e.dataTransfer.files) {
+            setDragError('Trình duyệt của bạn không hỗ trợ tính năng kéo thả file.');
+            setTimeout(() => setDragError(''), 5000);
+            return;
+        }
+
+        // Kiểm tra xem có phải đang kéo thả file hay không
+        const isFileDrop = Array.from(e.dataTransfer.types).some(
+            type => type.toLowerCase() === 'files'
+        );
+        
+        if (isFileDrop && e.dataTransfer.files.length > 0) {
+            const file = e.dataTransfer.files[0];
+            if (file && validateFile(file)) {
+                processThumbFile(file);
+            } else if (!file) {
+                setDragError('Không tìm thấy file. Vui lòng chọn một file hình ảnh.');
+                setTimeout(() => setDragError(''), 5000);
+            }
+        } else {
+            setDragError('Vui lòng chọn một file hình ảnh để tải lên. Không thể sử dụng URL hoặc văn bản.');
+            setTimeout(() => setDragError(''), 5000);
         }
     };
 
@@ -191,6 +254,8 @@ function ProductImages({ formData, setFormData }) {
         e.preventDefault();
         e.stopPropagation();
         setIsDraggingImages(true);
+        // Clear any previous error
+        setDragError('');
     };
 
     const handleImagesDragLeave = (e) => {
@@ -209,9 +274,31 @@ function ProductImages({ formData, setFormData }) {
         e.stopPropagation();
         setIsDraggingImages(false);
 
-        const files = Array.from(e.dataTransfer.files);
-        if (files && files.length > 0) {
-            processImageFiles(files);
+        // Kiểm tra liệu browser có hỗ trợ dataTransfer.items hay không
+        if (!e.dataTransfer.items && !e.dataTransfer.files) {
+            setDragError('Trình duyệt của bạn không hỗ trợ tính năng kéo thả file.');
+            setTimeout(() => setDragError(''), 5000);
+            return;
+        }
+
+        // Kiểm tra xem có phải đang kéo thả file hay không
+        const isFileDrop = Array.from(e.dataTransfer.types).some(
+            type => type.toLowerCase() === 'files'
+        );
+        
+        if (isFileDrop && e.dataTransfer.files.length > 0) {
+            const files = Array.from(e.dataTransfer.files);
+            const validFiles = files.filter(file => validateFile(file));
+            
+            if (validFiles.length > 0) {
+                processImageFiles(validFiles);
+            } else if (files.length > 0 && validFiles.length === 0) {
+                setDragError('Các file được chọn không hợp lệ. Vui lòng chỉ chọn file hình ảnh (jpg, png, jpeg).');
+                setTimeout(() => setDragError(''), 5000);
+            }
+        } else {
+            setDragError('Vui lòng chọn file hình ảnh để tải lên. Không thể sử dụng URL hoặc văn bản.');
+            setTimeout(() => setDragError(''), 5000);
         }
     };
 
@@ -233,6 +320,13 @@ function ProductImages({ formData, setFormData }) {
         <div className={cx('form-section')}>
             <h2>Product Images</h2>
 
+            {/* Hiển thị thông báo lỗi nếu có */}
+            {dragError && (
+                <div className={cx('error-message', 'drag-error')}>
+                    <FaExclamationTriangle /> {dragError}
+                </div>
+            )}
+
             {/* Thumbnail Section */}
             <div className={cx('form-group')}>
                 <label>
@@ -240,7 +334,7 @@ function ProductImages({ formData, setFormData }) {
                 </label>
                 <div
                     className={cx('upload-box', {
-                        'error-border': errors.thumbnail,
+                        'error-border': errors.thumbnail || dragError,
                         dragging: isDraggingThumb
                     })}
                     onDragEnter={handleThumbDragEnter}
@@ -255,7 +349,6 @@ function ProductImages({ formData, setFormData }) {
                         className={cx('file-input')}
                         onChange={handleThumbUpload}
                         accept="image/*"
-                        required
                     />
                     <div className={cx('upload-placeholder')}>
                         <FaUpload className={cx('upload-icon')} />
@@ -297,7 +390,7 @@ function ProductImages({ formData, setFormData }) {
                 </label>
                 <div
                     className={cx('upload-box', {
-                        'error-border': errors.additionalImages,
+                        'error-border': errors.additionalImages || dragError,
                         dragging: isDraggingImages
                     })}
                     onDragEnter={handleImagesDragEnter}

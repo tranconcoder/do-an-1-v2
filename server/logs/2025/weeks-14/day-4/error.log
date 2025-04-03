@@ -8,3 +8,15 @@
 [2025-04-03T03:36:33.013Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-04-03T03:36:51.647Z] [error]: HIDE::400::ValidationError::"sku_list[0].sku_price" must be a number::
 [2025-04-03T03:37:15.204Z] [error]: HIDE::400::ValidationError::"sku_list[0].sku_price" must be a number::
+[2025-04-03T06:35:18.344Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-03T06:35:18.615Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-03T06:35:20.378Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-03T06:35:21.972Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-03T07:23:07.904Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-03T07:23:15.958Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-03T07:23:21.937Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-03T07:32:52.986Z] [error]: HIDE::400::MulterError::Unexpected field::
+[2025-04-03T08:03:44.502Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-04-03T08:04:11.179Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-04-03T08:04:31.419Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-04-03T08:07:06.577Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
