@@ -243,12 +243,112 @@
     padding: 1.2rem;
     margin-bottom: 1.5rem;
     border: 1px solid #e2e8f0;
+    margin-top: 1.5rem;
 
     h3 {
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-weight: 600;
-        color: #334155;
+        color: #2d3748;
         margin-bottom: 1rem;
+    }
+
+    .inventory-pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+    }
+
+    .sku-field {
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: #4a5568;
+        }
+
+        .warehouse-select {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            font-size: 0.95rem;
+            color: #2d3748;
+            background-color: white;
+            transition: all 0.2s;
+            cursor: pointer;
+
+            &:focus {
+                outline: none;
+                border-color: #4299e1;
+                box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+            }
+
+            option {
+                padding: 0.5rem;
+            }
+
+            &:required:invalid {
+                color: #a0aec0;
+            }
+        }
+
+        .sku-input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+
+            &:focus {
+                outline: none;
+                border-color: #4299e1;
+                box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+            }
+        }
+
+        .price-input {
+            position: relative;
+
+            .currency {
+                position: absolute;
+                left: 0.7rem;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #718096;
+                font-size: 0.95rem;
+            }
+
+            input {
+                padding-left: 1.8rem;
+            }
+        }
+    }
+}
+
+.warehouse-select {
+    &.error-border {
+        border-color: #e53e3e !important;
+        box-shadow: 0 0 0 1px rgba(229, 62, 62, 0.1) !important;
+
+        &:focus {
+            border-color: #e53e3e !important;
+            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.15) !important;
+        }
+    }
+}
+
+.field-error {
+    color: #e53e3e;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    &::before {
+        content: '⚠️';
+        font-size: 0.875rem;
     }
 }
 

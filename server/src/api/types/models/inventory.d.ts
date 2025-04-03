@@ -12,7 +12,7 @@ declare global {
                 isDoc = false
             > = moduleTypes.mongoose.MongooseType<
                 {
-                    inventory_product: moduleTypes.mongoose.ObjectId;
+                    inventory_sku: moduleTypes.mongoose.ObjectId;
                     inventory_shop: moduleTypes.mongoose.ObjectId;
                     inventory_stock: number;
                     inventory_location?: string;

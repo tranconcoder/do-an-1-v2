@@ -33,3 +33,57 @@
 [2025-04-03T08:57:04.123Z] [error]: Client must be connected before running operations
 [2025-04-03T08:58:04.074Z] [error]: Client must be connected before running operations
 [2025-04-03T08:59:04.122Z] [error]: Client must be connected before running operations
+[2025-04-03T09:00:04.080Z] [error]: Client must be connected before running operations
+[2025-04-03T09:01:04.107Z] [error]: Client must be connected before running operations
+[2025-04-03T09:02:04.156Z] [error]: Client must be connected before running operations
+[2025-04-03T09:03:04.170Z] [error]: Client must be connected before running operations
+[2025-04-03T09:04:02.102Z] [error]: Client must be connected before running operations
+[2025-04-03T09:05:04.123Z] [error]: Client must be connected before running operations
+[2025-04-03T09:06:04.167Z] [error]: Client must be connected before running operations
+[2025-04-03T09:07:04.128Z] [error]: Client must be connected before running operations
+[2025-04-03T09:08:04.187Z] [error]: Client must be connected before running operations
+[2025-04-03T09:09:04.170Z] [error]: Client must be connected before running operations
+[2025-04-03T09:10:04.131Z] [error]: Client must be connected before running operations
+[2025-04-03T09:11:04.147Z] [error]: Client must be connected before running operations
+[2025-04-03T09:12:02.106Z] [error]: Client must be connected before running operations
+[2025-04-03T09:13:04.174Z] [error]: Client must be connected before running operations
+[2025-04-03T09:14:04.085Z] [error]: Client must be connected before running operations
+[2025-04-03T09:14:39.004Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-04-03T09:14:39.033Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-04-03T09:15:04.165Z] [error]: Client must be connected before running operations
+[2025-04-03T09:15:33.773Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-04-03T09:15:33.811Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-04-03T09:16:04.146Z] [error]: Client must be connected before running operations
+[2025-04-03T09:17:04.158Z] [error]: Client must be connected before running operations
+[2025-04-03T09:17:18.651Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-04-03T09:17:18.668Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-04-03T09:18:04.119Z] [error]: Client must be connected before running operations
+[2025-04-03T09:19:02.810Z] [error]: Client must be connected before running operations
+[2025-04-03T09:20:03.386Z] [error]: Client must be connected before running operations
+[2025-04-03T09:21:04.125Z] [error]: Client must be connected before running operations
+[2025-04-03T09:22:04.138Z] [error]: Client must be connected before running operations
+[2025-04-03T09:23:04.115Z] [error]: Client must be connected before running operations
+[2025-04-03T09:24:04.112Z] [error]: Client must be connected before running operations
+[2025-04-03T09:25:04.134Z] [error]: Client must be connected before running operations
+[2025-04-03T09:26:04.179Z] [error]: Client must be connected before running operations
+[2025-04-03T09:27:02.113Z] [error]: Client must be connected before running operations
+[2025-04-03T09:28:04.073Z] [error]: Client must be connected before running operations
+[2025-04-03T09:29:04.197Z] [error]: Client must be connected before running operations
+[2025-04-03T09:30:04.090Z] [error]: Client must be connected before running operations
+[2025-04-03T09:31:04.171Z] [error]: Client must be connected before running operations
+[2025-04-03T09:32:04.104Z] [error]: Client must be connected before running operations
+[2025-04-03T09:32:15.012Z] [error]: HIDE::400::ValidationError::"sku_list[0].warehouse" is required::
+[2025-04-03T09:33:04.169Z] [error]: Client must be connected before running operations
+[2025-04-03T09:34:04.113Z] [error]: Client must be connected before running operations
+[2025-04-03T09:35:02.122Z] [error]: Client must be connected before running operations
+[2025-04-03T09:36:04.150Z] [error]: Client must be connected before running operations
+[2025-04-03T09:37:04.164Z] [error]: Client must be connected before running operations
+[2025-04-03T09:37:44.494Z] [error]: HIDE::400::ValidationError::"sku_list[0].warehouse" is required::
+[2025-04-03T09:38:04.094Z] [error]: Client must be connected before running operations
+[2025-04-03T09:38:41.634Z] [error]: HIDE::400::ValidationError::"sku_list[0].warehouse" is required::
+[2025-04-03T09:39:04.159Z] [error]: Client must be connected before running operations
+[2025-04-03T09:40:04.129Z] [error]: Client must be connected before running operations
+[2025-04-03T09:41:04.094Z] [error]: Client must be connected before running operations
+[2025-04-03T09:42:04.273Z] [error]: Client must be connected before running operations
+[2025-04-03T09:43:02.033Z] [error]: Client must be connected before running operations
+[2025-04-03T09:44:04.160Z] [error]: Client must be connected before running operations

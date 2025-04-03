@@ -11,7 +11,6 @@ export const loginUser = createAsyncThunk(
             if (response.status !== 200) {
                 return rejectWithValue(response.message || 'Login failed');
             }
-            console.log(response);
 
             // Check if 'shop' exists in the response metadata using 'in' operator
             if (!('shop' in response.data.metadata)) {
@@ -28,7 +27,6 @@ export const loginUser = createAsyncThunk(
             }
 
             // Only store tokens if the user has shop permissions
-            console.log(response.data);
             localStorage.setItem(ACCESS_TOKEN_KEY, response.data.metadata.token.accessToken);
             localStorage.setItem(REFRESH_TOKEN_KEY, response.data.metadata.token.refreshToken);
 

@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { selectShopInfo } from '../../../../store/userSlice';
 import classNames from 'classnames/bind';
 import styles from './SKUManagement.module.scss';
 import ImagePreviewModal from '../../../../components/ImagePreviewModal';
@@ -8,6 +10,8 @@ const cx = classNames.bind(styles);
 function SKUManagement({ formData, setFormData }) {
     const [duplicateError, setDuplicateError] = useState(null);
     const [currentSkuIndex, setCurrentSkuIndex] = useState(null);
+    const shopInfo = useSelector(selectShopInfo);
+    const shopWarehouses = shopInfo?.shop_warehouses || [];
 
     // Add state for modal control
     const [previewImage, setPreviewImage] = useState(null);
@@ -163,7 +167,8 @@ function SKUManagement({ formData, setFormData }) {
             thumb: null,
             images: [],
             sku_stock: 0,
-            sku_price: ''
+            sku_price: '',
+            warehouse: '' // Using warehouse instead of sku_warehouse
         };
         setFormData((prev) => ({
             ...prev,
@@ -373,6 +378,42 @@ function SKUManagement({ formData, setFormData }) {
         }));
     };
 
+    // Add handler for warehouse selection
+    const handleWarehouseChange = (skuIndex, warehouseId) => {
+        const newSKUs = [...formData.sku_list];
+        newSKUs[skuIndex].warehouse = warehouseId; // Using warehouse instead of sku_warehouse
+        setFormData((prev) => ({
+            ...prev,
+            sku_list: newSKUs
+        }));
+
+        // Clear error when warehouse is selected
+        if (warehouseId) {
+            setWarehouseErrors((prev) => ({
+                ...prev,
+                [skuIndex]: null
+            }));
+        }
+    };
+
+    // Add validation state for warehouse errors
+    const [warehouseErrors, setWarehouseErrors] = useState({});
+
+    // Validate SKU warehouse before submitting
+    useEffect(() => {
+        let isValid = true;
+        const newErrors = {};
+
+        formData.sku_list.forEach((sku, index) => {
+            if (!sku.warehouse) {
+                newErrors[index] = 'Vui lòng chọn kho hàng';
+                isValid = false;
+            }
+        });
+
+        setWarehouseErrors(newErrors);
+    }, [formData.sku_list]);
+
     // Check if there are any variations defined
     const hasVariations =
         formData.product_variations &&
@@ -483,8 +524,33 @@ function SKUManagement({ formData, setFormData }) {
 
                             {/* Add inventory and pricing fields */}
                             <div className={cx('sku-inventory-pricing')}>
-                                <h3>Inventory & Pricing</h3>
+                                <h3>Kho và Giá</h3>
                                 <div className={cx('inventory-pricing-grid')}>
+                                    <div className={cx('sku-field')}>
+                                        <label>Kho hàng *</label>
+                                        <select
+                                            value={sku.warehouse}
+                                            onChange={(e) =>
+                                                handleWarehouseChange(skuIndex, e.target.value)
+                                            }
+                                            className={cx('warehouse-select', {
+                                                'error-border': warehouseErrors[skuIndex]
+                                            })}
+                                            required
+                                        >
+                                            <option value="">-- Chọn kho hàng --</option>
+                                            {shopWarehouses.map((warehouse) => (
+                                                <option key={warehouse._id} value={warehouse._id}>
+                                                    {warehouse.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        {warehouseErrors[skuIndex] && (
+                                            <div className={cx('field-error')}>
+                                                {warehouseErrors[skuIndex]}
+                                            </div>
+                                        )}
+                                    </div>
                                     <div className={cx('sku-field')}>
                                         <label>Stock Quantity</label>
                                         <input

@@ -109,6 +109,7 @@ export default new (class SPUService {
     /* ---------------------------------------------------------- */
     /*                             Get                            */
     /* ---------------------------------------------------------- */
+
     /* ------------------------- By shop ------------------------ */
     async getAllSpuByShop({ shopId }: service.spu.arguments.GetAllSpuByShop) {
         return await findAllSPU({
@@ -116,6 +117,7 @@ export default new (class SPUService {
             options: { lean: true }
         });
     }
+
 
     /* ------------------------- By user ------------------------ */
     async getAllSpuByUser() {
