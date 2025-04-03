@@ -123,22 +123,20 @@ export const uploadFieldsMedia = (
                             files.sort(getSortStrategy(fields[key].sort[0], fields[key].sort[1]));
                         }
 
-                        await Promise.all(
+                        mediaIds[key] = await Promise.all(
                             files.map(async (file) => {
-                                mediaIds[key].push(
-                                    await mediaService
-                                        .createMedia({
-                                            media_title: title,
-                                            media_desc: `Media for '${key}'`,
-                                            media_fileName: file.filename,
-                                            media_filePath: file.path,
-                                            media_fileType: MediaTypes.IMAGE,
-                                            media_mimeType: file.mimetype as MediaMimeTypes,
-                                            media_fileSize: file.size,
-                                            media_isFolder: false
-                                        })
-                                        .then((x) => x.id as string)
-                                );
+                                return await mediaService
+                                    .createMedia({
+                                        media_title: title,
+                                        media_desc: `Media for '${key}'`,
+                                        media_fileName: file.filename,
+                                        media_filePath: file.path,
+                                        media_fileType: MediaTypes.IMAGE,
+                                        media_mimeType: file.mimetype as MediaMimeTypes,
+                                        media_fileSize: file.size,
+                                        media_isFolder: false
+                                    })
+                                    .then((x) => x.id as string);
                             })
                         );
                     })

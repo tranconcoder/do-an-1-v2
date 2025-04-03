@@ -177,7 +177,15 @@ function NewProduct() {
                 // Add SKU thumbnails and images
                 data.sku_list.forEach((sku, index) => {
                     if (sku.thumb && sku.thumb.file) {
-                        formDataToSubmit.append(`sku_thumb`, sku.thumb.file);
+                        const extname = sku.thumb.file.name.split('.').pop();
+                        const filename = `${index}.${extname}`;
+                        const newFile = new File([sku.thumb.file], filename, {
+                            type: sku.thumb.file.type
+                        });
+
+                        console.log('old file name:', sku.thumb.file.name);
+                        console.log('SKU thumbnail file:', newFile);
+                        formDataToSubmit.append('sku_thumb', newFile);
                     }
 
                     if (sku.images && sku.images.length > 0) {
@@ -189,10 +197,12 @@ function NewProduct() {
                 data.sku_list
                     .flatMap((sku) => sku.images)
                     .forEach((image, index) => {
-                        const name = index + '.' + image.file.name.split('.')[1];
-                        const newFile = new File([image.file], name, { type: image.file.type });
+                        const extname = image.file.name.split('.').pop();
+                        const filename = `${index}.${extname}`;
+                        const newFile = new File([image.file], filename, { type: image.file.type });
 
-                        console.log(newFile);
+                        console.log('old file name:', image.file.name);
+                        console.log('SKU image file:', newFile);
 
                         formDataToSubmit.append('sku_images', newFile);
                     });

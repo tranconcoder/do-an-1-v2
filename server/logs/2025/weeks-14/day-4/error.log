@@ -20,3 +20,15 @@
 [2025-04-03T08:04:11.179Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
 [2025-04-03T08:04:31.419Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
 [2025-04-03T08:07:06.577Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-04-03T08:47:04.075Z] [error]: Client must be connected before running operations
+[2025-04-03T08:48:02.066Z] [error]: Client must be connected before running operations
+[2025-04-03T08:49:04.173Z] [error]: Client must be connected before running operations
+[2025-04-03T08:50:04.055Z] [error]: Client must be connected before running operations
+[2025-04-03T08:51:04.074Z] [error]: Client must be connected before running operations
+[2025-04-03T08:52:04.116Z] [error]: Client must be connected before running operations
+[2025-04-03T08:53:04.056Z] [error]: Client must be connected before running operations
+[2025-04-03T08:54:04.095Z] [error]: Client must be connected before running operations
+[2025-04-03T08:55:04.178Z] [error]: Client must be connected before running operations
+[2025-04-03T08:56:02.031Z] [error]: Client must be connected before running operations
+[2025-04-03T08:57:04.123Z] [error]: Client must be connected before running operations
+[2025-04-03T08:58:04.074Z] [error]: Client must be connected before running operations

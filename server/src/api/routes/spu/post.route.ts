@@ -33,8 +33,8 @@ spuPostRoute.post(
             [SPUImages.PRODUCT_IMAGES]: { min: 3, max: 10 },
 
             /* --------------------------- SKU -------------------------- */
-            [SKUImages.SKU_THUMB]: { min: 0, max: 30, sort: ['name', 'asc'] },
-            [SKUImages.SKU_IMAGES]: { min: 0, max: 150, sort: ['name', 'asc'] }
+            [SKUImages.SKU_THUMB]: { min: 0, max: 30 },
+            [SKUImages.SKU_IMAGES]: { min: 0, max: 150 }
         },
         uploadSPU,
         'Product images'
