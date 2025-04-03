@@ -13,6 +13,7 @@ import AdminLayout from '../layouts/AdminLayout';
 import Dashboard from '../pages/Dashboard';
 import ProductManager from '../pages/ProductManager';
 import NewProduct from '../pages/NewProduct';
+import WarehouseManager from '../pages/WarehouseManager';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import AdminShopRegistrations from '../pages/AdminShopRegistrations';
@@ -85,6 +86,7 @@ const AppRoutes = () => {
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route path="products" element={<ProductManager />} />
                     <Route path="products/new" element={<NewProduct />} />
+                    <Route path="warehouse" element={<WarehouseManager />} />
                     <Route path="orders" element={<h1>Shop Orders</h1>} />
                     <Route path="discount" element={<h1>Shop Discounts</h1>} />
                     <Route path="settings" element={<h1>Shop Settings</h1>} />

@@ -15,7 +15,8 @@ import {
     MdStore,
     MdChevronLeft,
     MdChevronRight,
-    MdDiscount
+    MdDiscount,
+    MdWarehouse
 } from 'react-icons/md';
 
 const cx = classNames.bind(styles);
@@ -31,6 +32,11 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
             path: '/products',
             icon: <MdInventory className={cx('nav-icon')} />,
             text: 'Sản Phẩm'
+        },
+        {
+            path: '/warehouse',
+            icon: <MdWarehouse className={cx('nav-icon')} />,
+            text: 'Kho Hàng'
         },
         {
             path: '/orders',

@@ -131,7 +131,7 @@ export const locationSchema = new Schema<model.location.LocationSchema>(
 
         district: { type: ObjectId, ref: DISTRICT_MODEL_NAME, required },
 
-        ward: { type: ObjectId, ref: WARD_MODEL_NAME, required },
+        ward: { type: ObjectId, ref: WARD_MODEL_NAME, required: false },
 
         address: { type: String, maxLength: 200, required },
 

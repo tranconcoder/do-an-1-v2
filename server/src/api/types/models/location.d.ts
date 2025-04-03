@@ -51,7 +51,7 @@ declare global {
                 {
                     province: moduleTypes.mongoose.ObjectId;
                     district: moduleTypes.mongoose.ObjectId;
-                    ward: moduleTypes.mongoose.ObjectId;
+                    ward?: moduleTypes.mongoose.ObjectId;
                     address: string;
                     text: string;
                 },
