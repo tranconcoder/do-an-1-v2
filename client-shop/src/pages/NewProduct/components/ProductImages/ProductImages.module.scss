@@ -77,6 +77,13 @@
         background-color: rgba(33, 150, 243, 0.05);
     }
 
+    &.uploading {
+        border-color: #27ae60;
+        background-color: rgba(39, 174, 96, 0.05);
+        pointer-events: none; /* Disable interactions during upload */
+        cursor: not-allowed;
+    }
+
     .file-input {
         position: absolute;
         width: 100%;

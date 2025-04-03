@@ -1,6 +1,7 @@
 import { findSPUById } from '@/models/repository/spu/index.js';
 import skuModel from '@/models/sku.model.js';
-import { NotFoundErrorResponse } from '@/response/error.response.js';
+import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
+import inventoryService from './inventory.service.js';
 
 export default new (class SKUService {
     /* ---------------------------------------------------------- */
@@ -25,17 +26,23 @@ export default new (class SKUService {
             }
         });
 
+        /* -------------------- Create inventory -------------------- */
+        const inventory = await inventoryService.createInventory({
+            inventory_shop: spu.product_shop,
+            inventory_sku: payload.sku_product,
+            inventory_warehouses: payload.warehouse,
+            inventory_stock: payload.sku_stock
+        });
+        if (!inventory) throw new BadRequestErrorResponse({ message: 'Create inventory failed!' });
+
         /* --------------------- Handle save sku -------------------- */
         return await skuModel.create(payload);
     }
-
 
     /* ---------------------------------------------------------- */
     /*                             Get                            */
     /* ---------------------------------------------------------- */
 
     /* ----------------------- Get all SPU ---------------------- */
-    async getAllSPU() {
-
-    }
+    async getAllSPU() {}
 })();

@@ -4,7 +4,9 @@ declare namespace service {
         /*                         Arguments                          */
         /* ---------------------------------------------------------- */
         namespace arguments {
-            interface CreateInventory extends Omit<model.inventory.InventorySchema, '_id'> {}
+            interface CreateInventory
+                extends Omit<model.inventory.InventorySchema, '_id' | 'inventory_reservations'>,
+                    commonTypes.object.OptimizeOptions {}
         }
     }
 }

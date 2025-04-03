@@ -20,6 +20,8 @@ export const findDistrict = generateFindAll<model.location.District>(districtMod
 export const findWard = generateFindAll<model.location.Ward>(wardModel);
 
 /* ------------------------ Find one ------------------------ */
+export const findLocationById = generateFindById<model.location.LocationSchema>(locationModel);
+
 export const findOneLocation = generateFindOne<model.location.LocationSchema>(locationModel);
 
 export const findOneProvince = generateFindOne<model.location.Province>(provinceModel);

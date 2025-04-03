@@ -2,26 +2,26 @@ import { model, Schema } from 'mongoose';
 import { timestamps, required, ObjectId } from '@/configs/mongoose.config.js';
 import { SPU_COLLECTION_NAME } from './spu.model.js';
 import { USER_MODEL_NAME } from './user.model.js';
+import { SKU_COLLECTION_NAME, SKU_MODEL_NAME } from './sku.model.js';
+import { SHOP_MODEL_NAME } from './shop.model.js';
+import { WAREHOUSE_MODEL_NAME } from './warehouse.model.js';
 
 export const INVENTORY_MODEL_NAME = 'Inventory';
 export const INVENTORY_COLLECTION_NAME = 'inventories';
 
 const inventorySchema = new Schema<model.inventory.InventorySchema>(
     {
-        inventory_product: {
+        inventory_sku: {
             type: ObjectId,
-            ref: SPU_COLLECTION_NAME,
-            required,
-            index: true
+            ref: SKU_MODEL_NAME
         },
         inventory_shop: {
             type: ObjectId,
-            ref: USER_MODEL_NAME,
-            required
+            ref: SHOP_MODEL_NAME
         },
-        inventory_location: {
-            type: String,
-            default: 'Unknown'
+        inventory_warehouses: {
+            type: ObjectId,
+            ref: WAREHOUSE_MODEL_NAME
         },
         inventory_stock: {
             type: Number,

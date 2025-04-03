@@ -22,7 +22,7 @@ export const createSPU = Joi.object<joiTypes.spu.CreateSPU>({
     sku_images_map: Joi.array().items(Joi.number()).required(),
     sku_list: Joi.array()
         .items(
-            Joi.object<Omit<joiTypes.sku.CreateSKU, 'sku_product'> & { warehouse: string }, true>({
+            Joi.object<Omit<joiTypes.sku.CreateSKU, 'sku_product'>, true>({
                 sku_price: Joi.number().min(0),
                 sku_stock: Joi.number().min(1).required(),
                 sku_tier_idx: Joi.array().items(Joi.number()).min(1).required(),

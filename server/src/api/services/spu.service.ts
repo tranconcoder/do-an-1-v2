@@ -11,6 +11,8 @@ import skuService from './sku.service.js';
 import { SKUImages } from '@/enums/sku.enum.js';
 import { SPUImages } from '@/enums/spu.enum.js';
 import { findAllSPU } from '@/models/repository/spu/index.js';
+import inventoryService from './inventory.service.js';
+import mongoose from 'mongoose';
 
 export default new (class SPUService {
     /* ---------------------------------------------------------- */
@@ -24,7 +26,6 @@ export default new (class SPUService {
 
         if (skuThumbCount !== sku_list.length)
             throw new BadRequestErrorResponse({ message: 'Invalid SKU thumb count!' });
-
         if (sku_images_map.length !== sku_list.length)
             throw new BadRequestErrorResponse({ message: 'Invalid SKU images map!' });
 
@@ -67,7 +68,7 @@ export default new (class SPUService {
 
         /* --------------------- Handle save sku ------------------- */
         try {
-            const { sku_list } = payload;
+            const { sku_list, product_shop } = payload;
             let skuPromises: model.sku.SKU<false, true>[] = [];
 
             if (sku_list.length) {
@@ -87,7 +88,8 @@ export default new (class SPUService {
                             sku_images: mediaIds[SKUImages.SKU_IMAGES].slice(
                                 skuImageStartIdx,
                                 skuImageStartIdx + skuImageCount
-                            )
+                            ),
+                            warehouse: sku.warehouse
                         });
                     })
                 );
@@ -111,13 +113,16 @@ export default new (class SPUService {
     /* ---------------------------------------------------------- */
 
     /* ------------------------- By shop ------------------------ */
+    async getAllSpuShopGrid() {
+
+    }
+
     async getAllSpuByShop({ shopId }: service.spu.arguments.GetAllSpuByShop) {
         return await findAllSPU({
             query: { product_shop: shopId, is_deleted: false },
             options: { lean: true }
         });
     }
-
 
     /* ------------------------- By user ------------------------ */
     async getAllSpuByUser() {

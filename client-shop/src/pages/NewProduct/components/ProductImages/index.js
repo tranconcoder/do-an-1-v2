@@ -28,6 +28,9 @@ function ProductImages({ formData, setFormData }) {
     const thumbInputRef = useRef(null);
     const imagesInputRef = useRef(null);
 
+    // Thêm state để theo dõi trạng thái đang xử lý upload
+    const [isUploading, setIsUploading] = useState(false);
+
     // Handle opening the preview modal
     const handleOpenPreview = (image, type, index = null) => {
         setPreviewImage(image);
@@ -45,7 +48,7 @@ function ProductImages({ formData, setFormData }) {
     // Handle replacing an image from the modal
     const handleReplaceImage = (file) => {
         if (!file) return;
-        
+
         // Validate file type
         if (!file.type.startsWith('image/')) {
             setDragError('Only image files are allowed.');
@@ -118,7 +121,7 @@ function ProductImages({ formData, setFormData }) {
             setTimeout(() => setDragError(''), 5000);
             return false;
         }
-        
+
         // Kiểm tra file có phải là hình ảnh không
         if (!file.type.startsWith('image/')) {
             setDragError('Chỉ cho phép tải lên file hình ảnh (jpg, png, jpeg, gif).');
@@ -141,9 +144,21 @@ function ProductImages({ formData, setFormData }) {
         const file = e.target.files[0];
         if (!file) return;
 
+        // Đánh dấu đang xử lý upload
+        setIsUploading(true);
+
         if (validateFile(file)) {
             processThumbFile(file);
         }
+
+        // Đặt lại trạng thái upload sau khi xử lý và clear giá trị input
+        setTimeout(() => {
+            setIsUploading(false);
+            // Đảm bảo reset giá trị input
+            if (thumbInputRef.current) {
+                thumbInputRef.current.value = '';
+            }
+        }, 300);
     };
 
     const processThumbFile = (file) => {
@@ -167,10 +182,22 @@ function ProductImages({ formData, setFormData }) {
         const files = Array.from(e.target.files);
         if (!files.length) return;
 
-        const validFiles = files.filter(file => validateFile(file));
+        // Đánh dấu đang xử lý upload
+        setIsUploading(true);
+
+        const validFiles = files.filter((file) => validateFile(file));
         if (validFiles.length > 0) {
             processImageFiles(validFiles);
         }
+
+        // Đặt lại trạng thái upload sau khi xử lý và clear giá trị input
+        setTimeout(() => {
+            setIsUploading(false);
+            // Đảm bảo reset giá trị input
+            if (imagesInputRef.current) {
+                imagesInputRef.current.value = '';
+            }
+        }, 300);
     };
 
     const processImageFiles = (files) => {
@@ -232,9 +259,9 @@ function ProductImages({ formData, setFormData }) {
 
         // Kiểm tra xem có phải đang kéo thả file hay không
         const isFileDrop = Array.from(e.dataTransfer.types).some(
-            type => type.toLowerCase() === 'files'
+            (type) => type.toLowerCase() === 'files'
         );
-        
+
         if (isFileDrop && e.dataTransfer.files.length > 0) {
             const file = e.dataTransfer.files[0];
             if (file && validateFile(file)) {
@@ -244,7 +271,9 @@ function ProductImages({ formData, setFormData }) {
                 setTimeout(() => setDragError(''), 5000);
             }
         } else {
-            setDragError('Vui lòng chọn một file hình ảnh để tải lên. Không thể sử dụng URL hoặc văn bản.');
+            setDragError(
+                'Vui lòng chọn một file hình ảnh để tải lên. Không thể sử dụng URL hoặc văn bản.'
+            );
             setTimeout(() => setDragError(''), 5000);
         }
     };
@@ -283,21 +312,25 @@ function ProductImages({ formData, setFormData }) {
 
         // Kiểm tra xem có phải đang kéo thả file hay không
         const isFileDrop = Array.from(e.dataTransfer.types).some(
-            type => type.toLowerCase() === 'files'
+            (type) => type.toLowerCase() === 'files'
         );
-        
+
         if (isFileDrop && e.dataTransfer.files.length > 0) {
             const files = Array.from(e.dataTransfer.files);
-            const validFiles = files.filter(file => validateFile(file));
-            
+            const validFiles = files.filter((file) => validateFile(file));
+
             if (validFiles.length > 0) {
                 processImageFiles(validFiles);
             } else if (files.length > 0 && validFiles.length === 0) {
-                setDragError('Các file được chọn không hợp lệ. Vui lòng chỉ chọn file hình ảnh (jpg, png, jpeg).');
+                setDragError(
+                    'Các file được chọn không hợp lệ. Vui lòng chỉ chọn file hình ảnh (jpg, png, jpeg).'
+                );
                 setTimeout(() => setDragError(''), 5000);
             }
         } else {
-            setDragError('Vui lòng chọn file hình ảnh để tải lên. Không thể sử dụng URL hoặc văn bản.');
+            setDragError(
+                'Vui lòng chọn file hình ảnh để tải lên. Không thể sử dụng URL hoặc văn bản.'
+            );
             setTimeout(() => setDragError(''), 5000);
         }
     };
@@ -314,6 +347,28 @@ function ProductImages({ formData, setFormData }) {
     const removeThumbnail = () => {
         setFormData((prev) => ({ ...prev, product_thumb: null }));
         validateThumbnail(null);
+    };
+
+    // Hàm xử lý click để mở hộp thoại chọn file
+    const handleThumbBoxClick = (e) => {
+        // Ngăn chặn việc mở hộp thoại chọn file nhiều lần
+        if (isUploading) return;
+
+        if (thumbInputRef.current) {
+            thumbInputRef.current.value = ''; // Clear giá trị input
+            thumbInputRef.current.click();
+        }
+    };
+
+    // Hàm xử lý click để mở hộp thoại chọn nhiều file
+    const handleImagesBoxClick = (e) => {
+        // Ngăn chặn việc mở hộp thoại chọn file nhiều lần
+        if (isUploading) return;
+
+        if (imagesInputRef.current) {
+            imagesInputRef.current.value = ''; // Clear giá trị input
+            imagesInputRef.current.click();
+        }
     };
 
     return (
@@ -335,13 +390,14 @@ function ProductImages({ formData, setFormData }) {
                 <div
                     className={cx('upload-box', {
                         'error-border': errors.thumbnail || dragError,
-                        dragging: isDraggingThumb
+                        dragging: isDraggingThumb,
+                        uploading: isUploading
                     })}
                     onDragEnter={handleThumbDragEnter}
                     onDragLeave={handleThumbDragLeave}
                     onDragOver={handleThumbDragOver}
                     onDrop={handleThumbDrop}
-                    onClick={() => thumbInputRef.current.click()}
+                    onClick={handleThumbBoxClick}
                 >
                     <input
                         ref={thumbInputRef}
@@ -349,10 +405,13 @@ function ProductImages({ formData, setFormData }) {
                         className={cx('file-input')}
                         onChange={handleThumbUpload}
                         accept="image/*"
+                        style={{ opacity: 0, position: 'absolute', pointerEvents: 'none' }}
                     />
                     <div className={cx('upload-placeholder')}>
                         <FaUpload className={cx('upload-icon')} />
-                        <span>Upload Thumbnail or Drag & Drop</span>
+                        <span>
+                            {isUploading ? 'Processing...' : 'Upload Thumbnail or Drag & Drop'}
+                        </span>
                     </div>
                 </div>
 
@@ -391,13 +450,14 @@ function ProductImages({ formData, setFormData }) {
                 <div
                     className={cx('upload-box', {
                         'error-border': errors.additionalImages || dragError,
-                        dragging: isDraggingImages
+                        dragging: isDraggingImages,
+                        uploading: isUploading
                     })}
                     onDragEnter={handleImagesDragEnter}
                     onDragLeave={handleImagesDragLeave}
                     onDragOver={handleImagesDragOver}
                     onDrop={handleImagesDrop}
-                    onClick={() => imagesInputRef.current.click()}
+                    onClick={handleImagesBoxClick}
                 >
                     <input
                         ref={imagesInputRef}
@@ -406,10 +466,15 @@ function ProductImages({ formData, setFormData }) {
                         multiple
                         onChange={handleImagesUpload}
                         accept="image/*"
+                        style={{ opacity: 0, position: 'absolute', pointerEvents: 'none' }}
                     />
                     <div className={cx('upload-placeholder')}>
                         <FaUpload className={cx('upload-icon')} />
-                        <span>Upload Additional Images or Drag & Drop</span>
+                        <span>
+                            {isUploading
+                                ? 'Processing...'
+                                : 'Upload Additional Images or Drag & Drop'}
+                        </span>
                     </div>
                 </div>
 

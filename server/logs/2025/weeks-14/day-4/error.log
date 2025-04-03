@@ -103,3 +103,34 @@
 [2025-04-03T09:59:03.611Z] [error]: Client must be connected before running operations
 [2025-04-03T10:00:03.766Z] [error]: Client must be connected before running operations
 [2025-04-03T10:01:03.697Z] [error]: Client must be connected before running operations
+[2025-04-03T10:02:03.698Z] [error]: Client must be connected before running operations
+[2025-04-03T10:03:03.804Z] [error]: Client must be connected before running operations
+[2025-04-03T10:04:03.772Z] [error]: Client must be connected before running operations
+[2025-04-03T10:05:01.929Z] [error]: Client must be connected before running operations
+[2025-04-03T10:06:03.705Z] [error]: Client must be connected before running operations
+[2025-04-03T10:07:04.630Z] [error]: Client must be connected before running operations
+[2025-04-03T10:08:02.843Z] [error]: Client must be connected before running operations
+[2025-04-03T10:09:04.666Z] [error]: Client must be connected before running operations
+[2025-04-03T10:10:02.824Z] [error]: Client must be connected before running operations
+[2025-04-03T10:11:36.158Z] [error]: Client must be connected before running operations
+[2025-04-03T10:12:01.696Z] [error]: Client must be connected before running operations
+[2025-04-03T10:13:04.233Z] [error]: Client must be connected before running operations
+[2025-04-03T10:14:01.933Z] [error]: Client must be connected before running operations
+[2025-04-03T10:31:47.855Z] [error]: Client must be connected before running operations
+[2025-04-03T10:32:01.951Z] [error]: Client must be connected before running operations
+[2025-04-03T10:33:03.329Z] [error]: Client must be connected before running operations
+[2025-04-03T10:34:03.607Z] [error]: Client must be connected before running operations
+[2025-04-03T10:35:01.820Z] [error]: Client must be connected before running operations
+[2025-04-03T10:36:03.575Z] [error]: Client must be connected before running operations
+[2025-04-03T10:40:38.867Z] [error]: Client must be connected before running operations
+[2025-04-03T10:41:00.864Z] [error]: Client must be connected before running operations
+[2025-04-03T10:42:02.965Z] [error]: Client must be connected before running operations
+[2025-04-03T10:43:02.915Z] [error]: Client must be connected before running operations
+[2025-04-03T10:44:03.119Z] [error]: Client must be connected before running operations
+[2025-04-03T10:45:03.244Z] [error]: Client must be connected before running operations
+[2025-04-03T10:46:01.910Z] [error]: Client must be connected before running operations
+[2025-04-03T10:46:51.253Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-03T14:02:14.069Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-04-03T14:02:14.075Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-04-03T14:02:14.130Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-04-03T14:02:14.177Z] [error]: HIDE::404::NotFound::Token not found!::

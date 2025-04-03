@@ -15,7 +15,7 @@ declare global {
                     inventory_sku: moduleTypes.mongoose.ObjectId;
                     inventory_shop: moduleTypes.mongoose.ObjectId;
                     inventory_stock: number;
-                    inventory_location?: string;
+                    inventory_warehouses: moduleTypes.mongoose.ObjectId;
                     inventory_reservations?: Array<{
                         reservation_user: moduleTypes.mongoose.ObjectId;
                         reservation_quantity: number;

@@ -19,6 +19,9 @@ function SKUManagement({ formData, setFormData }) {
     const [selectedSkuIndex, setSelectedSkuIndex] = useState(null);
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
+    // State theo dõi trạng thái đang xử lý file
+    const [processingFileIndex, setProcessingFileIndex] = useState(null);
+
     // States for drag and drop
     const [draggingThumbIndex, setDraggingThumbIndex] = useState(null);
     const [draggingImagesIndex, setDraggingImagesIndex] = useState(null);
@@ -241,6 +244,11 @@ function SKUManagement({ formData, setFormData }) {
                 ...prev,
                 sku_list: newSKUs
             }));
+
+            // Xóa trạng thái đang xử lý sau khi hoàn tất
+            setTimeout(() => {
+                setProcessingFileIndex(null);
+            }, 300);
         };
         reader.readAsDataURL(file);
     };
@@ -278,20 +286,56 @@ function SKUManagement({ formData, setFormData }) {
                 ...prev,
                 sku_list: newSKUs
             }));
+
+            // Xóa trạng thái đang xử lý sau khi hoàn tất
+            setTimeout(() => {
+                setProcessingFileIndex(null);
+            }, 300);
         });
     };
 
     const handleSKUThumbChange = (skuIndex, e) => {
         const file = e.target.files[0];
+        if (!file) return;
+
+        // Đặt trạng thái đang xử lý
+        setProcessingFileIndex(skuIndex);
+
         processSkuThumbFile(skuIndex, file);
     };
 
     const handleSKUImagesChange = (skuIndex, e) => {
         const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+
+        // Đặt trạng thái đang xử lý
+        setProcessingFileIndex(skuIndex);
+
         processSkuImageFiles(skuIndex, files);
     };
 
-    // Drag and drop handlers for SKU thumbnails
+    // Hàm xử lý click để mở hộp thoại chọn thumbnail
+    const handleThumbBoxClick = (skuIndex) => {
+        // Nếu đang xử lý file, không cho phép click
+        if (processingFileIndex !== null) return;
+
+        if (thumbInputRefs.current[skuIndex]) {
+            thumbInputRefs.current[skuIndex].value = ''; // Clear previous selection
+            thumbInputRefs.current[skuIndex].click();
+        }
+    };
+
+    // Hàm xử lý click để mở hộp thoại chọn ảnh bổ sung
+    const handleImagesBoxClick = (skuIndex) => {
+        // Nếu đang xử lý file, không cho phép click
+        if (processingFileIndex !== null) return;
+
+        if (imagesInputRefs.current[skuIndex]) {
+            imagesInputRefs.current[skuIndex].value = ''; // Clear previous selection
+            imagesInputRefs.current[skuIndex].click();
+        }
+    };
+
     const handleThumbDragEnter = (skuIndex, e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -650,7 +694,8 @@ function SKUManagement({ formData, setFormData }) {
                                         ) : (
                                             <div
                                                 className={cx('upload-placeholder', {
-                                                    dragging: draggingThumbIndex === skuIndex
+                                                    dragging: draggingThumbIndex === skuIndex,
+                                                    processing: processingFileIndex === skuIndex
                                                 })}
                                                 onDragEnter={(e) =>
                                                     handleThumbDragEnter(skuIndex, e)
@@ -658,12 +703,14 @@ function SKUManagement({ formData, setFormData }) {
                                                 onDragLeave={handleThumbDragLeave}
                                                 onDragOver={handleThumbDragOver}
                                                 onDrop={(e) => handleThumbDrop(skuIndex, e)}
-                                                onClick={() =>
-                                                    thumbInputRefs.current[skuIndex]?.click()
-                                                }
+                                                onClick={() => handleThumbBoxClick(skuIndex)}
                                             >
                                                 <div className={cx('upload-icon')}>📷</div>
-                                                <span>Click or drag to upload thumbnail</span>
+                                                <span>
+                                                    {processingFileIndex === skuIndex
+                                                        ? 'Processing...'
+                                                        : 'Click or drag to upload thumbnail'}
+                                                </span>
                                                 <input
                                                     type="file"
                                                     className={cx('file-input')}
@@ -674,6 +721,7 @@ function SKUManagement({ formData, setFormData }) {
                                                     ref={(el) =>
                                                         (thumbInputRefs.current[skuIndex] = el)
                                                     }
+                                                    style={{ display: 'none' }}
                                                 />
                                             </div>
                                         )}
@@ -725,7 +773,8 @@ function SKUManagement({ formData, setFormData }) {
                                             {(sku.images?.length || 0) < MAX_IMAGES_PER_SKU && (
                                                 <div
                                                     className={cx('add-sku-image', {
-                                                        dragging: draggingImagesIndex === skuIndex
+                                                        dragging: draggingImagesIndex === skuIndex,
+                                                        processing: processingFileIndex === skuIndex
                                                     })}
                                                     onDragEnter={(e) =>
                                                         handleImagesDragEnter(skuIndex, e)
@@ -733,13 +782,13 @@ function SKUManagement({ formData, setFormData }) {
                                                     onDragLeave={handleImagesDragLeave}
                                                     onDragOver={handleImagesDragOver}
                                                     onDrop={(e) => handleImagesDrop(skuIndex, e)}
-                                                    onClick={() =>
-                                                        imagesInputRefs.current[skuIndex]?.click()
-                                                    }
+                                                    onClick={() => handleImagesBoxClick(skuIndex)}
                                                 >
                                                     <span>+</span>
                                                     <div className={cx('drag-text')}>
-                                                        Click or drag images here
+                                                        {processingFileIndex === skuIndex
+                                                            ? 'Processing...'
+                                                            : 'Click or drag images here'}
                                                     </div>
                                                     <input
                                                         type="file"
@@ -752,6 +801,7 @@ function SKUManagement({ formData, setFormData }) {
                                                         ref={(el) =>
                                                             (imagesInputRefs.current[skuIndex] = el)
                                                         }
+                                                        style={{ display: 'none' }}
                                                     />
                                                 </div>
                                             )}

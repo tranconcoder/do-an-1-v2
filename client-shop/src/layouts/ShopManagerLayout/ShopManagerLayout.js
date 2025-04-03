@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
@@ -11,15 +11,26 @@ const cx = classNames.bind(styles);
 function ShopManagerLayout() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(
+        JSON.parse(localStorage.getItem('shopSidebarCollapsed')) || false
+    );
 
     // Get user data from Redux store using the new selectors
     const userFullName = useSelector(selectUserFullName);
     const shopInfo = useSelector(selectShopInfo);
 
     const toggleSidebar = () => {
-        setSidebarCollapsed((prev) => !prev);
+        setSidebarCollapsed((prev) => {
+            const newState = !prev;
+            localStorage.setItem('shopSidebarCollapsed', JSON.stringify(newState));
+            return newState;
+        });
     };
+
+    // Effect to sync sidebar state with localStorage
+    useEffect(() => {
+        localStorage.setItem('shopSidebarCollapsed', JSON.stringify(sidebarCollapsed));
+    }, [sidebarCollapsed]);
 
     const handleLogout = () => {
         dispatch(logout());

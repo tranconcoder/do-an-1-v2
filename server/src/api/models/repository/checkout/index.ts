@@ -1,6 +1,13 @@
-import { generateFindOne, generateFindOneAndUpdate } from 'src/api/utils/mongoose.util.js';
+import {
+    generateFindById,
+    generateFindOne,
+    generateFindOneAndUpdate
+} from 'src/api/utils/mongoose.util.js';
 import checkoutModel from '../../checkout.model.js';
 
+/* ---------------------------------------------------------- */
+/*                          Find one                          */
+/* ---------------------------------------------------------- */
 export const findOneAndUpdateCheckout =
     generateFindOneAndUpdate<model.checkout.CheckoutSchema>(checkoutModel);
 

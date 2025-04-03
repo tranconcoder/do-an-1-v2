@@ -16,8 +16,8 @@ declare global {
                 [K in keyof T | undefined]: K extends undefined
                     ? never
                     : T[K] extends (...args: any[]) => any
-                      ? K
-                      : never;
+                    ? K
+                    : never;
             }[keyof T];
 
             type ExtractMethods<T> = Pick<T, ExtractMethodNames<T>>;
@@ -25,8 +25,8 @@ declare global {
             type ExtractInstanceType<T> = T extends new (...args: any[]) => infer R
                 ? R
                 : T extends { prototype: infer P }
-                  ? P
-                  : any;
+                ? P
+                : any;
 
             type UnionToPartialIntersection<U> = (U extends any ? (k: U) => void : never) extends (
                 k: infer I
@@ -62,11 +62,14 @@ declare global {
         /*                         OBJECT                         */
         /* ====================================================== */
         namespace object {
+            interface OptimizeOptions {
+                notCheck?: boolean;
+            }
+
             interface PageSlitting {
                 limit?: number;
                 page?: number;
             }
-
 
             type ObjectAnyKeys<T = any> = Object & {
                 [key: string]: T;

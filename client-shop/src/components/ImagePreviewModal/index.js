@@ -82,6 +82,7 @@ function ImagePreviewModal({ image, onClose, onReplace }) {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
+        console.log(file);
         if (file) {
             onReplace(file);
             onClose();
