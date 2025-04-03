@@ -22,6 +22,10 @@ function SKUManagement({ formData, setFormData }) {
     // State theo dõi trạng thái đang xử lý file
     const [processingFileIndex, setProcessingFileIndex] = useState(null);
 
+    // State for temporary image previews
+    const [tempThumbPreviews, setTempThumbPreviews] = useState({});
+    const [tempImagePreviews, setTempImagePreviews] = useState({});
+
     // States for drag and drop
     const [draggingThumbIndex, setDraggingThumbIndex] = useState(null);
     const [draggingImagesIndex, setDraggingImagesIndex] = useState(null);
@@ -233,6 +237,14 @@ function SKUManagement({ formData, setFormData }) {
     // Process SKU thumbnail file
     const processSkuThumbFile = (skuIndex, file) => {
         if (!file) return;
+
+        // Show immediate preview
+        const objectUrl = URL.createObjectURL(file);
+        setTempThumbPreviews((prev) => ({
+            ...prev,
+            [skuIndex]: objectUrl
+        }));
+
         const reader = new FileReader();
         reader.onloadend = () => {
             const newSKUs = [...formData.sku_list];
@@ -248,6 +260,12 @@ function SKUManagement({ formData, setFormData }) {
             // Xóa trạng thái đang xử lý sau khi hoàn tất
             setTimeout(() => {
                 setProcessingFileIndex(null);
+                // Clean up the temporary preview
+                setTempThumbPreviews((prev) => {
+                    const newPreviews = { ...prev };
+                    delete newPreviews[skuIndex];
+                    return newPreviews;
+                });
             }, 300);
         };
         reader.readAsDataURL(file);
@@ -265,6 +283,13 @@ function SKUManagement({ formData, setFormData }) {
 
         // Only add up to the remaining slots
         const filesToAdd = files.slice(0, remainingSlots);
+
+        // Show immediate previews
+        const objectUrls = filesToAdd.map((file) => URL.createObjectURL(file));
+        setTempImagePreviews((prev) => ({
+            ...prev,
+            [skuIndex]: objectUrls
+        }));
 
         const filePromises = filesToAdd.map((file) => {
             return new Promise((resolve) => {
@@ -290,6 +315,12 @@ function SKUManagement({ formData, setFormData }) {
             // Xóa trạng thái đang xử lý sau khi hoàn tất
             setTimeout(() => {
                 setProcessingFileIndex(null);
+                // Clean up the temporary previews
+                setTempImagePreviews((prev) => {
+                    const newPreviews = { ...prev };
+                    delete newPreviews[skuIndex];
+                    return newPreviews;
+                });
             }, 300);
         });
     };
@@ -463,6 +494,15 @@ function SKUManagement({ formData, setFormData }) {
         formData.product_variations &&
         formData.product_variations.length > 0 &&
         formData.product_variations.some((v) => v.options && v.options.length > 0);
+
+    // Clean up object URLs on component unmount
+    useEffect(() => {
+        return () => {
+            // Cleanup temporary previews
+            Object.values(tempThumbPreviews).forEach(URL.revokeObjectURL);
+            Object.values(tempImagePreviews).forEach((urls) => urls.forEach(URL.revokeObjectURL));
+        };
+    }, [tempThumbPreviews, tempImagePreviews]);
 
     return (
         <div className={cx('form-section')}>
@@ -705,12 +745,27 @@ function SKUManagement({ formData, setFormData }) {
                                                 onDrop={(e) => handleThumbDrop(skuIndex, e)}
                                                 onClick={() => handleThumbBoxClick(skuIndex)}
                                             >
-                                                <div className={cx('upload-icon')}>📷</div>
-                                                <span>
-                                                    {processingFileIndex === skuIndex
-                                                        ? 'Processing...'
-                                                        : 'Click or drag to upload thumbnail'}
-                                                </span>
+                                                {tempThumbPreviews[skuIndex] ? (
+                                                    <div className={cx('temp-preview-container')}>
+                                                        <img
+                                                            src={tempThumbPreviews[skuIndex]}
+                                                            alt="Thumbnail preview"
+                                                            className={cx('temp-preview-image')}
+                                                        />
+                                                        <div className={cx('processing-overlay')}>
+                                                            <span>Processing...</span>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <>
+                                                        <div className={cx('upload-icon')}>📷</div>
+                                                        <span>
+                                                            {processingFileIndex === skuIndex
+                                                                ? 'Processing...'
+                                                                : 'Click or drag to upload thumbnail'}
+                                                        </span>
+                                                    </>
+                                                )}
                                                 <input
                                                     type="file"
                                                     className={cx('file-input')}
@@ -784,12 +839,40 @@ function SKUManagement({ formData, setFormData }) {
                                                     onDrop={(e) => handleImagesDrop(skuIndex, e)}
                                                     onClick={() => handleImagesBoxClick(skuIndex)}
                                                 >
-                                                    <span>+</span>
-                                                    <div className={cx('drag-text')}>
-                                                        {processingFileIndex === skuIndex
-                                                            ? 'Processing...'
-                                                            : 'Click or drag images here'}
-                                                    </div>
+                                                    {tempImagePreviews[skuIndex] ? (
+                                                        <div
+                                                            className={cx('temp-preview-container')}
+                                                        >
+                                                            <div className={cx('temp-images-grid')}>
+                                                                {tempImagePreviews[skuIndex].map(
+                                                                    (url, idx) => (
+                                                                        <img
+                                                                            key={idx}
+                                                                            src={url}
+                                                                            alt={`Image preview ${idx}`}
+                                                                            className={cx(
+                                                                                'temp-preview-image'
+                                                                            )}
+                                                                        />
+                                                                    )
+                                                                )}
+                                                            </div>
+                                                            <div
+                                                                className={cx('processing-overlay')}
+                                                            >
+                                                                <span>Processing...</span>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <>
+                                                            <span>+</span>
+                                                            <div className={cx('drag-text')}>
+                                                                {processingFileIndex === skuIndex
+                                                                    ? 'Processing...'
+                                                                    : 'Click or drag images here'}
+                                                            </div>
+                                                        </>
+                                                    )}
                                                     <input
                                                         type="file"
                                                         className={cx('file-input')}

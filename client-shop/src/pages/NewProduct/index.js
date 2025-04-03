@@ -271,7 +271,7 @@ function NewProduct() {
 
             if (response.data && response.data.statusCode === 201) {
                 alert('Product created successfully!');
-                // navigate('/products');
+                navigate('/products');
             }
         } catch (error) {
             console.error('Error submitting product:', error);

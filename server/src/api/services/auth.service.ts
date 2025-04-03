@@ -32,6 +32,7 @@ import { USER_PUBLIC_FIELDS } from '@/configs/user.config.js';
 import { roleService } from './rbac.service.js';
 import { changeMediaOwner } from '@/models/repository/media/index.js';
 import { NODE_ENV } from '@/configs/server.config.js';
+import warehouseModel from '@/models/warehouse.model.js';
 
 export default class AuthService {
     /* ------------------------------------------------------ */
@@ -219,11 +220,16 @@ export default class AuthService {
             shop_status: payload.shop_status,
             shop_type: payload.shop_type,
             shop_description: payload.shop_description,
-            shop_warehouses: payload.shop_warehouses.map((warehouse, index) => ({
-                name: warehouse.name,
-                address: shopWarehousesLocation[index],
-                phoneNumber: warehouse.phoneNumber
-            })),
+            shop_warehouses: await Promise.all(
+                payload.shop_warehouses.map(
+                    async (warehouse, index) =>
+                        await warehouseModel.create({
+                            name: warehouse.name,
+                            address: shopWarehousesLocation[index],
+                            phoneNumber: warehouse.phoneNumber
+                        })
+                )
+            ),
             is_brand: payload.is_brand
         });
 

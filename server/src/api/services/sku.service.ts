@@ -26,17 +26,23 @@ export default new (class SKUService {
             }
         });
 
+        /* --------------------- Handle save sku -------------------- */
+        const sku = await skuModel.create(payload);
+
         /* -------------------- Create inventory -------------------- */
         const inventory = await inventoryService.createInventory({
             inventory_shop: spu.product_shop,
-            inventory_sku: payload.sku_product,
+            inventory_sku: sku._id,
             inventory_warehouses: payload.warehouse,
             inventory_stock: payload.sku_stock
         });
-        if (!inventory) throw new BadRequestErrorResponse({ message: 'Create inventory failed!' });
 
-        /* --------------------- Handle save sku -------------------- */
-        return await skuModel.create(payload);
+        if (!inventory) {
+            await sku.deleteOne();
+            throw new BadRequestErrorResponse({ message: 'Create inventory failed!' });
+        }
+
+        return sku;
     }
 
     /* ---------------------------------------------------------- */
