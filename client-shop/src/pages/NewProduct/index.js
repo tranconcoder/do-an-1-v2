@@ -36,7 +36,8 @@ function NewProduct() {
                 thumb: null,
                 images: [],
                 sku_stock: 0,
-                sku_price: ''
+                sku_price: '',
+                warehouse: '' // Added warehouse field inside SKU
             }
         ]
     });
@@ -208,6 +209,8 @@ function NewProduct() {
                 });
                 formDataToSubmit.append(`sku_list[${index}][sku_stock]`, sku.sku_stock);
                 formDataToSubmit.append(`sku_list[${index}][sku_price]`, sku.sku_price);
+                formDataToSubmit.append(`sku_list[${index}][warehouse]`, sku.warehouse); // Add warehouse to form submission
+                // formDataToSubmit.append(`sku_list[${index}][]`, sku.);
             });
         }
 

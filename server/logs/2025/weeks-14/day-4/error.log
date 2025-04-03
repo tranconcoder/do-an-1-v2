@@ -87,3 +87,19 @@
 [2025-04-03T09:42:04.273Z] [error]: Client must be connected before running operations
 [2025-04-03T09:43:02.033Z] [error]: Client must be connected before running operations
 [2025-04-03T09:44:04.160Z] [error]: Client must be connected before running operations
+[2025-04-03T09:44:45.535Z] [error]: HIDE::400::ValidationError::"sku_list[0].warehouse" is required::
+[2025-04-03T09:45:04.156Z] [error]: Client must be connected before running operations
+[2025-04-03T09:46:04.186Z] [error]: Client must be connected before running operations
+[2025-04-03T09:47:04.168Z] [error]: Client must be connected before running operations
+[2025-04-03T09:48:04.155Z] [error]: Client must be connected before running operations
+[2025-04-03T09:49:04.105Z] [error]: Client must be connected before running operations
+[2025-04-03T09:53:26.200Z] [error]: Client must be connected before running operations
+[2025-04-03T09:54:02.024Z] [error]: Client must be connected before running operations
+[2025-04-03T09:55:03.394Z] [error]: Client must be connected before running operations
+[2025-04-03T09:56:01.751Z] [error]: Client must be connected before running operations
+[2025-04-03T09:57:03.657Z] [error]: Client must be connected before running operations
+[2025-04-03T09:58:03.682Z] [error]: Client must be connected before running operations
+[2025-04-03T09:58:56.345Z] [error]: HIDE::400::ValidationError::"sku_list[1].sku_price" must be a number::
+[2025-04-03T09:59:03.611Z] [error]: Client must be connected before running operations
+[2025-04-03T10:00:03.766Z] [error]: Client must be connected before running operations
+[2025-04-03T10:01:03.697Z] [error]: Client must be connected before running operations
