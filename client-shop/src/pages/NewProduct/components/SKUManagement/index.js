@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SKUManagement.module.scss';
 import ImagePreviewModal from '../../../../components/ImagePreviewModal';
@@ -14,6 +14,14 @@ function SKUManagement({ formData, setFormData }) {
     const [previewType, setPreviewType] = useState(null); // 'thumb' or 'additional'
     const [selectedSkuIndex, setSelectedSkuIndex] = useState(null);
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+
+    // States for drag and drop
+    const [draggingThumbIndex, setDraggingThumbIndex] = useState(null);
+    const [draggingImagesIndex, setDraggingImagesIndex] = useState(null);
+
+    // Refs for file inputs
+    const thumbInputRefs = useRef([]);
+    const imagesInputRefs = useRef([]);
 
     // Maximum number of images per SKU
     const MAX_IMAGES_PER_SKU = 5;
@@ -118,6 +126,12 @@ function SKUManagement({ formData, setFormData }) {
         }
     }, [hasValidVariations]);
 
+    // Initialize refs when sku_list changes
+    useEffect(() => {
+        thumbInputRefs.current = thumbInputRefs.current.slice(0, formData.sku_list.length);
+        imagesInputRefs.current = imagesInputRefs.current.slice(0, formData.sku_list.length);
+    }, [formData.sku_list.length]);
+
     // Check if a variation combination already exists
     const checkDuplicateVariation = (skuIndex, selectedOptions) => {
         const optionsKey = JSON.stringify(
@@ -208,10 +222,9 @@ function SKUManagement({ formData, setFormData }) {
         }
     };
 
-    const handleSKUThumbChange = (skuIndex, e) => {
-        const file = e.target.files[0];
+    // Process SKU thumbnail file
+    const processSkuThumbFile = (skuIndex, file) => {
         if (!file) return;
-
         const reader = new FileReader();
         reader.onloadend = () => {
             const newSKUs = [...formData.sku_list];
@@ -227,8 +240,8 @@ function SKUManagement({ formData, setFormData }) {
         reader.readAsDataURL(file);
     };
 
-    const handleSKUImagesChange = (skuIndex, e) => {
-        const files = Array.from(e.target.files);
+    // Process SKU image files
+    const processSkuImageFiles = (skuIndex, files) => {
         if (files.length === 0) return;
 
         // Check if adding the new files would exceed the maximum
@@ -261,6 +274,74 @@ function SKUManagement({ formData, setFormData }) {
                 sku_list: newSKUs
             }));
         });
+    };
+
+    const handleSKUThumbChange = (skuIndex, e) => {
+        const file = e.target.files[0];
+        processSkuThumbFile(skuIndex, file);
+    };
+
+    const handleSKUImagesChange = (skuIndex, e) => {
+        const files = Array.from(e.target.files);
+        processSkuImageFiles(skuIndex, files);
+    };
+
+    // Drag and drop handlers for SKU thumbnails
+    const handleThumbDragEnter = (skuIndex, e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDraggingThumbIndex(skuIndex);
+    };
+
+    const handleThumbDragLeave = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDraggingThumbIndex(null);
+    };
+
+    const handleThumbDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    const handleThumbDrop = (skuIndex, e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDraggingThumbIndex(null);
+
+        const files = e.dataTransfer.files;
+        if (files && files.length > 0) {
+            processSkuThumbFile(skuIndex, files[0]);
+        }
+    };
+
+    // Drag and drop handlers for SKU images
+    const handleImagesDragEnter = (skuIndex, e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDraggingImagesIndex(skuIndex);
+    };
+
+    const handleImagesDragLeave = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDraggingImagesIndex(null);
+    };
+
+    const handleImagesDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    const handleImagesDrop = (skuIndex, e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDraggingImagesIndex(null);
+
+        const files = Array.from(e.dataTransfer.files);
+        if (files && files.length > 0) {
+            processSkuImageFiles(skuIndex, files);
+        }
     };
 
     const removeSKUImage = (skuIndex, imageIndex) => {
@@ -501,15 +582,31 @@ function SKUManagement({ formData, setFormData }) {
                                                 </button>
                                             </div>
                                         ) : (
-                                            <div className={cx('upload-placeholder')}>
+                                            <div
+                                                className={cx('upload-placeholder', {
+                                                    dragging: draggingThumbIndex === skuIndex
+                                                })}
+                                                onDragEnter={(e) =>
+                                                    handleThumbDragEnter(skuIndex, e)
+                                                }
+                                                onDragLeave={handleThumbDragLeave}
+                                                onDragOver={handleThumbDragOver}
+                                                onDrop={(e) => handleThumbDrop(skuIndex, e)}
+                                                onClick={() =>
+                                                    thumbInputRefs.current[skuIndex]?.click()
+                                                }
+                                            >
                                                 <div className={cx('upload-icon')}>📷</div>
-                                                <span>Click to upload thumbnail</span>
+                                                <span>Click or drag to upload thumbnail</span>
                                                 <input
                                                     type="file"
                                                     className={cx('file-input')}
                                                     accept="image/*"
                                                     onChange={(e) =>
                                                         handleSKUThumbChange(skuIndex, e)
+                                                    }
+                                                    ref={(el) =>
+                                                        (thumbInputRefs.current[skuIndex] = el)
                                                     }
                                                 />
                                             </div>
@@ -560,8 +657,24 @@ function SKUManagement({ formData, setFormData }) {
                                                     </div>
                                                 ))}
                                             {(sku.images?.length || 0) < MAX_IMAGES_PER_SKU && (
-                                                <div className={cx('add-sku-image')}>
+                                                <div
+                                                    className={cx('add-sku-image', {
+                                                        dragging: draggingImagesIndex === skuIndex
+                                                    })}
+                                                    onDragEnter={(e) =>
+                                                        handleImagesDragEnter(skuIndex, e)
+                                                    }
+                                                    onDragLeave={handleImagesDragLeave}
+                                                    onDragOver={handleImagesDragOver}
+                                                    onDrop={(e) => handleImagesDrop(skuIndex, e)}
+                                                    onClick={() =>
+                                                        imagesInputRefs.current[skuIndex]?.click()
+                                                    }
+                                                >
                                                     <span>+</span>
+                                                    <div className={cx('drag-text')}>
+                                                        Click or drag images here
+                                                    </div>
                                                     <input
                                                         type="file"
                                                         className={cx('file-input')}
@@ -569,6 +682,9 @@ function SKUManagement({ formData, setFormData }) {
                                                         multiple
                                                         onChange={(e) =>
                                                             handleSKUImagesChange(skuIndex, e)
+                                                        }
+                                                        ref={(el) =>
+                                                            (imagesInputRefs.current[skuIndex] = el)
                                                         }
                                                     />
                                                 </div>

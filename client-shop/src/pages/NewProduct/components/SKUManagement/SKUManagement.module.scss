@@ -390,6 +390,48 @@
     }
 }
 
+.upload-placeholder {
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    height: 120px;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+
+    &:hover {
+        border-color: #3498db;
+        background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    &.dragging {
+        border-color: #2196f3;
+        background-color: rgba(33, 150, 243, 0.1);
+        box-shadow: 0 0 10px rgba(33, 150, 243, 0.2);
+    }
+
+    .upload-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #666;
+    }
+
+    .file-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+}
+
 .sku-thumb-preview {
     position: relative;
     width: 100%;
@@ -553,6 +595,49 @@
         left: 0;
         opacity: 0;
         cursor: pointer;
+    }
+}
+
+.add-sku-image {
+    width: 80px;
+    height: 80px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #666;
+    font-size: 1.5rem;
+    position: relative;
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: #3498db;
+        background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    &.dragging {
+        border-color: #2196f3;
+        background-color: rgba(33, 150, 243, 0.1);
+        box-shadow: 0 0 10px rgba(33, 150, 243, 0.2);
+    }
+
+    .file-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .drag-text {
+        font-size: 10px;
+        text-align: center;
+        margin-top: 5px;
     }
 }
 

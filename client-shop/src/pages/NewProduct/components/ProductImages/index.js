@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ProductImages.module.scss';
 import { FaUpload, FaTimes, FaExclamationTriangle } from 'react-icons/fa';
@@ -16,6 +16,14 @@ function ProductImages({ formData, setFormData }) {
     const [previewImage, setPreviewImage] = useState(null);
     const [previewType, setPreviewType] = useState(null); // 'thumbnail' or 'additional'
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+
+    // Add states for drag-and-drop
+    const [isDraggingThumb, setIsDraggingThumb] = useState(false);
+    const [isDraggingImages, setIsDraggingImages] = useState(false);
+
+    // Add refs for the file inputs
+    const thumbInputRef = useRef(null);
+    const imagesInputRef = useRef(null);
 
     // Handle opening the preview modal
     const handleOpenPreview = (image, type, index = null) => {
@@ -97,6 +105,10 @@ function ProductImages({ formData, setFormData }) {
         const file = e.target.files[0];
         if (!file) return;
 
+        processThumbFile(file);
+    };
+
+    const processThumbFile = (file) => {
         const reader = new FileReader();
         reader.onload = () => {
             const newThumb = {
@@ -117,6 +129,10 @@ function ProductImages({ formData, setFormData }) {
         const files = Array.from(e.target.files);
         if (!files.length) return;
 
+        processImageFiles(files);
+    };
+
+    const processImageFiles = (files) => {
         const newImages = files.map((file) => {
             const reader = new FileReader();
             return new Promise((resolve) => {
@@ -139,6 +155,64 @@ function ProductImages({ formData, setFormData }) {
             }));
             validateAdditionalImages(updatedImages);
         });
+    };
+
+    // Drag and drop handlers for thumbnail
+    const handleThumbDragEnter = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDraggingThumb(true);
+    };
+
+    const handleThumbDragLeave = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDraggingThumb(false);
+    };
+
+    const handleThumbDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    const handleThumbDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDraggingThumb(false);
+
+        const files = e.dataTransfer.files;
+        if (files && files.length > 0) {
+            processThumbFile(files[0]);
+        }
+    };
+
+    // Drag and drop handlers for additional images
+    const handleImagesDragEnter = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDraggingImages(true);
+    };
+
+    const handleImagesDragLeave = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDraggingImages(false);
+    };
+
+    const handleImagesDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    const handleImagesDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDraggingImages(false);
+
+        const files = Array.from(e.dataTransfer.files);
+        if (files && files.length > 0) {
+            processImageFiles(files);
+        }
     };
 
     const removeImage = (indexToRemove) => {
@@ -164,8 +238,19 @@ function ProductImages({ formData, setFormData }) {
                 <label>
                     Thumbnail <span className={cx('required-mark')}>*</span>
                 </label>
-                <div className={cx('upload-box', { 'error-border': errors.thumbnail })}>
+                <div
+                    className={cx('upload-box', {
+                        'error-border': errors.thumbnail,
+                        dragging: isDraggingThumb
+                    })}
+                    onDragEnter={handleThumbDragEnter}
+                    onDragLeave={handleThumbDragLeave}
+                    onDragOver={handleThumbDragOver}
+                    onDrop={handleThumbDrop}
+                    onClick={() => thumbInputRef.current.click()}
+                >
                     <input
+                        ref={thumbInputRef}
                         type="file"
                         className={cx('file-input')}
                         onChange={handleThumbUpload}
@@ -174,7 +259,7 @@ function ProductImages({ formData, setFormData }) {
                     />
                     <div className={cx('upload-placeholder')}>
                         <FaUpload className={cx('upload-icon')} />
-                        <span>Upload Thumbnail</span>
+                        <span>Upload Thumbnail or Drag & Drop</span>
                     </div>
                 </div>
 
@@ -210,8 +295,19 @@ function ProductImages({ formData, setFormData }) {
                     Additional Images <span className={cx('required-mark')}>*</span>
                     <small> (At least 3 images)</small>
                 </label>
-                <div className={cx('upload-box', { 'error-border': errors.additionalImages })}>
+                <div
+                    className={cx('upload-box', {
+                        'error-border': errors.additionalImages,
+                        dragging: isDraggingImages
+                    })}
+                    onDragEnter={handleImagesDragEnter}
+                    onDragLeave={handleImagesDragLeave}
+                    onDragOver={handleImagesDragOver}
+                    onDrop={handleImagesDrop}
+                    onClick={() => imagesInputRef.current.click()}
+                >
                     <input
+                        ref={imagesInputRef}
                         type="file"
                         className={cx('file-input')}
                         multiple
@@ -220,7 +316,7 @@ function ProductImages({ formData, setFormData }) {
                     />
                     <div className={cx('upload-placeholder')}>
                         <FaUpload className={cx('upload-icon')} />
-                        <span>Upload Additional Images</span>
+                        <span>Upload Additional Images or Drag & Drop</span>
                     </div>
                 </div>
 
