@@ -1,0 +1,3 @@
+[2025-04-03T03:07:23.719Z] [error]: HIDE::400::ValidationError::"sku_list[0].sku_tier_idx" must be an array::
+[2025-04-03T03:09:01.427Z] [error]: HIDE::400::ValidationError::SPU validation failed: product_quantity: Path `product_quantity` is required.::
+[2025-04-03T03:09:58.711Z] [error]: HIDE::400::ValidationError::SPU validation failed: product_quantity: Path `product_quantity` is required.::

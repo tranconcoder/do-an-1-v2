@@ -89,6 +89,7 @@
     font-weight: 500;
     transition: all 0.3s ease;
     border-radius: 6px;
+    height: 35px;
 
     &:hover {
         background-color: rgba(231, 76, 60, 0.1);
@@ -322,6 +323,15 @@
         font-weight: 600;
         color: #334155;
         margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+
+        .image-limit-text {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: normal;
+            margin-left: 8px;
+        }
     }
 }
 
@@ -543,6 +553,19 @@
         left: 0;
         opacity: 0;
         cursor: pointer;
+    }
+}
+
+.images-limit-reached {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: #f59e0b;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &::before {
+        content: '⚠️';
     }
 }
 

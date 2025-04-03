@@ -202,7 +202,10 @@ function NewProduct() {
 
             // Add SKU data
             data.sku_list.forEach((sku, index) => {
-                formDataToSubmit.append(`sku_list[${index}][sku_tier_idx]`, sku.sku_tier_idx);
+                // formDataToSubmit.append(`sku_list[${index}][sku_tier_idx]`, sku.sku_tier_idx);
+                sku.sku_tier_idx.forEach((tierIdx, i) => {
+                    formDataToSubmit.append(`sku_list[${index}][sku_tier_idx][${i}]`, tierIdx);
+                });
                 formDataToSubmit.append(`sku_list[${index}][sku_stock]`, sku.sku_stock);
                 formDataToSubmit.append(`sku_list[${index}][sku_price]`, sku.sku_price);
             });

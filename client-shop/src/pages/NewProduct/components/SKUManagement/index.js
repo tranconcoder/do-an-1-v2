@@ -15,6 +15,9 @@ function SKUManagement({ formData, setFormData }) {
     const [selectedSkuIndex, setSelectedSkuIndex] = useState(null);
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
+    // Maximum number of images per SKU
+    const MAX_IMAGES_PER_SKU = 5;
+
     // Check if there are valid variations
     const hasValidVariations = formData.product_variations?.some(
         (v) =>
@@ -228,7 +231,16 @@ function SKUManagement({ formData, setFormData }) {
         const files = Array.from(e.target.files);
         if (files.length === 0) return;
 
-        const filePromises = files.map((file) => {
+        // Check if adding the new files would exceed the maximum
+        const currentImageCount = formData.sku_list[skuIndex].images?.length || 0;
+        const remainingSlots = MAX_IMAGES_PER_SKU - currentImageCount;
+
+        if (remainingSlots <= 0) return;
+
+        // Only add up to the remaining slots
+        const filesToAdd = files.slice(0, remainingSlots);
+
+        const filePromises = filesToAdd.map((file) => {
             return new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.onloadend = () => {
@@ -506,7 +518,12 @@ function SKUManagement({ formData, setFormData }) {
                                 </div>
 
                                 <div className={cx('sku-images-section')}>
-                                    <h3>Additional Images</h3>
+                                    <h3>
+                                        Additional Images{' '}
+                                        <span className={cx('image-limit-text')}>
+                                            (Max: {MAX_IMAGES_PER_SKU})
+                                        </span>
+                                    </h3>
                                     <div className={cx('sku-images-upload')}>
                                         <div className={cx('sku-images-grid')}>
                                             {sku.images &&
@@ -542,19 +559,27 @@ function SKUManagement({ formData, setFormData }) {
                                                         </button>
                                                     </div>
                                                 ))}
-                                            <div className={cx('add-sku-image')}>
-                                                <span>+</span>
-                                                <input
-                                                    type="file"
-                                                    className={cx('file-input')}
-                                                    accept="image/*"
-                                                    multiple
-                                                    onChange={(e) =>
-                                                        handleSKUImagesChange(skuIndex, e)
-                                                    }
-                                                />
-                                            </div>
+                                            {(sku.images?.length || 0) < MAX_IMAGES_PER_SKU && (
+                                                <div className={cx('add-sku-image')}>
+                                                    <span>+</span>
+                                                    <input
+                                                        type="file"
+                                                        className={cx('file-input')}
+                                                        accept="image/*"
+                                                        multiple
+                                                        onChange={(e) =>
+                                                            handleSKUImagesChange(skuIndex, e)
+                                                        }
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
+                                        {(sku.images?.length || 0) >= MAX_IMAGES_PER_SKU && (
+                                            <div className={cx('images-limit-reached')}>
+                                                Maximum number of images reached (
+                                                {MAX_IMAGES_PER_SKU})
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
