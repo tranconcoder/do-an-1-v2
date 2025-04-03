@@ -15,7 +15,6 @@ const spuSchema = new Schema<model.spu.SPUSchema, true>(
     {
         /* ------------------------ Product ------------------------ */
         product_name: { type: String, required },
-        product_thumb: { type: ObjectId, ref: MEDIA_MODEL_NAME, required },
         product_quantity: { type: Number, required },
         product_description: { type: String, required },
         product_category: { type: ObjectId, ref: CATEGORY_MODEL_NAME, required },
@@ -28,6 +27,14 @@ const spuSchema = new Schema<model.spu.SPUSchema, true>(
             set: (v: number) => Math.round(v * 100) / 100
         },
         product_slug: { type: String, default: '', unique },
+
+        /* -------------------------- Media ------------------------- */
+        product_thumb: { type: ObjectId, ref: MEDIA_MODEL_NAME, required },
+        product_images: {
+            type: [ObjectId],
+            ref: MEDIA_MODEL_NAME,
+            default: []
+        },
 
         /* --------------------------- SPU -------------------------- */
         product_attributes: {

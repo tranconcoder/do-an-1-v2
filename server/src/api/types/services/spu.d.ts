@@ -20,7 +20,6 @@ declare global {
                         model.spu.SPUSchema,
                         | 'product_name'
                         | 'product_shop'
-                        | 'product_quantity'
                         | 'product_description'
                         | 'product_category'
                         | 'product_attributes'

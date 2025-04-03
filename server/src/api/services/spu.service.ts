@@ -50,10 +50,13 @@ export default new (class SPUService {
             });
 
         /* --------------------- Handle save spu ------------------- */
+        const quantity = sku_list.reduce((acc, cur) => acc + cur.sku_stock, 0);
+        console.log({
+            mediaIds
+        });
         const spu = await spuModel.create({
             product_name: payload.product_name,
-            product_cost: payload.product_cost,
-            product_quantity: payload.product_quantity,
+            product_quantity: quantity,
             product_category: category._id,
             product_description: payload.product_description,
             product_attributes: payload.product_attributes,
@@ -136,7 +139,5 @@ export default new (class SPUService {
     /* ---------------------------------------------------------- */
     async deleteSPU() {
         /* ---------------------- Check is own ---------------------- */
-
-
     }
 })();
