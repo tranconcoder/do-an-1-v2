@@ -14,12 +14,9 @@ const warehousesRouter = Router();
 
 warehousesRouter.use(authenticate);
 
-warehousesRouter.get(
-    '/',
-    authorization('readOwn', Resources.WAREHOUSES),
-    catchError(warehousesController.getAll)
-);
-
+/* ---------------------------------------------------------- */
+/*                           Create                           */
+/* ---------------------------------------------------------- */
 warehousesRouter.post(
     '/',
     authorization('createOwn', Resources.WAREHOUSES),
@@ -27,6 +24,27 @@ warehousesRouter.post(
     catchError(warehousesController.create)
 );
 
+/* ---------------------------------------------------------- */
+/*                             Get                            */
+/* ---------------------------------------------------------- */
+warehousesRouter.get(
+    '/',
+    authorization('readOwn', Resources.WAREHOUSES),
+    catchError(warehousesController.getAll)
+);
+
+/* ---------------------------------------------------------- */
+/*                           Upload                           */
+/* ---------------------------------------------------------- */
+warehousesRouter.patch(
+    '/:warehouseId',
+    authorization('updateOwn', Resources.WAREHOUSES),
+    catchError(warehousesController.update)
+);
+
+/* ---------------------------------------------------------- */
+/*                           Delete                           */
+/* ---------------------------------------------------------- */
 warehousesRouter.delete(
     '/:warehouseId',
     authorization('deleteOwn', Resources.WAREHOUSES),

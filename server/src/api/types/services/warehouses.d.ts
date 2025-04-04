@@ -11,8 +11,9 @@ declare global {
                 }
 
                 /* ------------------------- Update ------------------------- */
-                interface UpdateWarehouses extends Partial<CreateWarehouse> {
+                interface UpdateWarehouses {
                     id: string;
+                    update: Partial<CreateWarehouse>;
                 }
 
                 /* ------------------------- Delete ------------------------- */

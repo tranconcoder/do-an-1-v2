@@ -8,7 +8,8 @@ import {
     generateFindById,
     generateFindOne,
     generateFindOneAndDelete,
-    generateFindOneAndReplace
+    generateFindOneAndReplace,
+    generateFindOneAndUpdate
 } from '@/utils/mongoose.util.js';
 
 /* ----------------------- Find by id ----------------------- */
@@ -22,6 +23,11 @@ export const findOneWarehouse = generateFindOne<model.warehouse.WarehouseSchema>
 /* ---------------------------------------------------------- */
 export const findWarehouses = generateFindAll<model.warehouse.WarehouseSchema>(warehouseModel);
 
+/* ---------------------------------------------------------- */
+/*                           Update                           */
+/* ---------------------------------------------------------- */
+export const findOneAndUpdateWarehouse =
+    generateFindOneAndUpdate<model.warehouse.WarehouseSchema>(warehouseModel);
 
 /* ---------------------------------------------------------- */
 /*                           Delete                           */

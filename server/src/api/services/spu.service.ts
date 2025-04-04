@@ -12,7 +12,7 @@ import { SKUImages } from '@/enums/sku.enum.js';
 import { SPUImages } from '@/enums/spu.enum.js';
 import { findAllSPU } from '@/models/repository/spu/index.js';
 import inventoryService from './inventory.service.js';
-import mongoose from 'mongoose';
+import mongoose, { RootFilterQuery } from 'mongoose';
 
 export default new (class SPUService {
     /* ---------------------------------------------------------- */
@@ -113,9 +113,17 @@ export default new (class SPUService {
     /* ---------------------------------------------------------- */
 
     /* ------------------------- By shop ------------------------ */
-    async getAllSpuShopGrid() {}
+    async getAllSpu({ shopId, limit, page, userId }: service.spu.arguments.GetAllSpuInShop) {
+        let query: RootFilterQuery<model.spu.SPUSchema> = {
+            product_shop: shopId,
+            is_publish: true,
+            is_deleted: false
+        };
 
-    async getAllSpuByShop({ shopId, limit, page }: service.spu.arguments.GetAllSpuByShop) {
+        if (userId) {
+            Object.assign(query, {} as typeof query);
+        }
+
         return await findAllSPU({
             query: { product_shop: shopId, is_deleted: false },
             options: { lean: true }

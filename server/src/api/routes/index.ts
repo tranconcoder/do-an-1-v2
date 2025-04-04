@@ -43,6 +43,6 @@ rootRoute.use('/category', categoryRoute);
 rootRoute.use('/spu', spuRoute);
 
 /* ------------------------ Warehouse ------------------------ */
-rootRoute.use('/warehouses', warehousesRouter);
+rootRoute.use('/warehouse', warehousesRouter);
 
 export default rootRoute;

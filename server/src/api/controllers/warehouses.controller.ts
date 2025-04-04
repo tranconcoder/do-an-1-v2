@@ -32,6 +32,19 @@ export default new (class WarehousesService {
     };
 
     /* ---------------------------------------------------------- */
+    /*                           Update                           */
+    /* ---------------------------------------------------------- */
+    update: RequestHandler<{ warehouseId: string }> = async (req, res, _) => {
+        new OkResponse({
+            message: 'Update warehouse successfully!',
+            metadata: await warehousesService.updateWarehouses({
+                id: req.params.warehouseId,
+                update: req.body
+            })
+        }).send(res);
+    };
+
+    /* ---------------------------------------------------------- */
     /*                           Delete                           */
     /* ---------------------------------------------------------- */
     delete: RequestWithParams<{ warehouseId: string }> = async (req, res, _) => {

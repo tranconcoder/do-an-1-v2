@@ -6,8 +6,10 @@ import {
     findWarehouses,
     findWarehouseById,
     findOneWarehouse,
-    findOneAndDelete
+    findOneAndDelete,
+    findOneAndUpdateWarehouse
 } from '@/models/repository/warehouses/index.js';
+import { get$SetNestedFromObject } from '@/utils/mongoose.util.js';
 
 export default new (class WarehousesService {
     /* ---------------------------------------------------------- */
@@ -43,29 +45,44 @@ export default new (class WarehousesService {
     /*                           Update                           */
     /* ---------------------------------------------------------- */
     async updateWarehouses(payload: service.warehouses.arguments.UpdateWarehouses) {
-        const { id, location } = payload;
+        const { id } = payload;
+        const { location, ...warehouseInfo } = payload.update;
 
         const currentWarehouses = await findWarehouseById({
             id,
-            options: { lean: true, projection: { address: 1 } }
+            options: { populate: 'address' }
         });
         if (!currentWarehouses)
             throw new BadRequestErrorResponse({ message: 'Warehouses not found!' });
 
         /* ----------------- Handle update location ----------------- */
-
         if (location) {
             const currentLocation =
                 currentWarehouses.address as any as model.location.LocationSchema<false, true>;
 
             if (!currentLocation)
                 throw new BadRequestErrorResponse({ message: 'Old location not found!' });
+            console.log({ currentWarehouses });
 
             currentLocation.province = location.provinceId;
             currentLocation.district = location.districtId;
             currentLocation.ward = location.wardId;
             currentLocation.address = location.address;
+
+            const updateLocation = currentLocation.save();
+            if (!updateLocation)
+                throw new BadRequestErrorResponse({ message: 'Update location failed!' });
         }
+
+        /* ----------------- Handle update warehouses -------------- */
+        const $set: commonTypes.object.ObjectAnyKeys = {};
+        get$SetNestedFromObject(warehouseInfo, $set);
+
+        return await findOneAndUpdateWarehouse({
+            query: { _id: id },
+            update: { $set },
+            options: { lean: true, new: true, populate: ['address'] }
+        });
     }
 
     /* ---------------------------------------------------------- */

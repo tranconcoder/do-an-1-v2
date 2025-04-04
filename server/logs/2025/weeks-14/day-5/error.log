@@ -4472,3 +4472,24 @@
 [2025-04-04T07:32:00.060Z] [error]: Client must be connected before running operations
 [2025-04-04T07:33:00.060Z] [error]: Client must be connected before running operations
 [2025-04-04T07:34:00.062Z] [error]: Client must be connected before running operations
+[2025-04-04T09:24:06.540Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-04-04T09:24:26.156Z] [error]: HIDE::400::ValidationError::"password" with value "Anhnam9ce" fails to match the required pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/::
+[2025-04-04T09:26:27.218Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-04T09:26:31.495Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-04T09:26:31.515Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-04T10:36:40.748Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-04T10:58:12.928Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-04T11:04:09.042Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-04T11:08:28.879Z] [error]: HIDE::400::TypeError::currentLocation.save is not a function::
+[2025-04-04T11:09:47.032Z] [error]: HIDE::400::TypeError::currentLocation.save is not a function::
+[2025-04-04T11:10:36.906Z] [error]: HIDE::400::StrictPopulateError::Cannot populate path `adderss` because it is not in your schema. Set the `strictPopulate` option to false to override.::
+[2025-04-04T11:11:54.559Z] [error]: HIDE::400::TypeError::currentLocation.save is not a function::
+[2025-04-04T11:14:32.431Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-04T11:16:15.458Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-04T11:16:15.468Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-04T11:16:15.475Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-04T11:16:15.485Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-04T11:16:15.491Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-04T11:16:15.498Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-04T11:16:15.526Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-04T11:16:15.662Z] [error]: HIDE::404::NotFound::Route is not exists::

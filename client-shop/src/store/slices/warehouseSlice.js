@@ -6,7 +6,7 @@ export const fetchWarehouses = createAsyncThunk(
     'warehouses/fetchWarehouses',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axiosClient.get('/warehouses');
+            const response = await axiosClient.get('/warehouse');
             return response.data.metadata;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Lỗi khi tải thông tin kho');
