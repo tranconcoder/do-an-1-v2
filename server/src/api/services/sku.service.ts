@@ -50,5 +50,9 @@ export default new (class SKUService {
     /* ---------------------------------------------------------- */
 
     /* ----------------------- Get all SPU ---------------------- */
-    async getAllSPU() {}
+    // By User
+    async getAllSPUInShopByUser() {}
+
+    // By own Shop
+    async getAllSPUInShopByShop() {}
 })();

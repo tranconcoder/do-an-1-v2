@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectShopInfo } from '../../../../store/userSlice';
+import { fetchWarehouses } from '../../../../store/slices/warehouseSlice';
 import classNames from 'classnames/bind';
 import styles from './SKUManagement.module.scss';
 import ImagePreviewModal from '../../../../components/ImagePreviewModal';
@@ -8,25 +9,23 @@ import ImagePreviewModal from '../../../../components/ImagePreviewModal';
 const cx = classNames.bind(styles);
 
 function SKUManagement({ formData, setFormData }) {
+    const dispatch = useDispatch();
+    const shopInfo = useSelector(selectShopInfo);
+    const { warehouses, loading: warehousesLoading } = useSelector((state) => state.warehouses);
+
+    console.log(warehouses);
+
     const [duplicateError, setDuplicateError] = useState(null);
     const [currentSkuIndex, setCurrentSkuIndex] = useState(null);
-    const shopInfo = useSelector(selectShopInfo);
-    const shopWarehouses = shopInfo?.shop_warehouses || [];
 
-    // Add state for modal control
+    // States for image handling
     const [previewImage, setPreviewImage] = useState(null);
-    const [previewType, setPreviewType] = useState(null); // 'thumb' or 'additional'
+    const [previewType, setPreviewType] = useState(null);
     const [selectedSkuIndex, setSelectedSkuIndex] = useState(null);
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
-
-    // State theo dõi trạng thái đang xử lý file
     const [processingFileIndex, setProcessingFileIndex] = useState(null);
-
-    // State for temporary image previews
     const [tempThumbPreviews, setTempThumbPreviews] = useState({});
     const [tempImagePreviews, setTempImagePreviews] = useState({});
-
-    // States for drag and drop
     const [draggingThumbIndex, setDraggingThumbIndex] = useState(null);
     const [draggingImagesIndex, setDraggingImagesIndex] = useState(null);
 
@@ -36,6 +35,15 @@ function SKUManagement({ formData, setFormData }) {
 
     // Maximum number of images per SKU
     const MAX_IMAGES_PER_SKU = 5;
+
+    const [warehouseErrors, setWarehouseErrors] = useState({});
+
+    // Fetch warehouses when component mounts
+    useEffect(() => {
+        if (shopInfo?.shop_id) {
+            dispatch(fetchWarehouses(shopInfo.shop_id));
+        }
+    }, [dispatch, shopInfo]);
 
     // Check if there are valid variations
     const hasValidVariations = formData.product_variations?.some(
@@ -472,9 +480,6 @@ function SKUManagement({ formData, setFormData }) {
     };
 
     // Add validation state for warehouse errors
-    const [warehouseErrors, setWarehouseErrors] = useState({});
-
-    // Validate SKU warehouse before submitting
     useEffect(() => {
         let isValid = true;
         const newErrors = {};
@@ -609,34 +614,34 @@ function SKUManagement({ formData, setFormData }) {
                             {/* Add inventory and pricing fields */}
                             <div className={cx('sku-inventory-pricing')}>
                                 <h3>Kho và Giá</h3>
-                                <div className={cx('inventory-pricing-grid')}>
+                                <div className={cx('sku-fields')}>
                                     <div className={cx('sku-field')}>
-                                        <label>Kho hàng *</label>
+                                        <label>Warehouse</label>
                                         <select
-                                            value={sku.warehouse}
+                                            value={sku.warehouse || ''}
                                             onChange={(e) =>
                                                 handleWarehouseChange(skuIndex, e.target.value)
                                             }
-                                            className={cx('warehouse-select', {
+                                            className={cx('sku-input', {
                                                 'error-border': warehouseErrors[skuIndex]
                                             })}
-                                            required
+                                            disabled={warehousesLoading}
                                         >
-                                            <option value="">-- Chọn kho hàng --</option>
-                                            {shopWarehouses.map((warehouse) => (
+                                            <option value="">-- Select Warehouse --</option>
+                                            {warehouses.map((warehouse) => (
                                                 <option key={warehouse._id} value={warehouse._id}>
                                                     {warehouse.name}
                                                 </option>
                                             ))}
                                         </select>
                                         {warehouseErrors[skuIndex] && (
-                                            <div className={cx('field-error')}>
+                                            <div className={cx('error-message')}>
                                                 {warehouseErrors[skuIndex]}
                                             </div>
                                         )}
                                     </div>
                                     <div className={cx('sku-field')}>
-                                        <label>Stock Quantity</label>
+                                        <label>Stock</label>
                                         <input
                                             type="number"
                                             min="0"
