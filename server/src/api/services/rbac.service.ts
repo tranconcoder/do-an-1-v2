@@ -123,6 +123,18 @@ class RBACService {
                             RoleActions.UPDATE_OWN
                         ],
                         attributes: '*'
+                    },
+                    {
+                        resource: resourcesId.find(
+                            (resource) => resource.name === Resources.WAREHOUSES
+                        )?.id,
+                        actions: [
+                            RoleActions.CREATE_OWN,
+                            RoleActions.READ_OWN,
+                            RoleActions.UPDATE_OWN,
+                            RoleActions.DELETE_OWN
+                        ],
+                        attributes: '*'
                     }
                 ]
             },

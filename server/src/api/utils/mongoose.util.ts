@@ -260,3 +260,37 @@ export const generateFindOneAndReplace = <T = any>(model: any) => {
         return result;
     };
 };
+
+
+/* ---------------------------------------------------------- */
+/*                           Delete                           */
+/* ---------------------------------------------------------- */
+export const generateFindOneAndDelete = <T = any>(model: any) => {
+    return ({
+        query,
+        options = {},
+        projection = '',
+        only = [],
+        select = [],
+        omit = []
+    }: moduleTypes.mongoose.FindOneAndDelete<T>) => {
+        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findOneAndDelete', {}>;
+
+        projection = getProjection<T>({
+            projection,
+            only,
+            select,
+            omit
+        });
+
+        const result: Query = model
+            .findOneAndDelete(query, {
+                sort: options.sort === 'ctime' ? { [timestamps.updatedAt]: -1 } : options.sort,
+                ...options
+            })
+            .select(projection)
+            .maxTimeMS(PESSIMISTIC_QUERY_TIME);
+
+        return result;
+    };
+};

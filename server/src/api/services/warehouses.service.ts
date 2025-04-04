@@ -2,7 +2,12 @@ import warehouseModel from '@/models/warehouse.model.js';
 import locationService from './location.service.js';
 import { BadRequestErrorResponse } from '@/response/error.response.js';
 import { findLocationById } from '@/models/repository/location/index.js';
-import { findWarehouses, findWarehouseById } from '@/models/repository/warehouses/index.js';
+import {
+    findWarehouses,
+    findWarehouseById,
+    findOneWarehouse,
+    findOneAndDelete
+} from '@/models/repository/warehouses/index.js';
 
 export default new (class WarehousesService {
     /* ---------------------------------------------------------- */
@@ -30,7 +35,7 @@ export default new (class WarehousesService {
     async getAllWarehouses(shopId: string) {
         return await findWarehouses({
             query: { shop: shopId },
-            options: { lean: true }
+            options: { lean: true, populate: ['address'] }
         });
     }
 
@@ -61,5 +66,20 @@ export default new (class WarehousesService {
             currentLocation.ward = location.wardId;
             currentLocation.address = location.address;
         }
+    }
+
+    /* ---------------------------------------------------------- */
+    /*                           Delete                           */
+    /* ---------------------------------------------------------- */
+    async deleteWarehouses(payload: service.warehouses.arguments.DeleteWarehouses) {
+        const { id: _id, shopId: shop } = payload;
+
+        const warehouse = await findOneAndDelete({
+            query: { _id, shop }
+        });
+
+        if (!warehouse) throw new BadRequestErrorResponse({ message: 'Warehouses not found!' });
+
+        return warehouse;
     }
 })();

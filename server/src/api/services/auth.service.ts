@@ -32,7 +32,6 @@ import { USER_PUBLIC_FIELDS } from '@/configs/user.config.js';
 import { roleService } from './rbac.service.js';
 import { changeMediaOwner } from '@/models/repository/media/index.js';
 import { NODE_ENV } from '@/configs/server.config.js';
-import warehouseModel from '@/models/warehouse.model.js';
 import warehousesService from './warehouses.service.js';
 
 export default class AuthService {

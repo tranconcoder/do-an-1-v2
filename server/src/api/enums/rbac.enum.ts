@@ -35,7 +35,8 @@ export enum Resources {
     PROFILE = 'profile',
     ORDER = 'order',
     PRODUCT = 'product',
-    CART = 'cart'
+    CART = 'cart',
+    WAREHOUSES = 'warehouses'
 }
 
 export enum ResourceStatus {

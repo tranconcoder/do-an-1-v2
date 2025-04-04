@@ -25,12 +25,12 @@ declare global {
                 [K in keyof T]: NonNullable<T[K]> extends ObjectId
                     ? string
                     : NonNullable<T[K]> extends mongooseBase.Types.ObjectId
-                      ? string
-                      : NonNullable<T[K]> extends ObjectId[]
-                        ? string[]
-                        : NonNullable<T[K]> extends mongooseBase.Types.ObjectId[]
-                          ? string[]
-                          : T[K];
+                    ? string
+                    : NonNullable<T[K]> extends ObjectId[]
+                    ? string[]
+                    : NonNullable<T[K]> extends mongooseBase.Types.ObjectId[]
+                    ? string[]
+                    : T[K];
             };
 
             type IsModel<T = false, K = any> = T extends true
@@ -82,11 +82,22 @@ declare global {
                 id: string | mongooseBase.Types.ObjectId;
             }
 
+            /* ---------------------------------------------------------- */
+            /*                           Update                           */
+            /* ---------------------------------------------------------- */
+
             /* ------------- Arguments of generateUpdateAll ------------- */
             interface UpdateAllArgs<T = any> {
                 query: RootFilterQuery<T>;
                 update: Partial<T>;
             }
+
+            /* ---------------------------------------------------------- */
+            /*                           Delete                           */
+            /* ---------------------------------------------------------- */
+
+            /* ---------- Arguments of generateFindOneAndDelete --------- */
+            interface FindOneAndDelete<T = any> extends FindOne<T> {}
         }
     }
 
