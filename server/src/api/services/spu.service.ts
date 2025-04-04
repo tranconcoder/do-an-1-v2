@@ -113,11 +113,9 @@ export default new (class SPUService {
     /* ---------------------------------------------------------- */
 
     /* ------------------------- By shop ------------------------ */
-    async getAllSpuShopGrid() {
+    async getAllSpuShopGrid() {}
 
-    }
-
-    async getAllSpuByShop({ shopId }: service.spu.arguments.GetAllSpuByShop) {
+    async getAllSpuByShop({ shopId, limit, page }: service.spu.arguments.GetAllSpuByShop) {
         return await findAllSPU({
             query: { product_shop: shopId, is_deleted: false },
             options: { lean: true }

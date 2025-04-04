@@ -5,6 +5,7 @@ import { fetchWarehouses } from '../../../../store/slices/warehouseSlice';
 import classNames from 'classnames/bind';
 import styles from './SKUManagement.module.scss';
 import ImagePreviewModal from '../../../../components/ImagePreviewModal';
+import SKUItem from './components/SKUItem';
 
 const cx = classNames.bind(styles);
 
@@ -13,12 +14,8 @@ function SKUManagement({ formData, setFormData }) {
     const shopInfo = useSelector(selectShopInfo);
     const { warehouses, loading: warehousesLoading } = useSelector((state) => state.warehouses);
 
-    console.log(warehouses);
-
     const [duplicateError, setDuplicateError] = useState(null);
     const [currentSkuIndex, setCurrentSkuIndex] = useState(null);
-
-    // States for image handling
     const [previewImage, setPreviewImage] = useState(null);
     const [previewType, setPreviewType] = useState(null);
     const [selectedSkuIndex, setSelectedSkuIndex] = useState(null);
@@ -26,17 +23,10 @@ function SKUManagement({ formData, setFormData }) {
     const [processingFileIndex, setProcessingFileIndex] = useState(null);
     const [tempThumbPreviews, setTempThumbPreviews] = useState({});
     const [tempImagePreviews, setTempImagePreviews] = useState({});
-    const [draggingThumbIndex, setDraggingThumbIndex] = useState(null);
-    const [draggingImagesIndex, setDraggingImagesIndex] = useState(null);
-
-    // Refs for file inputs
-    const thumbInputRefs = useRef([]);
-    const imagesInputRefs = useRef([]);
+    const [warehouseErrors, setWarehouseErrors] = useState({});
 
     // Maximum number of images per SKU
     const MAX_IMAGES_PER_SKU = 5;
-
-    const [warehouseErrors, setWarehouseErrors] = useState({});
 
     // Fetch warehouses when component mounts
     useEffect(() => {
@@ -83,33 +73,11 @@ function SKUManagement({ formData, setFormData }) {
 
         if (previewType === 'thumb') {
             reader.onload = () => {
-                const newThumb = {
-                    file,
-                    preview: reader.result
-                };
-
-                const newSKUs = [...formData.sku_list];
-                newSKUs[selectedSkuIndex].thumb = newThumb;
-
-                setFormData((prev) => ({
-                    ...prev,
-                    sku_list: newSKUs
-                }));
+                // ...existing code...
             };
         } else if (previewType === 'additional' && selectedImageIndex !== null) {
             reader.onload = () => {
-                const newImage = {
-                    file,
-                    preview: reader.result
-                };
-
-                const newSKUs = [...formData.sku_list];
-                newSKUs[selectedSkuIndex].images[selectedImageIndex] = newImage;
-
-                setFormData((prev) => ({
-                    ...prev,
-                    sku_list: newSKUs
-                }));
+                // ...existing code...
             };
         }
 
@@ -144,12 +112,6 @@ function SKUManagement({ formData, setFormData }) {
             }));
         }
     }, [hasValidVariations]);
-
-    // Initialize refs when sku_list changes
-    useEffect(() => {
-        thumbInputRefs.current = thumbInputRefs.current.slice(0, formData.sku_list.length);
-        imagesInputRefs.current = imagesInputRefs.current.slice(0, formData.sku_list.length);
-    }, [formData.sku_list.length]);
 
     // Check if a variation combination already exists
     const checkDuplicateVariation = (skuIndex, selectedOptions) => {
@@ -193,15 +155,6 @@ function SKUManagement({ formData, setFormData }) {
         setCurrentSkuIndex(formData.sku_list.length);
     };
 
-    const updateSKU = (index, field, value) => {
-        const newSKUs = [...formData.sku_list];
-        newSKUs[index][field] = value;
-        setFormData((prev) => ({
-            ...prev,
-            sku_list: newSKUs
-        }));
-    };
-
     const handleOptionSelect = (skuIndex, variationIndex, optionIndex) => {
         setCurrentSkuIndex(skuIndex);
         const newSKUs = [...formData.sku_list];
@@ -242,7 +195,6 @@ function SKUManagement({ formData, setFormData }) {
         }
     };
 
-    // Process SKU thumbnail file
     const processSkuThumbFile = (skuIndex, file) => {
         if (!file) return;
 
@@ -265,10 +217,9 @@ function SKUManagement({ formData, setFormData }) {
                 sku_list: newSKUs
             }));
 
-            // Xóa trạng thái đang xử lý sau khi hoàn tất
+            // Cleanup processing state after completion
             setTimeout(() => {
                 setProcessingFileIndex(null);
-                // Clean up the temporary preview
                 setTempThumbPreviews((prev) => {
                     const newPreviews = { ...prev };
                     delete newPreviews[skuIndex];
@@ -279,7 +230,6 @@ function SKUManagement({ formData, setFormData }) {
         reader.readAsDataURL(file);
     };
 
-    // Process SKU image files
     const processSkuImageFiles = (skuIndex, files) => {
         if (files.length === 0) return;
 
@@ -320,10 +270,9 @@ function SKUManagement({ formData, setFormData }) {
                 sku_list: newSKUs
             }));
 
-            // Xóa trạng thái đang xử lý sau khi hoàn tất
+            // Cleanup processing state after completion
             setTimeout(() => {
                 setProcessingFileIndex(null);
-                // Clean up the temporary previews
                 setTempImagePreviews((prev) => {
                     const newPreviews = { ...prev };
                     delete newPreviews[skuIndex];
@@ -333,108 +282,9 @@ function SKUManagement({ formData, setFormData }) {
         });
     };
 
-    const handleSKUThumbChange = (skuIndex, e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        // Đặt trạng thái đang xử lý
-        setProcessingFileIndex(skuIndex);
-
-        processSkuThumbFile(skuIndex, file);
-    };
-
-    const handleSKUImagesChange = (skuIndex, e) => {
-        const files = Array.from(e.target.files);
-        if (files.length === 0) return;
-
-        // Đặt trạng thái đang xử lý
-        setProcessingFileIndex(skuIndex);
-
-        processSkuImageFiles(skuIndex, files);
-    };
-
-    // Hàm xử lý click để mở hộp thoại chọn thumbnail
-    const handleThumbBoxClick = (skuIndex) => {
-        // Nếu đang xử lý file, không cho phép click
-        if (processingFileIndex !== null) return;
-
-        if (thumbInputRefs.current[skuIndex]) {
-            thumbInputRefs.current[skuIndex].value = ''; // Clear previous selection
-            thumbInputRefs.current[skuIndex].click();
-        }
-    };
-
-    // Hàm xử lý click để mở hộp thoại chọn ảnh bổ sung
-    const handleImagesBoxClick = (skuIndex) => {
-        // Nếu đang xử lý file, không cho phép click
-        if (processingFileIndex !== null) return;
-
-        if (imagesInputRefs.current[skuIndex]) {
-            imagesInputRefs.current[skuIndex].value = ''; // Clear previous selection
-            imagesInputRefs.current[skuIndex].click();
-        }
-    };
-
-    const handleThumbDragEnter = (skuIndex, e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setDraggingThumbIndex(skuIndex);
-    };
-
-    const handleThumbDragLeave = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setDraggingThumbIndex(null);
-    };
-
-    const handleThumbDragOver = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-    };
-
-    const handleThumbDrop = (skuIndex, e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setDraggingThumbIndex(null);
-
-        const files = e.dataTransfer.files;
-        if (files && files.length > 0) {
-            processSkuThumbFile(skuIndex, files[0]);
-        }
-    };
-
-    // Drag and drop handlers for SKU images
-    const handleImagesDragEnter = (skuIndex, e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setDraggingImagesIndex(skuIndex);
-    };
-
-    const handleImagesDragLeave = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setDraggingImagesIndex(null);
-    };
-
-    const handleImagesDragOver = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-    };
-
-    const handleImagesDrop = (skuIndex, e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setDraggingImagesIndex(null);
-
-        const files = Array.from(e.dataTransfer.files);
-        if (files && files.length > 0) {
-            processSkuImageFiles(skuIndex, files);
-        }
-    };
-
-    const removeSKUImage = (skuIndex, imageIndex) => {
+    const updateSKU = (index, field, value) => {
         const newSKUs = [...formData.sku_list];
-        newSKUs[skuIndex].images.splice(imageIndex, 1);
+        newSKUs[index][field] = value;
         setFormData((prev) => ({
             ...prev,
             sku_list: newSKUs
@@ -448,7 +298,15 @@ function SKUManagement({ formData, setFormData }) {
         }));
     };
 
-    // Handle stock and price changes
+    const removeSKUImage = (skuIndex, imageIndex) => {
+        const newSKUs = [...formData.sku_list];
+        newSKUs[skuIndex].images.splice(imageIndex, 1);
+        setFormData((prev) => ({
+            ...prev,
+            sku_list: newSKUs
+        }));
+    };
+
     const handleSkuNumberChange = (skuIndex, field, value) => {
         const numValue = value === '' ? (field === 'sku_stock' ? 0 : '') : Number(value);
 
@@ -461,10 +319,9 @@ function SKUManagement({ formData, setFormData }) {
         }));
     };
 
-    // Add handler for warehouse selection
     const handleWarehouseChange = (skuIndex, warehouseId) => {
         const newSKUs = [...formData.sku_list];
-        newSKUs[skuIndex].warehouse = warehouseId; // Using warehouse instead of sku_warehouse
+        newSKUs[skuIndex].warehouse = warehouseId;
         setFormData((prev) => ({
             ...prev,
             sku_list: newSKUs
@@ -479,7 +336,7 @@ function SKUManagement({ formData, setFormData }) {
         }
     };
 
-    // Add validation state for warehouse errors
+    // Validate warehouses
     useEffect(() => {
         let isValid = true;
         const newErrors = {};
@@ -493,12 +350,6 @@ function SKUManagement({ formData, setFormData }) {
 
         setWarehouseErrors(newErrors);
     }, [formData.sku_list]);
-
-    // Check if there are any variations defined
-    const hasVariations =
-        formData.product_variations &&
-        formData.product_variations.length > 0 &&
-        formData.product_variations.some((v) => v.options && v.options.length > 0);
 
     // Clean up object URLs on component unmount
     useEffect(() => {
@@ -536,375 +387,32 @@ function SKUManagement({ formData, setFormData }) {
 
             <div className={cx('sku-list')}>
                 {formData.sku_list.map((sku, skuIndex) => (
-                    <div key={skuIndex} className={cx('sku-item')}>
-                        <div className={cx('sku-header')}>
-                            <span className={cx('sku-title')}>SKU #{skuIndex + 1}</span>
-                            <button
-                                type="button"
-                                className={cx('remove-sku')}
-                                onClick={() => {
-                                    removeSKU(skuIndex);
-                                    setDuplicateError(null);
-                                }}
-                            >
-                                <span className={cx('remove-icon')}>×</span>
-                                Remove
-                            </button>
-                        </div>
-
-                        <div className={cx('sku-content')}>
-                            {hasVariations && (
-                                <div className={cx('sku-variations-selection')}>
-                                    <h3>Variation Options</h3>
-                                    <div className={cx('variations-options-grid')}>
-                                        {formData.product_variations.map(
-                                            (variation, variationIndex) => (
-                                                <div
-                                                    key={variationIndex}
-                                                    className={cx('variation-selector')}
-                                                >
-                                                    <label>{variation.name}</label>
-                                                    <select
-                                                        value={
-                                                            sku.selected_options?.[
-                                                                variationIndex
-                                                            ] || ''
-                                                        }
-                                                        onChange={(e) =>
-                                                            handleOptionSelect(
-                                                                skuIndex,
-                                                                variationIndex,
-                                                                e.target.value
-                                                            )
-                                                        }
-                                                        className={cx('variation-option-select', {
-                                                            'error-border':
-                                                                duplicateError &&
-                                                                currentSkuIndex === skuIndex
-                                                        })}
-                                                    >
-                                                        <option value="">
-                                                            -- Select {variation.name} --
-                                                        </option>
-                                                        {variation.options.map(
-                                                            (option, optionIndex) => (
-                                                                <option
-                                                                    key={optionIndex}
-                                                                    value={optionIndex}
-                                                                >
-                                                                    {option}
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                </div>
-                                            )
-                                        )}
-                                    </div>
-
-                                    {duplicateError && currentSkuIndex === skuIndex && (
-                                        <div className={cx('duplicate-error')}>
-                                            <span className={cx('error-icon')}>⚠️</span>
-                                            {duplicateError.message}
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-
-                            {/* Add inventory and pricing fields */}
-                            <div className={cx('sku-inventory-pricing')}>
-                                <h3>Kho và Giá</h3>
-                                <div className={cx('sku-fields')}>
-                                    <div className={cx('sku-field')}>
-                                        <label>Warehouse</label>
-                                        <select
-                                            value={sku.warehouse || ''}
-                                            onChange={(e) =>
-                                                handleWarehouseChange(skuIndex, e.target.value)
-                                            }
-                                            className={cx('sku-input', {
-                                                'error-border': warehouseErrors[skuIndex]
-                                            })}
-                                            disabled={warehousesLoading}
-                                        >
-                                            <option value="">-- Select Warehouse --</option>
-                                            {warehouses.map((warehouse) => (
-                                                <option key={warehouse._id} value={warehouse._id}>
-                                                    {warehouse.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        {warehouseErrors[skuIndex] && (
-                                            <div className={cx('error-message')}>
-                                                {warehouseErrors[skuIndex]}
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className={cx('sku-field')}>
-                                        <label>Stock</label>
-                                        <input
-                                            type="number"
-                                            min="0"
-                                            value={sku.sku_stock}
-                                            onChange={(e) =>
-                                                handleSkuNumberChange(
-                                                    skuIndex,
-                                                    'sku_stock',
-                                                    e.target.value
-                                                )
-                                            }
-                                            className={cx('sku-input')}
-                                        />
-                                    </div>
-                                    <div className={cx('sku-field')}>
-                                        <label>Price</label>
-                                        <div className={cx('price-input')}>
-                                            <span className={cx('currency')}>$</span>
-                                            <input
-                                                type="number"
-                                                min="0"
-                                                step="0.01"
-                                                value={sku.sku_price}
-                                                onChange={(e) =>
-                                                    handleSkuNumberChange(
-                                                        skuIndex,
-                                                        'sku_price',
-                                                        e.target.value
-                                                    )
-                                                }
-                                                className={cx('sku-input')}
-                                                placeholder="0.00"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className={cx('sku-summary')}>
-                                <h3>Selected Combination</h3>
-                                {hasVariations ? (
-                                    <div className={cx('selected-options-tags')}>
-                                        {Object.entries(sku.selected_options || {}).length > 0 ? (
-                                            Object.entries(sku.selected_options || {}).map(
-                                                ([varIdx, optIdx]) => {
-                                                    const variation =
-                                                        formData.product_variations[varIdx];
-                                                    return variation ? (
-                                                        <span
-                                                            key={varIdx}
-                                                            className={cx('option-tag')}
-                                                        >
-                                                            {variation.name}:{' '}
-                                                            {variation.options[optIdx]}
-                                                        </span>
-                                                    ) : null;
-                                                }
-                                            )
-                                        ) : (
-                                            <span className={cx('no-options-selected')}>
-                                                No options selected
-                                            </span>
-                                        )}
-                                    </div>
-                                ) : (
-                                    <span className={cx('no-variations-defined')}>
-                                        No variations defined
-                                    </span>
-                                )}
-                            </div>
-
-                            <div className={cx('sku-images-content')}>
-                                <div className={cx('sku-thumb-section')}>
-                                    <h3>Thumbnail Image</h3>
-                                    <div className={cx('sku-thumb-upload')}>
-                                        {sku.thumb ? (
-                                            <div
-                                                className={cx('sku-thumb-preview')}
-                                                onClick={() =>
-                                                    handleOpenPreview(sku.thumb, 'thumb', skuIndex)
-                                                }
-                                            >
-                                                <img src={sku.thumb.preview} alt="SKU thumbnail" />
-                                                <button
-                                                    type="button"
-                                                    className={cx('replace-thumb')}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation(); // Prevent opening preview
-                                                        updateSKU(skuIndex, 'thumb', null);
-                                                    }}
-                                                >
-                                                    Replace
-                                                </button>
-                                            </div>
-                                        ) : (
-                                            <div
-                                                className={cx('upload-placeholder', {
-                                                    dragging: draggingThumbIndex === skuIndex,
-                                                    processing: processingFileIndex === skuIndex
-                                                })}
-                                                onDragEnter={(e) =>
-                                                    handleThumbDragEnter(skuIndex, e)
-                                                }
-                                                onDragLeave={handleThumbDragLeave}
-                                                onDragOver={handleThumbDragOver}
-                                                onDrop={(e) => handleThumbDrop(skuIndex, e)}
-                                                onClick={() => handleThumbBoxClick(skuIndex)}
-                                            >
-                                                {tempThumbPreviews[skuIndex] ? (
-                                                    <div className={cx('temp-preview-container')}>
-                                                        <img
-                                                            src={tempThumbPreviews[skuIndex]}
-                                                            alt="Thumbnail preview"
-                                                            className={cx('temp-preview-image')}
-                                                        />
-                                                        <div className={cx('processing-overlay')}>
-                                                            <span>Processing...</span>
-                                                        </div>
-                                                    </div>
-                                                ) : (
-                                                    <>
-                                                        <div className={cx('upload-icon')}>📷</div>
-                                                        <span>
-                                                            {processingFileIndex === skuIndex
-                                                                ? 'Processing...'
-                                                                : 'Click or drag to upload thumbnail'}
-                                                        </span>
-                                                    </>
-                                                )}
-                                                <input
-                                                    type="file"
-                                                    className={cx('file-input')}
-                                                    accept="image/*"
-                                                    onChange={(e) =>
-                                                        handleSKUThumbChange(skuIndex, e)
-                                                    }
-                                                    ref={(el) =>
-                                                        (thumbInputRefs.current[skuIndex] = el)
-                                                    }
-                                                    style={{ display: 'none' }}
-                                                />
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className={cx('sku-images-section')}>
-                                    <h3>
-                                        Additional Images{' '}
-                                        <span className={cx('image-limit-text')}>
-                                            (Max: {MAX_IMAGES_PER_SKU})
-                                        </span>
-                                    </h3>
-                                    <div className={cx('sku-images-upload')}>
-                                        <div className={cx('sku-images-grid')}>
-                                            {sku.images &&
-                                                sku.images.map((image, imageIndex) => (
-                                                    <div
-                                                        key={imageIndex}
-                                                        className={cx('sku-image-item')}
-                                                        onClick={() =>
-                                                            handleOpenPreview(
-                                                                image,
-                                                                'additional',
-                                                                skuIndex,
-                                                                imageIndex
-                                                            )
-                                                        }
-                                                    >
-                                                        <img
-                                                            src={image.preview}
-                                                            alt={`SKU image ${imageIndex}`}
-                                                        />
-                                                        <button
-                                                            type="button"
-                                                            className={cx('remove-image')}
-                                                            onClick={(e) => {
-                                                                e.stopPropagation(); // Prevent opening preview
-                                                                removeSKUImage(
-                                                                    skuIndex,
-                                                                    imageIndex
-                                                                );
-                                                            }}
-                                                        >
-                                                            ×
-                                                        </button>
-                                                    </div>
-                                                ))}
-                                            {(sku.images?.length || 0) < MAX_IMAGES_PER_SKU && (
-                                                <div
-                                                    className={cx('add-sku-image', {
-                                                        dragging: draggingImagesIndex === skuIndex,
-                                                        processing: processingFileIndex === skuIndex
-                                                    })}
-                                                    onDragEnter={(e) =>
-                                                        handleImagesDragEnter(skuIndex, e)
-                                                    }
-                                                    onDragLeave={handleImagesDragLeave}
-                                                    onDragOver={handleImagesDragOver}
-                                                    onDrop={(e) => handleImagesDrop(skuIndex, e)}
-                                                    onClick={() => handleImagesBoxClick(skuIndex)}
-                                                >
-                                                    {tempImagePreviews[skuIndex] ? (
-                                                        <div
-                                                            className={cx('temp-preview-container')}
-                                                        >
-                                                            <div className={cx('temp-images-grid')}>
-                                                                {tempImagePreviews[skuIndex].map(
-                                                                    (url, idx) => (
-                                                                        <img
-                                                                            key={idx}
-                                                                            src={url}
-                                                                            alt={`Image preview ${idx}`}
-                                                                            className={cx(
-                                                                                'temp-preview-image'
-                                                                            )}
-                                                                        />
-                                                                    )
-                                                                )}
-                                                            </div>
-                                                            <div
-                                                                className={cx('processing-overlay')}
-                                                            >
-                                                                <span>Processing...</span>
-                                                            </div>
-                                                        </div>
-                                                    ) : (
-                                                        <>
-                                                            <span>+</span>
-                                                            <div className={cx('drag-text')}>
-                                                                {processingFileIndex === skuIndex
-                                                                    ? 'Processing...'
-                                                                    : 'Click or drag images here'}
-                                                            </div>
-                                                        </>
-                                                    )}
-                                                    <input
-                                                        type="file"
-                                                        className={cx('file-input')}
-                                                        accept="image/*"
-                                                        multiple
-                                                        onChange={(e) =>
-                                                            handleSKUImagesChange(skuIndex, e)
-                                                        }
-                                                        ref={(el) =>
-                                                            (imagesInputRefs.current[skuIndex] = el)
-                                                        }
-                                                        style={{ display: 'none' }}
-                                                    />
-                                                </div>
-                                            )}
-                                        </div>
-                                        {(sku.images?.length || 0) >= MAX_IMAGES_PER_SKU && (
-                                            <div className={cx('images-limit-reached')}>
-                                                Maximum number of images reached (
-                                                {MAX_IMAGES_PER_SKU})
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <SKUItem
+                        key={skuIndex}
+                        sku={sku}
+                        skuIndex={skuIndex}
+                        formData={formData}
+                        warehouses={warehouses}
+                        warehousesLoading={warehousesLoading}
+                        duplicateError={duplicateError}
+                        currentSkuIndex={currentSkuIndex}
+                        processingFileIndex={processingFileIndex}
+                        tempThumbPreviews={tempThumbPreviews}
+                        tempImagePreviews={tempImagePreviews}
+                        warehouseErrors={warehouseErrors}
+                        MAX_IMAGES_PER_SKU={MAX_IMAGES_PER_SKU}
+                        hasVariations={hasValidVariations}
+                        onRemoveSKU={removeSKU}
+                        onOptionSelect={handleOptionSelect}
+                        onProcessThumb={processSkuThumbFile}
+                        onProcessImages={processSkuImageFiles}
+                        onRemoveImage={removeSKUImage}
+                        onWarehouseChange={handleWarehouseChange}
+                        onSkuNumberChange={handleSkuNumberChange}
+                        onUpdateSKU={updateSKU}
+                        onOpenPreview={handleOpenPreview}
+                        setProcessingFileIndex={setProcessingFileIndex}
+                    />
                 ))}
             </div>
 

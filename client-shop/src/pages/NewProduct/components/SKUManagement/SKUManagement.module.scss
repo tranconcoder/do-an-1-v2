@@ -1,35 +1,103 @@
 .form-section {
-    margin-bottom: 2.5rem;
-    padding: 1.8rem;
-    background-color: #f8fafc;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
-    transition: box-shadow 0.3s ease;
+  margin-bottom: 30px;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #fff;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .section-description {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .sku-notice, .sku-warning {
+    background-color: #fff8e6;
+    border: 1px solid #ffe3a3;
+    border-radius: 4px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+  }
+
+  .sku-notice.error {
+    background-color: #ffeaea;
+    border-color: #ffcccc;
+  }
+
+  .sku-list {
+    margin-bottom: 20px;
+  }
+
+  .add-variation-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    border: 2px dashed #ccc;
+    border-radius: 6px;
+    background: none;
+    color: #666;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
 
     &:hover {
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      border-color: #2979ff;
+      color: #2979ff;
     }
 
-    h2 {
-        margin-top: 0;
-        margin-bottom: 1.5rem;
-        font-size: 1.3rem;
-        color: #2c3e50;
-        font-weight: 600;
-        position: relative;
-        padding-bottom: 0.75rem;
-
-        &::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(to right, #3498db, #2ecc71);
-            border-radius: 3px;
-        }
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      border-color: #ddd;
+      color: #999;
     }
+
+    .add-icon {
+      margin-right: 8px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .btn-tooltip {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      
+      &:before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 0 6px 6px 6px;
+        border-style: solid;
+        border-color: transparent transparent #333 transparent;
+      }
+    }
+  }
 }
 
 .section-description {
@@ -768,71 +836,5 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-    }
-}
-
-.add-variation-btn {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    position: relative;
-
-    &:hover {
-        background-color: #2980b9;
-    }
-
-    &:disabled {
-        background-color: #94a3b8;
-        cursor: not-allowed;
-
-        &:hover {
-            background-color: #94a3b8;
-        }
-    }
-
-    .add-icon {
-        font-size: 1.2rem;
-        line-height: 1;
-    }
-
-    .btn-tooltip {
-        position: absolute;
-        bottom: calc(100% + 8px);
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #334155;
-        color: white;
-        padding: 0.4rem 0.8rem;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        white-space: nowrap;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-top: 6px solid #334155;
-        }
-    }
-
-    &:disabled:hover .btn-tooltip {
-        opacity: 1;
-        visibility: visible;
-        bottom: calc(100% + 12px);
     }
 }

@@ -1,5 +1,9 @@
 import { spuModel } from '@/models/spu.model.js';
-import { generateFindAll, generateFindById } from '@/utils/mongoose.util.js';
+import {
+    generateFindAll,
+    generateFindAllPageSplit,
+    generateFindById
+} from '@/utils/mongoose.util.js';
 
 /* ---------------------------------------------------------- */
 /*                            Find                            */
@@ -18,3 +22,6 @@ export const findAllSPUIds = async () => {
         options: { lean: true }
     }).then((spus) => spus.map((spu) => spu._id));
 };
+
+/* --------------- Get all with page splitting -------------- */
+export const findSkuPageSpliting = generateFindAllPageSplit<model.spu.SPUSchema>(spuModel);

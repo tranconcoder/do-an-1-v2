@@ -52,7 +52,7 @@ declare global {
                 /*                          Get all                           */
                 /* ---------------------------------------------------------- */
                 /* -------------------- Get all products -------------------- */
-                interface GetAllSpuByShop {
+                interface GetAllSpuByShop extends commonTypes.object.PageSlitting {
                     shopId: string;
                 }
 
