@@ -33,6 +33,7 @@ import { roleService } from './rbac.service.js';
 import { changeMediaOwner } from '@/models/repository/media/index.js';
 import { NODE_ENV } from '@/configs/server.config.js';
 import warehouseModel from '@/models/warehouse.model.js';
+import warehousesService from './warehouses.service.js';
 
 export default class AuthService {
     /* ------------------------------------------------------ */
@@ -157,21 +158,21 @@ export default class AuthService {
         });
 
         /* --------- Handle create shop warehouses location --------- */
-        const shopWarehousesLocation = await Promise.all(
-            payload.shop_warehouses.map(async (warehouse) => {
-                /* --------------------- Save location  --------------------- */
-                const warehouseLocation = await locationService.createLocation({
-                    wardId: warehouse.address.ward,
-                    districtId: warehouse.address.district,
-                    provinceId: warehouse.address.province,
-                    address: warehouse.address.address
+        await Promise.all(
+            payload.warehouses.map(async (warehouse) => {
+                const warehouseDoc = await warehousesService.createWarehouses({
+                    name: warehouse.name,
+                    phoneNumber: warehouse.phoneNumber,
+                    location: {
+                        wardId: warehouse.address.ward,
+                        districtId: warehouse.address.district,
+                        provinceId: warehouse.address.province,
+                        address: warehouse.address.address
+                    },
+                    shop: payload.shop_userId
                 });
-                if (!warehouseLocation)
-                    throw new ForbiddenErrorResponse({
-                        message: 'Create warehouse location failed!'
-                    });
 
-                return warehouseLocation.id;
+                return warehouseDoc.id;
             })
         );
 
@@ -220,16 +221,6 @@ export default class AuthService {
             shop_status: payload.shop_status,
             shop_type: payload.shop_type,
             shop_description: payload.shop_description,
-            shop_warehouses: await Promise.all(
-                payload.shop_warehouses.map(
-                    async (warehouse, index) =>
-                        await warehouseModel.create({
-                            name: warehouse.name,
-                            address: shopWarehousesLocation[index],
-                            phoneNumber: warehouse.phoneNumber
-                        })
-                )
-            ),
             is_brand: payload.is_brand
         });
 

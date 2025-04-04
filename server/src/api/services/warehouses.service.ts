@@ -2,7 +2,7 @@ import warehouseModel from '@/models/warehouse.model.js';
 import locationService from './location.service.js';
 import { BadRequestErrorResponse } from '@/response/error.response.js';
 import { findLocationById } from '@/models/repository/location/index.js';
-import { findWarehouseById } from '@/models/repository/warehouses/index.js';
+import { findWarehouses, findWarehouseById } from '@/models/repository/warehouses/index.js';
 
 export default new (class WarehousesService {
     /* ---------------------------------------------------------- */
@@ -17,10 +17,21 @@ export default new (class WarehousesService {
         const warehouses = await warehouseModel.create({
             address: location.id,
             name,
-            phoneNumber
+            phoneNumber,
+            shop: payload.shop
         });
 
         return warehouses;
+    }
+
+    /* ---------------------------------------------------------- */
+    /*                             Get                            */
+    /* ---------------------------------------------------------- */
+    async getAllWarehouses(shopId: string) {
+        return await findWarehouses({
+            query: { shop: shopId },
+            options: { lean: true }
+        });
     }
 
     /* ---------------------------------------------------------- */

@@ -4,7 +4,7 @@ declare global {
     namespace joiTypes {
         module auth {
             interface UserSchema
-                extends moduleTypes.mongoose.ConvertObjectIdToString<model.auth.UserSchema>{}
+                extends moduleTypes.mongoose.ConvertObjectIdToString<model.auth.UserSchema> {}
 
             interface LoginSchema extends Pick<UserSchema, 'phoneNumber' | 'password'> {}
 
@@ -18,7 +18,7 @@ declare global {
                 extends Omit<model.shop.ShopSchema, 'shop_logo' | 'shop_userId'>,
                     LoginSchema {
                 shop_location: model.location.LocationSource;
-                shop_warehouses: Array<{
+                warehouses: Array<{
                     name: string;
                     address: model.location.LocationSource;
                     phoneNumber: string;

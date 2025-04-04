@@ -24,8 +24,8 @@ function Register() {
     const [wards, setWards] = useState([]);
 
     // Cho các quận/huyện và phường/xã của kho hàng
-    const [warehouseDistricts, setWarehouseDistricts] = useState({});
-    const [warehouseWards, setWarehouseWards] = useState({});
+    const [warehouseDistricts, setWarehouseDistricts] = useState([]);
+    const [warehouseWards, setWarehouseWards] = useState([]);
 
     const [formData, setFormData] = useState({
         // Xác thực
@@ -55,7 +55,7 @@ function Register() {
         shop_owner_cardID: '',
 
         // Thông tin kho hàng (tùy chọn)
-        shop_warehouses: []
+        warehouses: []
     });
 
     const [errors, setErrors] = useState({});
@@ -153,7 +153,7 @@ function Register() {
     // Lấy danh sách quận/huyện cho kho hàng khi tỉnh/thành phố thay đổi
     useEffect(() => {
         if (!currentWarehouse.address.province) {
-            setWarehouseDistricts({});
+            setWarehouseDistricts([]);
             return;
         }
         const fetchWarehouseDistricts = async () => {
@@ -178,7 +178,7 @@ function Register() {
     // Lấy danh sách phường/xã cho kho hàng khi quận/huyện thay đổi
     useEffect(() => {
         if (!currentWarehouse.address.district) {
-            setWarehouseWards({});
+            setWarehouseWards([]);
             return;
         }
         const fetchWarehouseWards = async () => {
@@ -356,7 +356,7 @@ function Register() {
         // Thêm kho hàng hiện tại vào danh sách
         setFormData((prev) => ({
             ...prev,
-            shop_warehouses: [...prev.shop_warehouses, { ...currentWarehouse }]
+            warehouses: [...prev.warehouses, { ...currentWarehouse }]
         }));
         // Đặt lại form kho hàng hiện tại
         setCurrentWarehouse({
@@ -375,7 +375,7 @@ function Register() {
     const removeWarehouse = (index) => {
         setFormData((prev) => ({
             ...prev,
-            shop_warehouses: prev.shop_warehouses.filter((_, i) => i !== index)
+            warehouses: prev.warehouses.filter((_, i) => i !== index)
         }));
     };
 
@@ -449,25 +449,23 @@ function Register() {
                             formData[key][locationKey]
                         );
                     });
-                } else if (key === 'shop_warehouses') {
+                } else if (key === 'warehouses') {
                     // Xử lý mảng kho hàng
                     formData[key].forEach((warehouse, index) => {
                         Object.keys(warehouse).forEach((warehouseKey) => {
                             if (warehouseKey === 'address') {
-                                Object.keys(formData.shop_warehouses[index][warehouseKey]).forEach(
+                                Object.keys(formData.warehouses[index][warehouseKey]).forEach(
                                     (warehouseField) => {
                                         formDataToSend.append(
-                                            `shop_warehouses[${index}][${warehouseKey}][${warehouseField}]`,
-                                            formData.shop_warehouses[index][warehouseKey][
-                                                warehouseField
-                                            ]
+                                            `warehouses[${index}][${warehouseKey}][${warehouseField}]`,
+                                            formData.warehouses[index][warehouseKey][warehouseField]
                                         );
                                     }
                                 );
                             } else {
                                 formDataToSend.append(
-                                    `shop_warehouses[${index}][${warehouseKey}]`,
-                                    formData.shop_warehouses[index][warehouseKey]
+                                    `warehouses[${index}][${warehouseKey}]`,
+                                    formData.warehouses[index][warehouseKey]
                                 );
                             }
                         });

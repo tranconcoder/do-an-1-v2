@@ -13,6 +13,7 @@ declare global {
                     name: string;
                     address: moduleTypes.mongoose.ObjectId;
                     phoneNumber: string;
+                    shop: moduleTypes.mongoose.ObjectId;
                 },
                 isModel,
                 isDoc,

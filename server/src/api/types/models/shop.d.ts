@@ -21,13 +21,6 @@ declare global {
                     shop_phoneNumber: string;
                     shop_description: string;
 
-                    /* -------------------- Shop inventories -------------------- */
-                    shop_warehouses: Array<{
-                        name: string;
-                        address: moduleTypes.mongoose.ObjectId;
-                        phoneNumber: string;
-                    }>;
-
                     /* ----------------------- Shop owner ----------------------- */
                     shop_owner_fullName: string;
                     shop_owner_email: string;

@@ -3,7 +3,13 @@
 /* ---------------------------------------------------------- */
 
 import warehouseModel from '@/models/warehouse.model.js';
-import { generateFindById } from '@/utils/mongoose.util.js';
+import { generateFindAll, generateFindById } from '@/utils/mongoose.util.js';
 
 /* ----------------------- Find by id ----------------------- */
 export const findWarehouseById = generateFindById<model.warehouse.WarehouseSchema>(warehouseModel);
+
+/* ---------------------------------------------------------- */
+/*                          Find all                          */
+/* ---------------------------------------------------------- */
+
+export const findWarehouses = generateFindAll<model.warehouse.WarehouseSchema>(warehouseModel);

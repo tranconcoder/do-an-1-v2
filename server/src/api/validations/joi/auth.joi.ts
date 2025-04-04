@@ -62,7 +62,14 @@ export const signUpShop = Joi.object<joiTypes.auth.SignUpShop>({
     shop_location: shopLocation.required(),
     shop_phoneNumber: Joi.string().required(),
     shop_description: Joi.string().max(200).empty().optional(),
-    shop_warehouses: Joi.array()
+
+    /* ----------------------- Shop owner ----------------------- */
+    shop_owner_fullName: Joi.string().min(6).max(30).required(),
+    shop_owner_email: Joi.string().email().required(),
+    shop_owner_phoneNumber: phoneNumber,
+    shop_owner_cardID: Joi.string().required(),
+
+    warehouses: Joi.array()
         .items(
             Joi.object({
                 name: Joi.string().required(),
@@ -70,13 +77,7 @@ export const signUpShop = Joi.object<joiTypes.auth.SignUpShop>({
                 phoneNumber: phoneNumber
             })
         )
-        .required(),
-
-    /* ----------------------- Shop owner ----------------------- */
-    shop_owner_fullName: Joi.string().min(6).max(30).required(),
-    shop_owner_email: Joi.string().email().required(),
-    shop_owner_phoneNumber: phoneNumber,
-    shop_owner_cardID: Joi.string().required()
+        .required()
 });
 
 /* ------------------------------------------------------ */

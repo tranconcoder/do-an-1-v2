@@ -5,22 +5,42 @@ import styles from './WarehouseSection.module.scss';
 const cx = classNames.bind(styles);
 
 const WarehouseSection = ({
-    currentWarehouse,
-    formData,
-    provinces,
-    warehouseDistricts,
-    warehouseWards,
+    currentWarehouse = {
+        name: '',
+        phoneNumber: '',
+        address: {
+            province: '',
+            district: '',
+            ward: '',
+            address: ''
+        }
+    },
+    formData = { warehouses: [] },
+    provinces = [],
+    warehouseDistricts = [],
+    warehouseWards = [],
     handleCurrentWarehouseChange,
     handleCurrentWarehouseAddressChange,
     addWarehouse,
     removeWarehouse
 }) => {
+    // Ensure currentWarehouse and its address object exist
+    const warehouseData = {
+        ...currentWarehouse,
+        address: {
+            province: '',
+            district: '',
+            ward: '',
+            address: '',
+            ...(currentWarehouse?.address || {})
+        }
+    };
+
     return (
         <div className={cx('form-section')}>
             <h2>Thông Tin Kho Hàng</h2>
             <p className={cx('subtitle')}>Thêm các kho hàng nơi bạn lưu trữ sản phẩm</p>
 
-            {/* Warehouse Form */}
             <div className={cx('warehouse-form')}>
                 <h3>Thêm Kho Hàng</h3>
                 <div className={cx('form-group')}>
@@ -28,7 +48,7 @@ const WarehouseSection = ({
                     <input
                         type="text"
                         id="warehouse-name"
-                        value={currentWarehouse.name}
+                        value={warehouseData.name || ''}
                         onChange={(e) => handleCurrentWarehouseChange('name', e.target.value)}
                         placeholder="Kho chính, Kho phụ, v.v."
                     />
@@ -38,7 +58,7 @@ const WarehouseSection = ({
                     <input
                         type="tel"
                         id="warehouse-phone"
-                        value={currentWarehouse.phoneNumber}
+                        value={warehouseData.phoneNumber || ''}
                         onChange={(e) =>
                             handleCurrentWarehouseChange('phoneNumber', e.target.value)
                         }
@@ -48,7 +68,7 @@ const WarehouseSection = ({
                     <label htmlFor="warehouse-province">Tỉnh/Thành Phố *</label>
                     <select
                         id="warehouse-province"
-                        value={currentWarehouse.address.province}
+                        value={warehouseData.address.province}
                         onChange={(e) =>
                             handleCurrentWarehouseAddressChange('province', e.target.value)
                         }
@@ -65,40 +85,36 @@ const WarehouseSection = ({
                     <label htmlFor="warehouse-district">Quận/Huyện *</label>
                     <select
                         id="warehouse-district"
-                        value={currentWarehouse.address.district}
+                        value={warehouseData.address.district}
                         onChange={(e) =>
                             handleCurrentWarehouseAddressChange('district', e.target.value)
                         }
-                        disabled={!currentWarehouse.address.province}
+                        disabled={!warehouseData.address.province}
                     >
                         <option value="">Chọn Quận/Huyện</option>
-                        {warehouseDistricts.map
-                            ? warehouseDistricts.map((district) => (
-                                  <option key={district._id} value={district._id}>
-                                      {district.district_name}
-                                  </option>
-                              ))
-                            : null}
+                        {warehouseDistricts.map((district) => (
+                            <option key={district._id} value={district._id}>
+                                {district.district_name}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <div className={cx('form-group')}>
                     <label htmlFor="warehouse-ward">Phường/Xã</label>
                     <select
                         id="warehouse-ward"
-                        value={currentWarehouse.address.ward}
+                        value={warehouseData.address.ward}
                         onChange={(e) =>
                             handleCurrentWarehouseAddressChange('ward', e.target.value)
                         }
-                        disabled={!currentWarehouse.address.district}
+                        disabled={!warehouseData.address.district}
                     >
                         <option value="">Chọn Phường/Xã</option>
-                        {warehouseWards.map
-                            ? warehouseWards.map((ward) => (
-                                  <option key={ward._id} value={ward._id}>
-                                      {ward.ward_name}
-                                  </option>
-                              ))
-                            : null}
+                        {warehouseWards.map((ward) => (
+                            <option key={ward._id} value={ward._id}>
+                                {ward.ward_name}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <div className={cx('form-group')}>
@@ -106,7 +122,7 @@ const WarehouseSection = ({
                     <input
                         type="text"
                         id="warehouse-address"
-                        value={currentWarehouse.address.address}
+                        value={warehouseData.address.address || ''}
                         onChange={(e) =>
                             handleCurrentWarehouseAddressChange('address', e.target.value)
                         }
@@ -119,10 +135,10 @@ const WarehouseSection = ({
             </div>
 
             {/* Warehouse List */}
-            {formData.shop_warehouses.length > 0 && (
+            {formData.warehouses && formData.warehouses.length > 0 && (
                 <div className={cx('warehouses-list')}>
                     <h3>Kho Hàng Đã Thêm</h3>
-                    {formData.shop_warehouses.map((warehouse, index) => (
+                    {formData.warehouses.map((warehouse, index) => (
                         <div key={index} className={cx('warehouse-item')}>
                             <div className={cx('warehouse-details')}>
                                 <h4>{warehouse.name}</h4>
@@ -130,7 +146,8 @@ const WarehouseSection = ({
                                     <strong>Điện thoại:</strong> {warehouse.phoneNumber}
                                 </p>
                                 <p>
-                                    <strong>Địa chỉ:</strong> {warehouse.address.address}
+                                    <strong>Địa chỉ:</strong>{' '}
+                                    {warehouse.address?.address || 'Chưa có địa chỉ'}
                                 </p>
                                 <button
                                     type="button"

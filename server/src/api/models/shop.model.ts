@@ -21,12 +21,6 @@ export const shopSchema = new Schema<model.shop.ShopSchema>(
         shop_phoneNumber: { type: String, required },
         shop_description: String,
 
-        /* -------------------- Shop inventories -------------------- */
-        shop_warehouses: {
-            type: [wareHouseSchema],
-            default: []
-        },
-
         /* ----------------------- Shop owner ----------------------- */
         shop_owner_fullName: { type: String, required },
         shop_owner_email: { type: String, required },
