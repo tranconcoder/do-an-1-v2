@@ -72,7 +72,16 @@ declare global {
                 interface GetAllProductUnpublishByShop
                     extends Omit<GetAllProductByShop, 'userId'> {}
 
-                /* ------------------- Update product ------------------- */
+                /* ---------------------------------------------------------- */
+                /*                           Update                           */
+                /* ---------------------------------------------------------- */
+                interface PublishSPU {
+                    spuId: string;
+                    userId: string;
+                }
+                interface DraftSPU extends PublishSPU {}
+
+                /* --------------------- Update product --------------------- */
                 interface UpdateProduct
                     extends joiTypes.product.definition.UpdateProductSchema,
                         Pick<model.spu.SPUSchema, 'product_shop'> {

@@ -11,7 +11,7 @@ export const SHOP_COLLECTION_NAME = 'shops';
 export const shopSchema = new Schema<model.shop.ShopSchema>(
     {
         /* -------------------- Shop information -------------------- */
-        shop_userId: { type: ObjectId, ref: USER_MODEL_NAME, required },
+        shop_userId: { type: ObjectId, ref: USER_MODEL_NAME, required, index: true },
         shop_name: { type: String, required, unique },
         shop_email: { type: String, required, unique },
         shop_type: { type: String, enum: ShopType, required },

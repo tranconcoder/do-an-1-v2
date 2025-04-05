@@ -92,10 +92,10 @@ function ProductManager() {
 
     const handleStatusChange = async (productId, isDraft) => {
         try {
-            await axiosClient.patch(`/spu/${productId}/status`, {
-                is_draft: isDraft,
-                is_publish: !isDraft
-            });
+            let path = '/spu/' + (isDraft ? 'draft' : 'publish') + '/' + productId;
+
+            await axiosClient.patch(path);
+
             setProducts(
                 products.map((product) =>
                     product._id === productId

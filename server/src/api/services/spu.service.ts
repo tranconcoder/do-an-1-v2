@@ -177,6 +177,56 @@ export default new (class SPUService {
 
     async updateSPU() {}
 
+    /* ----------------------- Publish SPU ---------------------- */
+    async publishSPU({ userId, spuId }: service.spu.arguments.PublishSPU) {
+        console.log(userId);
+        const shop = await findOneShop({
+            query: {
+                shop_userId: userId,
+                is_deleted: false,
+                shop_status: ShopStatus.ACTIVE
+            },
+            options: { lean: true }
+        });
+        if (!shop) throw new NotFoundErrorResponse({ message: 'Shop not found!' });
+
+        const newSPU = findOneAndUpdateSPU({
+            query: {
+                _id: spuId,
+                product_shop: shop._id,
+                is_publish: false,
+                is_draft: true,
+                is_deleted: false
+            },
+            update: { is_publish: true, is_draft: false },
+            options: { lean: true, new: true }
+        });
+        if (!newSPU) throw new NotFoundErrorResponse({ message: 'SPU not found!' });
+
+        return newSPU;
+    }
+
+    /* ------------------------ Draft SPU ----------------------- */
+    async unpublishSPU({ userId, spuId }: service.spu.arguments.DraftSPU) {
+        const shop = await findOneShop({ query: { shop_userId: userId }, options: { lean: true } });
+        if (!shop) throw new NotFoundErrorResponse({ message: 'Shop not found!' });
+
+        const newSPU = findOneAndUpdateSPU({
+            query: {
+                _id: spuId,
+                product_shop: shop._id,
+                is_publish: true,
+                is_draft: false,
+                is_deleted: false
+            },
+            update: { is_publish: false, is_draft: true },
+            options: { lean: true, new: true }
+        });
+        if (!newSPU) throw new NotFoundErrorResponse({ message: 'SPU not found!' });
+
+        return newSPU;
+    }
+
     /* ---------------------------------------------------------- */
     /*                           Delete                           */
     /* ---------------------------------------------------------- */

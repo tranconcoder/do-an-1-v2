@@ -75,6 +75,8 @@ export default new (class SKUService {
             options: { lean: true }
         }).then((ids) => ids.map((item) => item._id.toString()));
 
+        console.log('spuShopIds', spuShopIds);
+
         return await findSkuPageSpliting({
             query: {
                 sku_product: { $in: spuShopIds },

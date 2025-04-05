@@ -8,7 +8,7 @@ import { authenticate } from '@/middlewares/jwt.middleware.js';
 
 /* ----------------------- Routes ----------------------- */
 import getRoute from './get.route.js';
-import spuPatchRoute from './patch.route.js';
+import patchRoute from './patch.route.js';
 import productPutRoute from './put.route.js';
 import productDeleteRoute from './delete.route.js';
 import spuPostRoute from './post.route.js';
@@ -28,7 +28,7 @@ spuRoute.use(authenticate, spuRouteValidate);
 spuRouteValidate.use(spuPostRoute);
 
 /* ----------------------- PATCH  ----------------------- */
-spuRouteValidate.use(spuPatchRoute);
+spuRouteValidate.use(patchRoute);
 
 /* ------------------------ PUT  ------------------------ */
 spuRouteValidate.use(productPutRoute);

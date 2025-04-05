@@ -52,6 +52,28 @@ export default new (class SPUController {
         }).send(res);
     };
 
+    /* ----------------------- Publish SPU ---------------------- */
+    publishSPU: RequestWithParams<{ spuId: string }> = async (req, res, _) => {
+        new OkResponse({
+            message: 'Publish product successfully!',
+            metadata: await spuService.publishSPU({
+                userId: req.userId as string,
+                spuId: req.params.spuId
+            })
+        }).send(res);
+    };
+
+    /* ------------------------ Draft SPU ----------------------- */
+    draftSPU: RequestWithParams<{ spuId: string }> = async (req, res, _) => {
+        new OkResponse({
+            message: 'Draft product successfully!',
+            metadata: await spuService.unpublishSPU({
+                userId: req.userId as string,
+                spuId: req.params.spuId
+            })
+        }).send(res);
+    };
+
     /* ---------------------------------------------------------- */
     /*                           Delete                           */
     /* ---------------------------------------------------------- */
