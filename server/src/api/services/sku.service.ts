@@ -2,6 +2,7 @@ import { findSPUById } from '@/models/repository/spu/index.js';
 import skuModel from '@/models/sku.model.js';
 import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 import inventoryService from './inventory.service.js';
+import { increaseWarehouseStock } from '@/models/repository/warehouses/index.js';
 
 export default new (class SKUService {
     /* ---------------------------------------------------------- */
@@ -28,18 +29,28 @@ export default new (class SKUService {
 
         /* --------------------- Handle save sku -------------------- */
         const sku = await skuModel.create(payload);
+        const completed = [];
+        try {
+            /* -------------------- Create inventory -------------------- */
+            const inventory = await inventoryService.createInventory({
+                inventory_shop: spu.product_shop,
+                inventory_sku: sku._id,
+                inventory_warehouses: payload.warehouse,
+                inventory_stock: payload.sku_stock
+            });
+            if (!inventory) {
+                throw new BadRequestErrorResponse({ message: 'Create inventory failed!' });
+            } else completed.push(inventory);
 
-        /* -------------------- Create inventory -------------------- */
-        const inventory = await inventoryService.createInventory({
-            inventory_shop: spu.product_shop,
-            inventory_sku: sku._id,
-            inventory_warehouses: payload.warehouse,
-            inventory_stock: payload.sku_stock
-        });
+            /* -------------------- Increase warehouse ------------------ */
+            const warehouse = await increaseWarehouseStock(payload.warehouse, payload.sku_stock);
+            if (!warehouse) {
+                throw new BadRequestErrorResponse({ message: 'Increase warehouse stock failed!' });
+            } else completed.push(warehouse);
+        } catch (error: any) {
+            await Promise.allSettled(completed.map((item) => item.deleteOne()));
 
-        if (!inventory) {
-            await sku.deleteOne();
-            throw new BadRequestErrorResponse({ message: 'Create inventory failed!' });
+            throw new BadRequestErrorResponse({ message: error?.message || 'Create sku failed!' });
         }
 
         return sku;

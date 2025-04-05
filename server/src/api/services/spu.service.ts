@@ -75,11 +75,6 @@ export default new (class SPUService {
             is_publish: payload.is_publish
         });
 
-        /* ---------------- Update warehouse quantity --------------- */
-        await Promise.all([
-            increaseInventoryStock(spu._id.toString(), quantity),
-            increaseWarehouseStock(spu._id.toString(), quantity)
-        ]);
 
         /* --------------------- Handle save sku ------------------- */
         try {

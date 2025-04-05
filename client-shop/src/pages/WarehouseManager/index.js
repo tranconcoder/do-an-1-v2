@@ -139,7 +139,7 @@ function WarehouseManager() {
                                 </div>
                                 <div className={cx('info-item')}>
                                     <span className={cx('label')}>Sản phẩm:</span>
-                                    <span>{warehouse.productCount || 0}</span>
+                                    <span>{warehouse.stock || 0}</span>
                                 </div>
                             </div>
                             <div className={cx('warehouse-actions')}>
