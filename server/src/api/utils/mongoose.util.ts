@@ -2,6 +2,7 @@ import mongoose, { GetLeanResultType, HydratedDocument, QueryWithHelpers } from 
 import { timestamps } from '@/configs/mongoose.config.js';
 import { PESSIMISTIC_QUERY_TIME } from '@/configs/redis.config.js';
 import { userModel } from '@/models/user.model.js';
+import { spuModel } from '@/models/spu.model.js';
 
 export const convertToMongooseId = (id: string) => new mongoose.Types.ObjectId(id);
 
@@ -186,6 +187,31 @@ export const generateFindOne = <T = any>(model: any) => {
 /* ---------------------------------------------------------- */
 /*                           Update                           */
 /* ---------------------------------------------------------- */
+export const generateFindByIdAndUpdate = <T = any>(model: any) => {
+    return ({
+        id,
+        update,
+        options = {},
+        only = [],
+        select = [],
+        omit = [],
+        projection = {}
+    }: moduleTypes.mongoose.FindByIdAndUpdate<T>) => {
+        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findByIdAndUpdate', {}>;
+
+        projection = getProjection<T>({
+            projection,
+            only,
+            select,
+            omit
+        });
+
+        const result: Query = model.findByIdAndUpdate(id, update, options);
+
+        return result;
+    };
+};
+
 export const generateFindOneAndUpdate = <T = any>(model: any) => {
     return ({
         query,
@@ -261,7 +287,6 @@ export const generateFindOneAndReplace = <T = any>(model: any) => {
     };
 };
 
-
 /* ---------------------------------------------------------- */
 /*                           Delete                           */
 /* ---------------------------------------------------------- */
@@ -290,6 +315,30 @@ export const generateFindOneAndDelete = <T = any>(model: any) => {
             })
             .select(projection)
             .maxTimeMS(PESSIMISTIC_QUERY_TIME);
+
+        return result;
+    };
+};
+
+export const generateFindByIdAndDelete = <T = any>(model: any) => {
+    return ({
+        id,
+        options = {},
+        only = [],
+        select = [],
+        omit = [],
+        projection = {}
+    }: moduleTypes.mongoose.FindById<T>) => {
+        type Query = QueryWithHelpers<HydratedDocument<T>, {}, T, 'findByIdAndDelete', {}>;
+
+        projection = getProjection<T>({
+            projection,
+            only,
+            select,
+            omit
+        });
+
+        const result: Query = model.findByIdAndDelete(id, projection, options);
 
         return result;
     };

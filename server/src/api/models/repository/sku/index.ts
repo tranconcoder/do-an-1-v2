@@ -1,8 +1,32 @@
 import skuModel from '@/models/sku.model.js';
-import { generateFindById } from '@/utils/mongoose.util.js';
+import { generateFindById, generateFindOne } from '@/utils/mongoose.util.js';
 
 /* ---------------------------------------------------------- */
 /*                          Find one                          */
 /* ---------------------------------------------------------- */
 /* ----------------------- Find by id ----------------------- */
 export const findSKUById = generateFindById<model.sku.SKU>(skuModel);
+
+/* ------------------------ Find one ------------------------ */
+export const findOneSKU = generateFindOne<model.sku.SKU>(skuModel);
+
+/* ---------------------------------------------------------- */
+/*                         Find field                         */
+/* ---------------------------------------------------------- */
+/* ------------------------ Min price ----------------------- */
+export const findMinPriceSKU = async (spuId: string) => {
+    return await findOneSKU({
+        query: { sku_product: spuId },
+        only: ['sku_price'],
+        options: { sort: { sku_price: 1 }, limit: 1, lean: true }
+    }).then((x) => x?.sku_price || null);
+};
+
+/* ------------------------ Max price ----------------------- */
+export const findMaxPrice = async (spuId: string) => {
+    return await findOneSKU({
+        query: { sku_product: spuId },
+        only: ['sku_price'],
+        options: { sort: { sku_price: -1 }, limit: 1, lean: true }
+    }).then((x) => x?.sku_price || null);
+};

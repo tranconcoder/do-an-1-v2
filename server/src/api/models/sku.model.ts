@@ -26,7 +26,9 @@ export const skuSchema = new Schema<model.sku.SKU>(
                     return v.length > 0 && v.every((arr) => arr.length > 0);
                 }
             }
-        }
+        },
+
+        is_deleted: { type: Boolean, default: false }
     },
     {
         timestamps: true,

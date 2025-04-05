@@ -18,7 +18,7 @@ warehousesRouter.use(authenticate);
 /*                           Create                           */
 /* ---------------------------------------------------------- */
 warehousesRouter.post(
-    '/',
+    '/create',
     authorization('createOwn', Resources.WAREHOUSES),
     validateRequestBody(createWarehouse),
     catchError(warehousesController.create)
@@ -38,6 +38,7 @@ warehousesRouter.get(
 /* ---------------------------------------------------------- */
 warehousesRouter.patch(
     '/:warehouseId',
+    validateRequestParams(paramsId('warehouseId')),
     authorization('updateOwn', Resources.WAREHOUSES),
     catchError(warehousesController.update)
 );

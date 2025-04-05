@@ -1,25 +1,21 @@
 import { Router } from 'express';
-import ProductController from '@/controllers/spu.controller.js';
 import catchError from '@/middlewares/catchError.middleware.js';
 import {
     validateRequestParams,
     validateRequestQuery
 } from '@/middlewares/joiValidate.middleware.js';
 import { authenticate, authenticateNotRequired } from '@/middlewares/jwt.middleware.js';
+import spuController from '@/controllers/spu.controller.js';
+import { pageSplitting } from '@/configs/joi.config.js';
+import { authorization } from '@/middlewares/authorization.middleware.js';
+import { Resources } from '@/enums/rbac.enum.js';
 
-const productGetRoute = Router();
-const productGetRouteValidateOrNot = Router();
-const productGetRouteValidate = Router();
+const getRoute = Router();
+const getRouteValidate = Router();
 
-// /* ---------------------------------------------------------- */
-// /*                          Get all                           */
-// /* ---------------------------------------------------------- */
-// /* ------------- Get all product draft by shop  ------------- */
-// productGetRoute.get(
-//     '/',
-//     validateRequestQuery(getAllProductsSchema),
-//     catchError(ProductController.getAllProducts)
-// );
+/* ---------------------------------------------------------- */
+/*                          Get all                           */
+/* ---------------------------------------------------------- */
 // /* ------------------------------------------------------ */
 // /*                         Search                         */
 // /* ------------------------------------------------------ */
@@ -32,8 +28,15 @@ const productGetRouteValidate = Router();
 // /* ---------------------------------------------------------- */
 // /*                   Validate or not routes                   */
 // /* ---------------------------------------------------------- */
-// productGetRoute.use(productGetRouteValidateOrNot);
-// productGetRouteValidateOrNot.use(authenticateNotRequired);
+getRoute.use(authenticate, getRouteValidate);
+
+/* ------------ Get all product by shop (get own) ----------- */
+getRouteValidate.get(
+    '/shop/own',
+    authorization('readOwn', Resources.PRODUCT),
+    validateRequestQuery(pageSplitting),
+    catchError(spuController.getAllSPUOwnByShop)
+);
 
 // /* ----------------- Get product by id  ----------------- */
 // productGetRouteValidateOrNot.get(
@@ -83,4 +86,4 @@ const productGetRouteValidate = Router();
 //     catchError(ProductController.getAllProductUnpublishByShop)
 // );
 
-export default productGetRoute;
+export default getRoute;

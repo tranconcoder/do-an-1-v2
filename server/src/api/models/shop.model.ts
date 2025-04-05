@@ -3,7 +3,7 @@ import { required, unique, ObjectId, timestamps } from '@/configs/mongoose.confi
 import { ShopStatus, ShopType } from '@/enums/shop.enum.js';
 import { USER_MODEL_NAME } from './user.model.js';
 import { MEDIA_MODEL_NAME } from './media.model.js';
-import { wareHouseSchema } from './warehouse.model.js';
+import { warehouseSchema } from './warehouse.model.js';
 
 export const SHOP_MODEL_NAME = 'Shop';
 export const SHOP_COLLECTION_NAME = 'shops';

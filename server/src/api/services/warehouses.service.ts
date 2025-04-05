@@ -62,7 +62,6 @@ export default new (class WarehousesService {
 
             if (!currentLocation)
                 throw new BadRequestErrorResponse({ message: 'Old location not found!' });
-            console.log({ currentWarehouses });
 
             currentLocation.province = location.provinceId;
             currentLocation.district = location.districtId;

@@ -7,7 +7,7 @@ import { authenticate } from '@/middlewares/jwt.middleware.js';
 /* ------------------------- Joi ------------------------ */
 
 /* ----------------------- Routes ----------------------- */
-import productGetRoute from './get.route.js';
+import getRoute from './get.route.js';
 import spuPatchRoute from './patch.route.js';
 import productPutRoute from './put.route.js';
 import productDeleteRoute from './delete.route.js';
@@ -17,7 +17,7 @@ const spuRoute = Router();
 const spuRouteValidate = Router();
 
 /* ------------------------ GET  ------------------------ */
-spuRoute.use(productGetRoute);
+spuRoute.use(getRoute);
 
 /* ====================================================== */
 /*                  AUTHENTICATE ROUTES                   */

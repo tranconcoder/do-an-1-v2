@@ -1,5 +1,5 @@
 import { CreatedResponse, OkResponse } from '@/response/success.response.js';
-import { RequestWithBody } from '@/types/request.js';
+import { RequestWithBody, RequestWithQuery } from '@/types/request.js';
 import spuService from '@/services/spu.service.js';
 import { SPUImages } from '@/enums/spu.enum.js';
 import { RequestHandler } from 'express';
@@ -26,12 +26,29 @@ export default new (class SPUController {
     /* ---------------------------------------------------------- */
 
     /* ------------------- Get all spu by shop ------------------ */
-    getAllSPUByShop: RequestHandler = async (req, res, next) => {
+    getAllSPUOwnByShop: RequestWithQuery<commonTypes.object.PageSlitting> = async (
+        req,
+        res,
+        next
+    ) => {
         new OkResponse({
             message: 'Get all products by shop successfully!',
-            metadata: await spuService.getAllSpuByShop({
-                shopId: req.userId as string
+            metadata: await spuService.getAllSPUOwnByShop({
+                userId: req.userId as string,
+                page: req.query.page,
+                limit: req.query.limit
             })
-        });
+        }).send(res);
+    };
+
+    /* ----------------- Get all spu shop by all ---------------- */
+    getAllSPUShopByAll: RequestWithQuery<commonTypes.object.PageSlitting> = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get all products by shop successfully!',
+            metadata: await spuService.getAllSPUShopByAll({
+                page: req.query.page,
+                limit: req.query.limit
+            })
+        }).send(res);
     };
 })();

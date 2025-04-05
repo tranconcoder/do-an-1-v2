@@ -14,6 +14,7 @@ declare global {
                     address: moduleTypes.mongoose.ObjectId;
                     phoneNumber: string;
                     shop: moduleTypes.mongoose.ObjectId;
+                    stock: number;
                 },
                 isModel,
                 isDoc,

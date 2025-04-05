@@ -40,7 +40,7 @@ function WarehouseManager() {
 
     const handleAddWarehouse = async (newWarehouse) => {
         try {
-            const response = await axiosClient.post('/warehouse', newWarehouse);
+            const response = await axiosClient.post('/warehouse/create', newWarehouse);
             if (response.data && response.data.metadata) {
                 setWarehouses((prev) => [...prev, response.data.metadata]);
                 showToast('Thêm kho hàng thành công!', 'success');
@@ -149,7 +149,6 @@ function WarehouseManager() {
                                 >
                                     Chỉnh Sửa
                                 </button>
-                                <button className={cx('manage-btn')}>Quản Lý Kho</button>
                                 <button
                                     className={cx('delete-icon')}
                                     onClick={() => handleDeleteWarehouse(warehouse._id)}

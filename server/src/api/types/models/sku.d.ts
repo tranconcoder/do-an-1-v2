@@ -15,6 +15,8 @@ declare global {
                     sku_thumb: moduleTypes.mongoose.ObjectId;
                     sku_images: Array<moduleTypes.mongoose.ObjectId>;
                     sku_tier_idx: Array<number>;
+
+                    is_deleted: boolean;
                 },
                 isModel,
                 isDoc,

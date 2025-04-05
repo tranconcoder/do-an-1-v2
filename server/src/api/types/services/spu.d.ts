@@ -52,9 +52,8 @@ declare global {
                 /*                          Get all                           */
                 /* ---------------------------------------------------------- */
                 /* -------------------- Get all products -------------------- */
-                interface GetAllSpuInShop extends commonTypes.object.PageSlitting {
-                    shopId: string;
-                    userId?: string;
+                interface GetAllSPUOwnByShop extends commonTypes.object.PageSlitting {
+                    userId: string;
                 }
 
                 /* --------------- Get all product by shop -------------- */

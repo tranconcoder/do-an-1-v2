@@ -6,12 +6,13 @@ import { USER_MODEL_NAME } from './user.model.js';
 export const WAREHOUSE_MODEL_NAME = 'Warehouse';
 export const WAREHOUSE_COLLECTION_NAME = 'warehouses';
 
-export const wareHouseSchema = new Schema<model.warehouse.WarehouseSchema>(
+export const warehouseSchema = new Schema<model.warehouse.WarehouseSchema>(
     {
         name: { type: String, required },
         address: { type: ObjectId, ref: LOCATION_MODEL_NAME, required },
         phoneNumber: { type: String, required },
-        shop: { type: ObjectId, ref: USER_MODEL_NAME, required }
+        shop: { type: ObjectId, ref: USER_MODEL_NAME, required },
+        stock: { type: Number, default: 0 }
     },
     {
         timestamps: timestamps,
@@ -19,4 +20,7 @@ export const wareHouseSchema = new Schema<model.warehouse.WarehouseSchema>(
     }
 );
 
-export default model(WAREHOUSE_MODEL_NAME, wareHouseSchema);
+/* ------------- Unique warehouse name per shop ------------- */
+warehouseSchema.index({ name: 1, shop: 1,  }, { unique: [true, "Warehouses name is existed in shop!"] });
+
+export default model(WAREHOUSE_MODEL_NAME, warehouseSchema);

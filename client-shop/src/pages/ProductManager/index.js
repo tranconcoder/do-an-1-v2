@@ -2,85 +2,98 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './ProductManager.module.scss';
+import { FaSearch, FaEdit, FaTrash, FaEye, FaEyeSlash, FaPlusCircle } from 'react-icons/fa';
+import axiosClient from '../../configs/axios';
+import { API_URL } from '../../configs/env.config';
+import { useToast } from '../../contexts/ToastContext';
 
 const cx = classNames.bind(styles);
-
-// Dữ liệu sản phẩm mẫu - trong thực tế sẽ được lấy từ API
-const dummyProducts = [
-    {
-        id: 1,
-        name: 'Tai Nghe Không Dây',
-        price: 1899000,
-        inventory: 45,
-        status: 'published',
-        thumbnail:
-            'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150&h=150&auto=format&fit=crop&q=80',
-        createdAt: '2023-04-15'
-    },
-    {
-        id: 2,
-        name: 'Đồng Hồ Thông Minh',
-        price: 4450000,
-        inventory: 23,
-        status: 'published',
-        thumbnail:
-            'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=150&h=150&auto=format&fit=crop&q=80',
-        createdAt: '2023-05-02'
-    },
-    {
-        id: 3,
-        name: 'Loa Bluetooth',
-        price: 2790000,
-        inventory: 12,
-        status: 'draft',
-        thumbnail:
-            'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=150&h=150&auto=format&fit=crop&q=80',
-        createdAt: '2023-06-10'
-    }
-];
 
 function ProductManager() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [filter, setFilter] = useState('all'); // all, published, draft
+    const [filter, setFilter] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
+    const { showToast } = useToast();
 
     useEffect(() => {
-        // Giả lập việc gọi API
-        setTimeout(() => {
-            setProducts(dummyProducts);
-            setLoading(false);
-        }, 800);
+        fetchProducts();
     }, []);
 
-    // Chuyển đổi trạng thái sản phẩm sang tiếng Việt
-    const getVietnameseStatus = (status) => {
-        return status === 'published' ? 'Đã Đăng' : status === 'draft' ? 'Bản Nháp' : status;
+    const fetchProducts = async () => {
+        try {
+            setLoading(true);
+            const response = await axiosClient.get('/spu/shop/own');
+            if (response.data?.metadata) {
+                setProducts(response.data.metadata);
+            }
+        } catch (error) {
+            console.error('Lỗi khi tải danh sách sản phẩm:', error);
+            showToast('Không thể tải danh sách sản phẩm', 'error');
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const handleStatusChange = (productId, newStatus) => {
-        setProducts(
-            products.map((product) =>
-                product.id === productId ? { ...product, status: newStatus } : product
-            )
-        );
-    };
-
-    const handleDeleteProduct = (productId) => {
+    const handleDeleteProduct = async (productId) => {
         if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
-            setProducts(products.filter((product) => product.id !== productId));
+            try {
+                await axiosClient.delete(`/spu/${productId}`);
+                setProducts(products.filter((product) => product._id !== productId));
+                showToast('Xóa sản phẩm thành công', 'success');
+            } catch (error) {
+                console.error('Lỗi khi xóa sản phẩm:', error);
+                showToast('Không thể xóa sản phẩm', 'error');
+            }
+        }
+    };
+
+    const handleStatusChange = async (productId, isDraft) => {
+        try {
+            await axiosClient.patch(`/spu/${productId}/status`, {
+                is_draft: isDraft,
+                is_publish: !isDraft
+            });
+            setProducts(
+                products.map((product) =>
+                    product._id === productId
+                        ? { ...product, is_draft: isDraft, is_publish: !isDraft }
+                        : product
+                )
+            );
+            showToast(
+                isDraft ? 'Đã chuyển sản phẩm sang bản nháp' : 'Đã đăng bán sản phẩm',
+                'success'
+            );
+        } catch (error) {
+            console.error('Lỗi khi cập nhật trạng thái:', error);
+            showToast('Không thể cập nhật trạng thái sản phẩm', 'error');
         }
     };
 
     const filteredProducts = products.filter((product) => {
-        const matchesFilter = filter === 'all' || product.status === filter;
-        const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesFilter =
+            filter === 'all' ||
+            (filter === 'published' && product.is_publish) ||
+            (filter === 'draft' && product.is_draft);
+        const matchesSearch = product.product_name.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesFilter && matchesSearch;
     });
 
-    // Định dạng giá tiền theo VND
+    // Format price to VND
     const formatPrice = (price) => {
-        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(price);
+    };
+
+    // Format price range
+    const formatPriceRange = (minPrice, maxPrice) => {
+        if (minPrice === maxPrice) {
+            return formatPrice(minPrice);
+        }
+        return `${formatPrice(minPrice)} - ${formatPrice(maxPrice)}`;
     };
 
     return (
@@ -88,131 +101,145 @@ function ProductManager() {
             <div className={cx('header')}>
                 <h1>Quản Lý Sản Phẩm</h1>
                 <Link to="/products/new" className={cx('add-product-btn')}>
-                    + Thêm Sản Phẩm Mới
+                    <FaPlusCircle /> Thêm Sản Phẩm
                 </Link>
             </div>
 
-            <div className={cx('filters')}>
-                <div className={cx('status-filters')}>
-                    <button
-                        className={cx('filter-btn', filter === 'all' && 'active')}
-                        onClick={() => setFilter('all')}
-                    >
-                        Tất Cả Sản Phẩm
-                    </button>
-                    <button
-                        className={cx('filter-btn', filter === 'published' && 'active')}
-                        onClick={() => setFilter('published')}
-                    >
-                        Đã Đăng
-                    </button>
-                    <button
-                        className={cx('filter-btn', filter === 'draft' && 'active')}
-                        onClick={() => setFilter('draft')}
-                    >
-                        Bản Nháp
-                    </button>
-                </div>
-                <div className={cx('search')}>
-                    <input
-                        type="text"
-                        placeholder="Tìm kiếm sản phẩm..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
+            <div className={cx('filters-container')}>
+                <div className={cx('filters')}>
+                    <div className={cx('status-filters')}>
+                        <button
+                            className={cx('filter-btn', filter === 'all' && 'active')}
+                            onClick={() => setFilter('all')}
+                        >
+                            Tất Cả
+                        </button>
+                        <button
+                            className={cx('filter-btn', filter === 'published' && 'active')}
+                            onClick={() => setFilter('published')}
+                        >
+                            Đã Đăng
+                        </button>
+                        <button
+                            className={cx('filter-btn', filter === 'draft' && 'active')}
+                            onClick={() => setFilter('draft')}
+                        >
+                            Bản Nháp
+                        </button>
+                    </div>
+                    <div className={cx('search')}>
+                        <FaSearch className={cx('search-icon')} />
+                        <input
+                            type="text"
+                            placeholder="Tìm kiếm sản phẩm..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
                 </div>
             </div>
 
             {loading ? (
-                <div className={cx('loading')}>Đang tải sản phẩm...</div>
+                <div className={cx('loading-container')}>
+                    <div className={cx('loading-spinner')}></div>
+                    <p>Đang tải sản phẩm...</p>
+                </div>
             ) : (
                 <>
                     {filteredProducts.length === 0 ? (
-                        <div className={cx('no-products')}>
-                            Không tìm thấy sản phẩm nào.
+                        <div className={cx('empty-state')}>
+                            <div className={cx('empty-icon')}>📦</div>
+                            <h3>Không tìm thấy sản phẩm nào</h3>
+                            <p>
+                                {filter === 'all'
+                                    ? 'Hãy thêm sản phẩm đầu tiên vào cửa hàng của bạn.'
+                                    : 'Không có sản phẩm phù hợp với bộ lọc hiện tại.'}
+                            </p>
                             {filter !== 'all' && (
                                 <button
                                     onClick={() => setFilter('all')}
-                                    className={cx('reset-btn')}
+                                    className={cx('reset-filter-btn')}
                                 >
                                     Xóa bộ lọc
                                 </button>
                             )}
                         </div>
                     ) : (
-                        <div className={cx('products-table-wrapper')}>
-                            <table className={cx('products-table')}>
-                                <thead>
-                                    <tr>
-                                        <th>Hình Ảnh</th>
-                                        <th>Tên Sản Phẩm</th>
-                                        <th>Giá</th>
-                                        <th>Tồn Kho</th>
-                                        <th>Trạng Thái</th>
-                                        <th>Thao Tác</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {filteredProducts.map((product) => (
-                                        <tr key={product.id}>
-                                            <td>
-                                                <div className={cx('product-image')}>
-                                                    <img
-                                                        src={product.thumbnail}
-                                                        alt={product.name}
-                                                    />
-                                                </div>
-                                            </td>
-                                            <td className={cx('product-name')}>{product.name}</td>
-                                            <td>{formatPrice(product.price)}</td>
-                                            <td>{product.inventory} sản phẩm</td>
-                                            <td>
-                                                <span className={cx('status', product.status)}>
-                                                    {getVietnameseStatus(product.status)}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <div className={cx('actions')}>
-                                                    <button className={cx('edit-btn')}>Sửa</button>
-                                                    {product.status === 'draft' ? (
-                                                        <button
-                                                            className={cx('publish-btn')}
-                                                            onClick={() =>
-                                                                handleStatusChange(
-                                                                    product.id,
-                                                                    'published'
-                                                                )
-                                                            }
-                                                        >
-                                                            Đăng
-                                                        </button>
-                                                    ) : (
-                                                        <button
-                                                            className={cx('unpublish-btn')}
-                                                            onClick={() =>
-                                                                handleStatusChange(
-                                                                    product.id,
-                                                                    'draft'
-                                                                )
-                                                            }
-                                                        >
-                                                            Hủy Đăng
-                                                        </button>
-                                                    )}
-                                                    <button
-                                                        className={cx('delete-btn')}
-                                                        onClick={() =>
-                                                            handleDeleteProduct(product.id)
-                                                        }
-                                                    >
-                                                        Xóa
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                        <div className={cx('products-grid')}>
+                            {filteredProducts.map((product) => (
+                                <div key={product._id} className={cx('product-card')}>
+                                    <div className={cx('product-image')}>
+                                        <img
+                                            src={`${API_URL}/media/${product.product_thumb}`}
+                                            alt={product.product_name}
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.src =
+                                                    'https://via.placeholder.com/150x150?text=Ảnh+sản+phẩm';
+                                            }}
+                                        />
+                                        <div
+                                            className={cx('product-status-badge', {
+                                                'is-published': product.is_publish,
+                                                'is-draft': product.is_draft
+                                            })}
+                                        >
+                                            {product.is_publish ? 'Đang bán' : 'Bản nháp'}
+                                        </div>
+                                    </div>
+                                    <div className={cx('product-content')}>
+                                        <h3 className={cx('product-name')}>
+                                            {product.product_name}
+                                        </h3>
+                                        <div className={cx('product-meta')}>
+                                            <div className={cx('product-price')}>
+                                                {formatPriceRange(
+                                                    product.minPrice,
+                                                    product.maxPrice
+                                                )}
+                                            </div>
+                                            <div className={cx('product-quantity')}>
+                                                <span>{product.product_quantity} sp</span>
+                                            </div>
+                                        </div>
+                                        <div className={cx('product-actions')}>
+                                            <Link
+                                                to={`/products/edit/${product._id}`}
+                                                className={cx('edit-btn')}
+                                                title="Chỉnh sửa sản phẩm"
+                                            >
+                                                <FaEdit /> Sửa
+                                            </Link>
+                                            <button
+                                                className={cx('visibility-btn', {
+                                                    'is-published': product.is_publish
+                                                })}
+                                                onClick={() =>
+                                                    handleStatusChange(
+                                                        product._id,
+                                                        !product.is_draft
+                                                    )
+                                                }
+                                                title={
+                                                    product.is_publish
+                                                        ? 'Chuyển sang bản nháp'
+                                                        : 'Đăng sản phẩm'
+                                                }
+                                            >
+                                                {product.is_publish ? <FaEyeSlash /> : <FaEye />}
+                                                {product.is_publish ? 'Ẩn' : 'Hiện'}
+                                            </button>
+                                            <button
+                                                className={cx('delete-btn')}
+                                                onClick={() => handleDeleteProduct(product._id)}
+                                                title="Xóa sản phẩm"
+                                            >
+                                                <FaTrash /> Xóa
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     )}
                 </>

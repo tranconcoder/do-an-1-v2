@@ -85,6 +85,9 @@ declare global {
             /* ---------------------------------------------------------- */
             /*                           Update                           */
             /* ---------------------------------------------------------- */
+            interface FindByIdAndUpdate<T = any> extends FindById<T> {
+                update: UpdateQuery<T>;
+            }
 
             /* ------------- Arguments of generateUpdateAll ------------- */
             interface UpdateAllArgs<T = any> {
@@ -98,6 +101,8 @@ declare global {
 
             /* ---------- Arguments of generateFindOneAndDelete --------- */
             interface FindOneAndDelete<T = any> extends FindOne<T> {}
+
+            interface FindByIdAndDelete<T = any> extends FindById<T> {}
         }
     }
 

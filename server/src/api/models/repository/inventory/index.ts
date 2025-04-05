@@ -1,4 +1,8 @@
-import { generateFindOne, generateFindOneAndUpdate } from '@/utils/mongoose.util.js';
+import {
+    generateFindByIdAndUpdate,
+    generateFindOne,
+    generateFindOneAndUpdate
+} from '@/utils/mongoose.util.js';
 import inventoryModel from '@/models/inventory.model.js';
 
 /* ---------------------------------------------------------- */
@@ -16,6 +20,10 @@ export const findOneInventory = generateFindOne<model.inventory.InventorySchema>
 /* ---------------------------------------------------------- */
 /*                           Update                           */
 /* ---------------------------------------------------------- */
+
+/* ------------------ Find by id and update ----------------- */
+export const findByIdAndUpdateInventory =
+    generateFindByIdAndUpdate<model.inventory.InventorySchema>(inventoryModel);
 
 /* ------------------ Find one and update  ------------------ */
 export const findOneAndUpdateInventory =
@@ -61,4 +69,24 @@ export const updateInventoryStock = async (productId: string, newStock: number) 
             )
         ).modifiedCount > 0
     );
+};
+
+export const increaseInventoryStock = async (productId: string, incStock: number) => {
+    return await findByIdAndUpdateInventory({
+        id: productId,
+        update: {
+            $inc: { inventory_stock: incStock }
+        },
+        options: { new: true }
+    });
+};
+
+export const decreaseInventoryStock = async (productId: string, decStock: number) => {
+    return await findByIdAndUpdateInventory({
+        id: productId,
+        update: {
+            $inc: { inventory_stock: -decStock }
+        },
+        options: { new: true }
+    });
 };

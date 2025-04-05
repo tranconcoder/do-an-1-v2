@@ -10,9 +10,18 @@ import {
 import skuService from './sku.service.js';
 import { SKUImages } from '@/enums/sku.enum.js';
 import { SPUImages } from '@/enums/spu.enum.js';
-import { findAllSPU } from '@/models/repository/spu/index.js';
 import inventoryService from './inventory.service.js';
 import mongoose, { RootFilterQuery } from 'mongoose';
+import {
+    findByIdAndDeleteSPU,
+    findOneAndUpdateSPU,
+    findSPU,
+    findSPUById,
+    findSPUPageSpliting
+} from '@/models/repository/spu/index.js';
+import { findMaxPrice, findMinPriceSKU as findMinPrice } from '@/models/repository/sku/index.js';
+import { increaseInventoryStock } from '@/models/repository/inventory/index.js';
+import { increaseWarehouseStock } from '@/models/repository/warehouses/index.js';
 
 export default new (class SPUService {
     /* ---------------------------------------------------------- */
@@ -66,6 +75,12 @@ export default new (class SPUService {
             is_publish: payload.is_publish
         });
 
+        /* ---------------- Update warehouse quantity --------------- */
+        await Promise.all([
+            increaseInventoryStock(spu._id.toString(), quantity),
+            increaseWarehouseStock(spu._id.toString(), quantity)
+        ]);
+
         /* --------------------- Handle save sku ------------------- */
         try {
             const { sku_list, product_shop } = payload;
@@ -113,28 +128,37 @@ export default new (class SPUService {
     /* ---------------------------------------------------------- */
 
     /* ------------------------- By shop ------------------------ */
-    async getAllSpu({ shopId, limit, page, userId }: service.spu.arguments.GetAllSpuInShop) {
-        let query: RootFilterQuery<model.spu.SPUSchema> = {
-            product_shop: shopId,
-            is_publish: true,
-            is_deleted: false
-        };
+    async getAllSPUOwnByShop({ userId, limit, page }: service.spu.arguments.GetAllSPUOwnByShop) {
+        const shop = await findOneShop({ query: { shop_userId: userId }, options: { lean: true } });
 
-        if (userId) {
-            Object.assign(query, {} as typeof query);
-        }
+        if (!shop) throw new NotFoundErrorResponse({ message: 'Shop not found!' });
+        if (shop.is_deleted) throw new NotFoundErrorResponse({ message: 'Shop is deleted!' });
+        if (shop.shop_status !== ShopStatus.ACTIVE)
+            throw new ForbiddenErrorResponse({ message: 'Shop is not active!' });
 
-        return await findAllSPU({
-            query: { product_shop: shopId, is_deleted: false },
-            options: { lean: true }
+        return await findSPUPageSpliting({
+            query: { product_shop: shop._id, is_deleted: false },
+            options: { lean: true, sort: [{ is_publish: 1 }, { createdAt: -1 }] },
+            limit,
+            page
+        }).then(async (spuList) => {
+            return await Promise.all(
+                spuList.map(async (spu) => ({
+                    minPrice: await findMinPrice(spu._id.toString()),
+                    maxPrice: await findMaxPrice(spu._id.toString()),
+                    ...spu
+                }))
+            );
         });
     }
 
     /* ------------------------- By user ------------------------ */
-    async getAllSpuByUser() {
-        return await findAllSPU({
+    async getAllSPUShopByAll({ page, limit }: commonTypes.object.PageSlitting) {
+        return await findSPUPageSpliting({
             query: { is_deleted: false, is_draft: false, is_publish: true },
-            options: { lean: true }
+            options: { lean: true },
+            page,
+            limit
         });
     }
 
@@ -147,7 +171,21 @@ export default new (class SPUService {
     /* ---------------------------------------------------------- */
     /*                           Delete                           */
     /* ---------------------------------------------------------- */
-    async deleteSPU() {
+    async deleteSPU(spuId: string) {
+        let deletedCount = 0;
+
         /* ---------------------- Check is own ---------------------- */
+        const spu = await findOneAndUpdateSPU({
+            query: { _id: spuId, is_deleted: false },
+            update: { $set: { is_deleted: true } },
+            options: { lean: true, new: true }
+        });
+
+        if (!spu) throw new NotFoundErrorResponse({ message: 'SPU not found!' });
+        else
+            try {
+            } catch (error) {}
+
+        return deletedCount;
     }
 })();

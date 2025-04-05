@@ -51,7 +51,7 @@ spuPostRoute.post(
 spuPostRoute.get(
     '/shop/all/own',
     authorization('readOwn', Resources.PRODUCT),
-    catchError(spuController.getAllSPUByShop)
+    catchError(spuController.getAllSPUOwnByShop)
 );
 
 export default spuPostRoute;
