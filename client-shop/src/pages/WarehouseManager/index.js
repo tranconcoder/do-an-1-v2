@@ -18,6 +18,14 @@ function WarehouseManager() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedWarehouse, setSelectedWarehouse] = useState(null);
     const { showToast } = useToast();
+    const [deleteConfirm, setDeleteConfirm] = useState({
+        show: false,
+        warehouseId: null,
+        warehouseName: '',
+        nameInput: '',
+        timer: 5,
+        timerActive: false
+    });
 
     useEffect(() => {
         const fetchWarehouses = async () => {
@@ -37,6 +45,19 @@ function WarehouseManager() {
 
         fetchWarehouses();
     }, [showToast]);
+
+    useEffect(() => {
+        let interval;
+        if (deleteConfirm.timerActive && deleteConfirm.timer > 0) {
+            interval = setInterval(() => {
+                setDeleteConfirm((prev) => ({
+                    ...prev,
+                    timer: prev.timer - 1
+                }));
+            }, 1000);
+        }
+        return () => clearInterval(interval);
+    }, [deleteConfirm.timerActive]);
 
     const handleAddWarehouse = async (newWarehouse) => {
         try {
@@ -65,15 +86,37 @@ function WarehouseManager() {
         }
     };
 
-    const handleDeleteWarehouse = async (warehouseId) => {
-        if (window.confirm('Bạn có chắc chắn muốn xóa kho hàng này không?')) {
-            try {
-                await axiosClient.delete(`/warehouse/${warehouseId}`);
-                setWarehouses((prev) => prev.filter((w) => w._id !== warehouseId));
-                showToast('Xóa kho hàng thành công!', 'success');
-            } catch (err) {
-                showToast(err.response?.data?.message || 'Lỗi khi xóa kho hàng', 'error');
-            }
+    const openDeleteConfirm = (warehouse) => {
+        setDeleteConfirm({
+            show: true,
+            warehouseId: warehouse._id,
+            warehouseName: warehouse.name,
+            nameInput: '',
+            timer: 5,
+            timerActive: true
+        });
+    };
+
+    const closeDeleteConfirm = () => {
+        setDeleteConfirm({
+            show: false,
+            warehouseId: null,
+            warehouseName: '',
+            nameInput: '',
+            timer: 5,
+            timerActive: false
+        });
+    };
+
+    const handleDeleteWarehouse = async () => {
+        try {
+            await axiosClient.delete(`/warehouse/${deleteConfirm.warehouseId}`);
+            setWarehouses(warehouses.filter((w) => w._id !== deleteConfirm.warehouseId));
+            closeDeleteConfirm();
+            showToast('Xóa kho hàng thành công', 'success');
+        } catch (error) {
+            console.error('Lỗi khi xóa kho hàng:', error);
+            showToast('Không thể xóa kho hàng', 'error');
         }
     };
 
@@ -151,7 +194,7 @@ function WarehouseManager() {
                                 </button>
                                 <button
                                     className={cx('delete-icon')}
-                                    onClick={() => handleDeleteWarehouse(warehouse._id)}
+                                    onClick={() => openDeleteConfirm(warehouse)}
                                     title="Xóa kho"
                                 >
                                     <FontAwesomeIcon icon={faTrash} />
@@ -159,6 +202,48 @@ function WarehouseManager() {
                             </div>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {deleteConfirm.show && (
+                <div className={cx('delete-dialog-overlay')}>
+                    <div className={cx('delete-dialog')}>
+                        <h3>Xác nhận xóa kho hàng</h3>
+                        <p>
+                            Bạn có chắc chắn muốn xóa kho hàng này? Hành động này không thể hoàn
+                            tác.
+                        </p>
+                        <p>
+                            Nhập tên kho hàng để xác nhận:{' '}
+                            <strong>{deleteConfirm.warehouseName}</strong>
+                        </p>
+                        <input
+                            type="text"
+                            value={deleteConfirm.nameInput}
+                            onChange={(e) =>
+                                setDeleteConfirm((prev) => ({ ...prev, nameInput: e.target.value }))
+                            }
+                            placeholder="Nhập tên kho hàng"
+                            className={cx('confirm-input')}
+                        />
+                        <div className={cx('dialog-actions')}>
+                            <button className={cx('cancel-btn')} onClick={closeDeleteConfirm}>
+                                Hủy
+                            </button>
+                            <button
+                                className={cx('delete-btn')}
+                                disabled={
+                                    deleteConfirm.nameInput !== deleteConfirm.warehouseName ||
+                                    deleteConfirm.timer > 0
+                                }
+                                onClick={handleDeleteWarehouse}
+                            >
+                                {deleteConfirm.timer > 0
+                                    ? `Xóa (${deleteConfirm.timer}s)`
+                                    : 'Xóa kho hàng'}
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
 

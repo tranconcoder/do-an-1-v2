@@ -1,8 +1,9 @@
-import { findSPUById } from '@/models/repository/spu/index.js';
+import { findSkuPageSpliting, findSPU, findSPUById } from '@/models/repository/spu/index.js';
 import skuModel from '@/models/sku.model.js';
 import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 import inventoryService from './inventory.service.js';
 import { increaseWarehouseStock } from '@/models/repository/warehouses/index.js';
+import { findSKU } from '@/models/repository/sku/index.js';
 
 export default new (class SKUService {
     /* ---------------------------------------------------------- */
@@ -62,7 +63,28 @@ export default new (class SKUService {
 
     /* ----------------------- Get all SPU ---------------------- */
     // By User
-    async getAllSPUInShopByUser() {}
+    async getAllShopSKUByAll({ shopId, limit, page }: service.sku.arguments.GetAllSKUShopByAll) {
+        const spuShopIds = await findSPU({
+            query: {
+                product_shop: shopId,
+                is_deleted: false,
+                is_publish: true,
+                is_draft: false
+            },
+            only: ['_id'],
+            options: { lean: true }
+        }).then((ids) => ids.map((item) => item._id.toString()));
+
+        return await findSkuPageSpliting({
+            query: {
+                sku_product: { $in: spuShopIds },
+                is_deleted: false
+            },
+            options: { lean: true },
+            limit,
+            page
+        });
+    }
 
     // By own Shop
     async getAllSPUInShopByShop() {}

@@ -7,6 +7,10 @@ declare global {
                 interface CreateSKU extends Omit<model.sku.SKU, '_id' | 'is_deleted'> {
                     warehouse: string;
                 }
+
+                interface GetAllSKUShopByAll extends commonTypes.object.PageSlitting {
+                    shopId: string;
+                }
             }
         }
     }

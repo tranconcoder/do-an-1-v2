@@ -15,10 +15,31 @@ function ProductManager() {
     const [filter, setFilter] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
     const { showToast } = useToast();
+    const [deleteConfirm, setDeleteConfirm] = useState({
+        show: false,
+        productId: null,
+        productName: '',
+        nameInput: '',
+        timer: 5,
+        timerActive: false
+    });
 
     useEffect(() => {
         fetchProducts();
     }, []);
+
+    useEffect(() => {
+        let interval;
+        if (deleteConfirm.timerActive && deleteConfirm.timer > 0) {
+            interval = setInterval(() => {
+                setDeleteConfirm((prev) => ({
+                    ...prev,
+                    timer: prev.timer - 1
+                }));
+            }, 1000);
+        }
+        return () => clearInterval(interval);
+    }, [deleteConfirm.timerActive]);
 
     const fetchProducts = async () => {
         try {
@@ -35,16 +56,37 @@ function ProductManager() {
         }
     };
 
-    const handleDeleteProduct = async (productId) => {
-        if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
-            try {
-                await axiosClient.delete(`/spu/${productId}`);
-                setProducts(products.filter((product) => product._id !== productId));
-                showToast('Xóa sản phẩm thành công', 'success');
-            } catch (error) {
-                console.error('Lỗi khi xóa sản phẩm:', error);
-                showToast('Không thể xóa sản phẩm', 'error');
-            }
+    const openDeleteConfirm = (product) => {
+        setDeleteConfirm({
+            show: true,
+            productId: product._id,
+            productName: product.product_name,
+            nameInput: '',
+            timer: 5,
+            timerActive: true
+        });
+    };
+
+    const closeDeleteConfirm = () => {
+        setDeleteConfirm({
+            show: false,
+            productId: null,
+            productName: '',
+            nameInput: '',
+            timer: 5,
+            timerActive: false
+        });
+    };
+
+    const handleDeleteProduct = async () => {
+        try {
+            await axiosClient.delete(`/spu/${deleteConfirm.productId}`);
+            setProducts(products.filter((product) => product._id !== deleteConfirm.productId));
+            showToast('Xóa sản phẩm thành công', 'success');
+            closeDeleteConfirm();
+        } catch (error) {
+            console.error('Lỗi khi xóa sản phẩm:', error);
+            showToast('Không thể xóa sản phẩm', 'error');
         }
     };
 
@@ -231,7 +273,7 @@ function ProductManager() {
                                             </button>
                                             <button
                                                 className={cx('delete-btn')}
-                                                onClick={() => handleDeleteProduct(product._id)}
+                                                onClick={() => openDeleteConfirm(product)}
                                                 title="Xóa sản phẩm"
                                             >
                                                 <FaTrash /> Xóa
@@ -243,6 +285,48 @@ function ProductManager() {
                         </div>
                     )}
                 </>
+            )}
+
+            {deleteConfirm.show && (
+                <div className={cx('delete-dialog-overlay')}>
+                    <div className={cx('delete-dialog')}>
+                        <h3>Xác nhận xóa sản phẩm</h3>
+                        <p>
+                            Bạn có chắc chắn muốn xóa sản phẩm này? Hành động này không thể hoàn
+                            tác.
+                        </p>
+                        <p>
+                            Nhập tên sản phẩm để xác nhận:{' '}
+                            <strong>{deleteConfirm.productName}</strong>
+                        </p>
+                        <input
+                            type="text"
+                            value={deleteConfirm.nameInput}
+                            onChange={(e) =>
+                                setDeleteConfirm((prev) => ({ ...prev, nameInput: e.target.value }))
+                            }
+                            placeholder="Nhập tên sản phẩm"
+                            className={cx('confirm-input')}
+                        />
+                        <div className={cx('dialog-actions')}>
+                            <button className={cx('cancel-btn')} onClick={closeDeleteConfirm}>
+                                Hủy
+                            </button>
+                            <button
+                                className={cx('delete-btn')}
+                                disabled={
+                                    deleteConfirm.nameInput !== deleteConfirm.productName ||
+                                    deleteConfirm.timer > 0
+                                }
+                                onClick={handleDeleteProduct}
+                            >
+                                {deleteConfirm.timer > 0
+                                    ? `Xóa (${deleteConfirm.timer}s)`
+                                    : 'Xóa sản phẩm'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );
