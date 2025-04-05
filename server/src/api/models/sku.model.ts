@@ -28,7 +28,7 @@ export const skuSchema = new Schema<model.sku.SKU>(
             }
         },
 
-        is_deleted: { type: Boolean, default: false }
+        is_deleted: { type: Boolean, default: false, select: false }
     },
     {
         timestamps: true,

@@ -30,7 +30,7 @@ export const findAllSPUIds = async () => {
 };
 
 /* --------------- Get all with page splitting -------------- */
-export const findSkuPageSpliting = generateFindAllPageSplit<model.spu.SPUSchema>(spuModel);
+export const findSpuPageSpliting = generateFindAllPageSplit<model.spu.SPUSchema>(spuModel);
 
 /* ---------------------------------------------------------- */
 /*                           Update                           */

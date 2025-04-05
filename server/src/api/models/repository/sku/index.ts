@@ -1,6 +1,7 @@
 import skuModel from '@/models/sku.model.js';
 import {
     generateFindAll,
+    generateFindAllPageSplit,
     generateFindById,
     generateFindOne,
     generateFindOneAndUpdate
@@ -40,6 +41,8 @@ export const findMaxPrice = async (spuId: string) => {
 /*                            Find                            */
 /* ---------------------------------------------------------- */
 export const findSKU = generateFindAll<model.sku.SKU>(skuModel);
+
+export const findSKUPageSpliting = generateFindAllPageSplit<model.sku.SKU>(skuModel);
 
 /* ---------------------------------------------------------- */
 /*                           Update                           */

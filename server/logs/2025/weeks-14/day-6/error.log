@@ -23827,3 +23827,4 @@
 [2025-04-05T17:20:56.499Z] [error]: HIDE::404::NotFound::Shop not found!::
 [2025-04-05T17:21:04.454Z] [error]: HIDE::404::NotFound::Shop not found!::
 [2025-04-05T17:23:24.131Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-04-05T18:32:26.100Z] [error]: HIDE::400::ReferenceError::findSkuPageSpliting is not defined::
