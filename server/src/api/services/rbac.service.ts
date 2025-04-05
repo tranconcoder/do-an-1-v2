@@ -120,7 +120,8 @@ class RBACService {
                         actions: [
                             RoleActions.CREATE_OWN,
                             RoleActions.READ_OWN,
-                            RoleActions.UPDATE_OWN
+                            RoleActions.UPDATE_OWN,
+                            RoleActions.DELETE_OWN
                         ],
                         attributes: '*'
                     },

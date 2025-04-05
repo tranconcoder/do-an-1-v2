@@ -40,6 +40,7 @@ declare global {
                     is_draft: boolean;
                     is_publish: boolean;
                     is_deleted: boolean;
+                    deleted_at: Date;
                 },
                 isModel,
                 isDoc,

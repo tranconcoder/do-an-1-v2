@@ -4,6 +4,7 @@ import {
     generateFindAllPageSplit,
     generateFindById,
     generateFindByIdAndDelete,
+    generateFindByIdAndUpdate,
     generateFindOneAndDelete,
     generateFindOneAndUpdate
 } from '@/utils/mongoose.util.js';
@@ -34,6 +35,8 @@ export const findSkuPageSpliting = generateFindAllPageSplit<model.spu.SPUSchema>
 /* ---------------------------------------------------------- */
 /*                           Update                           */
 /* ---------------------------------------------------------- */
+export const findByIdAndUpdateSPU = generateFindByIdAndUpdate<model.spu.SPUSchema>(spuModel);
+
 export const findOneAndUpdateSPU = generateFindOneAndUpdate<model.spu.SPUSchema>(spuModel);
 
 /* ---------------------------------------------------------- */

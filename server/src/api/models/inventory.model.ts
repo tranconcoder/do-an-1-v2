@@ -50,7 +50,11 @@ const inventorySchema = new Schema<model.inventory.InventorySchema>(
                 }
             ],
             default: []
-        }
+        },
+
+        /* ------------------------ Metadata ------------------------ */
+        is_deleted: { type: Boolean, default: false },
+        deleted_at: { type: Date, default: null }
     },
     {
         collection: INVENTORY_COLLECTION_NAME,

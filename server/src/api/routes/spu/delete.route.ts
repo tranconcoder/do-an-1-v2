@@ -1,15 +1,25 @@
 import { Router } from 'express';
-import ProductController from '@/controllers/spu.controller.js';
+import { validateRequestParams } from '@/middlewares/joiValidate.middleware.js';
+import { authenticate } from '@/middlewares/jwt.middleware.js';
+import { paramsId } from '@/configs/joi.config.js';
+import { authorization } from '@/middlewares/authorization.middleware.js';
+import { Resources } from '@/enums/rbac.enum.js';
 import catchError from '@/middlewares/catchError.middleware.js';
-import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
+import spuController from '@/controllers/spu.controller.js';
 
-const productDeleteRoute = Router();
+const deleteRouter = Router();
+const deleteRouterValidate = Router();
 
-/* ------------------- Delete product ------------------- */
-// productDeleteRoute.delete(
-//     '/delete',
-//     validateRequestBody(deleteProductSchema),
-//     catchError(ProductController.deleteProduct)
-// );
+/* ---------------------------------------------------------- */
+/*                          Validate                          */
+/* ---------------------------------------------------------- */
+deleteRouter.use(authenticate, deleteRouterValidate);
 
-export default productDeleteRoute;
+deleteRouterValidate.delete(
+    '/:id',
+    authorization('deleteOwn', Resources.PRODUCT),
+    validateRequestParams(paramsId('id')),
+    catchError(spuController.deleteSPU)
+);
+
+export default deleteRouter;

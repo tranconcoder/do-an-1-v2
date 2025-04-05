@@ -22,6 +22,10 @@ declare global {
                         reservation_at: Date;
                         deleted_at?: Date;
                     }>;
+
+                    /* ------------------------ Metadata ------------------------ */
+                    is_deleted?: boolean;
+                    deleted_at?: Date;
                 },
                 isModel,
                 isDoc,

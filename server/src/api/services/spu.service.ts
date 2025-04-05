@@ -13,15 +13,30 @@ import { SPUImages } from '@/enums/spu.enum.js';
 import inventoryService from './inventory.service.js';
 import mongoose, { RootFilterQuery } from 'mongoose';
 import {
+    findAllSPUIds,
     findByIdAndDeleteSPU,
+    findByIdAndUpdateSPU,
     findOneAndUpdateSPU,
     findSPU,
     findSPUById,
     findSPUPageSpliting
 } from '@/models/repository/spu/index.js';
-import { findMaxPrice, findMinPriceSKU as findMinPrice } from '@/models/repository/sku/index.js';
-import { increaseInventoryStock } from '@/models/repository/inventory/index.js';
-import { increaseWarehouseStock } from '@/models/repository/warehouses/index.js';
+import {
+    findMaxPrice,
+    findMinPriceSKU as findMinPrice,
+    findOneAndUpdateSKU,
+    findSKU
+} from '@/models/repository/sku/index.js';
+import {
+    decreaseInventoryStock,
+    increaseInventoryStock
+} from '@/models/repository/inventory/index.js';
+import {
+    decreaseWarehouseStock,
+    increaseWarehouseStock
+} from '@/models/repository/warehouses/index.js';
+import inventoryModel from '@/models/inventory.model.js';
+import skuModel from '@/models/sku.model.js';
 
 export default new (class SPUService {
     /* ---------------------------------------------------------- */
@@ -74,7 +89,6 @@ export default new (class SPUService {
             is_draft: payload.is_draft,
             is_publish: payload.is_publish
         });
-
 
         /* --------------------- Handle save sku ------------------- */
         try {
@@ -167,8 +181,6 @@ export default new (class SPUService {
     /*                           Delete                           */
     /* ---------------------------------------------------------- */
     async deleteSPU(spuId: string) {
-        let deletedCount = 0;
-
         /* ---------------------- Check is own ---------------------- */
         const spu = await findOneAndUpdateSPU({
             query: { _id: spuId, is_deleted: false },
@@ -177,10 +189,45 @@ export default new (class SPUService {
         });
 
         if (!spu) throw new NotFoundErrorResponse({ message: 'SPU not found!' });
-        else
-            try {
-            } catch (error) {}
+        else {
+            let completedIndex = 0;
 
-        return deletedCount;
+            try {
+                /* ----------------------- Remove SKU ----------------------- */
+                const { modifiedCount: removedSKU } = await skuModel.updateMany(
+                    { sku_product: spu._id, is_deleted: false },
+                    { $set: { is_deleted: true } }
+                );
+                if (!removedSKU) {
+                    throw new BadRequestErrorResponse({ message: 'Remove SKU failed!' });
+                } else completedIndex++;
+
+                /* -------------------- Remove inventory -------------------- */
+                const skuIds = await findSKU({
+                    query: { sku_product: spu._id },
+                    projection: { _id: 1 },
+                    options: { lean: true }
+                }).then((skus) => skus.map((sku) => sku._id));
+                if (!skuIds.length) throw new NotFoundErrorResponse({ message: 'SKU not found!' });
+
+                const { modifiedCount: removedInventory } = await inventoryModel.updateMany(
+                    { inventory_sku: { $in: skuIds }, is_deleted: false },
+                    { $set: { is_deleted: true, deleted_at: new Date() } }
+                );
+                if (!removedInventory)
+                    throw new BadRequestErrorResponse({ message: 'Remove inventory failed!' });
+                else completedIndex++;
+
+                /* ---------------- Decrease warehouse stock ---------------- */
+                decreaseWarehouseStock(spu._id.toString(), spu.product_quantity);
+                completedIndex++;
+            } catch (error: any) {
+                console.log(error);
+                const message = error?.message || 'Delete SPU failed!';
+                throw new BadRequestErrorResponse({ message });
+            }
+        }
+
+        return { success: true };
     }
 })();

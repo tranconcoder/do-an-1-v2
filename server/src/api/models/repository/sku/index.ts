@@ -1,5 +1,10 @@
 import skuModel from '@/models/sku.model.js';
-import { generateFindById, generateFindOne } from '@/utils/mongoose.util.js';
+import {
+    generateFindAll,
+    generateFindById,
+    generateFindOne,
+    generateFindOneAndUpdate
+} from '@/utils/mongoose.util.js';
 
 /* ---------------------------------------------------------- */
 /*                          Find one                          */
@@ -30,3 +35,13 @@ export const findMaxPrice = async (spuId: string) => {
         options: { sort: { sku_price: -1 }, limit: 1, lean: true }
     }).then((x) => x?.sku_price || null);
 };
+
+/* ---------------------------------------------------------- */
+/*                            Find                            */
+/* ---------------------------------------------------------- */
+export const findSKU = generateFindAll<model.sku.SKU>(skuModel);
+
+/* ---------------------------------------------------------- */
+/*                           Update                           */
+/* ---------------------------------------------------------- */
+export const findOneAndUpdateSKU = generateFindOneAndUpdate<model.sku.SKU>(skuModel);

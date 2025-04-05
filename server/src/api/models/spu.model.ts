@@ -64,7 +64,8 @@ const spuSchema = new Schema<model.spu.SPUSchema, true>(
         /* ------------------------ Metadata ------------------------ */
         is_draft: { type: Boolean, default: true, select: false },
         is_publish: { type: Boolean, default: false, select: false },
-        is_deleted: { type: Boolean, default: false, select: false }
+        is_deleted: { type: Boolean, default: false, select: false },
+        deleted_at: { type: Date, default: null, select: false }
     },
     {
         collection: SPU_COLLECTION_NAME,

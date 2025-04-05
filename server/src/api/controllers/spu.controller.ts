@@ -1,5 +1,5 @@
 import { CreatedResponse, OkResponse } from '@/response/success.response.js';
-import { RequestWithBody, RequestWithQuery } from '@/types/request.js';
+import { RequestWithBody, RequestWithParams, RequestWithQuery } from '@/types/request.js';
 import spuService from '@/services/spu.service.js';
 import { SPUImages } from '@/enums/spu.enum.js';
 import { RequestHandler } from 'express';
@@ -49,6 +49,16 @@ export default new (class SPUController {
                 page: req.query.page,
                 limit: req.query.limit
             })
+        }).send(res);
+    };
+
+    /* ---------------------------------------------------------- */
+    /*                           Delete                           */
+    /* ---------------------------------------------------------- */
+    deleteSPU: RequestWithParams<{ id: string }> = async (req, res, next) => {
+        new OkResponse({
+            message: 'Delete product successfully!',
+            metadata: await spuService.deleteSPU(req.params.id)
         }).send(res);
     };
 })();
