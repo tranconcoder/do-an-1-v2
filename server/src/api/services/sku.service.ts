@@ -3,9 +3,9 @@ import skuModel, { SKU_COLLECTION_NAME } from '@/models/sku.model.js';
 import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 import inventoryService from './inventory.service.js';
 import { increaseWarehouseStock } from '@/models/repository/warehouses/index.js';
-import { SPU_COLLECTION_NAME, spuModel } from '@/models/spu.model.js';
 import mongoose from 'mongoose';
 import { CATEGORY_COLLECTION_NAME } from '@/models/category.model.js';
+import { SPU_COLLECTION_NAME, spuModel } from '@/models/spu.model.js';
 
 export default new (class SKUService {
     /* ---------------------------------------------------------- */
@@ -77,38 +77,71 @@ export default new (class SKUService {
                     from: SPU_COLLECTION_NAME,
                     localField: 'sku_product',
                     foreignField: '_id',
-                    as: 'spu'
+                    as: 'spu_select'
                 }
             },
             {
                 $lookup: {
                     from: CATEGORY_COLLECTION_NAME,
-                    localField: 'spu.product_category',
+                    localField: 'spu_select.product_category',
                     foreignField: '_id',
                     as: 'category'
                 }
             },
             {
-                $unwind: '$spu'
+                $unwind: '$spu_select'
             },
             {
                 $match: {
-                    'spu.is_deleted': false,
-                    'spu.is_draft': false,
-                    'spu.is_publish': true
+                    'spu_select.is_deleted': false,
+                    'spu_select.is_draft': false,
+                    'spu_select.is_publish': true
+                }
+            },
+            {
+                $lookup: {
+                    from: SKU_COLLECTION_NAME,
+                    localField: 'sku_product',
+                    foreignField: 'sku_product',
+                    as: 'sku_others'
+                }
+            },
+            {
+                $match: {
+                    'sku_others.is_deleted': false
+                }
+            },
+            {
+                $addFields: {
+                    sku_others: {
+                        $filter: {
+                            input: '$sku_others',
+                            as: 'sku',
+                            cond: { $ne: ['$$sku._id', new mongoose.Types.ObjectId(skuId)] }
+                        }
+                    }
                 }
             },
             {
                 $project: {
-                    'spu.is_deleted': 0,
-                    'spu.deleted_at': 0,
-                    'spu.created_at': 0,
-                    'spu.updated_at': 0,
-                    'spu.__v': 0,
+                    /* ----------------------- SPU Select ----------------------- */
+                    'spu_select.is_deleted': 0,
+                    'spu_select.deleted_at': 0,
+                    'spu_select.created_at': 0,
+                    'spu_select.updated_at': 0,
+                    'spu_select.__v': 0,
+
+                    /* ------------------------ Category ------------------------ */
                     'category.is_deleted': 0,
                     'category.deleted_at': 0,
                     'category.created_at': 0,
-                    'category.updated_at': 0
+                    'category.updated_at': 0,
+
+                    /* ------------------------ SKU List ------------------------ */
+                    'sku_others.is_deleted': 0,
+                    'sku_others.created_at': 0,
+                    'sku_others.updated_at': 0,
+                    'sku_others.__v': 0
                 }
             }
         ]);

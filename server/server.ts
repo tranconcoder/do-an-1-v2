@@ -46,7 +46,7 @@ process.on('SIGINT', async () => {
 /* ---------------------------------------------------------- */
 /*                        Initial data                        */
 /* ---------------------------------------------------------- */
-const isInit = true;
+const isInit = false;
 
 await RBACService.getInstance().initRBAC();
 await mediaService.initMedia();

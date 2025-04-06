@@ -1,7 +1,7 @@
 import { Model, Schema, model } from 'mongoose';
 import { SPU_COLLECTION_NAME, SPU_MODEL_NAME } from './spu.model.js';
 import { MEDIA_MODEL_NAME } from './media.model.js';
-import { ObjectId } from '@/configs/mongoose.config.js';
+import { ObjectId, timestamps } from '@/configs/mongoose.config.js';
 
 export const SKU_MODEL_NAME = 'SKU';
 export const SKU_COLLECTION_NAME = 'skus';
@@ -32,7 +32,7 @@ export const skuSchema = new Schema<model.sku.SKU>(
         is_deleted: { type: Boolean, default: false, select: false }
     },
     {
-        timestamps: true,
+        timestamps,
         collection: SKU_COLLECTION_NAME
     }
 );
