@@ -1,4 +1,4 @@
-import type { RequestWithBody } from '@/types/request.js';
+import type { RequestWithBody, RequestWithParams } from '@/types/request.js';
 
 import { CreatedResponse, OkResponse } from '@/response/success.response.js';
 import locationService from '@/services/location.service.js';
@@ -68,6 +68,13 @@ export default new (class LocationController {
         new OkResponse({
             message: 'Get ward by id',
             metadata: await locationService.getWardById(req.params.id)
+        }).send(res);
+    };
+
+    public getLocationById: RequestWithParams<{ locationId: string }> = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get location by id',
+            metadata: await locationService.getLocationById(req.params.locationId)
         }).send(res);
     };
 

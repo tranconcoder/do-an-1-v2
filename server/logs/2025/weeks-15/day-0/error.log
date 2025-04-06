@@ -212,3 +212,9 @@
 [2025-04-06T12:29:30.341Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
 [2025-04-06T12:29:35.297Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
 [2025-04-06T12:29:57.189Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-06T13:10:20.592Z] [error]: HIDE::400::MongoServerError::Cannot do exclusion on field __v in inclusion projection::
+[2025-04-06T13:10:32.326Z] [error]: HIDE::400::MongoServerError::Cannot do exclusion on field __v in inclusion projection::
+[2025-04-06T13:11:13.356Z] [error]: HIDE::400::MongoServerError::Cannot do exclusion on field __v in inclusion projection::
+[2025-04-06T13:11:24.037Z] [error]: HIDE::400::MongoServerError::Path collision at province::
+[2025-04-06T13:13:38.479Z] [error]: HIDE::400::MongoServerError::Cannot do exclusion on field text in inclusion projection::
+[2025-04-06T13:13:49.535Z] [error]: HIDE::400::MongoServerError::Cannot do exclusion on field text in inclusion projection::

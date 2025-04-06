@@ -4,7 +4,9 @@ import {
     findOneDistrict,
     findOneWard,
     findOneProvince,
-    findProvince
+    findProvince,
+    findOneLocation,
+    findLocationById
 } from '@/models/repository/location/index.js';
 import { provinceModel, districtModel, wardModel, locationModel } from '@/models/location.model.js';
 import { BadRequestErrorResponse } from '@/response/error.response.js';
@@ -84,6 +86,23 @@ export default new (class LocationService {
             query: { _id: id },
             omit: 'metadata'
         });
+    }
+
+    async getLocationById(id: string) {
+        const location = await findLocationById({
+            id,
+            options: {
+                lean: true,
+                populate: {
+                    path: 'province district ward',
+                    select: ['_id', 'province_name', 'district_name', 'ward_name']
+                }
+            },
+            omit: ['text', 'ward', 'address']
+        });
+        if (!location) throw new BadRequestErrorResponse({ message: 'Location not found!' });
+
+        return location;
     }
 
     /* ---------------------------------------------------------- */

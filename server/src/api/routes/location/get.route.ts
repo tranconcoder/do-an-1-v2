@@ -2,9 +2,20 @@ import { Router } from 'express';
 import catchError from '@/middlewares/catchError.middleware.js';
 import locationController from '@/controllers/location.controller.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
+import { validateRequestParams } from '@/middlewares/joiValidate.middleware.js';
+import { paramsId } from '@/configs/joi.config.js';
 
 const router = Router();
 const routerValidated = Router();
+
+/* ---------------------------------------------------------- */
+/*                           Common                           */
+/* ---------------------------------------------------------- */
+router.get(
+    '/:locationId',
+    validateRequestParams(paramsId('locationId')),
+    catchError(locationController.getLocationById)
+);
 
 /* ---------------------------------------------------------- */
 /*                          Province                          */
