@@ -36,43 +36,43 @@ function ProductDetail() {
     const filterUniqueImages = (skuData) => {
         if (!skuData) return [];
         const allImages = [];
-        
-        // 1. Product thumb
-        if (skuData.spu_select.product_thumb) {
-            allImages.push(getMediaUrl(skuData.spu_select.product_thumb));
-        }
-        
-        // 2. Product images
-        if (skuData.spu_select.product_images) {
-            allImages.push(...skuData.spu_select.product_images.map(img => getMediaUrl(img)));
-        }
-        
-        // 3. Current SKU thumb
+
+        // 1. Current SKU thumb
         if (skuData.sku_thumb) {
             allImages.push(getMediaUrl(skuData.sku_thumb));
         }
-        
-        // 4. Current SKU images
+
+        // 2. Current SKU images
         if (skuData.sku_images) {
-            allImages.push(...skuData.sku_images.map(img => getMediaUrl(img)));
+            allImages.push(...skuData.sku_images.map((img) => getMediaUrl(img)));
+        }
+
+        // 3. Product thumb
+        if (skuData.spu_select.product_thumb) {
+            allImages.push(getMediaUrl(skuData.spu_select.product_thumb));
+        }
+
+        // 4. Product images
+        if (skuData.spu_select.product_images) {
+            allImages.push(...skuData.spu_select.product_images.map((img) => getMediaUrl(img)));
         }
 
         // 5. Other SKUs thumbs and images in sequence
         if (skuData.sku_others) {
-            skuData.sku_others.forEach(sku => {
-                // Add thumb first
+            skuData.sku_others.forEach((sku) => {
+                // Add thumb first for each SKU
                 if (sku.sku_thumb) {
                     allImages.push(getMediaUrl(sku.sku_thumb));
                 }
                 // Then add all images for this SKU
                 if (sku.sku_images) {
-                    allImages.push(...sku.sku_images.map(img => getMediaUrl(img)));
+                    allImages.push(...sku.sku_images.map((img) => getMediaUrl(img)));
                 }
             });
         }
 
         // Remove duplicates while preserving order
-        return [...new Set(allImages.filter(img => img))];
+        return [...new Set(allImages.filter((img) => img))];
     };
 
     useEffect(() => {
@@ -139,10 +139,86 @@ function ProductDetail() {
     };
 
     const handleVariationChange = (variationName, value) => {
-        setSelectedVariation((prev) => ({
-            ...prev,
+        const newVariations = {
+            ...selectedVariation,
             [variationName]: value
-        }));
+        };
+        setSelectedVariation(newVariations);
+
+        // Find the matching SKU based on selected variations
+        const selectedVariationValues = Object.values(newVariations);
+        const matchingSku = findMatchingSku(selectedVariationValues);
+
+        if (matchingSku) {
+            // Update images array with the matching SKU's images
+            const updatedImages = [];
+
+            // 1. Selected SKU thumb
+            if (matchingSku.sku_thumb) {
+                updatedImages.push(getMediaUrl(matchingSku.sku_thumb));
+            }
+
+            // 2. Selected SKU images
+            if (matchingSku.sku_images) {
+                updatedImages.push(...matchingSku.sku_images.map((img) => getMediaUrl(img)));
+            }
+
+            // 3. Product thumb
+            if (product.spu_select.product_thumb) {
+                updatedImages.push(getMediaUrl(product.spu_select.product_thumb));
+            }
+
+            // 4. Product images
+            if (product.spu_select.product_images) {
+                updatedImages.push(
+                    ...product.spu_select.product_images.map((img) => getMediaUrl(img))
+                );
+            }
+
+            // 5. Other SKUs' thumbs and images (excluding the selected SKU)
+            if (product.sku_others) {
+                product.sku_others.forEach((sku) => {
+                    if (sku.sku_tier_idx.toString() !== matchingSku.sku_tier_idx.toString()) {
+                        if (sku.sku_thumb) {
+                            updatedImages.push(getMediaUrl(sku.sku_thumb));
+                        }
+                        if (sku.sku_images) {
+                            updatedImages.push(...sku.sku_images.map((img) => getMediaUrl(img)));
+                        }
+                    }
+                });
+            }
+
+            // Update images state with unique images
+            const uniqueImages = [...new Set(updatedImages.filter((img) => img))];
+            setImages(uniqueImages);
+
+            // Set the first image as selected
+            if (uniqueImages.length > 0) {
+                setSelectedImage(uniqueImages[0]);
+            }
+        }
+    };
+
+    const findMatchingSku = (selectedValues) => {
+        // If it's the current SKU, return it
+        if (areArraysEqual(selectedValues, product.sku_tier_idx)) {
+            return product;
+        }
+
+        // Check other SKUs
+        if (product.sku_others) {
+            return product.sku_others.find((sku) =>
+                areArraysEqual(sku.sku_tier_idx, selectedValues)
+            );
+        }
+
+        return null;
+    };
+
+    const areArraysEqual = (arr1, arr2) => {
+        if (!arr1 || !arr2 || arr1.length !== arr2.length) return false;
+        return arr1.every((value, index) => value === arr2[index]);
     };
 
     const handleScrollThumbnails = (direction) => {
