@@ -108,8 +108,11 @@ function ShopDetail() {
                             <span>{shop.shop_email}</span>
                         </div>
                         <div className={cx('contact-item')}>
-                            <span className={cx('icon')}>📞</span>
-                            <span>{shop.shop_phoneNumber}</span>
+                            <span className={cx('icon')}>📍</span>
+                            <span>
+                                {shop.shop_location?.province?.province_name},
+                                {shop.shop_location?.district?.district_name}
+                            </span>
                         </div>
                     </div>
                 </div>

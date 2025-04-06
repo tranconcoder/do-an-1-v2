@@ -4,7 +4,6 @@ import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error
 import inventoryService from './inventory.service.js';
 import { increaseWarehouseStock } from '@/models/repository/warehouses/index.js';
 import { SPU_COLLECTION_NAME, spuModel } from '@/models/spu.model.js';
-import { ObjectId } from '@/configs/mongoose.config.js';
 import mongoose from 'mongoose';
 import { CATEGORY_COLLECTION_NAME } from '@/models/category.model.js';
 

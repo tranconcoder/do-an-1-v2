@@ -4,6 +4,7 @@ import { ShopStatus, ShopType } from '@/enums/shop.enum.js';
 import { USER_MODEL_NAME } from './user.model.js';
 import { MEDIA_MODEL_NAME } from './media.model.js';
 import { warehouseSchema } from './warehouse.model.js';
+import { LOCATION_MODEL_NAME } from './location.model.js';
 
 export const SHOP_MODEL_NAME = 'Shop';
 export const SHOP_COLLECTION_NAME = 'shops';
@@ -17,7 +18,7 @@ export const shopSchema = new Schema<model.shop.ShopSchema>(
         shop_type: { type: String, enum: ShopType, required },
         shop_logo: { type: ObjectId, ref: MEDIA_MODEL_NAME },
         shop_certificate: { type: String, required },
-        shop_location: { type: ObjectId, required },
+        shop_location: { type: ObjectId, ref: LOCATION_MODEL_NAME, required },
         shop_phoneNumber: { type: String, required },
         shop_description: String,
 

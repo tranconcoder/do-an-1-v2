@@ -7,7 +7,15 @@ import { API_URL } from '../../configs/env.config';
 import { getMediaUrl } from '../../utils/media.util';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
-import { FaSearch, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import {
+    FaSearch,
+    FaChevronLeft,
+    FaChevronRight,
+    FaMapMarkerAlt,
+    FaCrown,
+    FaStore,
+    FaHeart
+} from 'react-icons/fa';
 
 const cx = classNames.bind(styles);
 
@@ -226,33 +234,62 @@ function ProductDetail() {
                                 <span className={cx('stars')}>★★★★★</span>
                                 <span>{spu.product_rating_avg || 0}/5</span>
                             </div>
-                            {shopInfo && (
-                                <div className={cx('product-shop')}>
-                                    <Link
-                                        to={`/shop/${spu.product_shop}`}
-                                        className={cx('shop-link')}
-                                    >
-                                        {shopInfo.shop_logo && (
-                                            <img
-                                                src={getMediaUrl(shopInfo.shop_logo)}
-                                                alt={shopInfo.shop_name}
-                                                className={cx('shop-logo')}
-                                            />
-                                        )}
-                                        <div className={cx('shop-info')}>
-                                            <h3 className={cx('shop-name')}>
-                                                {shopInfo.shop_name}
-                                            </h3>
-                                            <div className={cx('shop-details')}>
-                                                <span>{shopInfo.shop_phoneNumber}</span>
-                                                {shopInfo.is_brand && (
-                                                    <span className={cx('brand-badge')}>Brand</span>
-                                                )}
-                                            </div>
+                        </div>
+
+                        <div className={cx('product-shop-section')}>
+                            <Link to={`/shop/${spu.product_shop}`} className={cx('shop-link')}>
+                                {shopInfo?.shop_logo && (
+                                    <img
+                                        src={getMediaUrl(shopInfo.shop_logo)}
+                                        alt={shopInfo.shop_name}
+                                        className={cx('shop-logo')}
+                                    />
+                                )}
+                                <div className={cx('shop-info')}>
+                                    <h3 className={cx('shop-name')}>{shopInfo?.shop_name}</h3>
+                                    <div className={cx('shop-details')}>
+                                        <div className={cx('location')}>
+                                            <FaMapMarkerAlt />
+                                            <span>
+                                                {shopInfo?.shop_location?.province?.province_name},
+                                                {shopInfo?.shop_location?.district?.district_name}
+                                            </span>
                                         </div>
-                                    </Link>
+                                        {shopInfo?.is_brand && (
+                                            <span className={cx('brand-badge')}>
+                                                <FaCrown /> Thương hiệu
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
-                            )}
+                            </Link>
+
+                            <div className={cx('shop-stats')}>
+                                <div className={cx('stat-item')}>
+                                    <span className={cx('stat-value')}>95%</span>
+                                    <span className={cx('stat-label')}>Phản hồi</span>
+                                </div>
+                                <div className={cx('stat-item')}>
+                                    <span className={cx('stat-value')}>~2h</span>
+                                    <span className={cx('stat-label')}>Thời gian phản hồi</span>
+                                </div>
+                                <div className={cx('stat-item')}>
+                                    <span className={cx('stat-value')}>4.9/5</span>
+                                    <span className={cx('stat-label')}>Đánh giá Shop</span>
+                                </div>
+                            </div>
+
+                            <div className={cx('shop-actions')}>
+                                <Link
+                                    to={`/shop/${spu.product_shop}`}
+                                    className={cx('action-btn', 'view-shop')}
+                                >
+                                    <FaStore /> Xem Shop
+                                </Link>
+                                <button className={cx('action-btn', 'follow-shop')}>
+                                    <FaHeart /> Theo dõi
+                                </button>
+                            </div>
                         </div>
                     </div>
 

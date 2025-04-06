@@ -37,15 +37,25 @@ export default class UserService {
                 '_id',
                 'shop_userId',
                 'shop_name',
-                'shop_email',
                 'shop_type',
                 'shop_logo',
                 'shop_location',
-                'shop_phoneNumber',
                 'shop_status',
                 'is_brand'
             ],
-            options: { lean: true }
+            options: {
+                lean: true,
+                populate: [
+                    {
+                        path: 'shop_location',
+                        select: ['province', 'district'],
+                        populate: {
+                            path: 'province district',
+                            select: ['province_name', 'district_name']
+                        }
+                    }
+                ]
+            }
         });
 
         if (!shop) throw new NotFoundErrorResponse({ message: 'Shop not found!' });

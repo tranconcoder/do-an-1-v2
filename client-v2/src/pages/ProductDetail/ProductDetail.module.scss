@@ -973,3 +973,231 @@
         font-weight: 500;
     }
 }
+
+.product-shop-section {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .shop-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+        gap: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #f0f0f0;
+
+        &:hover {
+            .shop-name {
+                color: #1a94ff;
+            }
+        }
+    }
+
+    .shop-logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #f0f0f0;
+        padding: 2px;
+        background: white;
+        transition: transform 0.2s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    .shop-info {
+        flex: 1;
+    }
+
+    .shop-name {
+        margin: 0 0 4px 0;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #222;
+        transition: color 0.2s ease;
+    }
+
+    .shop-details {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 4px;
+        font-size: 0.9rem;
+        color: #666;
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            svg {
+                color: #1a94ff;
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .brand-badge {
+        background: linear-gradient(135deg, #1a94ff, #0084ff);
+        color: white;
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        box-shadow: 0 2px 4px rgba(26, 148, 255, 0.15);
+
+        svg {
+            font-size: 0.75rem;
+        }
+    }
+
+    .shop-stats {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin: 16px 0;
+        padding: 16px;
+        background-color: #f8fafc;
+        border-radius: 8px;
+    }
+
+    .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        
+        .stat-value {
+            font-weight: 600;
+            color: #1a94ff;
+            font-size: 1.1rem;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+        }
+
+        &:not(:last-child) {
+            position: relative;
+            
+            &::after {
+                content: '';
+                position: absolute;
+                right: -12px;
+                top: 50%;
+                transform: translateY(-50%);
+                height: 24px;
+                width: 1px;
+                background-color: #e8e8e8;
+            }
+        }
+    }
+
+    .shop-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .action-btn {
+        flex: 1;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        svg {
+            font-size: 1rem;
+        }
+
+        &.view-shop {
+            background: linear-gradient(135deg, #1a94ff, #0084ff);
+            color: white;
+            border: none;
+            box-shadow: 0 2px 4px rgba(26, 148, 255, 0.15);
+
+            &:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(26, 148, 255, 0.2);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+
+        &.follow-shop {
+            background-color: #fff;
+            color: #1a94ff;
+            border: 1px solid #1a94ff;
+
+            &:hover {
+                background-color: #f5f9ff;
+                border-color: #0084ff;
+                color: #0084ff;
+            }
+
+            &:active {
+                background-color: #e8f3ff;
+            }
+
+            &.following {
+                background-color: #e8f3ff;
+                color: #1a94ff;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        padding: 1rem;
+
+        .shop-stats {
+            padding: 12px;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-item {
+            flex: 1;
+            min-width: 100px;
+
+            &::after {
+                display: none;
+            }
+        }
+
+        .shop-actions {
+            flex-direction: column;
+        }
+
+        .action-btn {
+            width: 100%;
+        }
+    }
+}

@@ -218,3 +218,21 @@
 [2025-04-06T13:11:24.037Z] [error]: HIDE::400::MongoServerError::Path collision at province::
 [2025-04-06T13:13:38.479Z] [error]: HIDE::400::MongoServerError::Cannot do exclusion on field text in inclusion projection::
 [2025-04-06T13:13:49.535Z] [error]: HIDE::400::MongoServerError::Cannot do exclusion on field text in inclusion projection::
+[2025-04-06T13:28:06.733Z] [error]: HIDE::400::StrictPopulateError::Cannot populate path `province` because it is not in your schema. Set the `strictPopulate` option to false to override.::
+[2025-04-06T13:31:11.730Z] [error]: HIDE::400::StrictPopulateError::Cannot populate path `province` because it is not in your schema. Set the `strictPopulate` option to false to override.::
+[2025-04-06T13:43:05.734Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:43:05.740Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:43:05.745Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:43:05.749Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:43:08.483Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:43:08.489Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:43:08.494Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:43:08.498Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:48:50.321Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:48:50.337Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:48:50.348Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:48:50.353Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:58:01.053Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:58:01.061Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:58:01.067Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T13:58:01.072Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
