@@ -162,4 +162,12 @@ class AxiosClient {
 // Create a singleton instance
 const axiosClient = AxiosClient.getInstance();
 
+export const axiosNotAuthClient = axios.create({
+    baseURL: BASE_URL,
+    timeout: 10000,
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
+
 export default axiosClient;

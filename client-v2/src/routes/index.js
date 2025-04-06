@@ -12,6 +12,7 @@ import Register from '../pages/Register/Register';
 import Home from '../pages/Home';
 import Products from '../pages/Products';
 import ProductDetail from '../pages/ProductDetail';
+import ShopDetail from '../pages/ShopDetail';
 import Profile from '../pages/Profile';
 import Cart from '../pages/Cart';
 import Checkout from '../pages/Checkout';
@@ -31,6 +32,7 @@ const AppRoutes = () => {
                     <Route index element={<Home />} />
                     <Route path="products" element={<Products />} />
                     <Route path="product/:slug" element={<ProductDetail />} />
+                    <Route path="shop/:id" element={<ShopDetail />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="cart" element={<Cart />} />
                     <Route path="orders" element={<Order />} />

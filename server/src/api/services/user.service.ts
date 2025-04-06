@@ -6,6 +6,9 @@ import mongoose from 'mongoose';
 import { findOneUser, findUserById } from '@/models/repository/user/index.js';
 import { roleService } from './rbac.service.js';
 import { RoleNames } from '@/enums/rbac.enum.js';
+import { findShopById } from '@/models/repository/shop/index.js';
+import { NotFoundErrorResponse } from '@/response/error.response.js';
+import { ShopStatus } from '@/enums/shop.enum.js';
 
 export default class UserService {
     /* -------------------- Get user by user -------------------- */
@@ -25,6 +28,32 @@ export default class UserService {
             result[roleData.role_name] = roleData.role_data || true;
 
         return result;
+    };
+
+    public static getShopInfo = async (id: string) => {
+        const shop = await findShopById({
+            id,
+            only: [
+                '_id',
+                'shop_userId',
+                'shop_name',
+                'shop_email',
+                'shop_type',
+                'shop_logo',
+                'shop_location',
+                'shop_phoneNumber',
+                'shop_status',
+                'is_brand'
+            ],
+            options: { lean: true }
+        });
+
+        if (!shop) throw new NotFoundErrorResponse({ message: 'Shop not found!' });
+        if (shop.is_deleted) throw new NotFoundErrorResponse({ message: 'Shop is deleted!' });
+        if (shop.shop_status !== ShopStatus.ACTIVE)
+            throw new NotFoundErrorResponse({ message: 'Shop is not active!' });
+
+        return { shop };
     };
 
     public static newInstance = (user: service.user.arguments.NewInstance) => {
