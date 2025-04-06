@@ -23828,3 +23828,29 @@
 [2025-04-05T17:21:04.454Z] [error]: HIDE::404::NotFound::Shop not found!::
 [2025-04-05T17:23:24.131Z] [error]: HIDE::404::NotFound::Shop not found!::
 [2025-04-05T18:32:26.100Z] [error]: HIDE::400::ReferenceError::findSkuPageSpliting is not defined::
+[2025-04-05T18:40:17.808Z] [error]: HIDE::400::MissingSchemaError::Schema hasn't been registered for model "spus".
+Use mongoose.model(name, schema)::
+[2025-04-05T18:40:23.744Z] [error]: HIDE::400::MissingSchemaError::Schema hasn't been registered for model "spus".
+Use mongoose.model(name, schema)::
+[2025-04-05T18:40:47.017Z] [error]: HIDE::400::MissingSchemaError::Schema hasn't been registered for model "spus".
+Use mongoose.model(name, schema)::
+[2025-04-05T18:41:27.478Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-05T18:42:10.115Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-05T18:42:19.808Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-05T18:43:44.994Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-04-05T18:43:46.753Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-04-05T18:44:04.099Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-04-05T18:44:45.879Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-04-05T18:45:13.589Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-04-05T18:45:15.021Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-04-05T18:45:21.407Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-04-05T18:45:25.575Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-04-05T18:45:27.149Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-04-05T18:45:40.364Z] [error]: HIDE::400::MissingSchemaError::Schema hasn't been registered for model "spus".
+Use mongoose.model(name, schema)::
+[2025-04-05T18:45:42.611Z] [error]: HIDE::400::MissingSchemaError::Schema hasn't been registered for model "spus".
+Use mongoose.model(name, schema)::
+[2025-04-05T18:45:43.340Z] [error]: HIDE::400::MissingSchemaError::Schema hasn't been registered for model "spus".
+Use mongoose.model(name, schema)::
+[2025-04-05T18:52:10.228Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-05T18:52:10.235Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::

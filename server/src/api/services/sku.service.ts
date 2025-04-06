@@ -1,9 +1,11 @@
-import { findSPU, findSPUById } from '@/models/repository/spu/index.js';
-import skuModel from '@/models/sku.model.js';
+import { findSPUById } from '@/models/repository/spu/index.js';
+import skuModel, { SKU_COLLECTION_NAME } from '@/models/sku.model.js';
 import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 import inventoryService from './inventory.service.js';
 import { increaseWarehouseStock } from '@/models/repository/warehouses/index.js';
-import { findSKU, findSKUPageSpliting } from '@/models/repository/sku/index.js';
+import { spuModel } from '@/models/spu.model.js';
+import { ObjectId } from '@/configs/mongoose.config.js';
+import mongoose from 'mongoose';
 
 export default new (class SKUService {
     /* ---------------------------------------------------------- */
@@ -62,29 +64,97 @@ export default new (class SKUService {
     /* ---------------------------------------------------------- */
 
     /* ----------------------- Get all SPU ---------------------- */
-    async getAllShopSKUByAll({ shopId, limit, page }: service.sku.arguments.GetAllSKUShopByAll) {
-        const spuShopIds = await findSPU({
-            query: {
-                product_shop: shopId,
-                is_deleted: false,
-                is_publish: true,
-                is_draft: false
+    async getAllShopSKUByAll({
+        shopId,
+        limit = 50,
+        page = 1
+    }: service.sku.arguments.GetAllSKUShopByAll) {
+        return await spuModel.aggregate([
+            {
+                $lookup: {
+                    from: SKU_COLLECTION_NAME,
+                    localField: '_id',
+                    foreignField: 'sku_product',
+                    as: 'sku'
+                }
             },
-            only: ['_id'],
-            options: { lean: true }
-        }).then((ids) => ids.map((item) => item._id));
-
-        console.log('spuShopIds', spuShopIds);
-
-        return await findSKUPageSpliting({
-            query: {
-                sku_product: { $in: spuShopIds },
-                is_deleted: false
+            {
+                $unwind: '$sku'
             },
-            options: { lean: true },
-            limit: 100,
-            page: 1
-        });
+            {
+                $match: {
+                    is_deleted: false,
+                    is_draft: false,
+                    is_publish: true,
+                    product_shop: new mongoose.Types.ObjectId(shopId),
+                    'sku.is_deleted': false
+                }
+            },
+            {
+                $limit: limit
+            },
+            {
+                $skip: (page - 1) * limit
+            },
+            {
+                $addFields: {
+                    'sku.sku_value': {
+                        $map: {
+                            input: {
+                                $range: [0, { $size: '$sku.sku_tier_idx' }]
+                            },
+                            as: 'idx',
+                            in: {
+                                key: {
+                                    $getField: {
+                                        field: 'variation_name',
+                                        input: {
+                                            $arrayElemAt: ['$product_variations', '$$idx']
+                                        }
+                                    }
+                                },
+                                value: {
+                                    $arrayElemAt: [
+                                        {
+                                            $getField: {
+                                                field: 'variation_values',
+                                                input: {
+                                                    $arrayElemAt: ['$product_variations', '$$idx']
+                                                }
+                                            }
+                                        },
+                                        {
+                                            $arrayElemAt: ['$sku.sku_tier_idx', '$$idx']
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    product_name: 1,
+                    product_quantity: 1,
+                    product_description: 1,
+                    product_category: 1,
+                    product_shop: 1,
+                    product_rating_avg: 1,
+                    product_slug: 1,
+                    product_thumb: 1,
+                    product_images: 1,
+                    'sku._id': 1,
+                    'sku.sku_product': 1,
+                    'sku.sku_price': 1,
+                    'sku.sku_stock': 1,
+                    'sku.sku_thumb': 1,
+                    'sku.sku_images': 1,
+                    'sku.sku_value': 1
+                }
+            }
+        ]);
     }
 
     // By own Shop

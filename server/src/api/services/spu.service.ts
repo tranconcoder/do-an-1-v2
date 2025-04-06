@@ -179,7 +179,6 @@ export default new (class SPUService {
 
     /* ----------------------- Publish SPU ---------------------- */
     async publishSPU({ userId, spuId }: service.spu.arguments.PublishSPU) {
-        console.log(userId);
         const shop = await findOneShop({
             query: {
                 shop_userId: userId,
@@ -190,7 +189,7 @@ export default new (class SPUService {
         });
         if (!shop) throw new NotFoundErrorResponse({ message: 'Shop not found!' });
 
-        const newSPU = findOneAndUpdateSPU({
+        const newSPU = await findOneAndUpdateSPU({
             query: {
                 _id: spuId,
                 product_shop: shop._id,
@@ -211,7 +210,7 @@ export default new (class SPUService {
         const shop = await findOneShop({ query: { shop_userId: userId }, options: { lean: true } });
         if (!shop) throw new NotFoundErrorResponse({ message: 'Shop not found!' });
 
-        const newSPU = findOneAndUpdateSPU({
+        const newSPU = await findOneAndUpdateSPU({
             query: {
                 _id: spuId,
                 product_shop: shop._id,

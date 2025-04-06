@@ -1,0 +1,152 @@
+[2025-04-06T00:10:05.352Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:05.358Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:05.411Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:05.513Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:05.665Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:05.866Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:06.120Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:06.424Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:06.778Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:07.180Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:07.633Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:08.135Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:08.637Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:09.139Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:09.641Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:10:10.144Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T00:18:23.037Z] [error]: HIDE::400::Error::Arguments must be aggregate pipeline operators::
+[2025-04-06T00:18:24.269Z] [error]: HIDE::400::Error::Arguments must be aggregate pipeline operators::
+[2025-04-06T00:18:25.187Z] [error]: HIDE::400::Error::Arguments must be aggregate pipeline operators::
+[2025-04-06T00:19:12.354Z] [error]: HIDE::400::Error::Arguments must be aggregate pipeline operators::
+[2025-04-06T00:31:48.435Z] [error]: HIDE::400::Error::Arguments must be aggregate pipeline operators::
+[2025-04-06T00:33:18.686Z] [error]: HIDE::400::Error::Arguments must be aggregate pipeline operators::
+[2025-04-06T00:33:29.274Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-04-06T00:34:52.578Z] [error]: HIDE::400::Error::Arguments must be aggregate pipeline operators::
+[2025-04-06T00:58:27.921Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: $arrayElemAt's second argument must be a numeric value, but is array::
+[2025-04-06T01:16:56.380Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: $arrayElemAt's second argument must be a numeric value, but is array::
+[2025-04-06T01:24:03.104Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: input to $map must be an array not int::
+[2025-04-06T01:31:54.576Z] [error]: HIDE::400::MongoServerError::Invalid $addFields :: caused by :: FieldPath field names may not start with '$'. Consider using $getField or $setField.::
+[2025-04-06T01:34:21.274Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: input to $map must be an array not int::
+[2025-04-06T01:36:12.266Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: $arrayElemAt's second argument must be a numeric value, but is array::
+[2025-04-06T01:39:22.410Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: input to $map must be an array not int::
+[2025-04-06T01:39:34.247Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: input to $map must be an array not int::
+[2025-04-06T01:39:50.766Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: input to $map must be an array not int::
+[2025-04-06T01:41:18.890Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: input to $map must be an array not int::
+[2025-04-06T01:43:02.372Z] [error]: HIDE::400::MongoServerError::Invalid $addFields :: caused by :: Unrecognized expression '$value'::
+[2025-04-06T01:44:37.020Z] [error]: HIDE::400::MongoServerError::Invalid $addFields :: caused by :: FieldPath field names may not start with '$'. Consider using $getField or $setField.::
+[2025-04-06T01:46:44.277Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: $arrayElemAt's first argument must be an array, but is object::
+[2025-04-06T01:53:51.525Z] [error]: HIDE::400::MongoServerError::Invalid $addFields :: caused by :: Unrecognized parameter to $let: var::
+[2025-04-06T01:54:49.790Z] [error]: HIDE::400::MongoServerError::Invalid $addFields :: caused by :: An object representing an expression must have exactly one field: { $let: { vars: { variation: { $arrayElemAt: [ "$product_variations", "$$idx" ] } }, in: { key: "$$variation.variation_name" } }, value: "$$idx_item" }::
+[2025-04-06T01:59:38.623Z] [error]: HIDE::400::MongoServerError::Invalid $addFields :: caused by :: FieldPath field names may not start with '$'. Consider using $getField or $setField.::
+[2025-04-06T01:59:50.970Z] [error]: HIDE::400::MongoServerError::Invalid $addFields :: caused by :: FieldPath field names may not start with '$'. Consider using $getField or $setField.::
+[2025-04-06T02:00:47.820Z] [error]: HIDE::400::MongoServerError::Invalid $addFields :: caused by :: FieldPath field names may not start with '$'. Consider using $getField or $setField.::
+[2025-04-06T02:11:47.396Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: $arrayElemAt's first argument must be an array, but is object::
+[2025-04-06T02:12:22.152Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: $arrayElemAt's first argument must be an array, but is object::
+[2025-04-06T02:17:51.161Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-06T02:17:58.296Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-06T02:46:42.260Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:42.265Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:42.317Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:42.419Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:42.570Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:42.772Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:43.025Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:41.979Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:43.674Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:44.076Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:44.528Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:45.030Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:45.531Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:46.033Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:46.535Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:47.037Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:47.539Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:48.041Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:48.542Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:49.043Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:49.546Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:50.049Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:50.551Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:51.053Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:50.241Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:51.991Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:52.492Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:52.993Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:53.495Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:53.997Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:54.499Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:55.001Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:55.503Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:56.005Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:56.507Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:57.010Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:57.516Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:58.019Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:58.522Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:59.024Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:58.212Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:46:59.984Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:00.486Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:00.990Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:01.493Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:01.996Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:02.499Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:03.002Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:03.507Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:04.010Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:04.511Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:05.013Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:05.518Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:06.021Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:06.525Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:07.027Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:07.529Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:08.031Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:08.533Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:09.035Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:09.539Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:10.041Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:10.544Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:11.047Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:11.551Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:12.057Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:12.559Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:13.063Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:13.566Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:14.069Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:14.572Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:15.075Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:15.579Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:16.083Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:16.587Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:17.091Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:17.593Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:18.096Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:18.597Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:19.100Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:19.603Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:20.105Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:20.609Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:21.113Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:21.615Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:22.116Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:22.618Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:23.120Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:23.621Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:24.123Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:24.625Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:25.126Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:25.628Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:26.132Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:26.636Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:27.139Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:27.640Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:28.142Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:28.646Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:29.149Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:29.652Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:47:30.154Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-06T02:56:12.697Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-06T06:22:33.664Z] [error]: connection <monitor> to 127.0.0.1:27017 timed out
+[2025-04-06T06:55:40.698Z] [error]: HIDE::400::MongoServerError::Invalid $addFields :: caused by :: FieldPath field names may not start with '$'. Consider using $getField or $setField.::
+[2025-04-06T06:59:43.211Z] [error]: HIDE::400::MongoServerError::Invalid $project :: caused by :: Cannot use positional projection in aggregation projection::
