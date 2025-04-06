@@ -23,6 +23,7 @@ function ProductDetail() {
     const thumbnailsRef = useRef(null);
     const [isZoomed, setIsZoomed] = useState(false);
     const [images, setImages] = useState([]);
+    const [shopInfo, setShopInfo] = useState(null);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -31,6 +32,18 @@ function ProductDetail() {
                 if (response.data.statusCode === 200) {
                     const skuData = response.data.metadata[0];
                     setProduct(skuData);
+
+                    // Fetch shop info
+                    try {
+                        const shopResponse = await axios.get(
+                            `${API_URL}/user/shop/${skuData.spu.product_shop}`
+                        );
+                        if (shopResponse.data.statusCode === 200) {
+                            setShopInfo(shopResponse.data.metadata.shop);
+                        }
+                    } catch (shopErr) {
+                        console.error('Error fetching shop info:', shopErr);
+                    }
 
                     // Process images after setting product
                     const processedImages = filterUniqueImages([
@@ -213,11 +226,33 @@ function ProductDetail() {
                                 <span className={cx('stars')}>★★★★★</span>
                                 <span>{spu.product_rating_avg || 0}/5</span>
                             </div>
-                            <div className={cx('product-shop')}>
-                                <Link to={`/shop/${spu.product_shop}`}>
-                                    Shop {spu.product_shop}
-                                </Link>
-                            </div>
+                            {shopInfo && (
+                                <div className={cx('product-shop')}>
+                                    <Link
+                                        to={`/shop/${spu.product_shop}`}
+                                        className={cx('shop-link')}
+                                    >
+                                        {shopInfo.shop_logo && (
+                                            <img
+                                                src={getMediaUrl(shopInfo.shop_logo)}
+                                                alt={shopInfo.shop_name}
+                                                className={cx('shop-logo')}
+                                            />
+                                        )}
+                                        <div className={cx('shop-info')}>
+                                            <h3 className={cx('shop-name')}>
+                                                {shopInfo.shop_name}
+                                            </h3>
+                                            <div className={cx('shop-details')}>
+                                                <span>{shopInfo.shop_phoneNumber}</span>
+                                                {shopInfo.is_brand && (
+                                                    <span className={cx('brand-badge')}>Brand</span>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                            )}
                         </div>
                     </div>
 

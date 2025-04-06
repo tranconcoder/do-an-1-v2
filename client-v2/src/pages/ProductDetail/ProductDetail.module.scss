@@ -921,3 +921,55 @@
 .main-image {
     transition: opacity 0.3s ease;
 }
+
+.product-shop {
+    margin-top: 16px;
+    padding: 16px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    background-color: #fff;
+
+    .shop-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+        gap: 12px;
+    }
+
+    .shop-logo {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .shop-info {
+        flex: 1;
+    }
+
+    .shop-name {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .shop-details {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 4px;
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .brand-badge {
+        background-color: #1a94ff;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+}
