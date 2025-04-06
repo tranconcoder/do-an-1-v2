@@ -14,7 +14,8 @@ import {
     FaMapMarkerAlt,
     FaCrown,
     FaStore,
-    FaHeart
+    FaHeart,
+    FaExclamationTriangle
 } from 'react-icons/fa';
 
 const cx = classNames.bind(styles);
@@ -32,6 +33,7 @@ function ProductDetail() {
     const [isZoomed, setIsZoomed] = useState(false);
     const [images, setImages] = useState([]);
     const [shopInfo, setShopInfo] = useState(null);
+    const [currentSku, setCurrentSku] = useState(null);
 
     const filterUniqueImages = (skuData) => {
         if (!skuData) return [];
@@ -138,65 +140,122 @@ function ProductDetail() {
         }
     };
 
+    const findValueIndex = (variationIndex, value) => {
+        const variation = product.spu_select.product_variations[variationIndex];
+        return variation.variation_values.indexOf(value);
+    };
+
+    const isCurrentSelectionValid = () => {
+        // Must have all variations selected
+        if (Object.keys(selectedVariation).length !== spu.product_variations?.length) {
+            return false;
+        }
+
+        // Convert current selection to tier indices
+        const currentTierIndices = spu.product_variations.map((variation) => {
+            const selectedValue = selectedVariation[variation.variation_name];
+            return variation.variation_values.indexOf(selectedValue);
+        });
+
+        // Check if this combination exists in any SKU
+        return [product, ...(product.sku_others || [])].some((sku) =>
+            areArraysEqual(sku.sku_tier_idx, currentTierIndices)
+        );
+    };
+
+    const isVariationValueAvailable = (variationIndex, value) => {
+        const valueIndex = findValueIndex(variationIndex, value);
+        // Check if this value exists in any SKU (current or others)
+        return [product, ...(product.sku_others || [])].some(
+            (sku) => sku.sku_tier_idx[variationIndex] === valueIndex
+        );
+    };
+
+    const updateCurrentSku = (variations) => {
+        if (Object.keys(variations).length === spu.product_variations?.length) {
+            const tierIndices = spu.product_variations.map((variation) => {
+                const selectedValue = variations[variation.variation_name];
+                return variation.variation_values.indexOf(selectedValue);
+            });
+
+            const matchingSku = findMatchingSku(tierIndices);
+            if (matchingSku) {
+                setCurrentSku(matchingSku);
+                // Reset quantity if it exceeds new SKU's stock
+                if (quantity > matchingSku.sku_stock) {
+                    setQuantity(1);
+                }
+            } else {
+                setCurrentSku(null);
+            }
+        } else {
+            setCurrentSku(null);
+        }
+    };
+
     const handleVariationChange = (variationName, value) => {
-        const newVariations = {
-            ...selectedVariation,
-            [variationName]: value
-        };
+        const newVariations = { ...selectedVariation };
+        newVariations[variationName] = value;
         setSelectedVariation(newVariations);
 
-        // Find the matching SKU based on selected variations
-        const selectedVariationValues = Object.values(newVariations);
-        const matchingSku = findMatchingSku(selectedVariationValues);
+        // Update current SKU and related info
+        updateCurrentSku(newVariations);
 
-        if (matchingSku) {
-            // Update images array with the matching SKU's images
-            const updatedImages = [];
+        // Update images if we have a complete valid selection
+        if (Object.keys(newVariations).length === spu.product_variations?.length) {
+            const tierIndices = spu.product_variations.map((variation) => {
+                const selectedValue = newVariations[variation.variation_name];
+                return variation.variation_values.indexOf(selectedValue);
+            });
 
-            // 1. Selected SKU thumb
-            if (matchingSku.sku_thumb) {
-                updatedImages.push(getMediaUrl(matchingSku.sku_thumb));
+            const matchingSku = findMatchingSku(tierIndices);
+            if (matchingSku) {
+                updateImagesForSku(matchingSku);
             }
+        }
+    };
 
-            // 2. Selected SKU images
-            if (matchingSku.sku_images) {
-                updatedImages.push(...matchingSku.sku_images.map((img) => getMediaUrl(img)));
-            }
+    const updateImagesForSku = (sku) => {
+        const updatedImages = [];
 
-            // 3. Product thumb
-            if (product.spu_select.product_thumb) {
-                updatedImages.push(getMediaUrl(product.spu_select.product_thumb));
-            }
+        // 1. Selected SKU thumb
+        if (sku.sku_thumb) {
+            updatedImages.push(getMediaUrl(sku.sku_thumb));
+        }
 
-            // 4. Product images
-            if (product.spu_select.product_images) {
-                updatedImages.push(
-                    ...product.spu_select.product_images.map((img) => getMediaUrl(img))
-                );
-            }
+        // 2. Selected SKU images
+        if (sku.sku_images) {
+            updatedImages.push(...sku.sku_images.map((img) => getMediaUrl(img)));
+        }
 
-            // 5. Other SKUs' thumbs and images (excluding the selected SKU)
-            if (product.sku_others) {
-                product.sku_others.forEach((sku) => {
-                    if (sku.sku_tier_idx.toString() !== matchingSku.sku_tier_idx.toString()) {
-                        if (sku.sku_thumb) {
-                            updatedImages.push(getMediaUrl(sku.sku_thumb));
-                        }
-                        if (sku.sku_images) {
-                            updatedImages.push(...sku.sku_images.map((img) => getMediaUrl(img)));
-                        }
+        // 3. Product thumb
+        if (product.spu_select.product_thumb) {
+            updatedImages.push(getMediaUrl(product.spu_select.product_thumb));
+        }
+
+        // 4. Product images
+        if (product.spu_select.product_images) {
+            updatedImages.push(...product.spu_select.product_images.map((img) => getMediaUrl(img)));
+        }
+
+        // 5. Other SKUs' thumbs and images (excluding the selected SKU)
+        if (product.sku_others) {
+            product.sku_others.forEach((otherSku) => {
+                if (otherSku.sku_tier_idx.toString() !== sku.sku_tier_idx.toString()) {
+                    if (otherSku.sku_thumb) {
+                        updatedImages.push(getMediaUrl(otherSku.sku_thumb));
                     }
-                });
-            }
+                    if (otherSku.sku_images) {
+                        updatedImages.push(...otherSku.sku_images.map((img) => getMediaUrl(img)));
+                    }
+                }
+            });
+        }
 
-            // Update images state with unique images
-            const uniqueImages = [...new Set(updatedImages.filter((img) => img))];
-            setImages(uniqueImages);
-
-            // Set the first image as selected
-            if (uniqueImages.length > 0) {
-                setSelectedImage(uniqueImages[0]);
-            }
+        const uniqueImages = [...new Set(updatedImages.filter((img) => img))];
+        setImages(uniqueImages);
+        if (uniqueImages.length > 0) {
+            setSelectedImage(uniqueImages[0]);
         }
     };
 
@@ -418,14 +477,17 @@ function ProductDetail() {
 
                     <div className={cx('product-price-container')}>
                         <span className={cx('current-price')}>
-                            ${product.sku_price.toLocaleString()}
+                            $
+                            {currentSku
+                                ? currentSku.sku_price.toLocaleString()
+                                : product.sku_price.toLocaleString()}
                         </span>
-                        {product.sku_discount > 0 && (
+                        {currentSku && currentSku.sku_discount > 0 && (
                             <span className={cx('original-price')}>
                                 $
                                 {(
-                                    product.sku_price /
-                                    (1 - product.sku_discount / 100)
+                                    currentSku.sku_price /
+                                    (1 - currentSku.sku_discount / 100)
                                 ).toLocaleString()}
                             </span>
                         )}
@@ -439,25 +501,34 @@ function ProductDetail() {
                                         {variation.variation_name}:
                                     </label>
                                     <div className={cx('color-options')}>
-                                        {variation.variation_values.map((value, valueIdx) => (
-                                            <button
-                                                key={valueIdx}
-                                                className={cx('color-option', {
-                                                    selected:
-                                                        selectedVariation[
-                                                            variation.variation_name
-                                                        ] === value
-                                                })}
-                                                onClick={() =>
-                                                    handleVariationChange(
-                                                        variation.variation_name,
-                                                        value
-                                                    )
-                                                }
-                                            >
-                                                {value}
-                                            </button>
-                                        ))}
+                                        {variation.variation_values.map((value, valueIdx) => {
+                                            const isAvailable = isVariationValueAvailable(
+                                                idx,
+                                                value
+                                            );
+                                            return (
+                                                <button
+                                                    key={valueIdx}
+                                                    className={cx('color-option', {
+                                                        selected:
+                                                            selectedVariation[
+                                                                variation.variation_name
+                                                            ] === value,
+                                                        disabled: !isAvailable
+                                                    })}
+                                                    onClick={() =>
+                                                        isAvailable &&
+                                                        handleVariationChange(
+                                                            variation.variation_name,
+                                                            value
+                                                        )
+                                                    }
+                                                    disabled={!isAvailable}
+                                                >
+                                                    {value}
+                                                </button>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             ))}
@@ -477,13 +548,24 @@ function ProductDetail() {
                             <button
                                 className={cx('quantity-btn')}
                                 onClick={() => handleQuantityChange(quantity + 1)}
-                                disabled={quantity >= product.sku_stock}
+                                disabled={
+                                    quantity >=
+                                    (currentSku ? currentSku.sku_stock : product.sku_stock)
+                                }
                             >
                                 +
                             </button>
                         </div>
                         <div className={cx('stock-info')}>
-                            {product.sku_stock > 0 ? (
+                            {currentSku ? (
+                                currentSku.sku_stock > 0 ? (
+                                    <span className={cx('in-stock')}>
+                                        {currentSku.sku_stock} in stock
+                                    </span>
+                                ) : (
+                                    <span className={cx('out-of-stock')}>Out of stock</span>
+                                )
+                            ) : product.sku_stock > 0 ? (
                                 <span className={cx('in-stock')}>{product.sku_stock} in stock</span>
                             ) : (
                                 <span className={cx('out-of-stock')}>Out of stock</span>
@@ -494,13 +576,38 @@ function ProductDetail() {
                     <div className={cx('action-buttons')}>
                         <button
                             className={cx('add-to-cart-btn')}
-                            disabled={product.sku_stock === 0}
+                            disabled={
+                                (currentSku
+                                    ? currentSku.sku_stock === 0
+                                    : product.sku_stock === 0) || !isCurrentSelectionValid()
+                            }
                         >
                             Add to Cart
                         </button>
-                        <button className={cx('buy-now-btn')} disabled={product.sku_stock === 0}>
+                        <button
+                            className={cx('buy-now-btn')}
+                            disabled={
+                                (currentSku
+                                    ? currentSku.sku_stock === 0
+                                    : product.sku_stock === 0) || !isCurrentSelectionValid()
+                            }
+                        >
                             Buy Now
                         </button>
+                        {isCurrentSelectionValid() && currentSku && currentSku.sku_stock === 0 && (
+                            <div className={cx('stock-warning')}>
+                                <FaExclamationTriangle />
+                                This variant is currently out of stock
+                            </div>
+                        )}
+                        {!isCurrentSelectionValid() &&
+                            Object.keys(selectedVariation).length ===
+                                spu.product_variations?.length && (
+                                <div className={cx('stock-warning')}>
+                                    <FaExclamationTriangle />
+                                    This combination is not available
+                                </div>
+                            )}
                     </div>
                 </div>
             </div>
