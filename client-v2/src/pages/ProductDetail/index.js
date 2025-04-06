@@ -2,145 +2,99 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './ProductDetail.module.scss';
-import { useProducts } from '../../configs/ProductsData';
+import axios from 'axios';
+import { API_URL } from '../../configs/env.config';
+import { getMediaUrl } from '../../utils/media.util';
 
 const cx = classNames.bind(styles);
 
-// Add this constant for fallback image - using a real image instead of text placeholder
-const DEFAULT_IMAGE =
-    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&auto=format&fit=crop&q=80';
-
 function ProductDetail() {
-    const { slug } = useParams();
-    const {
-        getProductBySlug,
-        addToCart,
-        isInWishlist,
-        addToWishlist,
-        removeFromWishlist,
-        addToRecentlyViewed
-    } = useProducts();
-
+    const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [mainImage, setMainImage] = useState('');
+    const [selectedVariation, setSelectedVariation] = useState({});
     const [quantity, setQuantity] = useState(1);
     const [activeTab, setActiveTab] = useState('description');
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
-        const fetchProductDetails = async () => {
+        const fetchProduct = async () => {
             try {
                 setLoading(true);
-                const productData = getProductBySlug(slug);
-
-                if (productData) {
-                    setProduct(productData);
-                    setMainImage(productData.images?.[0] || DEFAULT_IMAGE);
-                    // Add to recently viewed products
-                    addToRecentlyViewed(productData.id);
+                const response = await axios.get(`${API_URL}/sku/${id}`);
+                if (response.data.statusCode === 200) {
+                    const skuData = response.data.metadata[0];
+                    setProduct(skuData);
+                    // Set initial selected image
+                    setSelectedImage(skuData.sku_thumb);
                 } else {
-                    setError('Product not found');
+                    setError('Failed to fetch product details');
                 }
-                setLoading(false);
             } catch (err) {
-                console.error('Error fetching product details:', err);
-                setError('Failed to load product details. Please try again later.');
+                setError('An error occurred while fetching product details');
+                console.error('Error:', err);
+            } finally {
                 setLoading(false);
             }
         };
 
-        fetchProductDetails();
-        // Only depend on slug changes, not the functions from context
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [slug]);
+        if (id) {
+            fetchProduct();
+        }
+    }, [id]);
 
     const handleQuantityChange = (newQuantity) => {
-        if (newQuantity < 1) return;
-        if (product && newQuantity > product.stock) return;
-        setQuantity(newQuantity);
-    };
-
-    const handleAddToCart = () => {
-        if (product) {
-            addToCart(product.id, quantity);
-            // Show success message
-            alert(`Added ${quantity} item(s) to cart`);
+        if (newQuantity >= 1 && newQuantity <= product?.sku_stock) {
+            setQuantity(newQuantity);
         }
     };
 
-    const handleImageChange = (image) => {
-        setMainImage(image);
+    const handleVariationChange = (variationName, value) => {
+        setSelectedVariation((prev) => ({
+            ...prev,
+            [variationName]: value
+        }));
     };
-
-    const handleWishlistToggle = () => {
-        if (!product) return;
-
-        if (isInWishlist(product.id)) {
-            removeFromWishlist(product.id);
-        } else {
-            addToWishlist(product.id);
-        }
-    };
+    const images = [
+        ...product.spu.product_images,
+        product.sku_thumb,
+        product.sku_thumb,
+        ...product.sku_images
+    ];
 
     if (loading) {
-        return (
-            <div className={cx('product-detail-container')}>
-                <div className={cx('loading')}>Loading product details...</div>
-            </div>
-        );
+        return <div className={cx('loading')}>Loading...</div>;
     }
 
     if (error || !product) {
-        return (
-            <div className={cx('product-detail-container')}>
-                <div className={cx('error')}>{error || 'Product not found'}</div>
-                <Link to="/products" className={cx('back-to-products')}>
-                    Back to Products
-                </Link>
-            </div>
-        );
+        return <div className={cx('error')}>{error || 'Product not found'}</div>;
     }
 
-    const productInWishlist = isInWishlist(product.id);
+    const { spu, category } = product;
 
     return (
-        <div className={cx('product-detail-container')}>
+        <div className={cx('product-detail')}>
             <div className={cx('breadcrumb')}>
-                <Link to="/">Home</Link> / <Link to="/products">Products</Link> /{' '}
-                <span>{product.name}</span>
+                <Link to="/">Home</Link> /<Link to="/products">Products</Link> /
+                <Link to={`/category/${category[0]?._id}`}>{category[0]?.category_name}</Link>
             </div>
 
-            <div className={cx('product-main')}>
+            <div className={cx('product-container')}>
                 <div className={cx('product-gallery')}>
-                    <div className={cx('main-image-container')}>
-                        <img
-                            src={mainImage}
-                            alt={product.name}
-                            className={cx('main-image')}
-                            onError={(e) => {
-                                e.target.onerror = null;
-                                e.target.src = DEFAULT_IMAGE;
-                            }}
-                        />
-                        {product.discount > 0 && (
-                            <div className={cx('discount-badge')}>-{product.discount}%</div>
-                        )}
+                    <div className={cx('main-image')}>
+                        <img src={selectedImage} alt={spu.product_name} />
                     </div>
-                    <div className={cx('thumbnail-list')}>
-                        {product.images.map((image, index) => (
+                    <div className={cx('thumbnails')}>
+                        {images.map((image, index) => (
                             <div
                                 key={index}
-                                className={cx('thumbnail-item', { active: image === mainImage })}
-                                onClick={() => handleImageChange(image)}
+                                className={cx('thumbnail', { active: selectedImage === image })}
+                                onClick={() => setSelectedImage(getMediaUrl(image))}
                             >
                                 <img
-                                    src={image}
-                                    alt={`${product.name} - view ${index + 1}`}
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = DEFAULT_IMAGE;
-                                    }}
+                                    src={getMediaUrl(image)}
+                                    alt={`${spu.product_name} view ${index + 1}`}
                                 />
                             </div>
                         ))}
@@ -148,179 +102,116 @@ function ProductDetail() {
                 </div>
 
                 <div className={cx('product-info')}>
-                    <div className={cx('product-header')}>
-                        <h1 className={cx('product-name')}>{product.name}</h1>
-                        <div className={cx('product-meta')}>
-                            <div className={cx('product-ratings')}>
-                                <span className={cx('stars')}>
-                                    {'★'.repeat(Math.floor(product.rating))}
-                                    {'☆'.repeat(5 - Math.floor(product.rating))}
-                                </span>
-                                <span className={cx('rating-count')}>
-                                    ({product.reviewCount} reviews)
-                                </span>
-                            </div>
-                            <div className={cx('product-shop')}>
-                                Sold by{' '}
-                                <Link to={`/shop/${product.shopId}`}>{product.shopName}</Link>
-                            </div>
+                    <h1 className={cx('product-name')}>{spu.product_name}</h1>
+
+                    <div className={cx('product-meta')}>
+                        <div className={cx('rating')}>
+                            Rating: {spu.product_rating_avg || 0} / 5
+                        </div>
+                        <div className={cx('shop-info')}>
+                            Sold by:{' '}
+                            <Link to={`/shop/${spu.product_shop}`}>Shop {spu.product_shop}</Link>
                         </div>
                     </div>
 
-                    <div className={cx('product-price-container')}>
-                        <div className={cx('current-price')}>${product.price.toFixed(2)}</div>
-                        {product.originalPrice > product.price && (
-                            <div className={cx('original-price')}>
-                                ${Number(product.originalPrice).toFixed(2)}
-                            </div>
-                        )}
+                    <div className={cx('price-section')}>
+                        <div className={cx('price')}>${product.sku_price.toLocaleString()}</div>
+                        <div className={cx('stock')}>
+                            Stock: {product.sku_stock} units available
+                        </div>
                     </div>
 
-                    <div className={cx('product-options')}>
-                        {product.specifications.color && (
-                            <div className={cx('option-group')}>
-                                <div className={cx('option-label')}>Color:</div>
-                                <div className={cx('color-options')}>
-                                    {product.specifications.color.map((color, index) => (
-                                        <div key={index} className={cx('color-option')}>
-                                            {color}
-                                        </div>
-                                    ))}
+                    {spu.product_variations?.length > 0 && (
+                        <div className={cx('variations')}>
+                            {spu.product_variations.map((variation, idx) => (
+                                <div key={idx} className={cx('variation')}>
+                                    <h3>{variation.variation_name}</h3>
+                                    <div className={cx('variation-options')}>
+                                        {variation.variation_values.map((value, valueIdx) => (
+                                            <button
+                                                key={valueIdx}
+                                                className={cx('variation-option', {
+                                                    active:
+                                                        selectedVariation[
+                                                            variation.variation_name
+                                                        ] === value
+                                                })}
+                                                onClick={() =>
+                                                    handleVariationChange(
+                                                        variation.variation_name,
+                                                        value
+                                                    )
+                                                }
+                                            >
+                                                {value}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-                    </div>
+                            ))}
+                        </div>
+                    )}
 
-                    <div className={cx('product-actions')}>
-                        <div className={cx('quantity-selector')}>
+                    <div className={cx('quantity-selector')}>
+                        <label>Quantity:</label>
+                        <div className={cx('quantity-controls')}>
                             <button
-                                className={cx('quantity-btn')}
                                 onClick={() => handleQuantityChange(quantity - 1)}
                                 disabled={quantity <= 1}
                             >
                                 -
                             </button>
-                            <span className={cx('quantity-value')}>{quantity}</span>
+                            <input
+                                type="number"
+                                value={quantity}
+                                onChange={(e) => handleQuantityChange(Number(e.target.value))}
+                                min="1"
+                                max={product.sku_stock}
+                            />
                             <button
-                                className={cx('quantity-btn')}
                                 onClick={() => handleQuantityChange(quantity + 1)}
-                                disabled={quantity >= product.stock}
+                                disabled={quantity >= product.sku_stock}
                             >
                                 +
                             </button>
                         </div>
-
-                        <div className={cx('stock-info')}>
-                            {product.stock > 0 ? (
-                                <span className={cx('in-stock')}>{product.stock} in stock</span>
-                            ) : (
-                                <span className={cx('out-of-stock')}>Out of stock</span>
-                            )}
-                        </div>
                     </div>
 
                     <div className={cx('action-buttons')}>
-                        <button
-                            className={cx('add-to-cart-btn')}
-                            onClick={handleAddToCart}
-                            disabled={product.stock === 0}
-                        >
-                            Add to Cart
-                        </button>
-                        <button className={cx('buy-now-btn')} disabled={product.stock === 0}>
-                            Buy Now
-                        </button>
-                        <button
-                            className={cx('wishlist-btn', { 'in-wishlist': productInWishlist })}
-                            onClick={handleWishlistToggle}
-                        >
-                            <span className={cx('wishlist-icon')}>
-                                {productInWishlist ? '❤️' : '♡'}
-                            </span>
-                        </button>
-                    </div>
-
-                    <div className={cx('product-delivery')}>
-                        <div className={cx('delivery-item')}>
-                            <span className={cx('delivery-icon')}>🚚</span> Free shipping on orders
-                            over $100
-                        </div>
-                        <div className={cx('delivery-item')}>
-                            <span className={cx('delivery-icon')}>↩️</span> 30-day easy returns
-                        </div>
+                        <button className={cx('add-to-cart')}>Add to Cart</button>
+                        <button className={cx('buy-now')}>Buy Now</button>
                     </div>
                 </div>
             </div>
 
             <div className={cx('product-details')}>
-                <div className={cx('tabs-header')}>
+                <div className={cx('tabs')}>
                     <button
-                        className={cx('tab-btn', { active: activeTab === 'description' })}
+                        className={cx('tab', { active: activeTab === 'description' })}
                         onClick={() => setActiveTab('description')}
                     >
                         Description
                     </button>
                     <button
-                        className={cx('tab-btn', { active: activeTab === 'specifications' })}
+                        className={cx('tab', { active: activeTab === 'specifications' })}
                         onClick={() => setActiveTab('specifications')}
                     >
                         Specifications
                     </button>
-                    <button
-                        className={cx('tab-btn', { active: activeTab === 'reviews' })}
-                        onClick={() => setActiveTab('reviews')}
-                    >
-                        Reviews ({product.reviewCount})
-                    </button>
                 </div>
 
-                <div className={cx('tabs-content')}>
+                <div className={cx('tab-content')}>
                     {activeTab === 'description' && (
-                        <div className={cx('description-tab')}>
-                            <p>{product.description}</p>
-
-                            {product.tags && (
-                                <div className={cx('product-tags')}>
-                                    <h3>Tags:</h3>
-                                    <div className={cx('tags-container')}>
-                                        {product.tags.map((tag, index) => (
-                                            <span key={index} className={cx('tag')}>
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                        <div className={cx('description')}>{spu.product_description}</div>
                     )}
-
                     {activeTab === 'specifications' && (
-                        <div className={cx('specifications-tab')}>
-                            <table className={cx('specs-table')}>
-                                <tbody>
-                                    {Object.entries(product.specifications).map(
-                                        ([key, value], index) => (
-                                            <tr key={index}>
-                                                <td className={cx('spec-name')}>{key}</td>
-                                                <td className={cx('spec-value')}>
-                                                    {Array.isArray(value)
-                                                        ? value.join(', ')
-                                                        : value}
-                                                </td>
-                                            </tr>
-                                        )
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                    )}
-
-                    {activeTab === 'reviews' && (
-                        <div className={cx('reviews-tab')}>
-                            <p>Customer reviews will be displayed here.</p>
-                            <div className={cx('write-review')}>
-                                <button className={cx('write-review-btn')}>Write a Review</button>
-                            </div>
+                        <div className={cx('specifications')}>
+                            {spu.product_attributes?.map((attr, index) => (
+                                <div key={index} className={cx('spec-item')}>
+                                    <span className={cx('spec-label')}>{attr.attr_name}:</span>
+                                    <span className={cx('spec-value')}>{attr.attr_value}</span>
+                                </div>
+                            ))}
                         </div>
                     )}
                 </div>

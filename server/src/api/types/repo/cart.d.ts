@@ -1,7 +1,7 @@
 import '';
 
 declare global {
-    namespace reop {
+    namespace repo {
         namespace cart {
             interface FindAndRemoveProductFromCart {
                 product: string;

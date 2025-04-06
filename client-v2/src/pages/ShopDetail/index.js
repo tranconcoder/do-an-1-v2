@@ -84,8 +84,8 @@ function ShopDetail() {
             </div>
 
             <div className={cx('shop-header')}>
-                <img 
-                    src={getMediaUrl(shop.shop_logo) || DEFAULT_LOGO} 
+                <img
+                    src={getMediaUrl(shop.shop_logo) || DEFAULT_LOGO}
                     alt={`${shop.shop_name} Logo`}
                     className={cx('shop-logo')}
                     onError={(e) => {
@@ -117,17 +117,19 @@ function ShopDetail() {
 
             <div className={cx('shop-products')}>
                 <h2 className={cx('section-title')}>Products from {shop.shop_name}</h2>
-                
+
                 {products.length > 0 ? (
                     <div className={cx('products-grid')}>
                         {products.map((product) => (
-                            <Link 
-                                to={`/product/${product.product_slug}`} 
-                                key={product._id} 
+                            <Link
+                                to={`/product/${product.sku._id}`}
+                                key={product.sku._id}
                                 className={cx('product-card')}
                             >
-                                <img 
-                                    src={getMediaUrl(product.sku.sku_thumb) || DEFAULT_PRODUCT_IMAGE} 
+                                <img
+                                    src={
+                                        getMediaUrl(product.sku.sku_thumb) || DEFAULT_PRODUCT_IMAGE
+                                    }
                                     alt={product.product_name}
                                     className={cx('product-image')}
                                     onError={(e) => {
@@ -143,9 +145,7 @@ function ShopDetail() {
                                     <div className={cx('product-meta')}>
                                         <div className={cx('sku-info')}>
                                             {product.sku.sku_value.map((attr, index) => (
-                                                <span key={index}>
-                                                    {attr.value}
-                                                </span>
+                                                <span key={index}>{attr.value}</span>
                                             ))}
                                         </div>
                                         <div className={cx('product-stock')}>

@@ -208,3 +208,7 @@
 [2025-04-06T07:58:21.864Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-04-06T07:59:20.275Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-04-06T07:59:20.281Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-06T12:29:23.442Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-06T12:29:30.341Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-06T12:29:35.297Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-06T12:29:57.189Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::

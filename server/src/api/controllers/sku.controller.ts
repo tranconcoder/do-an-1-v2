@@ -1,8 +1,18 @@
 import { OkResponse } from "@/response/success.response.js";
 import skuService from "@/services/sku.service.js";
-import { RequestWithQuery } from "@/types/request.js";
+import { RequestWithParams, RequestWithQuery } from "@/types/request.js";
 
-export default new class SKUController {
+export default new (class SKUController {
+    /* ---------------------------------------------------------- */
+    /*                        Get SKU by id                       */
+    /* ---------------------------------------------------------- */
+    getSKUById: RequestWithParams<service.sku.arguments.GetSKUById> = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get sku by id successfully!',
+            metadata: await skuService.getSKUById({ skuId: req.params.skuId })
+        }).send(res);
+    };
+
     /* ---------------------------------------------------------- */
     /*                     Get SKU shop by all                    */
     /* ---------------------------------------------------------- */
@@ -16,4 +26,4 @@ export default new class SKUController {
             })
         }).send(res);
     };
-}
+})();

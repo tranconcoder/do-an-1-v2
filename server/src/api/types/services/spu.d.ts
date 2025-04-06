@@ -42,10 +42,8 @@ declare global {
                 /* ------------------------------------------------------ */
                 /*                          Get                           */
                 /* ------------------------------------------------------ */
-                /* ----------------- Get product by id  ----------------- */
-                interface GetProductById {
-                    productId: string;
-                    userId?: string;
+                interface GetProductWithSlug {
+                    slug: string;
                 }
 
                 /* ---------------------------------------------------------- */

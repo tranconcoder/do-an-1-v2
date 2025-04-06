@@ -18,6 +18,12 @@ skuRouter.get(
     catchError(skuController.getAllSKUShopByAll)
 );
 
+skuRouter.get(
+    '/:skuId',
+    validateRequestParams(paramsId('skuId')),
+    catchError(skuController.getSKUById)
+);
+
 /* ---------------------------------------------------------- */
 /*                          Validate                          */
 /* ---------------------------------------------------------- */

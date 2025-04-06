@@ -1,6 +1,6 @@
 import { ShopStatus } from '@/enums/shop.enum.js';
 import { findOneCategory } from '@/models/repository/category/index.js';
-import { findOneShop, findShopById } from '@/models/repository/shop/index.js';
+import { findOneShop } from '@/models/repository/shop/index.js';
 import { spuModel } from '@/models/spu.model.js';
 import {
     BadRequestErrorResponse,
@@ -10,31 +10,18 @@ import {
 import skuService from './sku.service.js';
 import { SKUImages } from '@/enums/sku.enum.js';
 import { SPUImages } from '@/enums/spu.enum.js';
-import inventoryService from './inventory.service.js';
-import mongoose, { RootFilterQuery } from 'mongoose';
 import {
-    findAllSPUIds,
-    findByIdAndDeleteSPU,
-    findByIdAndUpdateSPU,
     findOneAndUpdateSPU,
-    findSPU,
-    findSPUById,
+    findOneSPU,
     findSPUPageSpliting
 } from '@/models/repository/spu/index.js';
 import {
-    findMaxPrice,
-    findMinPriceSKU as findMinPrice,
-    findOneAndUpdateSKU,
-    findSKU
+    findMaxPriceSKU,
+    findMinPriceSKU,
+    findSKU,
+    findSKUOfSPU
 } from '@/models/repository/sku/index.js';
-import {
-    decreaseInventoryStock,
-    increaseInventoryStock
-} from '@/models/repository/inventory/index.js';
-import {
-    decreaseWarehouseStock,
-    increaseWarehouseStock
-} from '@/models/repository/warehouses/index.js';
+import { decreaseWarehouseStock } from '@/models/repository/warehouses/index.js';
 import inventoryModel from '@/models/inventory.model.js';
 import skuModel from '@/models/sku.model.js';
 
@@ -133,7 +120,7 @@ export default new (class SPUService {
     }
 
     /* ---------------------------------------------------------- */
-    /*                             Get                            */
+    /*                           Get all                          */
     /* ---------------------------------------------------------- */
 
     /* ------------------------- By shop ------------------------ */
@@ -153,8 +140,8 @@ export default new (class SPUService {
         }).then(async (spuList) => {
             return await Promise.all(
                 spuList.map(async (spu) => ({
-                    minPrice: await findMinPrice(spu._id.toString()),
-                    maxPrice: await findMaxPrice(spu._id.toString()),
+                    minPrice: await findMinPriceSKU(spu._id.toString()),
+                    maxPrice: await findMaxPriceSKU(spu._id.toString()),
                     ...spu
                 }))
             );

@@ -5,6 +5,7 @@ import {
     generateFindById,
     generateFindByIdAndDelete,
     generateFindByIdAndUpdate,
+    generateFindOne,
     generateFindOneAndDelete,
     generateFindOneAndUpdate
 } from '@/utils/mongoose.util.js';
@@ -13,6 +14,8 @@ import {
 /*                            Find                            */
 /* ---------------------------------------------------------- */
 export const findSPUById = generateFindById<model.spu.SPUSchema>(spuModel);
+
+export const findOneSPU = generateFindOne<model.spu.SPUSchema>(spuModel);
 
 /* ---------------------------------------------------------- */
 /*                          Find all                          */

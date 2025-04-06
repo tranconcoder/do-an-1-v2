@@ -15,14 +15,14 @@ import { PessimisticKeys } from '@/enums/redis.enum.js';
 /* ---------------------------------------------------------- */
 /*                           Common                           */
 /* ---------------------------------------------------------- */
-const queryCreate = async (data: reop.discount.arguments.QueryCreate) => {
+const queryCreate = async (data: repo.discount.arguments.QueryCreate) => {
     return await discountModel.create(data);
 };
 
 /* ---------------------------------------------------------- */
 /*                           Create                           */
 /* ---------------------------------------------------------- */
-export const createDiscount = async (data: reop.discount.arguments.QueryCreate) => {
+export const createDiscount = async (data: repo.discount.arguments.QueryCreate) => {
     /* -------------------- Create discount  -------------------- */
     const discount = await queryCreate(data);
 
@@ -95,7 +95,7 @@ export const checkConflictDiscountInShop = async ({
     discount_end_at,
     discount_code,
     discount_shop
-}: reop.discount.arguments.CheckConflictDiscountInShop) => {
+}: repo.discount.arguments.CheckConflictDiscountInShop) => {
     return await discountModel
         .findOne({
             discount_code,

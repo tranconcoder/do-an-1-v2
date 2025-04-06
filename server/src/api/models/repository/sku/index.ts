@@ -29,7 +29,7 @@ export const findMinPriceSKU = async (spuId: string) => {
 };
 
 /* ------------------------ Max price ----------------------- */
-export const findMaxPrice = async (spuId: string) => {
+export const findMaxPriceSKU = async (spuId: string) => {
     return await findOneSKU({
         query: { sku_product: spuId },
         only: ['sku_price'],
@@ -43,6 +43,15 @@ export const findMaxPrice = async (spuId: string) => {
 export const findSKU = generateFindAll<model.sku.SKU>(skuModel);
 
 export const findSKUPageSpliting = generateFindAllPageSplit<model.sku.SKU>(skuModel);
+
+export const findSKUOfSPU = async (payload: repo.sku.GetSKUOfSKU) => {
+    const { spuId } = payload;
+
+    return findSKUPageSpliting({
+        query: { sku_product: spuId, is_deleted: false },
+        options: { lean: true }
+    });
+};
 
 /* ---------------------------------------------------------- */
 /*                           Update                           */

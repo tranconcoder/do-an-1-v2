@@ -3,9 +3,10 @@ import skuModel, { SKU_COLLECTION_NAME } from '@/models/sku.model.js';
 import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 import inventoryService from './inventory.service.js';
 import { increaseWarehouseStock } from '@/models/repository/warehouses/index.js';
-import { spuModel } from '@/models/spu.model.js';
+import { SPU_COLLECTION_NAME, spuModel } from '@/models/spu.model.js';
 import { ObjectId } from '@/configs/mongoose.config.js';
 import mongoose from 'mongoose';
+import { CATEGORY_COLLECTION_NAME } from '@/models/category.model.js';
 
 export default new (class SKUService {
     /* ---------------------------------------------------------- */
@@ -62,6 +63,57 @@ export default new (class SKUService {
     /* ---------------------------------------------------------- */
     /*                             Get                            */
     /* ---------------------------------------------------------- */
+
+    /* ------------------------ Get by id ----------------------- */
+    async getSKUById({ skuId }: service.sku.arguments.GetSKUById) {
+        return await skuModel.aggregate([
+            {
+                $match: {
+                    _id: new mongoose.Types.ObjectId(skuId),
+                    is_deleted: false
+                }
+            },
+            {
+                $lookup: {
+                    from: SPU_COLLECTION_NAME,
+                    localField: 'sku_product',
+                    foreignField: '_id',
+                    as: 'spu'
+                }
+            },
+            {
+                $lookup: {
+                    from: CATEGORY_COLLECTION_NAME,
+                    localField: 'spu.product_category',
+                    foreignField: '_id',
+                    as: 'category'
+                }
+            },
+            {
+                $unwind: '$spu'
+            },
+            {
+                $match: {
+                    'spu.is_deleted': false,
+                    'spu.is_draft': false,
+                    'spu.is_publish': true
+                }
+            },
+            {
+                $project: {
+                    'spu.is_deleted': 0,
+                    'spu.deleted_at': 0,
+                    'spu.created_at': 0,
+                    'spu.updated_at': 0,
+                    'spu.__v': 0,
+                    'category.is_deleted': 0,
+                    'category.deleted_at': 0,
+                    'category.created_at': 0,
+                    'category.updated_at': 0
+                }
+            }
+        ]);
+    }
 
     /* ----------------------- Get all SPU ---------------------- */
     async getAllShopSKUByAll({

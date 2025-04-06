@@ -23,7 +23,7 @@ export const findOneCartByUser = async ({
 export const findAndRemoveProductFromCart = async ({
     product,
     user
-}: reop.cart.FindAndRemoveProductFromCart) => {
+}: repo.cart.FindAndRemoveProductFromCart) => {
     return await findOneAndUpdateCart({
         query: { user },
         update: { $pull: { cart_product: { product } } },
@@ -38,7 +38,7 @@ export const findAndRemoveProductFromCart = async ({
 export const checkShopListExistsInCart = async ({
     user,
     shopList
-}: reop.cart.CheckShopListExistsInCart) => {
+}: repo.cart.CheckShopListExistsInCart) => {
     const cart = await cartModel.findOne({
         user
     });
@@ -56,10 +56,7 @@ export const checkShopListExistsInCart = async ({
 /* ---------------------------------------------------------- */
 
 /* ---------------- Delete products from cart ---------------- */
-export const deleteProductsFromCart = async ({
-    user,
-    products
-}: reop.cart.DeleteProductsFromCart) => {
+export const deleteProductsFromCart = async ({ user, products }: repo.cart.DeleteProductsFromCart) => {
     return findOneAndUpdateCart({
         query: { user },
         update: {

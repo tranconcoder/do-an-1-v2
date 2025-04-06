@@ -1,7 +1,7 @@
 import '';
 
 declare global {
-    namespace reop {
+    namespace repo {
         namespace product {
             interface FindAllProductId<T>
                 extends Omit<

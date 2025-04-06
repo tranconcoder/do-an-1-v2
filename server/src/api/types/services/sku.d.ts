@@ -8,6 +8,17 @@ declare global {
                     warehouse: string;
                 }
 
+                /* ---------------------------------------------------------- */
+                /*                             Get                            */
+                /* ---------------------------------------------------------- */
+                interface GetSKUById {
+                    skuId: string;
+                }
+
+                /* ---------------------------------------------------------- */
+                /*                           Get all                          */
+                /* ---------------------------------------------------------- */
+
                 interface GetAllSKUShopByAll extends commonTypes.object.PageSlitting {
                     shopId: string;
                 }
