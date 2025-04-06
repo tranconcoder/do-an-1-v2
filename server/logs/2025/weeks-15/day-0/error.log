@@ -236,3 +236,5 @@
 [2025-04-06T13:58:01.061Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
 [2025-04-06T13:58:01.067Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
 [2025-04-06T13:58:01.072Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-06T18:13:08.525Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-06T18:13:10.555Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::

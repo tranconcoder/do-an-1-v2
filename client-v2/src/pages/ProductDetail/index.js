@@ -33,6 +33,48 @@ function ProductDetail() {
     const [images, setImages] = useState([]);
     const [shopInfo, setShopInfo] = useState(null);
 
+    const filterUniqueImages = (skuData) => {
+        if (!skuData) return [];
+        const allImages = [];
+        
+        // 1. Product thumb
+        if (skuData.spu_select.product_thumb) {
+            allImages.push(getMediaUrl(skuData.spu_select.product_thumb));
+        }
+        
+        // 2. Product images
+        if (skuData.spu_select.product_images) {
+            allImages.push(...skuData.spu_select.product_images.map(img => getMediaUrl(img)));
+        }
+        
+        // 3. Current SKU thumb
+        if (skuData.sku_thumb) {
+            allImages.push(getMediaUrl(skuData.sku_thumb));
+        }
+        
+        // 4. Current SKU images
+        if (skuData.sku_images) {
+            allImages.push(...skuData.sku_images.map(img => getMediaUrl(img)));
+        }
+
+        // 5. Other SKUs thumbs and images in sequence
+        if (skuData.sku_others) {
+            skuData.sku_others.forEach(sku => {
+                // Add thumb first
+                if (sku.sku_thumb) {
+                    allImages.push(getMediaUrl(sku.sku_thumb));
+                }
+                // Then add all images for this SKU
+                if (sku.sku_images) {
+                    allImages.push(...sku.sku_images.map(img => getMediaUrl(img)));
+                }
+            });
+        }
+
+        // Remove duplicates while preserving order
+        return [...new Set(allImages.filter(img => img))];
+    };
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -44,7 +86,7 @@ function ProductDetail() {
                     // Fetch shop info
                     try {
                         const shopResponse = await axios.get(
-                            `${API_URL}/user/shop/${skuData.spu.product_shop}`
+                            `${API_URL}/user/shop/${skuData.spu_select.product_shop}`
                         );
                         if (shopResponse.data.statusCode === 200) {
                             setShopInfo(shopResponse.data.metadata.shop);
@@ -53,18 +95,27 @@ function ProductDetail() {
                         console.error('Error fetching shop info:', shopErr);
                     }
 
-                    // Process images after setting product
-                    const processedImages = filterUniqueImages([
-                        skuData.sku_thumb,
-                        ...(skuData.sku_images || []),
-                        ...(skuData.spu.product_images || [])
-                    ]);
+                    // Process images
+                    const processedImages = filterUniqueImages(skuData);
                     setImages(processedImages);
 
                     // Set initial selected image
                     if (processedImages.length > 0) {
                         setSelectedImage(processedImages[0]);
                     }
+
+                    // Set initial variation selection based on sku_tier_idx
+                    const initialVariations = {};
+                    if (skuData.spu_select.product_variations) {
+                        skuData.sku_tier_idx.forEach((idx, i) => {
+                            const variation = skuData.spu_select.product_variations[i];
+                            if (variation) {
+                                initialVariations[variation.variation_name] =
+                                    variation.variation_values[idx];
+                            }
+                        });
+                    }
+                    setSelectedVariation(initialVariations);
                 } else {
                     setError('Failed to fetch product details');
                 }
@@ -80,10 +131,6 @@ function ProductDetail() {
             fetchProduct();
         }
     }, [id]);
-
-    const filterUniqueImages = (imageList) => {
-        return [...new Set(imageList.filter((img) => img))].map((img) => getMediaUrl(img));
-    };
 
     const handleQuantityChange = (newQuantity) => {
         if (newQuantity >= 1 && newQuantity <= product?.sku_stock) {
@@ -142,7 +189,7 @@ function ProductDetail() {
     if (loading) return <div className={cx('loading')}>Loading...</div>;
     if (error || !product) return <div className={cx('error')}>{error || 'Product not found'}</div>;
 
-    const { spu, category } = product;
+    const { spu_select: spu, category } = product;
 
     return (
         <div className={cx('product-detail-container')}>
