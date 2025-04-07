@@ -1,24 +1,19 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchUser } from '../redux/slices/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsAuthenticated } from '../redux/slices/userSlice';
+import { fetchCart } from '../redux/slices/cartSlice';
 
 const AuthCheck = () => {
     const dispatch = useDispatch();
+    const isAuthenticated = useSelector(selectIsAuthenticated);
 
     useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                // Use the fetchUser thunk to handle authentication state
-                dispatch(fetchUser());
-            } catch (error) {
-                console.error('Auth check failed:', error);
-            }
-        };
+        if (isAuthenticated) {
+            dispatch(fetchCart());
+        }
+    }, [dispatch, isAuthenticated]);
 
-        checkAuth();
-    }, []); // eslint-disable-line
-
-    return null; // This component doesn't render anything
+    return null;
 };
 
 export default AuthCheck;
