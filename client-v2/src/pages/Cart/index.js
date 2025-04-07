@@ -13,6 +13,7 @@ import {
 } from '../../redux/slices/cartSlice';
 import { FaSpinner, FaStore, FaTimesCircle } from 'react-icons/fa';
 import ConfirmDialog from '../../components/ConfirmDialog';
+import { formatVND, numberToVietnameseWords } from '../../utils/format.util';
 
 const cx = classNames.bind(styles);
 
@@ -27,13 +28,6 @@ function Cart() {
         itemToDelete: null,
         productName: ''
     });
-
-    const formatVND = (amount) => {
-        return new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        }).format(amount);
-    };
 
     const handleIncrease = async (itemId) => {
         setLoadingStates((prev) => ({ ...prev, [itemId]: true }));
@@ -169,9 +163,7 @@ function Cart() {
     };
 
     // Tính toán tổng tiền
-    const shippingFee = cartTotal > 2000000 ? 0 : 30000; // Miễn phí ship cho đơn > 2tr
-    const tax = Math.round(cartTotal * 0.07); // 7% VAT
-    const finalTotal = cartTotal + shippingFee + tax;
+    const finalTotal = cartTotal;
 
     if (cartItems.length === 0) {
         return (
@@ -334,35 +326,24 @@ function Cart() {
                         <span>{formatVND(cartTotal)}</span>
                     </div>
 
-                    <div className={cx('summary-row')}>
-                        <span>Phí vận chuyển</span>
-                        <span>
-                            {shippingFee === 0 ? (
-                                <span className={cx('free-shipping')}>Miễn phí</span>
-                            ) : (
-                                formatVND(shippingFee)
-                            )}
-                        </span>
+                    <div className={cx('summary-row', 'total-row')}>
+                        <span>Tổng cộng</span>
+                        <span>{formatVND(finalTotal)}</span>
                     </div>
 
-                    <div className={cx('summary-row')}>
-                        <span>VAT (7%)</span>
-                        <span>{formatVND(tax)}</span>
+                    <div className={cx('amount-in-words')}>
+                        Bằng chữ: <span>{numberToVietnameseWords(finalTotal)}</span>
                     </div>
 
-                    <div className={cx('summary-row', 'total-row')}></div>
-                    <span>Tổng cộng</span>
-                    <span>{formatVND(finalTotal)}</span>
-                </div>
+                    <div className={cx('checkout-section')}>
+                        <Link to="/checkout" className={cx('checkout-btn')}>
+                            Tiến hành thanh toán
+                        </Link>
 
-                <div className={cx('checkout-section')}>
-                    <Link to="/checkout" className={cx('checkout-btn')}>
-                        Tiến hành thanh toán
-                    </Link>
-
-                    <Link to="/products" className={cx('continue-shopping')}>
-                        hoặc Tiếp tục mua sắm
-                    </Link>
+                        <Link to="/products" className={cx('continue-shopping')}>
+                            hoặc Tiếp tục mua sắm
+                        </Link>
+                    </div>
                 </div>
             </div>
 

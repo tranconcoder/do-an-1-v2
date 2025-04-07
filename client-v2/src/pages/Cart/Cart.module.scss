@@ -5,6 +5,22 @@
     min-height: calc(100vh - 200px); // Đảm bảo footer luôn ở dưới
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
         'Open Sans', 'Helvetica Neue', sans-serif;
+
+    .amount-in-words {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        color: #4a5568;
+        line-height: 1.5;
+
+        span {
+            color: #2d3748;
+            font-weight: 500;
+            font-style: italic;
+        }
+    }
 }
 
 .page-title {
