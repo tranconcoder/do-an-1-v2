@@ -13,6 +13,36 @@ export const fetchCart = createAsyncThunk('cart/fetchCart', async (_, { rejectWi
     }
 });
 
+// Async thunk for decreasing cart quantity
+export const decreaseCart = createAsyncThunk('cart/decreaseCart', async (skuId, { rejectWithValue }) => {
+    try {
+        const response = await axiosClient.patch(`/cart/decrease/${skuId}`);
+        return response.data.metadata;
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message || 'Failed to decrease cart quantity');
+    }
+});
+
+// Async thunk for increasing cart quantity (using existing add cart API)
+export const increaseCart = createAsyncThunk('cart/increaseCart', async (skuId, { rejectWithValue }) => {
+    try {
+        const response = await axiosClient.post(`/cart/add/${skuId}`);
+        return response.data.metadata;
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message || 'Failed to increase cart quantity');
+    }
+});
+
+// Async thunk for adding item to cart
+export const addToCartThunk = createAsyncThunk('cart/addToCart', async (skuId, { rejectWithValue }) => {
+    try {
+        const response = await axiosClient.post(`/cart/add/${skuId}`);
+        return response.data.metadata;
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message || 'Failed to add item to cart');
+    }
+});
+
 const initialState = {
     items: [], // Array of cart items
     loading: false,
@@ -74,6 +104,69 @@ const cartSlice = createSlice({
                 );
             })
             .addCase(fetchCart.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(decreaseCart.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(decreaseCart.fulfilled, (state, action) => {
+                state.loading = false;
+                state.items = action.payload.cart_shop.flatMap((shop) =>
+                    shop.products.map((product) => ({
+                        id: product.sku,
+                        cart_quantity: product.cart_quantity,
+                        product_name: product.product_name,
+                        product_price: product.product_price,
+                        product_thumb: `${API_URL}/media/${product.product_thumb}`,
+                        shop_id: shop.shop
+                    }))
+                );
+            })
+            .addCase(decreaseCart.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(increaseCart.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(increaseCart.fulfilled, (state, action) => {
+                state.loading = false;
+                state.items = action.payload.cart_shop.flatMap((shop) =>
+                    shop.products.map((product) => ({
+                        id: product.sku,
+                        cart_quantity: product.cart_quantity,
+                        product_name: product.product_name,
+                        product_price: product.product_price,
+                        product_thumb: `${API_URL}/media/${product.product_thumb}`,
+                        shop_id: shop.shop
+                    }))
+                );
+            })
+            .addCase(increaseCart.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(addToCartThunk.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(addToCartThunk.fulfilled, (state, action) => {
+                state.loading = false;
+                state.items = action.payload.cart_shop.flatMap((shop) =>
+                    shop.products.map((product) => ({
+                        id: product.sku,
+                        cart_quantity: product.cart_quantity,
+                        product_name: product.product_name,
+                        product_price: product.product_price,
+                        product_thumb: `${API_URL}/media/${product.product_thumb}`,
+                        shop_id: shop.shop
+                    }))
+                );
+            })
+            .addCase(addToCartThunk.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });

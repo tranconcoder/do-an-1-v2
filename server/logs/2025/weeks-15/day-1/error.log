@@ -390,3 +390,19 @@
 [2025-04-07T14:39:48.785Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
 [2025-04-07T14:39:48.786Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
 [2025-04-07T14:40:24.166Z] [error]: HIDE::403::Forbidden::Shop is not active!::
+[2025-04-07T15:12:26.577Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-07T15:12:34.642Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-07T15:13:59.315Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-07T15:14:07.786Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-07T15:14:08.353Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-07T15:14:08.947Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-07T15:14:09.421Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-07T15:14:37.341Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-07T15:15:32.835Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T15:15:32.972Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T15:15:33.118Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T15:15:33.251Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T15:15:33.399Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T15:15:33.661Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T15:15:34.368Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T15:15:39.939Z] [error]: HIDE::404::NotFound::Route is not exists::

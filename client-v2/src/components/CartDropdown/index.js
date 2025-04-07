@@ -1,13 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './CartDropdown.module.scss';
 import CartIcon from '../../assets/icons/CartIcon';
 import {
     selectCartItems,
     selectCartItemCount,
-    selectCartTotal
+    selectCartTotal,
+    decreaseCart,
+    increaseCart
 } from '../../redux/slices/cartSlice';
 
 const cx = classNames.bind(styles);
@@ -18,11 +20,12 @@ const DEFAULT_IMAGE =
 function CartDropdown() {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const dispatch = useDispatch();
 
-    // Sử dụng selectors từ cartSlice
     const cartItems = useSelector(selectCartItems);
     const cartCount = useSelector(selectCartItemCount);
     const cartTotal = useSelector(selectCartTotal);
+    const [loadingStates, setLoadingStates] = useState({});
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -39,6 +42,26 @@ function CartDropdown() {
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
+    };
+
+    const handleIncrease = async (itemId) => {
+        setLoadingStates((prev) => ({ ...prev, [itemId]: true }));
+        try {
+            await dispatch(increaseCart(itemId)).unwrap();
+        } catch (error) {
+            console.error('Failed to increase quantity:', error);
+        }
+        setLoadingStates((prev) => ({ ...prev, [itemId]: false }));
+    };
+
+    const handleDecrease = async (itemId) => {
+        setLoadingStates((prev) => ({ ...prev, [itemId]: true }));
+        try {
+            await dispatch(decreaseCart(itemId)).unwrap();
+        } catch (error) {
+            console.error('Failed to decrease quantity:', error);
+        }
+        setLoadingStates((prev) => ({ ...prev, [itemId]: false }));
     };
 
     return (
@@ -80,8 +103,27 @@ function CartDropdown() {
                                             <p className={cx('item-price')}>
                                                 ${item.product_price.toFixed(2)}
                                             </p>
-                                            <div className={cx('item-quantity')}>
-                                                <span>Qty: {item.cart_quantity}</span>
+                                            <div className={cx('quantity-controls')}>
+                                                <button
+                                                    className={cx('quantity-btn')}
+                                                    onClick={() => handleDecrease(item.id)}
+                                                    disabled={
+                                                        item.cart_quantity <= 1 ||
+                                                        loadingStates[item.id]
+                                                    }
+                                                >
+                                                    −
+                                                </button>
+                                                <span className={cx('quantity-value')}>
+                                                    {item.cart_quantity}
+                                                </span>
+                                                <button
+                                                    className={cx('quantity-btn')}
+                                                    onClick={() => handleIncrease(item.id)}
+                                                    disabled={loadingStates[item.id]}
+                                                >
+                                                    +
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

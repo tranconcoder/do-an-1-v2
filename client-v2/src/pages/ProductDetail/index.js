@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './ProductDetail.module.scss';
 import axios from 'axios';
@@ -7,6 +8,7 @@ import { API_URL } from '../../configs/env.config';
 import { getMediaUrl } from '../../utils/media.util';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
+import { addToCartThunk } from '../../redux/slices/cartSlice';
 import {
     FaSearch,
     FaChevronLeft,
@@ -15,13 +17,17 @@ import {
     FaCrown,
     FaStore,
     FaHeart,
-    FaExclamationTriangle
+    FaExclamationTriangle,
+    FaCartPlus,
+    FaSpinner
 } from 'react-icons/fa';
+import axiosClient from '../../configs/axios';
 
 const cx = classNames.bind(styles);
 
 function ProductDetail() {
     const { id } = useParams();
+    const dispatch = useDispatch();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -34,6 +40,7 @@ function ProductDetail() {
     const [images, setImages] = useState([]);
     const [shopInfo, setShopInfo] = useState(null);
     const [currentSku, setCurrentSku] = useState(null);
+    const [addingToCart, setAddingToCart] = useState(false);
 
     const filterUniqueImages = (skuData) => {
         if (!skuData) return [];
@@ -80,7 +87,7 @@ function ProductDetail() {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`${API_URL}/sku/${id}`);
+                const response = await axiosClient.get(`/sku/${id}`);
                 if (response.data.statusCode === 200) {
                     const skuData = response.data.metadata[0];
                     setProduct(skuData);
@@ -320,6 +327,22 @@ function ProductDetail() {
         window.addEventListener('keydown', handleKeyPress);
         return () => window.removeEventListener('keydown', handleKeyPress);
     }, [isZoomed, selectedImage, images]);
+
+    const handleAddToCart = async () => {
+        if (!currentSku && !product) return;
+
+        try {
+            setAddingToCart(true);
+
+            await dispatch(addToCartThunk(id)).unwrap();
+            // You could add a toast/notification here to show success
+        } catch (error) {
+            console.error('Failed to add to cart:', error);
+            // You could add error handling/toast here
+        } finally {
+            setAddingToCart(false);
+        }
+    };
 
     if (loading) return <div className={cx('loading')}>Loading...</div>;
     if (error || !product) return <div className={cx('error')}>{error || 'Product not found'}</div>;
@@ -576,20 +599,35 @@ function ProductDetail() {
                     <div className={cx('action-buttons')}>
                         <button
                             className={cx('add-to-cart-btn')}
+                            onClick={handleAddToCart}
                             disabled={
+                                addingToCart ||
                                 (currentSku
                                     ? currentSku.sku_stock === 0
-                                    : product.sku_stock === 0) || !isCurrentSelectionValid()
+                                    : product.sku_stock === 0) ||
+                                !isCurrentSelectionValid()
                             }
                         >
-                            Add to Cart
+                            {addingToCart ? (
+                                <>
+                                    <FaSpinner className={cx('spinner')} />
+                                    Adding...
+                                </>
+                            ) : (
+                                <>
+                                    <FaCartPlus />
+                                    Add to Cart
+                                </>
+                            )}
                         </button>
                         <button
                             className={cx('buy-now-btn')}
                             disabled={
+                                addingToCart ||
                                 (currentSku
                                     ? currentSku.sku_stock === 0
-                                    : product.sku_stock === 0) || !isCurrentSelectionValid()
+                                    : product.sku_stock === 0) ||
+                                !isCurrentSelectionValid()
                             }
                         >
                             Buy Now
