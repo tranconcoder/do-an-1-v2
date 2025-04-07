@@ -37,6 +37,20 @@ export default class CartController {
         }).send(res);
     };
 
+    /* ---------------------------------------------------------- */
+    /*                   Decrease cart quantity                   */
+    /* ---------------------------------------------------------- */
+    public static decreaseCartQuantity: RequestWithParams<joiTypes.cart.DecreaseCartQuantity> =
+        async (req, res, _) => {
+            new OkResponse({
+                message: 'Decrease cart quantity!',
+                metadata: await CartService.decreaseCartQuantity({
+                    skuId: req.params.skuId,
+                    userId: req.userId as string
+                })
+            }).send(res);
+        };
+
     /* ---------------- Delete product from cart ---------------- */
     public static deleteProductFromCart: RequestWithParams<joiTypes.cart.DeleteProductFromCart> =
         async (req, res, _) => {

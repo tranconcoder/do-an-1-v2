@@ -41,6 +41,11 @@ declare global {
                     }>;
                 }
 
+                interface DecreaseCartQuantity {
+                    skuId: string;
+                    userId: string;
+                }
+
                 /* ---------------- Delete product from cart ---------------- */
                 interface DeleteProductFromCart extends Pick<AddToCart, 'skuId' | 'userId'> {}
 

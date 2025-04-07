@@ -1,5 +1,5 @@
 import { NotFoundErrorResponse } from '@/response/error.response.js';
-import { generateFindOneAndUpdate } from '@/utils/mongoose.util.js';
+import { generateFindOne, generateFindOneAndUpdate } from '@/utils/mongoose.util.js';
 import cartModel from '@/models/cart.model.js';
 import mongoose from 'mongoose';
 
@@ -8,6 +8,8 @@ export const findOneAndUpdateCart = generateFindOneAndUpdate<model.cart.CartSche
 /* ---------------------------------------------------------- */
 /*                            Find                            */
 /* ---------------------------------------------------------- */
+export const findOneCart = generateFindOne<model.cart.CartSchema>(cartModel);
+
 export const findOneCartByUser = async ({
     user,
     ...options

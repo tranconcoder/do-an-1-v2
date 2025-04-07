@@ -1,6 +1,8 @@
 import {
     deleteProductsFromCart,
     findAndRemoveProductFromCart,
+    findOneAndUpdateCart,
+    findOneCart,
     findOneCartByUser
 } from '@/models/repository/cart/index.js';
 import { findOneSKU, findSKU } from '@/models/repository/sku/index.js';
@@ -188,6 +190,37 @@ export default class CartService {
             old: cartShop,
             new: (await cart.save()).cart_shop
         };
+    }
+
+    /* ----------------- Decrease cart quantity ----------------- */
+    public static async decreaseCartQuantity({
+        skuId,
+        userId
+    }: service.cart.arguments.DecreaseCartQuantity) {
+        const cart = await findOneAndUpdateCart({
+            query: {
+                user: new mongoose.Types.ObjectId(userId),
+                'cart_shop.products.sku': new mongoose.Types.ObjectId(skuId)
+            },
+            update: {
+                $inc: {
+                    'cart_shop.$.products.$[i].cart_quantity': -1
+                }
+            },
+            options: {
+                new: true,
+                arrayFilters: [
+                    {
+                        'i.cart_quantity': { $gt: 0 },
+                        'i.sku': new mongoose.Types.ObjectId(skuId)
+                    }
+                ]
+            }
+        });
+
+        if (!cart) throw new NotFoundErrorResponse({ message: 'Cart not found!' });
+
+        return cart;
     }
 
     /* ---------------------------------------------------------- */

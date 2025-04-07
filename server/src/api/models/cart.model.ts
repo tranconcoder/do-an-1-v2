@@ -23,8 +23,7 @@ const cartSchema = new Schema<model.cart.CartSchema>(
                                 sku: {
                                     type: ObjectId,
                                     ref: SKU_COLLECTION_NAME,
-                                    required,
-                                    unique: true
+                                    required
                                 },
                                 product_name: { type: String, required },
                                 product_thumb: { type: String, required },

@@ -149,3 +149,244 @@
 [2025-04-07T10:07:07.263Z] [error]: Redis error: Error: Socket closed unexpectedly
 [2025-04-07T10:07:26.061Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
 [2025-04-07T10:31:56.510Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T10:46:29.622Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-07T10:46:35.221Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-04-07T10:46:45.604Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.carts index: cart_shop.products.id_1 dup key: { cart_shop.products.id: null }::
+[2025-04-07T10:46:51.998Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.carts index: cart_shop.products.id_1 dup key: { cart_shop.products.id: null }::
+[2025-04-07T10:46:52.902Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.carts index: cart_shop.products.id_1 dup key: { cart_shop.products.id: null }::
+[2025-04-07T10:46:53.690Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.carts index: cart_shop.products.id_1 dup key: { cart_shop.products.id: null }::
+[2025-04-07T10:50:39.530Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.carts index: cart_shop.products.id_1 dup key: { cart_shop.products.id: null }::
+[2025-04-07T10:51:03.903Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.carts index: cart_shop.products.id_1 dup key: { cart_shop.products.id: null }::
+[2025-04-07T10:51:06.652Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.carts index: cart_shop.products.id_1 dup key: { cart_shop.products.id: null }::
+[2025-04-07T10:52:47.204Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T11:01:09.150Z] [error]: HIDE::404::NotFound::Product not found!::
+[2025-04-07T11:53:55.690Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:55.695Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:55.747Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:55.851Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:56.005Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:56.211Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:56.465Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:56.768Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:57.120Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:57.522Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:57.977Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:58.482Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:58.986Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:59.489Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:53:59.991Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:00.493Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:00.995Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:01.496Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:01.998Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:02.500Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:03.002Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:03.505Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:04.007Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:04.511Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:05.017Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:05.520Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:06.023Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:06.526Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:07.031Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:07.535Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:08.037Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:08.538Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:09.040Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:09.542Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:10.044Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:10.545Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:11.047Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:11.550Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:12.052Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:12.560Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:13.063Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:13.573Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:14.077Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:14.587Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:15.088Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:15.589Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:16.091Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:16.593Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:17.095Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:17.597Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:18.099Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:18.601Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:19.104Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:19.607Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:20.110Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:20.613Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:21.115Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:21.618Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:22.121Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:22.623Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:23.125Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:23.627Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:24.128Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:24.629Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:25.130Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:25.633Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:26.134Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:26.637Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:27.138Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:27.642Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:28.145Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:28.646Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:29.148Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:29.651Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:30.248Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:30.751Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:31.254Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:31.756Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:32.259Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:32.762Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:33.264Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:33.766Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:34.269Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:34.772Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:35.274Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:35.776Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:36.279Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:36.782Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:54:37.363Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-07T11:55:02.343Z] [error]: HIDE::400::ValidationError::"user" is not allowed::
+[2025-04-07T11:57:34.382Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'shop' in path 'cart_shop.$[shop].products.$[product].cart_quantity'::
+[2025-04-07T11:57:47.390Z] [error]: HIDE::400::MongoServerError::Too many positional (i.e. '$') elements found in path 'cart_shop.$.products.$.cart_quantity'::
+[2025-04-07T11:57:54.066Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 2, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 3, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T11:57:55.268Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 2, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 3, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T11:59:02.611Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'cart_quantity' in element {products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 2, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 3, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ]}::
+[2025-04-07T11:59:11.118Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 2, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 3, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T11:59:23.714Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 2, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 3, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T11:59:31.087Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'cart_quantity' in element {products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 2, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 3, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ]}::
+[2025-04-07T11:59:32.038Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'cart_quantity' in element {products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 2, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 3, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ]}::
+[2025-04-07T11:59:52.021Z] [error]: HIDE::400::MongoServerError::Too many positional (i.e. '$') elements found in path 'cart_shop.$.products.$.cart_quantity'::
+[2025-04-07T12:00:16.506Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.$[i].products.$[j].cart_quantity'::
+[2025-04-07T12:00:17.859Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.$[i].products.$[j].cart_quantity'::
+[2025-04-07T12:00:18.641Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.$[i].products.$[j].cart_quantity'::
+[2025-04-07T12:00:41.114Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'products' in path 'cart_shop.$[products].products.$[cart_quantity].cart_quantity'::
+[2025-04-07T12:00:56.429Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'products' in path 'cart_shop.$[products].products.$[sku].cart_quantity'::
+[2025-04-07T12:01:19.478Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'cart_quantity' in path 'cart_shop.$.products.$[cart_quantity].cart_quantity'::
+[2025-04-07T12:02:21.403Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.$[i].products.$[j].cart_quantity'::
+[2025-04-07T12:02:22.255Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.$[i].products.$[j].cart_quantity'::
+[2025-04-07T12:03:45.631Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.products.$[i].cart_quantity'::
+[2025-04-07T12:03:46.813Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.products.$[i].cart_quantity'::
+[2025-04-07T12:03:47.606Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.products.$[i].cart_quantity'::
+[2025-04-07T12:04:00.302Z] [error]: HIDE::400::CastError::Cast to embedded failed for value "-1" (type number) at path "products" because of "ObjectParameterError"::
+[2025-04-07T12:04:31.151Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.products.$[i].cart_quantity'::
+[2025-04-07T12:04:32.119Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.products.$[i].cart_quantity'::
+[2025-04-07T12:04:53.633Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'a' in path 'cart_shop.$[a].products.$[i].cart_quantity'::
+[2025-04-07T12:04:54.540Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'a' in path 'cart_shop.$[a].products.$[i].cart_quantity'::
+[2025-04-07T12:04:55.441Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'a' in path 'cart_shop.$[a].products.$[i].cart_quantity'::
+[2025-04-07T12:11:32.616Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:11:33.598Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:11:34.328Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:11:34.872Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:12:20.427Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:12:26.439Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.products.$[i].cart_quantity'::
+[2025-04-07T12:12:27.590Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.products.$[i].cart_quantity'::
+[2025-04-07T12:12:41.194Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:17:14.458Z] [error]: HIDE::400::MongoServerError::Error parsing array filter :: caused by :: Expected a single top-level field name, found 'cart_shop' and 'shop'::
+[2025-04-07T12:17:26.616Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 2, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 3, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T12:17:49.565Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 2, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 3, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T12:17:53.554Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 2, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 3, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T12:22:10.025Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:22:10.631Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:22:11.677Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:22:12.235Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:23:01.615Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.$[].products.$[i].cart_quantity'::
+[2025-04-07T12:23:02.428Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.$[].products.$[i].cart_quantity'::
+[2025-04-07T12:23:03.010Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.$[].products.$[i].cart_quantity'::
+[2025-04-07T12:23:03.565Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.$[].products.$[i].cart_quantity'::
+[2025-04-07T12:23:04.282Z] [error]: HIDE::400::MongoServerError::No array filter found for identifier 'i' in path 'cart_shop.$[].products.$[i].cart_quantity'::
+[2025-04-07T12:23:19.683Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:23:20.680Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:23:21.277Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:23:38.857Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The path 'cart_shop.products' must exist in the document in order to apply array updates.::
+[2025-04-07T12:23:39.466Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The path 'cart_shop.products' must exist in the document in order to apply array updates.::
+[2025-04-07T12:23:40.106Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The path 'cart_shop.products' must exist in the document in order to apply array updates.::
+[2025-04-07T12:24:27.013Z] [error]: HIDE::400::MongoServerError::Too many positional (i.e. '$') elements found in path 'cart_shop.$.products.$.cart_quantity'::
+[2025-04-07T12:24:27.752Z] [error]: HIDE::400::MongoServerError::Too many positional (i.e. '$') elements found in path 'cart_shop.$.products.$.cart_quantity'::
+[2025-04-07T12:24:28.225Z] [error]: HIDE::400::MongoServerError::Too many positional (i.e. '$') elements found in path 'cart_shop.$.products.$.cart_quantity'::
+[2025-04-07T12:54:41.759Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gt': 1 }" (type Object) at path "cart_quantity" for model "Cart"::
+[2025-04-07T12:54:42.824Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gt': 1 }" (type Object) at path "cart_quantity" for model "Cart"::
+[2025-04-07T12:54:43.489Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gt': 1 }" (type Object) at path "cart_quantity" for model "Cart"::
+[2025-04-07T12:54:54.150Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:54:55.031Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:54:55.746Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:55:06.824Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:55:07.630Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:57:23.000Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:57:23.785Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:57:24.314Z] [error]: HIDE::404::NotFound::Cart not found!::
+[2025-04-07T12:57:40.549Z] [error]: HIDE::400::CastError::Cast to embedded failed for value "{ sku: '67f2c60e9a92d83e14f03f3c', cart_quantity: { '$gt': 1 } }" (type Object) at path "products" for model "Cart"::
+[2025-04-07T12:59:21.186Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 40, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 78, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T12:59:22.291Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 40, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 78, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T12:59:22.975Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 40, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 78, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T12:59:23.540Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 40, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 78, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T12:59:24.103Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 40, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 78, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T13:07:12.347Z] [error]: HIDE::400::MongoServerError::Invalid $set :: caused by :: FieldPath field names may not start with '$'. Consider using $getField or $setField.::
+[2025-04-07T13:08:23.379Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: All operands of $setUnion must be arrays. One argument is of type: object::
+[2025-04-07T13:08:24.548Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: All operands of $setUnion must be arrays. One argument is of type: object::
+[2025-04-07T13:22:32.950Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 40, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 1, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T13:22:33.812Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 40, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 1, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T13:23:13.993Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 40, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 1, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T13:27:16.556Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gt': 0 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:28:50.104Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The path 'cart_shop.products' must exist in the document in order to apply array updates.::
+[2025-04-07T13:29:15.916Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The path 'cart_shop.products' must exist in the document in order to apply array updates.::
+[2025-04-07T13:29:36.466Z] [error]: HIDE::400::MongoServerError::The array filter for identifier 'i' was not used in the update { $setOnInsert: { created_at: new Date(1744032576443) }, $set: { updated_at: new Date(1744032576443) }, $inc: { cart_shop.products.cart_quantity: -1 } }::
+[2025-04-07T13:29:37.352Z] [error]: HIDE::400::MongoServerError::The array filter for identifier 'i' was not used in the update { $setOnInsert: { created_at: new Date(1744032577350) }, $set: { updated_at: new Date(1744032577350) }, $inc: { cart_shop.products.cart_quantity: -1 } }::
+[2025-04-07T13:29:37.951Z] [error]: HIDE::400::MongoServerError::The array filter for identifier 'i' was not used in the update { $setOnInsert: { created_at: new Date(1744032577949) }, $set: { updated_at: new Date(1744032577949) }, $inc: { cart_shop.products.cart_quantity: -1 } }::
+[2025-04-07T13:29:43.515Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 40, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 1, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T13:29:44.632Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { sku: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 40, product_price: 30000000, product_status: "active", _id: ObjectId('67f3ae6dbdb2e4a7c4778c89') }, { sku: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 1, product_price: 35000000, product_status: "active", _id: ObjectId('67f3b085709876183fc1170e') } ], _id: ObjectId('67f3ae6dbdb2e4a7c4778c88') } ]}::
+[2025-04-07T13:30:14.800Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The path 'cart_shop.products' must exist in the document in order to apply array updates.::
+[2025-04-07T13:30:15.906Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The path 'cart_shop.products' must exist in the document in order to apply array updates.::
+[2025-04-07T13:30:16.655Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The path 'cart_shop.products' must exist in the document in order to apply array updates.::
+[2025-04-07T13:30:36.173Z] [error]: HIDE::400::Error::Could not find path ".0" in schema::
+[2025-04-07T13:31:05.270Z] [error]: HIDE::400::Error::Could not find path ".0" in schema::
+[2025-04-07T13:31:42.299Z] [error]: HIDE::400::Error::Could not find path ".0" in schema::
+[2025-04-07T13:31:43.210Z] [error]: HIDE::400::Error::Could not find path ".0" in schema::
+[2025-04-07T13:32:51.957Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gte': 1 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:33:06.552Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gte': 1 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:33:07.384Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gte': 1 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:33:08.702Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gte': 1 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:33:13.283Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gte': 1 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:33:14.872Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gte': 1 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:33:22.213Z] [error]: HIDE::400::MongoServerError::The array filter for identifier 'i' was not used in the update { $setOnInsert: { created_at: new Date(1744032802188) }, $set: { updated_at: new Date(1744032802188) } }::
+[2025-04-07T13:33:23.543Z] [error]: HIDE::400::MongoServerError::The array filter for identifier 'i' was not used in the update { $setOnInsert: { created_at: new Date(1744032803541) }, $set: { updated_at: new Date(1744032803541) } }::
+[2025-04-07T13:33:33.055Z] [error]: HIDE::400::MongoServerError::The array filter for identifier 'i' was not used in the update { $setOnInsert: { created_at: new Date(1744032813032) }, $set: { updated_at: new Date(1744032813032) } }::
+[2025-04-07T13:33:36.670Z] [error]: HIDE::400::MongoServerError::The array filter for identifier 'i' was not used in the update { $setOnInsert: { created_at: new Date(1744032816667) }, $set: { updated_at: new Date(1744032816667) } }::
+[2025-04-07T13:33:47.655Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gte': 1 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:33:48.727Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gte': 1 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:33:49.429Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gte': 1 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:34:06.334Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gte': 1 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:34:06.989Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gte': 1 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:34:07.564Z] [error]: HIDE::400::CastError::Cast to Number failed for value "{ '$gte': 1 }" (type Object) at path "cart_quantity"::
+[2025-04-07T13:35:06.151Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The path 'cart_shop.products' must exist in the document in order to apply array updates.::
+[2025-04-07T13:36:30.800Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The path 'cart_shop.products' must exist in the document in order to apply array updates.::
+[2025-04-07T13:39:10.402Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.::
+[2025-04-07T13:39:11.543Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.::
+[2025-04-07T13:39:12.434Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.::
+[2025-04-07T13:39:36.919Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The path 'cart_shop.products' must exist in the document in order to apply array updates.::
+[2025-04-07T13:39:38.351Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The path 'cart_shop.products' must exist in the document in order to apply array updates.::
+[2025-04-07T13:39:59.780Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.::
+[2025-04-07T13:54:15.897Z] [error]: HIDE::400::Error::Could not find path "cart_shop.0.products.0.products.sku" in schema::
+[2025-04-07T13:54:35.172Z] [error]: HIDE::400::Error::Could not find path "cart_shop.0.0.cart_quantity" in schema::
+[2025-04-07T13:54:47.960Z] [error]: HIDE::400::Error::Could not find path "cart_shop.0.products.0.products.sku" in schema::
+[2025-04-07T13:55:12.632Z] [error]: HIDE::400::MongoServerError::Error parsing array filter :: caused by :: Expected a single top-level field name, found 'i' and 'j'::
+[2025-04-07T13:56:53.083Z] [error]: HIDE::400::Error::Could not find path "cart_shop.0.products.0.products.sku" in schema::
+[2025-04-07T14:01:41.892Z] [error]: HIDE::400::Error::Could not find path "cart_shop.0.products.0.products.sku" in schema::
+[2025-04-07T14:02:55.966Z] [error]: HIDE::400::MongoServerError::Error parsing array filter :: caused by :: Expected a single top-level field name, found 'i' and 'j'::
+[2025-04-07T14:02:57.325Z] [error]: HIDE::400::MongoServerError::Error parsing array filter :: caused by :: Expected a single top-level field name, found 'i' and 'j'::
+[2025-04-07T14:07:28.734Z] [error]: HIDE::400::Error::Could not find path "cart_shop.0.products.0.products.i" in schema::
+[2025-04-07T14:07:44.990Z] [error]: HIDE::400::MongoServerError::Error parsing array filter :: caused by :: Expected a single top-level field name, found 'i' and 'j'::
+[2025-04-07T14:07:59.498Z] [error]: HIDE::400::Error::Could not find path "cart_shop.0.products.0.products.sku" in schema::
+[2025-04-07T14:08:20.743Z] [error]: HIDE::400::Error::Could not find path "cart_shop.0.products.0.products.sku" in schema::
+[2025-04-07T14:29:14.207Z] [error]: HIDE::400::Error::Could not find path "cart_shop.0.products.0.products.sku" in schema::
+[2025-04-07T14:29:30.477Z] [error]: HIDE::400::Error::Could not find path "cart_shop.0.products.0.products" in schema::
+[2025-04-07T14:32:50.562Z] [error]: HIDE::400::Error::Could not find path "cart_shop.0.products.0.0.products.sku" in schema::
+[2025-04-07T14:32:51.429Z] [error]: HIDE::400::Error::Could not find path "cart_shop.0.products.0.0.products.sku" in schema::
+[2025-04-07T14:38:46.933Z] [error]: HIDE::404::NotFound::Fields is exists!::
+[2025-04-07T14:39:24.679Z] [error]: HIDE::404::NotFound::Fields is exists!::
+[2025-04-07T14:39:48.785Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-04-07T14:39:48.786Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-04-07T14:40:24.166Z] [error]: HIDE::403::Forbidden::Shop is not active!::

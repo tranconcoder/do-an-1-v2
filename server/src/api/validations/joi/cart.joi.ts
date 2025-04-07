@@ -52,8 +52,3 @@ export const updateCart = Joi.object<joiTypes.cart.UpdateCart>({
         .required()
         .min(1)
 });
-
-/* ---------------- Delete product from cart ---------------- */
-export const deleteProductFromCart = Joi.object<joiTypes.cart.DeleteProductFromCart>({
-    skuId: mongooseId
-});

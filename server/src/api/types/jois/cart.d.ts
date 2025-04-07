@@ -9,6 +9,10 @@ declare global {
             /* ---------------------- Update cart  ---------------------- */
             interface UpdateCart extends Omit<service.cart.arguments.UpdateCart, 'user'> {}
 
+            /* ----------------- Decrease cart quantity ----------------- */
+            interface DecreaseCartQuantity
+                extends Omit<service.cart.arguments.DecreaseCartQuantity, 'userId'> {}
+
             /* ---------------- Delete product from cart ---------------- */
             interface DeleteProductFromCart
                 extends Omit<service.cart.arguments.DeleteProductFromCart, 'userId'> {}
