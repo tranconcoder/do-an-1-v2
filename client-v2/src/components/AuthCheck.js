@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsAuthenticated } from '../redux/slices/userSlice';
+import { fetchUser, selectIsAuthenticated } from '../redux/slices/userSlice';
 import { fetchCart } from '../redux/slices/cartSlice';
 
 const AuthCheck = () => {
@@ -10,8 +10,13 @@ const AuthCheck = () => {
     useEffect(() => {
         if (isAuthenticated) {
             dispatch(fetchCart());
+            console.log('Fetching cart...');
         }
     }, [dispatch, isAuthenticated]);
+
+    useEffect(() => {
+        dispatch(fetchUser());
+    }, []);
 
     return null;
 };

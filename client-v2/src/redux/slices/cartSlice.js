@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosClient from '../../configs/axios';
+import { API_URL } from '../../configs/env.config';
 
 // Async thunk for fetching cart data
 export const fetchCart = createAsyncThunk('cart/fetchCart', async (_, { rejectWithValue }) => {
     try {
         const response = await axiosClient.get('/cart');
+
         return response.data.metadata;
     } catch (error) {
         return rejectWithValue(error.response?.data?.message || 'Failed to fetch cart');
@@ -34,7 +36,7 @@ const cartSlice = createSlice({
                     cart_quantity,
                     product_name,
                     product_price,
-                    product_thumb
+                    product_thumb: `${API_URL}/media/${product_thumb}`
                 });
             }
         },
@@ -66,7 +68,7 @@ const cartSlice = createSlice({
                         cart_quantity: product.cart_quantity,
                         product_name: product.product_name,
                         product_price: product.product_price,
-                        product_thumb: product.product_thumb,
+                        product_thumb: `${API_URL}/media/${product.product_thumb}`,
                         shop_id: shop.shop
                     }))
                 );

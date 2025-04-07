@@ -1,26 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './CartDropdown.module.scss';
 import CartIcon from '../../assets/icons/CartIcon';
-import { useProducts } from '../../configs/ProductsData';
+import {
+    selectCartItems,
+    selectCartItemCount,
+    selectCartTotal
+} from '../../redux/slices/cartSlice';
 
 const cx = classNames.bind(styles);
 
-// Add this constant for fallback image - using a real image instead of text placeholder
 const DEFAULT_IMAGE =
     'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150&h=150&auto=format&fit=crop&q=80';
 
 function CartDropdown() {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
-    const { getCartItems, getCartItemCount, getCartSubtotal } = useProducts();
 
-    const cartItems = getCartItems();
-    const cartCount = getCartItemCount();
-    const cartTotal = getCartSubtotal();
+    // Sử dụng selectors từ cartSlice
+    const cartItems = useSelector(selectCartItems);
+    const cartCount = useSelector(selectCartItemCount);
+    const cartTotal = useSelector(selectCartTotal);
 
-    // Close dropdown when clicking outside
     useEffect(() => {
         function handleClickOutside(event) {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -64,10 +67,8 @@ function CartDropdown() {
                                 {cartItems.slice(0, 4).map((item) => (
                                     <div key={item.id} className={cx('cart-item')}>
                                         <img
-                                            src={
-                                                item.thumbnail || item.images?.[0] || DEFAULT_IMAGE
-                                            }
-                                            alt={item.name}
+                                            src={item.product_thumb || DEFAULT_IMAGE}
+                                            alt={item.product_name}
                                             className={cx('item-image')}
                                             onError={(e) => {
                                                 e.target.onerror = null;
@@ -75,12 +76,12 @@ function CartDropdown() {
                                             }}
                                         />
                                         <div className={cx('item-details')}>
-                                            <h4 className={cx('item-name')}>{item.name}</h4>
+                                            <h4 className={cx('item-name')}>{item.product_name}</h4>
                                             <p className={cx('item-price')}>
-                                                ${item.price.toFixed(2)}
+                                                ${item.product_price.toFixed(2)}
                                             </p>
                                             <div className={cx('item-quantity')}>
-                                                <span>Qty: {item.quantity}</span>
+                                                <span>Qty: {item.cart_quantity}</span>
                                             </div>
                                         </div>
                                     </div>
