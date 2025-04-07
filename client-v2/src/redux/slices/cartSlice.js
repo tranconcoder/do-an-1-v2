@@ -43,6 +43,36 @@ export const addToCartThunk = createAsyncThunk('cart/addToCart', async (skuId, {
     }
 });
 
+// Async thunk for deleting item from cart
+export const deleteFromCart = createAsyncThunk('cart/deleteFromCart', async (skuId, { rejectWithValue }) => {
+    try {
+        const response = await axiosClient.delete(`/cart/product/${skuId}`);
+        return response.data.metadata;
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message || 'Failed to delete item from cart');
+    }
+});
+
+// Async thunk for updating cart quantity
+export const updateCart = createAsyncThunk(
+    'cart/updateCart',
+    async ({ shopId, products }, { rejectWithValue }) => {
+        try {
+            const response = await axiosClient.patch('/cart/update', {
+                cartShop: [
+                    {
+                        shopId,
+                        products
+                    }
+                ]
+            });
+            return response.data.metadata;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || 'Failed to update cart');
+        }
+    }
+);
+
 const initialState = {
     items: [], // Array of cart items
     loading: false,
@@ -167,6 +197,48 @@ const cartSlice = createSlice({
                 );
             })
             .addCase(addToCartThunk.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(deleteFromCart.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(deleteFromCart.fulfilled, (state, action) => {
+                state.loading = false;
+                state.items = action.payload.cart_shop.flatMap((shop) =>
+                    shop.products.map((product) => ({
+                        id: product.sku,
+                        cart_quantity: product.cart_quantity,
+                        product_name: product.product_name,
+                        product_price: product.product_price,
+                        product_thumb: `${API_URL}/media/${product.product_thumb}`,
+                        shop_id: shop.shop
+                    }))
+                );
+            })
+            .addCase(deleteFromCart.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(updateCart.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updateCart.fulfilled, (state, action) => {
+                state.loading = false;
+                state.items = action.payload.new.flatMap((shop) =>
+                    shop.products.map((product) => ({
+                        id: product.sku,
+                        cart_quantity: product.cart_quantity,
+                        product_name: product.product_name,
+                        product_price: product.product_price,
+                        product_thumb: `${API_URL}/media/${product.product_thumb}`,
+                        shop_id: shop.shop
+                    }))
+                );
+            })
+            .addCase(updateCart.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
