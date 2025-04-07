@@ -18,8 +18,9 @@ export default class CartController {
         new CreatedResponse({
             message: 'Product added to cart!',
             metadata: await CartService.addToCart({
-                productId: req.params.productId,
-                userId: req.userId as string
+                userId: req.userId as string,
+                skuId: req.params.skuId,
+                quantity: req.params.quantity
             })
         }).send(res);
     };
@@ -42,7 +43,7 @@ export default class CartController {
             new OkResponse({
                 message: 'Product deleted from cart!',
                 metadata: await CartService.deleteProductFromCart({
-                    productId: req.params.productId,
+                    skuId: req.params.skuId,
                     userId: req.userId as string
                 })
             }).send(res);

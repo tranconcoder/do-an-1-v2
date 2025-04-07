@@ -16,7 +16,7 @@ const routerValidated = Router();
 router.use(authenticate, routerValidated);
 
 routerValidated.post(
-    '/add/:productId',
+    '/add/:skuId/:quantity?',
     validateRequestParams(addToCartSchema),
     catchError(CartController.addToCart)
 );

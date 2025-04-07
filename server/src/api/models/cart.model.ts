@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { timestamps, required } from '@/configs/mongoose.config.js';
+import { timestamps, required, unique } from '@/configs/mongoose.config.js';
 import { CartItemStatus } from '@/enums/cart.enum.js';
 import { SPU_COLLECTION_NAME } from './spu.model.js';
 import { USER_MODEL_NAME } from './user.model.js';
@@ -12,7 +12,7 @@ export const CART_COLLECTION_NAME = 'carts';
 
 const cartSchema = new Schema<model.cart.CartSchema>(
     {
-        user: { type: ObjectId, ref: USER_MODEL_NAME, required },
+        user: { type: ObjectId, ref: USER_MODEL_NAME, index: true },
         cart_shop: {
             type: [
                 {
@@ -22,14 +22,15 @@ const cartSchema = new Schema<model.cart.CartSchema>(
                             {
                                 id: {
                                     type: ObjectId,
+                                    ref: SKU_COLLECTION_NAME,
                                     required,
-                                    ref: SKU_COLLECTION_NAME
+                                    unique: true
                                 },
-                                name: { type: String, required },
-                                thumb: { type: String, required },
-                                quantity: { type: Number, required },
-                                price: { type: Number, required },
-                                status: {
+                                product_name: { type: String, required },
+                                product_thumb: { type: String, required },
+                                cart_quantity: { type: Number, required },
+                                product_price: { type: Number, required },
+                                product_status: {
                                     type: String,
                                     enum: CartItemStatus,
                                     default: CartItemStatus.Active

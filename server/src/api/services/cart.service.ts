@@ -1,13 +1,13 @@
+import { ObjectId } from '@/configs/mongoose.config.js';
 import {
     deleteProductsFromCart,
     findAndRemoveProductFromCart,
     findOneCartByUser
 } from '@/models/repository/cart/index.js';
+import { findOneSKU, findSKUById } from '@/models/repository/sku/index.js';
+import { spuModel } from '@/models/spu.model.js';
 
-// import { checkProductsIsAvailableToUse, findProductById } from '@/models/repository/spu/index.js';
 import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
-const checkProductsIsAvailableToUse = () => {},
-    findProductById = () => {};
 
 export default class CartService {
     /* ---------------------------------------------------------- */
@@ -15,46 +15,69 @@ export default class CartService {
     /* ---------------------------------------------------------- */
 
     /* ---------------------- Add to cart  ---------------------- */
-    public static async addToCart({ productId, userId }: service.cart.arguments.AddToCart) {
+    public static async addToCart({
+        skuId,
+        userId,
+        quantity = 1
+    }: service.cart.arguments.AddToCart) {
         /* ---------------- Check product is active  ---------------- */
-        const foundProduct = await findProductById({ productId });
-        if (!foundProduct || !foundProduct.is_publish)
-            throw new NotFoundErrorResponse({ message: 'Not found product' });
+        const sku = await findOneSKU({
+            query: { _id: skuId, is_deleted: { $ne: true } },
+            options: { lean: true, populate: ['sku_product'] }
+        });
+        console.log(sku);
+        const spu = sku?.sku_product as any as model.spu.SPUSchema | undefined;
+        if (!sku || !spu || !spu._id) {
+            throw new NotFoundErrorResponse({ message: 'Product not found!' });
+        }
+        if (!spu.is_publish || spu.is_draft || spu.is_deleted) {
+            throw new BadRequestErrorResponse({ message: 'Product is not available!' });
+        }
 
         /* --------------- Add new cart product item  --------------- */
         const cart = await findOneCartByUser({ user: userId });
+        const cartItemToAdd = {
+            id: sku._id,
+            cart_quantity: quantity,
+            product_name: spu.product_name,
+            product_price: sku.sku_price,
+            product_thumb: sku.sku_thumb
+        };
 
         /* --------------- Add new shop if not exists --------------- */
         const cartShop = cart.cart_shop.find(
-            (x) => x.shop === foundProduct.product_shop.toString()
+            (x) => x.shop.toString() === spu.product_shop.toString()
         );
         if (!cartShop) {
+            /* ----------------------- Check stock ---------------------- */
+            if (sku.sku_stock < quantity)
+                throw new BadRequestErrorResponse({ message: 'Product is out of stock!' });
+
+            /* ------------------- Handle create cart ------------------- */
             cart.cart_shop.push({
-                shop: foundProduct.product_shop,
-                products: [
-                    {
-                        id: foundProduct._id,
-                        name: foundProduct.product_name,
-                        quantity: 1,
-                        price: foundProduct.product_cost,
-                        thumb: foundProduct.product_thumb
-                    }
-                ]
+                shop: spu.product_shop,
+                products: [cartItemToAdd]
             });
         } else {
-            const cartProduct = cartShop.products.find((product) => product.id === productId);
+            const cartProduct = cartShop.products.find(
+                (product) => product.id.toString() === skuId
+            );
 
-            /* ----- Increase quantity if product is exists in cart ----- */
-            if (cartProduct) cartProduct.quantity++;
+            /* ---------------- Check stock if product is exists ---------------- */
+            if (cartProduct && sku.sku_stock < cartProduct.cart_quantity + quantity)
+                throw new BadRequestErrorResponse({
+                    message: 'Product is out of stock!'
+                });
+
+            console.log(quantity);
+
+            /* ------------------- Handle create cart ------------------- */
+            if (cartProduct)
+                /* ----- Increase quantity if product is exists in cart ----- */
+                cartProduct.cart_quantity += quantity;
             else {
                 /* ------- Add new product to cart if shop is exists ------- */
-                cartShop.products.push({
-                    id: foundProduct._id,
-                    name: foundProduct.product_name,
-                    quantity: 1,
-                    price: foundProduct.product_cost,
-                    thumb: foundProduct.product_thumb
-                });
+                cartShop.products.push(cartItemToAdd);
             }
         }
 
@@ -143,12 +166,12 @@ export default class CartService {
     /*                           Delete                           */
     /* ---------------------------------------------------------- */
     public static async deleteProductFromCart({
-        productId,
+        skuId,
         userId
     }: service.cart.arguments.DeleteProductFromCart) {
         /* ----------------------- Check cart ----------------------- */
         const cart = await findAndRemoveProductFromCart({
-            product: productId,
+            sku: skuId,
             user: userId
         });
         if (!cart) throw new NotFoundErrorResponse({ message: 'Cart not found!' });

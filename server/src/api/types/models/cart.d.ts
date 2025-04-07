@@ -9,11 +9,11 @@ declare global {
                     shop: moduleTypes.mongoose.ObjectId;
                     products: Array<{
                         id: moduleTypes.mongoose.ObjectId;
-                        name: string;
-                        thumb: string;
-                        quantity: number;
-                        price: number;
-                        status?: CartItemStatus;
+                        cart_quantity: number;
+                        product_name: string;
+                        product_thumb: moduleTypes.mongoose.ObjectId;
+                        product_price: number;
+                        product_status?: CartItemStatus;
                     }>;
                 }>;
             }

@@ -10,8 +10,9 @@ const cart = {
 };
 
 /* ---------------------- Add to cart  ---------------------- */
-export const addToCartSchema = Joi.object<joiTypes.cart.AddToCart, true>({
-    productId: cart.productId
+export const addToCartSchema = Joi.object<joiTypes.cart.AddToCart>({
+    skuId: mongooseId,
+    quantity: Joi.number().min(1)
 });
 
 /* ---------------------- Update cart  ---------------------- */
@@ -53,4 +54,6 @@ export const updateCart = Joi.object<joiTypes.cart.UpdateCart>({
 });
 
 /* ---------------- Delete product from cart ---------------- */
-export const deleteProductFromCart = addToCartSchema;
+export const deleteProductFromCart = Joi.object<joiTypes.cart.DeleteProductFromCart>({
+    skuId: mongooseId
+});

@@ -15,7 +15,7 @@ const deleteRouterValidated = Router();
 deleteRouter.use(authenticate, deleteRouterValidated);
 
 deleteRouterValidated.delete(
-    '/product/:productId',
+    '/product/:skuId',
     validateRequestParams(deleteProductFromCart),
     catchError(CartController.deleteProductFromCart)
 );

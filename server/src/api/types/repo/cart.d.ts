@@ -4,7 +4,7 @@ declare global {
     namespace repo {
         namespace cart {
             interface FindAndRemoveProductFromCart {
-                product: string;
+                sku: string;
                 user: string;
             }
 

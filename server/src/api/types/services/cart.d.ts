@@ -15,7 +15,8 @@ declare global {
                 /* ---------------------- Add to cart  ---------------------- */
                 interface AddToCart {
                     userId: string;
-                    productId: string;
+                    skuId: string;
+                    quantity: number;
                 }
 
                 /* ---------------------- Update cart  ---------------------- */
@@ -41,7 +42,7 @@ declare global {
                 }
 
                 /* ---------------- Delete product from cart ---------------- */
-                interface DeleteProductFromCart extends AddToCart {}
+                interface DeleteProductFromCart extends Pick<AddToCart, 'skuId' | 'userId'> {}
 
                 /* --------------- Delete products from cart  --------------- */
                 interface DeleteProductsFromCart {
