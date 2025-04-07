@@ -25,8 +25,8 @@ export const findAndRemoveProductFromCart = async ({
     user
 }: repo.cart.FindAndRemoveProductFromCart) => {
     return await findOneAndUpdateCart({
-        query: { user, 'cart_shop.products.id': sku },
-        update: { $pull: { 'cart_shop.$.products': { id: sku } } },
+        query: { user, 'cart_shop.products.sku': sku },
+        update: { $pull: { 'cart_shop.$.products': { sku } } },
         options: { new: true, upsert: true },
         omit: 'metadata'
     });

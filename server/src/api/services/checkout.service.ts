@@ -87,7 +87,7 @@ export default new (class CheckoutService {
                           await DiscountService.getDiscountAmount({
                               discountCode: discountInfo.discountCode,
                               products: shop.products.map((x) => ({
-                                  id: x.id.toString(),
+                                  id: x.sku.toString(),
                                   quantity: x.quantity
                               }))
                           })
@@ -104,13 +104,13 @@ export default new (class CheckoutService {
                         (discountAdmin.is_apply_all_product ||
                             discountAdmin?.discount_products
                                 ?.map((x) => x.toString())
-                                ?.includes(product.id.toString()))
+                                ?.includes(product.sku.toString()))
                     ) {
                         totalPriceProductToApplyAdminVoucher += product.quantity * product.price;
                     }
 
                     return {
-                        id: product.id.toString(),
+                        id: product.sku.toString(),
                         name: product.name,
                         quantity: product.quantity,
                         thumb: product.thumb,

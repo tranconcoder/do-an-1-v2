@@ -52,3 +52,31 @@
 [2025-04-07T04:12:43.913Z] [error]: HIDE::400::MongoServerError::Too many positional (i.e. '$') elements found in path 'cart_shop.$.products.$'::
 [2025-04-07T04:12:53.433Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot use the part (products) of (cart_shop.products.0) to traverse the element ({cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { id: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 8, product_price: 35000000, product_status: "active", _id: ObjectId('67f3503e8657f169e342817a') }, { id: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 2, product_price: 30000000, product_status: "active", _id: ObjectId('67f35099db841c1f1364f365') } ], _id: ObjectId('67f34a965bb2312a8fa505c7') } ]})::
 [2025-04-07T04:12:54.549Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot use the part (products) of (cart_shop.products.0) to traverse the element ({cart_shop: [ { shop: ObjectId('67f079b3930fe35abd7bda60'), products: [ { id: ObjectId('67f2c60e9a92d83e14f03f3c'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f21", cart_quantity: 8, product_price: 35000000, product_status: "active", _id: ObjectId('67f3503e8657f169e342817a') }, { id: ObjectId('67f2c60e9a92d83e14f03f3a'), product_name: "Iphone 16 Pro Max", product_thumb: "67f2c60e9a92d83e14f03f20", cart_quantity: 2, product_price: 30000000, product_status: "active", _id: ObjectId('67f35099db841c1f1364f365') } ], _id: ObjectId('67f34a965bb2312a8fa505c7') } ]})::
+[2025-04-07T04:56:25.662Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T04:56:30.586Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T04:58:08.183Z] [error]: HIDE::400::StrictModeError::Path "id" is not in schema, strict mode is `true`, and upsert is `true`.::
+[2025-04-07T04:58:56.550Z] [error]: HIDE::400::ValidationError::Cart validation failed: cart_shop.0.products.0.sku: Path `sku` is required.::
+[2025-04-07T04:58:56.982Z] [error]: HIDE::400::ValidationError::Cart validation failed: cart_shop.0.products.0.sku: Path `sku` is required.::
+[2025-04-07T05:03:30.086Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:03:30.875Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:03:31.328Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:04:29.259Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:05:02.695Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:05:28.786Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:05:56.371Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:05:57.560Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:06:11.955Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:06:12.789Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:07:30.869Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:07:31.613Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:08:15.445Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:11:53.989Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-07T05:14:55.614Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:14:59.233Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:15:33.538Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:15:42.959Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:15:43.949Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:15:44.632Z] [error]: HIDE::400::BadRequest::Some product is invalid to add cart!::
+[2025-04-07T05:36:13.613Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-04-07T05:36:19.095Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-04-07T05:36:31.097Z] [error]: HIDE::400::BadRequest::Product is out of stock!::

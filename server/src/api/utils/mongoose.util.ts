@@ -100,7 +100,6 @@ export const generateFindAll = <T = any>(model: any) => {
             omit
         });
 
-        userModel.find;
         const result: Query = await model.find(query, projection, options);
 
         return result;

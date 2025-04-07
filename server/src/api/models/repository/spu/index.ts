@@ -6,7 +6,6 @@ import {
     generateFindByIdAndDelete,
     generateFindByIdAndUpdate,
     generateFindOne,
-    generateFindOneAndDelete,
     generateFindOneAndUpdate
 } from '@/utils/mongoose.util.js';
 
