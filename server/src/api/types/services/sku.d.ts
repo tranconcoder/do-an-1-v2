@@ -15,6 +15,8 @@ declare global {
                     skuId: string;
                 }
 
+                interface GetAllSKUByAll extends commonTypes.object.PageSlitting {}
+
                 /* ---------------------------------------------------------- */
                 /*                           Get all                          */
                 /* ---------------------------------------------------------- */

@@ -406,3 +406,73 @@
 [2025-04-07T15:15:33.661Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-04-07T15:15:34.368Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-04-07T15:15:39.939Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T16:51:38.722Z] [error]: HIDE::400::MongoServerError::Invalid $project :: caused by :: Cannot do exclusion on field category.is_deleted in inclusion projection::
+[2025-04-07T16:52:05.875Z] [error]: HIDE::400::MongoServerError::Invalid $project :: caused by :: Cannot do exclusion on field category.is_deleted in inclusion projection::
+[2025-04-07T16:52:37.650Z] [error]: HIDE::400::MongoServerError::Invalid $project :: caused by :: Cannot do exclusion on field category.is_deleted in inclusion projection::
+[2025-04-07T16:52:38.469Z] [error]: HIDE::400::MongoServerError::Invalid $project :: caused by :: Cannot do exclusion on field category.is_deleted in inclusion projection::
+[2025-04-07T16:52:39.171Z] [error]: HIDE::400::MongoServerError::Invalid $project :: caused by :: Cannot do exclusion on field category.is_deleted in inclusion projection::
+[2025-04-07T16:53:32.274Z] [error]: HIDE::400::MongoServerError::Invalid $project :: caused by :: Cannot do exclusion on field category.is_deleted in inclusion projection::
+[2025-04-07T16:53:33.195Z] [error]: HIDE::400::MongoServerError::Invalid $project :: caused by :: Cannot do exclusion on field category.is_deleted in inclusion projection::
+[2025-04-07T16:53:44.716Z] [error]: HIDE::400::MongoServerError::Invalid $project :: caused by :: Cannot do exclusion on field category.deleted_at in inclusion projection::
+[2025-04-07T16:53:50.551Z] [error]: HIDE::400::MongoServerError::Invalid $project :: caused by :: Cannot do exclusion on field category.created_at in inclusion projection::
+[2025-04-07T16:53:58.604Z] [error]: HIDE::400::MongoServerError::Invalid $project :: caused by :: Cannot do exclusion on field spu.is_deleted in inclusion projection::
+[2025-04-07T16:54:11.436Z] [error]: HIDE::400::MongoServerError::Invalid $project :: caused by :: Cannot do exclusion on field spu.deleted_at in inclusion projection::
+[2025-04-07T16:54:18.421Z] [error]: HIDE::400::MongoServerError::PlanExecutor error during aggregation :: caused by :: The argument to $size must be an array, but was of type: missing::
+[2025-04-07T17:30:49.204Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:52.099Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:52.365Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:52.526Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:53.255Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:53.707Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:53.896Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:54.284Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:54.434Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:54.719Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:54.885Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:55.449Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:55.603Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:59.448Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:59.753Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:30:59.956Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:31:00.125Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:33:27.979Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:33:28.028Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:33:28.077Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:33:28.177Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:33:28.327Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:33:28.447Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:37:48.382Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:37:48.941Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:37:49.310Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:37:49.501Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:37:55.331Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:37:55.491Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:37:55.789Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:41:29.592Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:41:30.192Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:41:30.353Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:41:30.502Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:41:30.632Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:41:30.851Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:42:58.382Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:42:58.433Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:42:58.491Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:42:58.541Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:42:58.611Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:44:18.691Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:44:20.536Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:44:20.673Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:44:20.794Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:44:22.805Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:44:23.373Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:44:23.813Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:44:23.973Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T17:46:52.670Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-07T18:05:01.783Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-04-07T18:05:30.518Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-04-07T18:05:58.923Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-04-07T18:06:44.902Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-04-07T18:06:45.585Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-04-07T18:07:09.543Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-04-07T18:08:17.027Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-04-07T20:26:49.433Z] [error]: connection <monitor> to 127.0.0.1:27017 timed out

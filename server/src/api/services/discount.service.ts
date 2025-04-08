@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { PessimisticKeys } from '@/enums/redis.enum.js';
 import discountModel from '@/models/discount.model.js';
 import discountUsedModel from '@/models/discountUsed.model.js';
-import { spuModel } from '@/models/spu.model.js';
+import { SPU_COLLECTION_NAME, spuModel } from '@/models/spu.model.js';
 import {
     cancelDiscount,
     checkConflictDiscountInShop,
@@ -10,12 +10,9 @@ import {
     deleteDiscount,
     findAllDiscount,
     findDiscountById,
-    findDiscountValidByCode
+    findDiscountValidByCode,
+    findOneDiscount
 } from '@/models/repository/discount/index.js';
-import // findAllProduct,
-// checkProductsIsAvailableToUse,
-// checkProductsIsPublish
-'@/models/repository/spu/index.js';
 import {
     BadRequestErrorResponse,
     ConflictErrorResponse,
@@ -26,27 +23,27 @@ import {
 import { calculateDiscount } from '@/utils/discount.util.js';
 import { get$SetNestedFromObject } from '@/utils/mongoose.util.js';
 import { pessimisticLock } from './redis.service.js';
-
-const findAllProduct = () => {};
-const checkProductsIsAvailableToUse = () => {};
-const checkProductsIsPublish = () => {};
+import { roleService } from './rbac.service.js';
+import mongoose from 'mongoose';
+import skuModel from '@/models/sku.model.js';
+import skuService from './sku.service.js';
+import { getAllSKUAggregate } from '@/utils/sku.util.js';
+import { ITEM_PER_PAGE } from '@/configs/server.config.js';
+import { checkSKUListIsAvailable } from '@/models/repository/sku/index.js';
 
 export default class DiscountService {
     /* ---------------------------------------------------------- */
     /*                           Create                           */
     /* ---------------------------------------------------------- */
-    public static createDiscount = async ({
-        userId,
-        ...payload
-    }: service.discount.arguments.CreateDiscount) => {
-        /* ---------------------------------------------------------- */
-        /*           Missing check is admin voucher by shop           */
-        /* ---------------------------------------------------------- */
-        const isAdmin = false;
+    public static createDiscount = async (args: service.discount.arguments.CreateDiscount) => {
+        const { shopId, ...payload } = args;
+
+        /* --------------------- Check is admin --------------------- */
+        const isAdmin = await roleService.userIdAdmin(shopId);
 
         /* ------------------ Check code is valid  ------------------ */
         const conflictDiscount = await checkConflictDiscountInShop({
-            discount_shop: userId,
+            discount_shop: shopId,
             discount_code: payload.discount_code,
             discount_start_at: payload.discount_start_at,
             discount_end_at: payload.discount_end_at
@@ -60,21 +57,73 @@ export default class DiscountService {
         }
 
         /* --------------- Check products is publish  --------------- */
-        if (payload.discount_products) {
-            const isAllProductPublish = await checkProductsIsAvailableToUse({
-                productIds: payload.discount_products as string[],
-                shopId: userId
-            });
+        if (payload.discount_skus) {
+            const skuList = await skuModel.aggregate([
+                {
+                    $match: {
+                        _id: {
+                            $in: payload.discount_skus.map((x) => new mongoose.Types.ObjectId(x))
+                        }
+                    }
+                },
+                {
+                    $lookup: {
+                        from: SPU_COLLECTION_NAME,
+                        localField: 'sku_product',
+                        foreignField: '_id',
+                        as: 'product'
+                    }
+                },
+                {
+                    $unwind: '$product'
+                }
+            ]);
+            if (skuList.length !== payload.discount_skus.length) {
+                throw new BadRequestErrorResponse({
+                    message: 'Some product in discount code is not available!'
+                });
+            }
 
-            if (!isAllProductPublish)
+            for (const sku of skuList) {
+                /* ---------------------------------------------------------- */
+                /*                          Check SKU                         */
+                /* ---------------------------------------------------------- */
+                /* ------------------ Check sku is deleted ------------------ */
+                if (sku.is_deleted)
+                    throw new BadRequestErrorResponse({
+                        message: `SKU ${sku.product.product_name} is deleted!`
+                    });
+
+                /* ---------------------------------------------------------- */
+                /*                          Check SPU                         */
+                /* ---------------------------------------------------------- */
+                /* ------------------ Check spu is deleted ------------------ */
+                if (sku.product.is_deleted)
+                    throw new BadRequestErrorResponse({
+                        message: `Product ${sku.product.product_name} is deleted!`
+                    });
+
+                /* ------------------- Check spu is publish ---------------- */
+                if (!sku.product.is_publish)
+                    throw new BadRequestErrorResponse({
+                        message: `Product ${sku.product.product_name} is unpublish!`
+                    });
+
+                if (isAdmin && !sku.product.product_shop.equals(shopId))
+                    throw new BadRequestErrorResponse({
+                        message: `Product ${sku.product.product_name} is not owned by shop!`
+                    });
+            }
+
+            if (!skuList)
                 throw new NotFoundErrorResponse({
-                    message: "Some product in discount code isn't publish!"
+                    message: "Some product in discount code isn't available!"
                 });
         }
 
         return await createDiscount({
             ...payload,
-            discount_shop: userId,
+            discount_shop: shopId,
             is_admin_voucher: isAdmin
         });
     };
@@ -87,7 +136,10 @@ export default class DiscountService {
     public static getDiscountById = async ({
         discountId
     }: service.discount.arguments.GetDiscountById) => {
-        const discount = await findDiscountById(discountId);
+        const discount = await findDiscountById({
+            id: discountId,
+            options: { lean: true }
+        });
 
         if (!discount) throw new NotFoundErrorResponse({ message: 'Not found discount!' });
         if (!discount.is_available)
@@ -127,7 +179,7 @@ export default class DiscountService {
                 discount_end_at: { $gte: new Date() },
                 is_available: true,
                 is_publish: true,
-                $or: [{ discount_products: [productId] }, { is_apply_all_product: true }]
+                $or: [{ discount_skus: [productId] }, { is_apply_all_product: true }]
             },
             options: {
                 sort: { is_admin_voucher: -1, updated_at: -1 }
@@ -139,11 +191,15 @@ export default class DiscountService {
 
     /* ------------ Get all product discount by code ------------ */
     public static getAllProductDiscountByCode = async ({
-        discountId,
-        limit,
-        page
+        code,
+        limit = ITEM_PER_PAGE,
+        page = 1
     }: service.discount.arguments.GetAllProductDiscountByCode) => {
-        const discount = await findDiscountById(discountId, '+is_apply_all_product');
+        const discount = await findOneDiscount({
+            query: { discount_code: code },
+            options: { lean: true }
+        });
+
         if (!discount)
             throw new NotFoundErrorResponse({
                 message: 'Not found discount or discount is invalid'
@@ -153,37 +209,29 @@ export default class DiscountService {
                 message: 'Discount is not available'
             });
 
-        /* ---------------------------------------------------------- */
-        /*     Missing check shop is admin because no RBAC build      */
-        /* ---------------------------------------------------------- */
-        const isAdminShop = false;
-
         if (discount.is_apply_all_product) {
             /* ------------------ Return all by admin  ------------------ */
-            if (isAdminShop) return { products: 'every' };
+            const isAdminShop = await roleService.userIdAdmin(discount.discount_shop.toString());
+            if (isAdminShop) return 'every';
 
             /* ------------------- Return all by shop ------------------- */
-            return await findAllProduct({
-                query: {
-                    product_shop: discount.discount_shop,
-                    is_publish: true
-                },
+            return await skuService.getAllShopSKUByAll({
+                shopId: discount.discount_shop.toString(),
                 limit,
-                page,
-                options: { sort: { updated_at: -1 } }
+                page
             });
         } else {
             /* ------------------ Get specific product ------------------ */
-            return await findAllProduct({
-                query: {
-                    _id: { $in: discount.discount_products },
-                    product_shop: discount.discount_shop,
-                    is_publish: true
-                },
-                limit,
-                page,
-                options: { sort: { updated_at: -1 } }
-            });
+            return await spuModel.aggregate([
+                ...getAllSKUAggregate(limit, page),
+                {
+                    $match: {
+                        'sku.id': {
+                            $in: discount.discount_skus.map((x) => new mongoose.Types.ObjectId(x))
+                        }
+                    }
+                }
+            ]);
         }
     };
 
@@ -200,21 +248,22 @@ export default class DiscountService {
             });
         if (discount.discount_count && discount.discount_count <= discount.discount_used_count)
             throw new BadRequestErrorResponse({ message: 'Discount is out of code!' });
-        const discountProducts = discount?.discount_products?.map((x) => x.toString()) || [];
+
+        const discountProducts = discount.discount_skus.map((x) => x.toString());
 
         /* ----------- Check product is available to use  ----------- */
         const productIds = products.map((x) => x.id);
-        const isProductsAvailable = await checkProductsIsPublish({
-            productIds
+        const isAvailableProducts = await checkSKUListIsAvailable({
+            skuList: productIds
         });
-        if (!isProductsAvailable)
+        if (!isAvailableProducts)
             throw new BadRequestErrorResponse({
                 message: 'Product is not available to apply discount!'
             });
 
         /* ---------------------- Get products ---------------------- */
-        const foundProducts = await spuModel.find({ _id: { $in: productIds } }).lean();
-        if (foundProducts.length !== productIds.length)
+        const foundSKUs = await skuModel.find({ _id: { $in: productIds } }).lean();
+        if (foundSKUs.length !== productIds.length)
             throw new BadRequestErrorResponse({ message: 'Get products failed!' });
 
         /* ---------------------- Handle calc  ---------------------- */
@@ -223,10 +272,10 @@ export default class DiscountService {
         let totalProductPriceToDiscount = 0; // To check min to apply product
 
         await Promise.all(
-            foundProducts.map(async (product) => {
+            foundSKUs.map(async (sku) => {
                 const productQuantity =
-                    products.find((x) => x.id.toString() === product._id.toString())?.quantity || 0;
-                const priceRaw = product.product_cost * productQuantity;
+                    products.find((x) => x.id.toString() === sku._id.toString())?.quantity || 0;
+                const priceRaw = sku.sku_price * productQuantity;
 
                 totalPrice += priceRaw;
 
@@ -235,18 +284,18 @@ export default class DiscountService {
                     (discount.is_admin_voucher && discount.is_apply_all_product) ||
                     // Admin -> specific
                     (discount.is_admin_voucher &&
-                        discount?.discount_products
+                        discount?.discount_skus
                             ?.map((x) => x?.toString())
-                            ?.includes(product._id.toString())) ||
+                            ?.includes(sku._id.toString())) ||
                     // Shop -> all
                     (!discount.is_admin_voucher &&
                         discount.is_apply_all_product &&
-                        product.product_shop.toString() === discount.discount_shop.toString()) ||
+                        sku.product_shop.toString() === discount.discount_shop.toString()) ||
                     // Shop -> specific
                     (!discount.is_admin_voucher &&
                         !discount.is_apply_all_product &&
-                        product.product_shop.toString() === discount.discount_shop.toString() &&
-                        discountProducts.includes(product._id.toString()))
+                        sku.product_shop.toString() === discount.discount_shop.toString() &&
+                        discountProducts.includes(sku._id.toString()))
                 ) {
                     totalProductPriceToDiscount += priceRaw;
                 }
@@ -285,7 +334,7 @@ export default class DiscountService {
         const {
             discount_shop,
             discount_code,
-            discount_products,
+            discount_skus: discount_products,
             discount_start_at,
             discount_end_at
         } = payload;

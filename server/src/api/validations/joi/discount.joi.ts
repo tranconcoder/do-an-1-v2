@@ -84,7 +84,7 @@ export const getAllProductDiscountByCodeQuerySchema =
 /* ------------------------- Params ------------------------- */
 export const getAllProductDiscountByCodeParamsSchema =
     Joi.object<joiTypes.discount.GetAllProductDiscountByCodeParams>({
-        discountId: mongooseId
+        code: mongooseId
     });
 
 /* ---------------------------------------------------------- */

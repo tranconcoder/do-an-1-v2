@@ -1,4 +1,5 @@
 import skuModel from '@/models/sku.model.js';
+import { SPU_COLLECTION_NAME, SPU_MODEL_NAME } from '@/models/spu.model.js';
 import {
     generateFindAll,
     generateFindAllPageSplit,
@@ -6,6 +7,7 @@ import {
     generateFindOne,
     generateFindOneAndUpdate
 } from '@/utils/mongoose.util.js';
+import mongoose from 'mongoose';
 
 /* ---------------------------------------------------------- */
 /*                          Find one                          */
@@ -37,6 +39,40 @@ export const findMaxPriceSKU = async (spuId: string) => {
     }).then((x) => x?.sku_price || null);
 };
 
+/* --------------- Check SKU list is available -------------- */
+export const checkSKUListIsAvailable = async (payload: repo.sku.CheckSKUListAvailable) => {
+    const { skuList } = payload;
+
+    const result = await skuModel.aggregate([
+        {
+            $match: {
+                sku_id: { $in: skuList.map((id) => new mongoose.Types.ObjectId(id)) },
+                is_deleted: false
+            }
+        },
+        {
+            $lookup: {
+                from: SPU_COLLECTION_NAME,
+                localField: 'sku_product',
+                foreignField: '_id',
+                as: 'product'
+            }
+        },
+        {
+            $match: {
+                'product.is_deleted': { $ne: true },
+                'product.is_publish': true,
+                'product.is_draft': false
+            }
+        },
+        {
+            $unwind: 'product'
+        }
+    ]);
+
+    return result.length === skuList.length;
+};
+
 /* ---------------------------------------------------------- */
 /*                            Find                            */
 /* ---------------------------------------------------------- */
@@ -52,6 +88,7 @@ export const findSKUOfSPU = async (payload: repo.sku.GetSKUOfSKU) => {
         options: { lean: true }
     });
 };
+
 
 /* ---------------------------------------------------------- */
 /*                           Update                           */

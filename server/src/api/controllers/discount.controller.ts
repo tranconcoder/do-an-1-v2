@@ -18,7 +18,7 @@ export default class DiscountController {
             message: 'Discount created successfully',
             metadata: await DiscountService.createDiscount({
                 ...req.body,
-                userId: req.userId as string
+                shopId: req.userId as string
             })
         }).send(res);
     };
@@ -55,7 +55,7 @@ export default class DiscountController {
         new OkResponse({
             message: 'Get all product discount by code successfully',
             metadata: await DiscountService.getAllProductDiscountByCode({
-                discountId: req.params.discountId,
+                code: req.params.code,
                 limit: req.query.limit,
                 page: req.query.page
             })

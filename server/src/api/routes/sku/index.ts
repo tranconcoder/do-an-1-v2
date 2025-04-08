@@ -11,6 +11,14 @@ import { Router } from 'express';
 const skuRouter = Router();
 const skuRouterValidate = Router();
 
+/* ---------------------- Get SKU by id --------------------- */
+skuRouter.get(
+    '/:skuId',
+    validateRequestParams(paramsId('skuId')),
+    catchError(skuController.getSKUById)
+);
+
+/* ----------------- Get all SKU shop by all ---------------- */
 skuRouter.get(
     '/shop/:shopId',
     validateRequestParams(paramsId('shopId')),
@@ -18,11 +26,9 @@ skuRouter.get(
     catchError(skuController.getAllSKUShopByAll)
 );
 
-skuRouter.get(
-    '/:skuId',
-    validateRequestParams(paramsId('skuId')),
-    catchError(skuController.getSKUById)
-);
+/* ------------------- Get all SKU by all ------------------- */
+skuRouter.get('/', validateRequestQuery(pageSplitting), catchError(skuController.getAllSKUByAll));
+
 
 /* ---------------------------------------------------------- */
 /*                          Validate                          */

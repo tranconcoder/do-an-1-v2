@@ -26,7 +26,7 @@ export const findOneRole = generateFindOne<model.rbac.RoleSchema>(roleModel);
 export const findRoles = generateFindAll<model.rbac.RoleSchema>(roleModel);
 
 /* -------------------- Get user role id -------------------- */
-export const getUserRoleIdByName = async (name: RoleNames) => {
+export const getRoleIdByName = async (name: RoleNames) => {
     const role = await findOneRole({
         query: { role_name: name }
     }).lean();

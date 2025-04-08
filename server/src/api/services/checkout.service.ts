@@ -102,7 +102,7 @@ export default new (class CheckoutService {
                         discountAdmin &&
                         discountAdmin.is_available &&
                         (discountAdmin.is_apply_all_product ||
-                            discountAdmin?.discount_products
+                            discountAdmin?.discount_skus
                                 ?.map((x) => x.toString())
                                 ?.includes(product.sku.toString()))
                     ) {

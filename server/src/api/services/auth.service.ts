@@ -23,7 +23,7 @@ import locationService from './location.service.js';
 // Models
 import { findOneShop, isExistsShop } from '@/models/repository/shop/index.js';
 import shopModel from '@/models/shop.model.js';
-import { getUserRoleIdByName } from '@/models/repository/rbac/index.js';
+import { getRoleIdByName } from '@/models/repository/rbac/index.js';
 import { findOneAndUpdateUser, findOneUser, findUserById } from '@/models/repository/user/index.js';
 import { RoleNames } from '@/enums/rbac.enum.js';
 import { deleteKeyToken } from './redis.service.js';
@@ -67,7 +67,7 @@ export default class AuthService {
             user_email,
             user_avatar: '',
             user_fullName,
-            user_role: await getUserRoleIdByName(userRole),
+            user_role: await getRoleIdByName(userRole),
             user_sex: false
         });
         if (!userInstance) throw new ForbiddenErrorResponse({ message: 'Create user failed!' });
@@ -178,7 +178,7 @@ export default class AuthService {
         /* -------------------- Update user role -------------------- */
         const user = await findOneAndUpdateUser({
             query: { _id: payload.shop_userId },
-            update: { user_role: await getUserRoleIdByName(RoleNames.SHOP) },
+            update: { user_role: await getRoleIdByName(RoleNames.SHOP) },
             options: { new: true }
         });
         if (!user)

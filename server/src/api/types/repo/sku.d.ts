@@ -6,6 +6,10 @@ declare global {
             interface  GetSKUOfSKU {
                 spuId: string;
             }
+
+            interface CheckSKUListAvailable {
+                skuList: string[];
+            }
         }
     }
 }

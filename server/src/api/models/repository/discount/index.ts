@@ -3,6 +3,7 @@ import discountModel from '@/models/discount.model.js';
 import {
     convertToMongooseId,
     generateFindAllPageSplit,
+    generateFindById,
     generateFindOne,
     generateFindOneAndUpdate,
     generateUpdateAll
@@ -48,12 +49,7 @@ export const findOneAndUpdateDiscount =
 export const findOneDiscount = generateFindOne<model.discount.DiscountSchema>(discountModel);
 
 /* ------------------ Find discount by id ------------------ */
-export const findDiscountById = async (
-    discountId: string,
-    projection: ProjectionType<model.discount.DiscountSchema> = {}
-) => {
-    return await discountModel.findById(discountId, projection).lean();
-};
+export const findDiscountById = generateFindById<model.discount.DiscountSchema>(discountModel);
 
 /* ----------------- Find discount by code  ----------------- */
 export const findDiscountByCode = async (discountCode: string) => {

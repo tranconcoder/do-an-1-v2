@@ -6,6 +6,7 @@ import {
     findRoleById,
     findRoles
 } from '@/models/repository/rbac/index.js';
+import { findUserById } from '@/models/repository/user/index.js';
 
 class RBACService {
     public static instance: RBACService;
@@ -205,6 +206,25 @@ class RoleService {
             role_name: roleName,
             role_data: await roleHandleGetDataStrategy[roleName](userId)
         };
+    }
+
+    async userIdAdmin(userId: string) {
+        const user = await findUserById({
+            id: userId,
+            only: ['user_role'],
+            options: { lean: true }
+        });
+        if (!user) return false;
+
+        const role = await findRoleById({
+            id: user.user_role,
+            options: { lean: true }
+        });
+        if (!role) return false;
+        if (role.role_name === RoleNames.SUPER_ADMIN) return true;
+        if (role.role_name === RoleNames.ADMIN) return true;
+
+        return false;
     }
 }
 

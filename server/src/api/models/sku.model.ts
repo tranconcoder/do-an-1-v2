@@ -8,7 +8,7 @@ export const SKU_COLLECTION_NAME = 'skus';
 
 export const skuSchema = new Schema<model.sku.SKU>(
     {
-        sku_product: { type: ObjectId, ref: SPU_MODEL_NAME, required: true },
+        sku_product: { type: ObjectId, ref: SPU_MODEL_NAME, index: true },
         sku_price: { type: Number, required: true },
         sku_stock: { type: Number, required: true },
 

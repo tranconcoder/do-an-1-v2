@@ -15,7 +15,7 @@ declare global {
                         model.discount.DiscountSchema,
                         'is_admin_voucher' | 'discount_shop' | '_id'
                     > {
-                    userId: string;
+                    shopId: string;
                 }
 
                 /* ---------------------------------------------------------- */
@@ -39,16 +39,16 @@ declare global {
 
                 /* ------------ Get all product discount by code ------------ */
                 interface GetAllProductDiscountByCode extends commonTypes.object.PageSlitting {
-                    discountId: string;
+                    code: string;
                 }
 
                 /* ------------------ Get discount amount  ------------------ */
                 interface GetDiscountAmount {
                     discountCode: string;
-                    products: {
+                    products: Array<{
                         id: string;
                         quantity: number;
-                    }[];
+                    }>;
                 }
 
                 /* ---------------------------------------------------------- */

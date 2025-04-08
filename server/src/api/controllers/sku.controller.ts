@@ -26,4 +26,17 @@ export default new (class SKUController {
             })
         }).send(res);
     };
+
+    /* ---------------------------------------------------------- */
+    /*                     Get all SKU by all                     */
+    /* ---------------------------------------------------------- */
+    getAllSKUByAll: RequestWithQuery<commonTypes.object.PageSlitting> = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get all sku by all successfully!',
+            metadata: await skuService.getAllSKUByAll({
+                page: req.query.page,
+                limit: req.query.limit
+            })
+        }).send(res);
+    };
 })();
