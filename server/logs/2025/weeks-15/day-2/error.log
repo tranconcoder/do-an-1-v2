@@ -187,3 +187,27 @@
 [2025-04-08T12:45:23.833Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
 [2025-04-08T12:45:24.335Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
 [2025-04-08T12:45:24.837Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-08T13:31:48.580Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T13:31:48.588Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T13:32:00.218Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T13:32:00.222Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T13:32:00.226Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T13:32:00.231Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T13:49:54.447Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T13:49:54.547Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-04-08T13:53:42.376Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T13:53:42.381Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T13:53:42.385Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T13:53:42.391Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:28:55.711Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:28:55.718Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:28:55.722Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:28:55.726Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:28:57.886Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:28:57.889Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:28:57.897Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:28:57.903Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:28:59.573Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:28:59.580Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:28:59.591Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:28:59.595Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::

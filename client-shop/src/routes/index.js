@@ -26,6 +26,7 @@ import AdminGuard from '../components/AdminGuard';
 // Constants
 import { ShopStatus } from '../constants/shop.enum';
 import OrderManager from '../pages/OrderManager';
+import DiscountManager from '../pages/DiscountManager';
 
 const AppRoutes = () => {
     const dispatch = useDispatch();
@@ -88,8 +89,8 @@ const AppRoutes = () => {
                     <Route path="products" element={<ProductManager />} />
                     <Route path="products/new" element={<NewProduct />} />
                     <Route path="warehouse" element={<WarehouseManager />} />
+                    <Route path="discount" element={<DiscountManager />} />
                     <Route path="orders" element={<OrderManager />} />
-                    <Route path="discount" element={<h1>Shkp Discounts</h1>} />
                     <Route path="customers" element={<h1>Shop Customers</h1>} />
                     <Route path="settings" element={<h1>Shop Settings</h1>} />
                 </Route>
