@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './DiscountManager.module.scss';
 import axiosClient from '../../configs/axios';
 import { API_URL } from '../../configs/env.config';
+import ProductSelection from './components/ProductSelection';
 
 const cx = classNames.bind(styles);
 
@@ -23,46 +24,60 @@ function DiscountManager() {
         discount_min_order_cost: '',
         discount_start_at: '',
         discount_end_at: '',
+        discount_skus: [],
         is_publish: true,
-        is_apply_all_product: false,
-        discount_skus: []
+        is_apply_all_product: false
     });
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
-        setFormData(prev => ({
+        setFormData((prev) => ({
             ...prev,
-            [name]: type === 'checkbox' ? checked : value
+            [name]: type === 'checkbox' ? checked : value,
+            // Nếu chọn áp dụng tất cả sản phẩm, reset danh sách SKUs đã chọn
+            ...(name === 'is_apply_all_product' && checked ? { discount_skus: [] } : {})
+        }));
+    };
+
+    const handleSelectedSkusChange = (selectedSkus) => {
+        setFormData((prev) => ({
+            ...prev,
+            discount_skus: selectedSkus,
+            // Nếu đang chọn sản phẩm cụ thể, tắt option áp dụng tất cả
+            is_apply_all_product: false
         }));
     };
 
     const validateForm = () => {
         const newErrors = {};
-        
+
         if (!formData.discount_name.trim()) {
-            newErrors.discount_name = 'Discount name is required';
+            newErrors.discount_name = 'Vui lòng nhập tên mã giảm giá';
         }
 
         if (!formData.discount_code.trim()) {
-            newErrors.discount_code = 'Discount code is required';
+            newErrors.discount_code = 'Vui lòng nhập mã giảm giá';
         } else if (formData.discount_code.length < 6 || formData.discount_code.length > 10) {
-            newErrors.discount_code = 'Code must be between 6 and 10 characters';
+            newErrors.discount_code = 'Mã giảm giá phải từ 6 đến 10 ký tự';
         }
 
         if (!formData.discount_value) {
-            newErrors.discount_value = 'Discount value is required';
-        } else if (formData.discount_type === 'percentage' && (formData.discount_value < 0 || formData.discount_value > 100)) {
-            newErrors.discount_value = 'Percentage must be between 0 and 100';
+            newErrors.discount_value = 'Vui lòng nhập giá trị giảm';
+        } else if (
+            formData.discount_type === 'percentage' &&
+            (formData.discount_value < 0 || formData.discount_value > 100)
+        ) {
+            newErrors.discount_value = 'Phần trăm giảm giá phải từ 0 đến 100';
         }
 
         if (!formData.discount_start_at) {
-            newErrors.discount_start_at = 'Start date is required';
+            newErrors.discount_start_at = 'Vui lòng chọn thời gian bắt đầu';
         }
 
         if (!formData.discount_end_at) {
-            newErrors.discount_end_at = 'End date is required';
+            newErrors.discount_end_at = 'Vui lòng chọn thời gian kết thúc';
         } else if (new Date(formData.discount_start_at) >= new Date(formData.discount_end_at)) {
-            newErrors.discount_end_at = 'End date must be after start date';
+            newErrors.discount_end_at = 'Thời gian kết thúc phải sau thời gian bắt đầu';
         }
 
         setErrors(newErrors);
@@ -71,7 +86,7 @@ function DiscountManager() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!validateForm()) {
             return;
         }
@@ -83,10 +98,18 @@ function DiscountManager() {
                 ...formData,
                 discount_code: formData.discount_code.toUpperCase(),
                 discount_value: Number(formData.discount_value),
-                discount_count: formData.discount_count ? Number(formData.discount_count) : undefined,
-                discount_max_value: formData.discount_max_value ? Number(formData.discount_max_value) : undefined,
-                discount_user_max_use: formData.discount_user_max_use ? Number(formData.discount_user_max_use) : undefined,
-                discount_min_order_cost: formData.discount_min_order_cost ? Number(formData.discount_min_order_cost) : undefined
+                discount_count: formData.discount_count
+                    ? Number(formData.discount_count)
+                    : undefined,
+                discount_max_value: formData.discount_max_value
+                    ? Number(formData.discount_max_value)
+                    : undefined,
+                discount_user_max_use: formData.discount_user_max_use
+                    ? Number(formData.discount_user_max_use)
+                    : undefined,
+                discount_min_order_cost: formData.discount_min_order_cost
+                    ? Number(formData.discount_min_order_cost)
+                    : undefined
             };
 
             const response = await axiosClient.post(`${API_URL}/discount/create`, discountData);
@@ -106,16 +129,16 @@ function DiscountManager() {
     return (
         <div className={cx('discount-manager')}>
             <div className={cx('header')}>
-                <h1>Create New Discount</h1>
+                <h1>Tạo Mã Giảm Giá Mới</h1>
             </div>
 
             <form onSubmit={handleSubmit} className={cx('discount-form')}>
                 <div className={cx('form-section')}>
-                    <h2>Basic Information</h2>
-                    
+                    <h2>Thông tin cơ bản</h2>
+
                     <div className={cx('form-group', { invalid: errors.discount_name })}>
                         <label>
-                            Discount Name
+                            Tên mã giảm giá
                             <span className={cx('required')}>*</span>
                         </label>
                         <input
@@ -123,7 +146,7 @@ function DiscountManager() {
                             name="discount_name"
                             value={formData.discount_name}
                             onChange={handleInputChange}
-                            placeholder="Enter discount name"
+                            placeholder="Nhập tên mã giảm giá"
                         />
                         {errors.discount_name && (
                             <div className={cx('error-message')}>{errors.discount_name}</div>
@@ -131,18 +154,18 @@ function DiscountManager() {
                     </div>
 
                     <div className={cx('form-group')}>
-                        <label>Description</label>
+                        <label>Mô tả</label>
                         <textarea
                             name="discount_description"
                             value={formData.discount_description}
                             onChange={handleInputChange}
-                            placeholder="Enter discount description"
+                            placeholder="Nhập mô tả mã giảm giá"
                         />
                     </div>
 
                     <div className={cx('form-group', { invalid: errors.discount_code })}>
                         <label>
-                            Discount Code
+                            Mã giảm giá
                             <span className={cx('required')}>*</span>
                         </label>
                         <input
@@ -150,7 +173,7 @@ function DiscountManager() {
                             name="discount_code"
                             value={formData.discount_code}
                             onChange={handleInputChange}
-                            placeholder="Enter discount code (6-10 characters)"
+                            placeholder="Nhập mã giảm giá (6-10 ký tự)"
                             style={{ textTransform: 'uppercase' }}
                         />
                         {errors.discount_code && (
@@ -160,12 +183,12 @@ function DiscountManager() {
                 </div>
 
                 <div className={cx('form-section')}>
-                    <h2>Discount Settings</h2>
-                    
+                    <h2>Thiết lập giảm giá</h2>
+
                     <div className={cx('form-row')}>
                         <div className={cx('form-group')}>
                             <label>
-                                Discount Type
+                                Loại giảm giá
                                 <span className={cx('required')}>*</span>
                             </label>
                             <select
@@ -173,14 +196,14 @@ function DiscountManager() {
                                 value={formData.discount_type}
                                 onChange={handleInputChange}
                             >
-                                <option value="percentage">Percentage</option>
-                                <option value="fixed">Fixed Amount</option>
+                                <option value="percentage">Theo phần trăm</option>
+                                <option value="fixed">Số tiền cố định</option>
                             </select>
                         </div>
 
                         <div className={cx('form-group', { invalid: errors.discount_value })}>
                             <label>
-                                Discount Value
+                                Giá trị giảm
                                 <span className={cx('required')}>*</span>
                             </label>
                             <input
@@ -188,9 +211,13 @@ function DiscountManager() {
                                 name="discount_value"
                                 value={formData.discount_value}
                                 onChange={handleInputChange}
-                                placeholder={formData.discount_type === 'percentage' ? 'Enter percentage (0-100)' : 'Enter amount'}
+                                placeholder={
+                                    formData.discount_type === 'percentage'
+                                        ? 'Nhập phần trăm (0-100)'
+                                        : 'Nhập số tiền'
+                                }
                                 min="0"
-                                max={formData.discount_type === 'percentage' ? "100" : ""}
+                                max={formData.discount_type === 'percentage' ? '100' : ''}
                             />
                             {errors.discount_value && (
                                 <div className={cx('error-message')}>{errors.discount_value}</div>
@@ -200,25 +227,25 @@ function DiscountManager() {
 
                     <div className={cx('form-row')}>
                         <div className={cx('form-group')}>
-                            <label>Maximum Discount Amount</label>
+                            <label>Giảm tối đa</label>
                             <input
                                 type="number"
                                 name="discount_max_value"
                                 value={formData.discount_max_value}
                                 onChange={handleInputChange}
-                                placeholder="Maximum discount amount (optional)"
+                                placeholder="Số tiền giảm tối đa (không bắt buộc)"
                                 min="0"
                             />
                         </div>
 
                         <div className={cx('form-group')}>
-                            <label>Minimum Order Amount</label>
+                            <label>Đơn hàng tối thiểu</label>
                             <input
                                 type="number"
                                 name="discount_min_order_cost"
                                 value={formData.discount_min_order_cost}
                                 onChange={handleInputChange}
-                                placeholder="Minimum order amount (optional)"
+                                placeholder="Giá trị đơn hàng tối thiểu (không bắt buộc)"
                                 min="0"
                             />
                         </div>
@@ -226,29 +253,29 @@ function DiscountManager() {
                 </div>
 
                 <div className={cx('form-section')}>
-                    <h2>Usage Limits</h2>
-                    
+                    <h2>Giới hạn sử dụng</h2>
+
                     <div className={cx('form-row')}>
                         <div className={cx('form-group')}>
-                            <label>Total Usage Limit</label>
+                            <label>Tổng số lượng mã</label>
                             <input
                                 type="number"
                                 name="discount_count"
                                 value={formData.discount_count}
                                 onChange={handleInputChange}
-                                placeholder="Total number of times this discount can be used"
+                                placeholder="Tổng số lần mã có thể sử dụng"
                                 min="0"
                             />
                         </div>
 
                         <div className={cx('form-group')}>
-                            <label>Per User Limit</label>
+                            <label>Giới hạn mỗi người dùng</label>
                             <input
                                 type="number"
                                 name="discount_user_max_use"
                                 value={formData.discount_user_max_use}
                                 onChange={handleInputChange}
-                                placeholder="Maximum uses per user"
+                                placeholder="Số lần sử dụng tối đa cho mỗi người"
                                 min="0"
                             />
                         </div>
@@ -256,12 +283,12 @@ function DiscountManager() {
                 </div>
 
                 <div className={cx('form-section')}>
-                    <h2>Time Range</h2>
-                    
+                    <h2>Thời gian áp dụng</h2>
+
                     <div className={cx('form-row')}>
                         <div className={cx('form-group', { invalid: errors.discount_start_at })}>
                             <label>
-                                Start Date
+                                Thời gian bắt đầu
                                 <span className={cx('required')}>*</span>
                             </label>
                             <input
@@ -271,13 +298,15 @@ function DiscountManager() {
                                 onChange={handleInputChange}
                             />
                             {errors.discount_start_at && (
-                                <div className={cx('error-message')}>{errors.discount_start_at}</div>
+                                <div className={cx('error-message')}>
+                                    {errors.discount_start_at}
+                                </div>
                             )}
                         </div>
 
                         <div className={cx('form-group', { invalid: errors.discount_end_at })}>
                             <label>
-                                End Date
+                                Thời gian kết thúc
                                 <span className={cx('required')}>*</span>
                             </label>
                             <input
@@ -294,8 +323,16 @@ function DiscountManager() {
                 </div>
 
                 <div className={cx('form-section')}>
-                    <h2>Additional Settings</h2>
-                    
+                    <h2>Chọn sản phẩm áp dụng</h2>
+                    <ProductSelection
+                        selectedSkus={formData.discount_skus}
+                        onSelectedSkusChange={handleSelectedSkusChange}
+                    />
+                </div>
+
+                <div className={cx('form-section')}>
+                    <h2>Cài đặt thêm</h2>
+
                     <div className={cx('checkbox-group')}>
                         <input
                             type="checkbox"
@@ -304,9 +341,7 @@ function DiscountManager() {
                             checked={formData.is_apply_all_product}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="is_apply_all_product">
-                            Apply to all products
-                        </label>
+                        <label htmlFor="is_apply_all_product">Áp dụng cho tất cả sản phẩm</label>
                     </div>
 
                     <div className={cx('checkbox-group')}>
@@ -317,9 +352,7 @@ function DiscountManager() {
                             checked={formData.is_publish}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="is_publish">
-                            Publish discount immediately
-                        </label>
+                        <label htmlFor="is_publish">Xuất bản ngay lập tức</label>
                     </div>
                 </div>
 
@@ -329,20 +362,20 @@ function DiscountManager() {
                             type="button"
                             className={cx('draft-btn')}
                             onClick={() => {
-                                setFormData(prev => ({ ...prev, is_publish: false }));
+                                setFormData((prev) => ({ ...prev, is_publish: false }));
                                 document.querySelector('form').requestSubmit();
                             }}
                             disabled={loading}
                         >
-                            Save as Draft
+                            Lưu nháp
                         </button>
                         <button
                             type="submit"
                             className={cx('submit-btn')}
-                            onClick={() => setFormData(prev => ({ ...prev, is_publish: true }))}
+                            onClick={() => setFormData((prev) => ({ ...prev, is_publish: true }))}
                             disabled={loading}
                         >
-                            {loading ? 'Creating...' : 'Create Discount'}
+                            {loading ? 'Đang tạo...' : 'Tạo mã giảm giá'}
                         </button>
                     </div>
                 </div>

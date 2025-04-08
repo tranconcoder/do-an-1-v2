@@ -3,7 +3,8 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Spin } from 'antd';
 import { ShopStatus } from '../constants/shop.enum';
-import { selectShopInfo, logout } from '../store/userSlice';
+import { logoutUser as logout } from '../store/userSlice';
+import { selectShopInfo } from '../store/slices/shopSlice';
 
 /**
  * A guard component that controls access based on shop registration status
@@ -12,7 +13,7 @@ import { selectShopInfo, logout } from '../store/userSlice';
  * @param {string} props.requiredStatus - The required shop status for accessing this route
  * @param {string} props.redirectTo - Where to redirect if status doesn't match
  */
-const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/pending-approval' }) => {
+const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/' }) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const shopInfo = useSelector(selectShopInfo);
@@ -58,10 +59,7 @@ const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/pending-appr
             dispatch(logout());
             return <Navigate to="/login" state={{ from: location }} replace />;
         }
-        // If shop is banned/rejected, redirect to a rejected page
-        if (shopStatus === ShopStatus.BANNED || shopStatus === ShopStatus.REJECTED) {
-            return <Navigate to="/shop-rejected" state={{ from: location }} replace />;
-        }
+
         // For any other mismatch, use the provided redirect
         return <Navigate to={redirectTo} state={{ from: location }} replace />;
     }

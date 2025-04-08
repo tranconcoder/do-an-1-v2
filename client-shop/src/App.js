@@ -4,12 +4,11 @@ import AppRoutes from './routes';
 import { ToastProvider } from './contexts/ToastContext';
 import { API_URL } from './configs/env.config';
 import { fetchWarehouses } from './store/slices/warehouseSlice';
-import { selectIsAuthenticated, selectShopInfo } from './store/userSlice';
+import { selectIsAuthenticated, fetchUserProfile } from './store/userSlice';
 
 function App() {
     const dispatch = useDispatch();
     const isAuthenticated = useSelector(selectIsAuthenticated);
-    const shopInfo = useSelector(selectShopInfo);
 
     useEffect(() => {
         // Debug environment variables
@@ -18,12 +17,19 @@ function App() {
         console.log('From config:', API_URL);
     }, []);
 
-    // Fetch warehouses khi ứng dụng khởi động và người dùng đã đăng nhập
+    // Fetch user profile khi reload trang và đã authenticated
     useEffect(() => {
-        if (isAuthenticated && shopInfo) {
+        if (isAuthenticated) {
+            dispatch(fetchUserProfile());
+        }
+    }, [dispatch, isAuthenticated]);
+
+    // Fetch warehouses sau khi đã authenticated
+    useEffect(() => {
+        if (isAuthenticated) {
             dispatch(fetchWarehouses());
         }
-    }, [dispatch, isAuthenticated, shopInfo]);
+    }, [dispatch, isAuthenticated]);
 
     return (
         <ToastProvider>

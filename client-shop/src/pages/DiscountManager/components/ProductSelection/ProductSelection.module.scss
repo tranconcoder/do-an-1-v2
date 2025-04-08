@@ -1,0 +1,125 @@
+.product-selection {
+    margin-top: 1rem;
+
+    .product-list {
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid #dfe6e9;
+        border-radius: 8px;
+        background-color: #fff;
+        margin-top: 0.5rem;
+
+        .product-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border-bottom: 1px solid #f0f4f8;
+            
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                background-color: #f8fafc;
+            }
+
+            .checkbox-wrapper {
+                padding-top: 0.25rem;
+                margin-right: 1rem;
+
+                input[type="checkbox"] {
+                    width: 18px;
+                    height: 18px;
+                    cursor: pointer;
+                }
+            }
+
+            .product-info {
+                flex: 1;
+
+                .product-name {
+                    font-weight: 600;
+                    color: #2d3436;
+                    margin-bottom: 0.5rem;
+                }
+
+                .product-variant {
+                    font-size: 0.9rem;
+                    color: #636e72;
+                    margin-bottom: 0.25rem;
+
+                    span {
+                        margin-right: 0.5rem;
+                        
+                        &:after {
+                            content: "•";
+                            margin-left: 0.5rem;
+                            color: #b2bec3;
+                        }
+
+                        &:last-child:after {
+                            content: none;
+                        }
+                    }
+                }
+
+                .product-price {
+                    font-size: 0.9rem;
+                    color: #2d3436;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+
+    .select-all {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem;
+        background-color: #f8fafc;
+        border: 1px solid #dfe6e9;
+        border-bottom: none;
+        border-radius: 8px 8px 0 0;
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 0.75rem;
+            cursor: pointer;
+        }
+
+        label {
+            font-weight: 600;
+            color: #2d3436;
+            cursor: pointer;
+        }
+    }
+
+    .search-box {
+        margin-bottom: 1rem;
+        position: relative;
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            padding-left: 2.5rem;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 0.95rem;
+
+            &:focus {
+                outline: none;
+                border-color: #3498db;
+                box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+            }
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #b2bec3;
+        }
+    }
+}

@@ -97,16 +97,6 @@ const AppRoutes = () => {
                     <Route path="settings" element={<h1>Shop Settings</h1>} />
                 </Route>
 
-                {/* Route for pending approval status */}
-                <Route
-                    path="/pending-approval"
-                    element={
-                        <ProtectedRoute>
-                            <div>Your shop registration is pending approval</div>
-                        </ProtectedRoute>
-                    }
-                />
-
                 {/* Route for rejected shops */}
                 <Route
                     path="/shop-rejected"

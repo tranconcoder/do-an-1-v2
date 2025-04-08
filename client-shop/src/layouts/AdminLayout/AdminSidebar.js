@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../store/userSlice';
+import { logoutUser as logout } from '../../store/userSlice';
 import { FaClipboardList, FaHome, FaUsersCog, FaSignOutAlt, FaStoreAlt } from 'react-icons/fa';
 import classNames from 'classnames/bind';
 import styles from './AdminSidebar.module.scss';

@@ -215,3 +215,146 @@
 [2025-04-08T15:38:36.698Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-04-08T15:38:36.727Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-04-08T15:38:36.735Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T15:58:39.095Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:58:39.103Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:58:39.156Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:58:39.165Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:58:39.183Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:58:39.186Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:59:04.361Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:59:04.391Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:59:04.418Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:59:04.425Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:59:12.980Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:59:13.288Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T15:59:49.761Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:59:49.765Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:59:49.777Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T15:59:49.781Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:00:21.759Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:00:21.792Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:00:21.817Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:00:21.821Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:00:31.333Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:00:31.338Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:00:31.351Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:00:31.355Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:01:36.875Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:01:36.879Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:04:50.930Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:04:50.935Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:04:50.969Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:04:50.974Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:05:29.254Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-04-08T16:19:00.963Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:19:00.965Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:19:00.971Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:19:00.974Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:19:00.981Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:19:00.988Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:20:16.318Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:20:16.322Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:20:16.328Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:20:16.329Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:20:16.336Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:20:16.342Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:20:58.036Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:20:58.049Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:20:58.061Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:20:58.073Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:20:58.081Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:20:58.091Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:21:59.238Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:21:59.240Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:21:59.247Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:21:59.249Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:21:59.257Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:21:59.264Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:00.326Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:00.327Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:00.337Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:00.338Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:00.346Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:00.357Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:32.238Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:32.244Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:32.246Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:32.253Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:32.260Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:32.279Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:34.220Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:34.221Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:34.229Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:34.230Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:34.238Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:34.248Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:37.861Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:37.863Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:37.872Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:37.875Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:37.881Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:22:37.890Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:28:03.664Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:28:03.668Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:28:03.676Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:28:03.679Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:28:03.694Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:28:03.707Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:29:12.312Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:29:12.315Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:29:12.316Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:29:12.317Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:29:12.350Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:29:12.351Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-08T16:31:40.742Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:31:40.748Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:31:40.753Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:31:40.759Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:31:42.754Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:31:42.760Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:31:42.770Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:31:42.777Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:38:25.645Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:38:25.649Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:38:25.654Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:38:25.661Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:40:31.030Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:40:31.033Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:40:31.036Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:40:31.039Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:45:17.051Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:45:17.066Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:45:19.906Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:45:19.918Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:45:23.520Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:45:23.528Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:45:28.799Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:45:28.807Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:52:37.423Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:52:37.432Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:52:38.367Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:52:38.370Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-08T16:54:06.255Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:54:06.264Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:54:15.340Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:54:15.348Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:54:59.723Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:54:59.734Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:55:16.325Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:55:16.334Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:55:54.318Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:55:54.321Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:55:54.325Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:55:54.329Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:56:03.548Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:56:03.557Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:56:03.563Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:56:03.569Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:56:09.196Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:56:09.201Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:56:09.205Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:56:09.210Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T16:58:59.324Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:58:59.334Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T16:59:27.343Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Black friday khuyến mãi 50%!!!::
+[2025-04-08T16:59:30.445Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Black friday khuyến mãi 50%!!!::

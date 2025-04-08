@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './ShopSidebar.module.scss';
-import { selectShopInfo } from '../../store/userSlice';
+import { selectShopInfo } from '../../store/slices/shopSlice';
 import { getMediaUrl, getTextPlaceholder } from '../../utils/media';
 // Import icons
 import {
@@ -44,7 +44,7 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
             text: 'Đơn Hàng'
         },
         {
-            path: '/discount',
+            path: '/discounts',
             icon: <MdDiscount className={cx('nav-icon')} />,
             text: 'Khuyến Mãi'
         },

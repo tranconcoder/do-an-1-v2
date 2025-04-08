@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Dashboard.module.scss';
-import { selectCurrentUser, selectShopInfo } from '../../store/userSlice';
+import { selectCurrentUser } from '../../store/userSlice';
+import { selectShopInfo } from '../../store/slices/shopSlice';
 import { getMediaUrl, getTextPlaceholder } from '../../utils/media';
 
 const cx = classNames.bind(styles);

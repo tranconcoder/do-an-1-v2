@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectShopInfo } from '../../../../store/userSlice';
+import { selectShopInfo } from '../../../../store/slices/shopSlice';
 import { fetchWarehouses } from '../../../../store/slices/warehouseSlice';
 import classNames from 'classnames/bind';
 import styles from './SKUManagement.module.scss';

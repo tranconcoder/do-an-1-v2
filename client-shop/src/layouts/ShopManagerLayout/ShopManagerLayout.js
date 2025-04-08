@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import ShopSidebar from '../../components/ShopSidebar';
 import styles from './ShopManagerLayout.module.scss';
-import { logout, selectUserFullName, selectShopInfo } from '../../store/userSlice';
+import { logoutUser as logout, selectUserFullName } from '../../store/userSlice';
+import { selectShopInfo } from '../../store/slices/shopSlice';
 
 const cx = classNames.bind(styles);
 
