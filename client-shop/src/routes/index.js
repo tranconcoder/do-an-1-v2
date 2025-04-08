@@ -18,6 +18,9 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import AdminShopRegistrations from '../pages/AdminShopRegistrations';
 import AdminShopRegistrationDetail from '../pages/AdminShopRegistrationDetail';
+import OrderManager from '../pages/OrderManager';
+import DiscountManager from '../pages/DiscountManager';
+import DiscountList from '../pages/DiscountList';
 
 // Guards
 import ShopStatusGuard from '../components/ShopStatusGuard';
@@ -25,8 +28,6 @@ import AdminGuard from '../components/AdminGuard';
 
 // Constants
 import { ShopStatus } from '../constants/shop.enum';
-import OrderManager from '../pages/OrderManager';
-import DiscountManager from '../pages/DiscountManager';
 
 const AppRoutes = () => {
     const dispatch = useDispatch();
@@ -89,8 +90,9 @@ const AppRoutes = () => {
                     <Route path="products" element={<ProductManager />} />
                     <Route path="products/new" element={<NewProduct />} />
                     <Route path="warehouse" element={<WarehouseManager />} />
-                    <Route path="discount" element={<DiscountManager />} />
                     <Route path="orders" element={<OrderManager />} />
+                    <Route path="discounts" element={<DiscountList />} />
+                    <Route path="discounts/new" element={<DiscountManager />} />
                     <Route path="customers" element={<h1>Shop Customers</h1>} />
                     <Route path="settings" element={<h1>Shop Settings</h1>} />
                 </Route>

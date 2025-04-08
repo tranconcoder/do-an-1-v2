@@ -211,3 +211,7 @@
 [2025-04-08T15:28:59.580Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
 [2025-04-08T15:28:59.591Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
 [2025-04-08T15:28:59.595Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-08T15:38:36.666Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T15:38:36.698Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T15:38:36.727Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-08T15:38:36.735Z] [error]: HIDE::404::NotFound::Route is not exists::

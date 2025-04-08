@@ -1,0 +1,140 @@
+.discount-list {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1.2rem;
+        border-bottom: 1px solid #f0f4f8;
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: #2c3e50;
+            font-weight: 600;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .add-button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(to right, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+
+            &:hover {
+                background: linear-gradient(to right, #27ae60, #219653);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+    }
+
+    .discount-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        th {
+            font-weight: 600;
+            color: #2d3748;
+            background-color: #f7fafc;
+        }
+
+        tr {
+            &:hover {
+                background-color: #f8fafc;
+            }
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+
+            &.active {
+                background-color: #def7ec;
+                color: #046c4e;
+            }
+
+            &.expired {
+                background-color: #fed7d7;
+                color: #9b2c2c;
+            }
+
+            &.draft {
+                background-color: #e9ecef;
+                color: #495057;
+            }
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+
+            button {
+                padding: 0.5rem;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &.edit-btn {
+                    background-color: #ebf8ff;
+                    color: #3182ce;
+
+                    &:hover {
+                        background-color: #bee3f8;
+                    }
+                }
+
+                &.delete-btn {
+                    background-color: #fff5f5;
+                    color: #e53e3e;
+
+                    &:hover {
+                        background-color: #fed7d7;
+                    }
+                }
+            }
+        }
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: #718096;
+
+        p {
+            margin-bottom: 1rem;
+        }
+    }
+}
