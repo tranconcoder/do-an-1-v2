@@ -328,3 +328,113 @@
 [2025-04-09T03:55:47.922Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-04-09T03:55:47.932Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-04-09T03:55:47.982Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-04-09T04:00:13.015Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T04:00:13.019Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T04:00:13.025Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T04:00:13.030Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T04:02:20.460Z] [error]: HIDE::403::Token error::Token is expired or invalid!::
+[2025-04-09T04:02:20.471Z] [error]: HIDE::403::Token error::Token is expired or invalid!::
+[2025-04-09T04:02:20.521Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-04-09T04:02:28.918Z] [error]: HIDE::403::Token error::Token is expired or invalid!::
+[2025-04-09T04:02:28.928Z] [error]: HIDE::403::Token error::Token is expired or invalid!::
+[2025-04-09T04:02:28.979Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-04-09T04:02:49.400Z] [error]: HIDE::403::Token error::Token is expired or invalid!::
+[2025-04-09T04:02:49.409Z] [error]: HIDE::403::Token error::Token is expired or invalid!::
+[2025-04-09T04:02:49.466Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-04-09T04:03:36.271Z] [error]: HIDE::403::Token error::Token is expired or invalid!::
+[2025-04-09T04:03:36.283Z] [error]: HIDE::403::Token error::Token is expired or invalid!::
+[2025-04-09T04:03:36.341Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-04-09T04:10:43.740Z] [error]: HIDE::403::Token error::Token is expired or invalid!::
+[2025-04-09T04:10:43.750Z] [error]: HIDE::403::Token error::Token is expired or invalid!::
+[2025-04-09T04:10:43.803Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-04-09T04:10:43.824Z] [error]: HIDE::403::Token error::Token not found!::
+[2025-04-09T04:43:36.587Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T04:43:36.591Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T04:43:36.595Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T04:43:36.599Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:37:26.813Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:26.817Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:26.868Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:26.973Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:27.127Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:27.331Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:27.583Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:27.886Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:28.237Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:28.640Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:29.092Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:29.593Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:30.095Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:30.597Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:31.099Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:31.600Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:32.102Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:32.605Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:33.107Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:33.608Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:34.111Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:34.613Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:35.115Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:35.617Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:36.119Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:36.621Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:37.122Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:37.623Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:38.126Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:38.628Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:39.130Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:39.632Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:40.134Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:40.636Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:41.137Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:41.639Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:42.137Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:42.639Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:43.141Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:43.643Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:44.145Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:44.645Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:45.148Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:45.649Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:46.152Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:46.656Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:47.157Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:47.661Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:48.162Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:48.665Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:49.166Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:49.670Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:50.173Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:50.677Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:51.179Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:51.682Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-04-09T05:37:52.239Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-09T05:37:52.239Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-04-09T05:39:37.005Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-09T05:39:37.296Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-04-09T05:42:24.471Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:42:24.475Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:42:24.477Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:42:24.481Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:42:34.607Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-09T05:42:34.611Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-09T05:49:09.298Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:49:09.300Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:49:09.304Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:49:09.307Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:49:17.145Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-09T05:49:17.148Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-09T05:53:01.589Z] [error]: HIDE::400::ValidationError::"shopId" must only contain hexadecimal characters::
+[2025-04-09T05:53:08.702Z] [error]: HIDE::400::ValidationError::"shopId" must only contain hexadecimal characters::
+[2025-04-09T05:57:36.114Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:57:36.121Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:57:36.126Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:57:36.129Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:57:45.649Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:57:45.656Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:57:45.662Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T05:57:45.669Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T06:02:47.939Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T06:02:47.944Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T06:02:47.950Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T06:02:47.954Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::

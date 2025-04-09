@@ -24,6 +24,10 @@ declare global {
                 interface GetAllSKUShopByAll extends commonTypes.object.Pagination {
                     shopId: string;
                 }
+
+                interface GetAllOwnSKUByShop extends commonTypes.object.Pagination {
+                    userId: string;
+                }
             }
         }
     }

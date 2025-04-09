@@ -6,7 +6,8 @@ import { increaseWarehouseStock } from '@/models/repository/warehouses/index.js'
 import mongoose from 'mongoose';
 import { CATEGORY_COLLECTION_NAME } from '@/models/category.model.js';
 import { SPU_COLLECTION_NAME, spuModel } from '@/models/spu.model.js';
-import { getAllSKUAggregate } from '@/utils/sku.util.js';
+import { addSKUValueField, getAllSKUAggregate } from '@/utils/sku.util.js';
+import { findShopByUser } from '@/models/repository/shop/index.js';
 
 export default new (class SKUService {
     /* ---------------------------------------------------------- */

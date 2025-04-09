@@ -15,6 +15,11 @@ declare global {
 
             interface FindPendingShop<T>
                 extends Omit<moduleTypes.mongoose.FindAllWithPageSlittingArgs<T>, 'query'> {}
+
+                interface FindShopByUser
+                    extends Omit<moduleTypes.mongoose.FindOne<model.shop.ShopSchema>, 'query'> {
+                    userId: string;
+                }
         }
     }
 }

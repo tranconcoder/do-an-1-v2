@@ -31,6 +31,7 @@ import { getAllSKUAggregate } from '@/utils/sku.util.js';
 import { ITEM_PER_PAGE } from '@/configs/server.config.js';
 import { checkSKUListIsAvailable } from '@/models/repository/sku/index.js';
 import { findOneShop, findShopById } from '@/models/repository/shop/index.js';
+import { populate } from 'dotenv';
 
 export default class DiscountService {
     /* ---------------------------------------------------------- */
@@ -261,7 +262,11 @@ export default class DiscountService {
 
         if (discount.is_apply_all_product) {
             /* ------------------ Return all by admin  ------------------ */
-            const isAdminShop = await roleService.userIsAdmin(discount.discount_shop.toString());
+            const shop = await findShopById({
+                id: discount.discount_shop,
+                options: { lean: true }
+            });
+            const isAdminShop = await roleService.userIsAdmin(shop._id.toString());
             if (isAdminShop) return 'every';
 
             /* ------------------- Return all by shop ------------------- */
@@ -299,12 +304,12 @@ export default class DiscountService {
         if (discount.discount_count && discount.discount_count <= discount.discount_used_count)
             throw new BadRequestErrorResponse({ message: 'Discount is out of code!' });
 
-        const discountProducts = discount.discount_skus.map((x) => x.toString());
+        const discountSKUs = discount.discount_skus.map((x) => x.toString());
 
         /* ----------- Check product is available to use  ----------- */
-        const productIds = products.map((x) => x.id);
+        const skuIds = products.map((x) => x.id);
         const isAvailableProducts = await checkSKUListIsAvailable({
-            skuList: productIds
+            skuList: skuIds
         });
         if (!isAvailableProducts)
             throw new BadRequestErrorResponse({
@@ -312,8 +317,13 @@ export default class DiscountService {
             });
 
         /* ---------------------- Get products ---------------------- */
-        const foundSKUs = await skuModel.find({ _id: { $in: productIds } }).lean();
-        if (foundSKUs.length !== productIds.length)
+        const foundSKUs = await skuModel
+            .find({
+                _id: { $in: skuIds },
+                options: { populate: ['sku_product'] }
+            })
+            .lean();
+        if (foundSKUs.length !== skuIds.length)
             throw new BadRequestErrorResponse({ message: 'Get products failed!' });
 
         /* ---------------------- Handle calc  ---------------------- */
@@ -326,6 +336,7 @@ export default class DiscountService {
                 const productQuantity =
                     products.find((x) => x.id.toString() === sku._id.toString())?.quantity || 0;
                 const priceRaw = sku.sku_price * productQuantity;
+                const spu = sku.sku_product as any as model.spu.SPUSchema;
 
                 totalPrice += priceRaw;
 
@@ -333,19 +344,16 @@ export default class DiscountService {
                     // Admin -> all
                     (discount.is_admin_voucher && discount.is_apply_all_product) ||
                     // Admin -> specific
-                    (discount.is_admin_voucher &&
-                        discount?.discount_skus
-                            ?.map((x) => x?.toString())
-                            ?.includes(sku._id.toString())) ||
+                    (discount.is_admin_voucher && discountSKUs.includes(sku._id.toString())) ||
                     // Shop -> all
                     (!discount.is_admin_voucher &&
                         discount.is_apply_all_product &&
-                        sku.product_shop.toString() === discount.discount_shop.toString()) ||
+                        spu.product_shop.toString() === discount.discount_shop.toString()) ||
                     // Shop -> specific
                     (!discount.is_admin_voucher &&
                         !discount.is_apply_all_product &&
-                        sku.product_shop.toString() === discount.discount_shop.toString() &&
-                        discountProducts.includes(sku._id.toString()))
+                        spu.product_shop.toString() === discount.discount_shop.toString() &&
+                        discountSKUs.includes(sku._id.toString()))
                 ) {
                     totalProductPriceToDiscount += priceRaw;
                 }
@@ -505,12 +513,16 @@ export default class DiscountService {
     /* ---------------------------------------------------------- */
     public static deleteDiscount = async ({
         discountId,
-        productShop
+        userId
     }: service.discount.arguments.DeleteDiscount) => {
         /* --------------- Check shop is own of code  --------------- */
+        const shop = await findOneShop({
+            query: { shop_userId: userId },
+            options: { lean: true }
+        });
         const isOwn = await discountModel.findOne({
             _id: discountId,
-            discount_shop: productShop
+            discount_shop: shop._id
         });
         if (!isOwn) {
             throw new ForbiddenErrorResponse({ message: 'Not permission to delete!' });

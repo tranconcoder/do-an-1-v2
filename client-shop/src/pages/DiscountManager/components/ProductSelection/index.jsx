@@ -9,21 +9,39 @@ const cx = classNames.bind(styles);
 
 const ProductSelection = ({ selectedSkus, onChange }) => {
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectAll, setSelectAll] = useState(false);
+    const [selectAll, setSelectAll] = useState(true);
+    const [showProductList, setShowProductList] = useState(false);
     const shop = useSelector((state) => state.user.shopInfo);
 
     useEffect(() => {
-        fetchProducts();
+        // Mặc định chọn tất cả và không hiển thị danh sách
+        setSelectAll(true);
+        setShowProductList(false);
     }, []);
 
     const fetchProducts = async () => {
         try {
             setLoading(true);
-            const response = await axiosClient.get(`${API_URL}/sku/shop/${""}`);
-            if (response.data && response.data.metadata) {
+            const LIMIT_GET = 50; // Tăng số lượng sản phẩm hiển thị
+            const response = await axiosClient.get(
+                `${API_URL}/spu/shop/own?limit=${LIMIT_GET}`,
+                {}
+            );
+            if (response.data && response.data.data) {
+                setProducts(response.data.data);
+                // Nếu đã chọn "select all" thì tự động chọn tất cả sản phẩm
+                if (selectAll) {
+                    const allProductIds = response.data.data.map((product) => product._id);
+                    onChange(allProductIds);
+                }
+            } else if (response.data && response.data.metadata) {
                 setProducts(response.data.metadata);
+                if (selectAll) {
+                    const allProductIds = response.data.metadata.map((product) => product._id);
+                    onChange(allProductIds);
+                }
             }
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -35,37 +53,48 @@ const ProductSelection = ({ selectedSkus, onChange }) => {
     const handleSelectAll = (e) => {
         const checked = e.target.checked;
         setSelectAll(checked);
-        
+        setShowProductList(!checked);
+
         if (checked) {
-            // Select all SKUs
-            const allSkuIds = products.map(product => product.sku._id);
-            onChange(allSkuIds);
+            // Nếu đã có dữ liệu sản phẩm
+            if (products.length > 0) {
+                const allProductIds = products.map((product) => product._id);
+                onChange(allProductIds);
+            }
+            // Không cần gọi API khi chọn tất cả
         } else {
-            // Deselect all
+            // Khi bỏ chọn tất cả, gọi API để lấy danh sách sản phẩm
             onChange([]);
+            if (products.length === 0) {
+                fetchProducts();
+            }
         }
     };
 
-    const handleSelectProduct = (skuId) => {
-        let newSelectedSkus;
-        if (selectedSkus.includes(skuId)) {
+    const handleSelectProduct = (productId) => {
+        let newSelectedProducts;
+        if (selectedSkus.includes(productId)) {
             // Remove if already selected
-            newSelectedSkus = selectedSkus.filter(id => id !== skuId);
-            setSelectAll(false);
+            newSelectedProducts = selectedSkus.filter((id) => id !== productId);
         } else {
             // Add if not selected
-            newSelectedSkus = [...selectedSkus, skuId];
-            // Check if all products are now selected
-            setSelectAll(newSelectedSkus.length === products.length);
+            newSelectedProducts = [...selectedSkus, productId];
         }
-        onChange(newSelectedSkus);
+
+        // Cập nhật trạng thái "Chọn tất cả"
+        setSelectAll(newSelectedProducts.length === products.length && products.length > 0);
+        onChange(newSelectedProducts);
     };
 
-    const filteredProducts = products.filter(product =>
-        product.product_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.sku.sku_value.some(attr => 
-            attr.value.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+    // Hàm xử lý khi click vào sản phẩm (thay vì chỉ click vào checkbox)
+    const handleProductClick = (productId) => {
+        handleSelectProduct(productId);
+    };
+
+    const filteredProducts = products.filter(
+        (product) =>
+            product.product_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.product_description?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const formatPrice = (price) => {
@@ -83,9 +112,27 @@ const ProductSelection = ({ selectedSkus, onChange }) => {
         <div className={cx('product-selection')}>
             <div className={cx('search-box')}>
                 <span className={cx('search-icon')}>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M14 14L11 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                        <path
+                            d="M14 14L11 11"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
                     </svg>
                 </span>
                 <input
@@ -106,36 +153,89 @@ const ProductSelection = ({ selectedSkus, onChange }) => {
                 <label htmlFor="select-all">Chọn tất cả sản phẩm</label>
             </div>
 
-            <div className={cx('product-list')}>
-                {filteredProducts.map((product) => (
-                    <div key={product.sku._id} className={cx('product-item')}>
-                        <div className={cx('checkbox-wrapper')}>
-                            <input
-                                type="checkbox"
-                                checked={selectedSkus.includes(product.sku._id)}
-                                onChange={() => handleSelectProduct(product.sku._id)}
-                            />
-                        </div>
-                        <div className={cx('product-info')}>
-                            <div className={cx('product-name')}>{product.product_name}</div>
-                            <div className={cx('product-variant')}>
-                                {product.sku.sku_value.map((attr, index) => (
-                                    <span key={index}>{attr.key}: {attr.value}</span>
-                                ))}
+            {showProductList && (
+                <div className={cx('product-list')}>
+                    {filteredProducts.map((product) => (
+                        <div
+                            key={product._id}
+                            className={cx('product-item', {
+                                selected: selectedSkus.includes(product._id)
+                            })}
+                            onClick={() => handleProductClick(product._id)}
+                        >
+                            <div className={cx('check-mark')}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="3"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
                             </div>
-                            <div className={cx('product-price')}>
-                                Giá: {formatPrice(product.sku.sku_price)}
+                            <div className={cx('checkbox-wrapper')}>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedSkus.includes(product._id)}
+                                    onChange={() => handleSelectProduct(product._id)}
+                                />
+                            </div>
+                            <div className={cx('product-info')}>
+                                <div className={cx('product-name')}>{product.product_name}</div>
+                                {product.product_thumb && (
+                                    <div className={cx('product-image')}>
+                                        <img
+                                            src={`${API_URL}/media/${product.product_thumb}`}
+                                            alt={product.product_name}
+                                        />
+                                    </div>
+                                )}
+                                <div className={cx('product-price')}>
+                                    {product.product_price && formatPrice(product.product_price)}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
-                
-                {filteredProducts.length === 0 && (
-                    <div style={{ padding: '1rem', textAlign: 'center', color: '#666' }}>
-                        Không tìm thấy sản phẩm nào
-                    </div>
-                )}
-            </div>
+                    ))}
+
+                    {filteredProducts.length === 0 && (
+                        <div
+                            style={{
+                                padding: '1rem',
+                                textAlign: 'center',
+                                color: '#666',
+                                gridColumn: '1 / -1'
+                            }}
+                        >
+                            Không tìm thấy sản phẩm nào
+                        </div>
+                    )}
+
+                    {loading && (
+                        <div
+                            style={{
+                                padding: '1rem',
+                                textAlign: 'center',
+                                color: '#666',
+                                gridColumn: '1 / -1'
+                            }}
+                        >
+                            Đang tải danh sách sản phẩm...
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {!showProductList && !loading && (
+                <div style={{ padding: '1rem', textAlign: 'center', color: '#666' }}>
+                    <p>
+                        Đã chọn tất cả sản phẩm. Bỏ chọn "Chọn tất cả" để hiển thị danh sách sản
+                        phẩm.
+                    </p>
+                </div>
+            )}
         </div>
     );
 };

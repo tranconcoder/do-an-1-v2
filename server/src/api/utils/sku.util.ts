@@ -30,43 +30,7 @@ export const getAllSKUAggregate = (limit: number, page: number) => [
     {
         $limit: limit
     },
-    {
-        $addFields: {
-            'sku.sku_value': {
-                $map: {
-                    input: {
-                        $range: [0, { $size: '$sku.sku_tier_idx' }]
-                    },
-                    as: 'idx',
-                    in: {
-                        key: {
-                            $getField: {
-                                field: 'variation_name',
-                                input: {
-                                    $arrayElemAt: ['$product_variations', '$$idx']
-                                }
-                            }
-                        },
-                        value: {
-                            $arrayElemAt: [
-                                {
-                                    $getField: {
-                                        field: 'variation_values',
-                                        input: {
-                                            $arrayElemAt: ['$product_variations', '$$idx']
-                                        }
-                                    }
-                                },
-                                {
-                                    $arrayElemAt: ['$sku.sku_tier_idx', '$$idx']
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        }
-    },
+    addSKUValueField,
     {
         $project: {
             _id: 1,
@@ -89,3 +53,41 @@ export const getAllSKUAggregate = (limit: number, page: number) => [
         }
     }
 ];
+
+export const addSKUValueField = {
+    $addFields: {
+        'sku.sku_value': {
+            $map: {
+                input: {
+                    $range: [0, { $size: '$sku.sku_tier_idx' }]
+                },
+                as: 'idx',
+                in: {
+                    key: {
+                        $getField: {
+                            field: 'variation_name',
+                            input: {
+                                $arrayElemAt: ['$product_variations', '$$idx']
+                            }
+                        }
+                    },
+                    value: {
+                        $arrayElemAt: [
+                            {
+                                $getField: {
+                                    field: 'variation_values',
+                                    input: {
+                                        $arrayElemAt: ['$product_variations', '$$idx']
+                                    }
+                                }
+                            },
+                            {
+                                $arrayElemAt: ['$sku.sku_tier_idx', '$$idx']
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+};

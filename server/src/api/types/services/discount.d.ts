@@ -89,7 +89,7 @@ declare global {
                 /* ---------------------------------------------------------- */
                 interface DeleteDiscount {
                     discountId: string;
-                    productShop: string;
+                    userId: string;
                 }
             }
         }

@@ -326,7 +326,7 @@ function DiscountManager() {
                     <h2>Chọn sản phẩm áp dụng</h2>
                     <ProductSelection
                         selectedSkus={formData.discount_skus}
-                        onSelectedSkusChange={handleSelectedSkusChange}
+                        onChange={handleSelectedSkusChange}
                     />
                 </div>
 

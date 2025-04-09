@@ -67,14 +67,16 @@ export default class DiscountController {
         any,
         joiTypes.discount.GetAllProductDiscountByCodeQuery
     > = async (req, res, _) => {
-        new OkResponse({
-            message: 'Get all product discount by code successfully',
-            metadata: await DiscountService.getAllProductDiscountByCode({
+            const products = await DiscountService.getAllProductDiscountByCode({
                 code: req.params.code,
                 limit: req.query.limit,
                 page: req.query.page
-            })
-        }).send(res);
+            });
+
+            new OkResponse({
+                message: 'Get all product discount by code successfully',
+                metadata: { products }
+            }).send(res);
     };
 
     /* ---------------------------------------------------------- */
@@ -110,7 +112,7 @@ export default class DiscountController {
             message: 'Delete success!',
             metadata: await DiscountService.deleteDiscount({
                 discountId: req.params.discountId,
-                productShop: req.userId as string
+                userId: req.userId as string
             })
         }).send(res);
     };

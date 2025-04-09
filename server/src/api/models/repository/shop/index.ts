@@ -29,13 +29,31 @@ export const isExistsShop = async ({
         .lean();
 };
 
+/* ---------------------------------------------------------- */
+/*                          Find one                          */
+/* ---------------------------------------------------------- */
 /* ------------------------ Find one ------------------------ */
 export const findOneShop = generateFindOne<model.shop.ShopSchema>(shopModel);
 
 /* ----------------------- Find by id ----------------------- */
 export const findShopById = generateFindById<model.shop.ShopSchema>(shopModel);
 
-/* ------------------------ Find all ------------------------ */
+/* -------------------- Find shop by user ------------------- */
+export const findShopByUser = 
+async (args: repo.shop.FindShopByUser) => {
+    const { userId, ...payload } = args
+
+    return await findOneShop({
+        ...payload,
+        query: {            shop_userId: userId,
+        }
+    })
+
+}
+
+/* ---------------------------------------------------------- */
+/*                          Find all                          */
+/* ---------------------------------------------------------- */
 export const findShop = generateFindAll<model.shop.ShopSchema>(shopModel);
 
 export const findShopPageSplit = generateFindAllPageSplit<model.shop.ShopSchema>(shopModel);

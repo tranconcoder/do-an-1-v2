@@ -1,5 +1,7 @@
 import { pagination, paramsId } from '@/configs/joi.config.js';
 import skuController from '@/controllers/sku.controller.js';
+import { Resources } from '@/enums/rbac.enum.js';
+import { authorization } from '@/middlewares/authorization.middleware.js';
 import catchError from '@/middlewares/catchError.middleware.js';
 import {
     validateRequestParams,
