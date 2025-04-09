@@ -5,6 +5,7 @@ import styles from './DiscountManager.module.scss';
 import axiosClient from '../../configs/axios';
 import { API_URL } from '../../configs/env.config';
 import ProductSelection from './components/ProductSelection';
+import { useToast } from '../../contexts/ToastContext';
 
 const cx = classNames.bind(styles);
 
@@ -12,6 +13,7 @@ function DiscountManager() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
+    const { showToast } = useToast();
     const [formData, setFormData] = useState({
         discount_name: '',
         discount_description: '',
@@ -26,7 +28,8 @@ function DiscountManager() {
         discount_end_at: '',
         discount_skus: [],
         is_publish: true,
-        is_apply_all_product: false
+        is_apply_all_product: true,
+        is_available: true
     });
 
     const handleInputChange = (e) => {
@@ -39,12 +42,12 @@ function DiscountManager() {
         }));
     };
 
-    const handleSelectedSkusChange = (selectedSkus) => {
+    const handleSelectedSkusChange = (selectedSkus, applyAll) => {
         setFormData((prev) => ({
             ...prev,
             discount_skus: selectedSkus,
             // Nếu đang chọn sản phẩm cụ thể, tắt option áp dụng tất cả
-            is_apply_all_product: false
+            is_apply_all_product: applyAll
         }));
     };
 
@@ -70,6 +73,10 @@ function DiscountManager() {
             newErrors.discount_value = 'Phần trăm giảm giá phải từ 0 đến 100';
         }
 
+        if (formData.discount_count && isNaN(Number(formData.discount_count))) {
+            newErrors.discount_count = 'Tổng số lượng mã phải là số';
+        }
+
         if (!formData.discount_start_at) {
             newErrors.discount_start_at = 'Vui lòng chọn thời gian bắt đầu';
         }
@@ -93,34 +100,34 @@ function DiscountManager() {
 
         try {
             setLoading(true);
-            // Convert form data to match the server model
-            const discountData = {
+            const data = {
                 ...formData,
-                discount_code: formData.discount_code.toUpperCase(),
-                discount_value: Number(formData.discount_value),
-                discount_count: formData.discount_count
-                    ? Number(formData.discount_count)
-                    : undefined,
+                discount_count: Number(formData.discount_count),
                 discount_max_value: formData.discount_max_value
                     ? Number(formData.discount_max_value)
-                    : undefined,
-                discount_user_max_use: formData.discount_user_max_use
-                    ? Number(formData.discount_user_max_use)
-                    : undefined,
-                discount_min_order_cost: formData.discount_min_order_cost
-                    ? Number(formData.discount_min_order_cost)
-                    : undefined
+                    : null,
+                discount_min_order_cost: Number(formData.discount_min_order_cost),
+                discount_user_max_use: Number(formData.discount_user_max_use) || 1,
+                discount_value: Number(formData.discount_value)
             };
 
-            const response = await axiosClient.post(`${API_URL}/discount/create`, discountData);
+            if (!data.discount_description) delete data.discount_description;
+            if (!data.discount_count) delete data.discount_count;
+            if (!data.discount_max_value) delete data.discount_max_value;
+            if (!data.discount_min_order_cost) delete data.discount_min_order_cost;
+            if (data.is_apply_all_product) delete data.discount_skus;
+
+            const response = await axiosClient.post(`${API_URL}/discount/create`, data);
 
             if (response.data && response.data.statusCode === 201) {
-                alert('Discount created successfully!');
+                showToast('Mã giảm giá được tạo thành công!', 'success');
                 navigate('/discounts');
             }
         } catch (error) {
             console.error('Error creating discount:', error);
-            alert('Failed to create discount. Please try again.');
+            const errorMessage =
+                error.response?.data?.message || 'Không thể tạo mã giảm giá. Vui lòng thử lại.';
+            showToast(errorMessage, 'error');
         } finally {
             setLoading(false);
         }
@@ -226,26 +233,29 @@ function DiscountManager() {
                     </div>
 
                     <div className={cx('form-row')}>
-                        <div className={cx('form-group')}>
-                            <label>Giảm tối đa</label>
+                        <div className={cx('form-group', { invalid: errors.discount_count })}>
+                            <label>Tổng số lượng mã</label>
                             <input
                                 type="number"
-                                name="discount_max_value"
-                                value={formData.discount_max_value}
+                                name="discount_count"
+                                value={formData.discount_count}
                                 onChange={handleInputChange}
-                                placeholder="Số tiền giảm tối đa (không bắt buộc)"
+                                placeholder="Tổng số lần mã có thể sử dụng"
                                 min="0"
                             />
+                            {errors.discount_count && (
+                                <div className={cx('error-message')}>{errors.discount_count}</div>
+                            )}
                         </div>
 
                         <div className={cx('form-group')}>
-                            <label>Đơn hàng tối thiểu</label>
+                            <label>Giới hạn mỗi người dùng</label>
                             <input
                                 type="number"
-                                name="discount_min_order_cost"
-                                value={formData.discount_min_order_cost}
+                                name="discount_user_max_use"
+                                value={formData.discount_user_max_use}
                                 onChange={handleInputChange}
-                                placeholder="Giá trị đơn hàng tối thiểu (không bắt buộc)"
+                                placeholder="Số lần sử dụng tối đa cho mỗi người"
                                 min="0"
                             />
                         </div>
@@ -256,7 +266,7 @@ function DiscountManager() {
                     <h2>Giới hạn sử dụng</h2>
 
                     <div className={cx('form-row')}>
-                        <div className={cx('form-group')}>
+                        <div className={cx('form-group', { invalid: errors.discount_count })}>
                             <label>Tổng số lượng mã</label>
                             <input
                                 type="number"
@@ -266,6 +276,9 @@ function DiscountManager() {
                                 placeholder="Tổng số lần mã có thể sử dụng"
                                 min="0"
                             />
+                            {errors.discount_count && (
+                                <div className={cx('error-message')}>{errors.discount_count}</div>
+                            )}
                         </div>
 
                         <div className={cx('form-group')}>

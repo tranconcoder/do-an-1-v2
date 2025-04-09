@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './DiscountList.module.scss';
 import axiosClient from '../../configs/axios';
 import { useToast } from '../../contexts/ToastContext';
+import { toggleDiscountPublish, toggleDiscountAvailable } from './discountApi';
 import {
     FaPlus,
     FaEdit,
@@ -15,7 +16,11 @@ import {
     FaFilter,
     FaAngleLeft,
     FaAngleRight,
-    FaCalendarAlt
+    FaCalendarAlt,
+    FaToggleOn,
+    FaToggleOff,
+    FaEye,
+    FaEyeSlash
 } from 'react-icons/fa';
 
 const cx = classNames.bind(styles);
@@ -31,7 +36,7 @@ const SORTABLE_FIELDS = [
 ];
 
 // Define the DiscountList component as a function expression
-const DiscountList = function() {
+const DiscountList = function () {
     const { showToast } = useToast();
     const [discounts, setDiscounts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -199,6 +204,37 @@ const DiscountList = function() {
         }
     };
 
+    const handleTogglePublish = async (discountId, currentState) => {
+        try {
+            setLoading(true);
+            await toggleDiscountPublish(discountId, !currentState);
+            showToast(
+                `${!currentState ? 'Xuất bản' : 'Hủy xuất bản'} mã giảm giá thành công`,
+                'success'
+            );
+            fetchDiscounts(); // Refresh the list
+        } catch (error) {
+            console.error('Error toggling publish state:', error);
+            showToast('Không thể cập nhật trạng thái xuất bản. Vui lòng thử lại.', 'error');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleToggleAvailable = async (discountId, currentState) => {
+        try {
+            setLoading(true);
+            await toggleDiscountAvailable(discountId, !currentState);
+            showToast(`${!currentState ? 'Bật' : 'Tắt'} trạng thái sẵn sàng thành công`, 'success');
+            fetchDiscounts(); // Refresh the list
+        } catch (error) {
+            console.error('Error toggling available state:', error);
+            showToast('Không thể cập nhật trạng thái sẵn sàng. Vui lòng thử lại.', 'error');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const getStatusDisplayText = (status) => {
         switch (status) {
             case 'active':
@@ -319,6 +355,7 @@ const DiscountList = function() {
                                     <th
                                         onClick={() => handleSort('discount_name')}
                                         className={cx('sortable-header')}
+                                        style={{ width: '220px' }}
                                     >
                                         <div className={cx('th-content')}>
                                             <span>Tên</span>
@@ -327,7 +364,7 @@ const DiscountList = function() {
                                             </span>
                                         </div>
                                     </th>
-                                    <th>
+                                    <th style={{ width: '120px' }}>
                                         <div className={cx('th-content')}>
                                             <span>Mã</span>
                                         </div>
@@ -335,6 +372,7 @@ const DiscountList = function() {
                                     <th
                                         onClick={() => handleSort('discount_type')}
                                         className={cx('sortable-header')}
+                                        style={{ width: '120px' }}
                                     >
                                         <div className={cx('th-content')}>
                                             <span>Giá trị</span>
@@ -348,6 +386,7 @@ const DiscountList = function() {
                                         className={cx('sortable-header', {
                                             'not-sortable': !isSortable('discount_start_at')
                                         })}
+                                        style={{ width: '260px' }}
                                     >
                                         <div className={cx('th-content')}>
                                             <span>Thời gian hiệu lực</span>
@@ -356,17 +395,27 @@ const DiscountList = function() {
                                             </span>
                                         </div>
                                     </th>
-                                    <th style={{ width: '100px', textAlign: 'center' }}>
+                                    <th style={{ width: '120px', textAlign: 'center' }}>
                                         <div className={cx('th-content')}>
                                             <span>Lượt sử dụng</span>
                                         </div>
                                     </th>
-                                    <th style={{ width: '120px', textAlign: 'center' }}>
+                                    <th style={{ width: '150px', textAlign: 'center' }}>
                                         <div className={cx('th-content')}>
                                             <span>Trạng thái</span>
                                         </div>
                                     </th>
                                     <th style={{ width: '100px', textAlign: 'center' }}>
+                                        <div className={cx('th-content')}>
+                                            <span>Xuất bản</span>
+                                        </div>
+                                    </th>
+                                    <th style={{ width: '100px', textAlign: 'center' }}>
+                                        <div className={cx('th-content')}>
+                                            <span>Khả dụng</span>
+                                        </div>
+                                    </th>
+                                    <th style={{ width: '120px', textAlign: 'center' }}>
                                         <div className={cx('th-content')}>
                                             <span>Thao tác</span>
                                         </div>
@@ -407,6 +456,56 @@ const DiscountList = function() {
                                                 <span className={cx('status-badge', status)}>
                                                     {getStatusDisplayText(status)}
                                                 </span>
+                                            </td>
+                                            <td className={cx('toggle-cell')}>
+                                                <button
+                                                    className={cx('toggle-btn', {
+                                                        'toggle-on': discount.is_publish,
+                                                        'toggle-off': !discount.is_publish
+                                                    })}
+                                                    onClick={() =>
+                                                        handleTogglePublish(
+                                                            discount._id,
+                                                            discount.is_publish
+                                                        )
+                                                    }
+                                                    title={
+                                                        discount.is_publish
+                                                            ? 'Hủy xuất bản'
+                                                            : 'Xuất bản'
+                                                    }
+                                                >
+                                                    {discount.is_publish ? (
+                                                        <FaEye />
+                                                    ) : (
+                                                        <FaEyeSlash />
+                                                    )}
+                                                </button>
+                                            </td>
+                                            <td className={cx('toggle-cell')}>
+                                                <button
+                                                    className={cx('toggle-btn', {
+                                                        'toggle-on': discount.is_available,
+                                                        'toggle-off': !discount.is_available
+                                                    })}
+                                                    onClick={() =>
+                                                        handleToggleAvailable(
+                                                            discount._id,
+                                                            discount.is_available
+                                                        )
+                                                    }
+                                                    title={
+                                                        discount.is_available
+                                                            ? 'Tắt khả dụng'
+                                                            : 'Bật khả dụng'
+                                                    }
+                                                >
+                                                    {discount.is_available ? (
+                                                        <FaToggleOn />
+                                                    ) : (
+                                                        <FaToggleOff />
+                                                    )}
+                                                </button>
                                             </td>
                                             <td className={cx('actions')}>
                                                 <Link

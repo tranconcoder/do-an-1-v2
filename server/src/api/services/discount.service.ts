@@ -31,7 +31,6 @@ import { getAllSKUAggregate } from '@/utils/sku.util.js';
 import { ITEM_PER_PAGE } from '@/configs/server.config.js';
 import { checkSKUListIsAvailable } from '@/models/repository/sku/index.js';
 import { findOneShop, findShopById } from '@/models/repository/shop/index.js';
-import { populate } from 'dotenv';
 
 export default class DiscountService {
     /* ---------------------------------------------------------- */
@@ -169,23 +168,11 @@ export default class DiscountService {
         });
         if (!shop) throw new NotFoundErrorResponse({ message: 'Your account not is shop!' });
 
-        const count = await discountModel.countDocuments({
-            discount_shop: shop._id,
-            discount_start_at: { $lte: new Date() },
-            discount_end_at: { $gte: new Date() },
-            is_publish: true,
-            is_available: true
-        });
+        const count = await discountModel.countDocuments({ discount_shop: shop._id });
 
         return {
             discounts: await findDiscountPageSplitting({
-                query: {
-                    discount_shop: shop._id,
-                    discount_start_at: { $lte: new Date() },
-                    discount_end_at: { $gte: new Date() },
-                    is_publish: true,
-                    is_available: true
-                },
+                query: { discount_shop: shop._id },
                 options: {
                     lean: true,
                     sort: {
@@ -432,9 +419,8 @@ export default class DiscountService {
 
         /* ------- Check products is own by shop and publish  ------- */
         if (discount_products?.length) {
-            const productsIsAvailableToDiscount = await checkProductsIsAvailableToUse({
-                productIds: discount_products,
-                shopId: discount_shop
+            const productsIsAvailableToDiscount = await checkSKUListIsAvailable({
+                skuList: discount_products
             });
             if (!productsIsAvailableToDiscount)
                 throw new BadRequestErrorResponse({

@@ -34,13 +34,13 @@ const ProductSelection = ({ selectedSkus, onChange }) => {
                 // Nếu đã chọn "select all" thì tự động chọn tất cả sản phẩm
                 if (selectAll) {
                     const allProductIds = response.data.data.map((product) => product._id);
-                    onChange(allProductIds);
+                    onChange(allProductIds, true);
                 }
             } else if (response.data && response.data.metadata) {
                 setProducts(response.data.metadata);
                 if (selectAll) {
                     const allProductIds = response.data.metadata.map((product) => product._id);
-                    onChange(allProductIds);
+                    onChange(allProductIds, true);
                 }
             }
         } catch (error) {
@@ -59,12 +59,12 @@ const ProductSelection = ({ selectedSkus, onChange }) => {
             // Nếu đã có dữ liệu sản phẩm
             if (products.length > 0) {
                 const allProductIds = products.map((product) => product._id);
-                onChange(allProductIds);
+                onChange(allProductIds, true);
             }
             // Không cần gọi API khi chọn tất cả
         } else {
             // Khi bỏ chọn tất cả, gọi API để lấy danh sách sản phẩm
-            onChange([]);
+            onChange([], false);
             if (products.length === 0) {
                 fetchProducts();
             }

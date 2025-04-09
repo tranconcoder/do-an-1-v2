@@ -27,7 +27,7 @@ export const schema = {
         otherwise: Joi.forbidden()
     }) as any as NumberSchema,
     discount_count: Joi.number().min(1),
-    discount_products: Joi.when(Joi.ref('is_apply_all_product'), {
+    discount_skus: Joi.when(Joi.ref('is_apply_all_product'), {
         is: false,
         then: Joi.array().min(1).items(mongooseId).required(),
         otherwise: Joi.forbidden()
@@ -98,7 +98,7 @@ export const updateDiscountSchema = Joi.object<joiTypes.discount.UpdateDiscount>
         discount_type: schema.discount_type,
         discount_value: schema.discount_value,
         discount_count: schema.discount_count,
-        discount_products: schema.discount_products,
+        discount_skus: schema.discount_skus,
         discount_start_at: schema.discount_start_at,
         discount_end_at: schema.discount_end_at,
         discount_max_value: schema.discount_max_value,
