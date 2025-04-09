@@ -67,22 +67,19 @@ axiosClient.interceptors.response.use(
         const originalRequest = error.config;
 
         // If error is unauthorized and we haven't tried refreshing token yet
-        const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
-        if ((error.response?.status === 403 || error.response?.status === 401) && refreshToken) {
+        const currentRefreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+        if (error.response?.status === 403 && currentRefreshToken) {
             // If not already refreshing token
             if (!isRefreshing) {
                 isRefreshing = true;
                 originalRequest._retry = true;
 
                 try {
-                    // Get the current refresh token
-                    refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
-
                     // Call the refresh token endpoint
                     const response = await axios.post(
                         `${API_URL}/auth/new-token`,
                         {
-                            refreshToken: refreshToken
+                            refreshToken: currentRefreshToken
                         },
                         {
                             headers: { 'Content-Type': 'application/json' }
@@ -97,7 +94,6 @@ axiosClient.interceptors.response.use(
                     localStorage.setItem(ACCESS_TOKEN_KEY, newAccessToken);
                     localStorage.setItem(REFRESH_TOKEN_KEY, newRefreshToken);
                     accessToken = newAccessToken;
-                    refreshToken = newRefreshToken;
 
                     // Update token in axios defaults
                     axiosClient.defaults.headers.common[

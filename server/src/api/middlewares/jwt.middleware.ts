@@ -9,7 +9,7 @@ export const authenticate = catchError(async (req, _, next) => {
     /* -------------- Get token from header ------------- */
     const authHeader = req.headers.authorization;
     const accessToken = authHeader && authHeader.split(' ').at(1);
-    if (!accessToken) throw new NotFoundErrorResponse({ message: 'Token not found!' });
+    if (!accessToken) throw new ForbiddenErrorResponse({ message: 'Token not found!' });
 
     /* --------------- Parse token payload -------------- */
     const payloadParsed = JwtService.parseJwtPayload(accessToken);
