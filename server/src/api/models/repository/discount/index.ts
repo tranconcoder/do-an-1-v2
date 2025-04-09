@@ -82,7 +82,7 @@ export const findDiscountValidByCode = (discountCode: string) => {
 /* ---------------------------------------------------------- */
 
 /* ------------------- Find all discount  ------------------- */
-export const findAllDiscount =
+export const findDiscountPageSplitting =
     generateFindAllPageSplit<model.discount.DiscountSchema>(discountModel);
 
 /* ----------- Find all discount in shop by code ------------ */

@@ -12,7 +12,7 @@ export const DISCOUNT_COLLECTION_NAME = 'discounts';
 const discountSchema = new Schema<model.discount.DiscountSchema>(
     {
         /* ----------------------- Information ---------------------- */
-        discount_shop: { type: ObjectId, ref: SHOP_MODEL_NAME, required },
+        discount_shop: { type: ObjectId, ref: SHOP_MODEL_NAME },
         discount_name: { type: String, required },
         discount_description: String,
         discount_code: {

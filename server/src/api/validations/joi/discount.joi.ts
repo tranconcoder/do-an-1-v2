@@ -1,6 +1,6 @@
 import Joi, { ArraySchema, NumberSchema } from 'joi';
 import _ from 'lodash';
-import { mongooseId } from '@/configs/joi.config.js';
+import { mongooseId, pageSplitting } from '@/configs/joi.config.js';
 import { DiscountTypeEnum } from '@/enums/discount.enum.js';
 import { toOptionalObject } from '@/utils/joi.util.js';
 import { discountCode } from '@/configs/joi.config.js';
@@ -57,21 +57,21 @@ export const createDiscountSchema = Joi.object<joiTypes.discount.CreateDiscount,
 /*                            Get                             */
 /* ---------------------------------------------------------- */
 
-/* ------------- Get all discount code in shop  ------------- */
-/* ------------------------- Query  ------------------------- */
-export const getAllDiscountCodeInShopQuerySchema = Joi.object<
-    joiTypes.discount.GetAllDiscountCodeInShopQuery,
-    true
->({
+/* ---------------- Get all own shop discount --------------- */
+export const getAllOwnShopDiscount = Joi.object<joiTypes.discount.GetAllOwnShopDiscount>({
     limit: Joi.number(),
-    page: Joi.number()
-});
-/* ------------------------- Params ------------------------- */
-export const getAllDiscountCodeInShopParamsSchema = Joi.object<
-    joiTypes.discount.GetAllDiscountCodeInShopParams,
-    true
->({
-    shopId: mongooseId
+    page: Joi.number(),
+    sortBy: Joi.string()
+        .valid(
+            'created_at',
+            'updated_at',
+            'discount_name',
+            'discount_type',
+            'discount_start_at',
+            'discount_end_at'
+        )
+        .default('created_at'),
+    sortType: Joi.string().valid('asc', 'desc').default('asc')
 });
 
 /* ------------ Get all product discount by code ------------ */

@@ -11,6 +11,10 @@ declare global {
             /*                            Get                             */
             /* ---------------------------------------------------------- */
 
+            /* ---------------- Get all own shop discount --------------- */
+            interface GetAllOwnShopDiscount
+                extends service.discount.arguments.GetAllShopOwnDiscount {}
+
             /* ------------- Get all discount code in shop  ------------- */
             type GetAllDiscountCodeInShopQueryKey = 'limit' | 'page';
             /* ------------------------- Query  ------------------------- */

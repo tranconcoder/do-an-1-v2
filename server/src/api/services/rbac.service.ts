@@ -137,6 +137,18 @@ class RBACService {
                             RoleActions.DELETE_OWN
                         ],
                         attributes: '*'
+                    },
+                    {
+                        resource: resourcesId.find(
+                            (resource) => resource.name === Resources.DISCOUNT
+                        )?.id,
+                        actions: [
+                            RoleActions.CREATE_OWN,
+                            RoleActions.READ_OWN,
+                            RoleActions.UPDATE_OWN,
+                            RoleActions.DELETE_OWN
+                        ],
+                        attributes: '*'
                     }
                 ]
             },
@@ -208,7 +220,7 @@ class RoleService {
         };
     }
 
-    async userIdAdmin(userId: string) {
+    async userIsAdmin(userId: string) {
         const user = await findUserById({
             id: userId,
             only: ['user_role'],

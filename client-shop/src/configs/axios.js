@@ -67,7 +67,8 @@ axiosClient.interceptors.response.use(
         const originalRequest = error.config;
 
         // If error is unauthorized and we haven't tried refreshing token yet
-        if (error.response?.status === 401 && !originalRequest._retry && refreshToken) {
+        const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+        if ((error.response?.status === 403 || error.response?.status === 401) && refreshToken) {
             // If not already refreshing token
             if (!isRefreshing) {
                 isRefreshing = true;

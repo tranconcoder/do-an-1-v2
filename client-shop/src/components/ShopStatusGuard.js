@@ -17,27 +17,28 @@ const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/' }) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const shopInfo = useSelector(selectShopInfo);
-    const loading = !shopInfo;
 
     // Get shop status from the Redux store (which is populated from user profile)
     const shopStatus = shopInfo?.shop_status || null;
 
     // Set up a timeout to check if shopInfo is loaded within 5 seconds
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            // If after 5 seconds we're still loading or shopInfo is still null, log the user out
-            if (loading || !shopInfo) {
+        // Only set the timeout if shopInfo is null
+        if (!shopInfo) {
+            const timeoutId = setTimeout(() => {
                 console.log('Shop information not loaded within 5 seconds. Logging out...');
                 dispatch(logout());
                 // Redirect handled by ProtectedRoute component since isAuthenticated will be false
-            }
-        }, 5000);
+            }, 5000);
 
-        // Clean up the timeout if the component unmounts or shopInfo becomes available
-        return () => clearTimeout(timeoutId);
-    }, [loading, shopInfo, dispatch]);
+            // Clean up the timeout if the component unmounts or shopInfo becomes available
+            return () => clearTimeout(timeoutId);
+        }
+        // Return empty cleanup function when shopInfo exists
+        return () => {};
+    }, [shopInfo, dispatch]);
 
-    if (loading) {
+    if (!shopInfo) {
         return (
             <div
                 style={{

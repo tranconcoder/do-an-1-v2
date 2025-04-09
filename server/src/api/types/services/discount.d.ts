@@ -15,7 +15,7 @@ declare global {
                         model.discount.DiscountSchema,
                         'is_admin_voucher' | 'discount_shop' | '_id'
                     > {
-                    shopId: string;
+                    userId: string;
                 }
 
                 /* ---------------------------------------------------------- */
@@ -25,6 +25,21 @@ declare global {
                 /* ------------------- Get discount by id ------------------- */
                 interface GetDiscountById {
                     discountId: string;
+                }
+
+                /* ------------------ Get all own discount ------------------ */
+                interface GetAllShopOwnDiscount extends commonTypes.object.PageSlitting {
+                    userId: string;
+                    sortBy: keyof Pick<
+                        model.discount.DiscountSchema,
+                        | 'created_at'
+                        | 'updated_at'
+                        | 'discount_name'
+                        | 'discount_type'
+                        | 'discount_start_at'
+                        | 'discount_end_at'
+                    >;
+                    sortType: 'asc' | 'desc';
                 }
 
                 /* -------- Get all discount code available in shop  -------- */

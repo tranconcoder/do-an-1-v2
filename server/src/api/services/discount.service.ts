@@ -8,7 +8,7 @@ import {
     checkConflictDiscountInShop,
     createDiscount,
     deleteDiscount,
-    findAllDiscount,
+    findDiscountPageSplitting,
     findDiscountById,
     findDiscountValidByCode,
     findOneDiscount
@@ -30,16 +30,25 @@ import skuService from './sku.service.js';
 import { getAllSKUAggregate } from '@/utils/sku.util.js';
 import { ITEM_PER_PAGE } from '@/configs/server.config.js';
 import { checkSKUListIsAvailable } from '@/models/repository/sku/index.js';
+import { findOneShop, findShopById } from '@/models/repository/shop/index.js';
 
 export default class DiscountService {
     /* ---------------------------------------------------------- */
     /*                           Create                           */
     /* ---------------------------------------------------------- */
     public static createDiscount = async (args: service.discount.arguments.CreateDiscount) => {
-        const { shopId, ...payload } = args;
+        const { userId, ...payload } = args;
 
         /* --------------------- Check is admin --------------------- */
-        const isAdmin = await roleService.userIdAdmin(shopId);
+        const shopId = await findOneShop({
+            query: { shop_userId: userId },
+            options: { lean: true }
+        }).then((shop) => {
+            if (!shop) throw new NotFoundErrorResponse({ message: 'Your account not is shop!' });
+            return shop._id.toString();
+        });
+
+        const isAdmin = await roleService.userIsAdmin(userId);
 
         /* ------------------ Check code is valid  ------------------ */
         const conflictDiscount = await checkConflictDiscountInShop({
@@ -148,13 +157,43 @@ export default class DiscountService {
         return discount;
     };
 
+    public static getAllShopOwnDiscount = async (
+        payload: service.discount.arguments.GetAllShopOwnDiscount
+    ) => {
+        const { userId, limit, page, sortBy, sortType } = payload;
+
+        const shop = await findOneShop({
+            query: { shop_userId: userId },
+            options: { lean: true }
+        });
+        if (!shop) throw new NotFoundErrorResponse({ message: 'Your account not is shop!' });
+
+        return await findDiscountPageSplitting({
+            query: {
+                discount_shop: shop._id,
+                discount_start_at: { $lte: new Date() },
+                discount_end_at: { $gte: new Date() },
+                is_publish: true,
+                is_available: true
+            },
+            options: {
+                lean: true,
+                sort: {
+                    [sortBy]: sortType === 'asc' ? 1 : -1
+                }
+            },
+            limit,
+            page
+        });
+    };
+
     /* ------------- Get all discount code in shop  ------------- */
     public static getAllDiscountCodeInShop = async ({
         shopId,
         limit,
         page
     }: service.discount.arguments.GetAllDiscountCodeInShop) => {
-        return await findAllDiscount({
+        return await findDiscountPageSplitting({
             query: {
                 discount_shop: shopId,
                 discount_start_at: { $lte: new Date() },
@@ -173,7 +212,7 @@ export default class DiscountService {
         limit,
         page
     }: service.discount.arguments.GetAllDiscountCodeWithProduct) => {
-        return await findAllDiscount({
+        return await findDiscountPageSplitting({
             query: {
                 discount_start_at: { $lte: new Date() },
                 discount_end_at: { $gte: new Date() },
@@ -211,7 +250,7 @@ export default class DiscountService {
 
         if (discount.is_apply_all_product) {
             /* ------------------ Return all by admin  ------------------ */
-            const isAdminShop = await roleService.userIdAdmin(discount.discount_shop.toString());
+            const isAdminShop = await roleService.userIsAdmin(discount.discount_shop.toString());
             if (isAdminShop) return 'every';
 
             /* ------------------- Return all by shop ------------------- */

@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import SuccessResponse, { CreatedResponse, OkResponse } from '@/response/success.response.js';
 import DiscountService from '@/services/discount.service.js';
-import { RequestWithBody, RequestWithParams } from '@/types/request.js';
+import { RequestWithBody, RequestWithParams, RequestWithQuery } from '@/types/request.js';
 
 export default class DiscountController {
     /* ---------------------------------------------------------- */
@@ -18,7 +18,7 @@ export default class DiscountController {
             message: 'Discount created successfully',
             metadata: await DiscountService.createDiscount({
                 ...req.body,
-                shopId: req.userId as string
+                userId: req.userId as string
             })
         }).send(res);
     };
@@ -26,6 +26,21 @@ export default class DiscountController {
     /* ---------------------------------------------------------- */
     /*                            Get                             */
     /* ---------------------------------------------------------- */
+    /* ------------------ Get all own discount ------------------ */
+    public static getAllShopOwnDiscount: RequestWithQuery<joiTypes.discount.GetAllOwnShopDiscount> =
+        async (req, res, _) => {
+            new OkResponse({
+                message: 'Get all shop own discount successfully',
+                metadata: await DiscountService.getAllShopOwnDiscount({
+                    limit: req.query.limit,
+                    page: req.query.page,
+                    userId: req.userId as string,
+                    sortBy: req.query.sortBy,
+                    sortType: req.query.sortType
+                })
+            }).send(res);
+        };
+
     /* ------------- Get all discount code in shop  ------------- */
     public static getAllDiscountCodeInShop: RequestHandler<
         joiTypes.discount.GetAllDiscountCodeInShopParams,

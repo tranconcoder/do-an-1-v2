@@ -358,3 +358,21 @@
 [2025-04-08T16:58:59.334Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-04-08T16:59:27.343Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Black friday khuyến mãi 50%!!!::
 [2025-04-08T16:59:30.445Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Black friday khuyến mãi 50%!!!::
+[2025-04-08T17:41:17.858Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-04-08T17:41:31.715Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-04-08T17:41:38.705Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-04-08T17:41:39.457Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-04-08T17:59:16.592Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-04-08T17:59:17.983Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-04-08T17:59:18.665Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-04-08T17:59:19.125Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-04-08T18:00:01.020Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-04-08T18:00:27.309Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-04-08T18:01:00.447Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-04-08T18:01:01.412Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-04-08T18:02:13.898Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Black friday khuyến mãi 50%!!!::
+[2025-04-08T18:03:13.267Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Black friday khuyến mãi 50%!!!::
+[2025-04-08T18:03:31.617Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Black friday khuyến mãi 50%!!!::
+[2025-04-08T18:03:32.341Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Black friday khuyến mãi 50%!!!::
+[2025-04-08T18:18:44.433Z] [error]: VISIBLE::409::Conflict::Conflict with discount: Black friday khuyến mãi 50%!!!::
+[2025-04-08T20:25:01.497Z] [error]: connection <monitor> to 127.0.0.1:27017 timed out
