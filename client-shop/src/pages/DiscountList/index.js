@@ -94,16 +94,29 @@ const DiscountList = function() {
             });
 
             if (response.data && response.data.metadata) {
-                setDiscounts(response.data.metadata);
+                // Set discounts from the discounts array in metadata
+                if (Array.isArray(response.data.metadata.discounts)) {
+                    setDiscounts(response.data.metadata.discounts);
+                } else if (Array.isArray(response.data.metadata)) {
+                    // Fallback for backward compatibility
+                    setDiscounts(response.data.metadata);
+                }
 
-                // Handle pagination info from API response
-                if (response.data.pagination) {
-                    setTotalItems(response.data.pagination.totalItems || 0);
-                    setTotalPages(response.data.pagination.totalPages || 1);
+                // Handle count value from API to calculate pagination
+                if (response.data.metadata.count !== undefined) {
+                    // Use count from API response to set totalItems
+                    const count = response.data.metadata.count;
+                    setTotalItems(count);
+
+                    // Calculate total pages based on count and items per page
+                    setTotalPages(Math.ceil(count / itemsPerPage) || 1);
                 } else {
-                    // Fallback if server doesn't return pagination info
-                    setTotalPages(Math.ceil(response.data.metadata.length / itemsPerPage) || 1);
-                    setTotalItems(response.data.metadata.length || 0);
+                    // Fallback if count is not available
+                    const discountsArray = Array.isArray(response.data.metadata.discounts)
+                        ? response.data.metadata.discounts
+                        : response.data.metadata;
+                    setTotalItems(discountsArray.length || 0);
+                    setTotalPages(Math.ceil(discountsArray.length / itemsPerPage) || 1);
                 }
             }
         } catch (error) {
@@ -435,17 +448,26 @@ const DiscountList = function() {
                     </button>
 
                     <div className={cx('page-numbers')}>
-                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                            // Logic to show pages around current page
+                        {Array.from({ length: Math.min(3, totalPages) }, (_, i) => {
+                            // Logic to show exactly 3 pages around current page
                             let pageNum;
-                            if (totalPages <= 5) {
+                            if (totalPages <= 3) {
+                                // If we have 3 or fewer pages, just show them all
                                 pageNum = i + 1;
-                            } else if (currentPage <= 3) {
+                            } else if (currentPage === 1) {
+                                // If we're on the first page, show pages 1, 2, 3
                                 pageNum = i + 1;
-                            } else if (currentPage >= totalPages - 2) {
-                                pageNum = totalPages - 4 + i;
+                            } else if (currentPage === totalPages) {
+                                // If we're on the last page, show the last 3 pages
+                                pageNum = totalPages - 2 + i;
                             } else {
-                                pageNum = currentPage - 2 + i;
+                                // Otherwise show currentPage-1, currentPage, currentPage+1
+                                pageNum = currentPage - 1 + i;
+                            }
+
+                            // If we calculated a pageNum out of range, don't display it
+                            if (pageNum <= 0 || pageNum > totalPages) {
+                                return null;
                             }
 
                             return (
@@ -459,7 +481,7 @@ const DiscountList = function() {
                                     {pageNum}
                                 </button>
                             );
-                        })}
+                        }).filter(Boolean)}
                     </div>
 
                     <button

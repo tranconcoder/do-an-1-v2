@@ -111,3 +111,35 @@
 [2025-04-09T03:07:50.015Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
 [2025-04-09T03:07:50.019Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
 [2025-04-09T03:07:50.022Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:14:21.525Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:14:21.529Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:14:21.533Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:14:21.537Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:19:02.106Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-09T03:19:02.111Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-09T03:27:28.574Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-09T03:29:38.527Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-09T03:29:38.537Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-09T03:29:38.546Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-09T03:29:38.553Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-04-09T03:29:40.440Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:42.870Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:46.252Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:47.654Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:48.093Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:48.230Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:48.354Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:48.473Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:48.568Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:48.669Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:48.774Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:48.884Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:48.996Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:49.101Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:49.207Z] [error]: HIDE::404::NotFound::Token not found!::
+[2025-04-09T03:29:56.918Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:29:56.923Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:29:56.928Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:29:56.937Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:33:06.860Z] [error]: HIDE::400::ValidationError::"status" is not allowed::
+[2025-04-09T03:33:07.843Z] [error]: HIDE::400::ValidationError::"status" is not allowed::

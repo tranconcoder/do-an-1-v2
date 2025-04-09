@@ -168,23 +168,34 @@ export default class DiscountService {
         });
         if (!shop) throw new NotFoundErrorResponse({ message: 'Your account not is shop!' });
 
-        return await findDiscountPageSplitting({
-            query: {
-                discount_shop: shop._id,
-                discount_start_at: { $lte: new Date() },
-                discount_end_at: { $gte: new Date() },
-                is_publish: true,
-                is_available: true
-            },
-            options: {
-                lean: true,
-                sort: {
-                    [sortBy]: sortType === 'asc' ? 1 : -1
-                }
-            },
-            limit,
-            page
+        const count = await discountModel.countDocuments({
+            discount_shop: shop._id,
+            discount_start_at: { $lte: new Date() },
+            discount_end_at: { $gte: new Date() },
+            is_publish: true,
+            is_available: true
         });
+
+        return {
+            discounts: await findDiscountPageSplitting({
+                query: {
+                    discount_shop: shop._id,
+                    discount_start_at: { $lte: new Date() },
+                    discount_end_at: { $gte: new Date() },
+                    is_publish: true,
+                    is_available: true
+                },
+                options: {
+                    lean: true,
+                    sort: {
+                        [sortBy]: sortType === 'asc' ? 1 : -1
+                    }
+                },
+                limit,
+                page
+            }),
+            count
+        };
     };
 
     /* ------------- Get all discount code in shop  ------------- */
