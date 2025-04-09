@@ -6,7 +6,7 @@ import {
 } from '@/middlewares/joiValidate.middleware.js';
 import { authenticate, authenticateNotRequired } from '@/middlewares/jwt.middleware.js';
 import spuController from '@/controllers/spu.controller.js';
-import { pageSplitting } from '@/configs/joi.config.js';
+import { pagination } from '@/configs/joi.config.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
 import { Resources } from '@/enums/rbac.enum.js';
 
@@ -34,7 +34,7 @@ getRoute.use(authenticate, getRouteValidate);
 getRouteValidate.get(
     '/shop/own',
     authorization('readOwn', Resources.PRODUCT),
-    validateRequestQuery(pageSplitting),
+    validateRequestQuery(pagination),
     catchError(spuController.getAllSPUOwnByShop)
 );
 

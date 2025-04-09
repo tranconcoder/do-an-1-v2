@@ -1,6 +1,6 @@
 import Joi, { ArraySchema, NumberSchema } from 'joi';
 import _ from 'lodash';
-import { mongooseId, pageSplitting } from '@/configs/joi.config.js';
+import { mongooseId, pagination } from '@/configs/joi.config.js';
 import { DiscountTypeEnum } from '@/enums/discount.enum.js';
 import { toOptionalObject } from '@/utils/joi.util.js';
 import { discountCode } from '@/configs/joi.config.js';

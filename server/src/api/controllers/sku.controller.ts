@@ -16,7 +16,7 @@ export default new (class SKUController {
     /* ---------------------------------------------------------- */
     /*                     Get SKU shop by all                    */
     /* ---------------------------------------------------------- */
-    getAllSKUShopByAll: RequestWithQuery<commonTypes.object.PageSlitting> = async (req, res, _) => {
+    getAllSKUShopByAll: RequestWithQuery<commonTypes.object.Pagination> = async (req, res, _) => {
         new OkResponse({
             message: 'Get all sku by shop successfully!',
             metadata: await skuService.getAllShopSKUByAll({
@@ -30,7 +30,7 @@ export default new (class SKUController {
     /* ---------------------------------------------------------- */
     /*                     Get all SKU by all                     */
     /* ---------------------------------------------------------- */
-    getAllSKUByAll: RequestWithQuery<commonTypes.object.PageSlitting> = async (req, res, _) => {
+    getAllSKUByAll: RequestWithQuery<commonTypes.object.Pagination> = async (req, res, _) => {
         new OkResponse({
             message: 'Get all sku by all successfully!',
             metadata: await skuService.getAllSKUByAll({

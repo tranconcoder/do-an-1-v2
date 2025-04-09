@@ -26,7 +26,7 @@ export default new (class SPUController {
     /* ---------------------------------------------------------- */
 
     /* ------------------- Get all spu by shop ------------------ */
-    getAllSPUOwnByShop: RequestWithQuery<commonTypes.object.PageSlitting> = async (
+    getAllSPUOwnByShop: RequestWithQuery<commonTypes.object.Pagination> = async (
         req,
         res,
         next
@@ -42,7 +42,7 @@ export default new (class SPUController {
     };
 
     /* ----------------- Get all spu shop by all ---------------- */
-    getAllSPUShopByAll: RequestWithQuery<commonTypes.object.PageSlitting> = async (req, res, _) => {
+    getAllSPUShopByAll: RequestWithQuery<commonTypes.object.Pagination> = async (req, res, _) => {
         new OkResponse({
             message: 'Get all products by shop successfully!',
             metadata: await spuService.getAllSPUShopByAll({

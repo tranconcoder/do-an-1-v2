@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Spin } from 'antd';
 import { ShopStatus } from '../constants/shop.enum';
-import { logoutUser as logout } from '../store/userSlice';
+import { logoutUser as logout, fetchUserProfile } from '../store/userSlice';
 import { selectShopInfo } from '../store/slices/shopSlice';
+import { selectUserLoading, selectIsAuthenticated } from '../store/userSlice';
 
 /**
  * A guard component that controls access based on shop registration status
@@ -17,28 +18,33 @@ const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/' }) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const shopInfo = useSelector(selectShopInfo);
+    const isAuthenticated = useSelector(selectIsAuthenticated);
+    const userLoading = useSelector(selectUserLoading);
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadingAttempts, setLoadingAttempts] = useState(0);
 
     // Get shop status from the Redux store (which is populated from user profile)
     const shopStatus = shopInfo?.shop_status || null;
 
-    // Set up a timeout to check if shopInfo is loaded within 5 seconds
+    // Effect to handle initial loading and retry fetching user profile
     useEffect(() => {
-        // Only set the timeout if shopInfo is null
-        if (!shopInfo) {
-            const timeoutId = setTimeout(() => {
-                console.log('Shop information not loaded within 5 seconds. Logging out...');
-                dispatch(logout());
-                // Redirect handled by ProtectedRoute component since isAuthenticated will be false
-            }, 5000);
-
-            // Clean up the timeout if the component unmounts or shopInfo becomes available
-            return () => clearTimeout(timeoutId);
+        // If authenticated but no shop info and not already loading
+        if (isAuthenticated && !shopInfo && !userLoading && loadingAttempts < 3) {
+            console.log(`Attempt ${loadingAttempts + 1} to fetch user profile...`);
+            dispatch(fetchUserProfile());
+            setLoadingAttempts((prev) => prev + 1);
         }
-        // Return empty cleanup function when shopInfo exists
-        return () => {};
-    }, [shopInfo, dispatch]);
 
-    if (!shopInfo) {
+        // After 1 second, stop showing loading state if we still don't have shop info
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, [isAuthenticated, shopInfo, userLoading, dispatch, loadingAttempts]);
+
+    // Show loading spinner when initially loading
+    if ((userLoading || isLoading) && isAuthenticated) {
         return (
             <div
                 style={{
@@ -48,13 +54,19 @@ const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/' }) => {
                     height: '100vh'
                 }}
             >
-                <Spin size="large" tip="Loading..." />
+                <Spin size="large" tip="Đang tải thông tin cửa hàng..." />
             </div>
         );
     }
 
+    // If authenticated but no shop info after loading, something is wrong
+    if (isAuthenticated && !shopInfo && !isLoading) {
+        console.log('User is authenticated but shopInfo is missing. Redirecting to login.');
+        return <Navigate to="/login" state={{ from: location }} replace />;
+    }
+
     // If shop status doesn't match the required status, redirect
-    if (shopStatus !== requiredStatus) {
+    if (shopInfo && shopStatus !== requiredStatus) {
         // Special case for pending status - redirect to pending page
         if (shopStatus === ShopStatus.PENDING) {
             dispatch(logout());
@@ -65,7 +77,7 @@ const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/' }) => {
         return <Navigate to={redirectTo} state={{ from: location }} replace />;
     }
 
-    // If status matches, render the protected component
+    // If status matches or still loading, render the protected component
     return <>{children}</>;
 };
 

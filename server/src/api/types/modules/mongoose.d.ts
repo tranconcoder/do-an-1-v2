@@ -59,7 +59,7 @@ declare global {
             /* ----- Argument of generateFindAllPageSlitting utils  ----- */
             interface FindAllWithPageSlittingArgs<T = any>
                 extends Partial<GetProjection<T>>,
-                    commonTypes.object.PageSlitting {
+                    commonTypes.object.Pagination {
                 query: RootFilterQuery<T>;
                 options?: QueryOptions<T>;
             }

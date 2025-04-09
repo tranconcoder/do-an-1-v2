@@ -153,7 +153,7 @@ export default new (class SPUService {
     }
 
     /* ------------------------- By user ------------------------ */
-    async getAllSPUShopByAll({ page, limit }: commonTypes.object.PageSlitting) {
+    async getAllSPUShopByAll({ page, limit }: commonTypes.object.Pagination) {
         return await findSPUPageSpliting({
             query: { is_deleted: false, is_draft: false, is_publish: true },
             options: { lean: true },

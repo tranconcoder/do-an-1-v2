@@ -66,7 +66,7 @@ declare global {
                 notCheck?: boolean;
             }
 
-            interface PageSlitting {
+            interface Pagination {
                 limit?: number;
                 page?: number;
             }

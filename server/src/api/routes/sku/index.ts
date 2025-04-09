@@ -1,4 +1,4 @@
-import { pageSplitting, paramsId } from '@/configs/joi.config.js';
+import { pagination, paramsId } from '@/configs/joi.config.js';
 import skuController from '@/controllers/sku.controller.js';
 import catchError from '@/middlewares/catchError.middleware.js';
 import {
@@ -22,18 +22,16 @@ skuRouter.get(
 skuRouter.get(
     '/shop/:shopId',
     validateRequestParams(paramsId('shopId')),
-    validateRequestQuery(pageSplitting),
+    validateRequestQuery(pagination),
     catchError(skuController.getAllSKUShopByAll)
 );
 
 /* ------------------- Get all SKU by all ------------------- */
-skuRouter.get('/', validateRequestQuery(pageSplitting), catchError(skuController.getAllSKUByAll));
-
+skuRouter.get('/', validateRequestQuery(pagination), catchError(skuController.getAllSKUByAll));
 
 /* ---------------------------------------------------------- */
 /*                          Validate                          */
 /* ---------------------------------------------------------- */
 skuRouter.use(authenticate, skuRouterValidate);
-
 
 export default skuRouter;

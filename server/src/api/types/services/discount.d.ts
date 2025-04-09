@@ -28,7 +28,7 @@ declare global {
                 }
 
                 /* ------------------ Get all own discount ------------------ */
-                interface GetAllShopOwnDiscount extends commonTypes.object.PageSlitting {
+                interface GetAllShopOwnDiscount extends commonTypes.object.Pagination {
                     userId: string;
                     sortBy: keyof Pick<
                         model.discount.DiscountSchema,
@@ -43,17 +43,17 @@ declare global {
                 }
 
                 /* -------- Get all discount code available in shop  -------- */
-                interface GetAllDiscountCodeInShop extends commonTypes.object.PageSlitting {
+                interface GetAllDiscountCodeInShop extends commonTypes.object.Pagination {
                     shopId: string;
                 }
 
                 /* ----------- Get all discount code with product ----------- */
-                interface GetAllDiscountCodeWithProduct extends commonTypes.object.PageSlitting {
+                interface GetAllDiscountCodeWithProduct extends commonTypes.object.Pagination {
                     productId: string;
                 }
 
                 /* ------------ Get all product discount by code ------------ */
-                interface GetAllProductDiscountByCode extends commonTypes.object.PageSlitting {
+                interface GetAllProductDiscountByCode extends commonTypes.object.Pagination {
                     code: string;
                 }
 

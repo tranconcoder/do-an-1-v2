@@ -12,7 +12,7 @@ export const phoneNumber = Joi.string()
     .required()
     .regex(/(\+84|84|0[3|5|7|8|9])+([0-9]{8})\b/);
 
-export const pageSplitting = Joi.object({
+export const pagination = Joi.object({
     page: Joi.number(),
     limit: Joi.number()
 });

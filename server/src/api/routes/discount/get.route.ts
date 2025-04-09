@@ -13,7 +13,7 @@ import {
 } from '@/validations/joi/discount.joi.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
 import { Resources } from '@/enums/rbac.enum.js';
-import { pageSplitting, paramsId } from '@/configs/joi.config.js';
+import { pagination, paramsId } from '@/configs/joi.config.js';
 
 const discountGetRoute = Router();
 const discountGetRouteValidated = Router();
@@ -25,7 +25,7 @@ const discountGetRouteValidated = Router();
 /* ---------------- Get all discount in shop ---------------- */
 discountGetRoute.get(
     '/shop/all/:shopId',
-    validateRequestQuery(pageSplitting),
+    validateRequestQuery(pagination),
     validateRequestParams(paramsId('shopId')),
     catchError(DiscountController.getAllDiscountCodeInShop as any)
 );

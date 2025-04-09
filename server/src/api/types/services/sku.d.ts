@@ -15,13 +15,13 @@ declare global {
                     skuId: string;
                 }
 
-                interface GetAllSKUByAll extends commonTypes.object.PageSlitting {}
+                interface GetAllSKUByAll extends commonTypes.object.Pagination {}
 
                 /* ---------------------------------------------------------- */
                 /*                           Get all                          */
                 /* ---------------------------------------------------------- */
 
-                interface GetAllSKUShopByAll extends commonTypes.object.PageSlitting {
+                interface GetAllSKUShopByAll extends commonTypes.object.Pagination {
                     shopId: string;
                 }
             }

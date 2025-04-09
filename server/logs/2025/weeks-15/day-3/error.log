@@ -143,3 +143,11 @@
 [2025-04-09T03:29:56.937Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
 [2025-04-09T03:33:06.860Z] [error]: HIDE::400::ValidationError::"status" is not allowed::
 [2025-04-09T03:33:07.843Z] [error]: HIDE::400::ValidationError::"status" is not allowed::
+[2025-04-09T03:34:37.195Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-09T03:34:37.201Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-09T03:38:31.405Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:38:31.412Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:38:31.418Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:38:31.424Z] [error]: HIDE::400::ValidationError::"locationId" must only contain hexadecimal characters::
+[2025-04-09T03:38:35.266Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::
+[2025-04-09T03:38:35.271Z] [error]: HIDE::400::ValidationError::"skuId" must only contain hexadecimal characters::

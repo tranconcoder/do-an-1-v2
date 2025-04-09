@@ -1,4 +1,4 @@
-import { pageSplitting } from '@/configs/joi.config.js';
+import { pagination } from '@/configs/joi.config.js';
 import shopController from '@/controllers/shop.controller.js';
 import { Authorization } from '@/enums/authorization.enum.js';
 import { Resources } from '@/enums/rbac.enum.js';
@@ -30,7 +30,7 @@ shopRouterValidated.use(authorization(Authorization.READ_ANY, Resources.SHOP), r
 /* ------------------ Get all pending shop ------------------ */
 readAnyRouter.get(
     '/pending',
-    validateRequestQuery(pageSplitting),
+    validateRequestQuery(pagination),
     catchError(shopController.getAllPendingShop)
 );
 

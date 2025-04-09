@@ -50,14 +50,14 @@ declare global {
                 /*                          Get all                           */
                 /* ---------------------------------------------------------- */
                 /* -------------------- Get all products -------------------- */
-                interface GetAllSPUOwnByShop extends commonTypes.object.PageSlitting {
+                interface GetAllSPUOwnByShop extends commonTypes.object.Pagination {
                     userId: string;
                 }
 
                 /* --------------- Get all product by shop -------------- */
                 interface GetAllProductByShop
                     extends Pick<model.spu.SPUSchema, 'product_shop'>,
-                        commonTypes.object.PageSlitting {
+                        commonTypes.object.Pagination {
                     userId: string;
                 }
 

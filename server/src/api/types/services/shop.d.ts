@@ -13,7 +13,7 @@ declare global {
                     mediaId: string;
                 }
 
-                interface GetPendingShop extends commonTypes.object.PageSlitting {}
+                interface GetPendingShop extends commonTypes.object.Pagination {}
 
                 interface ApproveShop {
                     shopId: string;
