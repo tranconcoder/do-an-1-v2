@@ -203,3 +203,10 @@
 [2025-05-16T14:45:55.082Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-05-16T14:45:55.088Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-05-16T14:47:33.029Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-05-16T16:31:57.396Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-16T16:31:57.673Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-16T16:36:37.977Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-16T16:36:38.811Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-16T16:37:22.095Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-16T16:37:54.462Z] [error]: HIDE::400::ValidationError::"phoneNumber" with value "tranvanconkg@gmail.com" fails to match the required pattern: /(\+84|84|0[3|5|7|8|9])+([0-9]{8})\b/::
+[2025-05-16T16:46:27.513Z] [error]: HIDE::400::ValidationError::"password" with value "Anhnam9ce" fails to match the required pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/::

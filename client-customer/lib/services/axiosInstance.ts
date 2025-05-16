@@ -2,7 +2,7 @@ import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosE
 
 // Define the base URL for your API.
 // It's recommended to use environment variables for this.
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'; // Default if not set
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://localhost:4000'; // Default if not set
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
