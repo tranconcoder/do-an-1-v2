@@ -15,13 +15,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useSelector, useDispatch } from "react-redux"
+import { RootState } from "@/lib/store/store"
+import ProfileBox from "@/components/common/ProfileBox"
+import { logout } from "@/lib/store/slices/userSlice"
 
 // This would be replaced with actual auth state in a real application
-const isLoggedIn = false // TODO: Replace with actual auth state
-const user = { name: "John Doe", email: "john@example.com" } // TODO: Replace with actual user data
+// const isLoggedIn = false // TODO: Replace with actual auth state
+// const user = { name: "John Doe", email: "john@example.com" } // TODO: Replace with actual user data
 const cartItemCount = 3 // TODO: Replace with actual cart item count
 
 export default function Header() {
+  const dispatch = useDispatch()
+  const { accessToken, user, shop } = useSelector((state: RootState) => state.user)
+  const isLoggedIn = !!accessToken
+
+  const handleLogout = () => {
+    dispatch(logout())
+    // Optionally, redirect to home or login page after logout
+    // router.push('/'); 
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/70 border-b border-blue-100">
       <div className="container mx-auto px-4 flex h-16 items-center justify-between">
@@ -74,36 +88,8 @@ export default function Header() {
             <span className="sr-only">Cart</span>
           </Button>
 
-          {isLoggedIn ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="relative h-8 w-8 rounded-full">
-                  <Image
-                    // TODO: Replace with actual user avatar
-                    src="/placeholder.svg?height=40&width=40" 
-                    alt="Profile"
-                    width={32}
-                    height={32}
-                    className="rounded-full object-cover"
-                  />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex flex-col items-start gap-1">
-                  <span className="font-medium">{user.name}</span>
-                  <span className="text-xs text-muted-foreground">{user.email}</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Orders</DropdownMenuItem>
-                <DropdownMenuItem>Wishlist</DropdownMenuItem>
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Log out</DropdownMenuItem> {/* TODO: Implement logout */}
-              </DropdownMenuContent>
-            </DropdownMenu>
+          {isLoggedIn && user ? (
+            <ProfileBox user={user} shop={shop} handleLogout={handleLogout} />
           ) : (
             <div className="hidden sm:flex items-center gap-2">
               <Button variant="ghost" size="sm" asChild>

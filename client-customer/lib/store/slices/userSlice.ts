@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Define types based on the provided login response
-interface User {
+export interface User {
   _id: string;
   phoneNumber: string;
   user_avatar: string;
@@ -12,7 +12,7 @@ interface User {
   user_status: string;
 }
 
-interface Shop {
+export interface Shop {
   _id: string;
   shop_userId: string;
   shop_name: string;
