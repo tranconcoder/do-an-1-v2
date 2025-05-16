@@ -12,7 +12,7 @@ const routerValidated = Router();
 /*                           Common                           */
 /* ---------------------------------------------------------- */
 router.get(
-    '/:locationId',
+    '/location/:locationId',
     validateRequestParams(paramsId('locationId')),
     catchError(locationController.getLocationById)
 );

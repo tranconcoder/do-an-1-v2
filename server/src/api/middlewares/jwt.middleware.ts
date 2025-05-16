@@ -13,27 +13,21 @@ export const authenticate = catchError(async (req, _, next) => {
     const authHeader = req.headers.authorization;
     const accessToken = authHeader && authHeader.split(' ').at(1);
     if (!accessToken)
-        throw new ErrorResponse({
-            name: 'Token error',
-            statusCode: 403,
+        throw new ForbiddenErrorResponse({
             message: 'Token not found!'
         });
 
     /* --------------- Parse token payload -------------- */
     const payloadParsed = JwtService.parseJwtPayload(accessToken);
     if (!payloadParsed)
-        throw new ErrorResponse({
-            name: 'Token error',
-            statusCode: 403,
+        throw new ForbiddenErrorResponse({
             message: 'Invalid token payload!'
         });
 
     /* ------------ Check key token is valid ------------- */
     const keyToken = await KeyTokenService.findTokenByUserId(payloadParsed.id);
     if (!keyToken)
-        throw new ErrorResponse({
-            name: 'Token error',
-            statusCode: 403,
+        throw new ForbiddenErrorResponse({
             message: 'Invalid token!'
         });
 
@@ -43,9 +37,7 @@ export const authenticate = catchError(async (req, _, next) => {
         publicKey: keyToken.public_key
     });
     if (!payload)
-        throw new ErrorResponse({
-            name: 'Token error',
-            statusCode: 403,
+        throw new ForbiddenErrorResponse({
             message: 'Token is expired or invalid!'
         });
 

@@ -6,61 +6,6 @@
     "auditLog": "logs/.2617bc67bf4d8bfd49181eeb6ba8d52012908b07-audit.json",
     "files": [
         {
-            "date": 1743303481200,
-            "name": "logs/2025/weeks-14/day-0/debug.log",
-            "hash": "9e7981a22843793bd680884797fd4de9b7aa801f4feb16fb3f721af523839934"
-        },
-        {
-            "date": 1743379320049,
-            "name": "logs/2025/weeks-14/day-1/debug.log",
-            "hash": "25874e35072d4af6c69128d0afc3df8eeb0c6bd0ca47dcfaa0fb081821dddb7c"
-        },
-        {
-            "date": 1743469268827,
-            "name": "logs/2025/weeks-14/day-2/debug.log",
-            "hash": "b5e47c8f0eca0115d78e14b5103901b95b85ee74d22a84c840043f1a8c37100c"
-        },
-        {
-            "date": 1743556500493,
-            "name": "logs/2025/weeks-14/day-3/debug.log",
-            "hash": "2279d18338c57ff01ac72cffa37921312602437a6a1025c7999ae6fc0d4a99f6"
-        },
-        {
-            "date": 1743649500039,
-            "name": "logs/2025/weeks-14/day-4/debug.log",
-            "hash": "566e2958d404c4c18a1622bcbd789fd650d5216628bd5841e0ecab1e036b6242"
-        },
-        {
-            "date": 1743741540044,
-            "name": "logs/2025/weeks-14/day-5/debug.log",
-            "hash": "66b49c974779eb5e33295c5129723adb15f0b51435915d1c66ed4818193269e9"
-        },
-        {
-            "date": 1743811860038,
-            "name": "logs/2025/weeks-14/day-6/debug.log",
-            "hash": "4dfd5697311056e3bd307f3f96ca2cc82de4df57540342bc4f7d681c7fbead37"
-        },
-        {
-            "date": 1743898205343,
-            "name": "logs/2025/weeks-15/day-0/debug.log",
-            "hash": "eb4a8b76e3e052d29f86d0844bea8953f798df18757caf13e01e0c467a4c12a4"
-        },
-        {
-            "date": 1743990840038,
-            "name": "logs/2025/weeks-15/day-1/debug.log",
-            "hash": "a392d2a6fc5e974bfb4cca55bf0c2691e4e9b9a661cf38d676a605b12510fe18"
-        },
-        {
-            "date": 1744072430384,
-            "name": "logs/2025/weeks-15/day-2/debug.log",
-            "hash": "6de4c7e1b28109fcf3ea0c198798670c9ac3564c298429446863932df57bd2d8"
-        },
-        {
-            "date": 1744162380040,
-            "name": "logs/2025/weeks-15/day-3/debug.log",
-            "hash": "ba6d4a348a9fe71f3b3e5e2ae63be0ce7c78787fa254806e0dc0aebbee3c82e8"
-        },
-        {
             "date": 1745648741969,
             "name": "logs/2025/weeks-17/day-6/debug.log",
             "hash": "1cd1c6caa3c64a69597181f652f9d701541c452ee1e9ed97afbc8ceb8ab7c933"
@@ -69,6 +14,11 @@
             "date": 1745833834243,
             "name": "logs/2025/weeks-18/day-1/debug.log",
             "hash": "b90f4cd44c665d10e387dfffb95609dcc6f79e8564cc9e858a8ab87d3822b9e5"
+        },
+        {
+            "date": 1747391820034,
+            "name": "logs/2025/weeks-20/day-5/debug.log",
+            "hash": "949c933df5688de93ac0bd3c985a0c2d0590ba5f40402392ad596b00de5f508d"
         }
     ],
     "hashType": "sha256"

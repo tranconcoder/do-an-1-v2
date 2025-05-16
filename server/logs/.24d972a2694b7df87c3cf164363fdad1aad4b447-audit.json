@@ -6,61 +6,6 @@
     "auditLog": "logs/.24d972a2694b7df87c3cf164363fdad1aad4b447-audit.json",
     "files": [
         {
-            "date": 1743303481203,
-            "name": "logs/2025/weeks-14/day-0/warn.log",
-            "hash": "fcc293b170e43c625db1c7a4a18a34c4d7f9e0c1c21a5ed06bf300bd6aba0a6f"
-        },
-        {
-            "date": 1743379320054,
-            "name": "logs/2025/weeks-14/day-1/warn.log",
-            "hash": "8c65cbe780077367f95ce57231c0bbcb01456afb06f01ff708916b79b5e036c5"
-        },
-        {
-            "date": 1743469268839,
-            "name": "logs/2025/weeks-14/day-2/warn.log",
-            "hash": "5da62e2fecee9960831a6490b5da20646a51d04fe14e7ec99396f6fd421f7f22"
-        },
-        {
-            "date": 1743556500501,
-            "name": "logs/2025/weeks-14/day-3/warn.log",
-            "hash": "b5ace709f359444ceca3c7f496359a615c37b6bf2690832a581d20efa8449cd5"
-        },
-        {
-            "date": 1743649500045,
-            "name": "logs/2025/weeks-14/day-4/warn.log",
-            "hash": "e979cab2fa741842dfffbe01f34003d5bef5345c3415ff1301e34e4d69203006"
-        },
-        {
-            "date": 1743741540048,
-            "name": "logs/2025/weeks-14/day-5/warn.log",
-            "hash": "9db37f80a7d63ccc371a6ba148ddc900e9d4fa35f42447682b31ac22f47fbcfc"
-        },
-        {
-            "date": 1743811860042,
-            "name": "logs/2025/weeks-14/day-6/warn.log",
-            "hash": "6ed061ccd937f13303dac82126848e022da6cffb88d8721b22c0a50f5d7b4ca6"
-        },
-        {
-            "date": 1743898205349,
-            "name": "logs/2025/weeks-15/day-0/warn.log",
-            "hash": "5d7e8f057d78597db09770a984bd5b8d960b8f6c97b21d328072a5888086e058"
-        },
-        {
-            "date": 1743990840044,
-            "name": "logs/2025/weeks-15/day-1/warn.log",
-            "hash": "5121444913b26fe2a81c2d63845696039c284e02e467fdc1b9d0824e767ca431"
-        },
-        {
-            "date": 1744072430388,
-            "name": "logs/2025/weeks-15/day-2/warn.log",
-            "hash": "da0520b810f3c583bad6b3a0931826ed0e03f5d7dda5750863eca5e8243a36d4"
-        },
-        {
-            "date": 1744162380045,
-            "name": "logs/2025/weeks-15/day-3/warn.log",
-            "hash": "1a8e34b3f60d7a8a22390215344442c00a0e98e0b4f22a4f2673530bd635fa21"
-        },
-        {
             "date": 1745648741981,
             "name": "logs/2025/weeks-17/day-6/warn.log",
             "hash": "03e770e9068679b5bf615e61501822c2434d499e3c17cf442a6b253bd924fba5"
@@ -69,6 +14,11 @@
             "date": 1745833834248,
             "name": "logs/2025/weeks-18/day-1/warn.log",
             "hash": "fa491cb7c3ea6c557e10356aec23274ef9b8bed7ad3380f2f42e5b8fe4ffdd20"
+        },
+        {
+            "date": 1747391820041,
+            "name": "logs/2025/weeks-20/day-5/warn.log",
+            "hash": "d20c07267ad5998a35c23a821b0a500b91620291853cfccc668c25743764a78e"
         }
     ],
     "hashType": "sha256"
