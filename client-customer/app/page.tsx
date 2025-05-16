@@ -22,14 +22,18 @@ export default function Home() {
 
   // Sample images for the hero slider
   const heroImages = [
-    "/hero.svg", // Your existing image
-    "/placeholder.svg?height=800&width=800&text=Hero+Image+2",
-    "/placeholder.svg?height=800&width=800&text=Hero+Image+3",
+    "/hero-1.jpg",
+    "/hero-2.svg",
+    "/hero-3.svg",
+    "/hero-4.svg",
+    "/hero-5.svg",
   ]
   const heroImageAlts = [
     "Hero image 1",
     "Hero image 2",
     "Hero image 3",
+    "Hero image 4",
+    "Hero image 5",
   ]
 
   return (
