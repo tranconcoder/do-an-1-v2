@@ -7,9 +7,8 @@ import { useEffect, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { ImageSlider } from "@/components/ui/ImageSlider"
-import { Heart, ShoppingCart } from "lucide-react"
+import { Heart, ShoppingCart, Badge} from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
 import { categoryService, Category } from "@/lib/services/api/categoryService"
 import { mediaService } from "@/lib/services/api/mediaService"
 

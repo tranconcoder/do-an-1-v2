@@ -2,11 +2,11 @@
 
 import Link from "next/link"
 import NextImage from "next/image";
-import { Filter, /*Search,*/ ShoppingCart, Heart, Grid3X3, List, Store, Star, AlertTriangle, Info } from "lucide-react" // Commented out Search
+import { Filter, Search, ShoppingCart, Heart, Grid3X3, List, Store, Star, AlertTriangle, Info } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-// import { Input } from "@/components/ui/input" // Commented out Input
-// import { Badge } from "@/components/ui/badge" // Potentially remove if handled by global ProfileBox
+import { Input } from "@/components/ui/input"
+import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -182,7 +182,7 @@ export default function ProductsPage() {
   );
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <main className="container mx-auto px-4 py-8">
         <div className="flex items-center text-sm text-gray-500 mb-6">
           <Link href="/" className="hover:text-blue-600">
@@ -368,7 +368,7 @@ export default function ProductsPage() {
                 <AlertTriangle className="mx-auto h-10 w-10 text-red-400 mb-3" />
                 <p className="text-red-500 font-semibold">Failed to load products</p>
                 <p className="text-gray-600 mt-1 mb-4 text-sm">{errorProducts}</p>
-                <Button 
+                    <Button
                   onClick={async () => {
                     setIsLoadingProducts(true);
                     setErrorProducts(null);
@@ -385,8 +385,8 @@ export default function ProductsPage() {
                   variant="outline"
                 >
                   Retry
-                </Button>
-              </div>
+                    </Button>
+                  </div>
             ) : products.length === 0 ? (
                  <div className="text-center py-10 bg-white rounded-lg shadow border border-gray-200 flex flex-col items-center justify-center min-h-[300px]">
                     <Info className="mx-auto h-10 w-10 text-blue-400 mb-3" />
@@ -487,34 +487,34 @@ export default function ProductsPage() {
                                       className={`h-4 w-4 group-hover:fill-white ${wishlistedProductIds.has(product._id) ? 'fill-rose-500' : ''}`} 
                                     />
                                     <span className="sr-only">Add to Wishlist</span>
-                                </Button>
-                            </div>
+                        </Button>
+                      </div>
                         </div>
                         </div>
-                    </div>
+                  </div>
                     )}
                 )}
                 </div>
             )}
 
             {!isLoadingProducts && !errorProducts && products.length > 0 && (
-                <div className="mt-12">
-                <Pagination>
-                    <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious href="#" />
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#" isActive>
-                        1
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationNext href="#" />
-                    </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
-                </div>
+            <div className="mt-12">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious href="#" />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#" isActive>
+                      1
+                    </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationNext href="#" />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
             )}
           </div>
         </div>
@@ -670,6 +670,6 @@ export default function ProductsPage() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   )
 }
