@@ -7,9 +7,9 @@ import { useEffect, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { ImageSlider } from "@/components/ui/ImageSlider"
-import Header from "@/components/common/Header"
-import { Heart, ShoppingCart, Badge} from "lucide-react"
+import { Heart, ShoppingCart } from "lucide-react"
 import { Input } from "@/components/ui/input"
+import { Badge } from "@/components/ui/badge"
 import { categoryService, Category } from "@/lib/services/api/categoryService"
 import { mediaService } from "@/lib/services/api/mediaService"
 
@@ -53,8 +53,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <Header />
-
       <main>
         {/* Hero Section */}
         <section className="relative py-20 overflow-hidden">

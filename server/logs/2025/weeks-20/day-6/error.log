@@ -2,3 +2,233 @@
 [2025-05-16T17:28:41.921Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-05-16T17:28:54.606Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-05-16T17:41:46.414Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T02:24:39.620Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-17T02:24:57.386Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-17T02:25:21.815Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-17T02:25:32.264Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-17T02:25:33.335Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-17T02:25:35.916Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-17T02:30:40.093Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T02:30:44.779Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T02:31:06.036Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T02:31:29.762Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T02:32:08.781Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-17T02:37:53.648Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T02:38:01.507Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T02:38:16.534Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T02:38:16.542Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T02:38:18.551Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T02:38:18.555Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T02:41:59.768Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-17T02:42:01.852Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-17T02:42:07.834Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-17T02:43:01.654Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T02:43:01.663Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T02:47:52.961Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:52.965Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:52.972Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:52.977Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:52.978Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:52.986Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:52.987Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:52.995Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.001Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.002Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.014Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.016Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.022Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.025Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.026Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.027Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.238Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.241Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.242Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.252Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.257Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.259Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.273Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.279Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.286Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.290Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.295Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.299Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.314Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.315Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.321Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:47:53.323Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.385Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.391Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.392Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.394Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.396Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.401Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.426Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.454Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.460Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.461Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.472Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.474Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.477Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.484Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.497Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:00.500Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.587Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.593Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.599Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.605Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.611Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.617Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.642Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.648Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.649Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.655Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.665Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.678Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.683Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.684Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.687Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.690Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.858Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.862Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:48:01.863Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.351Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.359Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.368Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.369Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.374Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.383Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.396Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.399Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.403Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.408Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.413Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.419Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.431Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.434Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.435Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:17.437Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.409Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.412Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.420Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.424Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.425Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.428Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.450Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.459Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.460Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.464Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.474Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.487Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.491Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.491Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.496Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:51:18.498Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.613Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.616Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.620Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.621Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.624Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.636Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.677Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.680Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.685Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.686Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.687Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.717Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.719Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.734Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.739Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:17.740Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:18.101Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:18.120Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:18.122Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:18.138Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:56:18.145Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.411Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.423Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.428Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.552Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.577Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.584Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.620Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.640Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.644Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.647Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.650Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.654Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.683Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.684Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.685Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:36.687Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.404Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.463Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.465Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.468Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.469Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.477Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.542Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.543Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.544Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.549Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.553Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.556Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.574Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.577Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.579Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.582Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.876Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.877Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T02:59:38.883Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.383Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.392Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.403Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.413Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.423Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.436Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.466Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.484Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.487Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.488Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.489Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.492Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.504Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.539Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.553Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:23.557Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.337Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.338Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.338Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.342Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.343Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.352Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.496Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.497Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.498Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.502Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.503Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.537Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.543Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.544Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.549Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.552Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.964Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.965Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.981Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.985Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.987Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:25.989Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:26.020Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:26.026Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:26.027Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T03:00:26.048Z] [error]: HIDE::400::ValidationError::"id" must only contain hexadecimal characters::
+[2025-05-17T05:01:19.699Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T05:01:19.714Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T05:01:24.365Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T05:01:28.445Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T05:01:31.911Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T05:01:45.926Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T05:01:45.936Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T05:01:47.661Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T05:02:01.663Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T05:02:17.630Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T05:05:41.746Z] [error]: HIDE::404::NotFound::Route is not exists::

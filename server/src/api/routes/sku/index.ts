@@ -15,7 +15,7 @@ const skuRouterValidate = Router();
 
 /* ---------------------- Get SKU by id --------------------- */
 skuRouter.get(
-    '/:skuId',
+    '/id/:skuId',
     validateRequestParams(paramsId('skuId')),
     catchError(skuController.getSKUById)
 );

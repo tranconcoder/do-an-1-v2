@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import StoreProvider from '@/lib/store/StoreProvider'
+import Header from '@/components/layout/Header'
+import { Toaster } from '@/components/ui/sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,10 +18,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 min-h-screen flex flex-col`}>
         <StoreProvider>
-          {children}
+          <Header />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Toaster richColors position="top-right" />
         </StoreProvider>
       </body>
     </html>

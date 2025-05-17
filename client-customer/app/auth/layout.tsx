@@ -11,9 +11,9 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   const activeTab = isLoginPage ? "login" : "register";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col pt-16">
       {/* Header */}
-      <header className="w-full backdrop-blur-md bg-white/70 border-b border-blue-100">
+      {/* <header className="w-full backdrop-blur-md bg-white/70 border-b border-blue-100">
         <div className="container mx-auto px-4 flex h-16 items-center">
           <Link href="/" className="flex items-center">
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
@@ -21,7 +21,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             </span>
           </Link>
         </div>
-      </header>
+      </header> */}
 
       <main className="flex-1 flex items-center justify-center py-12 px-4">
         <div className="w-full max-w-5xl grid md:grid-cols-2 gap-8 items-center">

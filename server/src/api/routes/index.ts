@@ -13,6 +13,7 @@ import shopRoute from './shop/index.js';
 import categoryRoute from './category/index.js';
 import warehousesRouter from './wareshouses/index.js';
 import skuRouter from './sku/index.js';
+import wishListRouter from './wishlist/index.js';
 
 const rootRoute = Router();
 
@@ -48,6 +49,9 @@ rootRoute.use('/sku', skuRouter);
 
 /* ------------------------ Warehouse ------------------------ */
 rootRoute.use('/warehouse', warehousesRouter);
+
+/* ------------------------ Wishlist ------------------------ */
+rootRoute.use('/wishlist', wishListRouter);
 
 
 export default rootRoute;

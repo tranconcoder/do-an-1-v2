@@ -1,10 +1,12 @@
+"use client";
+
 import Link from "next/link"
-import Image from "next/image"
-import { Filter, Search, ShoppingCart, Heart, Grid3X3, List } from "lucide-react"
+import NextImage from "next/image";
+import { Filter, /*Search,*/ ShoppingCart, Heart, Grid3X3, List, Store, Star, AlertTriangle, Info } from "lucide-react" // Commented out Search
 
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
+// import { Input } from "@/components/ui/input" // Commented out Input
+// import { Badge } from "@/components/ui/badge" // Potentially remove if handled by global ProfileBox
 import { Checkbox } from "@/components/ui/checkbox"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -27,75 +29,161 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
+import { useEffect, useState } from "react";
+import { categoryService, Category } from "@/lib/services/api/categoryService";
+import productService, { ProductSku } from "@/lib/services/api/productService";
+import shopService, { Shop } from "@/lib/services/api/shopService";
+import { mediaService } from "@/lib/services/api/mediaService";
+import { Skeleton } from "@/components/ui/skeleton";
+import { wishlistService, WishlistItem } from "@/lib/services/api/wishlistService";
+import { toast } from "sonner";
+
+interface ShopDetails {
+  name: string;
+  avatarMediaId: string;
+}
 
 export default function ProductsPage() {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      {/* Header - Reusing the same header structure from the homepage */}
-      <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/70 border-b border-blue-100">
-        <div className="container mx-auto px-4 flex h-16 items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center">
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
-                Aliconcon
-              </span>
-            </Link>
-            <nav className="hidden md:flex items-center gap-6">
-              <Link href="/" className="text-sm font-medium hover:text-blue-600 transition-colors">
-                Home
-              </Link>
-              <Link href="/products" className="text-sm font-medium text-blue-600 transition-colors">
-                Shop
-              </Link>
-              <Link href="#" className="text-sm font-medium hover:text-blue-600 transition-colors">
-                Categories
-              </Link>
-              <Link href="#" className="text-sm font-medium hover:text-blue-600 transition-colors">
-                Deals
-              </Link>
-              <Link href="#" className="text-sm font-medium hover:text-blue-600 transition-colors">
-                About
-              </Link>
-            </nav>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="relative hidden md:flex items-center">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
-              <Input
-                type="search"
-                placeholder="Search products..."
-                className="pl-10 w-[200px] lg:w-[300px] bg-white/90 border-blue-100 focus-visible:ring-blue-500"
-              />
-            </div>
-            <Button variant="ghost" size="icon" className="relative">
-              <Heart className="h-5 w-5" />
-              <span className="sr-only">Wishlist</span>
-            </Button>
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-blue-600">
-                3
-              </Badge>
-              <span className="sr-only">Cart</span>
-            </Button>
-            <div className="hidden sm:flex items-center gap-2">
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/auth">Sign In</Link>
-              </Button>
-              <Button
-                size="sm"
-                className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600"
-                asChild
-              >
-                <Link href="/auth?tab=signup">Sign Up</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+  const [fetchedCategories, setFetchedCategories] = useState<Category[]>([]);
+  const [isLoadingCategories, setIsLoadingCategories] = useState(true);
+  const [errorCategories, setErrorCategories] = useState<string | null>(null);
 
+  const [products, setProducts] = useState<ProductSku[]>([]);
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
+  const [errorProducts, setErrorProducts] = useState<string | null>(null);
+  const [shopDetailsMap, setShopDetailsMap] = useState<{ [shopId: string]: ShopDetails }>({});
+  const [loadingShopDetails, setLoadingShopDetails] = useState<boolean>(false);
+
+  const [wishlistedProductIds, setWishlistedProductIds] = useState<Set<string>>(new Set());
+  const [isWishlistLoading, setIsWishlistLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        setIsLoadingCategories(true);
+        const categoriesData = await categoryService.getAllCategories();
+        setFetchedCategories(categoriesData);
+        setErrorCategories(null);
+      } catch (error) {
+        console.error("Failed to fetch categories for filters:", error);
+        setErrorCategories("Could not load categories.");
+      }
+      setIsLoadingCategories(false);
+    };
+    loadCategories();
+  }, []);
+
+  useEffect(() => {
+    const loadWishlist = async () => {
+      setIsWishlistLoading(true);
+      try {
+        const wishlistData = await wishlistService.getWishlist();
+        const productIds = new Set(wishlistData.map(item => item.productId));
+        setWishlistedProductIds(productIds);
+      } catch (error) {
+        console.error("Failed to fetch wishlist:", error);
+        toast.error("Could not load your wishlist. Please try again later.");
+      }
+      setIsWishlistLoading(false);
+    };
+    loadWishlist();
+  }, []);
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        setIsLoadingProducts(true);
+        setErrorProducts(null);
+        const productsData = await productService.getAllProducts();
+        setProducts(productsData);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+        setErrorProducts("Could not load products. Please try again later.");
+      }
+      setIsLoadingProducts(false);
+    };
+    loadProducts();
+  }, []);
+
+  useEffect(() => {
+    const fetchShopDetailsForProducts = async () => {
+      if (products.length === 0) return;
+
+      const shopIdsToFetch = Array.from(new Set(products.map(p => p.product_shop)))
+        .filter(shopId => !shopDetailsMap[shopId]);
+
+      if (shopIdsToFetch.length === 0) return;
+
+      setLoadingShopDetails(true);
+      const newShopDetailsMap: { [shopId: string]: ShopDetails } = {};
+      try {
+        await Promise.all(shopIdsToFetch.map(async (shopId) => {
+          try {
+            const shopData: Shop = await shopService.getShopById(shopId);
+            newShopDetailsMap[shopId] = { name: shopData.shop_name, avatarMediaId: shopData.shop_logo };
+          } catch (error) {
+            console.warn(`Failed to fetch shop details for ID ${shopId}:`, error);
+            newShopDetailsMap[shopId] = { name: "Shop Unavailable", avatarMediaId: "" }; 
+          }
+        }));
+        setShopDetailsMap(prevMap => ({ ...prevMap, ...newShopDetailsMap }));
+      } catch (e) {
+          console.error("Error fetching batch shop details", e)
+      }
+      setLoadingShopDetails(false);
+    };
+
+    if (products.length > 0) {
+        fetchShopDetailsForProducts();
+    }
+  }, [products, shopDetailsMap]);
+
+  const handleToggleWishlist = async (productId: string) => {
+    const isWishlisted = wishlistedProductIds.has(productId);
+    try {
+      if (isWishlisted) {
+        await wishlistService.removeFromWishlist(productId);
+        setWishlistedProductIds(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(productId);
+          return newSet;
+        });
+        toast.success("Removed from wishlist!");
+      } else {
+        await wishlistService.addToWishlist(productId);
+        setWishlistedProductIds(prev => {
+          const newSet = new Set(prev);
+          newSet.add(productId);
+          return newSet;
+        });
+        toast.success("Added to wishlist!");
+      }
+    } catch (error) {
+      console.error("Failed to update wishlist:", error);
+      toast.error(`Failed to ${isWishlisted ? 'remove from' : 'add to'} wishlist. Please try again.`);
+    }
+  };
+
+  const ProductCardSkeleton = () => (
+    <div className="group bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+        <Skeleton className="w-full aspect-[4/3]" />
+        <div className="p-4 flex flex-col flex-grow space-y-2">
+            <div className="flex items-center gap-2 mb-1">
+                <Skeleton className="w-5 h-5 rounded-full" />
+                <Skeleton className="h-4 w-1/2" />
+            </div>
+            <Skeleton className="h-5 w-3/4" />
+            <Skeleton className="h-4 w-1/4 mb-1" />
+            <Skeleton className="h-6 w-1/3 mb-1" />
+            <Skeleton className="h-4 w-1/4 mb-2" />
+            <Skeleton className="h-9 w-full mt-auto" />
+        </div>
+    </div>
+  );
+
+  return (
+    <>
       <main className="container mx-auto px-4 py-8">
-        {/* Breadcrumbs */}
         <div className="flex items-center text-sm text-gray-500 mb-6">
           <Link href="/" className="hover:text-blue-600">
             Home
@@ -104,7 +192,6 @@ export default function ProductsPage() {
           <span className="font-medium text-gray-900">All Products</span>
         </div>
 
-        {/* Page Title */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-bold">All Products</h1>
@@ -146,20 +233,21 @@ export default function ProductsPage() {
                   <SheetDescription>Narrow down your product search with filters.</SheetDescription>
                 </SheetHeader>
                 <div className="space-y-6">
-                  {/* Mobile Filters - Same as desktop but in a sheet */}
                   <Accordion type="single" collapsible defaultValue="category">
                     <AccordionItem value="category">
                       <AccordionTrigger>Category</AccordionTrigger>
                       <AccordionContent>
                         <div className="space-y-3">
-                          {categories.map((category) => (
-                            <div key={category} className="flex items-center space-x-2">
-                              <Checkbox id={`mobile-category-${category}`} />
+                          {isLoadingCategories && <p className="text-xs text-gray-500">Loading categories...</p>}
+                          {errorCategories && <p className="text-xs text-red-500">{errorCategories}</p>}
+                          {!isLoadingCategories && !errorCategories && fetchedCategories.map((category) => (
+                            <div key={category._id} className="flex items-center space-x-2">
+                              <Checkbox id={`mobile-category-${category._id}`} />
                               <label
-                                htmlFor={`mobile-category-${category}`}
+                                htmlFor={`mobile-category-${category._id}`}
                                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                               >
-                                {category}
+                                {category.category_name}
                               </label>
                             </div>
                           ))}
@@ -193,33 +281,6 @@ export default function ProductsPage() {
                         </div>
                       </AccordionContent>
                     </AccordionItem>
-                    <AccordionItem value="size">
-                      <AccordionTrigger>Size</AccordionTrigger>
-                      <AccordionContent>
-                        <div className="grid grid-cols-4 gap-2">
-                          {sizes.map((size) => (
-                            <Button key={size} variant="outline" className="h-10 text-center" size="sm">
-                              {size}
-                            </Button>
-                          ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="color">
-                      <AccordionTrigger>Color</AccordionTrigger>
-                      <AccordionContent>
-                        <div className="flex flex-wrap gap-2">
-                          {colors.map((color) => (
-                            <div
-                              key={color.name}
-                              className="h-8 w-8 rounded-full border border-gray-200 cursor-pointer"
-                              style={{ backgroundColor: color.hex }}
-                              title={color.name}
-                            />
-                          ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
                   </Accordion>
                 </div>
                 <SheetFooter className="mt-6">
@@ -233,7 +294,6 @@ export default function ProductsPage() {
         </div>
 
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Desktop Sidebar Filters */}
           <div className="hidden md:block w-64 shrink-0">
             <div className="sticky top-24 space-y-6">
               <div className="flex items-center justify-between">
@@ -248,14 +308,16 @@ export default function ProductsPage() {
               <div className="space-y-4">
                 <h4 className="font-medium">Category</h4>
                 <div className="space-y-3">
-                  {categories.map((category) => (
-                    <div key={category} className="flex items-center space-x-2">
-                      <Checkbox id={`category-${category}`} />
+                  {isLoadingCategories && <p className="text-xs text-gray-500">Loading categories...</p>}
+                  {errorCategories && <p className="text-xs text-red-500">{errorCategories}</p>}
+                  {!isLoadingCategories && !errorCategories && fetchedCategories.map((category) => (
+                    <div key={category._id} className="flex items-center space-x-2">
+                      <Checkbox id={`category-${category._id}`} />
                       <label
-                        htmlFor={`category-${category}`}
+                        htmlFor={`category-${category._id}`}
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
-                        {category}
+                        {category.category_name}
                       </label>
                     </div>
                   ))}
@@ -290,129 +352,174 @@ export default function ProductsPage() {
 
               <Separator />
 
-              <div className="space-y-4">
-                <h4 className="font-medium">Size</h4>
-                <div className="grid grid-cols-4 gap-2">
-                  {sizes.map((size) => (
-                    <Button key={size} variant="outline" className="h-10 text-center" size="sm">
-                      {size}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-
-              <Separator />
-
-              <div className="space-y-4">
-                <h4 className="font-medium">Color</h4>
-                <div className="flex flex-wrap gap-2">
-                  {colors.map((color) => (
-                    <div
-                      key={color.name}
-                      className="h-8 w-8 rounded-full border border-gray-200 cursor-pointer"
-                      style={{ backgroundColor: color.hex }}
-                      title={color.name}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <Separator />
-
               <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600">
                 Apply Filters
               </Button>
             </div>
           </div>
 
-          {/* Product Grid */}
           <div className="flex-1">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {allProducts.map((product) => (
-                <div key={product.id} className="group">
-                  <div className="relative aspect-square rounded-xl overflow-hidden bg-gray-100 mb-3">
-                    <Image
-                      src={product.image || "/placeholder.svg"}
-                      alt={product.name}
-                      fill
-                      className="object-cover transition-transform group-hover:scale-105"
-                    />
-                    {product.isNew && <Badge className="absolute top-2 left-2 bg-blue-600">New</Badge>}
-                    {product.discount && (
-                      <Badge className="absolute top-2 left-2 bg-red-500">-{product.discount}%</Badge>
-                    )}
-                    <Button
-                      size="icon"
-                      className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white"
-                    >
-                      <Heart className="h-4 w-4" />
-                      <span className="sr-only">Add to wishlist</span>
-                    </Button>
-                  </div>
-                  <div>
-                    <Link href={`/products/${product.id}`} className="block">
-                      <h3 className="font-medium text-sm group-hover:text-blue-600 transition-colors">
-                        {product.name}
-                      </h3>
-                      <div className="flex items-center justify-between mt-1">
-                        <div className="flex items-center">
-                          {product.salePrice ? (
-                            <>
-                              <span className="font-semibold">${product.salePrice.toFixed(2)}</span>
-                              <span className="text-gray-500 line-through text-xs ml-2">
-                                ${product.price.toFixed(2)}
-                              </span>
-                            </>
-                          ) : (
-                            <span className="font-semibold">${product.price.toFixed(2)}</span>
-                          )}
-                        </div>
-                        <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
-                          <ShoppingCart className="h-4 w-4" />
-                          <span className="sr-only">Add to cart</span>
-                        </Button>
-                      </div>
-                    </Link>
-                  </div>
+            {isLoadingProducts ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {[...Array(8)].map((_, i) => <ProductCardSkeleton key={i} />)}
+              </div>
+            ) : errorProducts ? (
+              <div className="text-center py-10 bg-white rounded-lg shadow border border-red-200 flex flex-col items-center justify-center min-h-[300px]">
+                <AlertTriangle className="mx-auto h-10 w-10 text-red-400 mb-3" />
+                <p className="text-red-500 font-semibold">Failed to load products</p>
+                <p className="text-gray-600 mt-1 mb-4 text-sm">{errorProducts}</p>
+                <Button 
+                  onClick={async () => {
+                    setIsLoadingProducts(true);
+                    setErrorProducts(null);
+                    try {
+                        const productsData = await productService.getAllProducts();
+                        setProducts(productsData);
+                    } catch (error) {
+                        console.error("Failed to refetch products:", error);
+                        setErrorProducts("Retry failed. Please try again later.");
+                    } finally {
+                        setIsLoadingProducts(false);
+                    }
+                  }}
+                  variant="outline"
+                >
+                  Retry
+                </Button>
+              </div>
+            ) : products.length === 0 ? (
+                 <div className="text-center py-10 bg-white rounded-lg shadow border border-gray-200 flex flex-col items-center justify-center min-h-[300px]">
+                    <Info className="mx-auto h-10 w-10 text-blue-400 mb-3" />
+                    <p className="text-gray-700 font-semibold">No products found</p>
+                    <p className="text-gray-500 mt-1 text-sm">There are currently no products available. Please check back later.</p>
                 </div>
-              ))}
-            </div>
+            ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {products.map((product) => {
+                    const shopInfo = shopDetailsMap[product.product_shop];
+                    const imageUrl = product.product_thumb || (product.sku && product.sku.sku_thumb);
+                    return (
+                    <div key={product._id} className="group bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
+                        <Link href={`/products/${product._id}`} className="block">
+                        <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
+                            <NextImage
+                            src={imageUrl ? mediaService.getMediaUrl(imageUrl) : '/placeholder-image.svg'}
+                            alt={product.product_name}
+                            layout="fill"
+                            objectFit="cover"
+                            className="transition-transform duration-300 group-hover:scale-105"
+                            onError={(e) => { 
+                                const target = e.target as HTMLImageElement;
+                                target.src = '/placeholder-image.svg'; 
+                                target.srcset = '';
+                            }}
+                            />
+                        </div>
+                        </Link>
+                        <div className="p-4 flex flex-col flex-grow">
+                        <div className="flex items-center gap-2 mb-1.5">
+                            {shopInfo ? (
+                            <NextImage 
+                                src={shopInfo.avatarMediaId ? mediaService.getMediaUrl(shopInfo.avatarMediaId) : '/placeholder-person.svg'} 
+                                alt={shopInfo.name} 
+                                width={20} 
+                                height={20} 
+                                className="rounded-full bg-gray-200 object-cover"
+                                onError={(e) => { 
+                                    const target = e.target as HTMLImageElement;
+                                    target.src = '/placeholder-person.svg'; 
+                                    target.srcset = '';
+                                }}
+                            />
+                            ) : loadingShopDetails && !shopDetailsMap[product.product_shop] ? (
+                                <Skeleton className="w-5 h-5 rounded-full" />
+                            ) : (
+                                <Store className="w-5 h-5 text-gray-400" /> 
+                            )}
+                            <span className="text-xs text-gray-500 group-hover:text-blue-600 transition-colors truncate">
+                                {shopInfo ? shopInfo.name : (loadingShopDetails && !shopDetailsMap[product.product_shop] ? <Skeleton className="h-3 w-16" /> : product.product_shop)}
+                            </span>
+                        </div>
+                        <h3 className="text-sm font-semibold text-gray-800 group-hover:text-blue-700 transition-colors mb-1 truncate h-10 flex items-center" title={product.product_name}>
+                            <Link href={`/products/${product._id}`}>{product.product_name}</Link>
+                        </h3>
+                         {product.product_rating_avg !== undefined ? (
+                            <div className="flex items-center gap-1 mb-1.5">
+                            {[...Array(5)].map((_, i) => (
+                                <Star
+                                key={i}
+                                className={`h-3.5 w-3.5 ${i < Math.round(product.product_rating_avg!) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                                />
+                            ))}
+                            <span className="text-xs text-gray-500 ml-0.5">({product.product_rating_avg.toFixed(1)})</span>
+                            </div>
+                        ) : (
+                            <div className="h-[1.125rem] mb-1.5"></div>
+                        )}
 
-            {/* Pagination */}
-            <div className="mt-12">
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious href="#" />
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#" isActive>
-                      1
-                    </PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">2</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">3</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">4</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">5</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationNext href="#" />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </div>
+                        {product.sku && product.sku.sku_stock !== undefined ? (
+                            product.sku.sku_stock > 0 ? (
+                                <div className="text-xs text-gray-500 mb-3">
+                                    {product.sku.sku_stock.toLocaleString()} in stock
+                                </div>
+                            ) : (
+                                <div className="text-xs text-red-500 font-medium mb-3">
+                                    Out of stock
+                                </div>
+                            )
+                        ) : (
+                            <div className="h-[1rem] mb-3"></div>
+                        )}
+
+                        <div className="mt-auto flex flex-col gap-2 pt-2">
+                            <div className="flex gap-2">
+                                <Button variant="outline" size="sm" className="h-9 w-full hover:bg-blue-500 hover:text-white group">
+                                    <ShoppingCart className="h-4 w-4 mr-2" /> Add to Cart
+                                </Button>
+                                <Button 
+                                  variant="ghost" 
+                                  size="icon" 
+                                  className="h-9 w-9 border border-rose-200 text-rose-500 hover:bg-rose-500 hover:text-white group disabled:opacity-50"
+                                  onClick={() => handleToggleWishlist(product._id)}
+                                  disabled={isWishlistLoading}
+                                >
+                                    <Heart 
+                                      className={`h-4 w-4 group-hover:fill-white ${wishlistedProductIds.has(product._id) ? 'fill-rose-500' : ''}`} 
+                                    />
+                                    <span className="sr-only">Add to Wishlist</span>
+                                </Button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    )}
+                )}
+                </div>
+            )}
+
+            {!isLoadingProducts && !errorProducts && products.length > 0 && (
+                <div className="mt-12">
+                <Pagination>
+                    <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious href="#" />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationLink href="#" isActive>
+                        1
+                        </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationNext href="#" />
+                    </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
+                </div>
+            )}
           </div>
         </div>
       </main>
 
-      {/* Footer - Reusing the same footer structure from the homepage */}
       <footer className="bg-gradient-to-b from-white to-blue-50 border-t border-blue-100 pt-16 pb-8 mt-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
@@ -448,7 +555,7 @@ export default function ProductsPage() {
                     className="bi bi-instagram"
                     viewBox="0 0 16 16"
                   >
-                    <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                    <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
                   </svg>
                   <span className="sr-only">Instagram</span>
                 </Button>
@@ -563,161 +670,6 @@ export default function ProductsPage() {
           </div>
         </div>
       </footer>
-    </div>
+    </>
   )
 }
-
-// Sample data
-const categories = ["Clothing", "Shoes", "Accessories", "Bags", "Jewelry", "Beauty", "Home", "Sale"]
-
-const sizes = ["XS", "S", "M", "L", "XL", "XXL"]
-
-const colors = [
-  { name: "Black", hex: "#000000" },
-  { name: "White", hex: "#FFFFFF" },
-  { name: "Gray", hex: "#808080" },
-  { name: "Red", hex: "#FF0000" },
-  { name: "Blue", hex: "#0000FF" },
-  { name: "Green", hex: "#008000" },
-  { name: "Yellow", hex: "#FFFF00" },
-  { name: "Purple", hex: "#800080" },
-  { name: "Pink", hex: "#FFC0CB" },
-  { name: "Orange", hex: "#FFA500" },
-]
-
-const allProducts = [
-  {
-    id: 1,
-    name: "Classic White T-Shirt",
-    price: 29.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Clothing",
-    isNew: false,
-  },
-  {
-    id: 2,
-    name: "Slim Fit Jeans",
-    price: 59.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Clothing",
-    isNew: false,
-  },
-  {
-    id: 3,
-    name: "Leather Crossbody Bag",
-    price: 79.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Bags",
-    isNew: false,
-  },
-  {
-    id: 4,
-    name: "Oversized Hoodie",
-    price: 49.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Clothing",
-    isNew: false,
-  },
-  {
-    id: 5,
-    name: "Summer Floral Dress",
-    price: 69.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Clothing",
-    isNew: true,
-  },
-  {
-    id: 6,
-    name: "Canvas Sneakers",
-    price: 45.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Shoes",
-    isNew: true,
-  },
-  {
-    id: 7,
-    name: "Straw Beach Hat",
-    price: 24.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Accessories",
-    isNew: true,
-  },
-  {
-    id: 8,
-    name: "Linen Shirt",
-    price: 39.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Clothing",
-    isNew: true,
-  },
-  {
-    id: 9,
-    name: "Denim Jacket",
-    price: 89.99,
-    salePrice: 69.99,
-    discount: 22,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Clothing",
-    isNew: false,
-  },
-  {
-    id: 10,
-    name: "Leather Ankle Boots",
-    price: 129.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Shoes",
-    isNew: false,
-  },
-  {
-    id: 11,
-    name: "Gold Hoop Earrings",
-    price: 34.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Jewelry",
-    isNew: false,
-  },
-  {
-    id: 12,
-    name: "Silk Scarf",
-    price: 29.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Accessories",
-    isNew: false,
-  },
-  {
-    id: 13,
-    name: "Pleated Midi Skirt",
-    price: 49.99,
-    salePrice: 39.99,
-    discount: 20,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Clothing",
-    isNew: false,
-  },
-  {
-    id: 14,
-    name: "Cashmere Sweater",
-    price: 149.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Clothing",
-    isNew: false,
-  },
-  {
-    id: 15,
-    name: "Leather Belt",
-    price: 39.99,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Accessories",
-    isNew: false,
-  },
-  {
-    id: 16,
-    name: "Aviator Sunglasses",
-    price: 59.99,
-    salePrice: 44.99,
-    discount: 25,
-    image: "/placeholder.svg?height=400&width=400",
-    category: "Accessories",
-    isNew: false,
-  },
-]
