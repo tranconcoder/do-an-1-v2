@@ -232,3 +232,97 @@
 [2025-05-17T05:02:01.663Z] [error]: HIDE::403::Forbidden::Token not found!::
 [2025-05-17T05:02:17.630Z] [error]: HIDE::403::Forbidden::Token not found!::
 [2025-05-17T05:05:41.746Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T05:54:59.909Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: null }::
+[2025-05-17T05:57:40.966Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: null }::
+[2025-05-17T05:57:42.421Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: null }::
+[2025-05-17T06:00:08.372Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:00:11.011Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:03:32.542Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:03:34.684Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:04:03.508Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T06:04:41.507Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:04:43.144Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:04:50.866Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:05:45.249Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:23:36.783Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:29:58.282Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.::
+[2025-05-17T06:30:25.902Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.::
+[2025-05-17T06:32:55.604Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T06:33:04.953Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-17T06:36:00.021Z] [error]: Client must be connected before running operations
+[2025-05-17T06:36:12.410Z] [error]: HIDE::400::MissingSchemaError::Schema hasn't been registered for model "skus".
+Use mongoose.model(name, schema)::
+[2025-05-17T06:36:14.812Z] [error]: HIDE::400::MissingSchemaError::Schema hasn't been registered for model "skus".
+Use mongoose.model(name, schema)::
+[2025-05-17T06:37:00.063Z] [error]: Client must be connected before running operations
+[2025-05-17T06:38:00.005Z] [error]: Client must be connected before running operations
+[2025-05-17T06:39:00.062Z] [error]: Client must be connected before running operations
+[2025-05-17T06:40:00.067Z] [error]: Client must be connected before running operations
+[2025-05-17T06:40:08.750Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-17T06:40:36.172Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T06:40:51.162Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T06:40:52.620Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-17T06:41:00.063Z] [error]: Client must be connected before running operations
+[2025-05-17T06:41:02.611Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T06:41:04.005Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T06:41:04.677Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T06:41:10.578Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T06:41:32.516Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T06:41:34.528Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T06:41:54.170Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T06:41:55.015Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T06:42:00.065Z] [error]: Client must be connected before running operations
+[2025-05-17T06:42:38.586Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:42:41.104Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:43:00.052Z] [error]: Client must be connected before running operations
+[2025-05-17T06:43:33.320Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:44:00.062Z] [error]: Client must be connected before running operations
+[2025-05-17T06:45:00.062Z] [error]: Client must be connected before running operations
+[2025-05-17T06:46:00.060Z] [error]: Client must be connected before running operations
+[2025-05-17T06:46:51.578Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-17T06:46:57.006Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-17T06:47:00.064Z] [error]: Client must be connected before running operations
+[2025-05-17T06:47:01.185Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-17T06:47:01.202Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-17T06:47:03.532Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-17T06:47:09.412Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:48:00.063Z] [error]: Client must be connected before running operations
+[2025-05-17T06:49:00.062Z] [error]: Client must be connected before running operations
+[2025-05-17T06:49:19.049Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89471') }::
+[2025-05-17T06:49:21.852Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:49:22.816Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products_1 dup key: { products: ObjectId('682750106405e29996b89475') }::
+[2025-05-17T06:50:00.062Z] [error]: Client must be connected before running operations
+[2025-05-17T06:50:14.615Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products.item_1 dup key: { products.item: null }::
+[2025-05-17T06:50:16.737Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: test.wishlists index: products.item_1 dup key: { products.item: null }::
+[2025-05-17T06:50:35.667Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot apply $pull to a non-array value::
+[2025-05-17T06:50:36.727Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot apply $pull to a non-array value::
+[2025-05-17T06:50:37.791Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot apply $pull to a non-array value::
+[2025-05-17T06:51:00.061Z] [error]: Client must be connected before running operations
+[2025-05-17T06:52:00.061Z] [error]: Client must be connected before running operations
+[2025-05-17T06:52:40.005Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot apply $pull to a non-array value::
+[2025-05-17T06:52:40.910Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot apply $pull to a non-array value::
+[2025-05-17T06:52:53.794Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot apply $pull to a non-array value::
+[2025-05-17T06:53:00.063Z] [error]: Client must be connected before running operations
+[2025-05-17T06:54:00.061Z] [error]: Client must be connected before running operations
+[2025-05-17T06:55:00.062Z] [error]: Client must be connected before running operations
+[2025-05-17T06:56:00.060Z] [error]: Client must be connected before running operations
+[2025-05-17T06:56:36.752Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-17T06:56:36.922Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-17T06:57:00.060Z] [error]: Client must be connected before running operations
+[2025-05-17T06:57:45.801Z] [error]: HIDE::404::NotFound::Product not found::
+[2025-05-17T06:57:50.872Z] [error]: HIDE::404::NotFound::Product not found::
+[2025-05-17T06:58:00.062Z] [error]: Client must be connected before running operations
+[2025-05-17T06:58:29.069Z] [error]: HIDE::404::NotFound::Product not found::
+[2025-05-17T06:58:47.987Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-17T06:58:48.001Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-17T06:59:00.061Z] [error]: Client must be connected before running operations
+[2025-05-17T07:00:00.065Z] [error]: Client must be connected before running operations
+[2025-05-17T07:01:00.061Z] [error]: Client must be connected before running operations
+[2025-05-17T07:02:00.062Z] [error]: Client must be connected before running operations
+[2025-05-17T07:02:45.654Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T07:03:00.060Z] [error]: Client must be connected before running operations
+[2025-05-17T07:04:00.064Z] [error]: Client must be connected before running operations
+[2025-05-17T07:05:00.063Z] [error]: Client must be connected before running operations
+[2025-05-17T07:06:00.063Z] [error]: Client must be connected before running operations
+[2025-05-17T07:06:02.679Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-17T07:07:00.062Z] [error]: Client must be connected before running operations

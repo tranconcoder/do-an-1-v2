@@ -1,28 +1,33 @@
-import wishlistModel, { WISHLIST_MODEL_NAME } from "../models/wishlist.model.js";
+import wishlistModel from "@/models/wishlist.model.js";
 import * as wishlistRepository from "../models/repository/wishlist/index.js";
-import mongoose from "mongoose";
-import { SKU_MODEL_NAME } from "@/models/sku.model.js";
+import { NotFoundErrorResponse } from "@/response/error.response.js";
+import { spuModel } from "@/models/spu.model.js";
 
 export default new class WishListService {
-    async createWishlist(userId: string, productId: string) {
-        const wishlist = await wishlistRepository.createWishlist({ 
-            _id: new mongoose.Types.ObjectId(),
-            user: userId,
-            products: [new mongoose.Types.ObjectId(productId)]
-         });
-
-         return wishlist;
-    }
-
     async addProductToWishlist(userId: string, productId: string) {
-        const wishlist = await wishlistRepository.findOneAndUpdateWishlist({ 
-            query: { user: userId, products: { $ne: productId } },
+        const product = await spuModel.findById(productId);
+        if (!product) throw new NotFoundErrorResponse({
+            message: "Product not found",
+        });
+
+        const oldWishlist = await wishlistRepository.findOneWishlist({
+            query: { user: userId, products: { $in: [productId] } },
+            options: {
+                populate: "products",
+                lean: true
+            }
+        });
+
+        if (oldWishlist) return oldWishlist;
+
+        const wishlist = await wishlistRepository.findOneAndUpdateWishlist({
+            query: { user: userId, products: { $nin: [productId] } },
             update: { $push: { products: productId } },
             options: {
-                populate: {
-                    path: "products",
-                    model: SKU_MODEL_NAME
-                }
+                populate: "products",
+                new: true,
+                upsert: true,
+                lean: true
             }
         });
 
@@ -30,36 +35,30 @@ export default new class WishListService {
     }
 
     async removeProductFromWishlist(userId: string, productId: string) {
-        const wishlist = await wishlistRepository.findOneAndUpdateWishlist({ 
-            query: { user: userId, products: productId },
-            update: { $pull: { products: productId } },
-            options: {
-                populate: {
-                    path: "products",
-                    model: SKU_MODEL_NAME
-                }
-            }
+        const wishlist = await wishlistModel.updateOne({
+            user: userId,
+            products: { $in: [productId] }
+        }, {
+            $pull: { products: productId }
         });
 
-        return wishlist;
+        return await wishlistRepository.findOneWishlist({
+            query: { user: userId },
+            options: {
+                populate: "products",
+                lean: true
+            }
+        });
     }
 
     async getWishlist(userId: string) {
-        const wishlist = await wishlistRepository.findAllWishlist({ 
+        const wishlist = await wishlistRepository.findAllWishlist({
             query: { user: userId },
             options: {
-                populate: {
-                    path: "products",
-                    model: SKU_MODEL_NAME
-                }
+                populate: "products",
+                lean: true
             }
         });
-        return wishlist;
-    }
-
-    async deleteWishlist(userId: string, productId: string) {
-        const wishlist = await wishlistModel.deleteOne({ user: userId, products: productId });
-
         return wishlist;
     }
 }

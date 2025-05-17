@@ -4,9 +4,9 @@ import { RequestWithBody, RequestWithParams } from "@/types/request.js";
 import { CreatedResponse, OkResponse } from "@/response/success.response.js";
 
 export default new class WishListController {
-    addProductToWishlist: RequestWithParams<{ productId: string }> = async (req, res,next) => {
-        const { productId } = req.body;
+    addProductToWishlist: RequestWithParams<{ productId: string }> = async (req, res, _) => {
         const userId = req.userId!;
+        const productId = req.params.productId;
 
         const wishlist = await wishListService.addProductToWishlist(userId, productId);
 
@@ -16,8 +16,8 @@ export default new class WishListController {
         }).send(res);
     };
 
-    removeProductFromWishlist: RequestWithParams<{ productId: string }> = async (req, res,next) => {
-        const { productId } = req.body;
+    removeProductFromWishlist: RequestWithParams<{ productId: string }> = async (req, res, _) => {
+        const productId = req.params.productId;
         const userId = req.userId!;
 
         const wishlist = await wishListService.removeProductFromWishlist(userId, productId);
@@ -28,7 +28,7 @@ export default new class WishListController {
         }).send(res);
     };
 
-    getWishlist: RequestHandler = async (req, res,next) => {
+    getWishlist: RequestHandler = async (req, res, _) => {
         const userId = req.userId!;
 
         const wishlist = await wishListService.getWishlist(userId);

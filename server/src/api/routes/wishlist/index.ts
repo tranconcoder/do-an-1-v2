@@ -6,9 +6,9 @@ import { Router } from "express";
 const wishListRouter = Router();
 wishListRouter.use(authenticate)
 
-wishListRouter.post("/add/:productId", catchError(wishlistController.addProductToWishlist));
-wishListRouter.post("/remove/:productId", catchError(wishlistController.removeProductFromWishlist));
 wishListRouter.get("/", catchError(wishlistController.getWishlist));
+wishListRouter.post("/add/:productId", catchError(wishlistController.addProductToWishlist));
+wishListRouter.delete("/remove/:productId", catchError(wishlistController.removeProductFromWishlist));
 
 
 export default wishListRouter;

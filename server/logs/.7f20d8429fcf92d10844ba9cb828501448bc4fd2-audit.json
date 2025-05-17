@@ -9,6 +9,11 @@
             "date": 1745856245259,
             "name": "logs/2025/weeks-18/day-1/warn.log",
             "hash": "2e3fbdd6c1eeea1b9a0baa28f0274c9d345d78ef342cb132d8432a32ad04e144"
+        },
+        {
+            "date": 1747463760059,
+            "name": "logs/2025/weeks-20/day-6/warn.log",
+            "hash": "db006ca4df9a9e511e3e96fb303fd0a6c9bd93be40acde6c29cda1d7e2167da4"
         }
     ],
     "hashType": "sha256"
