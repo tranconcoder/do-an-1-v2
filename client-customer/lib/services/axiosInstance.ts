@@ -1,11 +1,12 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import { BACKEND_API_URL } from './server.config'; // Import the new config
 
 // Define the base URL for your API.
 // It's recommended to use environment variables for this.
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://localhost:4000'; // Default if not set
+// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://localhost:4000'; // Default if not set
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: BACKEND_API_URL, // Use the imported config value
   headers: {
     'Content-Type': 'application/json',
   },

@@ -1,12 +1,17 @@
+"use client";
+
 import Link from "next/link"
 import Image from "next/image"
 import { ChevronRight } from "lucide-react"
+import { useEffect, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { ImageSlider } from "@/components/ui/ImageSlider"
 import Header from "@/components/common/Header"
 import { Heart, ShoppingCart, Badge} from "lucide-react"
 import { Input } from "@/components/ui/input"
+import { categoryService, Category } from "@/lib/services/api/categoryService"
+import { mediaService } from "@/lib/services/api/mediaService"
 
 export default function Home() {
   // Sample images for the hero slider
@@ -24,6 +29,27 @@ export default function Home() {
     "Hero image 4",
     "Hero image 5",
   ]
+
+  const [categories, setCategories] = useState<Category[]>([])
+  const [isLoadingCategories, setIsLoadingCategories] = useState(true)
+  const [errorCategories, setErrorCategories] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setIsLoadingCategories(true)
+        const fetchedCategories = await categoryService.getAllCategories()
+        setCategories(fetchedCategories)
+        setErrorCategories(null)
+      } catch (error) {
+        console.error("Failed to fetch categories:", error)
+        setErrorCategories("Failed to load categories. Please try again later.")
+      }
+      setIsLoadingCategories(false)
+    }
+
+    fetchCategories()
+  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -66,26 +92,44 @@ export default function Home() {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold">Shop by Category</h2>
+              <h2 className="text-2xl font-bold">Category</h2>
               <Button variant="ghost" className="text-blue-600 gap-1">
                 View All <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {categories.map((category) => (
-                <Link key={category.name} href="#" className="group relative h-40 rounded-xl overflow-hidden">
+              {isLoadingCategories && Array.from({ length: 4 }).map((_, index) => (
+                // Skeleton loader for categories
+                <div key={index} className="group relative h-40 rounded-xl overflow-hidden bg-gray-200 animate-pulse">
+                  <div className="absolute bottom-0 left-0 p-4 w-full">
+                    <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                  </div>
+                </div>
+              ))}
+              {!isLoadingCategories && errorCategories && (
+                <div className="col-span-full text-center text-red-500">
+                  <p>{errorCategories}</p>
+                </div>
+              )}
+              {!isLoadingCategories && !errorCategories && categories.slice(0, 4).map((category) => (
+                <Link key={category._id} href={`/category/${category._id}`} className="group relative h-40 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 p-[10px] shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out">
                   <Image
-                    src={category.image || "/placeholder.svg"}
-                    alt={category.name}
+                    src={mediaService.getMediaUrl(category.category_icon)}
+                    alt={category.category_name}
                     fill
-                    className="object-cover transition-transform group-hover:scale-105"
+                    className="object-contain transition-transform group-hover:scale-105 m-2"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-4">
-                    <h3 className="text-white font-medium">{category.name}</h3>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-75 group-hover:opacity-50 transition-opacity" />
+                  <div className="absolute bottom-0 left-0 right-0 p-[10px]">
+                    <h3 className="text-white font-medium text-center truncate">{category.category_name}</h3>
                   </div>
                 </Link>
               ))}
+              {!isLoadingCategories && !errorCategories && categories.length === 0 && (
+                <div className="col-span-full text-center text-gray-500">
+                  <p>No categories found.</p>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -94,7 +138,7 @@ export default function Home() {
         <section className="py-16 bg-gradient-to-b from-white to-blue-50">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold">Featured Products</h2>
+              <h2 className="text-2xl font-bold">Popular Products</h2>
               <Button variant="ghost" className="text-blue-600 gap-1">
                 View All <ChevronRight className="h-4 w-4" />
               </Button>
@@ -378,25 +422,6 @@ export default function Home() {
 }
 
 // Sample data
-const categories = [
-  {
-    name: "Clothing",
-    image: "/placeholder.svg?height=400&width=400",
-  },
-  {
-    name: "Shoes",
-    image: "/placeholder.svg?height=400&width=400",
-  },
-  {
-    name: "Accessories",
-    image: "/placeholder.svg?height=400&width=400",
-  },
-  {
-    name: "Beauty",
-    image: "/placeholder.svg?height=400&width=400",
-  },
-]
-
 const products = [
   {
     id: 1,
