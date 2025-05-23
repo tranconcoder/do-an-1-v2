@@ -1,0 +1,6 @@
+/**/node_modules
+/build
+/**/public
+
+/**/.env.development.local
+/**/.env.production.local
