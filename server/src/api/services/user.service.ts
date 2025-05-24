@@ -15,8 +15,11 @@ export default class UserService {
     public static getUserById = async (id: string) => {
         const user = await findUserById({
             id,
-            only: ['_id', 'phoneNumber', 'user_email', 'user_role', 'user_fullName', 'user_avatar']
+            only: ['_id', 'phoneNumber', 'user_email', 'user_role', 'user_fullName', 'user_avatar', 'user_sex', 'user_status', 'user_dayOfBirth']
         });
+        console.log({
+            user
+        })
         const result: commonTypes.object.ObjectAnyKeys = { user };
 
         /* --------------------- Add role data  --------------------- */
@@ -26,6 +29,8 @@ export default class UserService {
         });
         if (roleData && roleData.role_name !== RoleNames.USER)
             result[roleData.role_name] = roleData.role_data || true;
+        else
+            result.user.role_name = RoleNames.USER;
 
         return result;
     };

@@ -13,10 +13,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 import { useSelector, useDispatch } from "react-redux"
 import { RootState } from "@/lib/store/store"
 import ProfileBox from "@/components/common/ProfileBox"
 import { logout } from "@/lib/store/slices/userSlice"
+import CartHoverCard from "@/components/common/CartHoverCard"
 
 const cartItemCount = 3;
 
@@ -42,19 +44,16 @@ export default function Header() {
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/" className="text-sm font-medium hover:text-blue-600 transition-colors">
-              Home
+              Trang chủ
             </Link>
             <Link href="/products" className="text-sm font-medium hover:text-blue-600 transition-colors">
-              Shop
+              Cửa hàng
             </Link>
             <Link href="#" className="text-sm font-medium hover:text-blue-600 transition-colors">
-              Categories
+              Danh mục
             </Link>
             <Link href="#" className="text-sm font-medium hover:text-blue-600 transition-colors">
-              Deals
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:text-blue-600 transition-colors">
-              About
+              Ưu đãi
             </Link>
           </nav>
         </div>
@@ -63,39 +62,33 @@ export default function Header() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
             <Input
               type="search"
-              placeholder="Search products..."
+              placeholder="Tìm kiếm sản phẩm..."
               className="pl-10 w-[200px] lg:w-[300px] bg-white/90 border-blue-100 focus-visible:ring-blue-500"
             />
           </div>
-          <Button variant="ghost" size="icon" className="relative">
-            <Heart className="h-5 w-5" />
-            <span className="sr-only">Wishlist</span>
-            {/* Optional: Add a badge for wishlist items count */}
-            {/* <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-pink-600">5</Badge> */}
-          </Button>
-          <Button variant="ghost" size="icon" className="relative">
-            <ShoppingCart className="h-5 w-5" />
-            {cartItemCount > 0 && (
-              <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-blue-600">
-                {cartItemCount}
-              </Badge>
-            )}
-            <span className="sr-only">Cart</span>
-          </Button>
+          {isLoggedIn && (
+            <Button variant="ghost" size="icon" className="relative">
+              <Heart className="h-5 w-5" />
+              <span className="sr-only">Danh sách yêu thích</span>
+              {/* Optional: Add a badge for wishlist items count */}
+              {/* <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-pink-600">5</Badge> */}
+            </Button>
+          )}
+          {isLoggedIn && <CartHoverCard cartItemCount={cartItemCount} />}
 
           {isLoggedIn && user ? (
             <ProfileBox user={user} shop={shop} handleLogout={handleLogout} />
           ) : (
             <div className="hidden sm:flex items-center gap-2">
               <Button variant="ghost" size="sm" asChild>
-                <Link href="/auth/login">Sign In</Link>
+                <Link href="/auth/login">Đăng Nhập</Link>
               </Button>
               <Button
                 size="sm"
                 className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600"
                 asChild
               >
-                <Link href="/auth/register">Sign Up</Link>
+                <Link href="/auth/register">Đăng Ký</Link>
               </Button>
             </div>
           )}
@@ -110,26 +103,26 @@ export default function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
-                <Link href="/">Home</Link>
+                <Link href="/">Trang chủ</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/products">Shop</Link>
+                <Link href="/products">Cửa hàng</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="#">Categories</Link>
+                <Link href="#">Danh mục</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="#">Deals</Link>
+                <Link href="#">Ưu đãi</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="#">About</Link>
+                <Link href="#">Về chúng tôi</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <div className="relative flex md:hidden items-center p-2">
                 <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                 <Input
                     type="search"
-                    placeholder="Search products..."
+                    placeholder="Tìm kiếm sản phẩm..."
                     className="pl-10 w-full bg-white/90 border-blue-100 focus-visible:ring-blue-500"
                 />
               </div>
@@ -137,10 +130,10 @@ export default function Header() {
                 <>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/auth/login">Sign In</Link>
+                    <Link href="/auth/login">Đăng Nhập</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/auth/register">Sign Up</Link>
+                    <Link href="/auth/register">Đăng Ký</Link>
                   </DropdownMenuItem>
                 </>
               )}

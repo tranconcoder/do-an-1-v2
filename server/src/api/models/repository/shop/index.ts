@@ -7,7 +7,7 @@ import {
     generateFindOne,
     generateFindOneAndUpdate
 } from '@/utils/mongoose.util.js';
-import { jwtPayloadSignSchema } from '@/validations/joi/jwt.joi.js';
+import { jwtPayloadSignSchema } from '@/validations/zod/jwt.joi.js';
 
 export const isExistsShop = async ({
     shop_certificate,

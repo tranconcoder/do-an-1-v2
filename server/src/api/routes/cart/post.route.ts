@@ -5,7 +5,7 @@ import validateRequestBody, {
     validateRequestParams
 } from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
-import { addToCartSchema, updateCart } from '@/validations/joi/cart.joi.js';
+import { addToCartSchema, updateCart } from '@/validations/zod/cart.joi.js';
 
 const router = Router();
 const routerValidated = Router();

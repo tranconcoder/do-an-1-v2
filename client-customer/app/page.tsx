@@ -42,7 +42,7 @@ export default function Home() {
         setErrorCategories(null)
       } catch (error) {
         console.error("Failed to fetch categories:", error)
-        setErrorCategories("Failed to load categories. Please try again later.")
+        setErrorCategories("Không thể tải danh mục. Vui lòng thử lại sau.")
       }
       setIsLoadingCategories(false)
     }
@@ -59,18 +59,18 @@ export default function Home() {
           <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-6">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Discover the Latest{" "}
-                <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Trends</span>
+                Khám phá {" "}
+                <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Xu hướng</span> mới nhất
               </h1>
               <p className="text-lg text-gray-600 max-w-md">
-                Shop the newest styles and collections with free shipping on orders over $50.
+                Mua sắm những phong cách và bộ sưu tập mới nhất với giao hàng miễn phí cho đơn hàng trên $50.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600">
-                  Shop Now
+                  Mua ngay
                 </Button>
                 <Button variant="outline" className="border-blue-200 text-blue-600 hover:bg-blue-50">
-                  Explore Collections
+                  Khám phá bộ sưu tập
                 </Button>
               </div>
             </div>
@@ -89,9 +89,9 @@ export default function Home() {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold">Category</h2>
+              <h2 className="text-2xl font-bold">Danh mục</h2>
               <Button variant="ghost" className="text-blue-600 gap-1">
-                View All <ChevronRight className="h-4 w-4" />
+                Xem tất cả <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -124,7 +124,7 @@ export default function Home() {
               ))}
               {!isLoadingCategories && !errorCategories && categories.length === 0 && (
                 <div className="col-span-full text-center text-gray-500">
-                  <p>No categories found.</p>
+                  <p>Không tìm thấy danh mục nào.</p>
                 </div>
               )}
             </div>
@@ -135,9 +135,9 @@ export default function Home() {
         <section className="py-16 bg-gradient-to-b from-white to-blue-50">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold">Popular Products</h2>
+              <h2 className="text-2xl font-bold">Sản phẩm phổ biến</h2>
               <Button variant="ghost" className="text-blue-600 gap-1">
-                View All <ChevronRight className="h-4 w-4" />
+                Xem tất cả <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -155,7 +155,7 @@ export default function Home() {
                       className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white"
                     >
                       <Heart className="h-4 w-4" />
-                      <span className="sr-only">Add to wishlist</span>
+                      <span className="sr-only">Thêm vào danh sách yêu thích</span>
                     </Button>
                   </div>
                   <div>
@@ -164,7 +164,7 @@ export default function Home() {
                       <div className="font-semibold">${product.price.toFixed(2)}</div>
                       <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
                         <ShoppingCart className="h-4 w-4" />
-                        <span className="sr-only">Add to cart</span>
+                        <span className="sr-only">Thêm vào giỏ hàng</span>
                       </Button>
                     </div>
                   </div>
@@ -182,15 +182,15 @@ export default function Home() {
               <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-blue-600 -z-10" />
               <div className="grid md:grid-cols-2 gap-8 items-center p-8 md:p-12">
                 <div className="space-y-4">
-                  <Badge className="bg-white text-blue-600 hover:bg-white/90">Limited Time Offer</Badge>
-                  <h2 className="text-3xl md:text-4xl font-bold text-blue-900">Get 20% Off on Summer Collection</h2>
-                  <p className="text-blue-700">Use code SUMMER20 at checkout. Offer valid until August 31st.</p>
-                  <Button className="bg-white text-blue-600 hover:bg-white/90">Shop the Collection</Button>
+                  <Badge className="bg-white text-blue-600 hover:bg-white/90">Ưu đãi có hạn</Badge>
+                  <h2 className="text-3xl md:text-4xl font-bold text-blue-900">Giảm 20% cho Bộ sưu tập mùa hè</h2>
+                  <p className="text-blue-700">Sử dụng mã SUMMER20 khi thanh toán. Ưu đãi có hiệu lực đến hết ngày 31 tháng 8.</p>
+                  <Button className="bg-white text-blue-600 hover:bg-white/90">Mua sắm bộ sưu tập</Button>
                 </div>
                 <div className="relative h-[200px] md:h-[300px] rounded-xl overflow-hidden">
                   <Image
                     src="/placeholder.svg?height=600&width=600"
-                    alt="Summer collection"
+                    alt="Bộ sưu tập mùa hè"
                     fill
                     className="object-cover"
                   />
@@ -204,9 +204,9 @@ export default function Home() {
         <section className="py-16 bg-gradient-to-b from-blue-50 to-white">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold">New Arrivals</h2>
+              <h2 className="text-2xl font-bold">Hàng mới về</h2>
               <Button variant="ghost" className="text-blue-600 gap-1">
-                View All <ChevronRight className="h-4 w-4" />
+                Xem tất cả <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -219,13 +219,13 @@ export default function Home() {
                       fill
                       className="object-cover transition-transform group-hover:scale-105"
                     />
-                    {product.isNew && <Badge className="absolute top-2 left-2 bg-blue-600">New</Badge>}
+                    {product.isNew && <Badge className="absolute top-2 left-2 bg-blue-600">Mới</Badge>}
                     <Button
                       size="icon"
                       className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white"
                     >
                       <Heart className="h-4 w-4" />
-                      <span className="sr-only">Add to wishlist</span>
+                      <span className="sr-only">Thêm vào danh sách yêu thích</span>
                     </Button>
                   </div>
                   <div>
@@ -234,7 +234,7 @@ export default function Home() {
                       <div className="font-semibold">${product.price.toFixed(2)}</div>
                       <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
                         <ShoppingCart className="h-4 w-4" />
-                        <span className="sr-only">Add to cart</span>
+                        <span className="sr-only">Thêm vào giỏ hàng</span>
                       </Button>
                     </div>
                   </div>
@@ -248,14 +248,14 @@ export default function Home() {
         <section className="py-16 bg-blue-50">
           <div className="container mx-auto px-4 max-w-4xl text-center">
             <div className="p-8 md:p-12 rounded-2xl backdrop-blur-md bg-white/70 border border-blue-100 shadow-sm">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">Đăng ký nhận bản tin của chúng tôi</h2>
               <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                Stay updated with the latest trends, new arrivals, and exclusive offers.
+                Luôn cập nhật những xu hướng mới nhất, hàng mới về và các ưu đãi độc quyền.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <Input type="email" placeholder="Enter your email" className="flex-1 bg-white border-blue-100" />
+                <Input type="email" placeholder="Nhập email của bạn" className="flex-1 bg-white border-blue-100" />
                 <Button className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600">
-                  Subscribe
+                  Đăng ký
                 </Button>
               </div>
             </div>
@@ -274,7 +274,7 @@ export default function Home() {
                 </span>
               </Link>
               <p className="text-gray-600 mb-4 max-w-xs">
-                Your one-stop destination for trendy fashion and accessories at affordable prices.
+                Điểm đến duy nhất của bạn cho thời trang và phụ kiện theo xu hướng với giá cả phải chăng.
               </p>
               <div className="flex gap-4">
                 <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full">
@@ -319,98 +319,98 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-4">Shop</h3>
+              <h3 className="font-semibold text-lg mb-4">Mua sắm</h3>
               <ul className="space-y-2">
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    New Arrivals
+                    Hàng mới về
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    Best Sellers
+                    Bán chạy nhất
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    Trending Now
+                    Xu hướng hiện tại
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    Sale
+                    Giảm giá
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    All Collections
+                    Tất cả bộ sưu tập
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-4">Customer Service</h3>
+              <h3 className="font-semibold text-lg mb-4">Dịch vụ khách hàng</h3>
               <ul className="space-y-2">
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    Contact Us
+                    Liên hệ với chúng tôi
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    Shipping & Returns
+                    Vận chuyển & Trả hàng
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    FAQs
+                    Câu hỏi thường gặp
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    Size Guide
+                    Hướng dẫn chọn size
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    Track Order
+                    Theo dõi đơn hàng
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-4">About</h3>
+              <h3 className="font-semibold text-lg mb-4">Về chúng tôi</h3>
               <ul className="space-y-2">
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    Our Story
+                    Câu chuyện của chúng tôi
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    Careers
+                    Tuyển dụng
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    Sustainability
+                    Bền vững
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    Press
+                    Báo chí
                   </Link>
                 </li>
                 <li>
                   <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
-                    Privacy Policy
+                    Chính sách bảo mật
                   </Link>
                 </li>
               </ul>
             </div>
           </div>
           <div className="border-t border-blue-100 pt-8 text-center text-gray-500 text-sm">
-            <p>© 2023 Aliconcon. All rights reserved.</p>
+            <p>© 2023 Aliconcon. Tất cả quyền được bảo lưu.</p>
           </div>
         </div>
       </footer>
@@ -422,25 +422,25 @@ export default function Home() {
 const products = [
   {
     id: 1,
-    name: "Classic White T-Shirt",
+    name: "Áo phông trắng cổ điển",
     price: 29.99,
     image: "/placeholder.svg?height=400&width=400",
   },
   {
     id: 2,
-    name: "Slim Fit Jeans",
+    name: "Quần jean dáng slim fit",
     price: 59.99,
     image: "/placeholder.svg?height=400&width=400",
   },
   {
     id: 3,
-    name: "Leather Crossbody Bag",
+    name: "Túi đeo chéo da",
     price: 79.99,
     image: "/placeholder.svg?height=400&width=400",
   },
   {
     id: 4,
-    name: "Oversized Hoodie",
+    name: "Áo hoodie dáng rộng",
     price: 49.99,
     image: "/placeholder.svg?height=400&width=400",
   },
@@ -449,28 +449,28 @@ const products = [
 const newArrivals = [
   {
     id: 5,
-    name: "Summer Floral Dress",
+    name: "Đầm hoa mùa hè",
     price: 69.99,
     image: "/placeholder.svg?height=400&width=400",
     isNew: true,
   },
   {
     id: 6,
-    name: "Canvas Sneakers",
+    name: "Giày sneaker vải canvas",
     price: 45.99,
     image: "/placeholder.svg?height=400&width=400",
     isNew: true,
   },
   {
     id: 7,
-    name: "Straw Beach Hat",
+    name: "Mũ cói đi biển",
     price: 24.99,
     image: "/placeholder.svg?height=400&width=400",
     isNew: true,
   },
   {
     id: 8,
-    name: "Linen Shirt",
+    name: "Áo sơ mi linen",
     price: 39.99,
     image: "/placeholder.svg?height=400&width=400",
     isNew: true,

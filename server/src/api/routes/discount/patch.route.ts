@@ -4,7 +4,7 @@ import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
 import {
     setAvailableDiscountSchema,
     setUnavailableDiscountSchema
-} from '@/validations/joi/discount.joi.js';
+} from '@/validations/zod/discount.joi.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 
 const patchRoute = Router();

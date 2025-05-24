@@ -10,7 +10,7 @@ import {
     newTokenSchema,
     signUpSchema,
     signUpShop
-} from '@/validations/joi/auth.joi.js';
+} from '@/validations/zod/auth.joi.js';
 
 /* --------------------- Middlewares -------------------- */
 import catchError from '@/middlewares/catchError.middleware.js';

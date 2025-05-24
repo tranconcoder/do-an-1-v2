@@ -8,8 +8,10 @@ export interface User {
   user_fullName: string;
   user_email: string;
   user_role: string; 
-  user_sex: boolean;
+  user_sex: string; // Allow boolean or string based on backend type, adjust if needed
   user_status: string;
+  user_dayOfBirth: string; // Added based on response
+  role_name: string; // Added based on response
 }
 
 export interface Shop {

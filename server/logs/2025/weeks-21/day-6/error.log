@@ -248,3 +248,16 @@
 [2025-05-24T04:45:00.506Z] [error]: HIDE::400::BadRequest::OTP is exists and not expired::
 [2025-05-24T04:46:12.797Z] [error]: HIDE::400::BadRequest::Gửi OTP quá nhiều, vui lòng chờ giây lát và thử lại!::
 [2025-05-24T04:52:15.387Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-05-24T05:40:11.401Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-05-24T05:40:13.833Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-05-24T05:44:55.959Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-24T05:50:03.951Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-24T05:50:20.231Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-05-24T05:55:44.277Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-24T05:56:00.443Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-24T06:01:50.556Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-24T06:01:57.644Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-24T06:02:01.712Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-05-24T06:12:59.176Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-24T06:25:27.671Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-24T06:27:58.654Z] [error]: HIDE::403::Forbidden::Token not found!::

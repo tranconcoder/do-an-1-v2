@@ -23,7 +23,17 @@ export const findUserById = async ({
     const user = await findById({ ...payload }).lean();
 
     /* ----------------- Save profile to redis  ----------------- */
-    setUserProfile({ id: payload.id.toString(), ...user });
+    setUserProfile({
+        _id: user._id.toString(),
+        user_fullName: user.user_fullName,
+        user_email: user.user_email,
+        phoneNumber: user.phoneNumber,
+        user_role: user.user_role,
+        user_avatar: user.user_avatar,
+        user_sex: user.user_sex,
+        user_status: user.user_status,
+        user_dayOfBirth: user.user_dayOfBirth,
+    });
 
     return user;
 };

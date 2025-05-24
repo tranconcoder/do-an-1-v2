@@ -5,7 +5,7 @@ import validateRequestBody, {
     validateRequestParams
 } from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
-import { updateCart } from '@/validations/joi/cart.joi.js';
+import { updateCart } from '@/validations/zod/cart.joi.js';
 import { paramsId } from '@/configs/joi.config.js';
 
 const patchRouter = Router();
