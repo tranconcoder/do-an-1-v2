@@ -14,6 +14,10 @@ import {
     getUserProfileKey
 } from '@/utils/redis.util.js';
 
+
+/* ---------------------------------------------------------- */
+/*                         Init client                        */
+/* ---------------------------------------------------------- */
 const redisClient = await createClient()
     .on('error', (err) => {
         const message = `Redis error: ${err}`;
@@ -116,14 +120,6 @@ export const setKeyToken = async ({
     refresh_tokens_used = []
 }: moduleTypes.mongoose.ConvertObjectIdToString<model.keyToken.KeyTokenSchema>) => {
     const id = user;
-
-    /* console.log({
-        user,
-        public_key,
-        private_key,
-        refresh_token,
-        refresh_tokens_used
-    }); */
 
     const cmd = redisClient.multi();
 

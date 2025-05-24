@@ -62,6 +62,21 @@ export interface AuthResponse {
   // ...any other fields your auth response might have
 }
 
+export interface SendOTPPayload {
+  email: string;
+}
+
+export interface VerifyOTPPayload {
+  email: string;
+  otp: string;
+}
+
+export interface ForgotPasswordPayload {
+  email: string;
+  newPassword: string;
+  accessToken?: string;
+}
+
 const authService = {
   /**
    * Logs in a user.
@@ -112,6 +127,38 @@ const authService = {
       console.error('Logout error in authService:', error);
       throw error;
     }
+  },
+
+  /**
+   * Send OTP to email for password reset
+   */
+  async sendOTP(payload: SendOTPPayload): Promise<AuthResponse> {
+    const response = await apiClient.post<AuthResponse>('/otp/send', payload);
+    return response.data;
+  },
+
+  /**
+   * Verify OTP code
+   */
+  async verifyOTP(payload: VerifyOTPPayload): Promise<AuthResponse> {
+    const response = await apiClient.post<AuthResponse>('/otp/verify', payload);
+    return response.data;
+  },
+
+  /**
+   * Reset password with token
+   */
+  async forgotPassword(payload: ForgotPasswordPayload): Promise<AuthResponse> {
+    const headers = payload.accessToken 
+      ? { Authorization: `Bearer ${payload.accessToken}` }
+      : {};
+      
+    const response = await apiClient.patch<AuthResponse>(
+      '/auth/forgot-password', 
+      { email: payload.email, newPassword: payload.newPassword },
+      { headers }
+    );
+    return response.data;
   },
 
   // You might add other auth-related functions here, e.g.:

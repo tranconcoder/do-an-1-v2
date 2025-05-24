@@ -46,7 +46,7 @@ export default new (class OTPService {
         if (otp) {
             const allowResendOTP = new Date().getTime() > new Date(otp.created_at).getTime() + OTP_RETRY_TIME;
 
-            if (!allowResendOTP) throw new BadRequestErrorResponse({ message: 'OTP is exists and not expired' });
+            if (!allowResendOTP) throw new BadRequestErrorResponse({ message: 'Gửi OTP quá nhiều, vui lòng chờ giây lát và thử lại!' });
 
             await otpModel.deleteOne({ email });
         }

@@ -10,6 +10,6 @@ export const OTP_CLIENT_SECRET = process.env.OAUTH2_CLIENT_SECRET || "";
 export const OTP_REFRESH_TOKEN = process.env.OAUTH2_REFRESH_TOKEN || "";
 export const OTP_ACCESS_TOKEN = process.env.OAUTH2_ACCESS_TOKEN || "";
 
-if (!OTP_CLIENT_ID || !OTP_CLIENT_SECRET || !OTP_REFRESH_TOKEN || !OTP_ACCESS_TOKEN) {
+if (!OTP_EMAIL || !OTP_CLIENT_ID || !OTP_CLIENT_SECRET || !OTP_REFRESH_TOKEN) {
     throw new Error("Missing OTP credentials");
 }

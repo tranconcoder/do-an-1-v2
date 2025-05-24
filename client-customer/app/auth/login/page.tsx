@@ -63,7 +63,7 @@ export default function LoginPage() {
         }
       }
 
-      setSuccessMessage("Login successful! Redirecting...")
+      setSuccessMessage("Đăng nhập thành công! Đang chuyển hướng...")
       setSignInPhoneNumber("");
       setSignInPassword("");
       setTimeout(() => {
@@ -72,7 +72,7 @@ export default function LoginPage() {
 
     } catch (err: any) {
       console.error("Login error:", err)
-      const errorMessage = err.response?.data?.message || err.message || "An unexpected error occurred during login."
+      const errorMessage = err.response?.data?.message || err.message || "Đã xảy ra lỗi không mong muốn trong quá trình đăng nhập."
       dispatch(loginFailure(errorMessage));
     }
   }
@@ -80,21 +80,21 @@ export default function LoginPage() {
   return (
     <>
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold">Welcome back</h1>
-        <p className="text-muted-foreground">Enter your credentials to sign in to your account</p>
+        <h1 className="text-3xl font-bold">Chào mừng trở lại</h1>
+        <p className="text-muted-foreground">Nhập thông tin đăng nhập của bạn để đăng nhập vào tài khoản</p>
       </div>
 
       {reduxError && (
         <Alert variant="destructive" className="mt-4">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
+          <AlertTitle>Lỗi</AlertTitle>
           <AlertDescription>{reduxError}</AlertDescription>
         </Alert>
       )}
       {successMessage && (
-        <Alert variant="default" className="mt-4">
-          <AlertCircle className="h-4 w-4" /> 
-          <AlertTitle>Success</AlertTitle>
+        <Alert variant="default" className="mt-4 bg-green-50 border-green-200 text-green-700">
+          <AlertCircle className="h-4 w-4 text-green-600" />
+          <AlertTitle className="text-green-800">Thành công</AlertTitle>
           <AlertDescription>{successMessage}</AlertDescription>
         </Alert>
       )}
@@ -102,11 +102,11 @@ export default function LoginPage() {
       <form onSubmit={handleLogin} className="space-y-6 pt-6">
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="phone-signin">Phone Number</Label>
+            <Label htmlFor="phone-signin">Số điện thoại</Label>
             <Input
               id="phone-signin"
               type="tel"
-              placeholder="Your phone number"
+              placeholder="Số điện thoại của bạn"
               required
               value={signInPhoneNumber}
               onChange={(e) => setSignInPhoneNumber(e.target.value)}
@@ -116,9 +116,9 @@ export default function LoginPage() {
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password-signin">Password</Label>
-              <Link href="#" className="text-xs text-blue-600 hover:underline">
-                Forgot password?
+              <Label htmlFor="password-signin">Mật khẩu</Label>
+              <Link href="/auth/forgot-password" className="text-xs text-blue-600 hover:underline">
+                Quên mật khẩu?
               </Link>
             </div>
             <div className="relative">
@@ -143,7 +143,7 @@ export default function LoginPage() {
                 ) : (
                   <Eye className="h-4 w-4 text-gray-500" />
                 )}
-                <span className="sr-only">{showPassword ? "Hide password" : "Show password"}</span>
+                <span className="sr-only">{showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}</span>
               </Button>
             </div>
           </div>
@@ -154,7 +154,7 @@ export default function LoginPage() {
             disabled={reduxIsLoading}
           >
             {reduxIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Sign In
+            Đăng Nhập
           </Button>
         </div>
 
@@ -163,7 +163,7 @@ export default function LoginPage() {
             <Separator />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
+            <span className="bg-white px-2 text-muted-foreground">Hoặc tiếp tục với</span>
           </div>
         </div>
 
@@ -175,7 +175,7 @@ export default function LoginPage() {
               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
             </svg>
-            Continue with Google
+            Tiếp tục với Google
           </Button>
         </div>
       </form>
