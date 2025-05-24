@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { timestamps, required, unique } from '@/configs/mongoose.config.js';
 import { CartItemStatus } from '@/enums/cart.enum.js';
-import { SPU_COLLECTION_NAME } from './spu.model.js';
 import { USER_MODEL_NAME } from './user.model.js';
 import { ObjectId } from '@/configs/mongoose.config.js';
 import { SHOP_MODEL_NAME } from './shop.model.js';

@@ -19,6 +19,14 @@ export const findSKUById = generateFindById<model.sku.SKU>(skuModel);
 export const findOneSKU = generateFindOne<model.sku.SKU>(skuModel);
 
 /* ---------------------------------------------------------- */
+/*                          Find all                          */
+/* ---------------------------------------------------------- */
+export const findAllSKU = generateFindAll<model.sku.SKU>(skuModel);
+
+export const findAllSKUPaganation = generateFindAllPaganation<model.sku.SKU>(skuModel);
+
+
+/* ---------------------------------------------------------- */
 /*                         Find field                         */
 /* ---------------------------------------------------------- */
 /* ------------------------ Min price ----------------------- */

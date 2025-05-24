@@ -10,7 +10,7 @@ import { BACKEND_API_URL } from '../server.config'; // Import the new config
  * @param mediaId The ID of the media file.
  * @returns The full URL to access the media file.
  */
-const getMediaUrl = (mediaId: string): string => {
+export const getMediaUrl = (mediaId: string): string => {
   if (!mediaId) {
     // Return a placeholder or default image URL if mediaId is missing
     // For now, let's return an empty string, but you might want to handle this more gracefully.
@@ -22,4 +22,4 @@ const getMediaUrl = (mediaId: string): string => {
 
 export const mediaService = {
   getMediaUrl,
-}; 
+};

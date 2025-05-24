@@ -7,7 +7,7 @@ import validateRequestBody, {
     validateRequestParams
 } from '@/middlewares/joiValidate.middleware.js';
 import { Router } from 'express';
-import { createWarehouse } from '@/validations/zod/warehouse.joi.js';
+import { createWarehouse } from '@/validations/joi/warehouse.joi.js';
 import { paramsId } from '@/configs/joi.config.js';
 
 const warehousesRouter = Router();

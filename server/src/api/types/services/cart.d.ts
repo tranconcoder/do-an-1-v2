@@ -1,4 +1,4 @@
-import type { CartItemStatus } from '@/enums/cart.enum.js';
+import type { UpdateCart as UpdateCartZod } from '@/validations/zod/cart.zod.js';
 
 declare global {
     namespace service {
@@ -20,25 +20,8 @@ declare global {
                 }
 
                 /* ---------------------- Update cart  ---------------------- */
-                interface UpdateCart {
+                interface UpdateCart extends UpdateCartZod {
                     user: string;
-                    cartShop: Array<{
-                        shopId: string;
-                        products: Array<{
-                            id: string;
-
-                            // Quantity
-                            quantity: number;
-                            newQuantity: number;
-
-                            // Status
-                            status: CartItemStatus;
-                            newStatus: CartItemStatus;
-
-                            // Delete
-                            isDelete: boolean;
-                        }>;
-                    }>;
                 }
 
                 interface DecreaseCartQuantity {

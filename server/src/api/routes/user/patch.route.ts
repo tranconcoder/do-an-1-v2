@@ -5,7 +5,7 @@ import { authenticate } from "@/middlewares/jwt.middleware.js";
 import catchError from "@/middlewares/catchError.middleware.js";
 
 // Validations
-import { validateUpdateprofile } from "@/validations/zod/user.joi.js";
+import { validateUpdateprofile } from "@/validations/zod/user.zod.js";
 
 // Controller
 import userController from "@/controllers/user.controller.js";

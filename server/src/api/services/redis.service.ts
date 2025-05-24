@@ -112,6 +112,11 @@ export const setUserProfile = async ({
     await redisClient.hSet(getUserProfileKey(_id), data);
 };
 
+/* -------------------- Delete user profile -------------------- */
+export const deleteUserProfile = async (id: string) => {
+    await redisClient.del(getUserProfileKey(id));
+};
+
 /* ---------------------------------------------------------- */
 /*                          Key token                         */
 /* ---------------------------------------------------------- */

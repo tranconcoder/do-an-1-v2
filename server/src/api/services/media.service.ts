@@ -5,7 +5,7 @@ import {
     findOneMedia
 } from '@/models/repository/media/index.js';
 import { NotFoundErrorResponse } from '@/response/error.response.js';
-import { createMedia } from '@/validations/zod/media.joi.js';
+import { createMedia } from '@/validations/joi/media.joi.js';
 import fs from 'fs/promises';
 import { existsSync } from 'fs';
 import { categoryMedia } from '@/constants/media.constants.js';

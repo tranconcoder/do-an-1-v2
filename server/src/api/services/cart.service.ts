@@ -10,6 +10,8 @@ import skuModel from '@/models/sku.model.js';
 import { SPU_COLLECTION_NAME } from '@/models/spu.model.js';
 import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 import mongoose from 'mongoose';
+import cartModel from '@/models/cart.model.js';
+import { SHOP_COLLECTION_NAME } from '@/models/shop.model.js';
 
 export default class CartService {
     /* ---------------------------------------------------------- */
@@ -23,11 +25,18 @@ export default class CartService {
         quantity = 1
     }: service.cart.arguments.AddToCart) {
         /* ---------------- Check product is active  ---------------- */
+        console.log({
+            skuId,
+            userId,
+            quantity
+        })
         const sku = await findOneSKU({
             query: { _id: skuId, is_deleted: { $ne: true } },
             options: { lean: true, populate: ['sku_product'] }
         });
+        console.log(sku)
         const spu = sku?.sku_product as any as model.spu.SPUSchema | undefined;
+        console.log(spu)
 
         if (!sku || !spu || !spu._id) {
             throw new NotFoundErrorResponse({ message: 'Product not found!' });
@@ -93,6 +102,54 @@ export default class CartService {
     /* ------------------------ Get cart ------------------------ */
     public static async getCart({ user }: service.cart.arguments.GetCart) {
         const cart = await findOneCartByUser({ user });
+
+        return cart;
+    }
+
+    /**
+     * Retrieves the cart for a given user.
+     * @param userId The ID of the user whose cart is to be fetched.
+     * @returns The user's cart or null if not found.
+     */
+    static async getUserCart(userId: string) {
+        await findOneAndUpdateCart({ 
+            query: { user: userId },
+            options: { lean: true, upsert: true, new: true },
+            update: {}
+        }); 
+
+        const cart = await cartModel.aggregate([
+            {
+                $match: { user: new mongoose.Types.ObjectId(userId) }
+            },
+            {
+                $unwind: '$cart_shop'
+            },
+            {
+                $lookup: {
+                    from: SHOP_COLLECTION_NAME,
+                    localField: 'cart_shop.shop',
+                    foreignField: '_id',
+                    as: 'cart_shop.shop.info'
+                }
+            },
+            {
+                $unwind: '$cart_shop.shop.info'
+            },
+            {
+                $project: {
+                    'cart_shop.shop.info.shop_userId': 0,
+                    'cart_shop.shop.info.shop_certificate': 0,
+                    'cart_shop.shop.info.shop_owner_fullName': 0,
+                    'cart_shop.shop.info.shop_owner_email': 0,
+                    'cart_shop.shop.info.shop_owner_phoneNumber': 0,
+                    'cart_shop.shop.info.shop_owner_cardID': 0,
+                    "__v": 0,
+                    "created_at": 0,
+                    "updated_at": 0,
+                }
+            }
+        ]);
 
         return cart;
     }

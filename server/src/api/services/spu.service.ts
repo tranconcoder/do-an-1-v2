@@ -13,7 +13,7 @@ import { SPUImages } from '@/enums/spu.enum.js';
 import {
     findOneAndUpdateSPU,
     findOneSPU,
-    findSPUPageSpliting
+    findSPUPageSpliting as findSPUPaganation
 } from '@/models/repository/spu/index.js';
 import {
     findMaxPriceSKU,
@@ -71,6 +71,7 @@ export default new (class SPUService {
             product_attributes: payload.product_attributes,
             product_variations: payload.product_variations,
             product_shop: shop._id,
+            product_sold: 0,
             product_thumb: mediaIds[SPUImages.PRODUCT_THUMB][0],
             product_images: mediaIds[SPUImages.PRODUCT_IMAGES],
             is_draft: payload.is_draft,
@@ -136,7 +137,7 @@ export default new (class SPUService {
         if (shop.shop_status !== ShopStatus.ACTIVE)
             throw new ForbiddenErrorResponse({ message: 'Shop is not active!' });
 
-        return await findSPUPageSpliting({
+        return await findSPUPaganation({
             query: { product_shop: shop._id, is_deleted: false },
             options: { lean: true, sort: [{ is_publish: 1 }, { createdAt: -1 }] },
             limit,
@@ -154,9 +155,19 @@ export default new (class SPUService {
 
     /* ------------------------- By user ------------------------ */
     async getAllSPUShopByAll({ page, limit }: commonTypes.object.Pagination) {
-        return await findSPUPageSpliting({
+        return await findSPUPaganation({
             query: { is_deleted: false, is_draft: false, is_publish: true },
             options: { lean: true },
+            page,
+            limit
+        });
+    }
+
+    /* --------------------- Popular by all --------------------- */
+    async getPopularSPUByAll({ page, limit }: commonTypes.object.Pagination) {
+        return await findSPUPaganation({
+            query: { is_deleted: false, is_draft: false, is_publish: true },
+            options: { lean: true, sort: [{ product_sold: -1 }, { createdAt: -1 }] },
             page,
             limit
         });

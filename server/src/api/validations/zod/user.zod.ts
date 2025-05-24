@@ -7,9 +7,14 @@ import { z } from "zod";
 export const updateProfileSchema = z.object({
     user_fullName: z.string().optional(),
     user_email: z.string().email().optional(),
-    user_avatar: z.string().optional(),
     user_sex: z.string().optional(),
-    user_dayOfBirth: z.string().optional(),
+    user_dayOfBirth: z.string().optional().refine((val) => {
+        if (!val) return true;
+        const dayOfBirth = new Date(val);
+        return dayOfBirth < new Date();
+    }, {
+        message: 'Day of birth is in the future!',
+    }),
 });
 export type updateProfileSchema = z.infer<typeof updateProfileSchema>;
 export const validateUpdateprofile = generateValidateWithBody(updateProfileSchema)

@@ -13,6 +13,12 @@ import { Router } from 'express';
 const skuRouter = Router();
 const skuRouterValidate = Router();
 
+/* ----------------------- Get popular ---------------------- */
+skuRouter.get(
+    '/popular',
+    validateRequestQuery(pagination),
+    catchError(skuController.getPopularSKUByAll));
+
 /* ---------------------- Get SKU by id --------------------- */
 skuRouter.get(
     '/id/:skuId',

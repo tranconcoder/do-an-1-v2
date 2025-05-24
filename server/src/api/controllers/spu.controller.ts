@@ -52,6 +52,17 @@ export default new (class SPUController {
         }).send(res);
     };
 
+    /* --------------------- Popular spu by all -------------------- */
+    getPopularSPUByAll: RequestWithQuery<commonTypes.object.Pagination> = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get popular products by all successfully!',
+            metadata: await spuService.getPopularSPUByAll({
+                page: req.query.page,
+                limit: req.query.limit
+            })
+        }).send(res);
+    };
+
     /* ----------------------- Publish SPU ---------------------- */
     publishSPU: RequestWithParams<{ spuId: string }> = async (req, res, _) => {
         new OkResponse({

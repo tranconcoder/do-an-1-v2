@@ -11,6 +11,8 @@ import { Heart, ShoppingCart, Badge} from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { categoryService, Category } from "@/lib/services/api/categoryService"
 import { mediaService } from "@/lib/services/api/mediaService"
+import { spuService, SPU } from "@/lib/services/api/spuService";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Home() {
   // Sample images for the hero slider
@@ -33,6 +35,10 @@ export default function Home() {
   const [isLoadingCategories, setIsLoadingCategories] = useState(true)
   const [errorCategories, setErrorCategories] = useState<string | null>(null)
 
+  const [popularProducts, setPopularProducts] = useState<SPU[]>([]);
+  const [isLoadingPopularProducts, setIsLoadingPopularProducts] = useState(true);
+  const [errorPopularProducts, setErrorPopularProducts] = useState<string | null>(null);
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -49,6 +55,23 @@ export default function Home() {
 
     fetchCategories()
   }, [])
+
+  useEffect(() => {
+    const fetchPopularProducts = async () => {
+      try {
+        setIsLoadingPopularProducts(true);
+        const fetchedProducts = await spuService.getPopularProducts();
+        setPopularProducts(fetchedProducts);
+        setErrorPopularProducts(null);
+      } catch (error) {
+        console.error("Failed to fetch popular products:", error);
+        setErrorPopularProducts("Không thể tải sản phẩm phổ biến. Vui lòng thử lại sau.");
+      }
+      setIsLoadingPopularProducts(false);
+    };
+
+    fetchPopularProducts();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -141,12 +164,24 @@ export default function Home() {
               </Button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {products.map((product) => (
-                <div key={product.id} className="group">
+              {isLoadingPopularProducts && Array.from({ length: 4 }).map((_, index) => (
+                <div key={index} className="group animate-pulse">
+                  <Skeleton className="relative aspect-square rounded-xl overflow-hidden bg-gray-200 mb-3 h-[200px] w-full" />
+                  <Skeleton className="h-5 w-3/4 mt-1" />
+                  <Skeleton className="h-4 w-1/2 mt-1" />
+                </div>
+              ))}
+              {!isLoadingPopularProducts && errorPopularProducts && (
+                <div className="col-span-full text-center text-red-500">
+                  <p>{errorPopularProducts}</p>
+                </div>
+              )}
+              {!isLoadingPopularProducts && !errorPopularProducts && popularProducts.map((product) => (
+                <div key={product._id} className="group">
                   <div className="relative aspect-square rounded-xl overflow-hidden bg-gray-100 mb-3">
                     <Image
-                      src={product.image || "/placeholder.svg"}
-                      alt={product.name}
+                      src={mediaService.getMediaUrl(product.product_thumb) || "/placeholder.svg"}
+                      alt={product.product_name}
                       fill
                       className="object-cover transition-transform group-hover:scale-105"
                     />
@@ -159,9 +194,23 @@ export default function Home() {
                     </Button>
                   </div>
                   <div>
-                    <h3 className="font-medium text-sm group-hover:text-blue-600 transition-colors">{product.name}</h3>
+                    <Link href={`/products/${product._id}${product.sku ? `?sku=${product.sku._id}` : ''}`} className="hover:text-blue-600">
+                      <h3 className="font-medium text-sm group-hover:text-blue-600 transition-colors truncate">
+                        {product.product_name}
+                      </h3>
+                    </Link>
+                    <div className="text-xs text-gray-500 mt-1 flex items-center">
+                      <span>Đã bán: {product.product_sold}</span>
+                      <span className="mx-1">|</span>
+                      <span>
+                        Đánh giá: {product.product_rating_avg.toFixed(1)} ⭐
+                      </span>
+                    </div>
                     <div className="flex items-center justify-between mt-1">
-                      <div className="font-semibold">${product.price.toFixed(2)}</div>
+                      <div className="font-semibold">
+                        {/* Assuming sku.sku_price is available and is a number. Adjust formatting as needed. */}
+                        {product.sku?.sku_price ? `${product.sku.sku_price.toLocaleString('vi-VN')}₫` : 'N/A'}
+                      </div>
                       <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
                         <ShoppingCart className="h-4 w-4" />
                         <span className="sr-only">Thêm vào giỏ hàng</span>
@@ -170,6 +219,11 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+              {!isLoadingPopularProducts && !errorPopularProducts && popularProducts.length === 0 && (
+                 <div className="col-span-full text-center text-gray-500">
+                   <p>Không tìm thấy sản phẩm phổ biến nào.</p>
+                 </div>
+              )}
             </div>
           </div>
         </section>

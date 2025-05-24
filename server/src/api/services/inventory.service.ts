@@ -7,7 +7,7 @@ import { findLocation, findLocationById } from '@/models/repository/location/ind
 import { findSKUById } from '@/models/repository/sku/index.js';
 import { findWarehouseById } from '@/models/repository/warehouses/index.js';
 import { NotFoundErrorResponse } from '@/response/error.response.js';
-import { jwtPayloadSignSchema } from '@/validations/zod/jwt.joi.js';
+import { jwtPayloadSignSchema } from '@/validations/joi/jwt.joi.js';
 
 export default new (class InventoryService {
     /* ---------------------------------------------------------- */

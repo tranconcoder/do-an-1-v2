@@ -16,18 +16,17 @@ const getRouteValidate = Router();
 /* ---------------------------------------------------------- */
 /*                          Get all                           */
 /* ---------------------------------------------------------- */
-// /* ------------------------------------------------------ */
-// /*                         Search                         */
-// /* ------------------------------------------------------ */
-// productGetRoute.get(
-//     '/search',
-//     validateRequestQuery(searchProductSchema),
-//     catchError(ProductController.searchProduct as any)
-// );
 
-// /* ---------------------------------------------------------- */
-// /*                   Validate or not routes                   */
-// /* ---------------------------------------------------------- */
+/* --------------------- Popular spu by all -------------------- */
+getRoute.get(
+    '/popular',
+    validateRequestQuery(pagination),
+    catchError(spuController.getPopularSPUByAll)
+);
+
+/* ---------------------------------------------------------- */
+/*                   Validate or not routes                   */
+/* ---------------------------------------------------------- */
 getRoute.use(authenticate, getRouteValidate);
 
 /* ------------ Get all product by shop (get own) ----------- */
@@ -37,6 +36,7 @@ getRouteValidate.get(
     validateRequestQuery(pagination),
     catchError(spuController.getAllSPUOwnByShop)
 );
+
 
 // /* ----------------- Get product by id  ----------------- */
 // productGetRouteValidateOrNot.get(

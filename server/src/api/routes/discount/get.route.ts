@@ -10,7 +10,7 @@ import {
     getAllProductDiscountByCodeQuerySchema,
     getAllProductDiscountByCodeParamsSchema,
     getAllOwnShopDiscount
-} from '@/validations/zod/discount.joi.js';
+} from '@/validations/joi/discount.joi.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
 import { Resources } from '@/enums/rbac.enum.js';
 import { pagination, paramsId } from '@/configs/joi.config.js';

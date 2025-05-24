@@ -1,12 +1,10 @@
 import { Router } from 'express';
-import CartController from '@/controllers/cart.controller.js';
 import catchError from '@/middlewares/catchError.middleware.js';
-import validateRequestBody, {
-    validateRequestParams
-} from '@/middlewares/joiValidate.middleware.js';
+import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
-import { updateCart } from '@/validations/zod/cart.joi.js';
-import { paramsId } from '@/configs/joi.config.js';
+import { updateCart, validateUpdateCart } from '@/validations/zod/cart.zod.js';
+import { generateValidateWithParamsId } from '@/middlewares/zod.middleware.js';
+import cartController from '@/controllers/cart.controller.js';
 
 const patchRouter = Router();
 const patchRouterValidated = Router();
@@ -18,14 +16,20 @@ patchRouter.use(authenticate, patchRouterValidated);
 
 patchRouterValidated.patch(
     '/update',
-    validateRequestBody(updateCart),
-    catchError(CartController.updateCart)
+    validateUpdateCart,
+    catchError(cartController.updateCart)
+);
+
+patchRouterValidated.patch(
+    '/increase/:skuId',
+    generateValidateWithParamsId('skuId'),
+    catchError(cartController.increaseCartQuantity)
 );
 
 patchRouterValidated.patch(
     '/decrease/:skuId',
-    validateRequestParams(paramsId('skuId')),
-    catchError(CartController.decreaseCartQuantity)
+    generateValidateWithParamsId('skuId'),
+    catchError(cartController.decreaseCartQuantity)
 );
 
 export default patchRouter;

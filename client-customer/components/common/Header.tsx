@@ -67,12 +67,12 @@ export default function Header() {
             />
           </div>
           {isLoggedIn && (
-            <Button variant="ghost" size="icon" className="relative">
-              <Heart className="h-5 w-5" />
-              <span className="sr-only">Danh sách yêu thích</span>
-              {/* Optional: Add a badge for wishlist items count */}
-              {/* <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-pink-600">5</Badge> */}
-            </Button>
+          <Button variant="ghost" size="icon" className="relative">
+            <Heart className="h-5 w-5" />
+            <span className="sr-only">Danh sách yêu thích</span>
+            {/* Optional: Add a badge for wishlist items count */}
+            {/* <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-pink-600">5</Badge> */}
+          </Button>
           )}
           {isLoggedIn && <CartHoverCard cartItemCount={cartItemCount} />}
 

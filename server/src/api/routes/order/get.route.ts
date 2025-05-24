@@ -4,8 +4,8 @@ import { Router } from 'express';
 import CheckoutController from '@/controllers/checkout.controller.js';
 
 /* -------------------------- Joi  -------------------------- */
-import { createOrder } from '@/validations/zod/order.joi.js';
-import { checkout } from '@/validations/zod/checkout.joi.js';
+import { createOrder } from '@/validations/joi/order.joi.js';
+import { checkout } from '@/validations/joi/checkout.joi.js';
 
 /* ----------------------- Middleware ----------------------- */
 import catchError from '@/middlewares/catchError.middleware.js';

@@ -12,7 +12,7 @@ import { Resources } from '@/enums/rbac.enum.js';
 import { SPUImages } from '@/enums/spu.enum.js';
 
 import spuController from '@/controllers/spu.controller.js';
-import { createSPU } from '@/validations/zod/spu.joi.js';
+import { createSPU } from '@/validations/joi/spu.joi.js';
 import { SKUImages } from '@/enums/sku.enum.js';
 
 const spuPostRoute = Router();

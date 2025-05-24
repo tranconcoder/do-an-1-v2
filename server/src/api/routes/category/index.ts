@@ -9,7 +9,7 @@ import validateRequestBody, {
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import { cleanUpMediaOnError, uploadSingleMedia } from '@/middlewares/media.middleware.js';
 import { uploadCategory } from '@/middlewares/multer.middleware.js';
-import { createCategory, updateCategory } from '@/validations/zod/category.joi.js';
+import { createCategory, updateCategory } from '@/validations/joi/category.joi.js';
 import { Router } from 'express';
 
 const categoryRoute = Router();

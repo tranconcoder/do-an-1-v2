@@ -19,6 +19,7 @@ const spuSchema = new Schema<model.spu.SPUSchema, true>(
         product_description: { type: String, required },
         product_category: { type: ObjectId, ref: CATEGORY_MODEL_NAME, required },
         product_shop: { type: ObjectId, required, ref: USER_MODEL_NAME },
+        product_sold: { type: Number, default: 0 },
         product_rating_avg: {
             default: 0,
             type: Number,

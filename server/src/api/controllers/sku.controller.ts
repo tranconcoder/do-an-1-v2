@@ -3,6 +3,20 @@ import skuService from "@/services/sku.service.js";
 import { RequestWithParams, RequestWithQuery } from "@/types/request.js";
 
 export default new (class SKUController {
+
+    /* ---------------------------------------------------------- */
+    /*                       Get SKU popular                      */
+    /* ---------------------------------------------------------- */
+    getPopularSKUByAll: RequestWithQuery<commonTypes.object.Pagination> = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get popular sku by all successfully!',
+            metadata: await skuService.getPopularSKUByAll({
+                page: req.query.page,
+                limit: req.query.limit
+            })
+        }).send(res);
+    };
+
     /* ---------------------------------------------------------- */
     /*                        Get SKU by id                       */
     /* ---------------------------------------------------------- */

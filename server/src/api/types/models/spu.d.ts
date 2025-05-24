@@ -20,6 +20,7 @@ declare global {
                     product_category: moduleTypes.mongoose.ObjectId;
                     product_rating_avg: number;
                     product_slug: string;
+                    product_sold: number;
 
                     product_thumb: moduleTypes.mongoose.ObjectId;
                     product_images: Array<moduleTypes.mongoose.ObjectId>;

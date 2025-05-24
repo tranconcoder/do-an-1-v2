@@ -6,8 +6,8 @@ import { increaseWarehouseStock } from '@/models/repository/warehouses/index.js'
 import mongoose from 'mongoose';
 import { CATEGORY_COLLECTION_NAME } from '@/models/category.model.js';
 import { SPU_COLLECTION_NAME, spuModel } from '@/models/spu.model.js';
-import { addSKUValueField, getAllSKUAggregate } from '@/utils/sku.util.js';
-import { findShopByUser } from '@/models/repository/shop/index.js';
+import { getAllSKUAggregate, getAllSKUAggregateSort } from '@/utils/sku.util.js';
+import { findAllSKU } from '@/models/repository/sku/index.js';
 
 export default new (class SKUService {
     /* ---------------------------------------------------------- */
@@ -64,6 +64,14 @@ export default new (class SKUService {
     /* ---------------------------------------------------------- */
     /*                             Get                            */
     /* ---------------------------------------------------------- */
+
+    /* ----------------- Get popular sku by all ----------------- */
+    async getPopularSKUByAll({ page = 1, limit = 50 }: commonTypes.object.Pagination) {
+        return await spuModel.aggregate([
+            // Pagination
+            ...getAllSKUAggregateSort(limit, page, 'spu.product_sold')
+        ]);
+    }
 
     /* ------------------------ Get by id ----------------------- */
     async getSKUById({ skuId }: service.sku.arguments.GetSKUById) {

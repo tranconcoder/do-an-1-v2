@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 import { jwtSignAsync } from '@/utils/jwt.util.js';
 import LoggerService from './logger.service.js';
 import jwtConfig from '@/../configs/jwt.config.js';
-import { jwtDecodeSchema } from '@/validations/zod/jwt.joi.js';
+import { jwtDecodeSchema } from '@/validations/joi/jwt.joi.js';
 
 export default class JwtService {
     /* ------------------------------------------------------ */

@@ -9,7 +9,7 @@ import {
     validateRequestQuery
 } from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
-import { approveShop } from '@/validations/zod/shop.joi.js';
+import { approveShop } from '@/validations/joi/shop.joi.js';
 import { Router } from 'express';
 
 const shopRoute = Router();
