@@ -106,16 +106,16 @@ export default new (class CheckoutService {
                                 ?.map((x) => x.toString())
                                 ?.includes(product.sku.toString()))
                     ) {
-                        totalPriceProductToApplyAdminVoucher += product.quantity * product.price;
+                        totalPriceProductToApplyAdminVoucher += product.cart_quantity * product.product_price;
                     }
 
                     return {
                         id: product.sku.toString(),
-                        name: product.name,
-                        quantity: product.quantity,
-                        thumb: product.thumb,
-                        price: product.price,
-                        price_raw: product.quantity * product.price
+                        name: product.product_name,
+                        quantity: product.cart_quantity,
+                        thumb: product.product_thumb,
+                        price: product.product_price,
+                        price_raw: product.cart_quantity * product.product_price
                     };
                 });
 
@@ -137,7 +137,12 @@ export default new (class CheckoutService {
                     fee_ship: FEE_SHIP_DEFAULT,
                     total_discount_price: discountPriceShop,
                     total_price_raw: totalPriceRawShop,
-                    products_info: productsInfo
+                    products_info: productsInfo.map((product) => {
+                        return {
+                            ...product,
+                            thumb: product.thumb.toString()
+                        };
+                    })
                 });
             })
         );
