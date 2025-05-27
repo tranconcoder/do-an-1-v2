@@ -7,7 +7,7 @@
     "author": "tvconss <tranconcoder@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "dev": "NODE_ENV=development bun --watch server.ts",
+        "dev": "NODE_ENV=development bun run --watch server.ts",
         "start": "NODE_ENV=production tsx server.ts"
     },
     "devDependencies": {
@@ -26,7 +26,7 @@
         "@types/multer": "^1.4.12",
         "@types/node": "^22.13.10",
         "@types/redis": "^4.0.11",
-        "tsx": "^4.19.3",
+        "tsx": "^4.19.4",
         "typescript": "^5.8.2"
     },
     "dependencies": {

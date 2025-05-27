@@ -32,6 +32,7 @@ export default new (class UserController {
     /*                       Update profile                       */
     /* ---------------------------------------------------------- */
     updateProfile: RequestWithBody<updateProfileSchema>= async (req, res, _) => {
+        console.log("UPDATE PROFILE:", req.body)
         new OkResponse({
             message: 'Update profile success!',
             metadata: await UserService.updateProfile(req.userId!, req.body)

@@ -4,6 +4,7 @@ import jsonfile from 'jsonfile';
 
 import https from 'https';
 import fs from 'fs/promises';
+import child_process from 'child_process';
 
 // Configs
 import { HOST, PORT, BASE_URL } from './src/configs/server.config.js';
@@ -18,6 +19,18 @@ import RBACService from '@/services/rbac.service.js';
 import mediaService from '@/services/media.service.js';
 import categoryService from '@/services/category.service.js';
 
+await new Promise((resolve) => {
+    // kill 4000 with bun
+    try {
+        console.log('Attempting to kill port 4000...');
+        child_process.execSync('bun run kill-port 4000');
+        console.log('Port 4000 killed successfully.');
+        resolve(null);
+    } catch (error: any) {
+        console.error(`Failed to kill port 4000: ${error.message}`);
+    }
+});
+
 const server = https
     .createServer(
         {
@@ -30,23 +43,39 @@ const server = https
         console.log(`Server is running at ${BASE_URL}`);
     });
 
+server.on("close", () => {
+    // Close database connection
+    MongoDB.getInstance().disconnect();
+
+    // Logging
+    loggerService.getInstance().info('Server closed');
+
+    process.exit(0);
+});
+
 process.on('SIGINT', async () => {
     // Close database connection
     MongoDB.getInstance().disconnect();
 
+    console.log('Server closing...');
+
     // Close server
     server.close(() => {
-        console.log('Server closed');
+        // Close database connection
+        MongoDB.getInstance().disconnect();
+
+        // Logging
+        loggerService.getInstance().info('Server closed');
+
+        process.exit(0);
     });
 
-    // Push notification to developer...
-    loggerService.getInstance().info('Server closed');
 });
 
 /* ---------------------------------------------------------- */
 /*                        Initial data                        */
 /* ---------------------------------------------------------- */
-const isInit = true;
+const isInit = false;
 
 await RBACService.getInstance().initRBAC();
 await mediaService.initMedia();
