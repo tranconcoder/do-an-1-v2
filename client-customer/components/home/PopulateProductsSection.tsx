@@ -1,6 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, ShoppingCart, ChevronRight } from 'lucide-react';
+import {
+    Heart,
+    ShoppingCart,
+    ChevronRight,
+    CheckCircle,
+    AlertTriangle,
+    Info,
+    XCircle
+} from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { spuService, SPU } from '@/lib/services/api/spuService';
@@ -18,19 +26,22 @@ export function PopulateProductsSection() {
     const [errorPopularProducts, setErrorPopularProducts] = useState<string | null>(null);
 
     const dispatch = useDispatch<AppDispatch>();
-    // const { toast, toasts } = useToast();
 
     const handleAddToCart = async (skuId: string) => {
         const resultAction = await dispatch(addItemToCart({ skuId, quantity: 1 }));
         if (addItemToCart.fulfilled.match(resultAction)) {
             toast({
-                title: 'Thêm vào giỏ hàng thành công',
+                variant: 'success',
+                icon: <CheckCircle className="h-5 w-5" />,
+                title: 'Thành công!',
                 description: 'Sản phẩm đã được thêm vào giỏ hàng của bạn'
             });
         } else {
             toast({
+                variant: 'alert',
+                icon: <XCircle className="h-5 w-5" />,
                 title: 'Lỗi',
-                variant: 'destructive'
+                description: 'Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.'
             });
         }
     };
@@ -42,9 +53,27 @@ export function PopulateProductsSection() {
                 const fetchedProducts = await spuService.getPopularProducts();
                 setPopularProducts(fetchedProducts);
                 setErrorPopularProducts(null);
+
+                // Show info toast when products are loaded
+                if (fetchedProducts.length > 0) {
+                    toast({
+                        variant: 'info',
+                        icon: <Info className="h-5 w-5" />,
+                        title: 'Thông tin',
+                        description: `Đã tải ${fetchedProducts.length} sản phẩm phổ biến`
+                    });
+                }
             } catch (error) {
                 console.error('Failed to fetch popular products:', error);
                 setErrorPopularProducts('Không thể tải sản phẩm phổ biến. Vui lòng thử lại sau.');
+
+                // Show warning toast on error
+                toast({
+                    variant: 'warning',
+                    icon: <AlertTriangle className="h-5 w-5" />,
+                    title: 'Cảnh báo',
+                    description: 'Không thể tải sản phẩm phổ biến. Vui lòng thử lại sau.'
+                });
             }
             setIsLoadingPopularProducts(false);
         };
@@ -137,6 +166,13 @@ export function PopulateProductsSection() {
                                                     console.error(
                                                         'Product SKU ID is not available.'
                                                     );
+                                                    toast({
+                                                        variant: 'warning',
+                                                        icon: <AlertTriangle className="h-5 w-5" />,
+                                                        title: 'Cảnh báo',
+                                                        description:
+                                                            'Sản phẩm này hiện không có sẵn.'
+                                                    });
                                                 }
                                             }}
                                         >

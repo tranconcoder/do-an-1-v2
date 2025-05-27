@@ -20,7 +20,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { mediaService } from '@/lib/services/api/mediaService'; // Assuming mediaService is needed for image URLs
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
-import { useToast } from '@/components/ui/toast';
+import { useToast } from '@/hooks/use-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '@/lib/store/store';
 import {

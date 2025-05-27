@@ -31,7 +31,11 @@ const toastVariants = cva(
             variant: {
                 default: 'border bg-background text-foreground',
                 destructive:
-                    'destructive group border-destructive bg-destructive text-destructive-foreground'
+                    'destructive group border-destructive bg-destructive text-destructive-foreground',
+                success: 'border-green-500 bg-green-500 text-white',
+                warning: 'border-yellow-500 bg-yellow-500 text-black',
+                alert: 'border-red-500 bg-red-500 text-white',
+                info: 'border-blue-500 bg-blue-500 text-white'
             }
         },
         defaultVariants: {
@@ -40,16 +44,17 @@ const toastVariants = cva(
     }
 );
 
-// Define ToastProps explicitly including necessary Radix props
+// Define ToastProps, omitting conflicting props and redefining them with React.ReactNode
 interface ToastProps
-    extends React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root>,
+    extends Omit<
+            React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root>,
+            'title' | 'description' | 'action'
+        >,
         VariantProps<typeof toastVariants> {
     icon?: React.ReactNode;
-    // title, description, and action are already included in React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root>
-    // We explicitly list them here for clarity and to ensure ReactNode type compatibility
     title?: React.ReactNode;
     description?: React.ReactNode;
-    action?: React.ReactNode; // Use React.ReactNode for flexibility
+    action?: React.ReactNode;
 }
 
 const Toast = React.forwardRef<React.ElementRef<typeof ToastPrimitives.Root>, ToastProps>(
@@ -130,100 +135,7 @@ const ToastDescription = React.forwardRef<
 ));
 ToastDescription.displayName = ToastPrimitives.Description.displayName;
 
-type ToastPropsExport = ToastProps;
-
 type ToastActionElement = React.ReactElement<typeof ToastAction>;
-
-// Reducer state and action types
-const MUTATION_LISTENERS = new Map<string, ((data: any) => void)[]>();
-
-type ActionType = 'ADD' | 'REMOVE' | 'UPDATE';
-
-type Action = {
-    type: ActionType;
-    toast: ToastProps; // Use the updated ToastProps here
-};
-
-interface State {
-    toasts: ToastProps[]; // Use the updated ToastProps here
-}
-
-const reducer = (state: State, action: Action): State => {
-    switch (action.type) {
-        case 'ADD':
-            // Add new toast, respecting a potential limit (e.g., 1)
-            // This basic reducer just adds. Limit logic is better in the hook/Toaster.
-            return { toasts: [...state.toasts, action.toast] };
-        case 'REMOVE':
-            return { toasts: state.toasts.filter((t) => t.id !== action.toast.id) };
-        case 'UPDATE':
-            return {
-                toasts: state.toasts.map((t) => (t.id === action.toast.id ? action.toast : t))
-            };
-        default:
-            return state;
-    }
-};
-
-const subscribe = (callback: (state: State) => void) => {
-    const listenerId = `listener_${Math.random().toString(36).substr(2, 9)}`;
-    if (!MUTATION_LISTENERS.has('stateChange')) {
-        MUTATION_LISTENERS.set('stateChange', []);
-    }
-    MUTATION_LISTENERS.get('stateChange')?.push(callback);
-
-    return () => {
-        const listeners = MUTATION_LISTENERS.get('stateChange');
-        if (listeners) {
-            MUTATION_LISTENERS.set(
-                'stateChange',
-                listeners.filter((listener) => listener !== callback)
-            );
-        }
-    };
-};
-
-const emit = (data: State) => {
-    MUTATION_LISTENERS.get('stateChange')?.forEach((listener) => listener(data));
-};
-
-let state: State = { toasts: [] }; // Initialize state
-
-const dispatch = (action: Action) => {
-    state = reducer(state, action);
-    emit(state);
-};
-
-type ToastArgs = Omit<ToastProps, 'id'> & { id?: string };
-
-const useToast = () => {
-    const [toasts, setToasts] = React.useState<ToastProps[]>(state.toasts);
-
-    React.useEffect(() => {
-        const unsubscribe = subscribe((newState) => {
-            setToasts(newState.toasts);
-        });
-
-        return unsubscribe;
-    }, []);
-
-    const toast = (props: ToastArgs) => {
-        const id = props.id || `toast-${Math.random().toString(36).substr(2, 9)}`;
-        // Ensure the passed props include necessary fields like title, description, etc.
-        // This cast might be necessary if ToastProps definition is strict
-        dispatch({ type: 'ADD', toast: { ...props, id } as ToastProps });
-
-        // Set a timer to remove the toast if duration is specified
-        if (props.duration !== Infinity) {
-            setTimeout(() => {
-                dispatch({ type: 'REMOVE', toast: { id } as ToastProps }); // Only id is needed for removal action
-            }, props.duration || 5000); // Default duration 5s
-        }
-        return { id };
-    };
-
-    return { toasts, toast };
-};
 
 export {
     type ToastProps,
@@ -234,6 +146,5 @@ export {
     ToastTitle,
     ToastDescription,
     ToastClose,
-    ToastAction,
-    useToast
+    ToastAction
 };
