@@ -262,3 +262,101 @@
 [2025-05-27T13:39:54.547Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-05-27T13:39:54.565Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-05-27T13:39:54.585Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-27T15:19:58.370Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "quantity"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-27T15:26:14.692Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "quantity"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-27T15:26:21.781Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "quantity"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-27T15:26:22.647Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "quantity"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-27T15:26:23.911Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "quantity"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-27T15:30:13.253Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "quantity"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-27T15:34:49.954Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T15:37:52.038Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T15:38:40.827Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T15:43:39.623Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T15:52:59.557Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T15:53:11.745Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T15:59:19.626Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T16:00:21.331Z] [error]: HIDE::400::BadRequest::Product is out of stock!::

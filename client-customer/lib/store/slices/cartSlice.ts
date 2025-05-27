@@ -60,13 +60,55 @@ export const decreaseItemQuantity = createAsyncThunk(
 
 export const removeItemFromCart = createAsyncThunk(
     'cart/removeFromCart',
-    async (skuId: string, { rejectWithValue }) => {
+    async (skuId: string, { rejectWithValue, dispatch }) => {
         try {
             await cartService.removeItemFromCart(skuId);
-
+            dispatch(fetchCart());
             return null;
         } catch (error: any) {
             return rejectWithValue('Failed to remove item from cart');
+        }
+    }
+);
+
+export const updateItemQuantity = createAsyncThunk(
+    'cart/updateItemQuantity',
+    async (
+        { skuId, shopId, newQuantity }: { skuId: string; shopId: string; newQuantity: number },
+        { rejectWithValue, dispatch, getState }
+    ) => {
+        const state = (getState() as any).cart as CartState;
+        const currentItem = state.items.find((item) => item.sku_id === skuId);
+
+        if (!currentItem) {
+            return rejectWithValue('Product not found in cart state');
+        }
+
+        const currentShopInState = state.items.find((item) => item.sku_id === skuId)?.shop_id;
+
+        if (!currentShopInState) {
+            return rejectWithValue('Shop ID not found for product');
+        }
+
+        const updateData = {
+            cartShop: [
+                {
+                    shopId: shopId,
+                    products: [
+                        {
+                            id: skuId,
+                            newQuantity: newQuantity
+                        }
+                    ]
+                }
+            ]
+        };
+
+        try {
+            await cartService.updateCart(updateData);
+            return null;
+        } catch (error: any) {
+            return rejectWithValue(error.message || 'Failed to update item quantity');
         }
     }
 );
@@ -99,13 +141,9 @@ const cartSlice = createSlice({
             })
             // Add item to cart (handles increase too)
             .addCase(addItemToCart.pending, (state) => {
-                // state.isLoading = true; // Optional: indicate update is in progress
                 state.error = null;
             })
             .addCase(addItemToCart.fulfilled, (state, action) => {
-                // State update handled by subsequent fetchCart in component
-                // state.isLoading = false;
-
                 const index = state.items.findIndex(
                     (item: CartItem) => item.sku_id === action.meta.arg.skuId
                 );
@@ -115,17 +153,13 @@ const cartSlice = createSlice({
                 }
             })
             .addCase(addItemToCart.rejected, (state, action) => {
-                // state.isLoading = false;
                 state.error = (action.payload as string) || 'Failed to add item';
             })
             // Decrease item quantity
             .addCase(decreaseItemQuantity.pending, (state) => {
-                // state.isLoading = true;
                 state.error = null;
             })
             .addCase(decreaseItemQuantity.fulfilled, (state, action) => {
-                // state.isLoading = false;
-
                 const skuId = action.meta.arg;
                 const index = state.items.findIndex((item: CartItem) => item.sku_id === skuId);
 
@@ -134,17 +168,13 @@ const cartSlice = createSlice({
                 }
             })
             .addCase(decreaseItemQuantity.rejected, (state, action) => {
-                // state.isLoading = false;
                 state.error = (action.payload as string) || 'Failed to decrease quantity';
             })
             // Remove item from cart
             .addCase(removeItemFromCart.pending, (state) => {
-                // state.isLoading = true;
                 state.error = null;
             })
             .addCase(removeItemFromCart.fulfilled, (state, action) => {
-                // state.isLoading = false;
-
                 const skuId = action.meta.arg;
                 const index = state.items.findIndex((item: CartItem) => item.sku_id === skuId);
 
@@ -153,8 +183,20 @@ const cartSlice = createSlice({
                 }
             })
             .addCase(removeItemFromCart.rejected, (state, action) => {
-                // state.isLoading = false;
                 state.error = (action.payload as string) || 'Failed to remove item';
+            })
+            // Handle update item quantity (new thunk)
+            .addCase(updateItemQuantity.pending, (state) => {
+                state.error = null;
+            })
+            .addCase(updateItemQuantity.fulfilled, (state, action) => {
+                const index = state.items.findIndex((item: CartItem) => item.sku_id === action.meta.arg.skuId);
+                if (index !== -1) {
+                    state.items[index].quantity = action.meta.arg.newQuantity;
+                }
+            })
+            .addCase(updateItemQuantity.rejected, (state, action) => {
+                state.error = (action.payload as string) || 'Failed to update quantity';
             });
     }
 });

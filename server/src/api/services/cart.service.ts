@@ -29,14 +29,14 @@ export default class CartService {
             skuId,
             userId,
             quantity
-        })
+        });
         const sku = await findOneSKU({
             query: { _id: skuId, is_deleted: { $ne: true } },
             options: { lean: true, populate: ['sku_product'] }
         });
-        console.log(sku)
+        console.log(sku);
         const spu = sku?.sku_product as any as model.spu.SPUSchema | undefined;
-        console.log(spu)
+        console.log(spu);
 
         if (!sku || !spu || !spu._id) {
             throw new NotFoundErrorResponse({ message: 'Product not found!' });
@@ -112,11 +112,11 @@ export default class CartService {
      * @returns The user's cart or null if not found.
      */
     static async getUserCart(userId: string) {
-        await findOneAndUpdateCart({ 
+        await findOneAndUpdateCart({
             query: { user: userId },
             options: { lean: true, upsert: true, new: true },
             update: {}
-        }); 
+        });
 
         const cart = await cartModel.aggregate([
             {
@@ -144,9 +144,9 @@ export default class CartService {
                     'cart_shop.shop.info.shop_owner_email': 0,
                     'cart_shop.shop.info.shop_owner_phoneNumber': 0,
                     'cart_shop.shop.info.shop_owner_cardID': 0,
-                    "__v": 0,
-                    "created_at": 0,
-                    "updated_at": 0,
+                    __v: 0,
+                    created_at: 0,
+                    updated_at: 0
                 }
             }
         ]);
@@ -220,12 +220,12 @@ export default class CartService {
                         }
 
                         /* ------------------ Handle update status ------------------ */
-                        if (product.status !== product.newStatus) {
+                        if (product.newStatus) {
                             foundProduct.product_status = product.newStatus;
                         }
 
                         /* ----------------- Handle update quantity ----------------- */
-                        if (product.quantity !== product.newQuantity) {
+                        if (product.newQuantity) {
                             /* ----------------------- Check stock ---------------------- */
                             const sku = productsValidToUse.find(
                                 (x) => x._id.toString() === product.id

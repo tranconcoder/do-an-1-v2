@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingCart, Plus, Minus } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useState, useEffect, Fragment, useCallback } from 'react';
 import {
     AlertDialog,
@@ -23,12 +23,30 @@ import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '@/lib/store/store';
+import { CartItem } from '@/lib/services/api/cartService.js'; // Import CartItem type
 import {
     addItemToCart,
     decreaseItemQuantity,
     fetchCart,
-    removeItemFromCart
+    removeItemFromCart,
+    updateItemQuantity
 } from '@/lib/store/slices/cartSlice';
+
+// Utility function for debouncing
+function debounce<T extends (...args: any[]) => void>(
+    func: T,
+    delay: number
+): (...args: Parameters<T>) => void {
+    let timeoutId: NodeJS.Timeout | null;
+    return (...args: Parameters<T>) => {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+            func(...args);
+        }, delay);
+    };
+}
 
 export default function CartHoverCard() {
     const dispatch = useDispatch<AppDispatch>();
@@ -41,56 +59,108 @@ export default function CartHoverCard() {
     const [showAlertDialog, setShowAlertDialog] = useState(false);
     const { toast } = useToast();
     const [skuIdToRemove, setSkuIdToRemove] = useState<string | null>(null);
+    // State để theo dõi số lượng trong input tạm thời (optimistic update trên UI)
+    const [itemQuantities, setItemQuantities] = useState<Record<string, number>>({});
 
-    // Handle increasing item quantity
-    const handleIncreaseQuantity = async (skuId: string) => {
-        const resultAction = await dispatch(addItemToCart({ skuId, quantity: 1 }));
-        if (addItemToCart.fulfilled.match(resultAction)) {
-            toast({
-                title: 'Cập nhật giỏ hàng'
-            });
-        } else {
-            toast({
-                title: 'Lỗi',
-                variant: 'destructive'
-            });
+    // Đồng bộ state local quantities khi cartItems từ Redux thay đổi
+    useEffect(() => {
+        const initialQuantities: Record<string, number> = {};
+        cartItems.forEach((item) => {
+            initialQuantities[item.sku_id] = item.quantity;
+        });
+        setItemQuantities(initialQuantities);
+    }, [cartItems]);
+
+    // Debounced handler for quantity update
+    const debouncedUpdateQuantity = useCallback(
+        debounce(async (skuId: string, shopId: string, newQuantity: number) => {
+            // Lấy số lượng hiện tại từ state Redux để so sánh
+            const currentItem = cartItems.find((item) => item.sku_id === skuId);
+            if (!currentItem) return; // Should not happen if UI is based on cartItems
+
+            // Kiểm tra nếu số lượng thực sự thay đổi
+            if (newQuantity !== currentItem.quantity) {
+                // Xác thực số lượng nhập vào
+                if (newQuantity <= 0) {
+                    // Nếu số lượng là 0 hoặc âm, hỏi xác nhận xóa
+                    setSkuIdToRemove(skuId); // Đặt skuId cần xóa
+                    setShowAlertDialog(true); // Mở dialog xác nhận xóa
+                    // Optional: Revert the input value back to 1 temporarily
+                    setItemQuantities((prev) => ({ ...prev, [skuId]: 1 }));
+                } else if (Number.isInteger(newQuantity)) {
+                    // Nếu là số nguyên dương, dispatch thunk cập nhật
+                    const resultAction = await dispatch(
+                        updateItemQuantity({ skuId, shopId, newQuantity })
+                    );
+
+                    if (updateItemQuantity.fulfilled.match(resultAction)) {
+                        toast({ title: 'Cập nhật số lượng' });
+                        // State sẽ được fetchCart cập nhật sau đó
+                    } else {
+                        // Optional: Revert the input value back to the last valid quantity on error
+                        setItemQuantities((prev) => ({ ...prev, [skuId]: currentItem.quantity }));
+                        // dispatch(fetchCart()); // Fetch cart on error
+                    }
+                } else {
+                    // Nếu không phải số nguyên dương hợp lệ
+                    toast({ title: 'Số lượng không hợp lệ', variant: 'destructive' });
+                    // Revert the input value back to the last valid quantity
+                    setItemQuantities((prev) => ({ ...prev, [skuId]: currentItem.quantity }));
+                }
+            }
+        }, 500), // Debounce delay 500ms
+        [dispatch, cartItems, toast] // Dependencies cho useCallback
+    );
+
+    // Handle input change
+    const handleInputChange = (skuId: string, shopId: string, value: string) => {
+        const newQuantity = parseInt(value, 10);
+
+        // Cập nhật state local ngay lập tức để UI phản hồi
+        setItemQuantities((prev) => ({
+            ...prev,
+            [skuId]: isNaN(newQuantity) ? 0 : newQuantity // Sử dụng 0 hoặc giá trị tạm nếu không phải số
+        }));
+
+        // Gọi hàm debounce để xử lý logic cập nhật và dispatch thunk sau một khoảng dừng
+        if (!isNaN(newQuantity)) {
+            // Chỉ gọi debounce nếu giá trị nhập vào là số
+            debouncedUpdateQuantity(skuId, shopId, newQuantity);
         }
     };
 
-    // Handle decreasing item quantity
-    const handleDecreaseQuantity = async (skuId: string, currentQuantity: number) => {
-        if (currentQuantity === 1) {
-            // If quantity is 1, confirm removal
-            setSkuIdToRemove(skuId);
+    // Handle increasing item quantity (Giữ lại logic này cho nút +)
+    const handleIncreaseQuantity = (item: CartItem) => {
+        const newQuantity = item.quantity + 1;
+        // Cập nhật state local ngay lập tức
+        setItemQuantities((prev) => ({ ...prev, [item.sku_id]: newQuantity }));
+        // Dispatch thunk cập nhật ngay
+        dispatch(updateItemQuantity({ skuId: item.sku_id, shopId: item.shop_id, newQuantity }));
+    };
+
+    // Handle decreasing item quantity (Giữ lại logic này cho nút -)
+    const handleDecreaseQuantity = (item: CartItem) => {
+        if (item.quantity === 1) {
+            // Nếu số lượng là 1, kích hoạt xác nhận xóa
+            setSkuIdToRemove(item.sku_id);
             setShowAlertDialog(true);
         } else {
-            const resultAction = await dispatch(decreaseItemQuantity(skuId));
-            if (decreaseItemQuantity.fulfilled.match(resultAction)) {
-                toast({
-                    title: 'Cập nhật giỏ hàng'
-                });
-            } else {
-                toast({
-                    title: 'Lỗi',
-                    variant: 'destructive'
-                });
-            }
+            const newQuantity = item.quantity - 1;
+            // Cập nhật state local ngay lập tức
+            setItemQuantities((prev) => ({ ...prev, [item.sku_id]: newQuantity }));
+            // Dispatch thunk cập nhật ngay
+            dispatch(updateItemQuantity({ skuId: item.sku_id, shopId: item.shop_id, newQuantity }));
         }
     };
 
-    // Handle removing item
+    // Handle removing item (Giữ nguyên logic xóa từ AlertDialog)
     const handleRemoveItem = async () => {
         if (skuIdToRemove !== null) {
             const resultAction = await dispatch(removeItemFromCart(skuIdToRemove));
             if (removeItemFromCart.fulfilled.match(resultAction)) {
-                toast({
-                    title: 'Xóa sản phẩm'
-                });
+                toast({ title: 'Xóa sản phẩm' });
             } else {
-                toast({
-                    title: 'Lỗi',
-                    variant: 'destructive'
-                });
+                toast({ title: 'Lỗi', variant: 'destructive' });
             }
             // Close alert dialog and reset state regardless of API success/failure
             setSkuIdToRemove(null);
@@ -100,8 +170,8 @@ export default function CartHoverCard() {
 
     return (
         <Fragment>
-            <HoverCard openDelay={100} closeDelay={100}>
-                <HoverCardTrigger asChild>
+            <Popover>
+                <PopoverTrigger asChild>
                     <Button variant="ghost" size="icon" className="relative">
                         <ShoppingCart className="h-5 w-5" />
                         {totalItems > 0 && (
@@ -111,8 +181,8 @@ export default function CartHoverCard() {
                         )}
                         <span className="sr-only">Giỏ hàng</span>
                     </Button>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-80">
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
                     <div className="text-sm">
                         <p className="font-medium mb-2">Giỏ hàng của bạn ({totalItems} sản phẩm)</p>
                         {isLoading ? (
@@ -170,29 +240,48 @@ export default function CartHoverCard() {
                                                 variant="outline"
                                                 size="icon"
                                                 className="h-6 w-6"
-                                                onClick={() =>
-                                                    handleDecreaseQuantity(
-                                                        item.sku_id,
-                                                        item.quantity
-                                                    )
-                                                }
+                                                onClick={() => handleDecreaseQuantity(item)}
                                                 disabled={isLoading}
                                             >
                                                 <Minus className="h-3 w-3" />
                                             </Button>
-                                            <span className="text-sm font-medium w-5 text-center flex-shrink-0">
-                                                {item.quantity}
-                                            </span>
+                                            <input
+                                                type="number"
+                                                min="0" // Cho phép nhập 0 để hỏi xóa
+                                                value={itemQuantities[item.sku_id] ?? item.quantity} // Sử dụng state local hoặc giá trị từ Redux
+                                                onChange={(e) =>
+                                                    handleInputChange(
+                                                        item.sku_id,
+                                                        item.shop_id,
+                                                        e.target.value
+                                                    )
+                                                }
+                                                className="text-sm font-medium w-12 text-center border rounded px-1 py-0.5 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                                disabled={isLoading}
+                                            />
                                             <Button
                                                 variant="outline"
                                                 size="icon"
                                                 className="h-6 w-6"
-                                                onClick={() => handleIncreaseQuantity(item.sku_id)}
+                                                onClick={() => handleIncreaseQuantity(item)}
                                                 disabled={isLoading}
                                             >
                                                 <Plus className="h-3 w-3" />
                                             </Button>
                                         </div>
+                                        {/* Nút Xóa sản phẩm trực tiếp */}
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            className="h-6 w-6 text-gray-400 hover:text-red-500"
+                                            onClick={() => {
+                                                setSkuIdToRemove(item.sku_id);
+                                                setShowAlertDialog(true);
+                                            }}
+                                            disabled={isLoading}
+                                        >
+                                            <X className="h-3 w-3" />
+                                        </Button>
                                     </div>
                                 ))}
                             </div>
@@ -207,8 +296,8 @@ export default function CartHoverCard() {
                             </Link>
                         </div>
                     </div>
-                </HoverCardContent>
-            </HoverCard>
+                </PopoverContent>
+            </Popover>
 
             <AlertDialog open={showAlertDialog} onOpenChange={setShowAlertDialog}>
                 <AlertDialogContent>
