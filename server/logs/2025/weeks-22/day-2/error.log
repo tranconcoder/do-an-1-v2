@@ -203,3 +203,20 @@
 [2025-05-27T10:31:45.293Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
 [2025-05-27T10:31:54.092Z] [error]: HIDE::403::Forbidden::Token not found!::
 [2025-05-27T10:31:54.098Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T10:50:05.500Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T10:50:48.290Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T10:51:03.999Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T11:11:18.026Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T11:11:18.143Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T11:11:18.396Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T11:11:23.661Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T11:11:23.794Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T11:11:24.183Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T11:11:24.330Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T11:13:06.819Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T11:16:24.504Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-27T11:16:24.505Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-27T11:16:24.510Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-27T11:16:24.511Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-27T11:16:24.515Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-27T11:16:24.523Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::

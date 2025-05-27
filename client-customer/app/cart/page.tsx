@@ -63,7 +63,6 @@ export default function CartPage() {
            return;
         }
       }
-      dispatch(fetchCart());
 
     } catch (error) {
       console.error(`Failed to update quantity for item ${itemId}:`, error);
@@ -73,7 +72,6 @@ export default function CartPage() {
   const handleRemoveItem = async (itemId: string) => {
     try {
       await dispatch(removeItemFromCart(itemId)).unwrap();
-      dispatch(fetchCart());
 
     } catch (error) {
       console.error(`Failed to remove item ${itemId}:`, error);
