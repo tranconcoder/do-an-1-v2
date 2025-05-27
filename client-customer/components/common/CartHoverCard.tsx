@@ -49,7 +49,7 @@ export default function CartHoverCard() {
     if (!isLoading) {
       dispatch(fetchCart());
     }
-  }, [dispatch, isLoading]);
+  }, []);
 
   // Handle increasing item quantity
   const handleIncreaseQuantity = async (skuId: string) => {
@@ -57,14 +57,12 @@ export default function CartHoverCard() {
     if (addItemToCart.fulfilled.match(resultAction)) {
        toast({
          title: "Cập nhật giỏ hàng",
-         description: "Đã tăng số lượng sản phẩm.",
        });
        // Refetch cart after successful modification
        dispatch(fetchCart());
     } else {
        toast({
          title: "Lỗi",
-         description: (resultAction.payload as string) || "Không thể tăng số lượng sản phẩm.",
          variant: "destructive",
        });
     }
@@ -81,14 +79,12 @@ export default function CartHoverCard() {
       if (decreaseItemQuantity.fulfilled.match(resultAction)) {
         toast({
           title: "Cập nhật giỏ hàng",
-          description: "Đã giảm số lượng sản phẩm.",
         });
         // Refetch cart after successful modification
         dispatch(fetchCart());
       } else {
         toast({
           title: "Lỗi",
-          description: (resultAction.payload as string) || "Không thể giảm số lượng sản phẩm.",
           variant: "destructive",
         });
       }
@@ -102,14 +98,12 @@ export default function CartHoverCard() {
       if (removeItemFromCart.fulfilled.match(resultAction)) {
         toast({
           title: "Xóa sản phẩm",
-          description: "Sản phẩm đã được xóa khỏi giỏ hàng.",
         });
         // Refetch cart after successful modification
         dispatch(fetchCart());
       } else {
          toast({
            title: "Lỗi",
-           description: (resultAction.payload as string) || "Không thể xóa sản phẩm khỏi giỏ hàng.",
            variant: "destructive",
          });
       }
