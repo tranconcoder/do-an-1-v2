@@ -32,8 +32,7 @@ export const addItemToCart = createAsyncThunk(
   async ({ skuId, quantity }: { skuId: string; quantity: number }, { rejectWithValue }) => {
     try {
       await cartService.increaseItemQuantity(skuId, quantity);
-      // API returns void. We will refetch the cart in the component after this succeeds.
-      return null; // Payload is not needed
+      return null;
     } catch (error: any) {
       return rejectWithValue('Failed to add item to cart');
     }
@@ -45,8 +44,7 @@ export const decreaseItemQuantity = createAsyncThunk(
   async (skuId: string, { rejectWithValue }) => {
     try {
       await cartService.decreaseItemQuantity(skuId);
-      // API returns void. Refetch in component after success.
-      return null; // Payload is not needed
+      return skuId;
     } catch (error: any) {
       return rejectWithValue('Failed to decrease item quantity');
     }
@@ -58,8 +56,8 @@ export const removeItemFromCart = createAsyncThunk(
   async (skuId: string, { rejectWithValue }) => {
     try {
       await cartService.removeItemFromCart(skuId);
-      // API returns void. Refetch in component after success.
-      return null; // Payload is not needed
+
+      return skuId;
     } catch (error: any) {
       return rejectWithValue('Failed to remove item from cart');
     }
@@ -94,15 +92,21 @@ const cartSlice = createSlice({
       })
       // Add item to cart (handles increase too)
       .addCase(addItemToCart.pending, (state) => {
-        // state.isLoading = true; // Optional: indicate update is in progress
+        state.isLoading = true; // Optional: indicate update is in progress
         state.error = null;
       })
-      .addCase(addItemToCart.fulfilled, (state) => {
+      .addCase(addItemToCart.fulfilled, (state, action) => {
         // State update handled by subsequent fetchCart in component
-        // state.isLoading = false;
+        state.isLoading = false;
+        console.log({action})
+
+        const index = state.items.findIndex(item => item.sku_id === action.meta.arg.skuId);
+        if (index !== -1) {
+          state.items[index].quantity++;
+        }
       })
       .addCase(addItemToCart.rejected, (state, action) => {
-        // state.isLoading = false;
+        state.isLoading = false;
         state.error = action.payload as string || 'Failed to add item';
       })
       // Decrease item quantity

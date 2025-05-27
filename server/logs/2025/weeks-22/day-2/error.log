@@ -157,3 +157,37 @@
 [2025-05-27T08:58:39.289Z] [error]: HIDE::403::Forbidden::Token not found!::
 [2025-05-27T08:58:39.296Z] [error]: HIDE::403::Forbidden::Token not found!::
 [2025-05-27T08:59:53.543Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-05-27T09:40:06.468Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T09:40:06.609Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T09:40:06.744Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T09:40:06.848Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T09:40:06.982Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T09:40:07.123Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T09:40:35.741Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T09:40:37.491Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T09:40:38.018Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T09:45:58.062Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:47:46.678Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:47:46.684Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:47:46.688Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:47:46.773Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:47:46.896Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:47:47.008Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:47:50.266Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:48:25.934Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:48:29.091Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:49:10.085Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:49:10.091Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:49:16.976Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:52:30.498Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-05-27T09:52:33.647Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:52:33.653Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:54:11.231Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:54:53.319Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:58:16.629Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:58:35.674Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:58:36.494Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:58:44.719Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:58:47.382Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:58:47.522Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T09:59:36.731Z] [error]: HIDE::403::Forbidden::Token not found!::

@@ -13,8 +13,10 @@ import { categoryService, Category } from "@/lib/services/api/categoryService"
 import { mediaService } from "@/lib/services/api/mediaService"
 import { spuService, SPU } from "@/lib/services/api/spuService";
 import { Skeleton } from "@/components/ui/skeleton";
-import cartService from "@/lib/services/api/cartService";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/components/ui/toast";
+import { useDispatch } from 'react-redux';
+import type { AppDispatch } from '@/lib/store/store';
+import { addItemToCart, fetchCart } from '@/lib/store/slices/cartSlice';
 
 export default function Home() {
   // Sample images for the hero slider
@@ -41,22 +43,20 @@ export default function Home() {
   const [isLoadingPopularProducts, setIsLoadingPopularProducts] = useState(true);
   const [errorPopularProducts, setErrorPopularProducts] = useState<string | null>(null);
 
+  const dispatch = useDispatch<AppDispatch>();
   const { toast } = useToast();
 
   const handleAddToCart = async (skuId: string) => {
-    try {
-      await cartService.increaseItemQuantity(skuId, 1);
-      toast({
-        title: "Thêm vào giỏ hàng thành công",
-        description: "Sản phẩm đã được thêm vào giỏ hàng của bạn.",
-      });
-    } catch (error) {
-      console.error("Failed to add product to cart:", error);
-      toast({
-        title: "Lỗi",
-        description: "Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.",
-        variant: "destructive",
-      });
+    const resultAction = await dispatch(addItemToCart({ skuId, quantity: 1 }));
+    if (addItemToCart.fulfilled.match(resultAction)) {
+       toast({
+         title: "Thêm vào giỏ hàng thành công",
+       });
+    } else {
+       toast({
+         title: "Lỗi",
+         variant: "destructive",
+       });
     }
   };
 
