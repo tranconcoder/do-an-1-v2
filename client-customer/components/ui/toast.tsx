@@ -116,6 +116,91 @@ type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>
 
 type ToastActionElement = React.ReactElement<typeof ToastAction>
 
+const MUTATION_LISTENERS = new Map<string, ((data: any) => void)[]>();
+
+type ActionType = "ADD" | "REMOVE" | "UPDATE";
+
+type Action = {
+  type: ActionType;
+  toast: ToastProps; // Assuming ToastProps is defined elsewhere or correctly imported/used above
+};
+
+interface State {
+  toasts: ToastProps[]; // Assuming ToastProps is defined
+}
+
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case "ADD":
+      // Add new toast, respecting a potential limit (e.g., 1)
+      // This basic reducer just adds. Limit logic is better in the hook/Toaster.
+      return { toasts: [...state.toasts, action.toast] };
+    case "REMOVE":
+      return { toasts: state.toasts.filter(t => t.id !== action.toast.id) };
+    case "UPDATE":
+      return { toasts: state.toasts.map(t => t.id === action.toast.id ? action.toast : t) };
+    default:
+      return state;
+  }
+};
+
+const subscribe = (callback: (state: State) => void) => {
+  const listenerId = `listener_${Math.random().toString(36).substr(2, 9)}`;
+  if (!MUTATION_LISTENERS.has("stateChange")) {
+    MUTATION_LISTENERS.set("stateChange", []);
+  }
+  MUTATION_LISTENERS.get("stateChange")?.push(callback);
+
+  return () => {
+    const listeners = MUTATION_LISTENERS.get("stateChange");
+    if (listeners) {
+      MUTATION_LISTENERS.set("stateChange", listeners.filter(listener => listener !== callback));
+    }
+  };
+};
+
+const emit = (data: State) => {
+  MUTATION_LISTENERS.get("stateChange")?.forEach(listener => listener(data));
+};
+
+let state: State = { toasts: [] }; // Initialize state
+
+const dispatch = (action: Action) => {
+  state = reducer(state, action);
+  emit(state);
+};
+
+type ToastArgs = Omit<ToastProps, 'id'> & { id?: string }; // Assuming ToastProps is defined correctly
+
+const useToast = () => {
+  const [toasts, setToasts] = React.useState<ToastProps[]>(state.toasts);
+
+  React.useEffect(() => {
+    const unsubscribe = subscribe(newState => {
+      setToasts(newState.toasts);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const toast = (props: ToastArgs) => {
+    const id = props.id || `toast-${Math.random().toString(36).substr(2, 9)}`;
+    // Ensure the passed props include necessary fields like title, description, etc.
+    // This cast might be necessary if ToastProps definition is strict
+    dispatch({ type: "ADD", toast: { ...props, id } as ToastProps });
+
+    // Set a timer to remove the toast if duration is specified
+    if (props.duration !== Infinity) {
+       setTimeout(() => {
+           dispatch({ type: "REMOVE", toast: { id } as ToastProps }); // Only id is needed for removal action
+       }, props.duration || 5000); // Default duration 5s
+    }
+    return { id };
+  };
+
+  return { toasts, toast };
+};
+
 export {
   type ToastProps,
   type ToastActionElement,
@@ -126,4 +211,5 @@ export {
   ToastDescription,
   ToastClose,
   ToastAction,
+  useToast,
 }
