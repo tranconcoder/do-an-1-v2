@@ -110,7 +110,7 @@ export default function Header() {
                                 <span className="sr-only">Menu</span>
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
+                        <DropdownMenuContent align="end" sideOffset={8} avoidCollisions={true} collisionPadding={16} className="z-[60]">
                             <DropdownMenuItem asChild>
                                 <Link href="/">Trang chủ</Link>
                             </DropdownMenuItem>

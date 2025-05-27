@@ -182,41 +182,54 @@ export default function CartHoverCard() {
                         <span className="sr-only">Giỏ hàng</span>
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-80">
+                <PopoverContent 
+                    align="end" 
+                    sideOffset={8}
+                    avoidCollisions={true}
+                    collisionPadding={16}
+                    className="w-80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg rounded-xl shadow-2xl border border-white/20 dark:border-slate-700/50 p-4 z-[60]">
                     <div className="text-sm">
-                        <p className="font-medium mb-2">Giỏ hàng của bạn ({totalItems} sản phẩm)</p>
+                        <p className="font-semibold mb-3 text-gray-900 dark:text-gray-100 text-base">
+                            Giỏ hàng của bạn 
+                            <span className="text-blue-600 dark:text-blue-400 ml-1">({totalItems} sản phẩm)</span>
+                        </p>
                         {isLoading ? (
                             <div className="space-y-2">
                                 {[...Array(3)].map((_, index) => (
-                                    <div key={index} className="flex items-center gap-2">
-                                        <Skeleton className="w-10 h-10 rounded" />
+                                    <div key={index} className="flex items-center gap-3 p-2 rounded-lg border border-white/10 dark:border-slate-700/30">
+                                        <Skeleton className="w-12 h-12 rounded-lg" />
                                         <div className="flex-1 space-y-1">
                                             <Skeleton className="h-4 w-3/4" />
                                             <Skeleton className="h-3 w-1/2" />
                                         </div>
                                         <div className="flex items-center gap-1">
-                                            <Skeleton className="h-6 w-6 rounded" />
-                                            <Skeleton className="h-4 w-8" />
-                                            <Skeleton className="h-6 w-6 rounded" />
+                                            <Skeleton className="h-7 w-7 rounded" />
+                                            <Skeleton className="h-7 w-12 rounded" />
+                                            <Skeleton className="h-7 w-7 rounded" />
+                                            <Skeleton className="h-7 w-7 rounded" />
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         ) : error ? (
-                            <p className="text-red-500">{error}</p>
+                            <div className="flex flex-col items-center justify-center py-6 text-red-500 dark:text-red-400">
+                                <p className="text-sm font-medium">{error}</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Vui lòng thử lại sau</p>
+                            </div>
                         ) : cartItems.length === 0 ? (
-                            <div className="flex flex-col items-center justify-center py-4 text-gray-500">
-                                <ShoppingCart className="h-10 w-10 mb-2" />
-                                <p className="text-sm">Giỏ hàng trống.</p>
+                            <div className="flex flex-col items-center justify-center py-8 text-gray-500">
+                                <ShoppingCart className="h-12 w-12 mb-3 text-gray-400" />
+                                <p className="text-sm font-medium">Giỏ hàng trống</p>
+                                <p className="text-xs text-gray-400 mt-1">Thêm sản phẩm để bắt đầu mua sắm</p>
                             </div>
                         ) : (
                             <div className="space-y-2 max-h-40 overflow-y-auto pr-2">
                                 {cartItems.map((item) => (
                                     <div
                                         key={item.sku_id}
-                                        className="flex items-center gap-2 border-b pb-2 last:border-b-0"
+                                        className="flex items-center gap-3 p-2 rounded-lg border border-white/10 dark:border-slate-700/30 hover:bg-white/5 dark:hover:bg-slate-800/20 transition-all duration-200 hover:shadow-md"
                                     >
-                                        <div className="relative w-10 h-10 rounded overflow-hidden flex-shrink-0">
+                                        <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
                                             <Image
                                                 src={
                                                     mediaService.getMediaUrl(item.product_thumb) ||
@@ -227,11 +240,11 @@ export default function CartHoverCard() {
                                                 className="object-cover"
                                             />
                                         </div>
-                                        <div className="flex-1">
-                                            <p className="font-medium text-sm line-clamp-1">
+                                        <div className="flex-1 min-w-0">
+                                            <p className="font-medium text-sm line-clamp-1 text-gray-900 dark:text-gray-100">
                                                 {item.product_name}
                                             </p>
-                                            <p className="text-xs text-gray-500">
+                                            <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
                                                 {item.sku_price?.toLocaleString('vi-VN')}₫
                                             </p>
                                         </div>
@@ -239,7 +252,7 @@ export default function CartHoverCard() {
                                             <Button
                                                 variant="outline"
                                                 size="icon"
-                                                className="h-6 w-6"
+                                                className="h-7 w-7 bg-white/50 dark:bg-slate-800/50 border-white/20 dark:border-slate-700/50 hover:bg-white/70 dark:hover:bg-slate-800/70 backdrop-blur-sm"
                                                 onClick={() => handleDecreaseQuantity(item)}
                                                 disabled={isLoading}
                                             >
@@ -256,13 +269,13 @@ export default function CartHoverCard() {
                                                         e.target.value
                                                     )
                                                 }
-                                                className="text-sm font-medium w-12 text-center border rounded px-1 py-0.5 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                                className="text-sm font-medium w-12 text-center border border-white/20 dark:border-slate-700/50 rounded bg-white/30 dark:bg-slate-800/30 backdrop-blur-sm px-1 py-0.5 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                                                 disabled={isLoading}
                                             />
                                             <Button
                                                 variant="outline"
                                                 size="icon"
-                                                className="h-6 w-6"
+                                                className="h-7 w-7 bg-white/50 dark:bg-slate-800/50 border-white/20 dark:border-slate-700/50 hover:bg-white/70 dark:hover:bg-slate-800/70 backdrop-blur-sm"
                                                 onClick={() => handleIncreaseQuantity(item)}
                                                 disabled={isLoading}
                                             >
@@ -273,7 +286,7 @@ export default function CartHoverCard() {
                                         <Button
                                             variant="ghost"
                                             size="icon"
-                                            className="h-6 w-6 text-gray-400 hover:text-red-500"
+                                            className="h-7 w-7 text-gray-400 hover:text-red-500 hover:bg-red-500/10 backdrop-blur-sm transition-colors"
                                             onClick={() => {
                                                 setSkuIdToRemove(item.sku_id);
                                                 setShowAlertDialog(true);
@@ -288,9 +301,9 @@ export default function CartHoverCard() {
                         )}
 
                         {/* Nút "Xem giỏ hàng" - Luôn hiển thị khi component được render */}
-                        <div className="mt-4">
+                        <div className="mt-4 pt-3 border-t border-white/10 dark:border-slate-700/30">
                             <Link href="/cart" passHref>
-                                <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600">
+                                <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 shadow-lg hover:shadow-xl transition-all duration-200 backdrop-blur-sm">
                                     Xem giỏ hàng
                                 </Button>
                             </Link>

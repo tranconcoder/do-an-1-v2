@@ -28,7 +28,7 @@ export default new (class CheckoutService {
         /* ----------- Select all item selected from cart ----------- */
         cart.cart_shop.forEach((shop) => {
             shop.products = shop.products.filter(
-                (product) => product.status === CartItemStatus.Active
+                (product) => product.product_status === CartItemStatus.Active
             );
         });
 
@@ -88,14 +88,14 @@ export default new (class CheckoutService {
                               discountCode: discountInfo.discountCode,
                               products: shop.products.map((x) => ({
                                   id: x.sku.toString(),
-                                  quantity: x.quantity
+                                  quantity: x.cart_quantity,
                               }))
                           })
                       ).totalDiscount
                     : 0;
 
                 const productsInfo = shop.products.map((product) => {
-                    totalPriceRawShop += product.quantity * product.price;
+                    totalPriceRawShop += product.cart_quantity * product.product_price;
 
                     /* --------------- Calculating admin discount --------------- */
                     if (

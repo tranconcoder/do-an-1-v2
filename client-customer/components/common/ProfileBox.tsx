@@ -54,7 +54,10 @@ export default function ProfileBox({ user, shop, handleLogout }: ProfileBoxProps
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="end" 
-        className="w-72 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg rounded-xl shadow-2xl border border-white/20 dark:border-slate-700/50 p-2 space-y-1">
+        sideOffset={8}
+        avoidCollisions={true}
+        collisionPadding={16}
+        className="w-72 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg rounded-xl shadow-2xl border border-white/20 dark:border-slate-700/50 p-2 space-y-1 z-[60]">
         <DropdownMenuLabel className="px-2 py-1.5 text-sm font-semibold">My Account</DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-white/20 dark:bg-slate-700/50" />
         <DropdownMenuItem className="focus:bg-transparent cursor-default px-2 py-1.5">
