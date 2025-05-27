@@ -52,14 +52,6 @@ export default function StoreProvider({ children }: StoreProviderProps) {
     }
 
     useEffect(() => {
-        const dispatch = storeRef.current?.dispatch as AppDispatch;
-
-        if (storeRef.current?.getState().user.isAuthenticated) {
-            dispatch(fetchCart());
-        }
-    }, [storeRef.current?.getState().user.isAuthenticated]);
-
-    useEffect(() => {
         const initAuth = async () => {
             if (!storeRef.current) return;
             const dispatch = storeRef.current.dispatch as AppDispatch;
@@ -92,6 +84,8 @@ export default function StoreProvider({ children }: StoreProviderProps) {
                         localStorage.setItem('refreshToken', newRefreshToken);
                     }
 
+                    dispatch(fetchCart());
+
                     dispatch(
                         loginSuccess({
                             user: userData,
@@ -99,6 +93,7 @@ export default function StoreProvider({ children }: StoreProviderProps) {
                             token: { accessToken: newAccessToken, refreshToken: newRefreshToken }
                         })
                     );
+
                     console.log('StoreProvider: Profile fetch successful.');
                 } catch (error: any) {
                     console.warn(

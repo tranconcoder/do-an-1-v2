@@ -34,7 +34,6 @@ export default function CartHoverCard() {
     const dispatch = useDispatch<AppDispatch>();
     // Access cart state from Redux store
     const { items: cartItems, isLoading, error } = useSelector((state: RootState) => state.cart);
-    console.log(isLoading);
 
     // Calculate total items from Redux state
     const totalItems = cartItems ? cartItems.reduce((sum, item) => sum + item.quantity, 0) : 0;
