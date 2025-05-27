@@ -49,6 +49,40 @@ export interface ProductDetail {
 //   // ...other properties
 // }
 
+// New interface for SKU-based product detail response
+export interface ProductSkuDetail {
+  _id: string; // SPU ID
+  product_name: string;
+  product_quantity: number;
+  product_description: string;
+  product_category: string;
+  product_shop: string; // Shop ID (might need to be expanded)
+  product_rating_avg?: number;
+  product_slug: string;
+  product_thumb: string; // Media ID for SPU
+  product_images: string[]; // Media IDs for SPU
+  product_attributes: ProductAttribute[];
+  product_variations: Array<{
+    variation_name: string;
+    variation_values: string[];
+    _id: string;
+  }>;
+  shop?: ShopReference; // Expanded shop information if available
+  sku: {
+    _id: string; // SKU ID
+    sku_product: string; // SPU ID (links back to parent SPU)
+    sku_price: number;
+    sku_stock: number;
+    sku_thumb: string; // Media ID for this specific SKU
+    sku_images: string[]; // Media IDs for this specific SKU
+    sku_value: { key: string; value: string }[];
+  };
+  sold_count?: number;
+  isNew?: boolean;
+  salePrice?: number;
+  discount?: number;
+}
+
 // New interface for products from /sku list
 export interface ProductSku {
   _id: string; // SPU ID
@@ -156,7 +190,43 @@ const productService = {
     }
   },
 
-  
+  /**
+   * Fetches a single SKU by its ID.
+   * @param {string} skuId - The ID of the SKU to fetch.
+   * @returns {Promise<ProductSkuDetail>} A promise that resolves to the SKU data.
+   */
+  getSkuById: async (skuId: string): Promise<ProductSkuDetail> => {
+    try {
+      const response = await apiClient.get(`/sku/id/${skuId}`);
+      if (response.data && response.data.metadata) {
+        return response.data.metadata as ProductSkuDetail;
+      }
+      throw new Error("SKU data not found in the expected format");
+    } catch (error) {
+      console.error(`Error fetching SKU with ID ${skuId}:`, error);
+      throw error;
+    }
+  },
+
+  /**
+   * Fetches all SKUs for a given SPU (product) ID.
+   * @param {string} spuId - The ID of the SPU to fetch SKUs for.
+   * @returns {Promise<ProductSku[]>} A promise that resolves to an array of SKUs for the product.
+   */
+  getSkusBySpuId: async (spuId: string): Promise<ProductSku[]> => {
+    try {
+      // This endpoint might need to be created on the backend
+      const response = await apiClient.get(`/sku/spu/${spuId}`);
+      if (response.data && response.data.metadata) {
+        return response.data.metadata as ProductSku[];
+      }
+      throw new Error("SKUs data not found in the expected format");
+    } catch (error) {
+      console.error(`Error fetching SKUs for SPU ID ${spuId}:`, error);
+      throw error;
+    }
+  },
+
 };
 
-export default productService; 
+export default productService;

@@ -360,3 +360,172 @@
 [2025-05-27T15:53:11.745Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
 [2025-05-27T15:59:19.626Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
 [2025-05-27T16:00:21.331Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-05-27T23:34:59.084Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:34:59.104Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:40:04.501Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:40:08.161Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:40:59.079Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:40:59.134Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:41:09.957Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:41:23.233Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:42:54.084Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:46:02.579Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:46:26.806Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newQuantity"
+    ],
+    "message": "Required"
+  },
+  {
+    "received": "selected",
+    "code": "invalid_enum_value",
+    "options": [
+      "active",
+      "inactive"
+    ],
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newStatus"
+    ],
+    "message": "Invalid enum value. Expected 'active' | 'inactive', received 'selected'"
+  }
+]::
+[2025-05-27T23:48:05.855Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newQuantity"
+    ],
+    "message": "Required"
+  },
+  {
+    "received": "selected",
+    "code": "invalid_enum_value",
+    "options": [
+      "active",
+      "inactive"
+    ],
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newStatus"
+    ],
+    "message": "Invalid enum value. Expected 'active' | 'inactive', received 'selected'"
+  }
+]::
+[2025-05-27T23:49:03.309Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newQuantity"
+    ],
+    "message": "Required"
+  },
+  {
+    "received": "selected",
+    "code": "invalid_enum_value",
+    "options": [
+      "active",
+      "inactive"
+    ],
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newStatus"
+    ],
+    "message": "Invalid enum value. Expected 'active' | 'inactive', received 'selected'"
+  }
+]::
+[2025-05-27T23:50:00.280Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:50:00.298Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:50:15.615Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:50:36.586Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T23:53:10.352Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newQuantity"
+    ],
+    "message": "Required"
+  },
+  {
+    "received": "selected",
+    "code": "invalid_enum_value",
+    "options": [
+      "active",
+      "inactive"
+    ],
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newStatus"
+    ],
+    "message": "Invalid enum value. Expected 'active' | 'inactive', received 'selected'"
+  }
+]::
+[2025-05-27T23:55:20.030Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newQuantity"
+    ],
+    "message": "Required"
+  },
+  {
+    "received": "selected",
+    "code": "invalid_enum_value",
+    "options": [
+      "active",
+      "inactive"
+    ],
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newStatus"
+    ],
+    "message": "Invalid enum value. Expected 'active' | 'inactive', received 'selected'"
+  }
+]::

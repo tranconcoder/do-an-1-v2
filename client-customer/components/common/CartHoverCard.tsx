@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ShoppingCart, Plus, Minus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useState, useEffect, Fragment, useCallback } from 'react';
 import {
@@ -29,7 +30,8 @@ import {
     decreaseItemQuantity,
     fetchCart,
     removeItemFromCart,
-    updateItemQuantity
+    updateItemQuantity,
+    updateItemStatus
 } from '@/lib/store/slices/cartSlice';
 
 // Utility function for debouncing
@@ -168,6 +170,32 @@ export default function CartHoverCard() {
         }
     };
 
+    // Handle selecting/deselecting cart items in hover card
+    const handleSelectItem = async (itemId: string, checked: boolean) => {
+        const item = cartItems.find(cartItem => cartItem.sku_id === itemId);
+        if (item) {
+            try {
+                const newStatus = checked ? 'selected' : 'unselected';
+                await dispatch(updateItemStatus({ 
+                    skuId: itemId, 
+                    shopId: item.shop_id, 
+                    newStatus 
+                })).unwrap();
+                toast({ 
+                    title: checked ? 'Đã chọn sản phẩm' : 'Bỏ chọn sản phẩm',
+                    description: `${item.product_name}`
+                });
+            } catch (error) {
+                console.error(`Failed to update item status for ${itemId}:`, error);
+                toast({ 
+                    title: 'Lỗi', 
+                    variant: 'destructive',
+                    description: 'Không thể cập nhật trạng thái sản phẩm'
+                });
+            }
+        }
+    };
+
     return (
         <Fragment>
             <Popover>
@@ -227,28 +255,51 @@ export default function CartHoverCard() {
                                 {cartItems.map((item) => (
                                     <div
                                         key={item.sku_id}
-                                        className="flex items-center gap-3 p-2 rounded-lg border border-white/10 dark:border-slate-700/30 hover:bg-white/5 dark:hover:bg-slate-800/20 transition-all duration-200 hover:shadow-md"
+                                        className="p-2 rounded-lg border border-white/10 dark:border-slate-700/30 hover:bg-white/5 dark:hover:bg-slate-800/20 transition-all duration-200 hover:shadow-md"
                                     >
-                                        <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
-                                            <Image
-                                                src={
-                                                    mediaService.getMediaUrl(item.product_thumb) ||
-                                                    '/placeholder.svg'
-                                                }
-                                                alt={item.product_name}
-                                                fill
-                                                className="object-cover"
+                                        {/* Row 1: Checkbox, Image, Product Info, Delete Button */}
+                                        <div className="flex items-start gap-2 mb-2">
+                                            <Checkbox 
+                                                id={`checkbox-${item.sku_id}`}
+                                                checked={item.product_status === 'selected'}
+                                                onCheckedChange={(checked) => handleSelectItem(item.sku_id, !!checked)}
+                                                className="flex-shrink-0 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 mt-1"
                                             />
+                                            <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
+                                                <Image
+                                                    src={
+                                                        mediaService.getMediaUrl(item.product_thumb) ||
+                                                        '/placeholder.svg'
+                                                    }
+                                                    alt={item.product_name}
+                                                    fill
+                                                    className="object-cover"
+                                                />
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="font-medium text-sm line-clamp-2 text-gray-900 dark:text-gray-100 leading-tight">
+                                                    {item.product_name}
+                                                </p>
+                                                <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold mt-0.5">
+                                                    {item.sku_price?.toLocaleString('vi-VN')}₫
+                                                </p>
+                                            </div>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                className="h-6 w-6 text-gray-400 hover:text-red-500 hover:bg-red-500/10 backdrop-blur-sm transition-colors flex-shrink-0"
+                                                onClick={() => {
+                                                    setSkuIdToRemove(item.sku_id);
+                                                    setShowAlertDialog(true);
+                                                }}
+                                                disabled={isLoading}
+                                            >
+                                                <X className="h-3 w-3" />
+                                            </Button>
                                         </div>
-                                        <div className="flex-1 min-w-0">
-                                            <p className="font-medium text-sm line-clamp-1 text-gray-900 dark:text-gray-100">
-                                                {item.product_name}
-                                            </p>
-                                            <p className="text-xs text-blue-600 dark:text-blue-400 font-semibold">
-                                                {item.sku_price?.toLocaleString('vi-VN')}₫
-                                            </p>
-                                        </div>
-                                        <div className="flex items-center gap-1 flex-shrink-0">
+                                        
+                                        {/* Row 2: Quantity Controls */}
+                                        <div className="flex items-center justify-center gap-1 ml-6">
                                             <Button
                                                 variant="outline"
                                                 size="icon"
@@ -282,19 +333,6 @@ export default function CartHoverCard() {
                                                 <Plus className="h-3 w-3" />
                                             </Button>
                                         </div>
-                                        {/* Nút Xóa sản phẩm trực tiếp */}
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="h-7 w-7 text-gray-400 hover:text-red-500 hover:bg-red-500/10 backdrop-blur-sm transition-colors"
-                                            onClick={() => {
-                                                setSkuIdToRemove(item.sku_id);
-                                                setShowAlertDialog(true);
-                                            }}
-                                            disabled={isLoading}
-                                        >
-                                            <X className="h-3 w-3" />
-                                        </Button>
                                     </div>
                                 ))}
                             </div>

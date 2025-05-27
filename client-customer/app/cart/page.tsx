@@ -1,7 +1,7 @@
 'use client';
 
 import type { RootState } from '@/lib/store/store';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
@@ -17,7 +17,8 @@ import {
     fetchCart,
     addItemToCart,
     decreaseItemQuantity,
-    removeItemFromCart
+    removeItemFromCart,
+    updateItemStatus
 } from '@/lib/store/slices/cartSlice';
 
 export default function CartPage() {
@@ -35,6 +36,14 @@ export default function CartPage() {
     // State cho discount code từng item
     const [itemDiscountCodes, setItemDiscountCodes] = useState<Record<string, string>>({});
     const [itemDiscounts, setItemDiscounts] = useState<Record<string, number>>({});
+
+    // Sync selected items with cart items' status on load
+    useEffect(() => {
+        const selectedItemIds = cartItems
+            .filter(item => item.product_status === 'selected')
+            .map(item => item.sku_id);
+        setSelectedItems(selectedItemIds);
+    }, [cartItems.length]); // Only run when cart items array length changes
 
     const calculateSubtotal = () => {
         return cartItems
@@ -183,21 +192,72 @@ export default function CartPage() {
     };
 
     // Xử lý chọn/bỏ chọn sản phẩm
-    const handleSelectItem = (itemId: string, checked: boolean) => {
+    const handleSelectItem = async (itemId: string, checked: boolean) => {
+        // Update local state first for immediate UI feedback
         if (checked) {
             setSelectedItems(prev => [...prev, itemId]);
         } else {
             setSelectedItems(prev => prev.filter(id => id !== itemId));
         }
+
+        // Find the item to get shop ID
+        const item = cartItems.find(cartItem => cartItem.sku_id === itemId);
+        if (item) {
+            try {
+                // Update the item status via API
+                const newStatus = checked ? 'selected' : 'unselected';
+                await dispatch(updateItemStatus({ 
+                    skuId: itemId, 
+                    shopId: item.shop_id, 
+                    newStatus 
+                })).unwrap();
+            } catch (error) {
+                console.error(`Failed to update item status for ${itemId}:`, error);
+                // Revert local state on error
+                if (checked) {
+                    setSelectedItems(prev => prev.filter(id => id !== itemId));
+                } else {
+                    setSelectedItems(prev => [...prev, itemId]);
+                }
+            }
+        }
     };
 
     // Xử lý chọn/bỏ chọn tất cả sản phẩm trong shop
-    const handleSelectShop = (shopItems: typeof cartItems, checked: boolean) => {
+    const handleSelectShop = async (shopItems: typeof cartItems, checked: boolean) => {
         const shopItemIds = shopItems.map(item => item.sku_id);
+        
+        // Update local state first for immediate UI feedback
         if (checked) {
             setSelectedItems(prev => [...new Set([...prev, ...shopItemIds])]);
         } else {
             setSelectedItems(prev => prev.filter(id => !shopItemIds.includes(id)));
+        }
+
+        // Update each item's status via API
+        const shopId = shopItems[0]?.shop_id;
+        if (shopId) {
+            try {
+                const newStatus = checked ? 'selected' : 'unselected';
+                // Update all items in the shop
+                await Promise.all(
+                    shopItems.map(item => 
+                        dispatch(updateItemStatus({ 
+                            skuId: item.sku_id, 
+                            shopId: shopId, 
+                            newStatus 
+                        })).unwrap()
+                    )
+                );
+            } catch (error) {
+                console.error(`Failed to update shop items status:`, error);
+                // Revert local state on error
+                if (checked) {
+                    setSelectedItems(prev => prev.filter(id => !shopItemIds.includes(id)));
+                } else {
+                    setSelectedItems(prev => [...new Set([...prev, ...shopItemIds])]);
+                }
+            }
         }
     };
 
@@ -214,12 +274,40 @@ export default function CartPage() {
     };
 
     // Xử lý chọn/bỏ chọn tất cả sản phẩm trong giỏ hàng
-    const handleSelectAll = (checked: boolean) => {
+    const handleSelectAll = async (checked: boolean) => {
+        // Update local state first for immediate UI feedback
         if (checked) {
             const allItemIds = cartItems.map(item => item.sku_id);
             setSelectedItems(allItemIds);
         } else {
             setSelectedItems([]);
+        }
+
+        // Update all items' status via API
+        try {
+            const newStatus = checked ? 'selected' : 'unselected';
+            // Group items by shop and update them
+            const shopGroups = Object.values(groupedItems);
+            await Promise.all(
+                shopGroups.flatMap(shop => 
+                    shop.items.map(item => 
+                        dispatch(updateItemStatus({ 
+                            skuId: item.sku_id, 
+                            shopId: shop.shopId, 
+                            newStatus 
+                        })).unwrap()
+                    )
+                )
+            );
+        } catch (error) {
+            console.error(`Failed to update all items status:`, error);
+            // Revert local state on error
+            if (checked) {
+                setSelectedItems([]);
+            } else {
+                const allItemIds = cartItems.map(item => item.sku_id);
+                setSelectedItems(allItemIds);
+            }
         }
     };
 

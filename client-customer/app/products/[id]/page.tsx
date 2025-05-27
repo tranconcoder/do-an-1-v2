@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import NextImage from 'next/image'; // Aliased to avoid conflict if any
 import Link from 'next/link';
-import { ChevronLeft, ShoppingCart, Zap, Star, Package, AlertTriangle, Info, Tag, LayoutGrid, Heart } from 'lucide-react';
+import { ChevronLeft, ShoppingCart, Zap, Star, Package, AlertTriangle, Info, Tag, LayoutGrid, Heart, Palette } from 'lucide-react';
 
-import productService, { ProductDetail } from '@/lib/services/api/productService'; // Corrected: default import
+import productService, { ProductSkuDetail, ProductSku } from '@/lib/services/api/productService'; // Updated to use SKU interface
 import { mediaService } from '@/lib/services/api/mediaService';
 import Header from '@/components/common/Header';
 import { Button } from '@/components/ui/button';
@@ -17,12 +17,14 @@ import { Skeleton } from '@/components/ui/skeleton';
 export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const productId = params.id as string;
+  const productId = params.id as string; // This could be either SKU ID or SPU ID
 
-  const [product, setProduct] = useState<ProductDetail | null>(null);
+  const [product, setProduct] = useState<ProductSkuDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [availableSkus, setAvailableSkus] = useState<ProductSku[]>([]);
+  const [selectedSkuId, setSelectedSkuId] = useState<string | null>(null);
   // const [isWishlisted, setIsWishlisted] = useState(false); // For future wishlist functionality
 
   useEffect(() => {
@@ -30,17 +32,64 @@ export default function ProductDetailPage() {
       const fetchProduct = async () => {
         setLoading(true);
         setError(null);
-        setProduct(null); // Reset product state on new ID
+        setProduct(null);
+        setAvailableSkus([]);
         try {
-          const data = await productService.getProductById(productId);
-          setProduct(data);
-          if (data.product_thumb) {
-            setSelectedImage(mediaService.getMediaUrl(data.product_thumb));
-          } else if (data.product_images && data.product_images.length > 0) {
-            setSelectedImage(mediaService.getMediaUrl(data.product_images[0]));
-          } else {
-            setSelectedImage('/placeholder.svg'); // Default placeholder if no images
+          // First try to fetch as SKU ID
+          try {
+            const data = await productService.getSkuById(productId);
+            setProduct(data);
+            setSelectedSkuId(data.sku?._id || productId);
+            
+            // Try to fetch other SKUs for this product
+            try {
+              const skus = await productService.getSkusBySpuId(data._id);
+              setAvailableSkus(skus);
+            } catch (skuError) {
+              // Ignore if endpoint doesn't exist or fails
+              console.log('Could not fetch additional SKUs:', skuError);
+            }
+            
+          } catch (skuError) {
+            // If SKU fetch fails, try as SPU ID and get first available SKU
+            try {
+              const skus = await productService.getSkusBySpuId(productId);
+              if (skus.length > 0) {
+                // Convert first SKU to ProductSkuDetail format
+                const firstSku = skus[0];
+                const skuDetailData = await productService.getSkuById(firstSku.sku._id);
+                setProduct(skuDetailData);
+                setSelectedSkuId(firstSku.sku._id);
+                setAvailableSkus(skus);
+              } else {
+                throw new Error('No SKUs found for this product');
+              }
+            } catch (spuError) {
+              // If both fail, try the old SPU detail endpoint as fallback
+              const data = await productService.getProductById(productId);
+              // Convert ProductDetail to ProductSkuDetail format
+              const convertedData: ProductSkuDetail = {
+                ...data,
+                product_category: data.product_category || '', // Ensure it's not undefined
+                product_shop: data.shop?._id || '',
+                product_slug: data.product_name.toLowerCase().replace(/\s+/g, '-'),
+                sku: {
+                  _id: productId, // Use product ID as SKU ID fallback
+                  sku_product: data._id,
+                  sku_price: data.product_price,
+                  sku_stock: data.product_quantity,
+                  sku_thumb: data.product_thumb,
+                  sku_images: data.product_images,
+                  sku_value: []
+                },
+                product_variations: [],
+                product_rating_avg: data.product_ratingsAverage
+              };
+              setProduct(convertedData);
+              setSelectedSkuId(productId);
+            }
           }
+          
         } catch (err) {
           console.error('Failed to fetch product:', err);
           setError('Failed to load product details. Please try again later.');
@@ -52,6 +101,46 @@ export default function ProductDetailPage() {
     }
   }, [productId]);
 
+  // Update selected image when product changes
+  useEffect(() => {
+    if (product) {
+      if (product.sku?.sku_thumb) {
+        setSelectedImage(mediaService.getMediaUrl(product.sku.sku_thumb));
+      } else if (product.product_thumb) {
+        setSelectedImage(mediaService.getMediaUrl(product.product_thumb));
+      } else if (product.sku?.sku_images && product.sku.sku_images.length > 0) {
+        setSelectedImage(mediaService.getMediaUrl(product.sku.sku_images[0]));
+      } else if (product.product_images && product.product_images.length > 0) {
+        setSelectedImage(mediaService.getMediaUrl(product.product_images[0]));
+      } else {
+        setSelectedImage('/placeholder.svg');
+      }
+    }
+  }, [product]);
+
+  // Handle SKU selection when multiple SKUs are available
+  const handleSkuSelection = async (skuId: string) => {
+    if (skuId === selectedSkuId) return;
+    
+    setLoading(true);
+    try {
+      const data = await productService.getSkuById(skuId);
+      setProduct(data);
+      setSelectedSkuId(skuId);
+      
+      // Update selected image for new SKU
+      if (data.sku?.sku_thumb) {
+        setSelectedImage(mediaService.getMediaUrl(data.sku.sku_thumb));
+      } else if (data.product_thumb) {
+        setSelectedImage(mediaService.getMediaUrl(data.product_thumb));
+      }
+    } catch (err) {
+      console.error('Failed to switch SKU:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleThumbnailClick = (imageId: string) => {
     setSelectedImage(mediaService.getMediaUrl(imageId));
   };
@@ -61,7 +150,6 @@ export default function ProductDetailPage() {
   if (loading) {
     return (
       <>
-        <Header />
         <div className="container mx-auto px-4 py-8">
           {/* Breadcrumb Skeleton */}
           <Skeleton className="h-6 w-1/2 mb-6" /> 
@@ -103,7 +191,6 @@ export default function ProductDetailPage() {
   if (error) {
     return (
       <>
-        <Header />
         <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-[calc(100vh-200px)]">
           <AlertTriangle className="h-16 w-16 text-red-500 mb-4" />
           <h2 className="text-2xl font-semibold text-red-600 mb-2">Error Loading Product</h2>
@@ -119,7 +206,6 @@ export default function ProductDetailPage() {
   if (!product) {
     return (
       <>
-        <Header />
         <div className="container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-[calc(100vh-200px)]">
            <Info className="h-16 w-16 text-blue-500 mb-4" />
           <h2 className="text-2xl font-semibold text-gray-700 mb-2">Product Not Found</h2>
@@ -132,11 +218,21 @@ export default function ProductDetailPage() {
     );
   }
 
-  const allImages = [product.product_thumb, ...(product.product_images || [])].filter(Boolean) as string[];
+  // Combine SKU and SPU images with SKU images taking priority
+  const allImages = [
+    ...(product.sku?.sku_thumb ? [product.sku.sku_thumb] : []),
+    ...(product.sku?.sku_images || []),
+    ...(product.product_thumb && !product.sku?.sku_thumb ? [product.product_thumb] : []),
+    ...(product.product_images || [])
+  ].filter((img, index, arr) => img && arr.indexOf(img) === index); // Remove duplicates
+
+  // Get current price and stock from SKU
+  const currentPrice = product.sku?.sku_price || product.salePrice || 0;
+  const currentStock = product.sku?.sku_stock || 0;
+  const displayThumb = product.sku?.sku_thumb || product.product_thumb;
 
   return (
     <>
-      <Header />
       <div className="container mx-auto px-4 py-6 md:py-8">
         <nav className="mb-6 text-sm text-gray-500 flex items-center space-x-2 flex-wrap">
           <Link href="/" className="hover:text-blue-600">Home</Link>
@@ -209,36 +305,36 @@ export default function ProductDetailPage() {
                 </Button> */}
           </div>
 
-            {(product.product_ratingsAverage || product.sold_count > 0) && (
+            {(product.product_rating_avg || (product.sold_count && product.sold_count > 0)) && (
                 <div className="flex items-center gap-3 text-sm">
-                    {product.product_ratingsAverage && product.product_ratingsAverage > 0 && (
+                    {product.product_rating_avg && product.product_rating_avg > 0 && (
                         <>
                             <div className="flex items-center">
                                 {[...Array(5)].map((_, i) => (
                     <Star
                                     key={i}
-                                    className={`h-4 w-4 ${i < Math.round(product.product_ratingsAverage!) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                                    className={`h-4 w-4 ${i < Math.round(product.product_rating_avg!) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
                     />
                   ))}
-                                <span className="ml-1.5 text-gray-600">({product.product_ratingsAverage.toFixed(1)})</span>
+                                <span className="ml-1.5 text-gray-600">({product.product_rating_avg.toFixed(1)})</span>
                             </div>
-                            {product.sold_count > 0 && <span className="text-gray-400">•</span>}
+                            {product.sold_count && product.sold_count > 0 && <span className="text-gray-400">•</span>}
                         </>
                     )}
-                    {product.sold_count > 0 && (
+                    {product.sold_count && product.sold_count > 0 && (
                         <span className="text-gray-600">{product.sold_count.toLocaleString()} sold</span>
                     )}
                 </div>
             )}
             
             <div className="flex items-baseline gap-3">
-                {product.salePrice && product.salePrice < product.product_price ? (
+                {product.salePrice && product.salePrice < currentPrice ? (
                     <>
                         <span className="text-3xl font-bold text-red-600">
                             ${product.salePrice.toFixed(2)}
                         </span>
                         <span className="text-xl text-gray-500 line-through">
-                            ${product.product_price.toFixed(2)}
+                            ${currentPrice.toFixed(2)}
                 </span>
                         {product.discount && (
                              <Badge variant="destructive" className="text-xs font-semibold py-0.5 px-1.5">{product.discount}% OFF</Badge>
@@ -246,16 +342,16 @@ export default function ProductDetailPage() {
                     </>
                 ) : (
                     <span className="text-3xl font-bold text-blue-700">
-                        ${product.product_price.toFixed(2)}
+                        ${currentPrice.toFixed(2)}
                 </span>
                 )}
             </div>
 
             <div className="flex items-center gap-2 pt-2">
-              <Package className={`h-5 w-5 ${product.product_quantity > 0 ? 'text-green-600' : 'text-red-500'}`} />
-              {product.product_quantity > 0 ? (
+              <Package className={`h-5 w-5 ${currentStock > 0 ? 'text-green-600' : 'text-red-500'}`} />
+              {currentStock > 0 ? (
                 <span className="font-medium text-green-700 bg-green-50 px-2 py-0.5 rounded-md text-sm">
-                  In Stock <span className='text-gray-600 font-normal'>({product.product_quantity} available)</span>
+                  In Stock <span className='text-gray-600 font-normal'>({currentStock} available)</span>
                 </span>
               ) : (
                 <span className="font-medium text-red-600 bg-red-50 px-2 py-0.5 rounded-md text-sm">Out of Stock</span>
@@ -264,10 +360,84 @@ export default function ProductDetailPage() {
 
             <Separator className="!my-5" />
 
+            {/* SKU Variation Display */}
+            {product.sku?.sku_value && product.sku.sku_value.length > 0 && (
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-200">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                  <Palette className="h-5 w-5 mr-2 text-blue-600" /> Selected Variation
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {product.sku.sku_value.map((variation, index) => (
+                    <div key={index} className="bg-white/80 backdrop-blur-sm px-3 py-2 rounded-md border border-blue-300 shadow-sm">
+                      <span className="text-sm font-medium text-gray-700">{variation.key}:</span>
+                      <span className="text-sm text-blue-700 font-semibold ml-1">{variation.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Available SKUs/Variations Selector */}
+            {availableSkus.length > 1 && (
+              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                  <Tag className="h-5 w-5 mr-2 text-gray-600" /> Available Variations
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {availableSkus.map((skuItem) => (
+                    <button
+                      key={skuItem.sku._id}
+                      onClick={() => handleSkuSelection(skuItem.sku._id)}
+                      className={`p-3 rounded-md border-2 transition-all duration-200 text-left ${
+                        selectedSkuId === skuItem.sku._id
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="relative w-12 h-12 rounded-md overflow-hidden bg-gray-100 flex-shrink-0">
+                          <NextImage
+                            src={mediaService.getMediaUrl(skuItem.sku.sku_thumb)}
+                            alt="SKU thumbnail"
+                            layout="fill"
+                            objectFit="cover"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = '/placeholder.svg';
+                            }}
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap gap-1 mb-1">
+                            {skuItem.sku.sku_value.map((variation, index) => (
+                              <span
+                                key={index}
+                                className="text-xs bg-gray-200 px-2 py-0.5 rounded-full text-gray-700"
+                              >
+                                {variation.value}
+                              </span>
+                            ))}
+                          </div>
+                          <p className="text-sm font-semibold text-blue-600">
+                            ${skuItem.sku.sku_price.toFixed(2)}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            {skuItem.sku.sku_stock > 0 ? `${skuItem.sku.sku_stock} in stock` : 'Out of stock'}
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <Separator className="!my-5" />
+
             {product.shop && (
               <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
                 <p className="text-xs text-gray-500 mb-1.5">Sold and Shipped by:</p>
-                <Link href={`/shop/${product.shop._id}`} className="flex items-center gap-3 group p-1 -m-1 rounded-md hover:bg-gray-50 transition-colors">
+                <Link href={`/shop/${product.shop._id || product.product_shop}`} className="flex items-center gap-3 group p-1 -m-1 rounded-md hover:bg-gray-50 transition-colors">
                   <div className="relative w-10 h-10 rounded-full overflow-hidden border bg-gray-100">
                     <NextImage // Use aliased import
                       src={mediaService.getMediaUrl(product.shop.shop_logo)}
@@ -329,8 +499,8 @@ export default function ProductDetailPage() {
               <Button
                 size="lg" 
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-base py-3 h-auto shadow-md hover:shadow-lg transition-shadow"
-                disabled={product.product_quantity === 0}
-                onClick={() => console.log('Add to cart:', product._id)} // Placeholder action
+                disabled={currentStock === 0}
+                onClick={() => console.log('Add to cart:', product.sku?._id)} // Use SKU ID for cart
               >
                 <ShoppingCart className="mr-2 h-5 w-5" /> Add to Cart
               </Button>
@@ -338,8 +508,8 @@ export default function ProductDetailPage() {
                 size="lg" 
                 variant="outline"
                 className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-center text-base py-3 h-auto shadow-md hover:shadow-lg transition-shadow"
-                disabled={product.product_quantity === 0}
-                onClick={() => console.log('Buy now:', product._id)} // Placeholder action
+                disabled={currentStock === 0}
+                onClick={() => console.log('Buy now:', product.sku?._id)} // Use SKU ID for purchase
               >
                 <Zap className="mr-2 h-5 w-5" /> Buy Now
               </Button>

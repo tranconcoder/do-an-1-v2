@@ -113,6 +113,43 @@ export const updateItemQuantity = createAsyncThunk(
     }
 );
 
+export const updateItemStatus = createAsyncThunk(
+    'cart/updateItemStatus',
+    async (
+        { skuId, shopId, newStatus }: { skuId: string; shopId: string; newStatus: string },
+        { rejectWithValue, getState }
+    ) => {
+        const state = (getState() as any).cart as CartState;
+        const currentItem = state.items.find((item) => item.sku_id === skuId);
+
+        if (!currentItem) {
+            return rejectWithValue('Product not found in cart state');
+        }
+
+        const updateData = {
+            cartShop: [
+                {
+                    shopId: shopId,
+                    products: [
+                        {
+                            id: skuId,
+                            status: currentItem.product_status,
+                            newStatus: newStatus
+                        }
+                    ]
+                }
+            ]
+        };
+
+        try {
+            await cartService.updateCart(updateData);
+            return { skuId, newStatus };
+        } catch (error: any) {
+            return rejectWithValue(error.message || 'Failed to update item status');
+        }
+    }
+);
+
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
@@ -197,6 +234,20 @@ const cartSlice = createSlice({
             })
             .addCase(updateItemQuantity.rejected, (state, action) => {
                 state.error = (action.payload as string) || 'Failed to update quantity';
+            })
+            // Handle update item status (check/uncheck)
+            .addCase(updateItemStatus.pending, (state) => {
+                state.error = null;
+            })
+            .addCase(updateItemStatus.fulfilled, (state, action) => {
+                const { skuId, newStatus } = action.payload;
+                const index = state.items.findIndex((item: CartItem) => item.sku_id === skuId);
+                if (index !== -1) {
+                    state.items[index].product_status = newStatus;
+                }
+            })
+            .addCase(updateItemStatus.rejected, (state, action) => {
+                state.error = (action.payload as string) || 'Failed to update item status';
             });
     }
 });
