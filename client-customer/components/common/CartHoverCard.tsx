@@ -135,7 +135,10 @@ export default function CartHoverCard() {
                         ) : error ? (
                             <p className="text-red-500">{error}</p>
                         ) : cartItems.length === 0 ? (
-                            <p>Giỏ hàng trống.</p>
+                            <div className="flex flex-col items-center justify-center py-4 text-gray-500">
+                                <ShoppingCart className="h-10 w-10 mb-2" />
+                                <p className="text-sm">Giỏ hàng trống.</p>
+                            </div>
                         ) : (
                             <div className="space-y-2 max-h-40 overflow-y-auto pr-2">
                                 {cartItems.map((item) => (
@@ -195,15 +198,14 @@ export default function CartHoverCard() {
                             </div>
                         )}
 
-                        {cartItems.length > 0 && (
-                            <div className="mt-4">
-                                <Link href="/cart" passHref>
-                                    <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600">
-                                        Xem giỏ hàng
-                                    </Button>
-                                </Link>
-                            </div>
-                        )}
+                        {/* Nút "Xem giỏ hàng" - Luôn hiển thị khi component được render */}
+                        <div className="mt-4">
+                            <Link href="/cart" passHref>
+                                <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600">
+                                    Xem giỏ hàng
+                                </Button>
+                            </Link>
+                        </div>
                     </div>
                 </HoverCardContent>
             </HoverCard>
