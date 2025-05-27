@@ -18,10 +18,10 @@ export default function Home() {
   // Sample images for the hero slider
   const heroImages = [
     "/hero-1.jpg",
-    "/hero-2.svg",
-    "/hero-3.svg",
-    "/hero-4.svg",
-    "/hero-5.svg",
+    "/hero-2.jpg",
+    "/hero-3.jpg",
+    "/hero-4.jpg",
+    "/hero-5.jpg",
   ]
   const heroImageAlts = [
     "Hero image 1",

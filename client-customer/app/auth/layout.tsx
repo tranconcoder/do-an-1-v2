@@ -48,7 +48,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                     <div className="hidden md:block">
                         <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-xl">
                             <Image
-                                src="/auth.svg?height=1000&width=800"
+                                src="/login.jpg?height=1000&width=800"
                                 alt="Xác thực"
                                 fill
                                 className="object-cover"

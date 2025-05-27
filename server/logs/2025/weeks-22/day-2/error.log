@@ -1,0 +1,123 @@
+[2025-05-27T05:53:25.684Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:25.692Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:25.742Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:25.843Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:25.989Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:26.183Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:26.429Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:26.722Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:27.062Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:27.450Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:27.886Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:28.375Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:28.864Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:29.354Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:29.842Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:30.331Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:30.817Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:31.306Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:31.791Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:32.280Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:32.762Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:33.250Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:33.731Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:34.218Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:34.703Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:35.191Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:35.675Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:36.164Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:37.340Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:37.827Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:38.310Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:38.797Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:39.277Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:39.768Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:40.253Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:40.744Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:41.235Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:41.726Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:42.218Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:42.710Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:43.201Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:43.692Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:44.184Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:44.674Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:45.166Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:45.657Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:46.149Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:46.640Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:47.131Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:47.619Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:48.110Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:48.596Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:49.086Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T05:53:49.577Z] [error]: Redis error: Error: Failed to connect
+[2025-05-27T06:03:00.009Z] [error]: Client must be connected before running operations
+[2025-05-27T06:04:00.072Z] [error]: Client must be connected before running operations
+[2025-05-27T06:05:00.275Z] [error]: Client must be connected before running operations
+[2025-05-27T06:05:00.304Z] [error]: Client must be connected before running operations
+[2025-05-27T06:06:00.095Z] [error]: Client must be connected before running operations
+[2025-05-27T06:06:00.131Z] [error]: Client must be connected before running operations
+[2025-05-27T06:06:38.768Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T06:06:38.904Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T06:07:00.338Z] [error]: Client must be connected before running operations
+[2025-05-27T06:07:00.343Z] [error]: Client must be connected before running operations
+[2025-05-27T06:08:00.211Z] [error]: Client must be connected before running operations
+[2025-05-27T06:08:00.242Z] [error]: Client must be connected before running operations
+[2025-05-27T06:09:00.199Z] [error]: Client must be connected before running operations
+[2025-05-27T06:09:00.227Z] [error]: Client must be connected before running operations
+[2025-05-27T06:10:00.228Z] [error]: Client must be connected before running operations
+[2025-05-27T06:10:00.250Z] [error]: Client must be connected before running operations
+[2025-05-27T06:11:01.010Z] [error]: Client must be connected before running operations
+[2025-05-27T06:11:01.017Z] [error]: Client must be connected before running operations
+[2025-05-27T06:12:00.005Z] [error]: Client must be connected before running operations
+[2025-05-27T06:12:00.009Z] [error]: Client must be connected before running operations
+[2025-05-27T06:13:00.197Z] [error]: Client must be connected before running operations
+[2025-05-27T06:13:00.215Z] [error]: Client must be connected before running operations
+[2025-05-27T06:14:00.188Z] [error]: Client must be connected before running operations
+[2025-05-27T06:14:00.216Z] [error]: Client must be connected before running operations
+[2025-05-27T06:15:00.226Z] [error]: Client must be connected before running operations
+[2025-05-27T06:15:00.254Z] [error]: Client must be connected before running operations
+[2025-05-27T06:16:00.222Z] [error]: Client must be connected before running operations
+[2025-05-27T06:16:00.252Z] [error]: Client must be connected before running operations
+[2025-05-27T06:16:53.716Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T06:16:53.859Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T06:17:00.266Z] [error]: Client must be connected before running operations
+[2025-05-27T06:17:00.284Z] [error]: Client must be connected before running operations
+[2025-05-27T06:17:33.155Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T06:17:33.396Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T06:17:52.335Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-05-27T06:18:00.212Z] [error]: Client must be connected before running operations
+[2025-05-27T06:18:00.243Z] [error]: Client must be connected before running operations
+[2025-05-27T06:18:00.245Z] [error]: Client must be connected before running operations
+[2025-05-27T06:19:00.201Z] [error]: Client must be connected before running operations
+[2025-05-27T06:19:00.205Z] [error]: Client must be connected before running operations
+[2025-05-27T06:19:00.224Z] [error]: Client must be connected before running operations
+[2025-05-27T06:20:00.202Z] [error]: Client must be connected before running operations
+[2025-05-27T06:20:00.226Z] [error]: Client must be connected before running operations
+[2025-05-27T06:20:00.227Z] [error]: Client must be connected before running operations
+[2025-05-27T06:20:12.935Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-05-27T06:20:12.936Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-05-27T06:20:21.377Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-05-27T06:20:21.378Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-05-27T06:21:00.008Z] [error]: Client must be connected before running operations
+[2025-05-27T06:21:00.009Z] [error]: Client must be connected before running operations
+[2025-05-27T06:21:00.013Z] [error]: Client must be connected before running operations
+[2025-05-27T06:22:00.295Z] [error]: Client must be connected before running operations
+[2025-05-27T06:22:00.316Z] [error]: Client must be connected before running operations
+[2025-05-27T06:22:00.317Z] [error]: Client must be connected before running operations
+[2025-05-27T06:23:00.112Z] [error]: Client must be connected before running operations
+[2025-05-27T06:23:00.119Z] [error]: Client must be connected before running operations
+[2025-05-27T06:23:00.138Z] [error]: Client must be connected before running operations
+[2025-05-27T06:24:00.286Z] [error]: Client must be connected before running operations
+[2025-05-27T06:24:00.290Z] [error]: Client must be connected before running operations
+[2025-05-27T06:24:00.311Z] [error]: Client must be connected before running operations
+[2025-05-27T06:25:00.157Z] [error]: Client must be connected before running operations
+[2025-05-27T06:25:00.164Z] [error]: Client must be connected before running operations
+[2025-05-27T06:25:00.183Z] [error]: Client must be connected before running operations
+[2025-05-27T06:26:00.253Z] [error]: Client must be connected before running operations
+[2025-05-27T06:26:00.254Z] [error]: Client must be connected before running operations
+[2025-05-27T06:26:00.282Z] [error]: Client must be connected before running operations
+[2025-05-27T06:27:00.222Z] [error]: Client must be connected before running operations
+[2025-05-27T06:27:00.239Z] [error]: Client must be connected before running operations
+[2025-05-27T06:27:00.251Z] [error]: Client must be connected before running operations
