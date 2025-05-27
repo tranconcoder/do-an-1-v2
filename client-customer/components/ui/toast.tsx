@@ -3,7 +3,7 @@
 import * as React from 'react';
 import * as ToastPrimitives from '@radix-ui/react-toast';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { X } from 'lucide-react';
+import { X, Info, CheckCircle, AlertTriangle, XCircle } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
@@ -29,7 +29,7 @@ const toastVariants = cva(
     {
         variants: {
             variant: {
-                default: 'border bg-background text-foreground',
+                default: 'border-blue-500 bg-blue-500 text-white',
                 destructive:
                     'destructive group border-destructive bg-destructive text-destructive-foreground',
                 success: 'border-green-500 bg-green-500 text-white',
@@ -43,6 +43,25 @@ const toastVariants = cva(
         }
     }
 );
+
+// Default icons for each variant
+const getDefaultIcon = (variant: string | null | undefined) => {
+    switch (variant) {
+        case 'success':
+            return <CheckCircle className="h-5 w-5" />;
+        case 'warning':
+            return <AlertTriangle className="h-5 w-5" />;
+        case 'alert':
+            return <XCircle className="h-5 w-5" />;
+        case 'destructive':
+            return <XCircle className="h-5 w-5" />;
+        case 'info':
+            return <Info className="h-5 w-5" />;
+        case 'default':
+        default:
+            return <Info className="h-5 w-5" />;
+    }
+};
 
 // Define ToastProps, omitting conflicting props and redefining them with React.ReactNode
 interface ToastProps
@@ -59,13 +78,16 @@ interface ToastProps
 
 const Toast = React.forwardRef<React.ElementRef<typeof ToastPrimitives.Root>, ToastProps>(
     ({ className, variant, icon, title, description, action, ...props }, ref) => {
+        // Use provided icon or default icon based on variant
+        const displayIcon = icon !== undefined ? icon : getDefaultIcon(variant);
+
         return (
             <ToastPrimitives.Root
                 ref={ref}
                 className={cn(toastVariants({ variant }), className)}
                 {...props} // Pass other standard props to the root
             >
-                {icon && <div className="flex-shrink-0 mr-2">{icon}</div>}
+                {displayIcon && <div className="flex-shrink-0 mr-2">{displayIcon}</div>}
                 <div className="grid gap-1 flex-grow">
                     {title && <ToastTitle>{title}</ToastTitle>}
                     {description && <ToastDescription>{description}</ToastDescription>}
