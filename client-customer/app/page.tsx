@@ -14,7 +14,7 @@ import { mediaService } from "@/lib/services/api/mediaService"
 import { spuService, SPU } from "@/lib/services/api/spuService";
 import { Skeleton } from "@/components/ui/skeleton";
 import cartService from "@/lib/services/api/cartService";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Home() {
   // Sample images for the hero slider
