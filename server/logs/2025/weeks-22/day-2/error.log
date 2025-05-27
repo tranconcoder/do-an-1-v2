@@ -134,3 +134,26 @@
 [2025-05-27T06:31:00.009Z] [error]: Client must be connected before running operations
 [2025-05-27T06:31:00.034Z] [error]: Client must be connected before running operations
 [2025-05-27T06:40:00.005Z] [error]: Client must be connected before running operations
+[2025-05-27T06:59:56.723Z] [error]: HIDE::400::CastError::Cast to Boolean failed for value "" (type string) at path "user_sex" because of "CastError"::
+[2025-05-27T08:26:51.303Z] [error]: HIDE::400::BadRequest::Cannot approve shop with status active::
+[2025-05-27T08:28:17.073Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-05-27T08:28:19.986Z] [error]: HIDE::400::ValidationError::"password" with value "Anhnam9ce" fails to match the required pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/::
+[2025-05-27T08:28:27.231Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-05-27T08:28:29.301Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-05-27T08:28:32.556Z] [error]: HIDE::400::ValidationError::"password" with value "Anhnam9ce" fails to match the required pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/::
+[2025-05-27T08:28:35.052Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-05-27T08:28:36.916Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-05-27T08:48:06.800Z] [error]: HIDE::400::ValidationError::"password" with value "Anhnam9ce" fails to match the required pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/::
+[2025-05-27T08:51:19.804Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-05-27T08:51:23.727Z] [error]: HIDE::400::ValidationError::"password" with value "0327781160" fails to match the required pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/::
+[2025-05-27T08:54:10.018Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-05-27T08:54:27.670Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-05-27T08:54:46.591Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T08:54:46.619Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-27T08:55:21.480Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-27T08:55:21.533Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-27T08:55:30.113Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-27T08:55:30.152Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-27T08:58:39.289Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T08:58:39.296Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-27T08:59:53.543Z] [error]: HIDE::409::Conflict::User is exists!::

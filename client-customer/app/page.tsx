@@ -13,6 +13,8 @@ import { categoryService, Category } from "@/lib/services/api/categoryService"
 import { mediaService } from "@/lib/services/api/mediaService"
 import { spuService, SPU } from "@/lib/services/api/spuService";
 import { Skeleton } from "@/components/ui/skeleton";
+import cartService from "@/lib/services/api/cartService";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Home() {
   // Sample images for the hero slider
@@ -38,6 +40,25 @@ export default function Home() {
   const [popularProducts, setPopularProducts] = useState<SPU[]>([]);
   const [isLoadingPopularProducts, setIsLoadingPopularProducts] = useState(true);
   const [errorPopularProducts, setErrorPopularProducts] = useState<string | null>(null);
+
+  const { toast } = useToast();
+
+  const handleAddToCart = async (skuId: string) => {
+    try {
+      await cartService.increaseItemQuantity(skuId, 1);
+      toast({
+        title: "Thêm vào giỏ hàng thành công",
+        description: "Sản phẩm đã được thêm vào giỏ hàng của bạn.",
+      });
+    } catch (error) {
+      console.error("Failed to add product to cart:", error);
+      toast({
+        title: "Lỗi",
+        description: "Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.",
+        variant: "destructive",
+      });
+    }
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -211,7 +232,15 @@ export default function Home() {
                         {/* Assuming sku.sku_price is available and is a number. Adjust formatting as needed. */}
                         {product.sku?.sku_price ? `${product.sku.sku_price.toLocaleString('vi-VN')}₫` : 'N/A'}
                       </div>
-                      <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
+                      <Button size="sm" variant="ghost" className="h-8 w-8 p-0"
+                        onClick={() => {
+                          if (product.sku?._id) {
+                            handleAddToCart(product.sku._id);
+                          } else {
+                            console.error("Product SKU ID is not available.");
+                          }
+                        }}
+                      >
                         <ShoppingCart className="h-4 w-4" />
                         <span className="sr-only">Thêm vào giỏ hàng</span>
                       </Button>
@@ -243,7 +272,7 @@ export default function Home() {
                 </div>
                 <div className="relative h-[200px] md:h-[300px] rounded-xl overflow-hidden">
                   <Image
-                    src="/placeholder.svg?height=600&width=600"
+                    src="/sale.jpg?height=600&width=600"
                     alt="Bộ sưu tập mùa hè"
                     fill
                     className="object-cover"
@@ -264,7 +293,7 @@ export default function Home() {
               </Button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {newArrivals.map((product) => (
+              {/* {newArrivals.map((product) => (
                 <div key={product.id} className="group">
                   <div className="relative aspect-square rounded-xl overflow-hidden bg-gray-100 mb-3">
                     <Image
@@ -293,7 +322,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))} */}
             </div>
           </div>
         </section>
@@ -471,62 +500,3 @@ export default function Home() {
     </div>
   )
 }
-
-// Sample data
-const products = [
-  {
-    id: 1,
-    name: "Áo phông trắng cổ điển",
-    price: 29.99,
-    image: "/placeholder.svg?height=400&width=400",
-  },
-  {
-    id: 2,
-    name: "Quần jean dáng slim fit",
-    price: 59.99,
-    image: "/placeholder.svg?height=400&width=400",
-  },
-  {
-    id: 3,
-    name: "Túi đeo chéo da",
-    price: 79.99,
-    image: "/placeholder.svg?height=400&width=400",
-  },
-  {
-    id: 4,
-    name: "Áo hoodie dáng rộng",
-    price: 49.99,
-    image: "/placeholder.svg?height=400&width=400",
-  },
-]
-
-const newArrivals = [
-  {
-    id: 5,
-    name: "Đầm hoa mùa hè",
-    price: 69.99,
-    image: "/placeholder.svg?height=400&width=400",
-    isNew: true,
-  },
-  {
-    id: 6,
-    name: "Giày sneaker vải canvas",
-    price: 45.99,
-    image: "/placeholder.svg?height=400&width=400",
-    isNew: true,
-  },
-  {
-    id: 7,
-    name: "Mũ cói đi biển",
-    price: 24.99,
-    image: "/placeholder.svg?height=400&width=400",
-    isNew: true,
-  },
-  {
-    id: 8,
-    name: "Áo sơ mi linen",
-    price: 39.99,
-    image: "/placeholder.svg?height=400&width=400",
-    isNew: true,
-  },
-]

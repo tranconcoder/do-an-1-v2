@@ -18,7 +18,7 @@ const userSchema = new Schema<model.auth.UserSchema>(
         user_avatar: { type: String, default: undefined },
         user_fullName: { type: String, required },
         user_dayOfBirth: Date,
-        user_sex: { type: Boolean, default: false },
+        user_sex: { type: Boolean, default: false }, // true => male, false => female
 
         /* ------------------------ Metadata ------------------------ */
         user_role: { type: ObjectId, required, ref: ROLE_MODEL_NAME },

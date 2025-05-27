@@ -105,6 +105,7 @@ export default function LoginPage() {
             <Label htmlFor="phone-signin">Số điện thoại</Label>
             <Input
               id="phone-signin"
+              name="phoneNumber"
               type="tel"
               placeholder="Số điện thoại của bạn"
               required
@@ -115,15 +116,10 @@ export default function LoginPage() {
           </div>
 
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="password-signin">Mật khẩu</Label>
-              <Link href="/auth/forgot-password" className="text-xs text-blue-600 hover:underline">
-                Quên mật khẩu?
-              </Link>
-            </div>
             <div className="relative">
               <Input
                 id="password-signin"
+                name="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
                 required
@@ -146,6 +142,13 @@ export default function LoginPage() {
                 <span className="sr-only">{showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}</span>
               </Button>
             </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <Label htmlFor="password-signin">Mật khẩu</Label>
+            <Link href="/auth/forgot-password" className="text-xs text-blue-600 hover:underline">
+              Quên mật khẩu?
+            </Link>
           </div>
 
           <Button

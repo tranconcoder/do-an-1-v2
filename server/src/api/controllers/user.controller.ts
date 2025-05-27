@@ -1,7 +1,7 @@
 import { OkResponse } from '@/response/success.response.js';
 import UserService from '@/services/user.service.js';
 import { RequestWithBody, RequestWithParams } from '@/types/request.js';
-import { updateProfileSchema } from '@/validations/zod/user.zod.js';
+import { UpdateProfileSchema } from '@/validations/zod/user.zod.js';
 import { RequestHandler } from 'express';
 
 export default new (class UserController {
@@ -31,8 +31,7 @@ export default new (class UserController {
     /* ---------------------------------------------------------- */
     /*                       Update profile                       */
     /* ---------------------------------------------------------- */
-    updateProfile: RequestWithBody<updateProfileSchema>= async (req, res, _) => {
-        console.log("UPDATE PROFILE:", req.body)
+    updateProfile: RequestWithBody<UpdateProfileSchema>= async (req, res, _) => {
         new OkResponse({
             message: 'Update profile success!',
             metadata: await UserService.updateProfile(req.userId!, req.body)

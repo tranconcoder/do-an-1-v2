@@ -9,7 +9,7 @@ import { RoleNames } from '@/enums/rbac.enum.js';
 import { findShopById } from '@/models/repository/shop/index.js';
 import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 import { ShopStatus } from '@/enums/shop.enum.js';
-import { updateProfileSchema } from '@/validations/zod/user.zod.js';
+import { UpdateProfileSchema } from '@/validations/zod/user.zod.js';
 import { get$SetNestedFromObject } from '@/utils/mongoose.util.js';
 import { deleteUserProfile } from './redis.service.js';
 
@@ -20,16 +20,19 @@ export default class UserService {
             id,
             only: ['_id', 'phoneNumber', 'user_email', 'user_role', 'user_fullName', 'user_avatar', 'user_sex', 'user_status', 'user_dayOfBirth']
         });
-        console.log({
-            user
-        })
         const result: commonTypes.object.ObjectAnyKeys = { user };
 
+
+        console.log("GET USER PROFILE:::")
+        console.log({user})
         /* --------------------- Add role data  --------------------- */
         const roleData = await roleService.getUserRoleData({
             userId: user._id.toString(),
             roleId: user.user_role.toString()
         });
+
+        console.log("ROLE DATA:::")
+        console.log({roleData})
         if (roleData && roleData.role_name !== RoleNames.USER)
             result[roleData.role_name] = roleData.role_data || true;
         else
@@ -76,7 +79,7 @@ export default class UserService {
     };
 
     /* -------------------- Update profile -------------------- */
-    public static updateProfile = async (id: string, data: updateProfileSchema) => {
+    public static updateProfile = async (id: string, data: UpdateProfileSchema) => {
         const { user_email, ...rest } = data;
 
         // Check email exist
@@ -85,7 +88,7 @@ export default class UserService {
 
         // Update user
         const $set: commonTypes.object.ObjectAnyKeys = {};
-        get$SetNestedFromObject($set, data);
+        get$SetNestedFromObject(data, $set);
 
         const updatedUser = await findOneAndUpdateUser({
             query: { _id: id },

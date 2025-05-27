@@ -16,7 +16,7 @@ export const updateProfileSchema = z.object({
         message: 'Day of birth is in the future!',
     }),
 });
-export type updateProfileSchema = z.infer<typeof updateProfileSchema>;
+export type UpdateProfileSchema = z.infer<typeof updateProfileSchema>;
 export const validateUpdateprofile = generateValidateWithBody(updateProfileSchema)
 
 /* ---------------------------------------------------------- */
@@ -26,5 +26,5 @@ export const updateProfileByAdminSchema = updateProfileSchema.extend({
     user_role: z.string().optional(),
     user_status: z.string().optional(),
 });
-export type updateProfileByAdminSchema = z.infer<typeof updateProfileByAdminSchema>;
+export type UpdateProfileByAdminSchema = z.infer<typeof updateProfileByAdminSchema>;
 export const validateUpdateprofileByAdmin = generateValidateWithBody(updateProfileByAdminSchema)

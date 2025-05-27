@@ -23,7 +23,7 @@ export interface UpdateProfilePayload {
   user_fullName?: string;
   user_email?: string;      // Be cautious: email updates often require verification.
   phoneNumber?: string;     // Similar to email, phone updates might need verification.
-  user_sex?: string;
+  user_sex?: boolean | undefined;
   user_dayOfBirth?: string; // Ensure this is in a format your backend accepts (e.g., YYYY-MM-DD)
   user_avatar?: string;     // This would likely be a media ID or URL
 }

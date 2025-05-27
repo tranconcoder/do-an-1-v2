@@ -82,7 +82,13 @@ async function hGetRedis(key: string) {
 
 /* -------------------- Get user profile -------------------- */
 export const getUserProfile = async (id: string) => {
-    return await hGetRedis(getUserProfileKey(id));
+    const result: any = await hGetRedis(getUserProfileKey(id));
+
+    if (result) {
+        result.user_sex = result.user_sex === "1";
+    }
+
+    return result;
 };
 
 /* -------------------- Set user profile -------------------- */
@@ -104,7 +110,7 @@ export const setUserProfile = async ({
         phoneNumber,
         user_role: user_role.toString(),
         user_avatar,
-        user_sex: Number(user_sex),
+        user_sex: user_sex ? "1" : "0",
         user_status: user_status!,
         user_dayOfBirth: user_dayOfBirth?.toISOString() || "",
     }

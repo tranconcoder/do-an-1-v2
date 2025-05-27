@@ -29,7 +29,7 @@ export default function ProfilePage() {
     user_fullName: '',
     user_email: '',
     phoneNumber: '',
-    user_sex: '',
+    user_sex: undefined,
     user_dayOfBirth: '',
     user_avatar: '',
   });
@@ -44,7 +44,7 @@ export default function ProfilePage() {
         user_fullName: currentUser.user_fullName || '',
         user_email: currentUser.user_email || '',
         phoneNumber: currentUser.phoneNumber || '',
-        user_sex: currentUser.user_sex || '',
+        user_sex: currentUser.user_sex,
         user_dayOfBirth: currentUser.user_dayOfBirth || '',
         user_avatar: currentUser.user_avatar || '',
       });
@@ -74,7 +74,7 @@ export default function ProfilePage() {
             user_fullName: profileData.user.user_fullName || '',
             user_email: profileData.user.user_email || '',
             phoneNumber: profileData.user.phoneNumber || '',
-            user_sex: profileData.user.user_sex || '',
+            user_sex: profileData.user.user_sex,
             user_dayOfBirth: profileData.user.user_dayOfBirth || '',
             user_avatar: profileData.user.user_avatar || '',
           });
@@ -109,10 +109,25 @@ export default function ProfilePage() {
   };
 
   const handleSelectChange = (name: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    if (name === 'user_sex') {
+      let sexValue: boolean | undefined;
+      if (value === 'true') {
+        sexValue = true;
+      } else if (value === 'false') {
+        sexValue = false;
+      } else {
+        sexValue = undefined;
+      }
+      setFormData(prev => ({
+        ...prev,
+        user_sex: sexValue,
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleDateChange = (date: Date | undefined) => {
@@ -234,12 +249,17 @@ export default function ProfilePage() {
                 <AvatarImage src={formData.user_avatar || user.user_avatar} alt={`${formData.user_fullName}'s avatar`} />
                 <AvatarFallback className="text-4xl bg-blue-500 text-white">
                   {getInitials(formData.user_fullName || user.user_fullName)}
-                    </AvatarFallback>
+                </AvatarFallback>
               </Avatar>
               <div className="text-center sm:text-left flex-1">
                 <CardTitle className="text-3xl font-bold text-blue-900">{isEditing ? formData.user_fullName : user.user_fullName}</CardTitle>
                 <CardDescription className="text-blue-700/80 mt-1">{isEditing ? formData.user_email : user.user_email}</CardDescription>
                 <p className="text-sm text-blue-600/70 mt-1">{isEditing ? formData.phoneNumber : user.phoneNumber}</p>
+                {!isEditing && user.user_sex !== undefined && (
+                  <p className="text-sm text-blue-600/70 mt-1">
+                    Giới tính: {user.user_sex ? 'Nam' : 'Nữ'}
+                  </p>
+                )}
               </div>
               {!isEditing && (
                  <Button variant="outline" size="sm" onClick={() => setIsEditing(true)} className="border-blue-200 text-blue-600 hover:bg-blue-50">
@@ -290,18 +310,21 @@ export default function ProfilePage() {
                   <div className="space-y-2">
                     <Label htmlFor="user_sex" className="text-blue-800">Giới tính</Label>
                     <Select
-                      value={formData.user_sex}
+                      name="user_sex"
+                      value={formData.user_sex === true ? 'true' : (formData.user_sex === false ? 'false' : '')}
                       onValueChange={(value) => handleSelectChange('user_sex', value)}
+                      disabled={!isEditing}
                     >
-                      <SelectTrigger className="bg-white/80 border-blue-100 focus:border-blue-500 focus:ring-blue-500">
+                      <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Chọn giới tính" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="1">Nam</SelectItem>
-                        <SelectItem value="0">Nữ</SelectItem>
+                        <SelectItem value="">Chưa cập nhật</SelectItem>
+                        <SelectItem value="true">Nam</SelectItem>
+                        <SelectItem value="false">Nữ</SelectItem>
                       </SelectContent>
                     </Select>
-                    </div>
+                  </div>
                   
                   <div className="space-y-2">
                     <Label className="text-blue-800">Ngày sinh</Label>
