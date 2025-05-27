@@ -29,7 +29,8 @@ import Image from "next/image";
 import { useToast } from "@/components/ui/toast";
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '@/lib/store/store';
-import { fetchCart, addItemToCart, decreaseItemQuantity, removeItemFromCart } from '@/lib/store/slices/cartSlice';
+import { addItemToCart, decreaseItemQuantity, fetchCart, removeItemFromCart } from "@/lib/store/slices/cartSlice";
+// import { fetchCart, addItemToCart, decreaseItemQuantity, removeItemFromCart } from '@/lib/store/store';
 
 export default function CartHoverCard() {
   const dispatch = useDispatch<AppDispatch>();

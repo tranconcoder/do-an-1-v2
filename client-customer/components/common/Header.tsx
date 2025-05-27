@@ -20,8 +20,6 @@ import ProfileBox from "@/components/common/ProfileBox"
 import { logout } from "@/lib/store/slices/userSlice"
 import CartHoverCard from "@/components/common/CartHoverCard"
 
-const cartItemCount = 3;
-
 export default function Header() {
   const dispatch = useDispatch()
   const { accessToken, user, shop } = useSelector((state: RootState) => state.user)
@@ -74,7 +72,7 @@ export default function Header() {
             {/* <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-pink-600">5</Badge> */}
           </Button>
           )}
-          {isLoggedIn && <CartHoverCard cartItemCount={cartItemCount} />}
+          {isLoggedIn && <CartHoverCard />}
 
           {isLoggedIn && user ? (
             <ProfileBox user={user} shop={shop} handleLogout={handleLogout} />

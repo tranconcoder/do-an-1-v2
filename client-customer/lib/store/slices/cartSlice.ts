@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import cartService, { CartItem } from '../../services/api/cartService';
+import cartService, { CartItem } from '@/lib/services/api/cartService';
 
 interface CartState {
   items: CartItem[];
@@ -44,7 +44,7 @@ export const decreaseItemQuantity = createAsyncThunk(
   async (skuId: string, { rejectWithValue }) => {
     try {
       await cartService.decreaseItemQuantity(skuId);
-      return skuId;
+      return null;
     } catch (error: any) {
       return rejectWithValue('Failed to decrease item quantity');
     }
@@ -57,7 +57,7 @@ export const removeItemFromCart = createAsyncThunk(
     try {
       await cartService.removeItemFromCart(skuId);
 
-      return skuId;
+      return null;
     } catch (error: any) {
       return rejectWithValue('Failed to remove item from cart');
     }
@@ -98,7 +98,6 @@ const cartSlice = createSlice({
       .addCase(addItemToCart.fulfilled, (state, action) => {
         // State update handled by subsequent fetchCart in component
         state.isLoading = false;
-        console.log({action})
 
         const index = state.items.findIndex(item => item.sku_id === action.meta.arg.skuId);
         if (index !== -1) {
@@ -111,28 +110,41 @@ const cartSlice = createSlice({
       })
       // Decrease item quantity
       .addCase(decreaseItemQuantity.pending, (state) => {
-        // state.isLoading = true;
+        state.isLoading = true;
         state.error = null;
       })
-      .addCase(decreaseItemQuantity.fulfilled, (state) => {
-        // State update handled by subsequent fetchCart in component
-        // state.isLoading = false;
+      .addCase(decreaseItemQuantity.fulfilled, (state, action) => {
+        state.isLoading = false;
+
+        const skuId = action.meta.arg;
+        const index = state.items.findIndex(item => item.sku_id === skuId);
+
+        if (index !== -1) {
+          state.items[index].quantity--;
+        }
       })
       .addCase(decreaseItemQuantity.rejected, (state, action) => {
-        // state.isLoading = false;
+        state.isLoading = false;
         state.error = action.payload as string || 'Failed to decrease quantity';
       })
       // Remove item from cart
       .addCase(removeItemFromCart.pending, (state) => {
-        // state.isLoading = true;
+        state.isLoading = true;
         state.error = null;
       })
-      .addCase(removeItemFromCart.fulfilled, (state) => {
-        // State update handled by subsequent fetchCart in component
-        // state.isLoading = false;
+      .addCase(removeItemFromCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+
+        const skuId = action.meta.arg;
+        const index = state.items.findIndex(item => item.sku_id === skuId);
+
+        if (index !== -1) {
+          state.items.splice(index, 1);
+        }
+
       })
       .addCase(removeItemFromCart.rejected, (state, action) => {
-        // state.isLoading = false;
+        state.isLoading = false;
         state.error = action.payload as string || 'Failed to remove item';
       });
   }

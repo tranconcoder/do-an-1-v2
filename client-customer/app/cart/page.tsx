@@ -1,136 +1,82 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import type { RootState } from '@/lib/store/store';
+import { useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/store/store';
-import cartService, { CartItem } from '@/lib/services/api/cartService';
+import { useAppDispatch } from '@/lib/store/hooks';
 import { mediaService } from '@/lib/services/api/mediaService';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Trash2, MinusSquare, PlusSquare, ShoppingCartIcon } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Input } from '@/components/ui/input'; // For quantity input (optional)
+import { Input } from '@/components/ui/input';
+import {
+  fetchCart,
+  addItemToCart,
+  decreaseItemQuantity,
+  removeItemFromCart,
+} from '@/lib/store/slices/cartSlice';
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
   const { isAuthenticated, isLoading: isAuthLoading } = useSelector((state: RootState) => state.user);
-
-  // Function to fetch cart items
-  const fetchCartItems = async () => {
-    try {
-      setIsLoading(true);
-      const items = await cartService.getCart();
-      setCartItems(items);
-      setError(null);
-    } catch (err) {
-      console.error('Failed to fetch cart items:', err);
-      setError('Không thể tải giỏ hàng. Vui lòng thử lại.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isAuthLoading) return; // Wait for authentication check to complete
-
-    if (!isAuthenticated) {
-      setError('Vui lòng đăng nhập để xem giỏ hàng của bạn.');
-      setIsLoading(false);
-      setCartItems([]);
-      return;
-    }
-
-    fetchCartItems(); // Call the extracted function
-  }, [isAuthenticated, isAuthLoading]);
+  const { items: cartItems, isLoading, error } = useSelector((state: RootState) => state.cart);
+  const dispatch = useAppDispatch();
 
   const calculateSubtotal = () => {
     return cartItems.reduce((total, item) => total + item.sku_price * item.quantity, 0);
   };
 
-  // Group cart items by shop
   const groupedItems = useMemo(() => {
     return cartItems.reduce((acc, item) => {
       if (!acc[item.shop_id]) {
         acc[item.shop_id] = {
           shopId: item.shop_id,
-          shopName: item.shop_name, // Assuming shop_name is available on CartItem
-          shopLogo: item.shop_logo, // Add shopLogo here
+          shopName: item.shop_name,
+          shopLogo: item.shop_logo,
           items: [],
         };
       }
       acc[item.shop_id].items.push(item);
       return acc;
-    }, {} as Record<string, { shopId: string; shopName: string; shopLogo?: string; items: CartItem[] }>);
+    }, {} as Record<string, { shopId: string; shopName: string; shopLogo?: string; items: typeof cartItems }>);
   }, [cartItems]);
 
-  // Placeholder functions for cart actions - to be implemented later
   const handleUpdateQuantity = async (itemId: string, newQuantity: number) => {
     const currentItem = cartItems.find(item => item.sku_id === itemId);
-    if (!currentItem || newQuantity < 1) return; // Prevent quantity from going below 1
+    if (!currentItem || newQuantity < 1) return;
 
-    // Store original quantity for potential rollback
-    const originalQuantity = currentItem.quantity;
-    
-    // Optimistically update the UI
-    setCartItems(cartItems.map(item => 
-      item.sku_id === itemId ? { ...item, quantity: newQuantity } : item
-    ));
+    const quantityDiff = newQuantity - currentItem.quantity;
+
+    if (quantityDiff === 0) return;
 
     try {
-      if (newQuantity > originalQuantity) {
-        // Increase quantity
-        const quantityToAdd = newQuantity - originalQuantity;
-        await cartService.increaseItemQuantity(itemId, quantityToAdd);
-      } else if (newQuantity < originalQuantity) {
-        // Decrease quantity
-        // Assuming decreaseItemQuantity decreases by 1.
-        // For simplicity with the +/- buttons, we'll call it once if the change is exactly -1.
-        // Direct input handling might need a different approach if the API doesn't support setting quantity.
-        if (newQuantity === originalQuantity - 1) {
-             await cartService.decreaseItemQuantity(itemId);
+      if (quantityDiff > 0) {
+        await dispatch(addItemToCart({ skuId: itemId, quantity: quantityDiff })).unwrap();
+      } else {
+        if (quantityDiff === -1) {
+          await dispatch(decreaseItemQuantity(itemId)).unwrap();
         } else {
-           console.warn("Direct quantity input changes > -1 are not fully supported with the current decrease API.");
-           // Revert local state change if direct input is not supported by API
-           setCartItems(cartItems.map(item => 
-             item.sku_id === itemId ? { ...item, quantity: originalQuantity } : item
-           ));
+           console.warn("Direct quantity input changes > -1 are not fully supported with the current decrease API and thunk.");
+           dispatch(fetchCart());
            return;
         }
       }
-      // If API call is successful, local state is already updated. No need to re-fetch.
+      dispatch(fetchCart());
 
     } catch (error) {
       console.error(`Failed to update quantity for item ${itemId}:`, error);
-      // Revert local state change on error
-      setCartItems(cartItems.map(item => 
-        item.sku_id === itemId ? { ...item, quantity: originalQuantity } : item
-      ));
-      // Optionally show an error message to the user
     }
   };
 
   const handleRemoveItem = async (itemId: string) => {
-     // Store the item to be removed for potential rollback
-     const itemToRemove = cartItems.find(item => item.sku_id === itemId);
-     if (!itemToRemove) return;
-
-     // Optimistically update the UI by removing the item
-     setCartItems(cartItems.filter(item => item.sku_id !== itemId));
-
     try {
-      await cartService.removeItemFromCart(itemId);
-      // If API call is successful, local state is already updated. No need to re-fetch.
+      await dispatch(removeItemFromCart(itemId)).unwrap();
+      dispatch(fetchCart());
 
     } catch (error) {
       console.error(`Failed to remove item ${itemId}:`, error);
-      // Revert local state change on error
-      setCartItems([...cartItems, itemToRemove]); // Add the item back
-      // Optionally show an error message to the user
     }
   };
 
@@ -198,10 +144,9 @@ export default function CartPage() {
   }
 
   const subtotal = calculateSubtotal();
-  // For simplicity, assuming fixed tax and shipping or to be implemented later
-  const tax = subtotal * 0.05; // Example 5% tax
-  const shipping = subtotal > 500000 ? 0 : 30000; // Example shipping
-  const total = subtotal + shipping; // Removed tax from total
+  const tax = subtotal * 0.05;
+  const shipping = subtotal > 500000 ? 0 : 30000;
+  const total = subtotal + shipping;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8">
@@ -216,8 +161,8 @@ export default function CartPage() {
                     <Image
                       src={mediaService.getMediaUrl(shopGroup.shopLogo)}
                       alt={`${shopGroup.shopName} logo`}
-                      width={32} // Adjust size as needed
-                      height={32} // Adjust size as needed
+                      width={32}
+                      height={32}
                       objectFit="cover"
                       className="rounded-full"
                     />
@@ -239,8 +184,6 @@ export default function CartPage() {
                       <Link href={`/products/${item.spu_id}?sku=${item.sku_id}`} className="hover:text-blue-600">
                         <h3 className="text-lg font-semibold text-gray-800">{item.product_name}</h3>
                       </Link>
-                      {/* You can add SPU details or SKU variant details here */}
-                      {/* <p className="text-sm text-gray-500">SKU: {item.sku_id}</p> */}
                       <p className="text-md font-bold text-blue-600 mt-1">
                         {item.sku_price.toLocaleString('vi-VN')}₫
                       </p>

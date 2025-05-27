@@ -1,6 +1,5 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { BACKEND_API_URL } from './server.config'; // Import the new config
-import { store } from '../store/store'; // Import the Redux store
 
 // Define the base URL for your API.
 // It's recommended to use environment variables for this.
@@ -18,7 +17,7 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     // Get token from Redux store
-    const token = store.getState().user.accessToken;
+    const token = localStorage.getItem('accessToken');
     
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
