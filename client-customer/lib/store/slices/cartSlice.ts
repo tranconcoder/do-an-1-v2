@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import cartService, { CartItem } from '@/lib/services/api/cartService';
+import { useDispatch } from 'react-redux';
 
 interface CartState {
     items: CartItem[];
@@ -26,9 +27,18 @@ export const fetchCart = createAsyncThunk('cart/fetchCart', async (_, { rejectWi
 
 export const addItemToCart = createAsyncThunk(
     'cart/addItemToCart',
-    async ({ skuId, quantity }: { skuId: string; quantity: number }, { rejectWithValue }) => {
+    async (
+        { skuId, quantity }: { skuId: string; quantity: number },
+        { rejectWithValue, getState, dispatch }
+    ) => {
         try {
             await cartService.increaseItemQuantity(skuId, quantity);
+
+            const state = (getState() as any).cart as CartState;
+            if (!state.items.find((item: CartItem) => item.sku_id === skuId)) {
+                dispatch(fetchCart());
+            }
+
             return null;
         } catch (error: any) {
             return rejectWithValue('Failed to add item to cart');
@@ -97,10 +107,11 @@ const cartSlice = createSlice({
                 // state.isLoading = false;
 
                 const index = state.items.findIndex(
-                    (item) => item.sku_id === action.meta.arg.skuId
+                    (item: CartItem) => item.sku_id === action.meta.arg.skuId
                 );
                 if (index !== -1) {
                     state.items[index].quantity++;
+                } else {
                 }
             })
             .addCase(addItemToCart.rejected, (state, action) => {
@@ -116,7 +127,7 @@ const cartSlice = createSlice({
                 // state.isLoading = false;
 
                 const skuId = action.meta.arg;
-                const index = state.items.findIndex((item) => item.sku_id === skuId);
+                const index = state.items.findIndex((item: CartItem) => item.sku_id === skuId);
 
                 if (index !== -1) {
                     state.items[index].quantity--;
@@ -135,7 +146,7 @@ const cartSlice = createSlice({
                 // state.isLoading = false;
 
                 const skuId = action.meta.arg;
-                const index = state.items.findIndex((item) => item.sku_id === skuId);
+                const index = state.items.findIndex((item: CartItem) => item.sku_id === skuId);
 
                 if (index !== -1) {
                     state.items.splice(index, 1);
