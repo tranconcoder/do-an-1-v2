@@ -1,7 +1,7 @@
 'use client';
 
 import type { RootState } from '@/lib/store/store';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
@@ -9,9 +9,10 @@ import { useAppDispatch } from '@/lib/store/hooks';
 import { mediaService } from '@/lib/services/api/mediaService';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Trash2, MinusSquare, PlusSquare, ShoppingCartIcon } from 'lucide-react';
+import { Trash2, MinusSquare, PlusSquare, ShoppingCartIcon, Tag, X } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
     fetchCart,
     addItemToCart,
@@ -26,8 +27,96 @@ export default function CartPage() {
     const { items: cartItems, isLoading, error } = useSelector((state: RootState) => state.cart);
     const dispatch = useAppDispatch();
 
+    // State cho việc chọn sản phẩm và mã giảm giá
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const [discountCode, setDiscountCode] = useState<string>('');
+    const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
+    
+    // State cho discount code từng item
+    const [itemDiscountCodes, setItemDiscountCodes] = useState<Record<string, string>>({});
+    const [itemDiscounts, setItemDiscounts] = useState<Record<string, number>>({});
+
     const calculateSubtotal = () => {
-        return cartItems.reduce((total, item) => total + item.sku_price * item.quantity, 0);
+        return cartItems
+            .filter(item => selectedItems.includes(item.sku_id))
+            .reduce((total, item) => {
+                const itemTotal = item.sku_price * item.quantity;
+                const itemDiscount = itemDiscounts[item.sku_id] || 0;
+                return total + itemTotal - itemDiscount;
+            }, 0);
+    };
+
+    const calculateTotalItems = () => {
+        return cartItems
+            .filter(item => selectedItems.includes(item.sku_id))
+            .reduce((total, item) => total + item.quantity, 0);
+    };
+
+    const calculateFinalTotal = () => {
+        const subtotal = calculateSubtotal();
+        return subtotal - appliedDiscount;
+    };
+
+    const handleApplyDiscount = () => {
+        // Giả lập logic áp dụng mã giảm giá
+        // Trong thực tế, bạn sẽ gọi API để validate và tính toán discount
+        if (discountCode.toLowerCase() === 'discount10') {
+            const subtotal = calculateSubtotal();
+            setAppliedDiscount(subtotal * 0.1); // Giảm 10%
+        } else if (discountCode.toLowerCase() === 'discount50k') {
+            setAppliedDiscount(Math.min(50000, calculateSubtotal())); // Giảm 50k
+        } else {
+            setAppliedDiscount(0);
+            alert('Mã giảm giá không hợp lệ');
+        }
+    };
+
+    const handleRemoveDiscount = () => {
+        setDiscountCode('');
+        setAppliedDiscount(0);
+    };
+
+    // Xử lý mã giảm giá cho từng item
+    const handleApplyItemDiscount = (itemId: string) => {
+        const code = itemDiscountCodes[itemId];
+        if (!code) return;
+
+        const item = cartItems.find(item => item.sku_id === itemId);
+        if (!item) return;
+
+        // Giả lập logic áp dụng mã giảm giá cho item
+        if (code.toLowerCase() === 'item10') {
+            const itemTotal = item.sku_price * item.quantity;
+            setItemDiscounts(prev => ({
+                ...prev,
+                [itemId]: itemTotal * 0.1 // Giảm 10%
+            }));
+        } else if (code.toLowerCase() === 'item20k') {
+            const itemTotal = item.sku_price * item.quantity;
+            setItemDiscounts(prev => ({
+                ...prev,
+                [itemId]: Math.min(20000, itemTotal) // Giảm 20k
+            }));
+        } else {
+            setItemDiscounts(prev => ({
+                ...prev,
+                [itemId]: 0
+            }));
+            alert('Mã giảm giá không hợp lệ cho sản phẩm này');
+        }
+    };
+
+    const handleRemoveItemDiscount = (itemId: string) => {
+        setItemDiscountCodes(prev => {
+            const newCodes = { ...prev };
+            delete newCodes[itemId];
+            return newCodes;
+        });
+        setItemDiscounts(prev => {
+            const newDiscounts = { ...prev };
+            delete newDiscounts[itemId];
+            return newDiscounts;
+        });
     };
 
     const groupedItems = useMemo(() => {
@@ -75,10 +164,67 @@ export default function CartPage() {
     const handleRemoveItem = async (itemId: string) => {
         try {
             await dispatch(removeItemFromCart(itemId)).unwrap();
+            // Xóa item khỏi danh sách đã chọn nếu có
+            setSelectedItems(prev => prev.filter(id => id !== itemId));
+            // Xóa discount code và discount của item
+            setItemDiscountCodes(prev => {
+                const newCodes = { ...prev };
+                delete newCodes[itemId];
+                return newCodes;
+            });
+            setItemDiscounts(prev => {
+                const newDiscounts = { ...prev };
+                delete newDiscounts[itemId];
+                return newDiscounts;
+            });
         } catch (error) {
             console.error(`Failed to remove item ${itemId}:`, error);
         }
     };
+
+    // Xử lý chọn/bỏ chọn sản phẩm
+    const handleSelectItem = (itemId: string, checked: boolean) => {
+        if (checked) {
+            setSelectedItems(prev => [...prev, itemId]);
+        } else {
+            setSelectedItems(prev => prev.filter(id => id !== itemId));
+        }
+    };
+
+    // Xử lý chọn/bỏ chọn tất cả sản phẩm trong shop
+    const handleSelectShop = (shopItems: typeof cartItems, checked: boolean) => {
+        const shopItemIds = shopItems.map(item => item.sku_id);
+        if (checked) {
+            setSelectedItems(prev => [...new Set([...prev, ...shopItemIds])]);
+        } else {
+            setSelectedItems(prev => prev.filter(id => !shopItemIds.includes(id)));
+        }
+    };
+
+    // Kiểm tra xem shop có được chọn toàn bộ không
+    const isShopFullySelected = (shopItems: typeof cartItems) => {
+        const shopItemIds = shopItems.map(item => item.sku_id);
+        return shopItemIds.every(id => selectedItems.includes(id));
+    };
+
+    // Kiểm tra xem shop có được chọn một phần không
+    const isShopPartiallySelected = (shopItems: typeof cartItems) => {
+        const shopItemIds = shopItems.map(item => item.sku_id);
+        return shopItemIds.some(id => selectedItems.includes(id)) && !isShopFullySelected(shopItems);
+    };
+
+    // Xử lý chọn/bỏ chọn tất cả sản phẩm trong giỏ hàng
+    const handleSelectAll = (checked: boolean) => {
+        if (checked) {
+            const allItemIds = cartItems.map(item => item.sku_id);
+            setSelectedItems(allItemIds);
+        } else {
+            setSelectedItems([]);
+        }
+    };
+
+    // Kiểm tra xem tất cả sản phẩm có được chọn không
+    const isAllSelected = cartItems.length > 0 && selectedItems.length === cartItems.length;
 
     if (isLoading || isAuthLoading) {
         return (
@@ -164,9 +310,27 @@ export default function CartPage() {
                 </h1>
                 <div className="grid md:grid-cols-3 gap-8 items-start">
                     <div className="md:col-span-2 space-y-6">
+                        {/* Checkbox chọn tất cả */}
+                        <div className="flex items-center gap-3 p-4 bg-white rounded-lg shadow-sm border">
+                            <Checkbox
+                                checked={isAllSelected}
+                                onCheckedChange={handleSelectAll}
+                            />
+                            <span className="font-medium text-gray-700">
+                                Chọn tất cả ({cartItems.length} sản phẩm)
+                            </span>
+                        </div>
+
                         {Object.values(groupedItems).map((shopGroup) => (
                             <div key={shopGroup.shopId} className="space-y-4">
                                 <div className="flex items-center gap-3 border-b pb-2 mb-4">
+                                    <Checkbox
+                                        checked={isShopFullySelected(shopGroup.items)}
+                                        onCheckedChange={(checked) => 
+                                            handleSelectShop(shopGroup.items, checked as boolean)
+                                        }
+                                        className="mr-2"
+                                    />
                                     {shopGroup.shopLogo && (
                                         <Image
                                             src={mediaService.getMediaUrl(shopGroup.shopLogo)}
@@ -184,77 +348,138 @@ export default function CartPage() {
                                 {shopGroup.items.map((item) => (
                                     <Card
                                         key={item.sku_id}
-                                        className="flex flex-col sm:flex-row items-center p-4 gap-4 shadow-md rounded-lg hover:shadow-lg transition-shadow"
+                                        className="p-4 shadow-md rounded-lg hover:shadow-lg transition-shadow"
                                     >
-                                        <div className="relative h-24 w-24 sm:h-28 sm:w-28 rounded-md overflow-hidden flex-shrink-0">
-                                            <Image
-                                                src={mediaService.getMediaUrl(item.product_thumb)}
-                                                alt={item.product_name}
-                                                layout="fill"
-                                                objectFit="cover"
-                                                className="bg-gray-100"
-                                            />
-                                        </div>
-                                        <div className="flex-grow text-center sm:text-left">
-                                            <Link
-                                                href={`/products/${item.spu_id}?sku=${item.sku_id}`}
-                                                className="hover:text-blue-600"
-                                            >
-                                                <h3 className="text-lg font-semibold text-gray-800">
-                                                    {item.product_name}
-                                                </h3>
-                                            </Link>
-                                            <p className="text-md font-bold text-blue-600 mt-1">
-                                                {item.sku_price.toLocaleString('vi-VN')}₫
-                                            </p>
-                                        </div>
-                                        <div className="flex items-center gap-2 my-2 sm:my-0">
+                                        <div className="flex flex-col sm:flex-row items-center gap-4">
+                                            <div className="flex items-center gap-3">
+                                                <Checkbox
+                                                    checked={selectedItems.includes(item.sku_id)}
+                                                    onCheckedChange={(checked) => 
+                                                        handleSelectItem(item.sku_id, checked as boolean)
+                                                    }
+                                                />
+                                                <div className="relative h-24 w-24 sm:h-28 sm:w-28 rounded-md overflow-hidden flex-shrink-0">
+                                                    <Image
+                                                        src={mediaService.getMediaUrl(item.product_thumb)}
+                                                        alt={item.product_name}
+                                                        layout="fill"
+                                                        objectFit="cover"
+                                                        className="bg-gray-100"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="flex-grow text-center sm:text-left">
+                                                <Link
+                                                    href={`/products/${item.spu_id}?sku=${item.sku_id}`}
+                                                    className="hover:text-blue-600"
+                                                >
+                                                    <h3 className="text-lg font-semibold text-gray-800">
+                                                        {item.product_name}
+                                                    </h3>
+                                                </Link>
+                                                <p className="text-md font-bold text-blue-600 mt-1">
+                                                    {item.sku_price.toLocaleString('vi-VN')}₫
+                                                </p>
+                                                {itemDiscounts[item.sku_id] && (
+                                                    <p className="text-sm text-green-600 font-medium">
+                                                        Giảm: -{itemDiscounts[item.sku_id].toLocaleString('vi-VN')}₫
+                                                    </p>
+                                                )}
+                                            </div>
+                                            <div className="flex items-center gap-2 my-2 sm:my-0">
+                                                <Button
+                                                    variant="outline"
+                                                    size="icon"
+                                                    onClick={() =>
+                                                        handleUpdateQuantity(
+                                                            item.sku_id,
+                                                            item.quantity - 1
+                                                        )
+                                                    }
+                                                    disabled={item.quantity <= 1}
+                                                >
+                                                    <MinusSquare className="h-5 w-5" />
+                                                </Button>
+                                                <Input
+                                                    type="number"
+                                                    value={item.quantity}
+                                                    onChange={(e) =>
+                                                        handleUpdateQuantity(
+                                                            item.sku_id,
+                                                            parseInt(e.target.value, 10) || 1
+                                                        )
+                                                    }
+                                                    className="w-16 text-center h-9"
+                                                    min="1"
+                                                />
+                                                <Button
+                                                    variant="outline"
+                                                    size="icon"
+                                                    onClick={() =>
+                                                        handleUpdateQuantity(
+                                                            item.sku_id,
+                                                            item.quantity + 1
+                                                        )
+                                                    }
+                                                >
+                                                    <PlusSquare className="h-5 w-5" />
+                                                </Button>
+                                            </div>
                                             <Button
-                                                variant="outline"
+                                                variant="ghost"
                                                 size="icon"
-                                                onClick={() =>
-                                                    handleUpdateQuantity(
-                                                        item.sku_id,
-                                                        item.quantity - 1
-                                                    )
-                                                }
-                                                disabled={item.quantity <= 1}
+                                                className="text-red-500 hover:text-red-700"
+                                                onClick={() => handleRemoveItem(item.sku_id)}
                                             >
-                                                <MinusSquare className="h-5 w-5" />
-                                            </Button>
-                                            <Input
-                                                type="number"
-                                                value={item.quantity}
-                                                onChange={(e) =>
-                                                    handleUpdateQuantity(
-                                                        item.sku_id,
-                                                        parseInt(e.target.value, 10) || 1
-                                                    )
-                                                }
-                                                className="w-16 text-center h-9"
-                                                min="1"
-                                            />
-                                            <Button
-                                                variant="outline"
-                                                size="icon"
-                                                onClick={() =>
-                                                    handleUpdateQuantity(
-                                                        item.sku_id,
-                                                        item.quantity + 1
-                                                    )
-                                                }
-                                            >
-                                                <PlusSquare className="h-5 w-5" />
+                                                <Trash2 className="h-5 w-5" />
                                             </Button>
                                         </div>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="text-red-500 hover:text-red-700"
-                                            onClick={() => handleRemoveItem(item.sku_id)}
-                                        >
-                                            <Trash2 className="h-5 w-5" />
-                                        </Button>
+                                        
+                                        {/* Discount code input for individual item */}
+                                        <div className="mt-4 pt-4 border-t border-gray-200">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <Tag className="h-4 w-4 text-orange-600" />
+                                                <span className="text-sm font-medium text-gray-700">
+                                                    Mã giảm giá sản phẩm
+                                                </span>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <Input
+                                                    placeholder="Nhập mã giảm giá"
+                                                    value={itemDiscountCodes[item.sku_id] || ''}
+                                                    onChange={(e) => 
+                                                        setItemDiscountCodes(prev => ({
+                                                            ...prev,
+                                                            [item.sku_id]: e.target.value
+                                                        }))
+                                                    }
+                                                    className="flex-1 text-sm"
+                                                />
+                                                <Button 
+                                                    onClick={() => handleApplyItemDiscount(item.sku_id)}
+                                                    size="sm"
+                                                    variant="outline"
+                                                    className="bg-orange-600 text-white hover:bg-orange-700 border-orange-600"
+                                                >
+                                                    Áp dụng
+                                                </Button>
+                                            </div>
+                                            {itemDiscounts[item.sku_id] > 0 && (
+                                                <div className="mt-2 flex items-center justify-between p-2 bg-green-100 rounded-md">
+                                                    <span className="text-xs text-green-800 font-medium">
+                                                        Mã "{itemDiscountCodes[item.sku_id]}" đã được áp dụng
+                                                    </span>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        onClick={() => handleRemoveItemDiscount(item.sku_id)}
+                                                        className="text-green-700 hover:text-green-900 p-1 h-auto"
+                                                    >
+                                                        <X className="h-3 w-3" />
+                                                    </Button>
+                                                </div>
+                                            )}
+                                        </div>
                                     </Card>
                                 ))}
                             </div>
@@ -270,21 +495,89 @@ export default function CartPage() {
                         <CardContent className="space-y-3 p-0">
                             <div className="flex justify-between text-gray-700">
                                 <span>
-                                    Tạm tính (
-                                    {cartItems.reduce((acc, item) => acc + item.quantity, 0)} sản
-                                    phẩm)
+                                    Tạm tính ({calculateTotalItems()} sản phẩm đã chọn)
                                 </span>
-                                <span>{subtotal.toLocaleString('vi-VN')}₫</span>
+                                <span>
+                                    {cartItems
+                                        .filter(item => selectedItems.includes(item.sku_id))
+                                        .reduce((total, item) => total + item.sku_price * item.quantity, 0)
+                                        .toLocaleString('vi-VN')}₫
+                                </span>
                             </div>
+                            
+                            {/* Hiển thị tổng giảm giá từ item-level discounts */}
+                            {Object.values(itemDiscounts).some(discount => discount > 0) && (
+                                <div className="flex justify-between text-orange-600">
+                                    <span>Giảm giá sản phẩm</span>
+                                    <span>
+                                        -{Object.entries(itemDiscounts)
+                                            .filter(([itemId]) => selectedItems.includes(itemId))
+                                            .reduce((total, [, discount]) => total + discount, 0)
+                                            .toLocaleString('vi-VN')}₫
+                                    </span>
+                                </div>
+                            )}
+                            
+                            {appliedDiscount > 0 && (
+                                <div className="flex justify-between text-green-600">
+                                    <span>Giảm giá đơn hàng</span>
+                                    <span>-{appliedDiscount.toLocaleString('vi-VN')}₫</span>
+                                </div>
+                            )}
 
-                            <div className="flex justify-between text-xl font-bold text-blue-800 pt-3">
-                                <span>Tổng cộng</span>
-                                <span>{subtotal.toLocaleString('vi-VN')}₫</span>
+                            <div className="border-t pt-3">
+                                <div className="flex justify-between text-xl font-bold text-blue-800">
+                                    <span>Tổng cộng</span>
+                                    <span>{calculateFinalTotal().toLocaleString('vi-VN')}₫</span>
+                                </div>
                             </div>
                         </CardContent>
+                        
+                        {/* Global discount code input */}
+                        {selectedItems.length > 0 && (
+                            <div className="mt-4 p-3 bg-white rounded-lg border">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <Tag className="h-4 w-4 text-blue-600" />
+                                    <span className="text-sm font-medium text-blue-700">Mã giảm giá đơn hàng</span>
+                                </div>
+                                <div className="flex gap-2">
+                                    <Input
+                                        placeholder="Nhập mã giảm giá"
+                                        value={discountCode}
+                                        onChange={(e) => setDiscountCode(e.target.value)}
+                                        className="flex-1 text-sm"
+                                    />
+                                    <Button 
+                                        onClick={handleApplyDiscount}
+                                        size="sm"
+                                        variant="outline"
+                                        className="bg-blue-600 text-white hover:bg-blue-700 border-blue-600"
+                                    >
+                                        Áp dụng
+                                    </Button>
+                                </div>
+                                {appliedDiscount > 0 && (
+                                    <div className="mt-2 text-xs text-green-600 flex items-center justify-between">
+                                        <span>Mã "{discountCode}" đã được áp dụng</span>
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={handleRemoveDiscount}
+                                            className="text-green-600 hover:text-green-800 p-1 h-auto"
+                                        >
+                                            <X className="h-3 w-3" />
+                                        </Button>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                        
                         <CardFooter className="mt-6 p-0">
-                            <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-lg py-3">
-                                Tiến hành thanh toán
+                            <Button 
+                                className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-lg py-3"
+                                disabled={selectedItems.length === 0}
+                            >
+                                Tiến hành thanh toán ({selectedItems.length} sản phẩm)
                             </Button>
                         </CardFooter>
                     </Card>
