@@ -122,3 +122,12 @@
 [2025-05-28T01:06:55.235Z] [error]: HIDE::403::Forbidden::Token not found!::
 [2025-05-28T01:06:57.065Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
 [2025-05-28T01:06:57.124Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:09:30.608Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:09:34.141Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T01:09:40.973Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T01:09:41.402Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T01:09:41.546Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T01:10:04.965Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:12:28.053Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:16:26.028Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:20:58.456Z] [error]: HIDE::400::ValidationError::"category" is not allowed::

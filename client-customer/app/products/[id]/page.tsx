@@ -62,7 +62,18 @@ export default function ProductDetailPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageZoom, setImageZoom] = useState(1);
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const [isModalClosing, setIsModalClosing] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   // const [isWishlisted, setIsWishlisted] = useState(false); // For future wishlist functionality
+
+  // Combine SKU and SPU images with SKU images taking priority
+  const allImages = [
+    ...(product?.sku?.sku_thumb ? [product.sku.sku_thumb] : []),
+    ...(product?.sku?.sku_images || []),
+    ...(product?.product_thumb && !product?.sku?.sku_thumb ? [product.product_thumb] : []),
+    ...(product?.product_images || [])
+  ].filter((img, index, arr) => img && arr.indexOf(img) === index); // Remove duplicates
 
   useEffect(() => {
     if (productId) {
@@ -175,37 +186,81 @@ export default function ProductDetailPage() {
     }
   }, [product]);
 
+  // Enhanced thumbnail click with smooth transition
   const handleThumbnailClick = (imageId: string) => {
-    setSelectedImage(mediaService.getMediaUrl(imageId));
+    setIsImageLoading(true);
+    
+    setTimeout(() => {
+      setSelectedImage(mediaService.getMediaUrl(imageId));
+      setTimeout(() => {
+        setIsImageLoading(false);
+      }, 150);
+    }, 100);
   };
 
-  // Image preview functions
+  // Image preview functions with smooth animations
   const openImageModal = (imageIndex: number) => {
     setCurrentImageIndex(imageIndex);
     setIsImageModalOpen(true);
+    setIsModalClosing(false);
     setImageZoom(1);
     setImagePosition({ x: 0, y: 0 });
+    setIsImageLoading(true);
+    
+    // Add smooth fade-in animation
+    document.body.style.overflow = 'hidden';
+    
+    // Simulate loading for smooth transition
+    setTimeout(() => {
+      setIsImageLoading(false);
+    }, 200);
   };
 
   const closeImageModal = () => {
-    setIsImageModalOpen(false);
-    setImageZoom(1);
-    setImagePosition({ x: 0, y: 0 });
+    setIsModalClosing(true);
+    
+    // Wait for animation to complete before actually closing
+    setTimeout(() => {
+      setIsImageModalOpen(false);
+      setIsModalClosing(false);
+      setImageZoom(1);
+      setImagePosition({ x: 0, y: 0 });
+      setIsDragging(false);
+      document.body.style.overflow = 'auto';
+    }, 300);
   };
 
   const nextImage = () => {
     if (currentImageIndex < allImages.length - 1) {
-      setCurrentImageIndex(currentImageIndex + 1);
-      setImageZoom(1);
-      setImagePosition({ x: 0, y: 0 });
+      setIsImageLoading(true);
+      
+      // Add smooth transition
+      setTimeout(() => {
+        setCurrentImageIndex(currentImageIndex + 1);
+        setImageZoom(1);
+        setImagePosition({ x: 0, y: 0 });
+        
+        setTimeout(() => {
+          setIsImageLoading(false);
+        }, 150);
+      }, 100);
     }
   };
 
   const prevImage = () => {
     if (currentImageIndex > 0) {
-      setCurrentImageIndex(currentImageIndex - 1);
-      setImageZoom(1);
-      setImagePosition({ x: 0, y: 0 });
+      setIsImageLoading(true);
+      
+      // Add smooth transition
+      setTimeout(() => {
+        setCurrentImageIndex(currentImageIndex - 1);
+        setImageZoom(1);
+        setImagePosition({ x: 0, y: 0 });
+        
+        setTimeout(() => {
+          setIsImageLoading(false);
+        }, 150);
+      }, 100);
     }
   };
 
@@ -221,6 +276,46 @@ export default function ProductDetailPage() {
     setImageZoom(1);
     setImagePosition({ x: 0, y: 0 });
   };
+
+  // Keyboard navigation for modal
+  useEffect(() => {
+    if (!isImageModalOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case 'Escape':
+          closeImageModal();
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          prevImage();
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          nextImage();
+          break;
+        case '+':
+        case '=':
+          e.preventDefault();
+          zoomIn();
+          break;
+        case '-':
+          e.preventDefault();
+          zoomOut();
+          break;
+        case '0':
+          e.preventDefault();
+          resetZoom();
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isImageModalOpen, currentImageIndex, allImages.length]);
 
   // Review functions
   const handleSubmitReview = () => {
@@ -320,14 +415,6 @@ export default function ProductDetailPage() {
     );
   }
 
-  // Combine SKU and SPU images with SKU images taking priority
-  const allImages = [
-    ...(product?.sku?.sku_thumb ? [product.sku.sku_thumb] : []),
-    ...(product?.sku?.sku_images || []),
-    ...(product?.product_thumb && !product?.sku?.sku_thumb ? [product.product_thumb] : []),
-    ...(product?.product_images || [])
-  ].filter((img, index, arr) => img && arr.indexOf(img) === index); // Remove duplicates
-
   // Get current price and stock from SKU
   const currentPrice = product?.sku?.sku_price || product?.salePrice || 0;
   const currentStock = product?.sku?.sku_stock || 0;
@@ -352,6 +439,16 @@ export default function ProductDetailPage() {
               className="relative aspect-square w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-50 shadow-sm mb-3 cursor-zoom-in group"
               onClick={() => openImageModal(0)}
             >
+              {/* Loading Overlay */}
+              {isImageLoading && (
+                <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-10 transition-opacity duration-300">
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                    <span className="text-sm text-gray-600">Loading...</span>
+                  </div>
+                </div>
+              )}
+              
               {selectedImage ? (
                 <>
                   <NextImage // Use aliased import
@@ -359,18 +456,23 @@ export default function ProductDetailPage() {
                     alt={product.product_name}
                     layout="fill"
                     objectFit="contain"
-                    className="transition-opacity duration-300 opacity-0 group-hover:opacity-90"
-                    onLoadingComplete={(image) => image.classList.remove('opacity-0')}
+                    className="transition-all duration-500 ease-in-out group-hover:scale-105"
+                    onLoadingComplete={(image) => {
+                      image.classList.remove('opacity-0');
+                      setIsImageLoading(false);
+                    }}
+                    onLoadStart={() => setIsImageLoading(true)}
                     onError={() => {
                       // Attempt to load placeholder if selectedImage fails
                       if (selectedImage !== '/placeholder.svg') {
                           setSelectedImage('/placeholder.svg');
                       }
+                      setIsImageLoading(false);
                     }}
                   priority
                 />
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center">
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white bg-opacity-90 rounded-full p-2">
+                    <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-110 bg-white bg-opacity-90 rounded-full p-2">
                       <Maximize2 className="w-6 h-6 text-gray-700" />
                     </div>
                   </div>
@@ -383,19 +485,22 @@ export default function ProductDetailPage() {
             </div>
             {allImages.length > 1 && (
               <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
-                {allImages.map((imgId) => (
+                {allImages.map((imgId, index) => (
                   <button
                     key={imgId}
                     onClick={() => handleThumbnailClick(imgId)}
-                    className={`relative aspect-square w-full rounded-md overflow-hidden border-2 hover:border-blue-500 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-                                ${mediaService.getMediaUrl(imgId) === selectedImage ? 'border-blue-600 ring-2 ring-blue-600 ring-offset-1' : 'border-gray-200'}`}
+                    className={`relative aspect-square w-full rounded-md overflow-hidden border-2 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                      mediaService.getMediaUrl(imgId) === selectedImage 
+                        ? 'border-blue-600 ring-2 ring-blue-600 ring-offset-1 shadow-md scale-105' 
+                        : 'border-gray-200 hover:border-blue-400'
+                    }`}
                   >
                     <NextImage // Use aliased import
                       src={mediaService.getMediaUrl(imgId)}
                       alt={`${product.product_name} thumbnail`}
                       layout="fill"
                       objectFit="cover"
-                      className="bg-gray-50 transition-opacity duration-300 opacity-0"
+                      className="bg-gray-50 transition-all duration-300 hover:brightness-110"
                       onLoadingComplete={(image) => image.classList.remove('opacity-0')}
                       onError={(e) => { 
                         const target = e.target as HTMLImageElement;
@@ -403,6 +508,14 @@ export default function ProductDetailPage() {
                         target.srcset = ''; // Clear srcset as well if it was set
                       }}
                     />
+                    {/* Selection indicator */}
+                    {mediaService.getMediaUrl(imgId) === selectedImage && (
+                      <div className="absolute inset-0 bg-blue-600 bg-opacity-10 flex items-center justify-center">
+                        <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center animate-pulse">
+                          <div className="w-2 h-2 bg-white rounded-full" />
+                        </div>
+                      </div>
+                    )}
                   </button>
                 ))}
               </div>
@@ -876,12 +989,31 @@ export default function ProductDetailPage() {
         
         {/* Image Preview Modal */}
         {isImageModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90">
-            <div className="relative w-full h-full flex items-center justify-center p-4">
+          <div 
+            className={`fixed inset-0 z-50 flex items-center justify-center transition-all duration-300 ${
+              isModalClosing 
+                ? 'bg-black bg-opacity-0 opacity-0' 
+                : 'bg-black bg-opacity-90 opacity-100'
+            }`}
+            style={{ backdropFilter: 'blur(4px)' }}
+          >
+            <div className={`relative w-full h-full flex items-center justify-center p-4 transition-transform duration-300 ${
+              isModalClosing ? 'scale-95' : 'scale-100'
+            }`}>
+              {/* Loading Overlay for Modal */}
+              {isImageLoading && (
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-20 transition-opacity duration-200">
+                  <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3">
+                    <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span className="text-sm text-white">Loading image...</span>
+                  </div>
+                </div>
+              )}
+
               {/* Close Button */}
               <button
                 onClick={closeImageModal}
-                className="absolute top-4 right-4 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all"
+                className="absolute top-4 right-4 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200 hover:scale-110 hover:rotate-90"
               >
                 <X className="w-6 h-6 text-white" />
               </button>
@@ -892,14 +1024,14 @@ export default function ProductDetailPage() {
                   <button
                     onClick={prevImage}
                     disabled={currentImageIndex === 0}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-110 disabled:hover:scale-100"
                   >
                     <ChevronLeftIcon className="w-6 h-6 text-white" />
                   </button>
                   <button
                     onClick={nextImage}
                     disabled={currentImageIndex === allImages.length - 1}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-110 disabled:hover:scale-100"
                   >
                     <ChevronRight className="w-6 h-6 text-white" />
                   </button>
@@ -910,42 +1042,50 @@ export default function ProductDetailPage() {
               <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
                 <button
                   onClick={zoomIn}
-                  className="p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all"
+                  className="p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:hover:scale-100"
                   disabled={imageZoom >= 3}
                 >
                   <ZoomIn className="w-5 h-5 text-white" />
                 </button>
                 <button
                   onClick={zoomOut}
-                  className="p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all"
+                  className="p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:hover:scale-100"
                   disabled={imageZoom <= 0.5}
                 >
                   <ZoomOut className="w-5 h-5 text-white" />
                 </button>
                 <button
                   onClick={resetZoom}
-                  className="p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all text-xs text-white font-medium"
+                  className="px-3 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200 text-xs text-white font-medium hover:scale-110"
                 >
-                  1:1
+                  Reset
                 </button>
+                
+                {/* Zoom Level Indicator */}
+                <div className="px-2 py-1 bg-white bg-opacity-20 rounded-full text-xs text-white text-center font-medium">
+                  {Math.round(imageZoom * 100)}%
+                </div>
               </div>
 
               {/* Image Counter */}
               {allImages.length > 1 && (
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 px-3 py-1 bg-white bg-opacity-20 rounded-full text-white text-sm">
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 px-4 py-2 bg-white bg-opacity-20 backdrop-blur-sm rounded-full text-white text-sm font-medium">
                   {currentImageIndex + 1} / {allImages.length}
                 </div>
               )}
 
               {/* Main Image */}
               <div 
-                className="relative max-w-full max-h-full overflow-hidden cursor-move"
+                className={`relative max-w-full max-h-full overflow-hidden transition-all duration-300 ease-out ${
+                  imageZoom > 1 ? 'cursor-grab' : 'cursor-zoom-in'
+                } ${isDragging ? 'cursor-grabbing' : ''}`}
                 style={{
                   transform: `scale(${imageZoom}) translate(${imagePosition.x}px, ${imagePosition.y}px)`,
-                  transition: imageZoom === 1 ? 'transform 0.3s ease' : 'none'
+                  transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
                 onMouseDown={(e) => {
                   if (imageZoom > 1) {
+                    setIsDragging(true);
                     const startX = e.clientX - imagePosition.x;
                     const startY = e.clientY - imagePosition.y;
                     
@@ -957,12 +1097,20 @@ export default function ProductDetailPage() {
                     };
                     
                     const handleMouseUp = () => {
+                      setIsDragging(false);
                       document.removeEventListener('mousemove', handleMouseMove);
                       document.removeEventListener('mouseup', handleMouseUp);
                     };
                     
                     document.addEventListener('mousemove', handleMouseMove);
                     document.addEventListener('mouseup', handleMouseUp);
+                  }
+                }}
+                onDoubleClick={() => {
+                  if (imageZoom === 1) {
+                    setImageZoom(2);
+                  } else {
+                    resetZoom();
                   }
                 }}
               >
@@ -972,28 +1120,35 @@ export default function ProductDetailPage() {
                   width={800}
                   height={800}
                   objectFit="contain"
-                  className="max-w-full max-h-screen"
+                  className={`max-w-full max-h-screen transition-opacity duration-300 ${
+                    isImageLoading ? 'opacity-50' : 'opacity-100'
+                  }`}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = '/placeholder.svg';
                   }}
+                  priority
                 />
               </div>
 
               {/* Thumbnail Strip */}
               {allImages.length > 1 && (
-                <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex gap-2 bg-white bg-opacity-20 p-2 rounded-lg max-w-md overflow-x-auto">
+                <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex gap-2 bg-white bg-opacity-20 backdrop-blur-sm p-3 rounded-lg max-w-md overflow-x-auto">
                   {allImages.map((imgId, index) => (
                     <button
                       key={imgId}
                       onClick={() => {
-                        setCurrentImageIndex(index);
-                        setImageZoom(1);
-                        setImagePosition({ x: 0, y: 0 });
+                        setIsImageLoading(true);
+                        setTimeout(() => {
+                          setCurrentImageIndex(index);
+                          setImageZoom(1);
+                          setImagePosition({ x: 0, y: 0 });
+                          setTimeout(() => setIsImageLoading(false), 150);
+                        }, 100);
                       }}
-                      className={`relative w-12 h-12 rounded overflow-hidden border-2 transition-all ${
+                      className={`relative w-14 h-14 rounded-md overflow-hidden border-2 transition-all duration-200 hover:scale-110 ${
                         index === currentImageIndex 
-                          ? 'border-white' 
+                          ? 'border-white shadow-lg scale-110' 
                           : 'border-transparent hover:border-white/50'
                       }`}
                     >
@@ -1002,6 +1157,7 @@ export default function ProductDetailPage() {
                         alt={`Thumbnail ${index + 1}`}
                         layout="fill"
                         objectFit="cover"
+                        className="transition-opacity duration-200 hover:opacity-80"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.src = '/placeholder.svg';
@@ -1011,6 +1167,15 @@ export default function ProductDetailPage() {
                   ))}
                 </div>
               )}
+
+              {/* Instructions */}
+              <div className="absolute bottom-4 right-4 z-10 text-xs text-white bg-white bg-opacity-20 backdrop-blur-sm rounded-lg px-3 py-2">
+                <div className="flex flex-col gap-1">
+                  <span>• Scroll to zoom</span>
+                  <span>• Double-click to toggle zoom</span>
+                  <span>• Drag to move when zoomed</span>
+                </div>
+              </div>
             </div>
           </div>
         )}
