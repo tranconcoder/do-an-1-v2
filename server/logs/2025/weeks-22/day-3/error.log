@@ -131,3 +131,21 @@
 [2025-05-28T01:12:28.053Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
 [2025-05-28T01:16:26.028Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
 [2025-05-28T01:20:58.456Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:24:20.506Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:40:40.507Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:43:43.977Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:43:43.990Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:45:49.326Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T01:45:49.343Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T01:47:11.988Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:47:28.560Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T01:47:41.474Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T01:47:41.475Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T01:47:41.489Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T01:47:41.491Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T01:47:41.520Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T01:47:41.537Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T01:49:27.755Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T01:49:27.798Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T01:49:32.793Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:49:32.859Z] [error]: HIDE::400::ValidationError::"category" is not allowed::

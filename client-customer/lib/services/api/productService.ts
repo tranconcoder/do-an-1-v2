@@ -19,9 +19,9 @@ export interface ShopReference {
 
 // Define ProductDetail interface
 export interface ProductAttribute {
-  k: string; // Key (e.g., "Brand", "Color")
-  v: string; // Value (e.g., "Apple", "Red")
-  u?: string; // Unit (e.g., "GB") - optional
+  attr_name: string; // Attribute name (e.g., "Brand", "Color")
+  attr_value: string; // Attribute value (e.g., "Apple", "Red")
+  _id: string; // Attribute ID
 }
 
 export interface ProductDetail {
@@ -49,6 +49,59 @@ export interface ProductDetail {
 //   price: number;
 //   // ...other properties
 // }
+
+// New interfaces for the actual API response structure
+export interface ProductVariation {
+  variation_name: string;
+  variation_values: string[];
+  variation_images: string[];
+  _id: string;
+}
+
+export interface SpuSelect {
+  _id: string;
+  product_name: string;
+  product_quantity: number;
+  product_description: string;
+  product_category: string;
+  product_shop: string;
+  product_sold: number;
+  product_rating_avg: number;
+  product_slug: string;
+  product_thumb: string;
+  product_images: string[];
+  product_attributes: ProductAttribute[];
+  product_variations: ProductVariation[];
+  is_draft: boolean;
+  is_publish: boolean;
+}
+
+export interface SkuOther {
+  _id: string;
+  sku_product: string;
+  sku_price: number;
+  sku_stock: number;
+  sku_thumb: string;
+  sku_images: string[];
+  sku_tier_idx: number[];
+}
+
+export interface ProductDetailResponse {
+  _id: string;
+  sku_product: string;
+  sku_price: number;
+  sku_stock: number;
+  sku_thumb: string;
+  sku_images: string[];
+  sku_tier_idx: number[];
+  is_deleted: boolean;
+  created_at: string;
+  updated_at: string;
+  __v: number;
+  spu_select: SpuSelect;
+  category: Category[];
+  sku_others: SkuOther[];
+}
 
 // New interface for SKU-based product detail response
 export interface ProductSkuDetail {
@@ -195,44 +248,14 @@ const productService = {
   /**
    * Fetches a single SKU by its ID.
    * @param {string} skuId - The ID of the SKU to fetch.
-   * @returns {Promise<ProductSkuDetail>} A promise that resolves to the SKU data.
+   * @returns {Promise<ProductDetailResponse>} A promise that resolves to the SKU data.
    */
-  getSkuById: async (skuId: string): Promise<ProductSkuDetail> => {
+  getSkuById: async (skuId: string): Promise<ProductDetailResponse> => {
     try {
       const response = await apiClient.get(`/sku/id/${skuId}`);
       if (response.data && response.data.metadata && response.data.metadata.length > 0) {
-        const skuData = response.data.metadata[0];
-        const productData = skuData.spu_select;
-        
-        // Transform API response to match ProductSkuDetail interface
-        const transformedData: ProductSkuDetail = {
-          _id: productData._id, // SPU ID
-          product_name: productData.product_name,
-          product_quantity: productData.product_quantity || 0,
-          product_description: productData.product_description,
-          product_category: productData.product_category,
-          product_shop: productData.product_shop,
-          product_rating_avg: productData.product_rating_avg,
-          product_slug: productData.product_slug,
-          product_thumb: productData.product_thumb,
-          product_images: productData.product_images || [],
-          product_attributes: productData.product_attributes || [],
-          product_variations: productData.product_variations || [],
-          shop: productData.shop,
-          category: skuData.category || [], // Include category data from backend lookup
-          sku: {
-            _id: skuData._id, // SKU ID
-            sku_product: skuData.sku_product,
-            sku_price: skuData.sku_price,
-            sku_stock: skuData.sku_stock,
-            sku_thumb: skuData.sku_thumb,
-            sku_images: skuData.sku_images || [],
-            sku_value: skuData.sku_value || []
-          },
-          sold_count: productData.product_sold || productData.sold_count
-        };
-        
-        return transformedData;
+        // Return the first item from metadata array as-is
+        return response.data.metadata[0] as ProductDetailResponse;
       }
       throw new Error("SKU data not found in the expected format");
     } catch (error) {
