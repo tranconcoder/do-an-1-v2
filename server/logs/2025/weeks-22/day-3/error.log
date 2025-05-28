@@ -375,3 +375,171 @@
 [2025-05-28T10:28:48.926Z] [error]: HIDE::400::TypeError::schema.validateAsync is not a function. (In 'schema.validateAsync(req.query, { convert: !0 })', 'schema.validateAsync' is undefined)::
 [2025-05-28T10:29:44.937Z] [error]: HIDE::400::TypeError::schema.validateAsync is not a function. (In 'schema.validateAsync(req.query, { convert: !0 })', 'schema.validateAsync' is undefined)::
 [2025-05-28T10:29:44.961Z] [error]: HIDE::400::TypeError::schema.validateAsync is not a function. (In 'schema.validateAsync(req.query, { convert: !0 })', 'schema.validateAsync' is undefined)::
+[2025-05-28T10:44:46.975Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-28T10:44:48.239Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-28T10:44:48.250Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-28T11:02:20.519Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-28T11:02:20.969Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-28T11:02:20.991Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-28T12:49:05.926Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:05.934Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:05.986Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:06.089Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:06.242Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:06.444Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:06.697Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:06.999Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:07.352Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:07.754Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:08.206Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:08.709Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:09.212Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:09.714Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:10.215Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:10.717Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:11.219Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:11.722Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:12.223Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:12.725Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:13.228Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:13.731Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:14.233Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:13.031Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:13.533Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:15.668Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:16.170Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:16.672Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:17.174Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:17.677Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:18.180Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:18.682Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:19.184Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:49:19.687Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T12:50:01.506Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-28T12:50:01.625Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-28T12:50:01.642Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-28T13:24:56.303Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-28T15:28:08.695Z] [error]: HIDE::400::TypeError::location.save is not a function. (In 'location.save()', 'location.save' is undefined)::
+[2025-05-28T15:29:54.507Z] [error]: HIDE::400::BadRequest::Get coordinates failed!::
+[2025-05-28T15:37:21.977Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-28T15:37:23.128Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::

@@ -19,8 +19,7 @@ export default new (class LocationService {
         provinceId,
         districtId,
         wardId,
-        address,
-        coordinates
+        address
     }: service.location.CreateLocation) {
         /* ---------------------- Check exists ---------------------- */
         const province = await provinceModel.findOne({ _id: provinceId }).lean();
@@ -41,8 +40,7 @@ export default new (class LocationService {
             district: districtId,
             ward: wardId,
             address,
-            text: locationText,
-            ...(coordinates ? { coordinates } : {})
+            text: locationText
         });
 
         if (!saved) throw new BadRequestErrorResponse({ message: 'Create location failed!' });
@@ -106,6 +104,16 @@ export default new (class LocationService {
         if (!location) throw new BadRequestErrorResponse({ message: 'Location not found!' });
 
         return location;
+    }
+
+    async getLocationTextById(id: string) {
+        const location = await findOneLocation({
+            query: { _id: id },
+            only: ['text'],
+            options: { lean: true }
+        });
+        if (!location) throw new BadRequestErrorResponse({ message: 'Location not found!' });
+        return location.text;
     }
 
     /* ---------------------------------------------------------- */
@@ -188,5 +196,22 @@ export default new (class LocationService {
             query: { district: districtId },
             omit: 'metadata'
         });
+    }
+
+    /* ---------------------------------------------------------- */
+    /*                           Update                           */
+    /* ---------------------------------------------------------- */
+
+    /* ---------------- Update coordinates by id ---------------- */
+    async updateCoordinatesById(id: string, coordinates: { x: number; y: number }) {
+        const location = await findLocationById({ id });
+        if (!location) throw new BadRequestErrorResponse({ message: 'Location not found!' });
+
+        location.coordinates = coordinates;
+
+        const updated = await location.save();
+        if (!updated) throw new BadRequestErrorResponse({ message: 'Update coordinates failed!' });
+
+        return updated;
     }
 })();

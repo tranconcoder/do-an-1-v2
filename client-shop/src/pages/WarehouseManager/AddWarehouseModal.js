@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './WarehouseManager.module.scss';
 import axiosClient from '../../configs/axios';
-import MapPreview from '../../components/MapPreview/MapPreview';
 
 const cx = classNames.bind(styles);
 
@@ -128,6 +127,63 @@ function AddWarehouseModal({ isOpen, onClose, onAddWarehouse }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Enhanced console logging for development
+        const isDev = process.env.NODE_ENV === 'development';
+
+        if (isDev) {
+            console.group('🏭 [DEV] WAREHOUSE SUBMISSION');
+            console.log('📋 Basic Info:');
+            console.table({
+                'Tên kho': warehouseName,
+                'Số điện thoại': warehousePhone,
+                'Địa chỉ chi tiết': warehouseAddress.address
+            });
+
+            console.log('🗺️ Location Info:');
+            console.table({
+                'Province ID': warehouseAddress.provinceId,
+                'District ID': warehouseAddress.districtId,
+                'Ward ID': warehouseAddress.wardId || 'Không có'
+            });
+
+            console.log('📍 Coordinates:');
+            if (warehouseAddress.coordinates.lat && warehouseAddress.coordinates.lng) {
+                console.table({
+                    Latitude: warehouseAddress.coordinates.lat,
+                    Longitude: warehouseAddress.coordinates.lng,
+                    'Google Maps Link': `https://maps.google.com/maps?q=${warehouseAddress.coordinates.lat},${warehouseAddress.coordinates.lng}`,
+                    'Coordinates String': `${warehouseAddress.coordinates.lat.toFixed(
+                        6
+                    )}, ${warehouseAddress.coordinates.lng.toFixed(6)}`
+                });
+                console.log(
+                    '🔗 Open in Google Maps:',
+                    `https://maps.google.com/maps?q=${warehouseAddress.coordinates.lat},${warehouseAddress.coordinates.lng}`
+                );
+            } else {
+                console.warn('⚠️ No coordinates provided');
+            }
+
+            console.log('📦 Payload to API:');
+            const payload = {
+                name: warehouseName,
+                phoneNumber: warehousePhone,
+                location: {
+                    ...warehouseAddress,
+                    ...(warehouseAddress.coordinates.lat && warehouseAddress.coordinates.lng
+                        ? {
+                              coordinates: {
+                                  x: warehouseAddress.coordinates.lng,
+                                  y: warehouseAddress.coordinates.lat
+                              }
+                          }
+                        : {})
+                }
+            };
+            console.dir(payload, { depth: null });
+            console.groupEnd();
+        }
 
         const validationErrors = {};
         if (!warehouseName.trim()) {
@@ -319,28 +375,6 @@ function AddWarehouseModal({ isOpen, onClose, onAddWarehouse }) {
                             className={errors.address ? cx('has-error') : ''}
                         />
                         {errors.address && <div className={cx('error-text')}>{errors.address}</div>}
-                    </div>
-
-                    <div className={cx('form-group')}>
-                        <label>Vị Trí Trên Bản Đồ</label>
-                        <div className={cx('map-section')}>
-                            <MapPreview
-                                onCoordinatesChange={handleCoordinatesChange}
-                                height="300px"
-                                initialAddress={warehouseAddress.address}
-                                showCurrentLocation={true}
-                                allowMarkerDrag={true}
-                            />
-                            {warehouseAddress.coordinates.lat &&
-                                warehouseAddress.coordinates.lng && (
-                                    <div className={cx('coordinates-info')}>
-                                        <small>
-                                            Tọa độ: {warehouseAddress.coordinates.lat.toFixed(6)},{' '}
-                                            {warehouseAddress.coordinates.lng.toFixed(6)}
-                                        </small>
-                                    </div>
-                                )}
-                        </div>
                     </div>
 
                     <div className={cx('modal-footer')}>

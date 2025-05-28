@@ -1,15 +1,14 @@
 import warehouseModel from '@/models/warehouse.model.js';
 import locationService from './location.service.js';
 import { BadRequestErrorResponse } from '@/response/error.response.js';
-import { findLocationById } from '@/models/repository/location/index.js';
 import {
     findWarehouses,
     findWarehouseById,
-    findOneWarehouse,
     findOneAndDelete,
     findOneAndUpdateWarehouse
 } from '@/models/repository/warehouses/index.js';
 import { get$SetNestedFromObject } from '@/utils/mongoose.util.js';
+import { Geocode } from './openrouteservice.service.js';
 
 export default new (class WarehousesService {
     /* ---------------------------------------------------------- */
@@ -17,9 +16,33 @@ export default new (class WarehousesService {
     /* ---------------------------------------------------------- */
     async createWarehouses(payload: service.warehouses.arguments.CreateWarehouse) {
         const { name, phoneNumber } = payload;
-        /* --------------------- Handle save sku -------------------- */
+
         const location = await locationService.createLocation(payload.location);
         if (!location) throw new BadRequestErrorResponse({ message: 'Create location failed!' });
+
+        /* --------------------- Get coordinates -------------------- */
+        let locationText = await locationService.getLocationTextById(location.id);
+        if (!locationText)
+            throw new BadRequestErrorResponse({ message: 'Get location text failed!' });
+        locationText = locationText.split(', ').slice(1).join(', ');
+
+        console.log('Location text:', locationText);
+
+        let response = await Geocode.geocode({
+            text: locationText,
+            boundary_country: ['VN']
+        });
+
+        const coordinates = response?.features?.at(0)?.geometry?.coordinates;
+        if (!coordinates) throw new BadRequestErrorResponse({ message: 'Get coordinates failed!' });
+
+        /* --------------------- Update location -------------------- */
+        const updatedLocation = await locationService.updateCoordinatesById(location.id, {
+            x: coordinates[0],
+            y: coordinates[1]
+        });
+        if (!updatedLocation)
+            throw new BadRequestErrorResponse({ message: 'Update location coordinates failed!' });
 
         const warehouses = await warehouseModel.create({
             address: location.id,
