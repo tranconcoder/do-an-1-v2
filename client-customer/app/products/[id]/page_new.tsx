@@ -314,7 +314,12 @@ export default function ProductDetailPage() {
       <div className="bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4 py-6">
           {/* Breadcrumbs */}
-          <ProductBreadcrumbs />
+          {breadcrumbData && (
+            <ProductBreadcrumbs 
+              category={breadcrumbData.category}
+              productName={breadcrumbData.productName}
+            />
+          )}
 
           <div className="bg-white rounded-lg shadow-sm overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-6">
@@ -329,15 +334,18 @@ export default function ProductDetailPage() {
               <div className="space-y-6">
                 {/* Product Header */}
                 <ProductHeader
-                  productName={product.spu_select.product_name}
+                  name={product.spu_select.product_name}
+                  category={product.spu_select.product_category}
                   rating={ratingBreakdown?.average || 0}
-                  soldCount={product.spu_select.product_sold || 0}
+                  reviewCount={ratingBreakdown?.total || 0}
                 />
 
                 {/* Product Pricing */}
                 <ProductPricing
-                  price={currentSku?.sku_price || 0}
+                  price={currentSku?.sku_price || product.spu_select.product_price}
+                  originalPrice={product.spu_select.product_price}
                   stock={currentStock}
+                  sold={product.spu_select.product_sold || 0}
                 />
 
                 {/* Product Variants */}
@@ -351,10 +359,9 @@ export default function ProductDetailPage() {
 
                 {/* Product Actions */}
                 <ProductActions
-                  stock={currentStock}
-                  currentSkuId={currentSku?._id}
                   onAddToCart={handleAddToCart}
                   onBuyNow={handleBuyNow}
+                  inStock={currentStock > 0}
                 />
               </div>
             </div>
@@ -389,7 +396,12 @@ export default function ProductDetailPage() {
                 reviews={reviews}
                 ratingBreakdown={ratingBreakdown}
                 loading={loadingReviews}
+                showReviewForm={showReviewForm}
+                newReview={newReview}
+                onShowReviewForm={setShowReviewForm}
+                onReviewChange={setNewReview}
                 onSubmitReview={handleSubmitReview}
+                formatDate={formatDate}
               />
             </div>
           </div>
@@ -398,7 +410,7 @@ export default function ProductDetailPage() {
           {relatedProducts.length > 0 && (
             <div className="mt-8">
               <RelatedProducts
-                relatedProducts={relatedProducts}
+                products={relatedProducts}
                 loading={loadingRelated}
               />
             </div>
@@ -415,7 +427,7 @@ export default function ProductDetailPage() {
           isOpen={isImageModalOpen}
           onClose={handleImageModalClose}
           onNext={handleImageModalNext}
-          onPrevious={handleImageModalPrev}
+          onPrev={handleImageModalPrev}
         />
       )}
     </>
