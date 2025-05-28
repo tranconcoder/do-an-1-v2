@@ -133,7 +133,6 @@ export const updateItemStatus = createAsyncThunk(
                     products: [
                         {
                             id: skuId,
-                            status: currentItem.product_status,
                             newStatus: newStatus
                         }
                     ]

@@ -33,7 +33,7 @@ export const updateCart = z.object({
                             id: zodId,
 
                             // Quantity
-                            newQuantity: z.number().min(0),
+                            newQuantity: z.number().min(0).optional(),
 
                             // Status
                             newStatus: z.nativeEnum(CartItemStatus).optional(),

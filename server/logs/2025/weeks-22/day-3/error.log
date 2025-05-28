@@ -1,0 +1,45 @@
+[2025-05-28T00:00:28.539Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newQuantity"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-28T00:03:19.521Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newQuantity"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-28T00:05:26.626Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "cartShop",
+      0,
+      "products",
+      0,
+      "newQuantity"
+    ],
+    "message": "Required"
+  }
+]::

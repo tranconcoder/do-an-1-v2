@@ -175,7 +175,7 @@ export default function CartHoverCard() {
         const item = cartItems.find(cartItem => cartItem.sku_id === itemId);
         if (item) {
             try {
-                const newStatus = checked ? 'selected' : 'unselected';
+                const newStatus = checked ? 'active' : 'inactive';
                 await dispatch(updateItemStatus({ 
                     skuId: itemId, 
                     shopId: item.shop_id, 
@@ -261,7 +261,7 @@ export default function CartHoverCard() {
                                         <div className="flex items-start gap-2 mb-2">
                                             <Checkbox 
                                                 id={`checkbox-${item.sku_id}`}
-                                                checked={item.product_status === 'selected'}
+                                                checked={item.product_status === 'active'}
                                                 onCheckedChange={(checked) => handleSelectItem(item.sku_id, !!checked)}
                                                 className="flex-shrink-0 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 mt-1"
                                             />

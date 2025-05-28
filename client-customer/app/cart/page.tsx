@@ -29,7 +29,7 @@ export default function CartPage() {
     const dispatch = useAppDispatch();
 
     // State cho việc chọn sản phẩm và mã giảm giá
-    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const [activeItems, setactiveItems] = useState<string[]>([]);
     const [discountCode, setDiscountCode] = useState<string>('');
     const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
     
@@ -37,17 +37,17 @@ export default function CartPage() {
     const [itemDiscountCodes, setItemDiscountCodes] = useState<Record<string, string>>({});
     const [itemDiscounts, setItemDiscounts] = useState<Record<string, number>>({});
 
-    // Sync selected items with cart items' status on load
+    // Sync active items with cart items' status on load and when items change
     useEffect(() => {
-        const selectedItemIds = cartItems
-            .filter(item => item.product_status === 'selected')
+        const activeItemIds = cartItems
+            .filter(item => item.product_status === 'active')
             .map(item => item.sku_id);
-        setSelectedItems(selectedItemIds);
-    }, [cartItems.length]); // Only run when cart items array length changes
+        setactiveItems(activeItemIds);
+    }, [cartItems]); // Run when cart items change (including status updates)
 
     const calculateSubtotal = () => {
         return cartItems
-            .filter(item => selectedItems.includes(item.sku_id))
+            .filter(item => activeItems.includes(item.sku_id))
             .reduce((total, item) => {
                 const itemTotal = item.sku_price * item.quantity;
                 const itemDiscount = itemDiscounts[item.sku_id] || 0;
@@ -57,7 +57,7 @@ export default function CartPage() {
 
     const calculateTotalItems = () => {
         return cartItems
-            .filter(item => selectedItems.includes(item.sku_id))
+            .filter(item => activeItems.includes(item.sku_id))
             .reduce((total, item) => total + item.quantity, 0);
     };
 
@@ -174,7 +174,7 @@ export default function CartPage() {
         try {
             await dispatch(removeItemFromCart(itemId)).unwrap();
             // Xóa item khỏi danh sách đã chọn nếu có
-            setSelectedItems(prev => prev.filter(id => id !== itemId));
+            setactiveItems(prev => prev.filter(id => id !== itemId));
             // Xóa discount code và discount của item
             setItemDiscountCodes(prev => {
                 const newCodes = { ...prev };
@@ -195,9 +195,9 @@ export default function CartPage() {
     const handleSelectItem = async (itemId: string, checked: boolean) => {
         // Update local state first for immediate UI feedback
         if (checked) {
-            setSelectedItems(prev => [...prev, itemId]);
+            setactiveItems(prev => [...prev, itemId]);
         } else {
-            setSelectedItems(prev => prev.filter(id => id !== itemId));
+            setactiveItems(prev => prev.filter(id => id !== itemId));
         }
 
         // Find the item to get shop ID
@@ -205,7 +205,7 @@ export default function CartPage() {
         if (item) {
             try {
                 // Update the item status via API
-                const newStatus = checked ? 'selected' : 'unselected';
+                const newStatus = checked ? 'active' : 'inactive';
                 await dispatch(updateItemStatus({ 
                     skuId: itemId, 
                     shopId: item.shop_id, 
@@ -215,9 +215,9 @@ export default function CartPage() {
                 console.error(`Failed to update item status for ${itemId}:`, error);
                 // Revert local state on error
                 if (checked) {
-                    setSelectedItems(prev => prev.filter(id => id !== itemId));
+                    setactiveItems(prev => prev.filter(id => id !== itemId));
                 } else {
-                    setSelectedItems(prev => [...prev, itemId]);
+                    setactiveItems(prev => [...prev, itemId]);
                 }
             }
         }
@@ -229,16 +229,16 @@ export default function CartPage() {
         
         // Update local state first for immediate UI feedback
         if (checked) {
-            setSelectedItems(prev => [...new Set([...prev, ...shopItemIds])]);
+            setactiveItems(prev => [...new Set([...prev, ...shopItemIds])]);
         } else {
-            setSelectedItems(prev => prev.filter(id => !shopItemIds.includes(id)));
+            setactiveItems(prev => prev.filter(id => !shopItemIds.includes(id)));
         }
 
         // Update each item's status via API
         const shopId = shopItems[0]?.shop_id;
         if (shopId) {
             try {
-                const newStatus = checked ? 'selected' : 'unselected';
+                const newStatus = checked ? 'active' : 'inactive';
                 // Update all items in the shop
                 await Promise.all(
                     shopItems.map(item => 
@@ -253,24 +253,24 @@ export default function CartPage() {
                 console.error(`Failed to update shop items status:`, error);
                 // Revert local state on error
                 if (checked) {
-                    setSelectedItems(prev => prev.filter(id => !shopItemIds.includes(id)));
+                    setactiveItems(prev => prev.filter(id => !shopItemIds.includes(id)));
                 } else {
-                    setSelectedItems(prev => [...new Set([...prev, ...shopItemIds])]);
+                    setactiveItems(prev => [...new Set([...prev, ...shopItemIds])]);
                 }
             }
         }
     };
 
     // Kiểm tra xem shop có được chọn toàn bộ không
-    const isShopFullySelected = (shopItems: typeof cartItems) => {
+    const isShopFullyactive = (shopItems: typeof cartItems) => {
         const shopItemIds = shopItems.map(item => item.sku_id);
-        return shopItemIds.every(id => selectedItems.includes(id));
+        return shopItemIds.every(id => activeItems.includes(id));
     };
 
     // Kiểm tra xem shop có được chọn một phần không
-    const isShopPartiallySelected = (shopItems: typeof cartItems) => {
+    const isShopPartiallyactive = (shopItems: typeof cartItems) => {
         const shopItemIds = shopItems.map(item => item.sku_id);
-        return shopItemIds.some(id => selectedItems.includes(id)) && !isShopFullySelected(shopItems);
+        return shopItemIds.some(id => activeItems.includes(id)) && !isShopFullyactive(shopItems);
     };
 
     // Xử lý chọn/bỏ chọn tất cả sản phẩm trong giỏ hàng
@@ -278,14 +278,14 @@ export default function CartPage() {
         // Update local state first for immediate UI feedback
         if (checked) {
             const allItemIds = cartItems.map(item => item.sku_id);
-            setSelectedItems(allItemIds);
+            setactiveItems(allItemIds);
         } else {
-            setSelectedItems([]);
+            setactiveItems([]);
         }
 
         // Update all items' status via API
         try {
-            const newStatus = checked ? 'selected' : 'unselected';
+            const newStatus = checked ? 'active' : 'inactive';
             // Group items by shop and update them
             const shopGroups = Object.values(groupedItems);
             await Promise.all(
@@ -303,16 +303,16 @@ export default function CartPage() {
             console.error(`Failed to update all items status:`, error);
             // Revert local state on error
             if (checked) {
-                setSelectedItems([]);
+                setactiveItems([]);
             } else {
                 const allItemIds = cartItems.map(item => item.sku_id);
-                setSelectedItems(allItemIds);
+                setactiveItems(allItemIds);
             }
         }
     };
 
     // Kiểm tra xem tất cả sản phẩm có được chọn không
-    const isAllSelected = cartItems.length > 0 && selectedItems.length === cartItems.length;
+    const isAllactive = cartItems.length > 0 && activeItems.length === cartItems.length;
 
     if (isLoading || isAuthLoading) {
         return (
@@ -401,7 +401,7 @@ export default function CartPage() {
                         {/* Checkbox chọn tất cả */}
                         <div className="flex items-center gap-3 p-4 bg-white rounded-lg shadow-sm border">
                             <Checkbox
-                                checked={isAllSelected}
+                                checked={isAllactive}
                                 onCheckedChange={handleSelectAll}
                             />
                             <span className="font-medium text-gray-700">
@@ -413,7 +413,7 @@ export default function CartPage() {
                             <div key={shopGroup.shopId} className="space-y-4">
                                 <div className="flex items-center gap-3 border-b pb-2 mb-4">
                                     <Checkbox
-                                        checked={isShopFullySelected(shopGroup.items)}
+                                        checked={isShopFullyactive(shopGroup.items)}
                                         onCheckedChange={(checked) => 
                                             handleSelectShop(shopGroup.items, checked as boolean)
                                         }
@@ -441,7 +441,7 @@ export default function CartPage() {
                                         <div className="flex flex-col sm:flex-row items-center gap-4">
                                             <div className="flex items-center gap-3">
                                                 <Checkbox
-                                                    checked={selectedItems.includes(item.sku_id)}
+                                                    checked={activeItems.includes(item.sku_id)}
                                                     onCheckedChange={(checked) => 
                                                         handleSelectItem(item.sku_id, checked as boolean)
                                                     }
@@ -587,7 +587,7 @@ export default function CartPage() {
                                 </span>
                                 <span>
                                     {cartItems
-                                        .filter(item => selectedItems.includes(item.sku_id))
+                                        .filter(item => activeItems.includes(item.sku_id))
                                         .reduce((total, item) => total + item.sku_price * item.quantity, 0)
                                         .toLocaleString('vi-VN')}₫
                                 </span>
@@ -599,7 +599,7 @@ export default function CartPage() {
                                     <span>Giảm giá sản phẩm</span>
                                     <span>
                                         -{Object.entries(itemDiscounts)
-                                            .filter(([itemId]) => selectedItems.includes(itemId))
+                                            .filter(([itemId]) => activeItems.includes(itemId))
                                             .reduce((total, [, discount]) => total + discount, 0)
                                             .toLocaleString('vi-VN')}₫
                                     </span>
@@ -622,7 +622,7 @@ export default function CartPage() {
                         </CardContent>
                         
                         {/* Global discount code input */}
-                        {selectedItems.length > 0 && (
+                        {activeItems.length > 0 && (
                             <div className="mt-4 p-3 bg-white rounded-lg border">
                                 <div className="flex items-center gap-2 mb-2">
                                     <Tag className="h-4 w-4 text-blue-600" />
@@ -663,9 +663,9 @@ export default function CartPage() {
                         <CardFooter className="mt-6 p-0">
                             <Button 
                                 className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-lg py-3"
-                                disabled={selectedItems.length === 0}
+                                disabled={activeItems.length === 0}
                             >
-                                Tiến hành thanh toán ({selectedItems.length} sản phẩm)
+                                Tiến hành thanh toán ({activeItems.length} sản phẩm)
                             </Button>
                         </CardFooter>
                     </Card>
