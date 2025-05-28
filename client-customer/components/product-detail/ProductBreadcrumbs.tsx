@@ -16,7 +16,7 @@ export default function ProductBreadcrumbs() {
         className="p-0 h-auto font-normal text-gray-600 hover:text-gray-800 hover:bg-transparent"
       >
         <ChevronLeft className="mr-1 h-4 w-4" />
-        Back to Products
+        Quay lại danh sách sản phẩm
       </Button>
     </nav>
   );

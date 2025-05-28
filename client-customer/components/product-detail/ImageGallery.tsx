@@ -33,7 +33,7 @@ export default function ImageGallery({ images, productName, onImageClick }: Imag
           <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-10 transition-opacity duration-300">
             <div className="flex items-center gap-3">
               <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-              <span className="text-sm text-gray-600">Loading...</span>
+              <span className="text-sm text-gray-600">Đang tải...</span>
             </div>
           </div>
         )}

@@ -38,7 +38,7 @@ interface ProductReviewsProps {
 }
 
 const formatDate = (dateString: string) => {
-  return new Date(dateString).toLocaleDateString('en-US', {
+  return new Date(dateString).toLocaleDateString('vi-VN', {
     year: 'numeric',
     month: 'short',
     day: 'numeric'
@@ -67,13 +67,13 @@ export default function ProductReviews({
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-2 flex items-center">
           <MessageSquare className="mr-3 h-6 w-6 text-blue-600" />
-          Customer Reviews
+          Đánh giá của khách hàng
         </h2>
         {ratingBreakdown && (
           <div className="flex items-center gap-4 text-sm text-gray-600">
-            <span>{ratingBreakdown.average.toFixed(1)} out of 5 stars</span>
+            <span>{ratingBreakdown.average.toFixed(1)} trên 5 sao</span>
             <span>•</span>
-            <span>{ratingBreakdown.total} reviews</span>
+            <span>{ratingBreakdown.total} đánh giá</span>
           </div>
         )}
       </div>
@@ -100,7 +100,7 @@ export default function ProductReviews({
           {ratingBreakdown && (
             <div className="lg:col-span-1">
               <div className="bg-white border rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-4">Rating Breakdown</h3>
+                <h3 className="text-lg font-semibold mb-4">Phân tích đánh giá</h3>
                 <div className="space-y-3">
                   {[5, 4, 3, 2, 1].map((rating) => (
                     <div key={rating} className="flex items-center gap-2">
@@ -123,7 +123,7 @@ export default function ProductReviews({
                     onClick={() => setShowReviewForm(!showReviewForm)}
                     className="w-full mt-6 bg-blue-600 hover:bg-blue-700"
                   >
-                    Write a Review
+                    Viết đánh giá
                   </Button>
                 )}
 
@@ -131,7 +131,7 @@ export default function ProductReviews({
                 {showReviewForm && onSubmitReview && (
                   <div className="mt-4 p-4 border rounded-lg bg-gray-50">
                     <div className="mb-4">
-                      <label className="block text-sm font-medium mb-2">Rating</label>
+                      <label className="block text-sm font-medium mb-2">Đánh giá</label>
                       <div className="flex gap-1">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <Star

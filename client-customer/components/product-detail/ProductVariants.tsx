@@ -21,7 +21,7 @@ export default function ProductVariants({
   return (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
-        <Palette className="h-5 w-5 mr-2 text-blue-600" /> Select Options
+        <Palette className="h-5 w-5 mr-2 text-blue-600" /> Chọn tùy chọn
       </h3>
       
       {variations.map((variation, variationIndex) => (
@@ -52,7 +52,7 @@ export default function ProductVariants({
       
       {/* Current Selection Summary */}
       <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-200">
-        <h4 className="text-sm font-semibold text-gray-800 mb-2">Current Selection:</h4>
+        <h4 className="text-sm font-semibold text-gray-800 mb-2">Lựa chọn hiện tại:</h4>
         <div className="flex flex-wrap gap-2">
           {variations.map((variation, index) => {
             const selectedIndex = selectedVariations[variation._id] ?? 0;

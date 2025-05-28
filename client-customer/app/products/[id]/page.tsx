@@ -9,7 +9,6 @@ import productService, { ProductDetailResponse, ProductSku, ProductAttribute, Pr
 import { Category } from '@/lib/services/api/categoryService';
 import shopService, { Shop } from '@/lib/services/api/shopService';
 import { mediaService } from '@/lib/services/api/mediaService';
-import Header from '@/components/common/Header';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
@@ -198,17 +197,17 @@ export default function ProductDetailPage() {
             const mockReviews: Review[] = [
               {
                 _id: '1',
-                user_name: 'John Doe',
+                user_name: 'Nguyễn Văn A',
                 rating: 5,
-                comment: 'Great product! Highly recommended.',
+                comment: 'Sản phẩm tuyệt vời! Rất đáng mua.',
                 created_at: new Date().toISOString(),
                 helpful_count: 12
               },
               {
                 _id: '2',
-                user_name: 'Jane Smith',
+                user_name: 'Trần Thị B',
                 rating: 4,
-                comment: 'Good quality, fast shipping.',
+                comment: 'Chất lượng tốt, giao hàng nhanh.',
                 created_at: new Date(Date.now() - 86400000).toISOString(),
                 helpful_count: 8
               }
@@ -246,7 +245,6 @@ export default function ProductDetailPage() {
   if (loading) {
     return (
       <>
-        <Header />
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Image skeleton */}
@@ -283,12 +281,11 @@ export default function ProductDetailPage() {
   if (error || !product) {
     return (
       <>
-        <Header />
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
             <AlertTriangle className="w-16 h-16 text-red-500 mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Product Not Found</h2>
-            <p className="text-gray-600 mb-6">{error || 'The product you are looking for does not exist.'}</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Không tìm thấy sản phẩm</h2>
+            <p className="text-gray-600 mb-6">{error || 'Sản phẩm bạn đang tìm kiếm không tồn tại.'}</p>
             <div className="flex gap-4">
               <Button 
                 variant="outline" 
@@ -296,10 +293,10 @@ export default function ProductDetailPage() {
                 className="flex items-center gap-2"
               >
                 <ChevronLeft className="w-4 h-4" />
-                Go Back
+                Quay lại
               </Button>
               <Button asChild>
-                <Link href="/products">Browse Products</Link>
+                <Link href="/products">Xem sản phẩm</Link>
               </Button>
             </div>
           </div>
@@ -310,7 +307,6 @@ export default function ProductDetailPage() {
 
   return (
     <>
-      <Header />
       <div className="bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4 py-6">
           {/* Breadcrumbs */}

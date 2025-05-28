@@ -24,7 +24,7 @@ export default function ProductActions({
         disabled={stock === 0}
         onClick={() => onAddToCart(currentSkuId)}
       >
-        <ShoppingCart className="mr-2 h-5 w-5" /> Add to Cart
+        <ShoppingCart className="mr-2 h-5 w-5" /> Thêm vào giỏ
       </Button>
       <Button
         size="lg" 
@@ -33,7 +33,7 @@ export default function ProductActions({
         disabled={stock === 0}
         onClick={() => onBuyNow(currentSkuId)}
       >
-        <Zap className="mr-2 h-5 w-5" /> Buy Now
+        <Zap className="mr-2 h-5 w-5" /> Mua ngay
       </Button>
     </div>
   );

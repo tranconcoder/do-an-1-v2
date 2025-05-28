@@ -33,7 +33,7 @@ export default function ProductHeader({
           <div className="flex items-center gap-3">
             <FolderOpen className="h-5 w-5 text-green-600" />
             <div>
-              <p className="text-sm text-gray-600 mb-1">Category</p>
+              <p className="text-sm text-gray-600 mb-1">Danh mục</p>
               <div className="flex items-center gap-2">
                 {category[0].category_icon && (
                   <div className="w-6 h-6 relative">
@@ -82,7 +82,7 @@ export default function ProductHeader({
             </>
           )}
           {soldCount && soldCount > 0 && (
-            <span className="text-gray-600">{soldCount.toLocaleString()} sold</span>
+            <span className="text-gray-600">{soldCount.toLocaleString()} đã bán</span>
           )}
         </div>
       )}

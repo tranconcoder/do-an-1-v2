@@ -111,7 +111,7 @@ export default function ImageModal({
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-20 transition-opacity duration-200">
             <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3">
               <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              <span className="text-sm text-white">Loading image...</span>
+              <span className="text-sm text-white">Đang tải hình ảnh...</span>
             </div>
           </div>
         )}
@@ -164,7 +164,7 @@ export default function ImageModal({
             onClick={resetZoom}
             className="px-3 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all duration-200 text-xs text-white font-medium hover:scale-110"
           >
-            Reset
+            Đặt lại
           </button>
           
           {/* Zoom Level Indicator */}

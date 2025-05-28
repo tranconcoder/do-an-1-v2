@@ -20,8 +20,8 @@ export default function RelatedProducts({ relatedProducts, category, loading }: 
   return (
     <div className="mt-16">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Related Products</h2>
-        <p className="text-gray-600">Other products in {category[0].category_name}</p>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Sản phẩm liên quan</h2>
+        <p className="text-gray-600">Sản phẩm khác trong {category[0].category_name}</p>
       </div>
 
       {loading ? (

@@ -14,13 +14,13 @@ export default function ProductDescription({ description, attributes }: ProductD
     <div className="space-y-6">
       <div>
         <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
-          <Info className="h-5 w-5 mr-2 text-blue-600" /> Product Description
+          <Info className="h-5 w-5 mr-2 text-blue-600" /> Mô tả sản phẩm
         </h3>
         <div className="text-gray-700 leading-relaxed whitespace-pre-wrap prose prose-sm max-w-none">
           {description ? (
             <div dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br />') }} />
           ) : (
-            <p>No description available for this product.</p>
+            <p>Không có mô tả cho sản phẩm này.</p>
           )}
         </div>
       </div>
@@ -29,7 +29,7 @@ export default function ProductDescription({ description, attributes }: ProductD
         <div className="pt-2">
           <Separator className="!my-5" />
           <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
-            <Tag className="h-5 w-5 mr-2 text-blue-600" /> Specifications
+            <Tag className="h-5 w-5 mr-2 text-blue-600" /> Thông số kỹ thuật
           </h3>
           <ul className="space-y-1.5 text-sm">
             {attributes.map((attr: ProductAttribute, index: number) => (
