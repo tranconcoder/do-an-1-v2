@@ -260,3 +260,97 @@
 [2025-05-28T06:03:10.062Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
 [2025-05-28T06:03:11.304Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
 [2025-05-28T06:03:11.339Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T06:08:19.186Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T06:25:11.050Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T06:25:11.056Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T06:39:51.846Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T06:39:51.934Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T06:43:01.986Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T06:43:02.012Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:01:26.704Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:01:26.876Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:01:26.882Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:01:34.176Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:01:34.195Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:01:34.319Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:01:34.381Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:05:35.000Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:05:35.048Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:10:23.812Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:10:55.102Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:14:08.980Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:15:26.312Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:15:53.117Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:16:21.822Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:16:43.191Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:17:58.509Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:18:24.768Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:18:32.102Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:18:43.054Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:18:51.289Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:19:37.965Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:19:58.572Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:19:58.576Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:21:10.053Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T07:21:10.066Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T07:21:17.778Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T07:21:17.803Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T07:21:19.416Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:21:19.481Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:21:19.498Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:21:19.519Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:21:58.581Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:21:58.916Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:21:58.923Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:24:26.784Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:24:26.977Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:24:26.988Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:25:16.264Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:25:16.446Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:25:16.470Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:29:48.389Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T07:29:48.427Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T07:29:50.529Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:29:50.640Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:29:50.649Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:29:50.680Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:29:58.219Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T07:29:58.237Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T07:30:03.118Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:30:03.241Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:30:03.257Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:30:03.288Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:30:14.292Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:30:14.442Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:30:14.479Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:35:17.942Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:35:18.092Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:35:18.125Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:35:20.235Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:48:18.173Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:48:18.336Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:48:18.341Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:49:12.836Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:49:13.678Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:49:13.679Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:50:00.773Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:50:00.932Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T07:50:00.952Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:12:00.597Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:12:02.678Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T08:12:02.746Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T08:12:05.786Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:12:05.963Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:12:05.999Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:12:06.050Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:12:07.521Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:14:39.884Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:14:40.024Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:14:40.055Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:14:45.545Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:16:08.866Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:16:09.044Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:16:09.074Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:16:10.050Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:16:16.198Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:16:17.225Z] [error]: HIDE::400::ValidationError::"category" is not allowed::

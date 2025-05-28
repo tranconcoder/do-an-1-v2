@@ -57,7 +57,10 @@ export const checkoutSchema = new Schema<model.checkout.CheckoutSchema>(
                 total_price_raw: { type: Number, required },
                 total_discount_price: { type: Number, required }
             }
-        ]
+        ],
+
+        // Shipping ìnormation
+        ship_info: ObjectId,
     },
     {
         timestamps,

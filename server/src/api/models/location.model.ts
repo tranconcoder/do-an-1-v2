@@ -135,7 +135,14 @@ export const locationSchema = new Schema<model.location.LocationSchema>(
 
         address: { type: String, maxLength: 200, required },
 
-        text: { type: String, required }
+        text: { type: String, required },
+
+        // Coordinates
+        coordinates: {
+            x: { type: Number, required },
+            y: { type: Number, required }
+        }
+
     },
     {
         timestamps,

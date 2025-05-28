@@ -26,7 +26,8 @@ import {
   ProductActions,
   ShopInfo,
   ProductReviews,
-  RelatedProducts
+  RelatedProducts,
+  ProductNavigation
 } from '@/components/product-detail';
 
 // Review interface
@@ -95,15 +96,197 @@ export default function ProductDetailPage() {
     productName: product.spu_select.product_name
   } : null;
 
-  // Helper functions
-  const handleVariationChange = (attributeId: string, variationId: number) => {
-    setSelectedVariations(prev => ({
-      ...prev,
-      [attributeId]: variationId
-    }));
+  // Helper functions for variation logic
+  // B1: Initially show all options that exist in any sku_tier_idx
+  // B2: When making selections, disable options that don't have compatible SKUs
+  // B3: When selecting, keep compatible fields and remove incompatible ones
+  // B4: Allow deselection by clicking the same button again
+  
+  const getAllAvailableOptions = (variationIndex: number) => {
+    if (!product?.sku_others) return [];
+    
+    const availableOptions = new Set<number>();
+    
+    // Collect options from all other SKUs
+    product.sku_others.forEach(sku => {
+      if (sku.sku_tier_idx && sku.sku_tier_idx[variationIndex] !== undefined) {
+        availableOptions.add(sku.sku_tier_idx[variationIndex]);
+      }
+    });
+    
+    // Also include options from current SKU if it has sku_tier_idx
+    if (product.sku_tier_idx && product.sku_tier_idx[variationIndex] !== undefined) {
+      availableOptions.add(product.sku_tier_idx[variationIndex]);
+    }
+    
+    console.log(`Available options for variation ${variationIndex}:`, Array.from(availableOptions));
+    return Array.from(availableOptions);
   };
 
-  const handleImageModalOpen = (index: number = 0) => {
+  const getValidVariationOptions = (variationIndex: number) => {
+    if (!product?.sku_others || !product?.spu_select?.product_variations) return [];
+    
+    // If no selections made, return all available options
+    if (Object.keys(selectedVariations).length === 0) {
+      return getAllAvailableOptions(variationIndex);
+    }
+    
+    const validOptions = new Set<number>();
+    const allSkus = [...product.sku_others];
+    
+    // Add current SKU if it has sku_tier_idx
+    if (product.sku_tier_idx) {
+      allSkus.push(product as any);
+    }
+    
+    // Get options that are compatible with current selections
+    allSkus.forEach(sku => {
+      if (sku.sku_tier_idx && sku.sku_tier_idx[variationIndex] !== undefined) {
+        // Check if this SKU is compatible with current selections
+        let isCompatible = true;
+        Object.entries(selectedVariations).forEach(([varIdx, optIdx]) => {
+          const varIndex = parseInt(varIdx);
+          if (varIndex !== variationIndex && sku.sku_tier_idx[varIndex] !== optIdx) {
+            isCompatible = false;
+          }
+        });
+        
+        if (isCompatible) {
+          validOptions.add(sku.sku_tier_idx[variationIndex]);
+        }
+      }
+    });
+    
+    return Array.from(validOptions);
+  };
+
+  const isOptionDisabled = (variationIndex: number, optionIndex: number) => {
+    if (!product?.sku_others) return true;
+    
+    // B1: Check if this option exists in ANY SKU (including current SKU)
+    const allSkus = [...product.sku_others];
+    
+    // Add current SKU if it has sku_tier_idx
+    if (product.sku_tier_idx) {
+      allSkus.push(product as any);
+    }
+    
+    const optionExists = allSkus.some(sku => 
+      sku.sku_tier_idx && sku.sku_tier_idx[variationIndex] === optionIndex
+    );
+    
+    console.log(`Checking option ${optionIndex} for variation ${variationIndex}:`, {
+      optionExists,
+      selectedVariations,
+      allSkusCount: allSkus.length,
+      allSkuTierIdx: allSkus.map(sku => sku.sku_tier_idx)
+    });
+    
+    // If option doesn't exist in any SKU, disable it
+    if (!optionExists) return true;
+    
+    // B1: If no selections are made, enable ALL existing options (this is the key fix!)
+    if (Object.keys(selectedVariations).length === 0) {
+      console.log(`No selections made, enabling option ${optionIndex} for variation ${variationIndex}`);
+      return false;
+    }
+    
+    // B2: Check if selecting this option would have any compatible SKU
+    // We need to find at least one SKU that matches this option AND is compatible with other selections
+    const hasCompatibleSku = allSkus.some(sku => {
+      if (!sku.sku_tier_idx || sku.sku_tier_idx[variationIndex] !== optionIndex) {
+        return false;
+      }
+      
+      // Check if this SKU is compatible with OTHER current selections (not including current variationIndex)
+      return Object.entries(selectedVariations).every(([varIdx, optIdx]) => {
+        const varIndex = parseInt(varIdx);
+        // Skip the current variation we're testing
+        if (varIndex === variationIndex) return true;
+        // Check if this SKU matches the other selections
+        return sku.sku_tier_idx[varIndex] === optIdx;
+      });
+    });
+    
+    console.log(`Option ${optionIndex} for variation ${variationIndex} - hasCompatibleSku:`, hasCompatibleSku);
+    
+    return !hasCompatibleSku;
+  };
+
+  const findMatchingSku = (selections: {[key: string]: number}) => {
+    if (!product?.sku_others) return null;
+    
+    const allSkus = [...product.sku_others];
+    
+    // Add current SKU if it has sku_tier_idx
+    if (product.sku_tier_idx) {
+      allSkus.push(product as any);
+    }
+    
+    return allSkus.find(sku => {
+      if (!sku.sku_tier_idx) return false;
+      
+      // Check if all selections match this SKU's tier_idx
+      return Object.entries(selections).every(([varIdx, optIdx]) => {
+        const variationIndex = parseInt(varIdx);
+        return sku.sku_tier_idx[variationIndex] === optIdx;
+      });
+    });
+  };
+
+  const isSelectionComplete = (selections: {[key: string]: number}) => {
+    if (!product?.spu_select?.product_variations) return false;
+    return product.spu_select.product_variations.every((_, index) => 
+      selections[index.toString()] !== undefined
+    );
+  };
+
+  // Handle variation changes with improved logic
+  const handleVariationChange = (variationIndex: string, optionIndex: number) => {
+    setSelectedVariations(prev => {
+      const newSelections = { ...prev };
+      const varIdx = variationIndex;
+      
+      // B4: If clicking the same option, deselect it (allow deselection)
+      if (newSelections[varIdx] === optionIndex) {
+        delete newSelections[varIdx];
+        return newSelections;
+      }
+      
+      // B3: Set the new selection first
+      newSelections[varIdx] = optionIndex;
+      
+      // B3: Check each other variation to see if its current selection is still valid
+      Object.keys(newSelections).forEach(otherVarIdx => {
+        if (otherVarIdx !== varIdx) {
+          const otherOptionIndex = newSelections[otherVarIdx];
+          
+          // Get all SKUs including current SKU
+          const allSkus = [...(product?.sku_others || [])];
+          if (product?.sku_tier_idx) {
+            allSkus.push(product as any);
+          }
+          
+          // Check if there exists any SKU that matches the new selection AND the other selection
+          const isStillValid = allSkus.some(sku => {
+            if (!sku.sku_tier_idx) return false;
+            return sku.sku_tier_idx[parseInt(varIdx)] === optionIndex && 
+                   sku.sku_tier_idx[parseInt(otherVarIdx)] === otherOptionIndex;
+          });
+          
+          // If no SKU supports both selections, remove the other selection
+          if (!isStillValid) {
+            delete newSelections[otherVarIdx];
+          }
+        }
+      });
+      
+      return newSelections;
+    });
+  };
+
+  // Event handlers for user interactions
+  const handleImageModalOpen = (index: number) => {
     setCurrentImageIndex(index);
     setIsImageModalOpen(true);
   };
@@ -121,29 +304,39 @@ export default function ProductDetailPage() {
   };
 
   const handleAddToCart = () => {
-    // Add to cart logic
-    console.log('Add to cart:', product, selectedVariations);
+    // TODO: Implement add to cart functionality
+    console.log('Add to cart clicked', currentSku?._id);
   };
 
   const handleBuyNow = () => {
-    // Buy now logic
-    console.log('Buy now:', product, selectedVariations);
+    // TODO: Implement buy now functionality
+    console.log('Buy now clicked', currentSku?._id);
   };
 
-  const handleSubmitReview = (review: { rating: number; comment: string }) => {
-    // Submit review logic
-    console.log('Submit review:', review);
-    setShowReviewForm(false);
-    setNewReview({ rating: 5, comment: '' });
+  const handleSubmitReview = (reviewData: { rating: number; comment: string }) => {
+    // TODO: Implement review submission
+    console.log('Submit review:', reviewData);
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
+  // Update current SKU when selections change
+  useEffect(() => {
+    if (!product) return;
+    
+    if (isSelectionComplete(selectedVariations)) {
+      // Find matching SKU when selection is complete
+      const matchingSku = findMatchingSku(selectedVariations);
+      if (matchingSku) {
+        setCurrentSku(matchingSku);
+      }
+    } else {
+      // When selection is incomplete, show the first SKU or main product SKU
+      if (product.sku_others && product.sku_others.length > 0) {
+        setCurrentSku(product.sku_others[0]);
+      } else {
+        setCurrentSku(product);
+      }
+    }
+  }, [selectedVariations, product]);
 
   useEffect(() => {
     if (productId) {
@@ -154,11 +347,38 @@ export default function ProductDetailPage() {
         try {
           // Fetch product using SKU ID only
           const data = await productService.getSkuById(productId);
-          console.log({data})
+          console.log('Product fetch result:', {data})
           // The data should be the first item in metadata array
           const productData = Array.isArray(data) ? data[0] : data;
+          
+          // Debug: Log SKU information
+          console.log('Product loaded:', {
+            productId,
+            currentSku: productData,
+            allSkus: productData?.sku_others,
+            variations: productData?.spu_select?.product_variations
+          });
+          
+          if (productData?.sku_others) {
+            console.log('All available SKU tier indices:');
+            productData.sku_others.forEach((sku: any, index: number) => {
+              console.log(`SKU ${index}:`, sku.sku_tier_idx, sku._id);
+            });
+          }
+          
           setProduct(productData);
           setCurrentSku(productData);
+
+          // Initialize selectedVariations from current SKU's sku_tier_idx
+          if (productData?.sku_tier_idx && productData.spu_select?.product_variations) {
+            const initialSelections: {[key: string]: number} = {};
+            productData.sku_tier_idx.forEach((optionIndex: number, variationIndex: number) => {
+              if (optionIndex !== undefined && optionIndex !== null) {
+                initialSelections[variationIndex.toString()] = optionIndex;
+              }
+            });
+            setSelectedVariations(initialSelections);
+          }
 
           // Fetch shop information
           if (productData?.spu_select?.product_shop) {
@@ -342,6 +562,7 @@ export default function ProductDetailPage() {
                     variations={product.spu_select.product_variations}
                     selectedVariations={selectedVariations}
                     onVariationChange={handleVariationChange}
+                    isOptionDisabled={isOptionDisabled}
                   />
                 )}
 
@@ -398,6 +619,14 @@ export default function ProductDetailPage() {
                 loading={loadingRelated}
               />
             </div>
+          )}
+
+          {/* Product Navigation */}
+          {product?.spu_select?.product_category && currentSku?._id && (
+            <ProductNavigation
+              currentProductId={currentSku._id}
+              categoryId={product.spu_select.product_category}
+            />
           )}
         </div>
       </div>

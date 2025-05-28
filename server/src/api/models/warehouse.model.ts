@@ -12,7 +12,7 @@ export const warehouseSchema = new Schema<model.warehouse.WarehouseSchema>(
         address: { type: ObjectId, ref: LOCATION_MODEL_NAME, required },
         phoneNumber: { type: String, required },
         shop: { type: ObjectId, ref: USER_MODEL_NAME, required },
-        stock: { type: Number, default: 0 }
+        stock: { type: Number, default: 0 },
     },
     {
         timestamps: timestamps,

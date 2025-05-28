@@ -9,3 +9,4 @@ export { default as ProductActions } from './ProductActions';
 export { default as ShopInfo } from './ShopInfo';
 export { default as ProductReviews } from './ProductReviews';
 export { default as RelatedProducts } from './RelatedProducts';
+export { default as ProductNavigation } from './ProductNavigation';

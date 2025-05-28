@@ -54,6 +54,12 @@ declare global {
                     ward?: moduleTypes.mongoose.ObjectId;
                     address: string;
                     text: string;
+
+                    // Coordinates
+                    coordinates: {
+                        x: number;
+                        y: number;
+                    };
                 },
                 isModel,
                 isDoc,
