@@ -1,5 +1,6 @@
 import apiClient from '../axiosInstance'; // apiClient is our axiosInstance
 import { BACKEND_API_URL } from '../server.config'; // For potential direct image URLs if not using mediaService
+import { Category } from './categoryService';
 
 // Define a type for the product data if you have one, e.g.:
 // interface Product {
@@ -68,6 +69,7 @@ export interface ProductSkuDetail {
     _id: string;
   }>;
   shop?: ShopReference; // Expanded shop information if available
+  category?: Category[]; // Category information from lookup
   sku: {
     _id: string; // SKU ID
     sku_product: string; // SPU ID (links back to parent SPU)
@@ -198,8 +200,39 @@ const productService = {
   getSkuById: async (skuId: string): Promise<ProductSkuDetail> => {
     try {
       const response = await apiClient.get(`/sku/id/${skuId}`);
-      if (response.data && response.data.metadata) {
-        return response.data.metadata as ProductSkuDetail;
+      if (response.data && response.data.metadata && response.data.metadata.length > 0) {
+        const skuData = response.data.metadata[0];
+        const productData = skuData.spu_select;
+        
+        // Transform API response to match ProductSkuDetail interface
+        const transformedData: ProductSkuDetail = {
+          _id: productData._id, // SPU ID
+          product_name: productData.product_name,
+          product_quantity: productData.product_quantity || 0,
+          product_description: productData.product_description,
+          product_category: productData.product_category,
+          product_shop: productData.product_shop,
+          product_rating_avg: productData.product_rating_avg,
+          product_slug: productData.product_slug,
+          product_thumb: productData.product_thumb,
+          product_images: productData.product_images || [],
+          product_attributes: productData.product_attributes || [],
+          product_variations: productData.product_variations || [],
+          shop: productData.shop,
+          category: skuData.category || [], // Include category data from backend lookup
+          sku: {
+            _id: skuData._id, // SKU ID
+            sku_product: skuData.sku_product,
+            sku_price: skuData.sku_price,
+            sku_stock: skuData.sku_stock,
+            sku_thumb: skuData.sku_thumb,
+            sku_images: skuData.sku_images || [],
+            sku_value: skuData.sku_value || []
+          },
+          sold_count: productData.product_sold || productData.sold_count
+        };
+        
+        return transformedData;
       }
       throw new Error("SKU data not found in the expected format");
     } catch (error) {
@@ -209,23 +242,21 @@ const productService = {
   },
 
   /**
-   * Fetches all SKUs for a given SPU (product) ID.
-   * @param {string} spuId - The ID of the SPU to fetch SKUs for.
-   * @returns {Promise<ProductSku[]>} A promise that resolves to an array of SKUs for the product.
+   * Fetches SKUs by category ID.
+   * @param {string} categoryId - The ID of the category.
+   * @param {number} limit - The maximum number of SKUs to fetch.
+   * @returns {Promise<ProductSku[]>} A promise that resolves to the SKUs data.
    */
-  getSkusBySpuId: async (spuId: string): Promise<ProductSku[]> => {
+  getSkusByCategory: async (categoryId: string, limit: number = 8): Promise<ProductSku[]> => {
     try {
-      // This endpoint might need to be created on the backend
-      const response = await apiClient.get(`/sku/spu/${spuId}`);
-      if (response.data && response.data.metadata) {
-        return response.data.metadata as ProductSku[];
-      }
-      throw new Error("SKUs data not found in the expected format");
+      const response = await apiClient.get(`/sku?category=${categoryId}&limit=${limit}`);
+      return response.data.metadata || [];
     } catch (error) {
-      console.error(`Error fetching SKUs for SPU ID ${spuId}:`, error);
+      console.error(`Error fetching SKUs for category ${categoryId}:`, error);
       throw error;
     }
   },
+
 
 };
 

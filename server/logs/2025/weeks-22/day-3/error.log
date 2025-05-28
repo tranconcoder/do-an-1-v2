@@ -43,3 +43,82 @@
     "message": "Required"
   }
 ]::
+[2025-05-28T00:15:02.048Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-28T00:15:02.064Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-28T00:40:17.105Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T00:41:49.344Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T00:43:33.846Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-05-28T00:43:33.858Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-05-28T00:43:41.498Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.spus index: product_slug_1 dup key: { product_slug: "iphone-16-pro-max" }::
+[2025-05-28T00:43:51.907Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-05-28T00:44:01.017Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:44:06.737Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T00:44:06.783Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T00:44:43.328Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.spus index: product_slug_1 dup key: { product_slug: "iphone-16-pro-max" }::
+[2025-05-28T00:48:24.553Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:24.576Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:24.577Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:24.586Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:24.587Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:24.640Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:24.641Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:24.743Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:24.743Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:24.896Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:24.897Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:25.099Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:25.100Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:25.353Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:25.354Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-28T00:48:25.656Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:26.007Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:26.408Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:26.859Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:27.361Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:27.863Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:28.365Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:28.869Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:29.370Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:29.873Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:30.376Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:30.878Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:31.379Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:31.883Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:48:32.385Z] [error]: Redis error: Error: Failed to connect
+[2025-05-28T00:49:34.905Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.spus index: product_slug_1 dup key: { product_slug: "iphone-16-pro-max" }::
+[2025-05-28T00:49:52.318Z] [error]: HIDE::400::BadRequest::Create SKU failed!::
+[2025-05-28T00:49:57.466Z] [error]: HIDE::400::BadRequest::Create SKU failed!::
+[2025-05-28T00:50:17.012Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T00:50:20.747Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:20.748Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:20.754Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:20.757Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:20.771Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:20.783Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:30.635Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:30.638Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:30.644Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:30.645Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:30.650Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:30.659Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:39.765Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:39.772Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:39.776Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:39.778Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:39.790Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:50:39.792Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T00:52:26.291Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T00:52:38.264Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T00:52:38.281Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T00:52:41.303Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T00:52:41.334Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T00:52:56.474Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T01:06:35.867Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T01:06:39.817Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:06:39.822Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:06:40.973Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T01:06:41.017Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T01:06:55.204Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T01:06:55.235Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T01:06:57.065Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T01:06:57.124Z] [error]: HIDE::400::ValidationError::"category" is not allowed::

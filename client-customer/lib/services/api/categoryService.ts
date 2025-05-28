@@ -2,9 +2,15 @@ import axiosInstance from "../axiosInstance";
 
 export interface Category {
   _id: string;
-  category_name: string; // Assuming name field from backend
-  category_icon: string; // Assuming this will be a URL or a path
-  // Add other fields if known, e.g., category_description, parent_id, etc.
+  category_name: string;
+  category_icon: string; // Media ID for the icon
+  category_slug: string;
+  category_description: string;
+  category_parent?: string; // Parent category ID
+  category_level: number;
+  category_order: number;
+  category_product_count: number;
+  is_active: boolean;
 }
 
 interface GetCategoriesResponse {

@@ -78,7 +78,7 @@ export default function ProductsPage() {
       setIsWishlistLoading(true);
       try {
         const wishlistData = await wishlistService.getWishlist();
-        const productIds = new Set(wishlistData.map(item => item.productId));
+        const productIds = new Set(wishlistData.map(item => item._id));
         setWishlistedProductIds(productIds);
       } catch (error) {
         console.error("Failed to fetch wishlist:", error);
@@ -397,10 +397,14 @@ export default function ProductsPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {products.map((product) => {
                     const shopInfo = shopDetailsMap[product.product_shop];
-                    const imageUrl = product.product_thumb || (product.sku && product.sku.sku_thumb);
+                    // Prioritize SKU images over product images
+                    const imageUrl = (product.sku && product.sku.sku_thumb) || product.product_thumb;
+                    // Use SKU price if available
+                    const currentPrice = product.sku?.sku_price || 0;
+                    const currentStock = product.sku?.sku_stock || 0;
                     return (
-                    <div key={product._id} className="group bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
-                        <Link href={`/products/${product._id}`} className="block">
+                    <div key={product.sku._id} className="group bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
+                        <Link href={`/products/${product.sku._id}`} className="block">
                         <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
                             <NextImage
                             src={imageUrl ? mediaService.getMediaUrl(imageUrl) : '/placeholder-image.svg'}
@@ -419,30 +423,60 @@ export default function ProductsPage() {
                         <div className="p-4 flex flex-col flex-grow">
                         <div className="flex items-center gap-2 mb-1.5">
                             {shopInfo ? (
-                            <NextImage 
-                                src={shopInfo.avatarMediaId ? mediaService.getMediaUrl(shopInfo.avatarMediaId) : '/placeholder-person.svg'} 
-                                alt={shopInfo.name} 
-                                width={20} 
-                                height={20} 
-                                className="rounded-full bg-gray-200 object-cover"
-                                onError={(e) => { 
-                                    const target = e.target as HTMLImageElement;
-                                    target.src = '/placeholder-person.svg'; 
-                                    target.srcset = '';
-                                }}
-                            />
+                            <Link href={`/shop/${product.product_shop}`} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                                <NextImage 
+                                    src={shopInfo.avatarMediaId ? mediaService.getMediaUrl(shopInfo.avatarMediaId) : '/placeholder-person.svg'} 
+                                    alt={shopInfo.name} 
+                                    width={20} 
+                                    height={20} 
+                                    className="rounded-full bg-gray-200 object-cover"
+                                    onError={(e) => { 
+                                        const target = e.target as HTMLImageElement;
+                                        target.src = '/placeholder-person.svg'; 
+                                        target.srcset = '';
+                                    }}
+                                />
+                                <span className="text-xs text-gray-500 group-hover:text-blue-600 transition-colors truncate">
+                                    {shopInfo.name}
+                                </span>
+                            </Link>
                             ) : loadingShopDetails && !shopDetailsMap[product.product_shop] ? (
-                                <Skeleton className="w-5 h-5 rounded-full" />
+                                <div className="flex items-center gap-2">
+                                    <Skeleton className="w-5 h-5 rounded-full" />
+                                    <Skeleton className="h-3 w-16" />
+                                </div>
                             ) : (
-                                <Store className="w-5 h-5 text-gray-400" /> 
+                                <div className="flex items-center gap-2">
+                                    <Store className="w-5 h-5 text-gray-400" />
+                                    <span className="text-xs text-gray-500">{product.product_shop}</span>
+                                </div>
                             )}
-                            <span className="text-xs text-gray-500 group-hover:text-blue-600 transition-colors truncate">
-                                {shopInfo ? shopInfo.name : (loadingShopDetails && !shopDetailsMap[product.product_shop] ? <Skeleton className="h-3 w-16" /> : product.product_shop)}
+                        </div>
+                        
+                        <h3 className="text-sm font-semibold text-gray-800 group-hover:text-blue-700 transition-colors mb-1 truncate h-10 flex items-center" title={product.product_name}>
+                            <Link href={`/products/${product.sku._id}`}>{product.product_name}</Link>
+                        </h3>
+
+                        {/* SKU Variation Information */}
+                        {product.sku.sku_value && product.sku.sku_value.length > 0 && (
+                            <div className="mb-2">
+                                <div className="flex flex-wrap gap-1">
+                                    {product.sku.sku_value.map((variation, index) => (
+                                        <span key={index} className="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded border border-blue-200">
+                                            {variation.key}: {variation.value}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Price Information */}
+                        <div className="mb-2">
+                            <span className="text-lg font-bold text-blue-600">
+                                ${currentPrice.toFixed(2)}
                             </span>
                         </div>
-                        <h3 className="text-sm font-semibold text-gray-800 group-hover:text-blue-700 transition-colors mb-1 truncate h-10 flex items-center" title={product.product_name}>
-                            <Link href={`/products/${product._id}`}>{product.product_name}</Link>
-                        </h3>
+                        
                          {product.product_rating_avg !== undefined ? (
                             <div className="flex items-center gap-1 mb-1.5">
                             {[...Array(5)].map((_, i) => (
@@ -457,23 +491,34 @@ export default function ProductsPage() {
                             <div className="h-[1.125rem] mb-1.5"></div>
                         )}
 
-                        {product.sku && product.sku.sku_stock !== undefined ? (
-                            product.sku.sku_stock > 0 ? (
-                                <div className="text-xs text-gray-500 mb-3">
-                                    {product.sku.sku_stock.toLocaleString()} in stock
+                        {/* Stock Information */}
+                        <div className="mb-3">
+                            {currentStock > 0 ? (
+                                <div className="text-xs text-green-600 font-medium">
+                                    <span className="inline-flex items-center gap-1">
+                                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                        {currentStock.toLocaleString()} in stock
+                                    </span>
                                 </div>
                             ) : (
-                                <div className="text-xs text-red-500 font-medium mb-3">
-                                    Out of stock
+                                <div className="text-xs text-red-500 font-medium">
+                                    <span className="inline-flex items-center gap-1">
+                                        <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                                        Out of stock
+                                    </span>
                                 </div>
-                            )
-                        ) : (
-                            <div className="h-[1rem] mb-3"></div>
-                        )}
+                            )}
+                        </div>
 
                         <div className="mt-auto flex flex-col gap-2 pt-2">
                             <div className="flex gap-2">
-                                <Button variant="outline" size="sm" className="h-9 w-full hover:bg-blue-500 hover:text-white group">
+                                <Button 
+                                    variant="outline" 
+                                    size="sm" 
+                                    className="h-9 w-full hover:bg-blue-500 hover:text-white group"
+                                    disabled={currentStock === 0}
+                                    onClick={() => console.log('Add to cart:', product.sku._id)}
+                                >
                                     <ShoppingCart className="h-4 w-4 mr-2" /> Add to Cart
                                 </Button>
                                 <Button 

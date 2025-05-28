@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import NextImage from 'next/image'; // Aliased to avoid conflict if any
 import Link from 'next/link';
-import { ChevronLeft, ShoppingCart, Zap, Star, Package, AlertTriangle, Info, Tag, LayoutGrid, Heart, Palette } from 'lucide-react';
+import { ChevronLeft, ShoppingCart, Zap, Star, Package, AlertTriangle, Info, Tag, LayoutGrid, Heart, Palette, FolderOpen, MessageSquare, ThumbsUp, User, Calendar, ZoomIn, ZoomOut, X, ChevronRight, ChevronLeft as ChevronLeftIcon, Maximize2 } from 'lucide-react';
 
 import productService, { ProductSkuDetail, ProductSku } from '@/lib/services/api/productService'; // Updated to use SKU interface
 import { mediaService } from '@/lib/services/api/mediaService';
@@ -13,6 +13,29 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
+
+// Review interface
+interface Review {
+  _id: string;
+  user_name: string;
+  user_avatar?: string;
+  rating: number;
+  comment: string;
+  created_at: string;
+  helpful_count?: number;
+  images?: string[];
+}
+
+// Rating breakdown interface
+interface RatingBreakdown {
+  5: number;
+  4: number;
+  3: number;
+  2: number;
+  1: number;
+  total: number;
+  average: number;
+}
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -23,8 +46,22 @@ export default function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [availableSkus, setAvailableSkus] = useState<ProductSku[]>([]);
   const [selectedSkuId, setSelectedSkuId] = useState<string | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<ProductSku[]>([]);
+  const [loadingRelated, setLoadingRelated] = useState(false);
+  
+  // Review states
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [loadingReviews, setLoadingReviews] = useState(false);
+  const [ratingBreakdown, setRatingBreakdown] = useState<RatingBreakdown | null>(null);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [newReview, setNewReview] = useState({ rating: 5, comment: '' });
+  
+  // Image preview states
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageZoom, setImageZoom] = useState(1);
+  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   // const [isWishlisted, setIsWishlisted] = useState(false); // For future wishlist functionality
 
   useEffect(() => {
@@ -33,61 +70,81 @@ export default function ProductDetailPage() {
         setLoading(true);
         setError(null);
         setProduct(null);
-        setAvailableSkus([]);
         try {
-          // First try to fetch as SKU ID
+          // Fetch product using SKU ID only
+          const data = await productService.getSkuById(productId);
+          console.log({data})
+          setProduct(data);
+          setSelectedSkuId(data.sku?._id || productId);
+
+          // Fetch related products by category
+          if (data.product_category) {
+            setLoadingRelated(true);
+            try {
+              const related = await productService.getSkusByCategory(data.product_category, 8);
+              // Filter out current product
+              const filteredRelated = related.filter(p => p.sku._id !== data.sku._id);
+              setRelatedProducts(filteredRelated);
+            } catch (relatedError) {
+              console.error('Failed to fetch related products:', relatedError);
+            } finally {
+              setLoadingRelated(false);
+            }
+          }
+
+          // Fetch reviews (mock data for now)
+          setLoadingReviews(true);
           try {
-            const data = await productService.getSkuById(productId);
-            setProduct(data);
-            setSelectedSkuId(data.sku?._id || productId);
-            
-            // Try to fetch other SKUs for this product
-            try {
-              const skus = await productService.getSkusBySpuId(data._id);
-              setAvailableSkus(skus);
-            } catch (skuError) {
-              // Ignore if endpoint doesn't exist or fails
-              console.log('Could not fetch additional SKUs:', skuError);
-            }
-            
-          } catch (skuError) {
-            // If SKU fetch fails, try as SPU ID and get first available SKU
-            try {
-              const skus = await productService.getSkusBySpuId(productId);
-              if (skus.length > 0) {
-                // Convert first SKU to ProductSkuDetail format
-                const firstSku = skus[0];
-                const skuDetailData = await productService.getSkuById(firstSku.sku._id);
-                setProduct(skuDetailData);
-                setSelectedSkuId(firstSku.sku._id);
-                setAvailableSkus(skus);
-              } else {
-                throw new Error('No SKUs found for this product');
+            // Mock reviews data
+            const mockReviews: Review[] = [
+              {
+                _id: '1',
+                user_name: 'John Doe',
+                user_avatar: '',
+                rating: 5,
+                comment: 'Excellent product! Highly recommended. The quality is outstanding and it arrived quickly.',
+                created_at: '2024-01-15T10:30:00Z',
+                helpful_count: 12,
+                images: []
+              },
+              {
+                _id: '2',
+                user_name: 'Jane Smith',
+                user_avatar: '',
+                rating: 4,
+                comment: 'Good value for money. Works as expected but could be improved.',
+                created_at: '2024-01-10T14:22:00Z',
+                helpful_count: 8,
+                images: []
+              },
+              {
+                _id: '3',
+                user_name: 'Mike Johnson',
+                user_avatar: '',
+                rating: 5,
+                comment: 'Perfect! Exactly what I was looking for.',
+                created_at: '2024-01-08T09:15:00Z',
+                helpful_count: 5,
+                images: []
               }
-            } catch (spuError) {
-              // If both fail, try the old SPU detail endpoint as fallback
-              const data = await productService.getProductById(productId);
-              // Convert ProductDetail to ProductSkuDetail format
-              const convertedData: ProductSkuDetail = {
-                ...data,
-                product_category: data.product_category || '', // Ensure it's not undefined
-                product_shop: data.shop?._id || '',
-                product_slug: data.product_name.toLowerCase().replace(/\s+/g, '-'),
-                sku: {
-                  _id: productId, // Use product ID as SKU ID fallback
-                  sku_product: data._id,
-                  sku_price: data.product_price,
-                  sku_stock: data.product_quantity,
-                  sku_thumb: data.product_thumb,
-                  sku_images: data.product_images,
-                  sku_value: []
-                },
-                product_variations: [],
-                product_rating_avg: data.product_ratingsAverage
-              };
-              setProduct(convertedData);
-              setSelectedSkuId(productId);
-            }
+            ];
+            
+            setReviews(mockReviews);
+            
+            // Mock rating breakdown
+            setRatingBreakdown({
+              5: 15,
+              4: 8,
+              3: 2,
+              2: 1,
+              1: 0,
+              total: 26,
+              average: 4.4
+            });
+          } catch (reviewError) {
+            console.error('Failed to fetch reviews:', reviewError);
+          } finally {
+            setLoadingReviews(false);
           }
           
         } catch (err) {
@@ -118,31 +175,76 @@ export default function ProductDetailPage() {
     }
   }, [product]);
 
-  // Handle SKU selection when multiple SKUs are available
-  const handleSkuSelection = async (skuId: string) => {
-    if (skuId === selectedSkuId) return;
-    
-    setLoading(true);
-    try {
-      const data = await productService.getSkuById(skuId);
-      setProduct(data);
-      setSelectedSkuId(skuId);
-      
-      // Update selected image for new SKU
-      if (data.sku?.sku_thumb) {
-        setSelectedImage(mediaService.getMediaUrl(data.sku.sku_thumb));
-      } else if (data.product_thumb) {
-        setSelectedImage(mediaService.getMediaUrl(data.product_thumb));
-      }
-    } catch (err) {
-      console.error('Failed to switch SKU:', err);
-    } finally {
-      setLoading(false);
+  const handleThumbnailClick = (imageId: string) => {
+    setSelectedImage(mediaService.getMediaUrl(imageId));
+  };
+
+  // Image preview functions
+  const openImageModal = (imageIndex: number) => {
+    setCurrentImageIndex(imageIndex);
+    setIsImageModalOpen(true);
+    setImageZoom(1);
+    setImagePosition({ x: 0, y: 0 });
+  };
+
+  const closeImageModal = () => {
+    setIsImageModalOpen(false);
+    setImageZoom(1);
+    setImagePosition({ x: 0, y: 0 });
+  };
+
+  const nextImage = () => {
+    if (currentImageIndex < allImages.length - 1) {
+      setCurrentImageIndex(currentImageIndex + 1);
+      setImageZoom(1);
+      setImagePosition({ x: 0, y: 0 });
     }
   };
 
-  const handleThumbnailClick = (imageId: string) => {
-    setSelectedImage(mediaService.getMediaUrl(imageId));
+  const prevImage = () => {
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(currentImageIndex - 1);
+      setImageZoom(1);
+      setImagePosition({ x: 0, y: 0 });
+    }
+  };
+
+  const zoomIn = () => {
+    setImageZoom(prev => Math.min(prev + 0.5, 3));
+  };
+
+  const zoomOut = () => {
+    setImageZoom(prev => Math.max(prev - 0.5, 0.5));
+  };
+
+  const resetZoom = () => {
+    setImageZoom(1);
+    setImagePosition({ x: 0, y: 0 });
+  };
+
+  // Review functions
+  const handleSubmitReview = () => {
+    if (newReview.comment.trim()) {
+      const review: Review = {
+        _id: Date.now().toString(),
+        user_name: 'Current User', // Would come from auth context
+        rating: newReview.rating,
+        comment: newReview.comment,
+        created_at: new Date().toISOString(),
+        helpful_count: 0
+      };
+      setReviews(prev => [review, ...prev]);
+      setNewReview({ rating: 5, comment: '' });
+      setShowReviewForm(false);
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
   };
 
   // const toggleWishlist = () => setIsWishlisted(!isWishlisted);
@@ -220,16 +322,16 @@ export default function ProductDetailPage() {
 
   // Combine SKU and SPU images with SKU images taking priority
   const allImages = [
-    ...(product.sku?.sku_thumb ? [product.sku.sku_thumb] : []),
-    ...(product.sku?.sku_images || []),
-    ...(product.product_thumb && !product.sku?.sku_thumb ? [product.product_thumb] : []),
-    ...(product.product_images || [])
+    ...(product?.sku?.sku_thumb ? [product.sku.sku_thumb] : []),
+    ...(product?.sku?.sku_images || []),
+    ...(product?.product_thumb && !product?.sku?.sku_thumb ? [product.product_thumb] : []),
+    ...(product?.product_images || [])
   ].filter((img, index, arr) => img && arr.indexOf(img) === index); // Remove duplicates
 
   // Get current price and stock from SKU
-  const currentPrice = product.sku?.sku_price || product.salePrice || 0;
-  const currentStock = product.sku?.sku_stock || 0;
-  const displayThumb = product.sku?.sku_thumb || product.product_thumb;
+  const currentPrice = product?.sku?.sku_price || product?.salePrice || 0;
+  const currentStock = product?.sku?.sku_stock || 0;
+  const displayThumb = product?.sku?.sku_thumb || product?.product_thumb;
 
   return (
     <>
@@ -246,23 +348,33 @@ export default function ProductDetailPage() {
 
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
           <div className='md:sticky md:top-24'>
-            <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-50 shadow-sm mb-3">
+            <div 
+              className="relative aspect-square w-full overflow-hidden rounded-lg border border-gray-200 bg-gray-50 shadow-sm mb-3 cursor-zoom-in group"
+              onClick={() => openImageModal(0)}
+            >
               {selectedImage ? (
-                <NextImage // Use aliased import
-                  src={selectedImage}
-                  alt={product.product_name}
-                  layout="fill"
-                  objectFit="contain"
-                  className="transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-                  onLoadingComplete={(image) => image.classList.remove('opacity-0')}
-                  onError={() => {
-                    // Attempt to load placeholder if selectedImage fails
-                    if (selectedImage !== '/placeholder.svg') {
-                        setSelectedImage('/placeholder.svg');
-                    }
-                  }}
-                priority
-              />
+                <>
+                  <NextImage // Use aliased import
+                    src={selectedImage}
+                    alt={product.product_name}
+                    layout="fill"
+                    objectFit="contain"
+                    className="transition-opacity duration-300 opacity-0 group-hover:opacity-90"
+                    onLoadingComplete={(image) => image.classList.remove('opacity-0')}
+                    onError={() => {
+                      // Attempt to load placeholder if selectedImage fails
+                      if (selectedImage !== '/placeholder.svg') {
+                          setSelectedImage('/placeholder.svg');
+                      }
+                    }}
+                  priority
+                />
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white bg-opacity-90 rounded-full p-2">
+                      <Maximize2 className="w-6 h-6 text-gray-700" />
+                    </div>
+                  </div>
+                </>
               ) : (
                 <div className="w-full h-full flex items-center justify-center bg-gray-100">
                   <LayoutGrid className="w-20 h-20 text-gray-300" />
@@ -304,6 +416,43 @@ export default function ProductDetailPage() {
                     <Heart className={`w-6 h-6 ${isWishlisted ? 'fill-red-500 text-red-500' : ''}`} />
                 </Button> */}
           </div>
+
+            {/* Category Information */}
+            {product.category && product.category.length > 0 && (
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg border border-green-200">
+                <div className="flex items-center gap-3">
+                  <FolderOpen className="h-5 w-5 text-green-600" />
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Category</p>
+                    <div className="flex items-center gap-2">
+                      {product.category[0].category_icon && (
+                        <div className="w-6 h-6 relative">
+                          <NextImage
+                            src={mediaService.getMediaUrl(product.category[0].category_icon)}
+                            alt={product.category[0].category_name}
+                            layout="fill"
+                            objectFit="contain"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                            }}
+                          />
+                        </div>
+                      )}
+                      <Link 
+                        href={`/categories?category=${product.category[0]._id}`}
+                        className="text-green-700 font-semibold hover:text-green-800 transition-colors"
+                      >
+                        {product.category[0].category_name}
+                      </Link>
+                    </div>
+                    {product.category[0].category_description && (
+                      <p className="text-sm text-gray-600 mt-1">{product.category[0].category_description}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {(product.product_rating_avg || (product.sold_count && product.sold_count > 0)) && (
                 <div className="flex items-center gap-3 text-sm">
@@ -372,61 +521,6 @@ export default function ProductDetailPage() {
                       <span className="text-sm font-medium text-gray-700">{variation.key}:</span>
                       <span className="text-sm text-blue-700 font-semibold ml-1">{variation.value}</span>
                     </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Available SKUs/Variations Selector */}
-            {availableSkus.length > 1 && (
-              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
-                  <Tag className="h-5 w-5 mr-2 text-gray-600" /> Available Variations
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {availableSkus.map((skuItem) => (
-                    <button
-                      key={skuItem.sku._id}
-                      onClick={() => handleSkuSelection(skuItem.sku._id)}
-                      className={`p-3 rounded-md border-2 transition-all duration-200 text-left ${
-                        selectedSkuId === skuItem.sku._id
-                          ? 'border-blue-500 bg-blue-50'
-                          : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="relative w-12 h-12 rounded-md overflow-hidden bg-gray-100 flex-shrink-0">
-                          <NextImage
-                            src={mediaService.getMediaUrl(skuItem.sku.sku_thumb)}
-                            alt="SKU thumbnail"
-                            layout="fill"
-                            objectFit="cover"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.src = '/placeholder.svg';
-                            }}
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex flex-wrap gap-1 mb-1">
-                            {skuItem.sku.sku_value.map((variation, index) => (
-                              <span
-                                key={index}
-                                className="text-xs bg-gray-200 px-2 py-0.5 rounded-full text-gray-700"
-                              >
-                                {variation.value}
-                              </span>
-                            ))}
-                          </div>
-                          <p className="text-sm font-semibold text-blue-600">
-                            ${skuItem.sku.sku_price.toFixed(2)}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {skuItem.sku.sku_stock > 0 ? `${skuItem.sku.sku_stock} in stock` : 'Out of stock'}
-                          </p>
-                        </div>
-                      </div>
-                    </button>
                   ))}
                 </div>
               </div>
@@ -516,6 +610,410 @@ export default function ProductDetailPage() {
             </div>
           </div>
         </div>
+
+        {/* Reviews Section */}
+        <div className="mt-16">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-2 flex items-center">
+              <MessageSquare className="mr-3 h-6 w-6 text-blue-600" />
+              Customer Reviews
+            </h2>
+            {ratingBreakdown && (
+              <div className="flex items-center gap-4 text-sm text-gray-600">
+                <span>{ratingBreakdown.average.toFixed(1)} out of 5 stars</span>
+                <span>•</span>
+                <span>{ratingBreakdown.total} reviews</span>
+              </div>
+            )}
+          </div>
+
+          {loadingReviews ? (
+            <div className="space-y-4">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="border rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Skeleton className="w-10 h-10 rounded-full" />
+                    <div className="flex-1">
+                      <Skeleton className="h-4 w-24 mb-1" />
+                      <Skeleton className="h-3 w-16" />
+                    </div>
+                  </div>
+                  <Skeleton className="h-4 w-full mb-2" />
+                  <Skeleton className="h-4 w-3/4" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Rating Breakdown */}
+              {ratingBreakdown && (
+                <div className="lg:col-span-1">
+                  <div className="bg-white border rounded-lg p-6">
+                    <h3 className="text-lg font-semibold mb-4">Rating Breakdown</h3>
+                    <div className="space-y-3">
+                      {[5, 4, 3, 2, 1].map((rating) => (
+                        <div key={rating} className="flex items-center gap-2">
+                          <span className="text-sm w-3">{rating}</span>
+                          <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                          <div className="flex-1 bg-gray-200 rounded-full h-2">
+                            <div 
+                              className="bg-yellow-400 h-2 rounded-full" 
+                              style={{ width: `${(ratingBreakdown[rating as keyof typeof ratingBreakdown] / ratingBreakdown.total) * 100}%` }}
+                            />
+                          </div>
+                          <span className="text-sm text-gray-600 w-8">{ratingBreakdown[rating as keyof typeof ratingBreakdown]}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Write Review Button */}
+                    <Button 
+                      onClick={() => setShowReviewForm(!showReviewForm)}
+                      className="w-full mt-6 bg-blue-600 hover:bg-blue-700"
+                    >
+                      Write a Review
+                    </Button>
+
+                    {/* Review Form */}
+                    {showReviewForm && (
+                      <div className="mt-4 p-4 border rounded-lg bg-gray-50">
+                        <div className="mb-4">
+                          <label className="block text-sm font-medium mb-2">Rating</label>
+                          <div className="flex gap-1">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <Star
+                                key={star}
+                                className={`w-6 h-6 cursor-pointer transition-colors ${
+                                  star <= newReview.rating 
+                                    ? 'text-yellow-400 fill-yellow-400' 
+                                    : 'text-gray-300 hover:text-yellow-300'
+                                }`}
+                                onClick={() => setNewReview(prev => ({ ...prev, rating: star }))}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        <div className="mb-4">
+                          <label className="block text-sm font-medium mb-2">Your Review</label>
+                          <textarea
+                            className="w-full p-3 border rounded-md resize-none"
+                            rows={4}
+                            placeholder="Share your experience with this product..."
+                            value={newReview.comment}
+                            onChange={(e) => setNewReview(prev => ({ ...prev, comment: e.target.value }))}
+                          />
+                        </div>
+                        <div className="flex gap-2">
+                          <Button onClick={handleSubmitReview} size="sm">
+                            Submit Review
+                          </Button>
+                          <Button 
+                            onClick={() => setShowReviewForm(false)} 
+                            variant="outline" 
+                            size="sm"
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Reviews List */}
+              <div className="lg:col-span-2">
+                <div className="space-y-6">
+                  {reviews.length > 0 ? (
+                    reviews.map((review) => (
+                      <div key={review._id} className="bg-white border rounded-lg p-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                              <User className="w-5 h-5 text-blue-600" />
+                            </div>
+                            <div>
+                              <h4 className="font-medium text-gray-800">{review.user_name}</h4>
+                              <div className="flex items-center gap-2 mt-1">
+                                <div className="flex gap-0.5">
+                                  {[...Array(5)].map((_, i) => (
+                                    <Star
+                                      key={i}
+                                      className={`w-4 h-4 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                                    />
+                                  ))}
+                                </div>
+                                <span className="text-sm text-gray-500">
+                                  {formatDate(review.created_at)}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <p className="text-gray-700 leading-relaxed mb-4">
+                          {review.comment}
+                        </p>
+
+                        {review.images && review.images.length > 0 && (
+                          <div className="flex gap-2 mb-4">
+                            {review.images.map((img, index) => (
+                              <div key={index} className="w-16 h-16 rounded border overflow-hidden">
+                                <NextImage
+                                  src={mediaService.getMediaUrl(img)}
+                                  alt={`Review image ${index + 1}`}
+                                  width={64}
+                                  height={64}
+                                  objectFit="cover"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                          <button className="flex items-center gap-1 hover:text-blue-600 transition-colors">
+                            <ThumbsUp className="w-4 h-4" />
+                            Helpful ({review.helpful_count || 0})
+                          </button>
+                          <span>•</span>
+                          <span>Verified Purchase</span>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-center py-12 text-gray-500">
+                      <MessageSquare className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                      <h3 className="text-lg font-medium text-gray-700 mb-2">No reviews yet</h3>
+                      <p>Be the first to review this product!</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Related Products Section */}
+        {product.category && product.category.length > 0 && (
+          <div className="mt-16">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">Related Products</h2>
+              <p className="text-gray-600">Other products in {product.category[0].category_name}</p>
+            </div>
+
+            {loadingRelated ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="border rounded-lg p-4">
+                    <Skeleton className="w-full aspect-square rounded mb-3" />
+                    <Skeleton className="h-4 w-3/4 mb-2" />
+                    <Skeleton className="h-4 w-1/2 mb-2" />
+                    <Skeleton className="h-6 w-1/3" />
+                  </div>
+                ))}
+              </div>
+            ) : relatedProducts.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {relatedProducts.map((relatedProduct) => (
+                  <Link 
+                    key={relatedProduct.sku._id}
+                    href={`/products/${relatedProduct.sku._id}`}
+                    className="group border rounded-lg overflow-hidden hover:shadow-lg transition-shadow bg-white"
+                  >
+                    <div className="relative aspect-square overflow-hidden bg-gray-50">
+                      <NextImage
+                        src={mediaService.getMediaUrl(relatedProduct.sku.sku_thumb || relatedProduct.product_thumb)}
+                        alt={relatedProduct.product_name}
+                        layout="fill"
+                        objectFit="cover"
+                        className="group-hover:scale-105 transition-transform duration-300"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/placeholder.svg';
+                        }}
+                      />
+                    </div>
+                    <div className="p-3">
+                      <h3 className="text-sm font-medium text-gray-800 mb-1 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                        {relatedProduct.product_name}
+                      </h3>
+                      {relatedProduct.product_rating_avg && relatedProduct.product_rating_avg > 0 && (
+                        <div className="flex items-center gap-1 mb-2">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`h-3 w-3 ${i < Math.round(relatedProduct.product_rating_avg!) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                            />
+                          ))}
+                          <span className="text-xs text-gray-600 ml-1">
+                            ({relatedProduct.product_rating_avg.toFixed(1)})
+                          </span>
+                        </div>
+                      )}
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-bold text-blue-700">
+                          ${relatedProduct.sku.sku_price.toFixed(2)}
+                        </span>
+                        {relatedProduct.sold_count && relatedProduct.sold_count > 0 && (
+                          <span className="text-xs text-gray-500">
+                            {relatedProduct.sold_count} sold
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                <LayoutGrid className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                <p>No related products found in this category.</p>
+              </div>
+            )}
+          </div>
+        )}
+        
+        {/* Image Preview Modal */}
+        {isImageModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90">
+            <div className="relative w-full h-full flex items-center justify-center p-4">
+              {/* Close Button */}
+              <button
+                onClick={closeImageModal}
+                className="absolute top-4 right-4 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all"
+              >
+                <X className="w-6 h-6 text-white" />
+              </button>
+
+              {/* Navigation Buttons */}
+              {allImages.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    disabled={currentImageIndex === 0}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <ChevronLeftIcon className="w-6 h-6 text-white" />
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    disabled={currentImageIndex === allImages.length - 1}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <ChevronRight className="w-6 h-6 text-white" />
+                  </button>
+                </>
+              )}
+
+              {/* Zoom Controls */}
+              <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
+                <button
+                  onClick={zoomIn}
+                  className="p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all"
+                  disabled={imageZoom >= 3}
+                >
+                  <ZoomIn className="w-5 h-5 text-white" />
+                </button>
+                <button
+                  onClick={zoomOut}
+                  className="p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all"
+                  disabled={imageZoom <= 0.5}
+                >
+                  <ZoomOut className="w-5 h-5 text-white" />
+                </button>
+                <button
+                  onClick={resetZoom}
+                  className="p-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full transition-all text-xs text-white font-medium"
+                >
+                  1:1
+                </button>
+              </div>
+
+              {/* Image Counter */}
+              {allImages.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 px-3 py-1 bg-white bg-opacity-20 rounded-full text-white text-sm">
+                  {currentImageIndex + 1} / {allImages.length}
+                </div>
+              )}
+
+              {/* Main Image */}
+              <div 
+                className="relative max-w-full max-h-full overflow-hidden cursor-move"
+                style={{
+                  transform: `scale(${imageZoom}) translate(${imagePosition.x}px, ${imagePosition.y}px)`,
+                  transition: imageZoom === 1 ? 'transform 0.3s ease' : 'none'
+                }}
+                onMouseDown={(e) => {
+                  if (imageZoom > 1) {
+                    const startX = e.clientX - imagePosition.x;
+                    const startY = e.clientY - imagePosition.y;
+                    
+                    const handleMouseMove = (e: MouseEvent) => {
+                      setImagePosition({
+                        x: e.clientX - startX,
+                        y: e.clientY - startY
+                      });
+                    };
+                    
+                    const handleMouseUp = () => {
+                      document.removeEventListener('mousemove', handleMouseMove);
+                      document.removeEventListener('mouseup', handleMouseUp);
+                    };
+                    
+                    document.addEventListener('mousemove', handleMouseMove);
+                    document.addEventListener('mouseup', handleMouseUp);
+                  }
+                }}
+              >
+                <NextImage
+                  src={mediaService.getMediaUrl(allImages[currentImageIndex])}
+                  alt={`${product.product_name} - Image ${currentImageIndex + 1}`}
+                  width={800}
+                  height={800}
+                  objectFit="contain"
+                  className="max-w-full max-h-screen"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/placeholder.svg';
+                  }}
+                />
+              </div>
+
+              {/* Thumbnail Strip */}
+              {allImages.length > 1 && (
+                <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex gap-2 bg-white bg-opacity-20 p-2 rounded-lg max-w-md overflow-x-auto">
+                  {allImages.map((imgId, index) => (
+                    <button
+                      key={imgId}
+                      onClick={() => {
+                        setCurrentImageIndex(index);
+                        setImageZoom(1);
+                        setImagePosition({ x: 0, y: 0 });
+                      }}
+                      className={`relative w-12 h-12 rounded overflow-hidden border-2 transition-all ${
+                        index === currentImageIndex 
+                          ? 'border-white' 
+                          : 'border-transparent hover:border-white/50'
+                      }`}
+                    >
+                      <NextImage
+                        src={mediaService.getMediaUrl(imgId)}
+                        alt={`Thumbnail ${index + 1}`}
+                        layout="fill"
+                        objectFit="cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/placeholder.svg';
+                        }}
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
                 </div>
     </>
   );
