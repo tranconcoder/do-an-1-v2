@@ -1,8 +1,6 @@
 import type { Permission, Query } from 'accesscontrol';
 
-import { Resources, RoleActions, RoleStatus } from '@/enums/rbac.enum.js';
-import { ac } from '@/configs/accesscontrol.config.js';
-import { Request, Response, NextFunction } from 'express';
+import { Resources, RoleStatus } from '@/enums/rbac.enum.js';
 import { AccessControl } from 'accesscontrol';
 import RBACService from '@/services/rbac.service.js';
 import { findOneRole } from '@/models/repository/rbac/index.js';

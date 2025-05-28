@@ -1,9 +1,8 @@
-import { paramsId } from '@/configs/joi.config.js';
+import { validateParamsId } from '@/configs/joi.config.js';
 import spuController from '@/controllers/spu.controller.js';
 import { Resources } from '@/enums/rbac.enum.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
 import catchError from '@/middlewares/catchError.middleware.js';
-import { validateRequestParams } from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import { Router } from 'express';
 
@@ -19,7 +18,7 @@ patchRoute.use(authenticate, patchRouteValidate);
 patchRouteValidate.patch(
     '/publish/:spuId',
     authorization('updateOwn', Resources.PRODUCT),
-    validateRequestParams(paramsId('spuId')),
+    validateParamsId('spuId'),
     catchError(spuController.publishSPU)
 );
 
@@ -27,7 +26,7 @@ patchRouteValidate.patch(
 patchRouteValidate.patch(
     '/draft/:spuId',
     authorization('updateOwn', Resources.PRODUCT),
-    validateRequestParams(paramsId('spuId')),
+    validateParamsId('spuId'),
     catchError(spuController.draftSPU)
 );
 

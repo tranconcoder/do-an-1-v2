@@ -19,7 +19,8 @@ export default new (class LocationService {
         provinceId,
         districtId,
         wardId,
-        address
+        address,
+        coordinates
     }: service.location.CreateLocation) {
         /* ---------------------- Check exists ---------------------- */
         const province = await provinceModel.findOne({ _id: provinceId }).lean();
@@ -35,14 +36,13 @@ export default new (class LocationService {
         const wardText = typeof ward === 'boolean' ? ',' : ward.ward_name + ', ';
         const locationText = `${address}, ${wardText}${district.district_name}, ${province.province_name}`;
 
-        // Get location in coordinates
-
         const saved = await locationModel.create({
             province: provinceId,
             district: districtId,
             ward: wardId,
             address,
-            text: locationText
+            text: locationText,
+            ...(coordinates ? { coordinates } : {})
         });
 
         if (!saved) throw new BadRequestErrorResponse({ message: 'Create location failed!' });

@@ -3,15 +3,12 @@ import { Router } from 'express';
 /* ----------------------- Controller ----------------------- */
 import CheckoutController from '@/controllers/checkout.controller.js';
 
-/* -------------------------- Joi  -------------------------- */
-import { createOrder } from '@/validations/joi/order.joi.js';
-import { checkout } from '@/validations/joi/checkout.joi.js';
-
 /* ----------------------- Middleware ----------------------- */
 import catchError from '@/middlewares/catchError.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
-import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
 import orderController from '@/controllers/order.controller.js';
+import { validateCheckout } from '@/validations/zod/checkout.zod';
+import { validateCreateOrder } from '@/validations/zod/order.zod';
 
 const getRoute = Router();
 const getRouteValidated = Router();
@@ -22,16 +19,8 @@ const getRouteValidated = Router();
 getRoute.use(getRouteValidated);
 getRouteValidated.use(authenticate);
 
-getRouteValidated.get(
-    '/checkout',
-    validateRequestBody(checkout),
-    catchError(CheckoutController.checkout)
-);
+getRouteValidated.get('/checkout', validateCheckout, catchError(CheckoutController.checkout));
 
-getRouteValidated.get(
-    '/create',
-    validateRequestBody(createOrder),
-    catchError(orderController.createOrder)
-);
+getRouteValidated.get('/create', validateCreateOrder, catchError(orderController.createOrder));
 
 export default getRoute;

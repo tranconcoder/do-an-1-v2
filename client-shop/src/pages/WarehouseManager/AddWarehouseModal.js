@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './WarehouseManager.module.scss';
 import axiosClient from '../../configs/axios';
+import MapPreview from '../../components/MapPreview/MapPreview';
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +13,11 @@ function AddWarehouseModal({ isOpen, onClose, onAddWarehouse }) {
         provinceId: '',
         districtId: '',
         wardId: '',
-        address: ''
+        address: '',
+        coordinates: {
+            lat: null,
+            lng: null
+        }
     });
 
     const [provinces, setProvinces] = useState([]);
@@ -111,6 +116,16 @@ function AddWarehouseModal({ isOpen, onClose, onAddWarehouse }) {
         }
     };
 
+    const handleCoordinatesChange = (coordinates) => {
+        setWarehouseAddress((prev) => ({
+            ...prev,
+            coordinates: {
+                lat: coordinates.lat,
+                lng: coordinates.lng
+            }
+        }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -146,6 +161,15 @@ function AddWarehouseModal({ isOpen, onClose, onAddWarehouse }) {
                 phoneNumber: warehousePhone,
                 location: {
                     ...warehouseAddress,
+                    // Include coordinates if they exist (server expects x=lng, y=lat)
+                    ...(warehouseAddress.coordinates.lat && warehouseAddress.coordinates.lng
+                        ? {
+                              coordinates: {
+                                  x: warehouseAddress.coordinates.lng, // longitude
+                                  y: warehouseAddress.coordinates.lat // latitude
+                              }
+                          }
+                        : {})
                 }
             };
 
@@ -169,7 +193,11 @@ function AddWarehouseModal({ isOpen, onClose, onAddWarehouse }) {
             provinceId: '',
             districtId: '',
             wardId: '',
-            address: ''
+            address: '',
+            coordinates: {
+                lat: null,
+                lng: null
+            }
         });
         setErrors({});
     };
@@ -290,9 +318,29 @@ function AddWarehouseModal({ isOpen, onClose, onAddWarehouse }) {
                             placeholder="Đường, Số nhà, v.v."
                             className={errors.address ? cx('has-error') : ''}
                         />
-                        {errors.address && (
-                            <div className={cx('error-text')}>{errors.address}</div>
-                        )}
+                        {errors.address && <div className={cx('error-text')}>{errors.address}</div>}
+                    </div>
+
+                    <div className={cx('form-group')}>
+                        <label>Vị Trí Trên Bản Đồ</label>
+                        <div className={cx('map-section')}>
+                            <MapPreview
+                                onCoordinatesChange={handleCoordinatesChange}
+                                height="300px"
+                                initialAddress={warehouseAddress.address}
+                                showCurrentLocation={true}
+                                allowMarkerDrag={true}
+                            />
+                            {warehouseAddress.coordinates.lat &&
+                                warehouseAddress.coordinates.lng && (
+                                    <div className={cx('coordinates-info')}>
+                                        <small>
+                                            Tọa độ: {warehouseAddress.coordinates.lat.toFixed(6)},{' '}
+                                            {warehouseAddress.coordinates.lng.toFixed(6)}
+                                        </small>
+                                    </div>
+                                )}
+                        </div>
                     </div>
 
                     <div className={cx('modal-footer')}>
@@ -304,11 +352,7 @@ function AddWarehouseModal({ isOpen, onClose, onAddWarehouse }) {
                         >
                             Hủy
                         </button>
-                        <button
-                            type="submit"
-                            className={cx('submit-btn')}
-                            disabled={isSubmitting}
-                        >
+                        <button type="submit" className={cx('submit-btn')} disabled={isSubmitting}>
                             {isSubmitting ? 'Đang Lưu...' : 'Lưu Kho Hàng'}
                         </button>
                     </div>

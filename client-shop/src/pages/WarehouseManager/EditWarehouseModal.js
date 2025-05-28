@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './WarehouseManager.module.scss';
 import axiosClient from '../../configs/axios';
+import MapPreview from '../../components/MapPreview/MapPreview';
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +13,11 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
         provinceId: '',
         districtId: '',
         wardId: '',
-        address: ''
+        address: '',
+        coordinates: {
+            lat: null,
+            lng: null
+        }
     });
 
     const [provinces, setProvinces] = useState([]);
@@ -31,7 +36,11 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
                 provinceId: warehouse.address?.provinceId || '',
                 districtId: warehouse.address?.districtId || '',
                 wardId: warehouse.address?.wardId || '',
-                address: warehouse.address?.address || ''
+                address: warehouse.address?.address || '',
+                coordinates: {
+                    lat: warehouse.address?.coordinates?.y || null,
+                    lng: warehouse.address?.coordinates?.x || null
+                }
             });
         }
     }, [warehouse]);
@@ -126,6 +135,16 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
         }
     };
 
+    const handleCoordinatesChange = (coordinates) => {
+        setWarehouseAddress((prev) => ({
+            ...prev,
+            coordinates: {
+                lat: coordinates.lat,
+                lng: coordinates.lng
+            }
+        }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -161,6 +180,15 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
                 phoneNumber: warehousePhone,
                 location: {
                     ...warehouseAddress,
+                    // Include coordinates if they exist (server expects x=lng, y=lat)
+                    ...(warehouseAddress.coordinates.lat && warehouseAddress.coordinates.lng
+                        ? {
+                              coordinates: {
+                                  x: warehouseAddress.coordinates.lng, // longitude
+                                  y: warehouseAddress.coordinates.lat // latitude
+                              }
+                          }
+                        : {})
                 }
             };
 
@@ -292,9 +320,35 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
                             placeholder="Đường, Số nhà, v.v."
                             className={errors.address ? cx('has-error') : ''}
                         />
-                        {errors.address && (
-                            <div className={cx('error-text')}>{errors.address}</div>
-                        )}
+                        {errors.address && <div className={cx('error-text')}>{errors.address}</div>}
+                    </div>
+
+                    <div className={cx('form-group')}>
+                        <label>Vị Trí Trên Bản Đồ</label>
+                        <div className={cx('map-section')}>
+                            <MapPreview
+                                onCoordinatesChange={handleCoordinatesChange}
+                                height="300px"
+                                initialAddress={warehouseAddress.address}
+                                coordinates={
+                                    warehouseAddress.coordinates.lat &&
+                                    warehouseAddress.coordinates.lng
+                                        ? warehouseAddress.coordinates
+                                        : null
+                                }
+                                showCurrentLocation={true}
+                                allowMarkerDrag={true}
+                            />
+                            {warehouseAddress.coordinates.lat &&
+                                warehouseAddress.coordinates.lng && (
+                                    <div className={cx('coordinates-info')}>
+                                        <small>
+                                            Tọa độ: {warehouseAddress.coordinates.lat.toFixed(6)},{' '}
+                                            {warehouseAddress.coordinates.lng.toFixed(6)}
+                                        </small>
+                                    </div>
+                                )}
+                        </div>
                     </div>
 
                     <div className={cx('modal-footer')}>
@@ -306,11 +360,7 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
                         >
                             Hủy
                         </button>
-                        <button
-                            type="submit"
-                            className={cx('submit-btn')}
-                            disabled={isSubmitting}
-                        >
+                        <button type="submit" className={cx('submit-btn')} disabled={isSubmitting}>
                             {isSubmitting ? 'Đang Lưu...' : 'Cập Nhật Kho Hàng'}
                         </button>
                     </div>

@@ -1,4 +1,4 @@
-import { paramsId } from '@/configs/joi.config.js';
+import { validateParamsId } from '@/configs/joi.config.js';
 import categoryController from '@/controllers/category.controller.js';
 import { Resources } from '@/enums/rbac.enum.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
@@ -9,7 +9,7 @@ import validateRequestBody, {
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import { cleanUpMediaOnError, uploadSingleMedia } from '@/middlewares/media.middleware.js';
 import { uploadCategory } from '@/middlewares/multer.middleware.js';
-import { createCategory, updateCategory } from '@/validations/joi/category.joi.js';
+import { validateCreateCategory, validateUpdateCategory } from '@/validations/zod/category.zod';
 import { Router } from 'express';
 
 const categoryRoute = Router();
@@ -29,7 +29,7 @@ categoryRouteValidate.post(
     '/create',
     authorization('createAny', Resources.CATEGORY),
     uploadSingleMedia('category_icon', uploadCategory, 'Category icon'),
-    validateRequestBody(createCategory),
+    validateCreateCategory,
     catchError(categoryController.createCategory),
     cleanUpMediaOnError
 );
@@ -38,8 +38,8 @@ categoryRouteValidate.patch(
     '/:_id',
     authorization('updateAny', Resources.CATEGORY),
     uploadSingleMedia('category_icon', uploadCategory, 'Category icon', false),
-    validateRequestParams(paramsId('_id')),
-    validateRequestBody(updateCategory),
+    validateParamsId('_id'),
+    validateUpdateCategory,
     catchError(categoryController.updateCategory),
     cleanUpMediaOnError
 );
@@ -52,7 +52,7 @@ categoryRouteValidate.patch(
 categoryRouteValidate.delete(
     '/:_id',
     authorization('deleteAny', Resources.CATEGORY),
-    validateRequestParams(paramsId('_id')),
+    validateParamsId('_id'),
     catchError(categoryController.deleteCategory)
 );
 

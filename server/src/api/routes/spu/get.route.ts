@@ -1,12 +1,8 @@
 import { Router } from 'express';
 import catchError from '@/middlewares/catchError.middleware.js';
-import {
-    validateRequestParams,
-    validateRequestQuery
-} from '@/middlewares/joiValidate.middleware.js';
 import { authenticate, authenticateNotRequired } from '@/middlewares/jwt.middleware.js';
 import spuController from '@/controllers/spu.controller.js';
-import { pagination } from '@/configs/joi.config.js';
+import { pagination, validatePagination } from '@/configs/joi.config.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
 import { Resources } from '@/enums/rbac.enum.js';
 
@@ -18,11 +14,7 @@ const getRouteValidate = Router();
 /* ---------------------------------------------------------- */
 
 /* --------------------- Popular spu by all -------------------- */
-getRoute.get(
-    '/popular',
-    validateRequestQuery(pagination),
-    catchError(spuController.getPopularSPUByAll)
-);
+getRoute.get('/popular', validatePagination, catchError(spuController.getPopularSPUByAll));
 
 /* ---------------------------------------------------------- */
 /*                   Validate or not routes                   */
@@ -33,10 +25,9 @@ getRoute.use(authenticate, getRouteValidate);
 getRouteValidate.get(
     '/shop/own',
     authorization('readOwn', Resources.PRODUCT),
-    validateRequestQuery(pagination),
+    validatePagination,
     catchError(spuController.getAllSPUOwnByShop)
 );
-
 
 // /* ----------------- Get product by id  ----------------- */
 // productGetRouteValidateOrNot.get(

@@ -1,13 +1,9 @@
-import '';
+import type { CreateLocation as CreateLocationSchema } from "@/validations/zod/location.zod";
 
 declare global {
     namespace service {
         namespace location {
-            interface CreateLocation {
-                provinceId: string;
-                districtId: string;
-                wardId?: string;
-                address: string;
+            interface CreateLocation extends CreateLocationSchema {
             }
         }
     }

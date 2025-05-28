@@ -28,7 +28,7 @@ const provinceSchema = new Schema(
     }
 );
 provinceSchema.pre('save', function (next) {
-    this.province_slug = slugify.default(this.province_name, { lower: true, locale: 'vi' });
+    this.province_slug = slugify(this.province_name, { lower: true, locale: 'vi' });
 
     next();
 });
@@ -68,7 +68,7 @@ const districtSchema = new Schema(
     }
 );
 districtSchema.pre('save', function (next) {
-    this.district_slug = slugify.default(this.district_name, { lower: true, locale: 'vi' });
+    this.district_slug = slugify(this.district_name, { lower: true, locale: 'vi' });
     next();
 });
 
@@ -113,7 +113,7 @@ const wardSchema = new Schema(
     }
 );
 wardSchema.pre('save', function (next) {
-    this.ward_slug = slugify.default(this.ward_name, { lower: true, locale: 'vi' });
+    this.ward_slug = slugify(this.ward_name, { lower: true, locale: 'vi' });
     next();
 });
 
@@ -137,12 +137,11 @@ export const locationSchema = new Schema<model.location.LocationSchema>(
 
         text: { type: String, required },
 
-        // Coordinates
+        // Coordinates (optional for backward compatibility)
         coordinates: {
-            x: { type: Number, required },
-            y: { type: Number, required }
+            x: { type: Number, required: false },
+            y: { type: Number, required: false }
         }
-
     },
     {
         timestamps,

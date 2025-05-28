@@ -1,10 +1,6 @@
 import { Router } from 'express';
 // import DiscountController from '@/controllers/discount.controller.js';
 import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
-import {
-    setAvailableDiscountSchema,
-    setUnavailableDiscountSchema
-} from '@/validations/joi/discount.joi.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 
 const patchRoute = Router();

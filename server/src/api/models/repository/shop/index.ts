@@ -7,7 +7,7 @@ import {
     generateFindOne,
     generateFindOneAndUpdate
 } from '@/utils/mongoose.util.js';
-import { jwtPayloadSignSchema } from '@/validations/joi/jwt.joi.js';
+import { jwtPayloadSignSchema } from '@/validations/zod/jwt.zod.js';
 
 export const isExistsShop = async ({
     shop_certificate,
@@ -39,17 +39,14 @@ export const findOneShop = generateFindOne<model.shop.ShopSchema>(shopModel);
 export const findShopById = generateFindById<model.shop.ShopSchema>(shopModel);
 
 /* -------------------- Find shop by user ------------------- */
-export const findShopByUser = 
-async (args: repo.shop.FindShopByUser) => {
-    const { userId, ...payload } = args
+export const findShopByUser = async (args: repo.shop.FindShopByUser) => {
+    const { userId, ...payload } = args;
 
     return await findOneShop({
         ...payload,
-        query: {            shop_userId: userId,
-        }
-    })
-
-}
+        query: { shop_userId: userId }
+    });
+};
 
 /* ---------------------------------------------------------- */
 /*                          Find all                          */

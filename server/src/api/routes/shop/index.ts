@@ -1,4 +1,4 @@
-import { pagination } from '@/configs/joi.config.js';
+import { pagination, validatePagination } from '@/configs/joi.config.js';
 import shopController from '@/controllers/shop.controller.js';
 import { Authorization } from '@/enums/authorization.enum.js';
 import { Resources } from '@/enums/rbac.enum.js';
@@ -9,7 +9,7 @@ import {
     validateRequestQuery
 } from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
-import { approveShop } from '@/validations/joi/shop.joi.js';
+import { validateApproveShop } from '@/validations/zod/shop.zod';
 import { Router } from 'express';
 
 const shopRoute = Router();
@@ -28,11 +28,7 @@ shopRoute.use(authenticate, shopRouterValidated);
 shopRouterValidated.use(authorization(Authorization.READ_ANY, Resources.SHOP), readAnyRouter);
 
 /* ------------------ Get all pending shop ------------------ */
-readAnyRouter.get(
-    '/pending',
-    validateRequestQuery(pagination),
-    catchError(shopController.getAllPendingShop)
-);
+readAnyRouter.get('/pending', validatePagination, catchError(shopController.getAllPendingShop));
 
 /* ---------------------------------------------------------- */
 /*                         Update any                         */
@@ -42,14 +38,14 @@ shopRouterValidated.use(authorization(Authorization.UPDATE_ANY, Resources.SHOP),
 /* ---------------------- Approve shop ---------------------- */
 updateAnyRouter.patch(
     '/approve/:shopId',
-    validateRequestParams(approveShop),
+    validateApproveShop,
     catchError(shopController.approveShop)
 );
 
 /* ---------------------- Reject shop ----------------------- */
 updateAnyRouter.patch(
     '/reject/:shopId',
-    validateRequestParams(approveShop),
+    validateApproveShop,
     catchError(shopController.rejectShop)
 );
 

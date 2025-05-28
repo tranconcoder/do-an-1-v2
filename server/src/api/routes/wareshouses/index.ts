@@ -7,8 +7,8 @@ import validateRequestBody, {
     validateRequestParams
 } from '@/middlewares/joiValidate.middleware.js';
 import { Router } from 'express';
-import { createWarehouse } from '@/validations/joi/warehouse.joi.js';
-import { paramsId } from '@/configs/joi.config.js';
+import { createWarehouse, validateCreateWarehouse } from '@/validations/joi/warehouse.joi.js';
+import { validateParamsId } from '@/configs/joi.config.js';
 
 const warehousesRouter = Router();
 
@@ -20,7 +20,7 @@ warehousesRouter.use(authenticate);
 warehousesRouter.post(
     '/create',
     authorization('createOwn', Resources.WAREHOUSES),
-    validateRequestBody(createWarehouse),
+    validateCreateWarehouse,
     catchError(warehousesController.create)
 );
 
@@ -38,7 +38,7 @@ warehousesRouter.get(
 /* ---------------------------------------------------------- */
 warehousesRouter.patch(
     '/:warehouseId',
-    validateRequestParams(paramsId('warehouseId')),
+    validateParamsId('warehouseId'),
     authorization('updateOwn', Resources.WAREHOUSES),
     catchError(warehousesController.update)
 );
@@ -49,7 +49,7 @@ warehousesRouter.patch(
 warehousesRouter.delete(
     '/:warehouseId',
     authorization('deleteOwn', Resources.WAREHOUSES),
-    validateRequestParams(paramsId('warehouseId')),
+    validateParamsId('warehouseId'),
     catchError(warehousesController.delete)
 );
 

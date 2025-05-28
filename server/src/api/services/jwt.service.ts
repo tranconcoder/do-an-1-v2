@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 import { jwtSignAsync } from '@/utils/jwt.util.js';
 import LoggerService from './logger.service.js';
 import jwtConfig from '@/../configs/jwt.config.js';
-import { jwtDecodeSchema } from '@/validations/joi/jwt.joi.js';
+import { jwtDecodeSchema } from '@/validations/zod/jwt.zod.js';
 
 export default class JwtService {
     /* ------------------------------------------------------ */
@@ -65,16 +65,16 @@ export default class JwtService {
     public static parseJwtPayload = (token: string): service.jwt.arguments.ParseJwtPayload => {
         try {
             const payload = jwtDecode<service.jwt.definition.JwtDecode>(token);
-            const { error: joiError, value } = jwtDecodeSchema.validate(payload);
+            const result = jwtDecodeSchema.safeParse(payload);
 
-            if (joiError) {
+            if (!result.success && result.error) {
                 // Alert to admin have a hacker
                 LoggerService.getInstance().error(`Token is not generate by server: ${token}`);
 
-                throw joiError;
+                throw result.error;
             }
 
-            return value;
+            return result.data;
         } catch (error) {
             LoggerService.getInstance().error(
                 error?.toString() || 'Error while parsing jwt payload'

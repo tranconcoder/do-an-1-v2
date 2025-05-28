@@ -6,14 +6,15 @@ import {
     validateRequestQuery
 } from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
-import {
-    getAllProductDiscountByCodeQuerySchema,
-    getAllProductDiscountByCodeParamsSchema,
-    getAllOwnShopDiscount
-} from '@/validations/joi/discount.joi.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
 import { Resources } from '@/enums/rbac.enum.js';
-import { pagination, paramsId } from '@/configs/joi.config.js';
+import { validatePagination, validateParamsId } from '@/configs/joi.config.js';
+import { generateValidateWithQuery } from '@/middlewares/zod.middleware';
+import {
+    validateGetAllOwnShopDiscount,
+    validateGetAllProductDiscountByCodeParams,
+    validateGetAllProductDiscountByCodeQuery
+} from '@/validations/zod/discount.zod';
 
 const discountGetRoute = Router();
 const discountGetRouteValidated = Router();
@@ -25,15 +26,15 @@ const discountGetRouteValidated = Router();
 /* ---------------- Get all discount in shop ---------------- */
 discountGetRoute.get(
     '/shop/all/:shopId',
-    validateRequestQuery(pagination),
-    validateRequestParams(paramsId('shopId')),
+    validatePagination,
+    validateParamsId('shopId'),
     catchError(DiscountController.getAllDiscountCodeInShop as any)
 );
 
 discountGetRoute.get(
     '/product/:discountId',
-    validateRequestQuery(getAllProductDiscountByCodeQuerySchema),
-    validateRequestParams(getAllProductDiscountByCodeParamsSchema),
+    validateGetAllProductDiscountByCodeQuery,
+    validateGetAllProductDiscountByCodeParams,
     catchError(DiscountController.getAllProductDiscountByCode as any)
 );
 
@@ -46,7 +47,8 @@ discountGetRoute.use(authenticate, discountGetRouteValidated);
 discountGetRouteValidated.get(
     '/shop/own',
     authorization('readOwn', Resources.DISCOUNT),
-    validateRequestQuery(getAllOwnShopDiscount),
+    validateGetAllOwnShopDiscount,
+
     catchError(DiscountController.getAllShopOwnDiscount as any)
 );
 

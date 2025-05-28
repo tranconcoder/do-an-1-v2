@@ -1,4 +1,9 @@
-import { pagination, paramsId } from '@/configs/joi.config.js';
+import {
+    pagination,
+    paramsId,
+    validatePagination,
+    validateParamsId
+} from '@/configs/joi.config.js';
 import skuController from '@/controllers/sku.controller.js';
 import { Resources } from '@/enums/rbac.enum.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
@@ -14,28 +19,21 @@ const skuRouter = Router();
 const skuRouterValidate = Router();
 
 /* ----------------------- Get popular ---------------------- */
-skuRouter.get(
-    '/popular',
-    validateRequestQuery(pagination),
-    catchError(skuController.getPopularSKUByAll));
+skuRouter.get('/popular', validatePagination, catchError(skuController.getPopularSKUByAll));
 
 /* ---------------------- Get SKU by id --------------------- */
-skuRouter.get(
-    '/id/:skuId',
-    validateRequestParams(paramsId('skuId')),
-    catchError(skuController.getSKUById)
-);
+skuRouter.get('/id/:skuId', validateParamsId('skuId'), catchError(skuController.getSKUById));
 
 /* ----------------- Get all SKU shop by all ---------------- */
 skuRouter.get(
     '/shop/:shopId',
-    validateRequestParams(paramsId('shopId')),
-    validateRequestQuery(pagination),
+    validateParamsId('shopId'),
+    validatePagination,
     catchError(skuController.getAllSKUShopByAll)
 );
 
 /* ------------------- Get all SKU by all ------------------- */
-skuRouter.get('/', validateRequestQuery(pagination), catchError(skuController.getAllSKUByAll));
+skuRouter.get('/', validatePagination, catchError(skuController.getAllSKUByAll));
 
 /* ---------------------------------------------------------- */
 /*                          Validate                          */

@@ -1,8 +1,9 @@
 import mediaService from '@/services/media.service.js';
 import type { RequestWithParams } from '@/types/request.js';
+import type { GetMediaFileSchema } from '@/validations/zod/media.zod.js';
 
 export default new (class MediaController {
-    getMediaFile: RequestWithParams<joiTypes.media.GetMediaFile> = async (req, res, next) => {
+    getMediaFile: RequestWithParams<{ id: string }> = async (req, res, next) => {
         try {
             // Set CORS headers specifically for media files
             res.setHeader('Access-Control-Allow-Origin', '*');

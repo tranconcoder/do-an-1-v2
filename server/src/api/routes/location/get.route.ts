@@ -3,7 +3,7 @@ import catchError from '@/middlewares/catchError.middleware.js';
 import locationController from '@/controllers/location.controller.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import { validateRequestParams } from '@/middlewares/joiValidate.middleware.js';
-import { paramsId } from '@/configs/joi.config.js';
+import { validateParamsId } from '@/configs/joi.config.js';
 
 const router = Router();
 const routerValidated = Router();
@@ -13,7 +13,7 @@ const routerValidated = Router();
 /* ---------------------------------------------------------- */
 router.get(
     '/location/:locationId',
-    validateRequestParams(paramsId('locationId')),
+    validateParamsId('locationId'),
     catchError(locationController.getLocationById)
 );
 

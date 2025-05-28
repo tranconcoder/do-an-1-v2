@@ -5,7 +5,7 @@ import {
     findOneMedia
 } from '@/models/repository/media/index.js';
 import { NotFoundErrorResponse } from '@/response/error.response.js';
-import { createMedia } from '@/validations/joi/media.joi.js';
+import { createMediaSchema } from '@/validations/zod/media.zod.js';
 import fs from 'fs/promises';
 import { existsSync } from 'fs';
 import { categoryMedia } from '@/constants/media.constants.js';
@@ -28,8 +28,8 @@ export default new (class MediaService {
     }
 
     async createMedia(payload: service.media.arguments.CreateMedia) {
-        /* ---------------------- Validate joi ---------------------- */
-        const validated = await createMedia.validateAsync(payload);
+        /* ---------------------- Validate zod ---------------------- */
+        const validated = createMediaSchema.parse(payload);
 
         return await mediaModel.create(validated);
     }

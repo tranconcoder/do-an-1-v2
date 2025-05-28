@@ -1,4 +1,5 @@
 import type { RequestWithBody, RequestWithParams } from '@/types/request.js';
+import type { CreateLocation } from '@/validations/zod/location.zod.js';
 
 import { CreatedResponse, OkResponse } from '@/response/success.response.js';
 import locationService from '@/services/location.service.js';
@@ -8,7 +9,7 @@ export default new (class LocationController {
     /* ---------------------------------------------------------- */
     /*                      Create location                       */
     /* ---------------------------------------------------------- */
-    public createLocation: RequestWithBody<joi.location.CreateLocation> = async (req, res, _) => {
+    public createLocation: RequestWithBody<CreateLocation> = async (req, res, _) => {
         new CreatedResponse({
             message: 'Location created',
             metadata: await locationService.createLocation(req.body)

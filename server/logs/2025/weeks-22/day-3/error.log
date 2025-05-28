@@ -354,3 +354,24 @@
 [2025-05-28T08:16:10.050Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
 [2025-05-28T08:16:16.198Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
 [2025-05-28T08:16:17.225Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T08:18:28.598Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T08:18:28.606Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T08:18:28.620Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T08:18:28.622Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T08:18:28.634Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T08:18:28.641Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T08:19:14.722Z] [error]: HIDE::400::ValidationError::"category" is not allowed::
+[2025-05-28T10:25:21.303Z] [error]: TypeError: jwtDecodeSchema.validate is not a function. (In 'jwtDecodeSchema.validate(payload)', 'jwtDecodeSchema.validate' is undefined)
+[2025-05-28T10:25:21.307Z] [error]: TypeError: jwtDecodeSchema.validate is not a function. (In 'jwtDecodeSchema.validate(payload)', 'jwtDecodeSchema.validate' is undefined)
+[2025-05-28T10:25:21.308Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-05-28T10:25:21.317Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-05-28T10:25:21.323Z] [error]: TypeError: jwtDecodeSchema.validate is not a function. (In 'jwtDecodeSchema.validate(payload)', 'jwtDecodeSchema.validate' is undefined)
+[2025-05-28T10:25:21.324Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-05-28T10:25:25.879Z] [error]: TypeError: jwtDecodeSchema.validate is not a function. (In 'jwtDecodeSchema.validate(payload)', 'jwtDecodeSchema.validate' is undefined)
+[2025-05-28T10:25:25.880Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-05-28T10:25:25.885Z] [error]: TypeError: jwtDecodeSchema.validate is not a function. (In 'jwtDecodeSchema.validate(payload)', 'jwtDecodeSchema.validate' is undefined)
+[2025-05-28T10:25:25.887Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-05-28T10:28:48.895Z] [error]: HIDE::400::TypeError::schema.validateAsync is not a function. (In 'schema.validateAsync(req.query, { convert: !0 })', 'schema.validateAsync' is undefined)::
+[2025-05-28T10:28:48.926Z] [error]: HIDE::400::TypeError::schema.validateAsync is not a function. (In 'schema.validateAsync(req.query, { convert: !0 })', 'schema.validateAsync' is undefined)::
+[2025-05-28T10:29:44.937Z] [error]: HIDE::400::TypeError::schema.validateAsync is not a function. (In 'schema.validateAsync(req.query, { convert: !0 })', 'schema.validateAsync' is undefined)::
+[2025-05-28T10:29:44.961Z] [error]: HIDE::400::TypeError::schema.validateAsync is not a function. (In 'schema.validateAsync(req.query, { convert: !0 })', 'schema.validateAsync' is undefined)::
