@@ -18,25 +18,33 @@ export default class UserService {
     public static getUserById = async (id: string) => {
         const user = await findUserById({
             id,
-            only: ['_id', 'phoneNumber', 'user_email', 'user_role', 'user_fullName', 'user_avatar', 'user_sex', 'user_status', 'user_dayOfBirth']
+            only: [
+                '_id',
+                'phoneNumber',
+                'user_email',
+                'user_role',
+                'user_fullName',
+                'user_avatar',
+                'user_sex',
+                'user_status',
+                'user_dayOfBirth'
+            ]
         });
         const result: commonTypes.object.ObjectAnyKeys = { user };
 
-
-        console.log("GET USER PROFILE:::")
-        console.log({user})
+        console.log('GET USER PROFILE:::');
+        console.log({ user });
         /* --------------------- Add role data  --------------------- */
         const roleData = await roleService.getUserRoleData({
             userId: user._id.toString(),
             roleId: user.user_role.toString()
         });
 
-        console.log("ROLE DATA:::")
-        console.log({roleData})
+        console.log('ROLE DATA:::');
+        console.log({ roleData });
         if (roleData && roleData.role_name !== RoleNames.USER)
             result[roleData.role_name] = roleData.role_data || true;
-        else
-            result.user.role_name = RoleNames.USER;
+        else result.user.role_name = RoleNames.USER;
 
         return result;
     };
@@ -80,7 +88,7 @@ export default class UserService {
 
     /* -------------------- Update profile -------------------- */
     public static updateProfile = async (id: string, data: UpdateProfileSchema) => {
-        const { user_email, ...rest } = data;
+        const { user_email } = data;
 
         // Check email exist
         const userExist = await userModel.findOne({ user_email, _id: { $ne: id } });

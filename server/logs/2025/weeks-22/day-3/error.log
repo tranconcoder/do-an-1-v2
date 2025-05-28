@@ -543,3 +543,36 @@
     "message": "Expected number, received string"
   }
 ]::
+[2025-05-28T15:44:32.764Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T15:44:48.892Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-05-28T16:00:01.404Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "boolean",
+    "path": [
+      "user_sex"
+    ],
+    "message": "Expected string, received boolean"
+  }
+]::
+[2025-05-28T16:01:10.286Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "boolean",
+    "path": [
+      "user_sex"
+    ],
+    "message": "Expected string, received boolean"
+  }
+]::

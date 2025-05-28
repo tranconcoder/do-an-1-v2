@@ -1,78 +1,117 @@
 import apiClient from '../axiosInstance';
-import { User, Shop } from "@/lib/store/slices/userSlice"; // Import types from userSlice
 
-// Define the expected structure of the /user/profile API response
-interface ProfileApiResponse {
-  message: string;
-  metadata: {
-    user: User;
-    shop?: Shop; // Shop is optional in the response
-    // If the update endpoint also returns tokens, include them here
-    // token?: {
-    //   accessToken: string;
-    //   refreshToken: string;
-    // };
-  };
-  statusCode?: number;
+// Types and interfaces for user-related API operations
+export interface UserProfile {
+    _id: string;
+    phoneNumber: string;
+    user_email: string;
+    user_role: string;
+    user_fullName: string;
+    user_avatar: string;
+    user_sex: boolean;
+    user_status: string;
+    user_dayOfBirth: string;
+    role_name?: string;
 }
 
-// Define the payload for updating the profile
-// Based on the form, these fields are likely updatable.
-// Adjust if your backend expects a different structure or subset of fields.
+export interface ShopInfo {
+    _id: string;
+    shop_userId: string;
+    shop_name: string;
+    shop_type: string;
+    shop_logo: string;
+    shop_location: {
+        province: {
+            province_name: string;
+        };
+        district: {
+            district_name: string;
+        };
+    };
+    shop_status: string;
+    is_brand: boolean;
+}
+
 export interface UpdateProfilePayload {
-  user_fullName?: string;
-  user_email?: string;      // Be cautious: email updates often require verification.
-  phoneNumber?: string;     // Similar to email, phone updates might need verification.
-  user_sex?: boolean | undefined;
-  user_dayOfBirth?: string; // Ensure this is in a format your backend accepts (e.g., YYYY-MM-DD)
-  user_avatar?: string;     // This would likely be a media ID or URL
+    user_fullName?: string;
+    user_email?: string;
+    user_sex?: boolean;
+    user_dayOfBirth?: string;
+    user_avatar?: string;
 }
 
-const USER_API_URL = '/user'; // Base URL for user endpoints
+export interface UserProfileResponse {
+    message: string;
+    metadata: {
+        user: UserProfile;
+        [key: string]: any; // For role-specific data
+    };
+    statusCode: number;
+}
+
+export interface ShopInfoResponse {
+    message: string;
+    metadata: {
+        shop: ShopInfo;
+    };
+    statusCode: number;
+}
+
+export interface UpdateProfileResponse {
+    message: string;
+    metadata: UserProfile;
+    statusCode: number;
+}
 
 const userService = {
-  /**
-   * Fetches the currently logged-in user's profile.
-   * @returns {Promise<{user: User, shop?: Shop}>} A promise that resolves to the user and optional shop data.
-   */
-  getProfile: async (): Promise<{user: User, shop?: Shop}> => {
-    try {
-      const response = await apiClient.get<ProfileApiResponse>(`${USER_API_URL}/profile`);
-      
-      if (response.data && response.data.metadata) {
-        return response.data.metadata; // Returns { user: ..., shop: ... }
-      }
-      
-      throw new Error('Profile data not found in API response structure.');
+    /**
+     * Gets the current user's profile.
+     * Requires authentication token in headers.
+     * @returns {Promise<UserProfileResponse>} A promise that resolves to the user profile response.
+     */
+    getProfile: async (): Promise<UserProfileResponse> => {
+        try {
+            const response = await apiClient.get<UserProfileResponse>('/user/profile');
+            return response.data;
+        } catch (error) {
+            console.error('Get profile error in userService:', error);
+            throw error;
+        }
+    },
 
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
-      throw error; // Re-throw to allow the calling component/hook to handle it
+    /**
+     * Gets shop information by shop ID.
+     * @param {string} shopId - The ID of the shop to retrieve.
+     * @returns {Promise<ShopInfoResponse>} A promise that resolves to the shop info response.
+     */
+    getShopInfo: async (shopId: string): Promise<ShopInfoResponse> => {
+        try {
+            const response = await apiClient.get<ShopInfoResponse>(`/user/shop/${shopId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Get shop info error in userService:', error);
+            throw error;
+        }
+    },
+
+    /**
+     * Updates the current user's profile.
+     * Requires authentication token in headers.
+     * @param {UpdateProfilePayload} profileData - The profile data to update.
+     * @returns {Promise<UpdateProfileResponse>} A promise that resolves to the update response.
+     */
+    updateProfile: async (profileData: UpdateProfilePayload): Promise<UpdateProfileResponse> => {
+        try {
+            const response = await apiClient.patch<UpdateProfileResponse>(
+                '/user/profile',
+                profileData
+            );
+            return response.data;
+        } catch (error) {
+            console.error('Update profile error in userService:', error);
+            throw error;
+        }
     }
-  },
-
-  /**
-   * Updates the currently logged-in user's profile.
-   * @param {UpdateProfilePayload} profileData - The data to update.
-   * @returns {Promise<{user: User, shop?: Shop}>} A promise that resolves to the updated user and optional shop data.
-   */
-  updateProfile: async (profileData: UpdateProfilePayload): Promise<{user: User, shop?: Shop}> => {
-    try {
-      const response = await apiClient.patch<ProfileApiResponse>(`${USER_API_URL}/profile`, profileData);
-      
-      if (response.data && response.data.metadata) {
-        // Assuming the backend returns the updated user and potentially shop info
-        // If tokens are also returned upon profile update, handle them here or in the component.
-        return response.data.metadata;
-      }
-      
-      throw new Error('Profile update failed or API response structure incorrect.');
-
-    } catch (error) {
-      console.error('Error updating user profile:', error);
-      throw error; // Re-throw to allow the calling component/hook to handle it
-    }
-  }
 };
 
-export default userService; 
+export default userService;
