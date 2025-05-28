@@ -581,3 +581,48 @@
 [2025-05-28T16:15:06.215Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-05-28T16:19:16.471Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-05-28T16:19:16.492Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T17:38:28.093Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T17:38:37.102Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T17:39:10.322Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-28T17:39:42.863Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid MongoDB ObjectId",
+    "path": [
+      "shopId"
+    ]
+  }
+]::
+[2025-05-28T17:39:42.871Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid MongoDB ObjectId",
+    "path": [
+      "shopId"
+    ]
+  }
+]::
+[2025-05-28T17:39:42.902Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid MongoDB ObjectId",
+    "path": [
+      "shopId"
+    ]
+  }
+]::
+[2025-05-28T17:39:42.909Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid MongoDB ObjectId",
+    "path": [
+      "shopId"
+    ]
+  }
+]::
+[2025-05-28T17:42:23.713Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-28T17:42:35.296Z] [error]: HIDE::404::NotFound::Route is not exists::

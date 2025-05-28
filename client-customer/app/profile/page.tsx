@@ -36,6 +36,7 @@ import ImageCropper from '@/components/ui/image-cropper';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '@/lib/store/slices/userSlice';
 import type { AppDispatch, RootState } from '@/lib/store/store';
+import AddressManager from '@/components/profile/AddressManager';
 
 export default function ProfilePage() {
     const router = useRouter();
@@ -46,6 +47,9 @@ export default function ProfilePage() {
     const user = useSelector((state: RootState) => state.user.user);
     const isLoadingUser = useSelector((state: RootState) => state.user.isLoading);
     const userError = useSelector((state: RootState) => state.user.error);
+
+    // Hydration fix - track if component has mounted
+    const [hasMounted, setHasMounted] = useState(false);
 
     // Local state, initialized from Redux user data
     const [profile, setProfile] = useState<UserProfile | null>(user);
@@ -70,12 +74,17 @@ export default function ProfilePage() {
         user_avatar: user?.user_avatar || ''
     });
 
+    // Handle hydration
+    useEffect(() => {
+        setHasMounted(true);
+    }, []);
+
     // Fetch user profile on component mount if not already in Redux store
     useEffect(() => {
-        if (!user) {
+        if (hasMounted && !user) {
             dispatch(fetchUser());
         }
-    }, [user, dispatch]); // Depend on user and dispatch
+    }, [hasMounted, user, dispatch]);
 
     // Update local state when Redux user data changes
     useEffect(() => {
@@ -87,7 +96,7 @@ export default function ProfilePage() {
             user_dayOfBirth: user?.user_dayOfBirth || '',
             user_avatar: user?.user_avatar || ''
         });
-    }, [user]); // Depend on user
+    }, [user]);
 
     const handleInputChange = (field: keyof UpdateProfilePayload, value: any) => {
         setFormData((prev) => ({
@@ -278,7 +287,7 @@ export default function ProfilePage() {
     };
 
     // Use isLoadingUser and userError from Redux for loading and error states
-    if (isLoadingUser) {
+    if (!hasMounted || isLoadingUser) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
                 <div className="flex flex-col items-center space-y-4">
@@ -577,6 +586,11 @@ export default function ProfilePage() {
                             </CardContent>
                         </Card>
                     </div>
+                </div>
+
+                {/* Address Management Section */}
+                <div className="mt-8">
+                    <AddressManager />
                 </div>
             </div>
 

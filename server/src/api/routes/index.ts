@@ -15,6 +15,7 @@ import warehousesRouter from './wareshouses/index.js';
 import skuRouter from './sku/index.js';
 import wishListRouter from './wishlist/index.js';
 import otpRoute from './otp/index.js';
+import addressRoute from './address/index.js';
 
 const rootRoute = Router();
 
@@ -58,5 +59,7 @@ rootRoute.use('/warehouse', warehousesRouter);
 /* ------------------------ Wishlist ------------------------ */
 rootRoute.use('/wishlist', wishListRouter);
 
+/* ------------------------ Address ------------------------ */
+rootRoute.use('/address', addressRoute);
 
 export default rootRoute;
