@@ -576,3 +576,8 @@
     "message": "Expected string, received boolean"
   }
 ]::
+[2025-05-28T16:14:39.957Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T16:15:01.926Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-28T16:15:06.215Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-28T16:19:16.471Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-28T16:19:16.492Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::

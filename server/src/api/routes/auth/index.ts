@@ -19,7 +19,6 @@ import {
 
 /* --------------------- Middlewares -------------------- */
 import catchError from '@/middlewares/catchError.middleware.js';
-import joiValidate from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import { AvatarFields } from '@/enums/media.enum.js';
 import { checkCustomerAccountToRegisterShop } from '@/middlewares/auth.middleware.js';

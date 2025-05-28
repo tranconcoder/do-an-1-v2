@@ -130,6 +130,20 @@ export default class UserService {
         return await userModel.exists(query).lean();
     };
 
+    /* -------------------- Upload avatar -------------------- */
+    public static uploadAvatar = async (id: string, mediaId: string) => {
+        const user = await findOneAndUpdateUser({
+            query: { _id: id },
+            update: { $set: { user_avatar: mediaId } },
+            options: { new: true }
+        });
+
+        // Delete redis cache
+        await deleteUserProfile(id);
+
+        return user;
+    };
+
     /* -------------------- Save user -------------------- */
     public static saveUser = async (data: model.auth.UserSchema) => {
         const user = await userModel.create(data);

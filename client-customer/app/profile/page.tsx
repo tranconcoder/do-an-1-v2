@@ -17,6 +17,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Edit, Save, X } from 'lucide-react';
 import userService, { UserProfile, UpdateProfilePayload } from '@/lib/services/api/userService';
+import { getMediaUrl } from '@/lib/services/api/mediaService';
 
 export default function ProfilePage() {
     const router = useRouter();
@@ -62,8 +63,8 @@ export default function ProfilePage() {
             // Check if user is not authenticated
             if (error.response?.status === 401) {
                 toast({
-                    title: 'Authentication Required',
-                    description: 'Please log in to view your profile.',
+                    title: 'Yêu cầu xác thực',
+                    description: 'Vui lòng đăng nhập để xem hồ sơ của bạn.',
                     variant: 'destructive'
                 });
                 router.push('/auth/login');
@@ -71,8 +72,8 @@ export default function ProfilePage() {
             }
 
             toast({
-                title: 'Error',
-                description: 'Failed to load profile. Please try again.',
+                title: 'Lỗi',
+                description: 'Tải hồ sơ thất bại. Vui lòng thử lại.',
                 variant: 'destructive'
             });
         } finally {
@@ -117,8 +118,8 @@ export default function ProfilePage() {
             // Only update if there are changes
             if (Object.keys(updatePayload).length === 0) {
                 toast({
-                    title: 'No Changes',
-                    description: 'No changes were made to your profile.'
+                    title: 'Không có thay đổi',
+                    description: 'Không có thay đổi nào được thực hiện đối với hồ sơ của bạn.'
                 });
                 setEditing(false);
                 return;
@@ -129,16 +130,16 @@ export default function ProfilePage() {
             setEditing(false);
 
             toast({
-                title: 'Success',
-                description: 'Profile updated successfully!'
+                title: 'Thành công',
+                description: 'Cập nhật hồ sơ thành công!'
             });
         } catch (error: any) {
             console.error('Failed to update profile:', error);
 
             const errorMessage =
-                error.response?.data?.message || 'Failed to update profile. Please try again.';
+                error.response?.data?.message || 'Cập nhật hồ sơ thất bại. Vui lòng thử lại.';
             toast({
-                title: 'Update Failed',
+                title: 'Cập nhật thất bại',
                 description: errorMessage,
                 variant: 'destructive'
             });
@@ -180,7 +181,7 @@ export default function ProfilePage() {
             <div className="min-h-screen flex items-center justify-center">
                 <div className="flex items-center space-x-2">
                     <Loader2 className="h-6 w-6 animate-spin" />
-                    <span>Loading profile...</span>
+                    <span>Đang tải hồ sơ...</span>
                 </div>
             </div>
         );
@@ -192,9 +193,9 @@ export default function ProfilePage() {
                 <Card className="w-full max-w-md">
                     <CardContent className="pt-6">
                         <div className="text-center">
-                            <p className="text-muted-foreground">Failed to load profile</p>
+                            <p className="text-muted-foreground">Tải hồ sơ thất bại</p>
                             <Button onClick={fetchProfile} className="mt-4" variant="outline">
-                                Try Again
+                                Thử lại
                             </Button>
                         </div>
                     </CardContent>
@@ -211,7 +212,11 @@ export default function ProfilePage() {
                         <div className="flex justify-center mb-4">
                             <Avatar className="h-24 w-24">
                                 <AvatarImage
-                                    src={profile.user_avatar}
+                                    src={
+                                        profile.user_avatar
+                                            ? getMediaUrl(profile.user_avatar)
+                                            : undefined
+                                    }
                                     alt={profile.user_fullName}
                                 />
                                 <AvatarFallback className="text-lg">
@@ -219,9 +224,9 @@ export default function ProfilePage() {
                                 </AvatarFallback>
                             </Avatar>
                         </div>
-                        <CardTitle className="text-2xl">My Profile</CardTitle>
+                        <CardTitle className="text-2xl">Hồ sơ của tôi</CardTitle>
                         <CardDescription>
-                            Manage your personal information and preferences
+                            Quản lý thông tin cá nhân và tùy chọn của bạn
                         </CardDescription>
                     </CardHeader>
 
@@ -229,7 +234,7 @@ export default function ProfilePage() {
                         <form onSubmit={handleSubmit} className="space-y-6">
                             {/* Full Name */}
                             <div className="space-y-2">
-                                <Label htmlFor="fullName">Full Name</Label>
+                                <Label htmlFor="fullName">Họ và tên</Label>
                                 {editing ? (
                                     <Input
                                         id="fullName"
@@ -237,7 +242,7 @@ export default function ProfilePage() {
                                         onChange={(e) =>
                                             handleInputChange('user_fullName', e.target.value)
                                         }
-                                        placeholder="Enter your full name"
+                                        placeholder="Nhập họ và tên đầy đủ của bạn"
                                         required
                                     />
                                 ) : (
@@ -249,7 +254,7 @@ export default function ProfilePage() {
 
                             {/* Email */}
                             <div className="space-y-2">
-                                <Label htmlFor="email">Email Address</Label>
+                                <Label htmlFor="email">Địa chỉ email</Label>
                                 {editing ? (
                                     <Input
                                         id="email"
@@ -258,7 +263,7 @@ export default function ProfilePage() {
                                         onChange={(e) =>
                                             handleInputChange('user_email', e.target.value)
                                         }
-                                        placeholder="Enter your email address"
+                                        placeholder="Nhập địa chỉ email của bạn"
                                         required
                                     />
                                 ) : (
@@ -270,18 +275,18 @@ export default function ProfilePage() {
 
                             {/* Phone Number */}
                             <div className="space-y-2">
-                                <Label htmlFor="phone">Phone Number</Label>
+                                <Label htmlFor="phone">Số điện thoại</Label>
                                 <div className="p-3 bg-gray-100 rounded-md text-gray-600">
                                     {profile.phoneNumber}
                                     <span className="text-sm text-gray-500 ml-2">
-                                        (Cannot be changed)
+                                        (Không thể thay đổi)
                                     </span>
                                 </div>
                             </div>
 
                             {/* Gender */}
                             <div className="space-y-2">
-                                <Label htmlFor="gender">Gender</Label>
+                                <Label htmlFor="gender">Giới tính</Label>
                                 {editing ? (
                                     <Select
                                         value={formData.user_sex ? 'male' : 'female'}
@@ -290,23 +295,23 @@ export default function ProfilePage() {
                                         }
                                     >
                                         <SelectTrigger>
-                                            <SelectValue placeholder="Select gender" />
+                                            <SelectValue placeholder="Chọn giới tính" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="male">Male</SelectItem>
-                                            <SelectItem value="female">Female</SelectItem>
+                                            <SelectItem value="male">Nam</SelectItem>
+                                            <SelectItem value="female">Nữ</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 ) : (
                                     <div className="p-3 bg-gray-50 rounded-md">
-                                        {profile.user_sex ? 'Male' : 'Female'}
+                                        {profile.user_sex ? 'Nam' : 'Nữ'}
                                     </div>
                                 )}
                             </div>
 
                             {/* Date of Birth */}
                             <div className="space-y-2">
-                                <Label htmlFor="dob">Date of Birth</Label>
+                                <Label htmlFor="dob">Ngày sinh</Label>
                                 {editing ? (
                                     <Input
                                         id="dob"
@@ -320,14 +325,14 @@ export default function ProfilePage() {
                                     <div className="p-3 bg-gray-50 rounded-md">
                                         {profile.user_dayOfBirth
                                             ? new Date(profile.user_dayOfBirth).toLocaleDateString()
-                                            : 'Not provided'}
+                                            : 'Chưa cung cấp'}
                                     </div>
                                 )}
                             </div>
 
                             {/* User Status */}
                             <div className="space-y-2">
-                                <Label>Account Status</Label>
+                                <Label>Trạng thái tài khoản</Label>
                                 <div className="p-3 bg-gray-100 rounded-md">
                                     <span
                                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
@@ -352,7 +357,7 @@ export default function ProfilePage() {
                                             disabled={updating}
                                         >
                                             <X className="w-4 h-4 mr-2" />
-                                            Cancel
+                                            Hủy
                                         </Button>
                                         <Button type="submit" disabled={updating}>
                                             {updating ? (
@@ -360,13 +365,13 @@ export default function ProfilePage() {
                                             ) : (
                                                 <Save className="w-4 h-4 mr-2" />
                                             )}
-                                            {updating ? 'Saving...' : 'Save Changes'}
+                                            {updating ? 'Đang lưu...' : 'Lưu thay đổi'}
                                         </Button>
                                     </>
                                 ) : (
                                     <Button type="button" onClick={() => setEditing(true)}>
                                         <Edit className="w-4 h-4 mr-2" />
-                                        Edit Profile
+                                        Chỉnh sửa hồ sơ
                                     </Button>
                                 )}
                             </div>
