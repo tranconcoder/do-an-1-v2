@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import userService, { UserProfile } from '@/lib/services/api/userService';
 
 // Define types based on the provided login response
 export interface User {
@@ -8,10 +9,10 @@ export interface User {
     user_fullName: string;
     user_email: string;
     user_role: string;
-    user_sex: string; // Allow boolean or string based on backend type, adjust if needed
+    user_sex: boolean; // Changed to boolean to match UserProfile
     user_status: string;
     user_dayOfBirth: string; // Added based on response
-    role_name: string; // Added based on response
+    role_name?: string; // Changed to optional string to match UserProfile
 }
 
 export interface Shop {
@@ -66,6 +67,27 @@ export interface LoginSuccessPayload {
     shop?: Shop; // Shop is optional
 }
 
+/* ---------------------------------------------------------- */
+/*                        Async Thunks                        */
+/* ---------------------------------------------------------- */
+
+export const fetchUser = createAsyncThunk(
+    'user/fetchUser',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await userService.getProfile();
+            return response.metadata.user; // Assuming the user data is in response.metadata.user
+        } catch (error: any) {
+            // Handle errors and return a rejected value
+            return rejectWithValue(error.response?.data?.message || 'Failed to fetch user');
+        }
+    }
+);
+
+/* ---------------------------------------------------------- */
+/*                           Slice                            */
+/* ---------------------------------------------------------- */
+
 const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -115,7 +137,29 @@ const userSlice = createSlice({
             state.shop = action.payload.shop;
             state.isAuthenticated = action.payload.isAuthenticated;
         }
-    }
+    },
+    extraReducers: (builder) => {
+        builder
+            // fetchUser thunk
+            .addCase(fetchUser.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(fetchUser.fulfilled, (state, action: PayloadAction<User>) => {
+                state.isLoading = false;
+                state.user = action.payload;
+                state.isAuthenticated = true; // Assume fetching user means authenticated
+            })
+            .addCase(fetchUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as string;
+                state.isAuthenticated = false; // Assume failure to fetch user means not authenticated
+                state.user = null;
+                state.accessToken = null; // Clear tokens on fetch failure
+                state.refreshToken = null;
+                state.shop = null;
+            });
+    },
 });
 
 export const { loginStart, loginSuccess, loginFailure, logout, loadUserFromStorage } =

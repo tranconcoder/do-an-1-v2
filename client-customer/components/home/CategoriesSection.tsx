@@ -5,7 +5,7 @@ import { ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { categoryService, Category } from "@/lib/services/api/categoryService"
 import { mediaService } from "@/lib/services/api/mediaService"
-import { Skeleton } from "@/components/ui/skeleton";
+
 import { useEffect, useState } from "react";
 
 export function CategoriesSection() {

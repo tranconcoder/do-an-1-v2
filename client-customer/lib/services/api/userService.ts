@@ -63,6 +63,12 @@ export interface UpdateProfileResponse {
     statusCode: number;
 }
 
+export interface UploadAvatarResponse {
+    message: string;
+    metadata: UserProfile;
+    statusCode: number;
+}
+
 const userService = {
     /**
      * Gets the current user's profile.
@@ -109,6 +115,33 @@ const userService = {
             return response.data;
         } catch (error) {
             console.error('Update profile error in userService:', error);
+            throw error;
+        }
+    },
+
+    /**
+     * Uploads a new avatar for the current user.
+     * Requires authentication token in headers.
+     * @param {File} avatarFile - The avatar image file to upload.
+     * @returns {Promise<UploadAvatarResponse>} A promise that resolves to the upload response.
+     */
+    uploadAvatar: async (avatarFile: File): Promise<UploadAvatarResponse> => {
+        try {
+            const formData = new FormData();
+            formData.append('avatar', avatarFile);
+
+            const response = await apiClient.post<UploadAvatarResponse>(
+                '/user/upload-avatar',
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            );
+            return response.data;
+        } catch (error) {
+            console.error('Upload avatar error in userService:', error);
             throw error;
         }
     }
