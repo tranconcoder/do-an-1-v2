@@ -413,11 +413,13 @@ export default function CartPage() {
             };
 
             const checkoutResult = await checkoutService.checkout(checkoutRequest);
-            console.log('Checkout result:', checkoutResult);
 
             toast({
-                title: 'Thành công',
-                description: 'Tính toán đơn hàng thành công'
+                title: 'Thành công!',
+                description: `Tính toán đơn hàng thành công. Tổng tiền: ${checkoutResult.metadata.total_checkout.toLocaleString(
+                    'vi-VN'
+                )}₫`,
+                variant: 'success'
             });
 
             // You can now proceed to order creation or show checkout summary
@@ -941,17 +943,6 @@ export default function CartPage() {
                                 {isCheckingOut
                                     ? 'Đang tính toán...'
                                     : `Tính toán đơn hàng (${activeItems.length} sản phẩm)`}
-                            </Button>
-                            <Button
-                                onClick={() => handleCreateOrder('cod')}
-                                className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-lg py-3"
-                                disabled={
-                                    activeItems.length === 0 || !selectedAddressId || isOrdering
-                                }
-                            >
-                                {isOrdering
-                                    ? 'Đang đặt hàng...'
-                                    : `Đặt hàng COD (${activeItems.length} sản phẩm)`}
                             </Button>
                         </CardFooter>
                     </Card>

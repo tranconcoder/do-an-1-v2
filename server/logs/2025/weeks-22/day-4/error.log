@@ -1086,3 +1086,207 @@
     "message": "Expected number, received string"
   }
 ]::
+[2025-05-29T04:15:05.382Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:15:05.396Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:15:05.605Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:15:05.635Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:17:07.753Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:17:13.153Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:17:13.884Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T05:06:25.645Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:20:30.771Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:20:46.239Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:22:17.354Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:22:18.334Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:22:18.606Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:22:18.752Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:22:19.926Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:22:20.097Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:22:20.242Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:22:20.392Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:22:20.542Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:22:20.684Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:22:20.829Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:22:21.017Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:23:11.986Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:23:12.542Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:23:12.708Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:23:12.854Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:23:13.012Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T05:23:23.924Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-29T05:23:47.070Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "array",
+    "received": "undefined",
+    "path": [
+      "shopsDiscount"
+    ],
+    "message": "Required"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "addressId"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-29T05:24:00.625Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "array",
+    "received": "undefined",
+    "path": [
+      "shopsDiscount"
+    ],
+    "message": "Required"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "addressId"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-29T05:24:01.748Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "array",
+    "received": "undefined",
+    "path": [
+      "shopsDiscount"
+    ],
+    "message": "Required"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "addressId"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-29T05:25:32.879Z] [error]: HIDE::400::Error::Bad Request::
+[2025-05-29T05:31:17.140Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "array",
+    "received": "undefined",
+    "path": [
+      "shopsDiscount"
+    ],
+    "message": "Required"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "addressId"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-29T05:33:35.852Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "array",
+    "received": "undefined",
+    "path": [
+      "shopsDiscount"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-29T05:33:51.254Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-29T05:36:26.570Z] [error]: HIDE::400::AbortError::The operation was aborted.::
+[2025-05-29T05:36:59.602Z] [error]: HIDE::400::Error::Bad Request::
+[2025-05-29T05:38:18.413Z] [error]: HIDE::400::AbortError::The operation was aborted.::
+[2025-05-29T05:38:42.914Z] [error]: HIDE::400::Error::Bad Request::
+[2025-05-29T05:39:13.486Z] [error]: HIDE::400::Error::Bad Request::
+[2025-05-29T05:39:34.097Z] [error]: HIDE::400::Error::Bad Request::
+[2025-05-29T06:13:11.714Z] [error]: HIDE::400::AbortError::The operation was aborted.::
+[2025-05-29T06:13:54.992Z] [error]: HIDE::400::Error::Bad Request::
+[2025-05-29T07:28:51.306Z] [error]: HIDE::400::TypeError::Spread syntax requires ...iterable not be null or undefined::
+[2025-05-29T08:32:38.682Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "Location"::
+[2025-05-29T08:33:32.408Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "Location"::
+[2025-05-29T09:44:17.371Z] [error]: HIDE::400::ReferenceError::FEE_SHIP_DEFAULT is not defined::
+[2025-05-29T09:56:34.886Z] [error]: HIDE::400::ReferenceError::FEE_SHIP_DEFAULT is not defined::

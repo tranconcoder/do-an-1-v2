@@ -1,12 +1,7 @@
 import { Router } from 'express';
 
-/* ----------------------- Controller ----------------------- */
-import CheckoutController from '@/controllers/checkout.controller.js';
-
 /* ----------------------- Middleware ----------------------- */
-import catchError from '@/middlewares/catchError.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
-import { validateCheckout } from '@/validations/zod/checkout.zod';
 
 const getRoute = Router();
 const getRouteValidated = Router();
@@ -17,6 +12,6 @@ const getRouteValidated = Router();
 getRoute.use(getRouteValidated);
 getRouteValidated.use(authenticate);
 
-getRouteValidated.get('/checkout', validateCheckout, catchError(CheckoutController.checkout));
+// Checkout route moved to POST routes
 
 export default getRoute;

@@ -62,9 +62,7 @@ class CheckoutService {
      * Create a checkout with selected items and address
      */
     async checkout(request: CheckoutRequest): Promise<CheckoutResponse> {
-        const response = await apiClient.get<CheckoutResponse>('/order/checkout', {
-            params: request
-        });
+        const response = await apiClient.post<CheckoutResponse>('/order/checkout', request);
         return response.data;
     }
 }

@@ -45,6 +45,7 @@ declare global {
                         total_price_raw: number;
                         total_discount_price: number;
                     }>;
+                    ship_info: string;
                 },
                 isModel,
                 isDoc,

@@ -1,4 +1,4 @@
-import { ForbiddenErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
+import { ForbiddenErrorResponse, InternalServerErrorResponse, NotFoundErrorResponse } from '@/response/error.response.js';
 
 /* -------------------------- Enum -------------------------- */
 import { CartItemStatus } from '@/enums/cart.enum.js';
@@ -12,6 +12,7 @@ import DiscountService from './discount.service.js';
 
 /* ------------------------- Models ------------------------- */
 import { userModel } from '@/models/user.model.js';
+import shopModel from '@/models/shop.model.js';
 import { findOneCartByUser } from '@/models/repository/cart/index.js';
 import { findDiscountByCode } from '@/models/repository/discount/index.js';
 import { findOneAndUpdateCheckout } from '@/models/repository/checkout/index.js';
@@ -22,7 +23,9 @@ import inventoryModel from '@/models/inventory.model.js';
 import { findInventory } from '@/models/repository/inventory/index.js';
 
 /* ------------------------- Config ------------------------- */
-import { FEE_SHIP_DEFAULT } from '@/configs/checkout.config.js';
+import locationService from './location.service.js';
+import { findOneWarehouse, findWarehouses } from '@/models/repository/warehouses/index.js';
+import { getFeeShipByDistance } from '@/utils/checkout.util.js';
 
 export default new (class CheckoutService {
     public async checkout({
@@ -40,12 +43,6 @@ export default new (class CheckoutService {
             }
         });
         const addressLocation = address?.location as any as model.location.LocationSchema;
-        console.log("ADDRESS TEST:::", {
-            address,
-            addressId,
-            user,
-            addressLocation,
-        })
         if (!address || !addressLocation || !addressLocation.coordinates)
             throw new NotFoundErrorResponse({ message: 'Not found address!' });
 
@@ -60,6 +57,8 @@ export default new (class CheckoutService {
             );
         });
 
+        console.log("CART TEST:::", cart.cart_shop.map((shop) => shop.products));
+
         /* ------------------ Initial result data  ------------------ */
         const checkoutResult: service.checkout.definition.CheckoutResult = {
             total_price_raw: 0,
@@ -68,7 +67,8 @@ export default new (class CheckoutService {
             total_discount_shop_price: 0,
             total_discount_price: 0,
             total_checkout: 0,
-            shops_info: []
+            shops_info: [],
+            ship_info: addressLocation._id.toString()
         };
 
         /* --------------------- Admin voucher  --------------------- */
@@ -94,10 +94,12 @@ export default new (class CheckoutService {
         /* ----------------------- Each shop  ----------------------- */
         await Promise.all(
             cart.cart_shop.map(async (shop) => {
-                const foundShop = await userModel.findById(shop.shop);
+                const foundShop = await shopModel.findById(shop.shop);
                 if (!foundShop) throw new NotFoundErrorResponse({ message: 'Not found shop!' });
 
                 const skuIds = shop.products.map((x) => x.sku);
+
+                /* --------------- Get inventories info --------------- */
                 const inventories = await findInventory({
                     query: {
                         inventory_shop: shop.shop,
@@ -106,37 +108,70 @@ export default new (class CheckoutService {
                     only: ['inventory_warehouses'],
                     options: {
                         lean: true,
-                        populate: "inventory_warehouses"
                     }
-                })
-                const warehouseCoordinates =
-                    inventories.map((inventory: any) => {
-                        const warehouseCoordinates = inventory.inventory_warehouses.coordinates;
-                        if (!warehouseCoordinates)
-                            return null
+                });
 
-                        return [
-                            warehouseCoordinates?.x,
-                            warehouseCoordinates?.y,
-                        ]
+                /* --------------- Get warehouses info --------------- */
+                const warehousesIds = inventories.map((x: any) => x.inventory_warehouses.toString());
+                const warehouses = await Promise.all(
+                    warehousesIds.map(async (x) => {
+                        return await findOneWarehouse({
+                            query: { _id: x },
+                            only: ['address', "_id"] as any,
+                            options: { lean: true, populate: "address" }
+                        });
                     })
-                        .filter((x: any) => x !== null);
+                )
+
+                const warehouseCoordinates = await Promise.all(
+                    warehouses.map(async (x) => {
+                        const location = x.address as any as model.location.LocationSchema;
+
+                        if (!location || !location.coordinates)
+                            return null;
+
+                        return {
+                            x: location.coordinates.x!,
+                            y: location.coordinates.y!,
+                            warehouse_id: x._id.toString()
+                        }
+                    })
+                ).then((x) => x.filter((x: any) => x !== null));
+                if (!warehouseCoordinates || !Array.isArray(warehouseCoordinates)) {
+                    throw new InternalServerErrorResponse({ message: 'Failed to get warehouse coordinates!' });
+                }
 
                 /* --------- Get distance nearest warehouse --------- */
                 const distanceRes = await Matrix.calculate({
-                    locations: warehouseCoordinates,
+                    locations: [
+                        [addressLocation.coordinates?.x!, addressLocation.coordinates?.y!],
+                        ...warehouseCoordinates.map(item => [item?.x, item?.y])
+                    ],
                     profile: 'driving-car',
-                    sources: ['all'],
-                    destinations: [addressLocation.coordinates]
+                    sources: [0],
+                    destinations: Array.from({ length: warehouseCoordinates.length }, (_, i) => i + 1),
+                    metrics: ['distance', 'duration']
+                }).catch((err: any) => {
+                    console.log("DISTANCE ERR TEST:::", err);
+                    return null;
                 });
+                if (!distanceRes)
+                    throw new InternalServerErrorResponse({ message: 'Failed to calculate distance!' });
 
-                console.log({
-                    warehouseCoordinates,
-                    inventories,
-                    addressLocation,
-                    distanceRes,
-                })
+                /* --------------- Caculate shipping fee --------------- */
+                const totalDistanceShop =
+                    distanceRes.distances[0].reduce((acc: number, cur: number) => acc + (cur / 1000), 0);
+                const avgDistancePerShop =
+                    totalDistanceShop / shop.products.length;
+                const feeShipShop =
+                    getFeeShipByDistance(avgDistancePerShop);
 
+                console.log("HOME COORDINATES TEST:::", [addressLocation.coordinates?.x!, addressLocation.coordinates?.y!]);
+                console.log("WAREHOUSE COORDINATES TEST:::", warehouseCoordinates);
+                console.log("FEE SHIP TEST:::", feeShipShop);
+                console.log("AVG DISTANCE PER SHOP TEST:::", avgDistancePerShop);
+                console.log("ALL DISTANCE TEST:::", totalDistanceShop);
+                checkoutResult.total_fee_ship += feeShipShop;
 
                 /* -------------- Initial total price raw shop -------------- */
                 let totalPriceRawShop = 0;
@@ -189,7 +224,7 @@ export default new (class CheckoutService {
                 /* ---------------------- Each product ---------------------- */
                 checkoutResult.shops_info.push({
                     shop_id: foundShop._id.toString(),
-                    shop_name: foundShop.user_fullName,
+                    shop_name: foundShop.shop_name,
                     discount: discount
                         ? {
                             ..._.pick(discount, [
@@ -201,7 +236,7 @@ export default new (class CheckoutService {
                             discount_id: discount._id
                         }
                         : undefined,
-                    fee_ship: FEE_SHIP_DEFAULT,
+                    fee_ship: feeShipShop,
                     total_discount_price: discountPriceShop,
                     total_price_raw: totalPriceRawShop,
                     products_info: productsInfo.map((product) => {
