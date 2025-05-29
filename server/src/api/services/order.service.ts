@@ -5,6 +5,8 @@ import { OrderStatus } from '@/enums/order.enum.js';
 /* ------------------------- Models ------------------------- */
 import { findOneCheckout } from '@/models/repository/checkout/index.js';
 import orderModel from '@/models/order.model.js';
+import { userModel } from '@/models/user.model.js';
+import { findAddressById } from '@/models/repository/address/index.js';
 
 /* -------------------------- Repo -------------------------- */
 import { cancelDiscount } from '@/models/repository/discount/index.js';
@@ -28,15 +30,23 @@ import CartService from './cart.service.js';
 
 export default new (class OrderService {
     public async createOrder({ userId, paymentType }: service.order.arguments.CreateOrder) {
-        /* ------------------- Check information  ------------------- */
-        const shipInfo = {
-            // ...
-        };
-        if (!shipInfo) throw new NotFoundErrorResponse({ message: 'Not found ship info!' });
+        /* ------------------- Check user information  ------------------- */
+        const user = await userModel.findById(userId);
+        if (!user) throw new NotFoundErrorResponse({ message: 'User not found!' });
 
         /* ------------------ Check checkout info  ------------------ */
         const checkout = await findOneCheckout({ query: { user: userId } });
         if (!checkout) throw new NotFoundErrorResponse({ message: 'Not found checkout info!' });
+
+        /* ------------------- Get shipping address  ------------------- */
+        const shippingAddress = await findAddressById({
+            id: checkout.ship_info,
+            options: { lean: true, populate: 'location' }
+        });
+        if (!shippingAddress) throw new NotFoundErrorResponse({ message: 'Shipping address not found!' });
+
+        // Type assertion for populated location
+        const location = shippingAddress.location as any;
 
         /* ---------- Check product quantity in inventory  ---------- */
         const shops = checkout.shops_info.flatMap((shop) =>
@@ -134,11 +144,11 @@ export default new (class OrderService {
                 return await orderModel.create({
                     /* ------------------------ Customer ------------------------ */
                     customer: userId,
-                    customer_address: 'Viet nam',
-                    customer_avatar: 'avatar-test.png',
-                    customer_email: 'tranvanconkg@test.com',
-                    customer_full_name: 'Tran Van Con',
-                    customer_phone: '0327781160',
+                    customer_address: `${location.address}, ${location.ward?.ward_name ? location.ward.ward_name + ', ' : ''}${location.district.district_name}, ${location.province.province_name}`,
+                    customer_avatar: user.user_avatar?.toString() || '',
+                    customer_email: user.user_email,
+                    customer_full_name: shippingAddress.recipient_name,
+                    customer_phone: shippingAddress.recipient_phone,
 
                     /* ------------------------ Payment  ------------------------ */
                     payment_type: paymentType,

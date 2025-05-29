@@ -40,6 +40,7 @@ import { fetchUserAddresses } from '@/lib/store/slices/addressSlice';
 import checkoutService, { CheckoutRequest, ShopDiscount } from '@/lib/services/api/checkoutService';
 import orderService, { CreateOrderRequest } from '@/lib/services/api/orderService';
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
 
 export default function CartPage() {
     const { isAuthenticated, isLoading: isAuthLoading } = useSelector(
@@ -53,6 +54,7 @@ export default function CartPage() {
     } = useSelector((state: RootState) => state.address);
     const dispatch = useAppDispatch();
     const { toast } = useToast();
+    const router = useRouter();
 
     // State cho việc chọn sản phẩm và mã giảm giá
     const [activeItems, setactiveItems] = useState<string[]>([]);
@@ -414,6 +416,9 @@ export default function CartPage() {
 
             const checkoutResult = await checkoutService.checkout(checkoutRequest);
 
+            // Store checkout data for payment page
+            localStorage.setItem('checkoutData', JSON.stringify(checkoutResult.metadata));
+
             toast({
                 title: 'Thành công!',
                 description: `Tính toán đơn hàng thành công. Tổng tiền: ${checkoutResult.metadata.total_checkout.toLocaleString(
@@ -422,8 +427,8 @@ export default function CartPage() {
                 variant: 'success'
             });
 
-            // You can now proceed to order creation or show checkout summary
-            // For now, we'll just log the result
+            // Navigate to checkout/payment page
+            router.push('/checkout');
         } catch (error: any) {
             console.error('Checkout error:', error);
             toast({
@@ -616,15 +621,15 @@ export default function CartPage() {
                                                     href={`/products/${item.spu_id}?sku=${item.sku_id}`}
                                                     className="hover:text-blue-600"
                                                 >
-                                                    <h3 className="text-lg font-semibold text-gray-800">
+                                                    <h3 className="text-base font-semibold text-gray-800">
                                                         {item.product_name}
                                                     </h3>
                                                 </Link>
-                                                <p className="text-md font-bold text-blue-600 mt-1">
+                                                <p className="text-sm font-bold text-blue-600 mt-1">
                                                     {item.sku_price.toLocaleString('vi-VN')}₫
                                                 </p>
                                                 {itemDiscounts[item.sku_id] && (
-                                                    <p className="text-sm text-green-600 font-medium">
+                                                    <p className="text-xs text-green-600 font-medium">
                                                         Giảm: -
                                                         {itemDiscounts[item.sku_id].toLocaleString(
                                                             'vi-VN'
@@ -745,9 +750,9 @@ export default function CartPage() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-3 p-0">
-                            <div className="flex justify-between text-gray-700">
+                            <div className="flex justify-between text-sm text-gray-700">
                                 <span>Tạm tính ({calculateTotalItems()} sản phẩm đã chọn)</span>
-                                <span>
+                                <span className="font-medium">
                                     {cartItems
                                         .filter((item) => activeItems.includes(item.sku_id))
                                         .reduce(
@@ -761,9 +766,9 @@ export default function CartPage() {
 
                             {/* Hiển thị tổng giảm giá từ item-level discounts */}
                             {Object.values(itemDiscounts).some((discount) => discount > 0) && (
-                                <div className="flex justify-between text-orange-600">
+                                <div className="flex justify-between text-sm text-orange-600">
                                     <span>Giảm giá sản phẩm</span>
-                                    <span>
+                                    <span className="font-medium">
                                         -
                                         {Object.entries(itemDiscounts)
                                             .filter(([itemId]) => activeItems.includes(itemId))
@@ -775,14 +780,16 @@ export default function CartPage() {
                             )}
 
                             {appliedDiscount > 0 && (
-                                <div className="flex justify-between text-green-600">
+                                <div className="flex justify-between text-sm text-green-600">
                                     <span>Giảm giá đơn hàng</span>
-                                    <span>-{appliedDiscount.toLocaleString('vi-VN')}₫</span>
+                                    <span className="font-medium">
+                                        -{appliedDiscount.toLocaleString('vi-VN')}₫
+                                    </span>
                                 </div>
                             )}
 
                             <div className="border-t pt-3">
-                                <div className="flex justify-between text-xl font-bold text-blue-800">
+                                <div className="flex justify-between text-lg font-bold text-blue-800">
                                     <span>Tổng cộng</span>
                                     <span>{calculateFinalTotal().toLocaleString('vi-VN')}₫</span>
                                 </div>
@@ -932,17 +939,17 @@ export default function CartPage() {
                             </div>
                         )}
 
-                        <CardFooter className="mt-6 p-0 space-y-2">
+                        <CardFooter className="mt-6 p-0">
                             <Button
                                 onClick={handleCheckout}
-                                className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-lg py-3"
+                                className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-base py-3"
                                 disabled={
                                     activeItems.length === 0 || !selectedAddressId || isCheckingOut
                                 }
                             >
                                 {isCheckingOut
                                     ? 'Đang tính toán...'
-                                    : `Tính toán đơn hàng (${activeItems.length} sản phẩm)`}
+                                    : `Tính toán đơn hàng (${activeItems.length})`}
                             </Button>
                         </CardFooter>
                     </Card>

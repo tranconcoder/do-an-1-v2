@@ -1290,3 +1290,4 @@
 [2025-05-29T08:33:32.408Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "[object Object]" (type string) at path "_id" for model "Location"::
 [2025-05-29T09:44:17.371Z] [error]: HIDE::400::ReferenceError::FEE_SHIP_DEFAULT is not defined::
 [2025-05-29T09:56:34.886Z] [error]: HIDE::400::ReferenceError::FEE_SHIP_DEFAULT is not defined::
+[2025-05-29T10:26:10.952Z] [error]: HIDE::404::NotFound::Shipping address not found!::

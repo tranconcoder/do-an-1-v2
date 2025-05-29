@@ -1,7 +1,7 @@
 import apiClient from '../axiosInstance';
 
 export interface CreateOrderRequest {
-    paymentType: 'cod' | 'vnpay' | 'momo';
+    paymentType: 'cod' | 'vnpay' | 'bank_transfer' | 'credit_card';
 }
 
 export interface CreateOrderResponse {
