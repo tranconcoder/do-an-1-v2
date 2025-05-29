@@ -15,15 +15,43 @@ import { userModel } from '@/models/user.model.js';
 import { findOneCartByUser } from '@/models/repository/cart/index.js';
 import { findDiscountByCode } from '@/models/repository/discount/index.js';
 import { findOneAndUpdateCheckout } from '@/models/repository/checkout/index.js';
+import { findAddressById } from '@/models/repository/address/index.js';
+import { Matrix } from './openrouteservice.service.js';
+import inventoryService from './inventory.service.js';
+import inventoryModel from '@/models/inventory.model.js';
+import { findInventory } from '@/models/repository/inventory/index.js';
+
+/* ------------------------- Config ------------------------- */
+import { FEE_SHIP_DEFAULT } from '@/configs/checkout.config.js';
 
 export default new (class CheckoutService {
     public async checkout({
         user,
         shopsDiscount = [],
-        discountCode
+        discountCode,
+        addressId
     }: service.checkout.arguments.Checkout) {
+        /* ----------------------- Check address ----------------------- */
+        const address = await findAddressById({
+            id: addressId,
+            options: {
+                lean: true,
+                populate: "location"
+            }
+        });
+        const addressLocation = address?.location as any as model.location.LocationSchema;
+        console.log("ADDRESS TEST:::", {
+            address,
+            addressId,
+            user,
+            addressLocation,
+        })
+        if (!address || !addressLocation || !addressLocation.coordinates)
+            throw new NotFoundErrorResponse({ message: 'Not found address!' });
+
         /* ----------------------- Check cart ----------------------- */
         const cart = await findOneCartByUser({ user: user });
+        if (!cart) throw new NotFoundErrorResponse({ message: 'Not found cart!' });
 
         /* ----------- Select all item selected from cart ----------- */
         cart.cart_shop.forEach((shop) => {
@@ -69,7 +97,46 @@ export default new (class CheckoutService {
                 const foundShop = await userModel.findById(shop.shop);
                 if (!foundShop) throw new NotFoundErrorResponse({ message: 'Not found shop!' });
 
-                const FEE_SHIP_DEFAULT = 30_000;
+                const skuIds = shop.products.map((x) => x.sku);
+                const inventories = await findInventory({
+                    query: {
+                        inventory_shop: shop.shop,
+                        inventory_sku: { $in: skuIds },
+                    },
+                    only: ['inventory_warehouses'],
+                    options: {
+                        lean: true,
+                        populate: "inventory_warehouses"
+                    }
+                })
+                const warehouseCoordinates =
+                    inventories.map((inventory: any) => {
+                        const warehouseCoordinates = inventory.inventory_warehouses.coordinates;
+                        if (!warehouseCoordinates)
+                            return null
+
+                        return [
+                            warehouseCoordinates?.x,
+                            warehouseCoordinates?.y,
+                        ]
+                    })
+                        .filter((x: any) => x !== null);
+
+                /* --------- Get distance nearest warehouse --------- */
+                const distanceRes = await Matrix.calculate({
+                    locations: warehouseCoordinates,
+                    profile: 'driving-car',
+                    sources: ['all'],
+                    destinations: [addressLocation.coordinates]
+                });
+
+                console.log({
+                    warehouseCoordinates,
+                    inventories,
+                    addressLocation,
+                    distanceRes,
+                })
+
 
                 /* -------------- Initial total price raw shop -------------- */
                 let totalPriceRawShop = 0;
@@ -84,14 +151,14 @@ export default new (class CheckoutService {
                 /* ------------- Get amount of discount by shop ------------- */
                 const discountPriceShop = discount
                     ? (
-                          await DiscountService.getDiscountAmount({
-                              discountCode: discountInfo.discountCode,
-                              products: shop.products.map((x) => ({
-                                  id: x.sku.toString(),
-                                  quantity: x.cart_quantity,
-                              }))
-                          })
-                      ).totalDiscount
+                        await DiscountService.getDiscountAmount({
+                            discountCode: discountInfo.discountCode,
+                            products: shop.products.map((x) => ({
+                                id: x.sku.toString(),
+                                quantity: x.cart_quantity,
+                            }))
+                        })
+                    ).totalDiscount
                     : 0;
 
                 const productsInfo = shop.products.map((product) => {
@@ -125,14 +192,14 @@ export default new (class CheckoutService {
                     shop_name: foundShop.user_fullName,
                     discount: discount
                         ? {
-                              ..._.pick(discount, [
-                                  'discount_name',
-                                  'discount_type',
-                                  'discount_value',
-                                  'discount_code'
-                              ]),
-                              discount_id: discount._id
-                          }
+                            ..._.pick(discount, [
+                                'discount_name',
+                                'discount_type',
+                                'discount_value',
+                                'discount_code'
+                            ]),
+                            discount_id: discount._id
+                        }
                         : undefined,
                     fee_ship: FEE_SHIP_DEFAULT,
                     total_discount_price: discountPriceShop,
@@ -161,11 +228,11 @@ export default new (class CheckoutService {
         );
         checkoutResult.total_discount_admin_price = discountAdmin
             ? calculateDiscount(
-                  discountAdmin.discount_type,
-                  totalPriceProductToApplyAdminVoucher,
-                  discountAdmin.discount_value,
-                  discountAdmin.discount_max_value
-              )
+                discountAdmin.discount_type,
+                totalPriceProductToApplyAdminVoucher,
+                discountAdmin.discount_value,
+                discountAdmin.discount_max_value
+            )
             : 0;
 
         checkoutResult.total_discount_price =

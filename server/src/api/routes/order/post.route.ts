@@ -1,22 +1,22 @@
 import { Router } from 'express';
 
 /* ----------------------- Controller ----------------------- */
-import CheckoutController from '@/controllers/checkout.controller.js';
+import orderController from '@/controllers/order.controller.js';
 
 /* ----------------------- Middleware ----------------------- */
 import catchError from '@/middlewares/catchError.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
-import { validateCheckout } from '@/validations/zod/checkout.zod';
+import { validateCreateOrder } from '@/validations/zod/order.zod';
 
-const getRoute = Router();
-const getRouteValidated = Router();
+const postRoute = Router();
+const postRouteValidated = Router();
 
 /* ---------------------------------------------------------- */
 /*                      Validated routes                      */
 /* ---------------------------------------------------------- */
-getRoute.use(getRouteValidated);
-getRouteValidated.use(authenticate);
+postRoute.use(postRouteValidated);
+postRouteValidated.use(authenticate);
 
-getRouteValidated.get('/checkout', validateCheckout, catchError(CheckoutController.checkout));
+postRouteValidated.post('/create', validateCreateOrder, catchError(orderController.createOrder));
 
-export default getRoute;
+export default postRoute; 

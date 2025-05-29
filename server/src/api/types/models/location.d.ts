@@ -56,7 +56,7 @@ declare global {
                     text: string;
 
                     // Coordinates
-                    coordinates: {
+                    coordinates?: {
                         x: number;
                         y: number;
                     };

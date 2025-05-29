@@ -1,8 +1,7 @@
 import { model, Schema } from 'mongoose';
 import { timestamps, required, ObjectId } from '@/configs/mongoose.config.js';
-import { SPU_COLLECTION_NAME } from './spu.model.js';
 import { USER_MODEL_NAME } from './user.model.js';
-import { SKU_COLLECTION_NAME, SKU_MODEL_NAME } from './sku.model.js';
+import { SKU_MODEL_NAME } from './sku.model.js';
 import { SHOP_MODEL_NAME } from './shop.model.js';
 import { WAREHOUSE_MODEL_NAME } from './warehouse.model.js';
 

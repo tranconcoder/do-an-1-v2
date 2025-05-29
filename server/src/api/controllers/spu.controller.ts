@@ -3,12 +3,21 @@ import { RequestWithBody, RequestWithParams, RequestWithQuery } from '@/types/re
 import spuService from '@/services/spu.service.js';
 import { SPUImages } from '@/enums/spu.enum.js';
 import { RequestHandler } from 'express';
+import { findShopByUser } from '@/models/repository/shop';
 
 export default new (class SPUController {
     /* ---------------------------------------------------------- */
     /*                            Crate                           */
     /* ---------------------------------------------------------- */
     createSPU: RequestWithBody<joiTypes.spu.CreateSPU> = async (req, res, next) => {
+        const shop = await findShopByUser({
+            userId: req.userId!,
+            options: {
+                lean: true
+            }
+        });
+        console.log("SHOP:::", shop)
+
         new CreatedResponse({
             message: 'Create product successfully!',
             metadata: await spuService.createSPU({

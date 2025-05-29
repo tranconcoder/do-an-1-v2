@@ -4,7 +4,7 @@ import { Router } from 'express';
 import catchError from '@/middlewares/catchError.middleware.js';
 import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
-import { uploadFieldsMedia, uploadSingleMedia } from '@/middlewares/media.middleware.js';
+import { cleanUpMediaOnError, uploadFieldsMedia, uploadSingleMedia } from '@/middlewares/media.middleware.js';
 import { uploadSPU } from '@/middlewares/multer.middleware.js';
 
 /* -------------------------- Enum -------------------------- */
@@ -41,7 +41,10 @@ spuPostRoute.post(
     ),
 
     validateCreateSPU,
-    catchError(spuController.createSPU)
+
+    catchError(spuController.createSPU),
+
+    cleanUpMediaOnError
 );
 
 /* ---------------------------------------------------------- */

@@ -1,4 +1,5 @@
 import '';
+import { CheckoutSchema } from "@/validations/zod/checkout.zod";
 
 declare global {
     namespace service {
@@ -15,13 +16,8 @@ declare global {
             /*                         Arguments                          */
             /* ---------------------------------------------------------- */
             namespace arguments {
-                interface Checkout {
+                interface Checkout extends CheckoutSchema{
                     user: string;
-                    discountCode?: string; // Admin voucher
-                    shopsDiscount: Array<{
-                        shopId: string;
-                        discountCode: string;
-                    }>;
                 }
             }
         }

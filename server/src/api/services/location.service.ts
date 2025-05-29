@@ -10,6 +10,7 @@ import {
 } from '@/models/repository/location/index.js';
 import { provinceModel, districtModel, wardModel, locationModel } from '@/models/location.model.js';
 import { BadRequestErrorResponse } from '@/response/error.response.js';
+import { Geocode } from './openrouteservice.service';
 
 export default new (class LocationService {
     /* ---------------------------------------------------------- */
@@ -34,13 +35,34 @@ export default new (class LocationService {
         /* ----------------- Handle create location ----------------- */
         const wardText = typeof ward === 'boolean' ? ',' : ward.ward_name + ', ';
         const locationText = `${address}, ${wardText}${district.district_name}, ${province.province_name}`;
+        let locationTextTemp = locationText;
+
+        /* --------------------- Get coordinates -------------------- */
+        let coordinates: number[] | undefined;
+        do {
+            console.log('Location text:', locationTextTemp);
+
+            let response = await Geocode.geocode({
+                text: locationTextTemp,
+                boundary_country: ['VN']
+            });
+
+            coordinates = response?.features?.at(0)?.geometry?.coordinates;
+            if (!coordinates)
+                locationTextTemp = locationTextTemp.split(', ').slice(1).join(', ');
+        } while (!coordinates || locationTextTemp.split(', ').length == 1);
+        if (!coordinates) throw new BadRequestErrorResponse({ message: 'Get coordinates failed!' });
 
         const saved = await locationModel.create({
             province: provinceId,
             district: districtId,
             ward: wardId,
             address,
-            text: locationText
+            text: locationText,
+            coordinates: {
+                x: coordinates[0],
+                y: coordinates[1]
+            }
         });
 
         if (!saved) throw new BadRequestErrorResponse({ message: 'Create location failed!' });

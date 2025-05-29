@@ -1,4 +1,5 @@
 import {
+    generateFindAll,
     generateFindByIdAndUpdate,
     generateFindOne,
     generateFindOneAndUpdate
@@ -16,6 +17,8 @@ export const createInventory = async (payload: service.inventory.arguments.Creat
 /*                          Find one                          */
 /* ---------------------------------------------------------- */
 export const findOneInventory = generateFindOne<model.inventory.InventorySchema>(inventoryModel);
+
+export const findInventory = generateFindAll<model.inventory.InventorySchema>(inventoryModel);
 
 /* ---------------------------------------------------------- */
 /*                           Update                           */

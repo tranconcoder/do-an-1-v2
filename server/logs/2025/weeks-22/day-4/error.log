@@ -1,0 +1,989 @@
+[2025-05-29T03:08:51.586Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "too_small",
+    "minimum": 1,
+    "type": "string",
+    "inclusive": true,
+    "exact": false,
+    "message": "String must contain at least 1 character(s)",
+    "path": [
+      "shopsDiscount",
+      0,
+      "discountCode"
+    ]
+  }
+]::
+[2025-05-29T03:09:50.840Z] [error]: HIDE::404::NotFound::Not found address!::
+[2025-05-29T03:11:21.106Z] [error]: HIDE::404::NotFound::Not found address!::
+[2025-05-29T03:14:46.351Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-05-29T03:14:52.905Z] [error]: HIDE::404::NotFound::Default role not found!::
+[2025-05-29T03:14:56.143Z] [error]: HIDE::404::NotFound::Default role not found!::
+[2025-05-29T03:15:24.285Z] [error]: HIDE::404::NotFound::Default role not found!::
+[2025-05-29T03:16:15.116Z] [error]: HIDE::400::BadRequest::Get coordinates failed!::
+[2025-05-29T03:25:26.356Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-05-29T03:25:36.886Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-29T03:25:38.033Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-29T03:25:38.789Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-29T03:26:05.256Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-05-29T03:26:10.631Z] [error]: HIDE::400::BadRequest::Your account already is shop!::
+[2025-05-29T03:27:42.346Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "shopId"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-29T03:27:43.573Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "shopId"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-29T03:34:46.127Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-29T03:36:09.582Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-29T03:36:34.513Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-05-29T03:36:42.935Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_union",
+    "unionErrors": [
+      {
+        "issues": [
+          {
+            "code": "invalid_type",
+            "expected": "array",
+            "received": "undefined",
+            "path": [
+              "product_variations",
+              0,
+              "variation_images"
+            ],
+            "message": "Required"
+          }
+        ],
+        "name": "ZodError"
+      },
+      {
+        "issues": [
+          {
+            "code": "invalid_type",
+            "expected": "array",
+            "received": "undefined",
+            "path": [
+              "product_variations",
+              0,
+              "variation_images"
+            ],
+            "message": "Required"
+          }
+        ],
+        "name": "ZodError"
+      }
+    ],
+    "path": [
+      "product_variations",
+      0,
+      "variation_images"
+    ],
+    "message": "Invalid input"
+  },
+  {
+    "code": "invalid_union",
+    "unionErrors": [
+      {
+        "issues": [
+          {
+            "code": "invalid_type",
+            "expected": "array",
+            "received": "undefined",
+            "path": [
+              "product_variations",
+              1,
+              "variation_images"
+            ],
+            "message": "Required"
+          }
+        ],
+        "name": "ZodError"
+      },
+      {
+        "issues": [
+          {
+            "code": "invalid_type",
+            "expected": "array",
+            "received": "undefined",
+            "path": [
+              "product_variations",
+              1,
+              "variation_images"
+            ],
+            "message": "Required"
+          }
+        ],
+        "name": "ZodError"
+      }
+    ],
+    "path": [
+      "product_variations",
+      1,
+      "variation_images"
+    ],
+    "message": "Invalid input"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_images_map",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_images_map",
+      1
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_price"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_stock"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_tier_idx",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_tier_idx",
+      1
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_price"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_stock"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_tier_idx",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_tier_idx",
+      1
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T03:39:57.022Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_union",
+    "unionErrors": [
+      {
+        "issues": [
+          {
+            "code": "invalid_type",
+            "expected": "array",
+            "received": "undefined",
+            "path": [
+              "product_variations",
+              0,
+              "variation_images"
+            ],
+            "message": "Required"
+          }
+        ],
+        "name": "ZodError"
+      },
+      {
+        "issues": [
+          {
+            "code": "invalid_type",
+            "expected": "array",
+            "received": "undefined",
+            "path": [
+              "product_variations",
+              0,
+              "variation_images"
+            ],
+            "message": "Required"
+          }
+        ],
+        "name": "ZodError"
+      }
+    ],
+    "path": [
+      "product_variations",
+      0,
+      "variation_images"
+    ],
+    "message": "Invalid input"
+  },
+  {
+    "code": "invalid_union",
+    "unionErrors": [
+      {
+        "issues": [
+          {
+            "code": "invalid_type",
+            "expected": "array",
+            "received": "undefined",
+            "path": [
+              "product_variations",
+              1,
+              "variation_images"
+            ],
+            "message": "Required"
+          }
+        ],
+        "name": "ZodError"
+      },
+      {
+        "issues": [
+          {
+            "code": "invalid_type",
+            "expected": "array",
+            "received": "undefined",
+            "path": [
+              "product_variations",
+              1,
+              "variation_images"
+            ],
+            "message": "Required"
+          }
+        ],
+        "name": "ZodError"
+      }
+    ],
+    "path": [
+      "product_variations",
+      1,
+      "variation_images"
+    ],
+    "message": "Invalid input"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_images_map",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_images_map",
+      1
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_price"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_stock"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_tier_idx",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_tier_idx",
+      1
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_price"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_stock"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_tier_idx",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_tier_idx",
+      1
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T03:40:17.780Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_union",
+    "unionErrors": [
+      {
+        "issues": [
+          {
+            "code": "invalid_type",
+            "expected": "array",
+            "received": "undefined",
+            "path": [
+              "product_variations",
+              0,
+              "variation_images"
+            ],
+            "message": "Required"
+          }
+        ],
+        "name": "ZodError"
+      },
+      {
+        "issues": [
+          {
+            "code": "invalid_type",
+            "expected": "array",
+            "received": "undefined",
+            "path": [
+              "product_variations",
+              0,
+              "variation_images"
+            ],
+            "message": "Required"
+          }
+        ],
+        "name": "ZodError"
+      }
+    ],
+    "path": [
+      "product_variations",
+      0,
+      "variation_images"
+    ],
+    "message": "Invalid input"
+  },
+  {
+    "code": "invalid_union",
+    "unionErrors": [
+      {
+        "issues": [
+          {
+            "code": "invalid_type",
+            "expected": "array",
+            "received": "undefined",
+            "path": [
+              "product_variations",
+              1,
+              "variation_images"
+            ],
+            "message": "Required"
+          }
+        ],
+        "name": "ZodError"
+      },
+      {
+        "issues": [
+          {
+            "code": "invalid_type",
+            "expected": "array",
+            "received": "undefined",
+            "path": [
+              "product_variations",
+              1,
+              "variation_images"
+            ],
+            "message": "Required"
+          }
+        ],
+        "name": "ZodError"
+      }
+    ],
+    "path": [
+      "product_variations",
+      1,
+      "variation_images"
+    ],
+    "message": "Invalid input"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_images_map",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_images_map",
+      1
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_price"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_stock"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_tier_idx",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_tier_idx",
+      1
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_price"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_stock"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_tier_idx",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_tier_idx",
+      1
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T03:42:30.771Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_images_map",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_images_map",
+      1
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_price"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_stock"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_tier_idx",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_tier_idx",
+      1
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_price"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_stock"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_tier_idx",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_tier_idx",
+      1
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T03:47:20.897Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "SKU images map must be an array of strings",
+    "path": [
+      "sku_images_map",
+      0
+    ]
+  },
+  {
+    "code": "custom",
+    "message": "SKU images map must be an array of strings",
+    "path": [
+      "sku_images_map",
+      1
+    ]
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_price"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_stock"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_tier_idx",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      0,
+      "sku_tier_idx",
+      1
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_price"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_stock"
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_tier_idx",
+      0
+    ],
+    "message": "Expected number, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "sku_list",
+      1,
+      "sku_tier_idx",
+      1
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T03:48:39.935Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "SKU images map must be an array of strings",
+    "path": [
+      "sku_images_map",
+      0
+    ]
+  },
+  {
+    "code": "custom",
+    "message": "SKU images map must be an array of strings",
+    "path": [
+      "sku_images_map",
+      1
+    ]
+  },
+  {
+    "code": "custom",
+    "message": "SKU tier index must be a number and greater than 0",
+    "path": [
+      "sku_list",
+      0,
+      "sku_tier_idx",
+      0
+    ]
+  },
+  {
+    "code": "custom",
+    "message": "SKU tier index must be a number and greater than 0",
+    "path": [
+      "sku_list",
+      0,
+      "sku_tier_idx",
+      1
+    ]
+  }
+]::
+[2025-05-29T03:49:59.935Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "SKU images map must be an array of strings",
+    "path": [
+      "sku_images_map",
+      0
+    ]
+  },
+  {
+    "code": "custom",
+    "message": "SKU images map must be an array of strings",
+    "path": [
+      "sku_images_map",
+      1
+    ]
+  }
+]::
+[2025-05-29T03:50:45.444Z] [error]: HIDE::400::BadRequest::Create SKU failed!::
+[2025-05-29T03:52:34.828Z] [error]: HIDE::400::BadRequest::Create SKU failed!::
+[2025-05-29T03:53:20.473Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-29T03:53:20.475Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-29T03:53:20.491Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-29T03:53:20.493Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-29T03:53:20.506Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-29T03:53:20.518Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-29T03:53:26.334Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.::
+[2025-05-29T03:54:09.186Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-05-29T03:56:32.464Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T03:56:32.537Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T03:56:48.307Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T03:56:55.010Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T03:57:26.079Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T03:57:28.056Z] [error]: HIDE::404::NotFound::Not found shop!::

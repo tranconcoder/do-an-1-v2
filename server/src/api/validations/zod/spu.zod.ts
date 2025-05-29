@@ -16,15 +16,23 @@ export const createSPU = z.object({
         z.object({
             variation_name: z.string(),
             variation_values: z.array(z.string()),
-            variation_images: z.array(zodId).or(z.array(z.null()))
+            variation_images: z.array(zodId).or(z.array(z.null())).optional()
         })
     ),
-    sku_images_map: z.array(z.number()),
+    sku_images_map: z.array(z.string().refine((val) => !isNaN(Number(val)), {
+        message: 'SKU images map must be an array of strings'
+    })),
     sku_list: z.array(
         z.object({
-            sku_price: z.number().min(0),
-            sku_stock: z.number().min(1),
-            sku_tier_idx: z.array(z.number()).min(1),
+            sku_price: z.string().refine((val) => !isNaN(Number(val)) && Number(val) >= 0, {
+                message: 'SKU price must be a number'
+            }),
+            sku_stock: z.string().refine((val) => !isNaN(Number(val)) && Number(val) >= 0, {
+                message: 'SKU stock must be a number'
+            }),
+            sku_tier_idx: z.array(z.string().refine((val) => !isNaN(Number(val)), {
+                message: 'SKU tier index must be a number'
+            })),
             warehouse: zodId
         })
     ),
