@@ -987,3 +987,102 @@
 ]::
 [2025-05-29T03:57:26.079Z] [error]: HIDE::404::NotFound::Not found shop!::
 [2025-05-29T03:57:28.056Z] [error]: HIDE::404::NotFound::Not found shop!::
+[2025-05-29T04:02:07.166Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:02:07.197Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:02:07.335Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:02:07.353Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:03:57.558Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:05:50.880Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:05:50.893Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:05:50.987Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-29T04:05:50.995Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::

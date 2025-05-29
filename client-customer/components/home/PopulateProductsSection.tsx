@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '@/lib/store/store';
 import { addItemToCart } from '@/lib/store/slices/cartSlice';
 import { mediaService } from '@/lib/services/api/mediaService';
-import { toast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 export function PopulateProductsSection() {
     const [popularProducts, setPopularProducts] = useState<SPU[]>([]);
@@ -26,22 +26,21 @@ export function PopulateProductsSection() {
     const [errorPopularProducts, setErrorPopularProducts] = useState<string | null>(null);
 
     const dispatch = useDispatch<AppDispatch>();
+    const { toast } = useToast();
 
     const handleAddToCart = async (skuId: string) => {
-        const resultAction = await dispatch(addItemToCart({ skuId, quantity: 1 }));
-        if (addItemToCart.fulfilled.match(resultAction)) {
+        try {
+            await dispatch(addItemToCart({ skuId, quantity: 1 })).unwrap();
             toast({
-                variant: 'success',
-                icon: <CheckCircle className="h-5 w-5" />,
                 title: 'Thành công!',
-                description: 'Sản phẩm đã được thêm vào giỏ hàng của bạn'
+                description: 'Sản phẩm đã được thêm vào giỏ hàng của bạn',
+                variant: 'success'
             });
-        } else {
+        } catch (error) {
             toast({
-                variant: 'alert',
-                icon: <XCircle className="h-5 w-5" />,
                 title: 'Lỗi',
-                description: 'Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.'
+                description: 'Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.',
+                variant: 'destructive'
             });
         }
     };
@@ -57,10 +56,9 @@ export function PopulateProductsSection() {
                 // Show info toast when products are loaded
                 if (fetchedProducts.length > 0) {
                     toast({
-                        variant: 'info',
-                        icon: <Info className="h-5 w-5" />,
                         title: 'Thông tin',
-                        description: `Đã tải ${fetchedProducts.length} sản phẩm phổ biến`
+                        description: `Đã tải ${fetchedProducts.length} sản phẩm phổ biến`,
+                        variant: 'success'
                     });
                 }
             } catch (error) {
@@ -69,17 +67,16 @@ export function PopulateProductsSection() {
 
                 // Show warning toast on error
                 toast({
-                    variant: 'warning',
-                    icon: <AlertTriangle className="h-5 w-5" />,
                     title: 'Cảnh báo',
-                    description: 'Không thể tải sản phẩm phổ biến. Vui lòng thử lại sau.'
+                    description: 'Không thể tải sản phẩm phổ biến. Vui lòng thử lại sau.',
+                    variant: 'destructive'
                 });
             }
             setIsLoadingPopularProducts(false);
         };
 
         fetchPopularProducts();
-    }, []);
+    }, [toast]);
 
     return (
         <section className="py-16 bg-gradient-to-b from-white to-blue-50">
@@ -167,11 +164,10 @@ export function PopulateProductsSection() {
                                                         'Product SKU ID is not available.'
                                                     );
                                                     toast({
-                                                        variant: 'warning',
-                                                        icon: <AlertTriangle className="h-5 w-5" />,
                                                         title: 'Cảnh báo',
                                                         description:
-                                                            'Sản phẩm này hiện không có sẵn.'
+                                                            'Sản phẩm này hiện không có sẵn.',
+                                                        variant: 'destructive'
                                                     });
                                                 }
                                             }}
