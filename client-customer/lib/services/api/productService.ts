@@ -162,10 +162,44 @@ export interface ProductSku {
   sold_count?: number;
 }
 
+// Import types from backend - Note: In a real app, these would be shared types
+// For now, we'll use a simplified version that matches the Zod schema
+export interface ProductFilters {
+  page?: number;
+  limit?: number;
+  search?: string;
+  categories?: string; // Comma-separated category IDs (will be converted to array on backend)
+  minPrice?: number;
+  maxPrice?: number;
+  inStock?: boolean;
+  minRating?: number;
+  shopId?: string;
+  sortBy?: 'featured' | 'newest' | 'price-low' | 'price-high' | 'rating' | 'sold';
+  sortOrder?: 'asc' | 'desc';
+}
+
 const productService = {
-  async getAllProducts(): Promise<ProductSku[]> {
+  async getAllProducts(filters?: ProductFilters): Promise<ProductSku[]> {
     try {
-      const response = await apiClient.get('/sku');
+      // Build query parameters
+      const params = new URLSearchParams();
+
+      if (filters?.page) params.append('page', filters.page.toString());
+      if (filters?.limit) params.append('limit', filters.limit.toString());
+      if (filters?.search) params.append('search', filters.search);
+      if (filters?.categories) params.append('categories', filters.categories);
+      if (filters?.minPrice !== undefined) params.append('minPrice', filters.minPrice.toString());
+      if (filters?.maxPrice !== undefined) params.append('maxPrice', filters.maxPrice.toString());
+      if (filters?.inStock) params.append('inStock', 'true');
+      if (filters?.minRating !== undefined) params.append('minRating', filters.minRating.toString());
+      if (filters?.shopId) params.append('shopId', filters.shopId);
+      if (filters?.sortBy) params.append('sortBy', filters.sortBy);
+      if (filters?.sortOrder) params.append('sortOrder', filters.sortOrder);
+
+      const queryString = params.toString();
+      const url = queryString ? `/sku?${queryString}` : '/sku';
+
+      const response = await apiClient.get(url);
       // console.log("getAllProducts response:", response.data.metadata);
       return response.data.metadata || []; // Ensure it returns an array even if metadata is null/undefined
     } catch (error) {

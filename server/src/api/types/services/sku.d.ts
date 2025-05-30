@@ -1,4 +1,5 @@
 import '';
+import type { GetAllSKUQuery } from '@/validations/zod/sku.zod.js';
 
 declare global {
     namespace service {
@@ -15,7 +16,10 @@ declare global {
                     skuId: string;
                 }
 
-                interface GetAllSKUByAll extends commonTypes.object.Pagination {}
+                interface GetAllSKUByAll extends GetAllSKUQuery {
+                    // Convert categories string to array for internal use
+                    categories?: string[];
+                }
 
                 /* ---------------------------------------------------------- */
                 /*                           Get all                          */

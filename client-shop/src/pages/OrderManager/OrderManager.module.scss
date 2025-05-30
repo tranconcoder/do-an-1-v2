@@ -23,7 +23,7 @@
     flex-direction: column;
     margin-bottom: 1.5rem;
     gap: 1rem;
-    
+
     @media (min-width: 768px) {
         flex-direction: row;
         justify-content: space-between;
@@ -131,7 +131,7 @@
     .customer-name {
         font-weight: 500;
     }
-    
+
     .customer-contact {
         font-size: 0.85rem;
         color: #7f8c8d;
@@ -162,17 +162,17 @@
         color: #f39c12;
     }
 
-    &.processing {
-        background-color: rgba(52, 152, 219, 0.15);
-        color: #3498db;
+    &.pending_payment {
+        background-color: rgba(230, 126, 34, 0.15);
+        color: #e67e22;
     }
 
-    &.shipped {
+    &.delivering {
         background-color: rgba(155, 89, 182, 0.15);
         color: #8e44ad;
     }
 
-    &.delivered {
+    &.completed {
         background-color: rgba(46, 204, 113, 0.15);
         color: #27ae60;
     }
@@ -196,13 +196,19 @@
         cursor: pointer;
         font-weight: 500;
         transition: all 0.2s;
-        
+
         &:hover {
             transform: translateY(-1px);
         }
-        
+
         &:active {
             transform: translateY(0);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
     }
 
@@ -247,6 +253,144 @@
         color: white;
 
         &:hover {
+            background-color: #c0392b;
+        }
+    }
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #ecf0f1;
+
+    h3 {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 1.25rem;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #7f8c8d;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.2s;
+
+        &:hover {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+    }
+}
+
+.modal-body {
+    padding: 1.5rem;
+
+    p {
+        margin-bottom: 1rem;
+        color: #2c3e50;
+        line-height: 1.5;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d6dbdf;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+
+            &:focus {
+                outline: none;
+                border-color: #3498db;
+                box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            }
+        }
+    }
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border-top: 1px solid #ecf0f1;
+
+    button {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+
+    .cancel-modal-btn {
+        background-color: #ecf0f1;
+        color: #2c3e50;
+
+        &:hover:not(:disabled) {
+            background-color: #d6dbdf;
+        }
+    }
+
+    .confirm-reject-btn {
+        background-color: #e74c3c;
+        color: white;
+
+        &:hover:not(:disabled) {
             background-color: #c0392b;
         }
     }

@@ -8,8 +8,56 @@ import { CATEGORY_COLLECTION_NAME } from '@/models/category.model.js';
 import { SPU_COLLECTION_NAME, spuModel } from '@/models/spu.model.js';
 import { getAllSKUAggregate, getAllSKUAggregateSort } from '@/utils/sku.util.js';
 import { findAllSKU } from '@/models/repository/sku/index.js';
+import { findCategories } from '@/models/repository/category/index.js';
 
 export default new (class SKUService {
+    /* ---------------------------------------------------------- */
+    /*                           Helper                           */
+    /* ---------------------------------------------------------- */
+
+    /* ----------- Get all child category IDs recursively ------- */
+    private async getAllChildCategoryIds(categoryIds: string[]): Promise<string[]> {
+        if (!categoryIds || categoryIds.length === 0) return [];
+
+        console.log('🔍 Finding child categories for:', categoryIds);
+
+        const allCategoryIds = [...categoryIds];
+        const processedIds = new Set<string>();
+
+        while (allCategoryIds.length > 0) {
+            const currentId = allCategoryIds.shift()!;
+
+            if (processedIds.has(currentId)) {
+                continue;
+            }
+
+            processedIds.add(currentId);
+
+            // Find all direct children of current category
+            const childCategories = await findCategories({
+                query: {
+                    category_parent: new mongoose.Types.ObjectId(currentId),
+                    is_deleted: false
+                },
+                options: { lean: true }
+            });
+
+            console.log(`📂 Category ${currentId} has ${childCategories.length} children:`,
+                childCategories.map(c => ({ id: c._id.toString(), name: c.category_name })));
+
+            // Add child IDs to be processed
+            for (const child of childCategories) {
+                if (!processedIds.has(child._id.toString())) {
+                    allCategoryIds.push(child._id.toString());
+                }
+            }
+        }
+
+        const result = Array.from(processedIds);
+        console.log('✅ Final category IDs (including children):', result);
+        return result;
+    }
+
     /* ---------------------------------------------------------- */
     /*                           Create                           */
     /* ---------------------------------------------------------- */
@@ -170,8 +218,177 @@ export default new (class SKUService {
     }
 
     /* --------------------- Get all SKU ----------------------- */
-    async getAllSKUByAll({ limit = 50, page = 1 }: service.sku.arguments.GetAllSKUByAll) {
-        return await spuModel.aggregate([...getAllSKUAggregate(limit, page)]);
+    async getAllSKUByAll({
+        limit = 50,
+        page = 1,
+        search,
+        categories,
+        minPrice,
+        maxPrice,
+        inStock,
+        minRating,
+        shopId,
+        sortBy = 'featured',
+        sortOrder = 'desc'
+    }: service.sku.arguments.GetAllSKUByAll) {
+        // Ensure limit and page are numbers
+        const numericLimit = Number(limit);
+        const numericPage = Number(page);
+
+        // Build match conditions
+        const matchConditions: any = {
+            is_deleted: false,
+            is_draft: false,
+            is_publish: true
+        };
+
+        // Add shop filter if provided
+        if (shopId) {
+            matchConditions.product_shop = new mongoose.Types.ObjectId(shopId);
+        }
+
+        // Add category filter with child categories
+        if (categories && categories.length > 0) {
+            console.log('🏷️ Original categories filter:', categories);
+            const allCategoryIds = await this.getAllChildCategoryIds(categories);
+            const categoryObjectIds = allCategoryIds.map(id => new mongoose.Types.ObjectId(id));
+            console.log('🎯 MongoDB query will filter by categories:', categoryObjectIds);
+            matchConditions.product_category = { $in: categoryObjectIds };
+        }
+
+        // Build SKU match conditions
+        const skuMatchConditions: any = {
+            'sku.is_deleted': false
+        };
+
+        // Add stock filter
+        if (inStock) {
+            skuMatchConditions['sku.sku_stock'] = { $gt: 0 };
+        }
+
+        // Add price range filter
+        if (minPrice !== undefined || maxPrice !== undefined) {
+            const priceCondition: any = {};
+            if (minPrice !== undefined) priceCondition.$gte = Number(minPrice);
+            if (maxPrice !== undefined) priceCondition.$lte = Number(maxPrice);
+            skuMatchConditions['sku.sku_price'] = priceCondition;
+        }
+
+        // Add rating filter
+        if (minRating !== undefined) {
+            matchConditions.product_rating_avg = { $gte: Number(minRating) };
+        }
+
+        // Add text search
+        if (search) {
+            matchConditions.$or = [
+                { product_name: { $regex: search, $options: 'i' } },
+                { product_description: { $regex: search, $options: 'i' } }
+            ];
+        }
+
+        // Build sort conditions
+        let sortCondition: any = {};
+        switch (sortBy) {
+            case 'newest':
+                sortCondition = { created_at: sortOrder === 'asc' ? 1 : -1 };
+                break;
+            case 'price-low':
+                sortCondition = { 'sku.sku_price': 1 };
+                break;
+            case 'price-high':
+                sortCondition = { 'sku.sku_price': -1 };
+                break;
+            case 'rating':
+                sortCondition = { product_rating_avg: sortOrder === 'asc' ? 1 : -1 };
+                break;
+            case 'sold':
+                sortCondition = { product_sold: sortOrder === 'asc' ? 1 : -1 };
+                break;
+            default: // featured
+                sortCondition = { product_sold: -1, product_rating_avg: -1 };
+                break;
+        }
+
+        return await spuModel.aggregate([
+            {
+                $match: matchConditions
+            },
+            {
+                $lookup: {
+                    from: SKU_COLLECTION_NAME,
+                    localField: '_id',
+                    foreignField: 'sku_product',
+                    as: 'sku'
+                }
+            },
+            {
+                $unwind: '$sku'
+            },
+            {
+                $match: skuMatchConditions
+            },
+            {
+                $addFields: {
+                    'sku.sku_value': {
+                        $map: {
+                            input: '$sku.sku_tier_idx',
+                            as: 'tierIdx',
+                            in: {
+                                $let: {
+                                    vars: {
+                                        variation: {
+                                            $arrayElemAt: [
+                                                '$product_variations',
+                                                { $indexOfArray: ['$sku.sku_tier_idx', '$$tierIdx'] }
+                                            ]
+                                        },
+                                        valueIndex: '$$tierIdx'
+                                    },
+                                    in: {
+                                        key: '$$variation.variation_name',
+                                        value: {
+                                            $arrayElemAt: ['$$variation.variation_values', '$$valueIndex']
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                $sort: sortCondition
+            },
+            {
+                $skip: (numericPage - 1) * numericLimit
+            },
+            {
+                $limit: numericLimit
+            },
+            {
+                $project: {
+                    _id: 1,
+                    product_name: 1,
+                    product_quantity: 1,
+                    product_description: 1,
+                    product_category: 1,
+                    product_shop: 1,
+                    product_sold: 1,
+                    product_rating_avg: 1,
+                    product_slug: 1,
+                    product_thumb: 1,
+                    product_images: 1,
+                    'sku._id': 1,
+                    'sku.sku_product': 1,
+                    'sku.sku_price': 1,
+                    'sku.sku_stock': 1,
+                    'sku.sku_thumb': 1,
+                    'sku.sku_images': 1,
+                    'sku.sku_value': 1
+                }
+            }
+        ]);
     }
 
     // By own Shop

@@ -5,92 +5,9 @@ import styles from './OrderManager.module.scss';
 import OrderDetails from './components/OrderDetails';
 import axiosClient from '../../configs/axios';
 import { useToast } from '../../contexts/ToastContext';
+// import orderService from '../../services/orderService'; // Temporarily disabled
 
 const cx = classNames.bind(styles);
-
-// Sample data for development - will be replaced with API data
-const dummyOrders = [
-    {
-        id: 'ORD-001',
-        customer: {
-            name: 'Nguyễn Văn A',
-            email: 'nguyenvana@example.com',
-            phone: '0901234567'
-        },
-        orderDate: '2023-11-05T08:30:00',
-        total: 1250000,
-        status: 'pending',
-        items: [
-            { id: 1, name: 'Tai Nghe Không Dây', price: 1250000, quantity: 1, variation: 'Màu đen' }
-        ],
-        shippingAddress: '123 Nguyễn Văn Linh, Quận 7, TP HCM',
-        paymentMethod: 'COD'
-    },
-    {
-        id: 'ORD-002',
-        customer: {
-            name: 'Trần Thị B',
-            email: 'tranthib@example.com',
-            phone: '0912345678'
-        },
-        orderDate: '2023-11-05T10:15:00',
-        total: 4450000,
-        status: 'processing',
-        items: [
-            { id: 2, name: 'Đồng Hồ Thông Minh', price: 4450000, quantity: 1, variation: 'Bạc' }
-        ],
-        shippingAddress: '456 Lê Văn Việt, Quận 9, TP HCM',
-        paymentMethod: 'Banking'
-    },
-    {
-        id: 'ORD-003',
-        customer: {
-            name: 'Lê Văn C',
-            email: 'levanc@example.com',
-            phone: '0987654321'
-        },
-        orderDate: '2023-11-04T15:45:00',
-        total: 2790000,
-        status: 'shipped',
-        items: [
-            { id: 3, name: 'Loa Bluetooth', price: 2790000, quantity: 1, variation: 'Xanh dương' }
-        ],
-        shippingAddress: '789 Võ Văn Tần, Quận 3, TP HCM',
-        paymentMethod: 'Credit Card'
-    },
-    {
-        id: 'ORD-004',
-        customer: {
-            name: 'Phạm Thị D',
-            email: 'phamthid@example.com',
-            phone: '0978123456'
-        },
-        orderDate: '2023-11-03T09:20:00',
-        total: 8500000,
-        status: 'delivered',
-        items: [
-            { id: 4, name: 'Laptop', price: 8500000, quantity: 1, variation: '8GB RAM, 256GB SSD' }
-        ],
-        shippingAddress: '101 Lê Lợi, Quận 1, TP HCM',
-        paymentMethod: 'Banking'
-    },
-    {
-        id: 'ORD-005',
-        customer: {
-            name: 'Hoàng Văn E',
-            email: 'hoangvane@example.com',
-            phone: '0932123456'
-        },
-        orderDate: '2023-11-02T16:10:00',
-        total: 950000,
-        status: 'cancelled',
-        items: [
-            { id: 5, name: 'Chuột Không Dây', price: 950000, quantity: 1, variation: 'Đen' }
-        ],
-        shippingAddress: '202 Điện Biên Phủ, Bình Thạnh, TP HCM',
-        paymentMethod: 'COD'
-    }
-];
 
 function OrderManager() {
     const [orders, setOrders] = useState([]);
@@ -99,33 +16,71 @@ function OrderManager() {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [showDetails, setShowDetails] = useState(false);
+    const [processingOrderId, setProcessingOrderId] = useState(null);
+    const [showRejectModal, setShowRejectModal] = useState(false);
+    const [rejectReason, setRejectReason] = useState('');
+    const [orderToReject, setOrderToReject] = useState(null);
     const { showToast } = useToast();
 
     useEffect(() => {
-        // In production, this would fetch from the API
-        const fetchOrders = async () => {
-            try {
-                setLoading(true);
-                // For demo, we'll use the dummy data
-                // In production: const response = await axiosClient.get('/orders');
-                setTimeout(() => {
-                    setOrders(dummyOrders);
-                    setLoading(false);
-                }, 800);
-            } catch (error) {
-                console.error('Error fetching orders:', error);
-                showToast('Lỗi khi tải danh sách đơn hàng', 'error');
-                setLoading(false);
-            }
-        };
-
+        console.log('OrderManager mounted');
         fetchOrders();
-    }, [showToast]);
+    }, []);
+
+    const fetchOrders = async () => {
+        try {
+            setLoading(true);
+            console.log('Attempting to fetch orders...');
+
+            // Temporary direct API call to test
+            const response = await axiosClient.get('/order/shop', {
+                params: {
+                    status: filter !== 'all' ? filter : undefined,
+                    search: searchTerm || undefined,
+                    page: 1,
+                    limit: 50
+                }
+            });
+
+            console.log('API response:', response);
+
+            if (response.data && response.data.metadata && response.data.metadata.orders) {
+                setOrders(response.data.metadata.orders);
+            } else {
+                setOrders([]);
+            }
+        } catch (error) {
+            console.error('Error fetching orders:', error);
+            showToast('Lỗi khi tải danh sách đơn hàng', 'error');
+            setOrders([]);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Refetch orders when filter or search changes
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            fetchOrders();
+        }, 500); // Debounce search
+
+        return () => clearTimeout(timeoutId);
+    }, [filter, searchTerm]);
 
     // Format date to a more readable format
     const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return new Date(dateString).toLocaleDateString('vi-VN', options);
+        try {
+            const options = {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return new Date(dateString).toLocaleDateString('vi-VN', options);
+        } catch (error) {
+            return 'Invalid Date';
+        }
     };
 
     // Format price to VND currency
@@ -140,25 +95,95 @@ function OrderManager() {
     const getStatusText = (status) => {
         const statusMap = {
             pending: 'Chờ xác nhận',
-            processing: 'Đang xử lý',
-            shipped: 'Đang giao hàng',
-            delivered: 'Đã giao hàng',
+            pending_payment: 'Chờ thanh toán',
+            delivering: 'Đang giao hàng',
+            completed: 'Đã hoàn thành',
             cancelled: 'Đã hủy'
         };
         return statusMap[status] || status;
     };
 
-    // Update order status
+    // Approve order
+    const handleApproveOrder = async (orderId) => {
+        try {
+            setProcessingOrderId(orderId);
+            // Temporary direct API call
+            await axiosClient.patch(`/order/${orderId}/approve`);
+
+            showToast('Đơn hàng đã được xác nhận thành công', 'success');
+            fetchOrders(); // Refresh the orders list
+        } catch (error) {
+            console.error('Error approving order:', error);
+            const errorMessage = error.response?.data?.message || 'Lỗi khi xác nhận đơn hàng';
+            showToast(errorMessage, 'error');
+        } finally {
+            setProcessingOrderId(null);
+        }
+    };
+
+    // Show reject modal
+    const handleShowRejectModal = (order) => {
+        setOrderToReject(order);
+        setShowRejectModal(true);
+        setRejectReason('');
+    };
+
+    // Hide reject modal
+    const handleHideRejectModal = () => {
+        setShowRejectModal(false);
+        setOrderToReject(null);
+        setRejectReason('');
+    };
+
+    // Reject order
+    const handleRejectOrder = async () => {
+        if (!orderToReject) return;
+
+        try {
+            setProcessingOrderId(orderToReject._id);
+            // Temporary direct API call
+            await axiosClient.patch(`/order/${orderToReject._id}/reject`, {
+                reason: rejectReason || undefined
+            });
+
+            showToast('Đơn hàng đã được từ chối thành công', 'success');
+            handleHideRejectModal();
+            fetchOrders(); // Refresh the orders list
+        } catch (error) {
+            console.error('Error rejecting order:', error);
+            const errorMessage = error.response?.data?.message || 'Lỗi khi từ chối đơn hàng';
+            showToast(errorMessage, 'error');
+        } finally {
+            setProcessingOrderId(null);
+        }
+    };
+
+    // Update order status (for other status changes)
     const handleUpdateStatus = async (orderId, newStatus) => {
-        // In production this would call the API
-        // const response = await axiosClient.put(`/orders/${orderId}/status`, { status: newStatus });
-        
-        // For demo, we'll update the local state
-        setOrders(orders.map(order => 
-            order.id === orderId ? { ...order, status: newStatus } : order
-        ));
-        
-        showToast(`Đã cập nhật trạng thái đơn hàng thành ${getStatusText(newStatus)}`, 'success');
+        try {
+            setProcessingOrderId(orderId);
+
+            // Use specific endpoints for approve/reject, generic for others
+            if (newStatus === 'completed') {
+                // This should actually be a different endpoint for marking as delivered
+                await axiosClient.patch(`/order/${orderId}/status`, { status: newStatus });
+            } else {
+                await axiosClient.patch(`/order/${orderId}/status`, { status: newStatus });
+            }
+
+            showToast(
+                `Đã cập nhật trạng thái đơn hàng thành ${getStatusText(newStatus)}`,
+                'success'
+            );
+            fetchOrders(); // Refresh the orders list
+        } catch (error) {
+            console.error('Error updating order status:', error);
+            const errorMessage =
+                error.response?.data?.message || 'Lỗi khi cập nhật trạng thái đơn hàng';
+            showToast(errorMessage, 'error');
+        } finally {
+            setProcessingOrderId(null);
+        }
     };
 
     // View order details
@@ -174,14 +199,14 @@ function OrderManager() {
     };
 
     // Filter orders based on status and search term
-    const filteredOrders = orders.filter(order => {
-        const matchesFilter = filter === 'all' || order.status === filter;
-        const matchesSearch = 
-            order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            order.customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            order.customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            order.customer.phone.includes(searchTerm);
-        
+    const filteredOrders = orders.filter((order) => {
+        const matchesFilter = filter === 'all' || order.order_status === filter;
+        const matchesSearch =
+            order._id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            order.customer_full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            order.customer_email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            order.customer_phone?.includes(searchTerm);
+
         return matchesFilter && matchesSearch;
     });
 
@@ -206,22 +231,16 @@ function OrderManager() {
                         Chờ Xác Nhận
                     </button>
                     <button
-                        className={cx('filter-btn', filter === 'processing' && 'active')}
-                        onClick={() => setFilter('processing')}
-                    >
-                        Đang Xử Lý
-                    </button>
-                    <button
-                        className={cx('filter-btn', filter === 'shipped' && 'active')}
-                        onClick={() => setFilter('shipped')}
+                        className={cx('filter-btn', filter === 'delivering' && 'active')}
+                        onClick={() => setFilter('delivering')}
                     >
                         Đang Giao Hàng
                     </button>
                     <button
-                        className={cx('filter-btn', filter === 'delivered' && 'active')}
-                        onClick={() => setFilter('delivered')}
+                        className={cx('filter-btn', filter === 'completed' && 'active')}
+                        onClick={() => setFilter('completed')}
                     >
-                        Đã Giao Hàng
+                        Đã Hoàn Thành
                     </button>
                     <button
                         className={cx('filter-btn', filter === 'cancelled' && 'active')}
@@ -271,17 +290,23 @@ function OrderManager() {
                                 </thead>
                                 <tbody>
                                     {filteredOrders.map((order) => (
-                                        <tr key={order.id}>
-                                            <td className={cx('order-id')}>{order.id}</td>
+                                        <tr key={order._id}>
+                                            <td className={cx('order-id')}>{order._id}</td>
                                             <td className={cx('customer-info')}>
-                                                <div className={cx('customer-name')}>{order.customer.name}</div>
-                                                <div className={cx('customer-contact')}>{order.customer.phone}</div>
+                                                <div className={cx('customer-name')}>
+                                                    {order.customer_full_name}
+                                                </div>
+                                                <div className={cx('customer-contact')}>
+                                                    {order.customer_phone}
+                                                </div>
                                             </td>
-                                            <td>{formatDate(order.orderDate)}</td>
-                                            <td className={cx('order-total')}>{formatPrice(order.total)}</td>
+                                            <td>{formatDate(order.created_at)}</td>
+                                            <td className={cx('order-total')}>
+                                                {formatPrice(order.price_to_payment)}
+                                            </td>
                                             <td>
-                                                <span className={cx('status', order.status)}>
-                                                    {getStatusText(order.status)}
+                                                <span className={cx('status', order.order_status)}>
+                                                    {getStatusText(order.order_status)}
                                                 </span>
                                             </td>
                                             <td>
@@ -292,39 +317,52 @@ function OrderManager() {
                                                     >
                                                         Xem chi tiết
                                                     </button>
-                                                    
-                                                    {order.status === 'pending' && (
+
+                                                    {order.order_status === 'pending' && (
                                                         <>
                                                             <button
                                                                 className={cx('process-btn')}
-                                                                onClick={() => handleUpdateStatus(order.id, 'processing')}
+                                                                onClick={() =>
+                                                                    handleApproveOrder(order._id)
+                                                                }
+                                                                disabled={
+                                                                    processingOrderId === order._id
+                                                                }
                                                             >
-                                                                Xác nhận
+                                                                {processingOrderId === order._id
+                                                                    ? 'Đang xử lý...'
+                                                                    : 'Xác nhận'}
                                                             </button>
                                                             <button
                                                                 className={cx('cancel-btn')}
-                                                                onClick={() => handleUpdateStatus(order.id, 'cancelled')}
+                                                                onClick={() =>
+                                                                    handleShowRejectModal(order)
+                                                                }
+                                                                disabled={
+                                                                    processingOrderId === order._id
+                                                                }
                                                             >
-                                                                Hủy
+                                                                Từ chối
                                                             </button>
                                                         </>
                                                     )}
-                                                    
-                                                    {order.status === 'processing' && (
-                                                        <button
-                                                            className={cx('ship-btn')}
-                                                            onClick={() => handleUpdateStatus(order.id, 'shipped')}
-                                                        >
-                                                            Giao hàng
-                                                        </button>
-                                                    )}
-                                                    
-                                                    {order.status === 'shipped' && (
+
+                                                    {order.order_status === 'delivering' && (
                                                         <button
                                                             className={cx('deliver-btn')}
-                                                            onClick={() => handleUpdateStatus(order.id, 'delivered')}
+                                                            onClick={() =>
+                                                                handleUpdateStatus(
+                                                                    order._id,
+                                                                    'completed'
+                                                                )
+                                                            }
+                                                            disabled={
+                                                                processingOrderId === order._id
+                                                            }
                                                         >
-                                                            Đã giao
+                                                            {processingOrderId === order._id
+                                                                ? 'Đang xử lý...'
+                                                                : 'Đã giao'}
                                                         </button>
                                                     )}
                                                 </div>
@@ -338,8 +376,62 @@ function OrderManager() {
                 </>
             )}
 
+            {/* Reject Order Modal */}
+            {showRejectModal && (
+                <div className={cx('modal-overlay')}>
+                    <div className={cx('modal')}>
+                        <div className={cx('modal-header')}>
+                            <h3>Từ chối đơn hàng</h3>
+                            <button className={cx('close-btn')} onClick={handleHideRejectModal}>
+                                ×
+                            </button>
+                        </div>
+                        <div className={cx('modal-body')}>
+                            <p>
+                                Bạn có chắc chắn muốn từ chối đơn hàng{' '}
+                                <strong>{orderToReject?._id}</strong>?
+                            </p>
+                            <div className={cx('form-group')}>
+                                <label htmlFor="rejectReason">Lý do từ chối (tùy chọn):</label>
+                                <textarea
+                                    id="rejectReason"
+                                    value={rejectReason}
+                                    onChange={(e) => setRejectReason(e.target.value)}
+                                    placeholder="Nhập lý do từ chối đơn hàng..."
+                                    rows={4}
+                                />
+                            </div>
+                        </div>
+                        <div className={cx('modal-footer')}>
+                            <button
+                                className={cx('cancel-modal-btn')}
+                                onClick={handleHideRejectModal}
+                                disabled={processingOrderId === orderToReject?._id}
+                            >
+                                Hủy
+                            </button>
+                            <button
+                                className={cx('confirm-reject-btn')}
+                                onClick={handleRejectOrder}
+                                disabled={processingOrderId === orderToReject?._id}
+                            >
+                                {processingOrderId === orderToReject?._id
+                                    ? 'Đang xử lý...'
+                                    : 'Từ chối đơn hàng'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {showDetails && selectedOrder && (
-                <OrderDetails order={selectedOrder} onClose={handleCloseDetails} onUpdateStatus={handleUpdateStatus} />
+                <OrderDetails
+                    order={selectedOrder}
+                    onClose={handleCloseDetails}
+                    onUpdateStatus={handleUpdateStatus}
+                    onApproveOrder={handleApproveOrder}
+                    onRejectOrder={handleShowRejectModal}
+                />
             )}
         </div>
     );

@@ -11,7 +11,7 @@ import { findUserById } from '@/models/repository/user/index.js';
 class RBACService {
     public static instance: RBACService;
 
-    private constructor() {}
+    private constructor() { }
 
     public static getInstance() {
         if (!this.instance) {
@@ -109,6 +109,16 @@ class RBACService {
                         actions: [
                             RoleActions.CREATE_OWN,
                             RoleActions.READ_ANY,
+                            RoleActions.UPDATE_OWN,
+                            RoleActions.DELETE_OWN
+                        ],
+                        attributes: '*'
+                    },
+                    {
+                        resource: resourcesId.find((resource) => resource.name === Resources.ORDER)
+                            ?.id,
+                        actions: [
+                            RoleActions.CREATE_OWN,
                             RoleActions.UPDATE_OWN,
                             RoleActions.DELETE_OWN
                         ],

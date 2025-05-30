@@ -329,4 +329,197 @@ export default new (class OrderService {
 
         return updatedOrder;
     }
+
+    public async getShopOrders({
+        shopId,
+        status,
+        page = 1,
+        limit = 10,
+        search,
+        sortBy = 'created_at',
+        sortOrder = 'desc',
+        paymentType,
+        dateFrom,
+        dateTo
+    }: service.order.arguments.GetShopOrders) {
+        const query: any = {
+            'order_checkout.shops_info.shop_id': shopId
+        };
+
+        // Filter by status if provided
+        if (status && status !== 'all') {
+            query.order_status = status;
+        }
+
+        // Filter by payment type if provided
+        if (paymentType) {
+            query.payment_type = paymentType;
+        }
+
+        // Filter by date range if provided
+        if (dateFrom || dateTo) {
+            query.created_at = {};
+            if (dateFrom) {
+                query.created_at.$gte = new Date(dateFrom);
+            }
+            if (dateTo) {
+                query.created_at.$lte = new Date(dateTo);
+            }
+        }
+
+        // Search functionality
+        if (search) {
+            const searchRegex = new RegExp(search, 'i');
+            query.$or = [
+                { customer_full_name: searchRegex },
+                { customer_phone: searchRegex },
+                { customer_email: searchRegex },
+                { customer_address: searchRegex },
+                { _id: searchRegex }
+            ];
+        }
+
+        // Calculate pagination
+        const skip = (page - 1) * limit;
+
+        // Build sort object
+        const sortObj: any = {};
+        sortObj[sortBy] = sortOrder === 'asc' ? 1 : -1;
+
+        // Execute query with pagination
+        const [orders, totalCount] = await Promise.all([
+            orderModel
+                .find(query)
+                .sort(sortObj)
+                .skip(skip)
+                .limit(limit)
+                .lean(),
+            orderModel.countDocuments(query)
+        ]);
+
+        // Calculate pagination info
+        const totalPages = Math.ceil(totalCount / limit);
+        const hasNextPage = page < totalPages;
+        const hasPrevPage = page > 1;
+
+        return {
+            orders,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                totalCount,
+                limit,
+                hasNextPage,
+                hasPrevPage
+            }
+        };
+    }
+
+    public async approveOrder({ shopId, orderId }: service.order.arguments.ApproveOrder) {
+        /* ------------------- Find the order ------------------- */
+        const order = await orderModel.findById(orderId);
+
+        if (!order) {
+            throw new NotFoundErrorResponse({ message: 'Order not found!' });
+        }
+
+        /* ----------- Check if order belongs to shop ----------- */
+        const orderBelongsToShop = order.order_checkout.shops_info.some(
+            shop => shop.shop_id === shopId
+        );
+
+        if (!orderBelongsToShop) {
+            throw new BadRequestErrorResponse({
+                message: 'This order does not belong to your shop!'
+            });
+        }
+
+        /* ----------- Check if order can be approved ----------- */
+        if (order.order_status !== OrderStatus.PENDING) {
+            throw new BadRequestErrorResponse({
+                message: 'Only pending orders can be approved!'
+            });
+        }
+
+        /* ------------- Update order status to delivering ------------- */
+        const updatedOrder = await orderModel.findByIdAndUpdate(
+            orderId,
+            { order_status: OrderStatus.DELIVERING },
+            { new: true }
+        );
+
+        return updatedOrder;
+    }
+
+    public async rejectOrder({ shopId, orderId, reason }: service.order.arguments.RejectOrder) {
+        /* ------------------- Find the order ------------------- */
+        const order = await orderModel.findById(orderId);
+
+        if (!order) {
+            throw new NotFoundErrorResponse({ message: 'Order not found!' });
+        }
+
+        /* ----------- Check if order belongs to shop ----------- */
+        const orderBelongsToShop = order.order_checkout.shops_info.some(
+            shop => shop.shop_id === shopId
+        );
+
+        if (!orderBelongsToShop) {
+            throw new BadRequestErrorResponse({
+                message: 'This order does not belong to your shop!'
+            });
+        }
+
+        /* ----------- Check if order can be rejected ----------- */
+        if (order.order_status !== OrderStatus.PENDING) {
+            throw new BadRequestErrorResponse({
+                message: 'Only pending orders can be rejected!'
+            });
+        }
+
+        /* ------------- Revert inventory for products ------------- */
+        const shopProducts = order.order_checkout.shops_info
+            .filter(shop => shop.shop_id === shopId)
+            .flatMap(shop => shop.products_info.map(product => ({
+                id: product.id,
+                quantity: product.quantity
+            })));
+
+        await Promise.all(
+            shopProducts.map(async ({ id, quantity }) => {
+                /* -------------------- Find inventory  -------------------- */
+                const inventory = await findOneInventory({
+                    query: { inventory_sku: id },
+                    select: ['_id']
+                }).lean();
+
+                if (inventory) {
+                    /* ------------ Use pessimistic lock to revert inventory ------------ */
+                    await pessimisticLock(
+                        PessimisticKeys.INVENTORY,
+                        inventory._id,
+                        async () => await revertProductInventory(id, quantity)
+                    );
+                }
+            })
+        );
+
+        /* ------------- Cancel shop discounts if any ------------- */
+        const shopInfo = order.order_checkout.shops_info.find(shop => shop.shop_id === shopId);
+        if (shopInfo?.discount?.discount_id) {
+            await cancelDiscount(shopInfo.discount.discount_id);
+        }
+
+        /* ------------- Update order status to cancelled ------------- */
+        const updatedOrder = await orderModel.findByIdAndUpdate(
+            orderId,
+            {
+                order_status: OrderStatus.CANCELLED,
+                rejection_reason: reason || 'Order rejected by shop'
+            },
+            { new: true }
+        );
+
+        return updatedOrder;
+    }
 })();

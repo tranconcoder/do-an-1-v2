@@ -1,6 +1,7 @@
 import { OkResponse } from "@/response/success.response.js";
 import skuService from "@/services/sku.service.js";
 import { RequestWithParams, RequestWithQuery } from "@/types/request.js";
+import type { GetAllSKUQuery } from "@/validations/zod/sku.zod.js";
 
 export default new (class SKUController {
 
@@ -44,12 +45,20 @@ export default new (class SKUController {
     /* ---------------------------------------------------------- */
     /*                     Get all SKU by all                     */
     /* ---------------------------------------------------------- */
-    getAllSKUByAll: RequestWithQuery<commonTypes.object.Pagination> = async (req, res, _) => {
+    getAllSKUByAll: RequestWithQuery<GetAllSKUQuery> = async (req, res, _) => {
+        // Query parameters are already validated by middleware
+        const validatedQuery = req.query;
+
+        // Parse categories from comma-separated string to array
+        const categoriesArray = validatedQuery.categories
+            ? validatedQuery.categories.split(',').filter(id => id.trim() !== '')
+            : undefined;
+
         new OkResponse({
             message: 'Get all sku by all successfully!',
             metadata: await skuService.getAllSKUByAll({
-                page: req.query.page,
-                limit: req.query.limit
+                ...validatedQuery,
+                categories: categoriesArray
             })
         }).send(res);
     };

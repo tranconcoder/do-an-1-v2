@@ -1,14 +1,25 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './OrderDetails.module.scss';
+import axiosClient from '../../../../configs/axios';
 
 const cx = classNames.bind(styles);
 
-function OrderDetails({ order, onClose, onUpdateStatus }) {
+function OrderDetails({ order, onClose, onUpdateStatus, onApproveOrder, onRejectOrder }) {
     // Format date to a more readable format
     const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return new Date(dateString).toLocaleDateString('vi-VN', options);
+        try {
+            const options = {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return new Date(dateString).toLocaleDateString('vi-VN', options);
+        } catch (error) {
+            return 'Invalid Date';
+        }
     };
 
     // Format price to VND currency
@@ -23,9 +34,9 @@ function OrderDetails({ order, onClose, onUpdateStatus }) {
     const getStatusText = (status) => {
         const statusMap = {
             pending: 'Chờ xác nhận',
-            processing: 'Đang xử lý',
-            shipped: 'Đang giao hàng',
-            delivered: 'Đã giao hàng',
+            pending_payment: 'Chờ thanh toán',
+            delivering: 'Đang giao hàng',
+            completed: 'Đã hoàn thành',
             cancelled: 'Đã hủy'
         };
         return statusMap[status] || status;
@@ -35,158 +46,178 @@ function OrderDetails({ order, onClose, onUpdateStatus }) {
         <div className={cx('modal-overlay')}>
             <div className={cx('order-details-modal')}>
                 <div className={cx('modal-header')}>
-                    <h2>Chi Tiết Đơn Hàng #{order.id}</h2>
-                    <button className={cx('close-btn')} onClick={onClose}>&times;</button>
+                    <h2>Chi Tiết Đơn Hàng #{order._id}</h2>
+                    <button className={cx('close-btn')} onClick={onClose}>
+                        &times;
+                    </button>
                 </div>
-                
+
                 <div className={cx('modal-content')}>
                     <div className={cx('order-status-section')}>
                         <div className={cx('status-header')}>
                             <h3>Trạng Thái Đơn Hàng</h3>
-                            <span className={cx('status', order.status)}>
-                                {getStatusText(order.status)}
+                            <span className={cx('status', order.order_status)}>
+                                {getStatusText(order.order_status)}
                             </span>
                         </div>
-                        
-                        {order.status !== 'delivered' && order.status !== 'cancelled' && (
-                            <div className={cx('status-actions')}>
-                                <h4>Cập Nhật Trạng Thái:</h4>
-                                <div className={cx('action-buttons')}>
-                                    {order.status === 'pending' && (
-                                        <>
-                                            <button 
-                                                className={cx('process-btn')}
-                                                onClick={() => onUpdateStatus(order.id, 'processing')}
+
+                        {order.order_status !== 'completed' &&
+                            order.order_status !== 'cancelled' && (
+                                <div className={cx('status-actions')}>
+                                    <h4>Cập Nhật Trạng Thái:</h4>
+                                    <div className={cx('action-buttons')}>
+                                        {order.order_status === 'pending' && (
+                                            <>
+                                                <button
+                                                    className={cx('process-btn')}
+                                                    onClick={() =>
+                                                        onApproveOrder && onApproveOrder(order._id)
+                                                    }
+                                                >
+                                                    Xác Nhận Đơn Hàng
+                                                </button>
+                                                <button
+                                                    className={cx('cancel-btn')}
+                                                    onClick={() =>
+                                                        onRejectOrder && onRejectOrder(order)
+                                                    }
+                                                >
+                                                    Từ Chối Đơn Hàng
+                                                </button>
+                                            </>
+                                        )}
+
+                                        {order.order_status === 'delivering' && (
+                                            <button
+                                                className={cx('deliver-btn')}
+                                                onClick={() =>
+                                                    onUpdateStatus(order._id, 'completed')
+                                                }
                                             >
-                                                Xác Nhận Đơn Hàng
+                                                Xác Nhận Đã Giao
                                             </button>
-                                            <button 
-                                                className={cx('cancel-btn')}
-                                                onClick={() => onUpdateStatus(order.id, 'cancelled')}
-                                            >
-                                                Hủy Đơn Hàng
-                                            </button>
-                                        </>
-                                    )}
-                                    
-                                    {order.status === 'processing' && (
-                                        <button 
-                                            className={cx('ship-btn')}
-                                            onClick={() => onUpdateStatus(order.id, 'shipped')}
-                                        >
-                                            Giao Hàng
-                                        </button>
-                                    )}
-                                    
-                                    {order.status === 'shipped' && (
-                                        <button 
-                                            className={cx('deliver-btn')}
-                                            onClick={() => onUpdateStatus(order.id, 'delivered')}
-                                        >
-                                            Xác Nhận Đã Giao
-                                        </button>
-                                    )}
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
                     </div>
-                    
+
                     <div className={cx('order-info-grid')}>
                         <div className={cx('info-section')}>
                             <h3>Thông Tin Khách Hàng</h3>
                             <div className={cx('info-content')}>
                                 <div className={cx('info-row')}>
                                     <span className={cx('info-label')}>Tên khách hàng:</span>
-                                    <span className={cx('info-value')}>{order.customer.name}</span>
+                                    <span className={cx('info-value')}>
+                                        {order.customer_full_name}
+                                    </span>
                                 </div>
                                 <div className={cx('info-row')}>
                                     <span className={cx('info-label')}>Email:</span>
-                                    <span className={cx('info-value')}>{order.customer.email}</span>
+                                    <span className={cx('info-value')}>{order.customer_email}</span>
                                 </div>
                                 <div className={cx('info-row')}>
                                     <span className={cx('info-label')}>Số điện thoại:</span>
-                                    <span className={cx('info-value')}>{order.customer.phone}</span>
+                                    <span className={cx('info-value')}>{order.customer_phone}</span>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className={cx('info-section')}>
                             <h3>Thông Tin Đơn Hàng</h3>
                             <div className={cx('info-content')}>
                                 <div className={cx('info-row')}>
                                     <span className={cx('info-label')}>Mã đơn hàng:</span>
-                                    <span className={cx('info-value')}>{order.id}</span>
+                                    <span className={cx('info-value')}>{order._id}</span>
                                 </div>
                                 <div className={cx('info-row')}>
                                     <span className={cx('info-label')}>Ngày đặt hàng:</span>
-                                    <span className={cx('info-value')}>{formatDate(order.orderDate)}</span>
+                                    <span className={cx('info-value')}>
+                                        {formatDate(order.created_at)}
+                                    </span>
                                 </div>
                                 <div className={cx('info-row')}>
-                                    <span className={cx('info-label')}>Phương thức thanh toán:</span>
-                                    <span className={cx('info-value')}>{order.paymentMethod}</span>
+                                    <span className={cx('info-label')}>
+                                        Phương thức thanh toán:
+                                    </span>
+                                    <span className={cx('info-value')}>{order.payment_type}</span>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className={cx('info-section', 'address-section')}>
                             <h3>Địa Chỉ Giao Hàng</h3>
                             <div className={cx('info-content')}>
-                                <p className={cx('address')}>{order.shippingAddress}</p>
+                                <p className={cx('address')}>{order.customer_address}</p>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className={cx('order-items')}>
                         <h3>Sản Phẩm Đặt Mua</h3>
                         <div className={cx('items-table-container')}>
                             <table className={cx('items-table')}>
                                 <thead>
                                     <tr>
+                                        <th>Shop</th>
                                         <th>Sản Phẩm</th>
-                                        <th>Biến Thể</th>
                                         <th>Đơn Giá</th>
                                         <th>Số Lượng</th>
                                         <th>Thành Tiền</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {order.items.map((item) => (
-                                        <tr key={item.id}>
-                                            <td className={cx('product-name')}>{item.name}</td>
-                                            <td>{item.variation}</td>
-                                            <td>{formatPrice(item.price)}</td>
-                                            <td className={cx('quantity')}>{item.quantity}</td>
-                                            <td className={cx('subtotal')}>{formatPrice(item.price * item.quantity)}</td>
-                                        </tr>
-                                    ))}
+                                    {order.order_checkout?.shops_info?.map((shop) =>
+                                        shop.products_info?.map((item) => (
+                                            <tr key={item.id}>
+                                                <td className={cx('shop-name')}>
+                                                    {shop.shop_name}
+                                                </td>
+                                                <td className={cx('product-name')}>{item.name}</td>
+                                                <td>{formatPrice(item.price)}</td>
+                                                <td className={cx('quantity')}>{item.quantity}</td>
+                                                <td className={cx('subtotal')}>
+                                                    {formatPrice(item.price * item.quantity)}
+                                                </td>
+                                            </tr>
+                                        ))
+                                    )}
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    
+
                     <div className={cx('order-summary')}>
                         <div className={cx('summary-row')}>
                             <span>Tổng tiền sản phẩm:</span>
-                            <span>{formatPrice(order.total)}</span>
+                            <span>{formatPrice(order.price_total_raw || 0)}</span>
                         </div>
                         <div className={cx('summary-row')}>
                             <span>Phí vận chuyển:</span>
-                            <span>{formatPrice(0)}</span>
+                            <span>{formatPrice(order.order_checkout?.total_fee_ship || 0)}</span>
+                        </div>
+                        <div className={cx('summary-row')}>
+                            <span>Giảm giá:</span>
+                            <span>
+                                -{formatPrice(order.order_checkout?.total_discount_price || 0)}
+                            </span>
                         </div>
                         <div className={cx('summary-row', 'total')}>
                             <span>Tổng thanh toán:</span>
-                            <span>{formatPrice(order.total)}</span>
+                            <span>{formatPrice(order.price_to_payment)}</span>
                         </div>
                     </div>
                 </div>
-                
+
                 <div className={cx('modal-footer')}>
-                    <button className={cx('close-button')} onClick={onClose}>Đóng</button>
-                    {order.status === 'pending' && (
-                        <button 
+                    <button className={cx('close-button')} onClick={onClose}>
+                        Đóng
+                    </button>
+                    {order.order_status === 'pending' && (
+                        <button
                             className={cx('process-btn-alt')}
                             onClick={() => {
-                                onUpdateStatus(order.id, 'processing');
+                                onApproveOrder && onApproveOrder(order._id);
                                 onClose();
                             }}
                         >

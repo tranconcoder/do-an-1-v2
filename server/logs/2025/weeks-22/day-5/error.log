@@ -176,3 +176,117 @@
 [2025-05-30T09:16:45.336Z] [error]: HIDE::403::Forbidden::Token not found!::
 [2025-05-30T09:16:45.479Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-05-30T09:16:48.220Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T09:34:37.321Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-05-30T09:34:37.338Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-05-30T09:34:37.346Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-05-30T09:34:37.360Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-05-30T09:34:37.379Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-05-30T09:34:37.394Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-05-30T10:11:21.225Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:11:21.247Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:11:22.126Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:11:22.145Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:11:39.550Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:11:39.567Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:11:39.404Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:11:39.422Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:12:18.954Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:12:18.975Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:12:19.864Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:12:19.883Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:36:58.227Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:36:58.270Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:36:58.664Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:37:27.989Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:37:28.024Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:37:28.436Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:38:43.572Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:38:43.616Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:38:43.970Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:39:07.329Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:39:07.382Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:39:07.779Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:39:56.601Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:39:56.650Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:39:56.990Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:40:10.634Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:40:10.664Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:40:11.060Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:48:21.893Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:48:21.949Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:48:22.349Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T10:49:47.653Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T10:49:47.799Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T10:50:19.243Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T10:50:32.574Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-05-30T10:51:24.248Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-05-30T10:51:24.250Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-05-30T10:52:41.574Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T11:43:10.373Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T11:43:10.406Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T11:43:10.422Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T11:43:10.438Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T11:43:10.452Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T11:43:10.471Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T11:43:10.485Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T11:43:10.501Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T11:43:10.510Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T11:43:10.526Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T11:43:10.541Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T11:43:10.586Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T14:32:21.599Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T14:32:21.610Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T14:32:21.615Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T14:32:21.627Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T14:32:21.642Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T14:32:21.650Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T14:37:47.842Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-05-30T14:37:47.846Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-05-30T14:37:48.595Z] [error]: InvalidTokenError: Invalid token specified: missing part #2
+[2025-05-30T14:37:48.596Z] [error]: HIDE::403::Forbidden::Invalid token payload!::
+[2025-05-30T14:38:05.950Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-05-30T14:38:11.663Z] [error]: HIDE::403::Forbidden::Shop is not active!::
+[2025-05-30T14:38:16.036Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T14:38:45.690Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T14:38:51.360Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T14:39:09.368Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T14:39:10.342Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T14:39:11.063Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T14:39:11.659Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T14:39:19.051Z] [error]: HIDE::400::BadRequest::Create SKU failed!::
+[2025-05-30T14:40:04.333Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-30T14:40:04.458Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T14:41:28.914Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T14:41:43.960Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T14:44:22.002Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T14:46:19.369Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T14:46:19.378Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T14:46:19.384Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T14:46:19.396Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T14:46:19.409Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T14:46:19.416Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T14:46:30.993Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T14:52:53.885Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T14:52:56.211Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-30T14:59:03.473Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T14:59:03.613Z] [error]: HIDE::400::MongoServerError::invalid argument to $limit stage: Expected a number in: $limit: "50"::
+[2025-05-30T14:59:12.411Z] [error]: HIDE::400::MongoServerError::invalid argument to $limit stage: Expected a number in: $limit: "50"::
+[2025-05-30T14:59:12.861Z] [error]: HIDE::400::MongoServerError::invalid argument to $limit stage: Expected a number in: $limit: "50"::
+[2025-05-30T15:00:53.612Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T15:02:20.049Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T15:02:32.231Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:02:32.250Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:02:32.286Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:02:32.303Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:02:32.335Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:02:32.375Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::

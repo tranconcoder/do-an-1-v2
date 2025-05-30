@@ -50,6 +50,7 @@ export const generateValidateWithQuery = (schema: z.ZodSchema): RequestHandler =
             });
         }
 
+        req.query = result.data;
         next();
     };
 };
