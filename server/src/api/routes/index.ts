@@ -5,6 +5,7 @@ import authRoute from './auth/index.js';
 import spuRoute from './spu/index.js';
 import discountRoute from './discount/index.js';
 import cartRoute from './cart/index.js';
+import checkoutRoute from './checkout/index.js';
 import orderRoute from './order/index.js';
 import userRoute from './user/index.js';
 import locationRoute from './location/index.js';
@@ -30,6 +31,9 @@ rootRoute.use('/discount', discountRoute);
 
 /* -------------------------- Cart  -------------------------- */
 rootRoute.use('/cart', cartRoute);
+
+/* ------------------------ Checkout ------------------------ */
+rootRoute.use('/checkout', checkoutRoute);
 
 /* ------------------------- Order ------------------------- */
 rootRoute.use('/order', orderRoute);

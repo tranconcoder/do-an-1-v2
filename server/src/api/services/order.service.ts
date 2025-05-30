@@ -39,6 +39,7 @@ export default new (class OrderService {
         if (!checkout) throw new NotFoundErrorResponse({ message: 'Not found checkout info!' });
 
         /* ------------------- Get shipping address  ------------------- */
+        console.log("SHIP-INFO", checkout.ship_info)
         const shippingAddress = await findAddressById({
             id: checkout.ship_info,
             options: { lean: true, populate: 'location' }
@@ -69,11 +70,12 @@ export default new (class OrderService {
         }
 
         /* ----------- Handle inventory and shop discount ----------- */
+        console.log("SHOPS", shops)
         return await Promise.allSettled(
             shops.map(async ({ id, quantity, discount_id, discount_code }, index) => {
                 /* -------------------- Check inventory  -------------------- */
                 const inventory = await findOneInventory({
-                    query: { inventory_product: id },
+                    query: { inventory_sku: id },
                     select: ['_id']
                 }).lean();
                 if (!inventory)
@@ -132,12 +134,14 @@ export default new (class OrderService {
             })
             .then(async () => {
                 /* ------------- Remove product ordered in cart ------------- */
+                console.log("1")
                 console.log(
                     await CartService.deleteProductsFromCart({
                         user: userId,
                         products: shops.map((x) => x.id)
                     })
                 );
+                console.log("2")
             })
             .then(async () => {
                 /* ------------------ Handle create order  ------------------ */
@@ -164,5 +168,21 @@ export default new (class OrderService {
                     order_status: OrderStatus.PENDING_PAYMENT
                 });
             });
+    }
+
+    public async getOrderHistory({ userId, status }: service.order.arguments.GetOrderHistory) {
+        const query: any = { customer: userId };
+
+        // Filter by status if provided
+        if (status && status !== 'all') {
+            query.order_status = status;
+        }
+
+        const orders = await orderModel
+            .find(query)
+            .sort({ createdAt: -1 })
+            .lean();
+
+        return orders;
     }
 })();

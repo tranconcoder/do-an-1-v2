@@ -15,7 +15,7 @@ import { userModel } from '@/models/user.model.js';
 import shopModel from '@/models/shop.model.js';
 import { findOneCartByUser } from '@/models/repository/cart/index.js';
 import { findDiscountByCode } from '@/models/repository/discount/index.js';
-import { findOneAndUpdateCheckout } from '@/models/repository/checkout/index.js';
+import { findOneAndUpdateCheckout, findOneCheckout } from '@/models/repository/checkout/index.js';
 import { findAddressById } from '@/models/repository/address/index.js';
 import { Matrix } from './openrouteservice.service.js';
 import inventoryService from './inventory.service.js';
@@ -68,7 +68,7 @@ export default new (class CheckoutService {
             total_discount_price: 0,
             total_checkout: 0,
             shops_info: [],
-            ship_info: addressLocation._id.toString()
+            ship_info: address._id.toString()
         };
 
         /* --------------------- Admin voucher  --------------------- */
@@ -286,5 +286,18 @@ export default new (class CheckoutService {
             },
             options: { new: true, upsert: true }
         });
+    }
+
+    public async getCheckout({ user }: { user: string }) {
+        const checkout = await findOneCheckout({
+            query: { user },
+            options: { lean: true }
+        });
+
+        if (!checkout) {
+            throw new NotFoundErrorResponse({ message: 'No checkout data found!' });
+        }
+
+        return checkout;
     }
 })();

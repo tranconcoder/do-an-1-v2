@@ -1,3 +1,4 @@
+import type { OrderStatus } from '@/enums/order.enum';
 import type { PaymentBank, PaymentType } from '@/enums/payment.enum.js';
 
 declare global {
@@ -10,6 +11,11 @@ declare global {
                 interface CreateOrder {
                     userId: string;
                     paymentType: PaymentType;
+                }
+
+                interface GetOrderHistory {
+                    userId: string;
+                    status?: OrderStatus | 'all';
                 }
             }
         }

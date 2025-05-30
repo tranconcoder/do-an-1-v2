@@ -12,4 +12,13 @@ export default class CheckoutController {
             })
         }).send(res);
     };
+
+    public static getCheckout: RequestWithQuery<{}> = async (req, res, _) => {
+        new OkResponse({
+            message: 'Get checkout successfully',
+            metadata: await checkoutService.getCheckout({
+                user: req.userId as string,
+            })
+        }).send(res);
+    };
 }

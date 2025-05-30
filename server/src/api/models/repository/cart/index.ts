@@ -59,19 +59,22 @@ export const checkShopListExistsInCart = async ({
 
 /* ---------------- Delete products from cart ---------------- */
 export const deleteProductsFromCart = async ({ user, products }: repo.cart.DeleteProductsFromCart) => {
-    return findOneAndUpdateCart({
-        query: { user },
-        update: {
-            'cart_shop.products': {
-                $pull: {
-                    $elemMatch: {
-                        id: products
-                    }
-                }
-            }
-        },
-        options: {
-            new: true
-        }
+    // First find the cart
+    const cart = await cartModel.findOne({ user });
+    if (!cart) {
+        throw new NotFoundErrorResponse({ message: 'Cart not found!' });
+    }
+
+    // Remove products from all shops in the cart
+    cart.cart_shop.forEach(shop => {
+        shop.products = shop.products.filter(product =>
+            !products.includes(product.sku.toString())
+        );
     });
+
+    // Remove empty shops (shops with no products)
+    cart.cart_shop = cart.cart_shop.filter(shop => shop.products.length > 0);
+
+    // Save and return the updated cart
+    return await cart.save();
 };

@@ -36,7 +36,7 @@ export const findOneAndUpdateInventory =
 export const orderProductInventory = (productId: string, orderQuantity: number) => {
     return findOneAndUpdateInventory({
         query: {
-            inventory_product: productId,
+            inventory_sku: productId,
             inventory_stock: { $gte: orderQuantity }
         },
         update: {
@@ -54,7 +54,7 @@ export const orderProductInventory = (productId: string, orderQuantity: number) 
 export const revertProductInventory = async (productId: string, orderQuantity: number) => {
     return await findOneAndUpdateInventory({
         query: {
-            inventory_product: productId
+            inventory_sku: productId
         },
         update: {
             inventory_stock: { $inc: orderQuantity }
@@ -67,7 +67,7 @@ export const updateInventoryStock = async (productId: string, newStock: number) 
     return (
         (
             await inventoryModel.updateOne(
-                { inventory_product: productId },
+                { inventory_sku: productId },
                 { inventory_stock: newStock }
             )
         ).modifiedCount > 0
