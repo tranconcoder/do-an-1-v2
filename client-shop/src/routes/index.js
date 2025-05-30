@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // Redux
-import { selectIsAuthenticated, fetchUserProfile } from '../store/userSlice';
+import { selectIsAuthenticated } from '../store/userSlice';
 
 // Layouts
 import ShopManagerLayout from '../layouts/ShopManagerLayout';
@@ -30,15 +30,7 @@ import AdminGuard from '../components/AdminGuard';
 import { ShopStatus } from '../constants/shop.enum';
 
 const AppRoutes = () => {
-    const dispatch = useDispatch();
     const isAuthenticated = useSelector(selectIsAuthenticated);
-
-    // Fetch user profile if authenticated
-    useEffect(() => {
-        if (isAuthenticated) {
-            dispatch(fetchUserProfile());
-        }
-    }, [isAuthenticated, dispatch]);
 
     // Protected route component
     const ProtectedRoute = ({ children }) => {

@@ -77,8 +77,14 @@ export const registerShop = createAsyncThunk(
 // Async thunk for fetching user profile
 export const fetchUserProfile = createAsyncThunk(
     'user/fetchProfile',
-    async (_, { rejectWithValue, dispatch }) => {
+    async (_, { rejectWithValue, dispatch, getState }) => {
         try {
+            // Check if we actually have a token before making the request
+            const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+            if (!token) {
+                return rejectWithValue('No authentication token available');
+            }
+
             const response = await axiosClient.get('/user/profile');
             const { user, shop } = response.data.metadata;
 
@@ -89,6 +95,10 @@ export const fetchUserProfile = createAsyncThunk(
 
             return { user, shop };
         } catch (error) {
+            // If the profile fetch fails due to auth issues, clear the tokens and logout
+            if (error.response?.status === 403 || error.response?.status === 401) {
+                dispatch(clearAuthState());
+            }
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch profile');
         }
     }
@@ -100,14 +110,16 @@ export const logoutUser = createAsyncThunk(
     async (_, { rejectWithValue, dispatch }) => {
         try {
             await axiosClient.post('/auth/logout');
+        } catch (error) {
+            console.error('Logout error:', error);
+            // Continue with logout even if API call fails
+        } finally {
+            // Always clear local state
             localStorage.removeItem(ACCESS_TOKEN_KEY);
             localStorage.removeItem(REFRESH_TOKEN_KEY);
             dispatch(clearShopInfo());
-            return true;
-        } catch (error) {
-            console.error('Logout error:', error);
-            return rejectWithValue(error.response?.data?.message || 'Logout failed');
         }
+        return true;
     }
 );
 
@@ -139,6 +151,15 @@ const userSlice = createSlice({
             state.currentUser = {
                 ...state.currentUser,
                 ...action.payload
+            };
+        },
+        // Synchronous logout action for immediate state clearing
+        clearAuthState: (state) => {
+            localStorage.removeItem(ACCESS_TOKEN_KEY);
+            localStorage.removeItem(REFRESH_TOKEN_KEY);
+            return {
+                ...initialState,
+                isAuthenticated: false
             };
         }
     },
@@ -197,6 +218,10 @@ const userSlice = createSlice({
             .addCase(fetchUserProfile.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+                // If token is invalid, clear authentication state
+                if (action.payload === 'No authentication token available') {
+                    state.isAuthenticated = false;
+                }
             })
 
             // Logout actions
@@ -205,17 +230,26 @@ const userSlice = createSlice({
                 state.error = null;
             })
             .addCase(logoutUser.fulfilled, (state) => {
-                return initialState;
+                return {
+                    ...initialState,
+                    isAuthenticated: false
+                };
             })
             .addCase(logoutUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+                // Even if logout fails, clear auth state
+                return {
+                    ...initialState,
+                    isAuthenticated: false,
+                    error: action.payload
+                };
             });
     }
 });
 
 // Export actions and reducer
-export const { clearError, updateUserProfile } = userSlice.actions;
+export const { clearError, updateUserProfile, clearAuthState } = userSlice.actions;
 export default userSlice.reducer;
 
 // Selectors

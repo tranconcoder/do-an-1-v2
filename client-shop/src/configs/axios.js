@@ -19,6 +19,14 @@ let refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
 let isRefreshing = false;
 let refreshSubscribers = [];
 
+// Callback function for logout (will be set by the app)
+let logoutCallback = null;
+
+// Function to set logout callback
+export const setLogoutCallback = (callback) => {
+    logoutCallback = callback;
+};
+
 // Function to push failed requests to queue when refreshing token
 const subscribeTokenRefresh = (callback) => {
     refreshSubscribers.push(callback);
@@ -28,6 +36,17 @@ const subscribeTokenRefresh = (callback) => {
 const onRefreshed = (newToken) => {
     refreshSubscribers.forEach((callback) => callback(newToken));
     refreshSubscribers = [];
+};
+
+// Helper function to clear auth state
+const clearAuthState = () => {
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    accessToken = null;
+    refreshToken = null;
+    isRefreshing = false;
+    refreshSubscribers = [];
+    delete axiosClient.defaults.headers.common['Authorization'];
 };
 
 // Add request interceptor to attach the token to all requests
@@ -71,7 +90,8 @@ axiosClient.interceptors.response.use(
         if (
             error.response?.status === 403 &&
             error.response.data.name === 'Token error' &&
-            currentRefreshToken
+            currentRefreshToken &&
+            !originalRequest._retry
         ) {
             // If not already refreshing token
             if (!isRefreshing) {
@@ -112,25 +132,31 @@ axiosClient.interceptors.response.use(
                     originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
                     return axiosClient(originalRequest);
                 } catch (refreshError) {
-                    // If refresh token fails, logout the user
-                    localStorage.removeItem(ACCESS_TOKEN_KEY);
-                    localStorage.removeItem(REFRESH_TOKEN_KEY);
+                    console.error('Token refresh failed:', refreshError);
 
-                    // Clear tokens in memory
-                    accessToken = null;
-                    refreshToken = null;
-                    isRefreshing = false;
+                    // Clear auth state
+                    clearAuthState();
 
-                    // Redirect to login page
-                    window.location.href = '/login';
+                    // Use callback to logout user if available
+                    if (logoutCallback) {
+                        logoutCallback();
+                    } else {
+                        // Fallback to redirect if no callback is set
+                        window.location.href = '/login';
+                    }
+
                     return Promise.reject(refreshError);
                 }
             } else {
                 // If already refreshing, add request to queue
-                return new Promise((resolve) => {
+                return new Promise((resolve, reject) => {
                     subscribeTokenRefresh((newToken) => {
-                        originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
-                        resolve(axiosClient(originalRequest));
+                        if (newToken) {
+                            originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
+                            resolve(axiosClient(originalRequest));
+                        } else {
+                            reject(error);
+                        }
                     });
                 });
             }
@@ -138,5 +164,14 @@ axiosClient.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+// Function to update tokens (can be called from other parts of the app)
+export const setAuthTokens = (newAccessToken, newRefreshToken) => {
+    accessToken = newAccessToken;
+    refreshToken = newRefreshToken;
+    localStorage.setItem(ACCESS_TOKEN_KEY, newAccessToken);
+    localStorage.setItem(REFRESH_TOKEN_KEY, newRefreshToken);
+    axiosClient.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+};
 
 export default axiosClient;

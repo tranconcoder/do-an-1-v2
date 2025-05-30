@@ -6,6 +6,7 @@ import { ShopStatus } from '../constants/shop.enum';
 import { logoutUser as logout, fetchUserProfile } from '../store/userSlice';
 import { selectShopInfo } from '../store/slices/shopSlice';
 import { selectUserLoading, selectIsAuthenticated } from '../store/userSlice';
+import { ACCESS_TOKEN_KEY } from '../configs/jwt.config';
 
 /**
  * A guard component that controls access based on shop registration status
@@ -21,30 +22,58 @@ const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/' }) => {
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const userLoading = useSelector(selectUserLoading);
     const [isLoading, setIsLoading] = useState(true);
-    const [loadingAttempts, setLoadingAttempts] = useState(0);
+    const [hasTriedFetch, setHasTriedFetch] = useState(false);
 
     // Get shop status from the Redux store (which is populated from user profile)
     const shopStatus = shopInfo?.shop_status || null;
 
-    // Effect to handle initial loading and retry fetching user profile
+    // Check if we actually have a token
+    const hasValidToken = !!localStorage.getItem(ACCESS_TOKEN_KEY);
+
+    // Effect to handle initial loading and fetch user profile if needed
     useEffect(() => {
-        // If authenticated but no shop info and not already loading
-        if (isAuthenticated && !shopInfo && !userLoading && loadingAttempts < 3) {
-            console.log(`Attempt ${loadingAttempts + 1} to fetch user profile...`);
-            dispatch(fetchUserProfile());
-            setLoadingAttempts((prev) => prev + 1);
+        let timeoutId;
+
+        // If not authenticated or no valid token, don't try to fetch
+        if (!isAuthenticated || !hasValidToken) {
+            setIsLoading(false);
+            return;
         }
 
-        // After 1 second, stop showing loading state if we still don't have shop info
-        const timer = setTimeout(() => {
+        // If authenticated but no shop info and not already loading and haven't tried yet
+        if (isAuthenticated && hasValidToken && !shopInfo && !userLoading && !hasTriedFetch) {
+            console.log('Fetching user profile for shop info...');
+            setHasTriedFetch(true);
+            dispatch(fetchUserProfile());
+        }
+
+        // Set a timeout to stop loading state after reasonable time
+        timeoutId = setTimeout(() => {
             setIsLoading(false);
-        }, 2000);
+        }, 3000);
 
-        return () => clearTimeout(timer);
-    }, [isAuthenticated, shopInfo, userLoading, dispatch, loadingAttempts]);
+        return () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+        };
+    }, [isAuthenticated, hasValidToken, shopInfo, userLoading, hasTriedFetch, dispatch]);
 
-    // Show loading spinner when initially loading
-    if ((userLoading || isLoading) && isAuthenticated) {
+    // Update loading state based on user loading state
+    useEffect(() => {
+        if (!userLoading) {
+            setIsLoading(false);
+        }
+    }, [userLoading]);
+
+    // If not authenticated or no valid token, redirect to login
+    if (!isAuthenticated || !hasValidToken) {
+        console.log('User not authenticated or no valid token. Redirecting to login.');
+        return <Navigate to="/login" state={{ from: location }} replace />;
+    }
+
+    // Show loading spinner when initially loading or fetching profile
+    if ((userLoading || (isLoading && !shopInfo)) && isAuthenticated && hasValidToken) {
         return (
             <div
                 style={{
@@ -59,14 +88,18 @@ const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/' }) => {
         );
     }
 
-    // If authenticated but no shop info after loading, something is wrong
-    if (isAuthenticated && !shopInfo && !isLoading) {
-        console.log('User is authenticated but shopInfo is missing. Redirecting to login.');
+    // If authenticated with valid token but no shop info after loading, something is wrong
+    if (isAuthenticated && hasValidToken && !shopInfo && !isLoading && hasTriedFetch) {
+        console.log(
+            'User is authenticated but shopInfo is missing after fetch attempt. Redirecting to login.'
+        );
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
     // If shop status doesn't match the required status, redirect
     if (shopInfo && shopStatus !== requiredStatus) {
+        console.log(`Shop status ${shopStatus} doesn't match required ${requiredStatus}`);
+
         // Special case for pending status - redirect to pending page
         if (shopStatus === ShopStatus.PENDING) {
             dispatch(logout());

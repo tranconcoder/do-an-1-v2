@@ -290,3 +290,67 @@
 [2025-05-30T15:02:32.303Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
 [2025-05-30T15:02:32.335Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
 [2025-05-30T15:02:32.375Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:03:29.785Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T15:05:54.504Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:05:54.507Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:05:54.528Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:05:54.543Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:05:54.560Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:05:54.576Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:06:04.635Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:06:04.649Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:06:04.676Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:06:04.692Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:06:04.712Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:06:04.738Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:06:40.287Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:06:40.291Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:06:40.322Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:06:40.336Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:06:40.364Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:06:40.384Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:05.132Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:07:05.136Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:05.150Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:07:05.156Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:05.168Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:05.184Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:11.269Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:07:11.278Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:11.308Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:07:11.336Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:11.369Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:11.401Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:20.680Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:20.714Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:07:20.735Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:20.756Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:07:20.788Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:20.812Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:36.455Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:36.463Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:07:36.513Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:36.516Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:07:36.532Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:36.554Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:45.667Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:07:45.706Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:07:45.714Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:45.724Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:45.725Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:45.726Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:53.958Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:07:53.977Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:54.024Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-30T15:07:54.032Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:54.093Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:07:54.124Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-05-30T15:08:14.171Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T15:08:14.208Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T15:08:14.628Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T15:08:16.240Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T15:08:16.271Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T15:08:16.703Z] [error]: HIDE::403::Forbidden::Permission denied!::
+[2025-05-30T15:08:23.953Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T15:09:24.208Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T15:10:54.835Z] [error]: HIDE::403::Forbidden::Token not found!::

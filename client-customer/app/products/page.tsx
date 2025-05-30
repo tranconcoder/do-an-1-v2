@@ -17,7 +17,8 @@ import {
     X,
     ArrowUpDown,
     MapPin,
-    Eye
+    Eye,
+    Sparkles
 } from 'lucide-react';
 
 // UI Components
@@ -135,7 +136,7 @@ export default function ProductsPage() {
             const items: React.ReactElement[] = [
                 <div
                     key={category._id}
-                    className="flex items-center space-x-2"
+                    className="flex items-center space-x-2 hover:bg-blue-50 p-2 rounded-lg transition-colors duration-200"
                     style={{ paddingLeft: `${level * 16}px` }}
                 >
                     <Checkbox
@@ -151,12 +152,13 @@ export default function ProductsPage() {
                                 );
                             }
                         }}
+                        className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
                     />
                     <label
                         htmlFor={category._id}
-                        className="text-sm text-gray-700 cursor-pointer flex items-center"
+                        className="text-sm text-gray-700 cursor-pointer flex items-center hover:text-blue-600 transition-colors"
                     >
-                        {level > 0 && <span className="text-gray-400 mr-1">{'└─ '}</span>}
+                        {level > 0 && <span className="text-blue-400 mr-1">{'└─ '}</span>}
                         {category.category_name}
                     </label>
                 </div>
@@ -362,32 +364,41 @@ export default function ProductsPage() {
     };
 
     const FilterSidebar = () => (
-        <div className="space-y-6">
+        <div className="space-y-6 backdrop-blur-sm bg-white/80 p-6 rounded-2xl border border-white/20 shadow-xl">
             {/* Search */}
             <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Search</h3>
+                <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <Search className="h-4 w-4 mr-2 text-blue-600" />
+                    Search
+                </h3>
                 <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400 h-4 w-4" />
                     <Input
                         placeholder="Search products..."
                         value={filters.searchQuery}
                         onChange={(e) => updateFilters('searchQuery', e.target.value)}
-                        className="pl-10"
+                        className="pl-10 border-blue-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200"
                     />
                 </div>
             </div>
 
             {/* Categories */}
             <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Categories</h3>
-                <div className="space-y-2 max-h-48 overflow-y-auto">
+                <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <Filter className="h-4 w-4 mr-2 text-blue-600" />
+                    Categories
+                </h3>
+                <div className="space-y-1 max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-300 scrollbar-track-blue-50">
                     {renderCategoryFilters(categoriesHierarchy)}
                 </div>
             </div>
 
             {/* Price Range */}
             <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Price Range</h3>
+                <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <span className="text-blue-600 mr-2">$</span>
+                    Price Range
+                </h3>
                 <div className="space-y-3">
                     <Slider
                         value={filters.priceRange}
@@ -398,7 +409,7 @@ export default function ProductsPage() {
                         step={10}
                         className="w-full"
                     />
-                    <div className="flex items-center justify-between text-sm text-gray-600">
+                    <div className="flex items-center justify-between text-sm text-blue-600 font-medium">
                         <span>${filters.priceRange[0]}</span>
                         <span>${filters.priceRange[1]}</span>
                     </div>
@@ -407,13 +418,17 @@ export default function ProductsPage() {
 
             {/* Stock Filter */}
             <div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
                     <Checkbox
                         id="inStock"
                         checked={filters.inStock}
                         onCheckedChange={(checked) => updateFilters('inStock', checked)}
+                        className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
                     />
-                    <label htmlFor="inStock" className="text-sm text-gray-700 cursor-pointer">
+                    <label
+                        htmlFor="inStock"
+                        className="text-sm text-gray-700 cursor-pointer font-medium"
+                    >
                         In Stock Only
                     </label>
                 </div>
@@ -421,16 +436,23 @@ export default function ProductsPage() {
 
             {/* Rating Filter */}
             <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Minimum Rating</h3>
+                <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <Star className="h-4 w-4 mr-2 text-yellow-400 fill-yellow-400" />
+                    Minimum Rating
+                </h3>
                 <div className="space-y-2">
                     {[4, 3, 2, 1].map((rating) => (
-                        <div key={rating} className="flex items-center space-x-2">
+                        <div
+                            key={rating}
+                            className="flex items-center space-x-2 p-2 hover:bg-blue-50 rounded-lg transition-colors duration-200"
+                        >
                             <Checkbox
                                 id={`rating-${rating}`}
                                 checked={filters.rating === rating}
                                 onCheckedChange={(checked) => {
                                     updateFilters('rating', checked ? rating : 0);
                                 }}
+                                className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
                             />
                             <label
                                 htmlFor={`rating-${rating}`}
@@ -440,7 +462,7 @@ export default function ProductsPage() {
                                     {[...Array(5)].map((_, i) => (
                                         <Star
                                             key={i}
-                                            className={`h-4 w-4 ${
+                                            className={`h-4 w-4 transition-colors duration-200 ${
                                                 i < rating
                                                     ? 'text-yellow-400 fill-yellow-400'
                                                     : 'text-gray-300'
@@ -456,7 +478,12 @@ export default function ProductsPage() {
             </div>
 
             {/* Clear Filters */}
-            <Button variant="outline" onClick={clearFilters} className="w-full">
+            <Button
+                variant="outline"
+                onClick={clearFilters}
+                className="w-full border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300 transition-all duration-200"
+            >
+                <X className="h-4 w-4 mr-2" />
                 Clear All Filters
             </Button>
         </div>
@@ -470,13 +497,40 @@ export default function ProductsPage() {
         const rating = product.product_rating_avg || 0;
         const isWishlisted = wishlist.has(product.sku._id);
 
+        // Enhanced rating display component
+        const RatingDisplay = ({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'lg' }) => {
+            const starSize = size === 'lg' ? 'h-5 w-5' : 'h-4 w-4';
+            const textSize = size === 'lg' ? 'text-base' : 'text-sm';
+
+            return (
+                <div className="flex items-center gap-1">
+                    <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                            <Star
+                                key={i}
+                                className={`${starSize} transition-all duration-200 ${
+                                    i < Math.round(rating)
+                                        ? 'text-yellow-400 fill-yellow-400 drop-shadow-sm'
+                                        : 'text-gray-300'
+                                }`}
+                            />
+                        ))}
+                    </div>
+                    <span className={`${textSize} text-gray-600 font-medium`}>
+                        {rating > 0 ? rating.toFixed(1) : 'No rating'}
+                    </span>
+                    {rating > 4.5 && <Sparkles className="h-3 w-3 text-yellow-500 animate-pulse" />}
+                </div>
+            );
+        };
+
         if (viewMode === 'list') {
             return (
-                <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 bg-gradient-to-r from-white to-blue-50/30 border border-blue-100/50 backdrop-blur-sm">
                     <CardContent className="p-0">
                         <div className="flex">
                             {/* Image */}
-                            <div className="relative w-48 h-48 flex-shrink-0">
+                            <div className="relative w-48 h-48 flex-shrink-0 overflow-hidden">
                                 <Link href={`/products/${product.sku._id}`}>
                                     <Image
                                         src={
@@ -486,21 +540,22 @@ export default function ProductsPage() {
                                         }
                                         alt={product.product_name}
                                         fill
-                                        className="object-cover hover:scale-105 transition-transform duration-300"
+                                        className="object-cover hover:scale-110 transition-transform duration-500"
                                     />
                                 </Link>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="absolute top-2 right-2 h-8 w-8 bg-white/80 hover:bg-white"
+                                    className="absolute top-2 right-2 h-8 w-8 bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg transition-all duration-200"
                                     onClick={() => handleWishlistToggle(product.sku._id)}
                                     disabled={loadingWishlist}
                                 >
                                     <Heart
-                                        className={`h-4 w-4 ${
+                                        className={`h-4 w-4 transition-all duration-200 ${
                                             isWishlisted
-                                                ? 'fill-red-500 text-red-500'
-                                                : 'text-gray-600'
+                                                ? 'fill-red-500 text-red-500 scale-110'
+                                                : 'text-gray-600 hover:text-red-500'
                                         }`}
                                     />
                                 </Button>
@@ -509,9 +564,9 @@ export default function ProductsPage() {
                             {/* Content */}
                             <div className="flex-1 p-6">
                                 <div className="flex justify-between items-start mb-2">
-                                    <div>
+                                    <div className="flex-1">
                                         {shopInfo && (
-                                            <div className="flex items-center gap-2 mb-2">
+                                            <div className="flex items-center gap-2 mb-3 p-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
                                                 <div className="w-6 h-6 relative">
                                                     <Image
                                                         src={
@@ -523,16 +578,16 @@ export default function ProductsPage() {
                                                         }
                                                         alt={shopInfo.name}
                                                         fill
-                                                        className="rounded-full object-cover"
+                                                        className="rounded-full object-cover ring-2 ring-blue-200"
                                                     />
                                                 </div>
-                                                <span className="text-sm text-gray-600">
+                                                <span className="text-sm text-blue-700 font-medium">
                                                     {shopInfo.name}
                                                 </span>
                                                 {shopInfo.location && (
                                                     <div className="flex items-center gap-1">
-                                                        <MapPin className="h-3 w-3 text-gray-400" />
-                                                        <span className="text-xs text-gray-500">
+                                                        <MapPin className="h-3 w-3 text-blue-400" />
+                                                        <span className="text-xs text-blue-600">
                                                             {shopInfo.location}
                                                         </span>
                                                     </div>
@@ -540,19 +595,25 @@ export default function ProductsPage() {
                                             </div>
                                         )}
                                         <Link href={`/products/${product.sku._id}`}>
-                                            <h3 className="font-semibold text-lg text-gray-900 hover:text-blue-600 transition-colors">
+                                            <h3 className="font-semibold text-lg text-gray-900 hover:text-blue-600 transition-colors duration-200 mb-2">
                                                 {product.product_name}
                                             </h3>
                                         </Link>
+
+                                        {/* Enhanced Rating Display */}
+                                        <div className="mb-3">
+                                            <RatingDisplay rating={rating} size="lg" />
+                                        </div>
+
                                         {product.sku.sku_value &&
                                             product.sku.sku_value.length > 0 && (
-                                                <div className="flex gap-1 mt-2">
+                                                <div className="flex gap-1 mt-2 flex-wrap">
                                                     {product.sku.sku_value.map(
                                                         (variation, index) => (
                                                             <Badge
                                                                 key={index}
                                                                 variant="secondary"
-                                                                className="text-xs"
+                                                                className="text-xs bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 border-blue-200"
                                                             >
                                                                 {variation.key}: {variation.value}
                                                             </Badge>
@@ -562,28 +623,9 @@ export default function ProductsPage() {
                                             )}
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-2xl font-bold text-blue-600">
+                                        <div className="text-2xl font-bold text-blue-600 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                                             ${price.toFixed(2)}
                                         </div>
-                                        {rating > 0 && (
-                                            <div className="flex items-center gap-1 mt-1">
-                                                <div className="flex">
-                                                    {[...Array(5)].map((_, i) => (
-                                                        <Star
-                                                            key={i}
-                                                            className={`h-4 w-4 ${
-                                                                i < Math.round(rating)
-                                                                    ? 'text-yellow-400 fill-yellow-400'
-                                                                    : 'text-gray-300'
-                                                            }`}
-                                                        />
-                                                    ))}
-                                                </div>
-                                                <span className="text-sm text-gray-600">
-                                                    ({rating.toFixed(1)})
-                                                </span>
-                                            </div>
-                                        )}
                                     </div>
                                 </div>
 
@@ -592,21 +634,26 @@ export default function ProductsPage() {
                                         {stock > 0 ? (
                                             <Badge
                                                 variant="outline"
-                                                className="text-green-600 border-green-600"
+                                                className="text-green-600 border-green-600 bg-green-50 animate-pulse"
                                             >
                                                 {stock} in stock
                                             </Badge>
                                         ) : (
                                             <Badge
                                                 variant="outline"
-                                                className="text-red-600 border-red-600"
+                                                className="text-red-600 border-red-600 bg-red-50"
                                             >
                                                 Out of stock
                                             </Badge>
                                         )}
                                     </div>
                                     <div className="flex gap-2">
-                                        <Button variant="outline" size="sm" asChild>
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            asChild
+                                            className="border-blue-200 text-blue-600 hover:bg-blue-50"
+                                        >
                                             <Link href={`/products/${product.sku._id}`}>
                                                 <Eye className="h-4 w-4 mr-2" />
                                                 View
@@ -616,6 +663,7 @@ export default function ProductsPage() {
                                             size="sm"
                                             onClick={() => handleAddToCart(product.sku._id)}
                                             disabled={stock === 0}
+                                            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
                                         >
                                             <ShoppingCart className="h-4 w-4 mr-2" />
                                             Add to Cart
@@ -630,7 +678,7 @@ export default function ProductsPage() {
         }
 
         return (
-            <Card className="group overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-gradient-to-br from-white to-blue-50/30 border border-blue-100/50 backdrop-blur-sm">
                 <CardContent className="p-0">
                     {/* Image */}
                     <div className="relative aspect-square overflow-hidden">
@@ -643,25 +691,35 @@ export default function ProductsPage() {
                                 }
                                 alt={product.product_name}
                                 fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                className="object-cover group-hover:scale-110 transition-transform duration-500"
                             />
                         </Link>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         <Button
                             variant="ghost"
                             size="icon"
-                            className="absolute top-2 right-2 h-8 w-8 bg-white/80 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute top-2 right-2 h-8 w-8 bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
                             onClick={() => handleWishlistToggle(product.sku._id)}
                             disabled={loadingWishlist}
                         >
                             <Heart
-                                className={`h-4 w-4 ${
-                                    isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600'
+                                className={`h-4 w-4 transition-all duration-200 ${
+                                    isWishlisted
+                                        ? 'fill-red-500 text-red-500 scale-110'
+                                        : 'text-gray-600 hover:text-red-500'
                                 }`}
                             />
                         </Button>
                         {stock === 0 && (
-                            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                                <Badge variant="destructive">Out of Stock</Badge>
+                            <div className="absolute inset-0 bg-black/50 flex items-center justify-center backdrop-blur-sm">
+                                <Badge variant="destructive" className="animate-pulse">
+                                    Out of Stock
+                                </Badge>
+                            </div>
+                        )}
+                        {rating > 4.5 && (
+                            <div className="absolute top-2 left-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg animate-bounce">
+                                ⭐ Top Rated
                             </div>
                         )}
                     </div>
@@ -669,7 +727,7 @@ export default function ProductsPage() {
                     {/* Content */}
                     <div className="p-4">
                         {shopInfo && (
-                            <div className="flex items-center gap-2 mb-2">
+                            <div className="flex items-center gap-2 mb-3 p-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
                                 <div className="w-5 h-5 relative">
                                     <Image
                                         src={
@@ -679,30 +737,42 @@ export default function ProductsPage() {
                                         }
                                         alt={shopInfo.name}
                                         fill
-                                        className="rounded-full object-cover"
+                                        className="rounded-full object-cover ring-2 ring-blue-200"
                                     />
                                 </div>
-                                <span className="text-xs text-gray-600 truncate">
+                                <span className="text-xs text-blue-700 truncate font-medium">
                                     {shopInfo.name}
                                 </span>
                             </div>
                         )}
 
                         <Link href={`/products/${product.sku._id}`}>
-                            <h3 className="font-semibold text-gray-900 hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                            <h3 className="font-semibold text-gray-900 hover:text-blue-600 transition-colors line-clamp-2 mb-2 group-hover:text-blue-600 duration-200">
                                 {product.product_name}
                             </h3>
                         </Link>
 
+                        {/* Enhanced Rating Display */}
+                        <div className="mb-3">
+                            <RatingDisplay rating={rating} />
+                        </div>
+
                         {product.sku.sku_value && product.sku.sku_value.length > 0 && (
-                            <div className="flex flex-wrap gap-1 mb-2">
+                            <div className="flex flex-wrap gap-1 mb-3">
                                 {product.sku.sku_value.slice(0, 2).map((variation, index) => (
-                                    <Badge key={index} variant="secondary" className="text-xs">
+                                    <Badge
+                                        key={index}
+                                        variant="secondary"
+                                        className="text-xs bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 border-blue-200"
+                                    >
                                         {variation.value}
                                     </Badge>
                                 ))}
                                 {product.sku.sku_value.length > 2 && (
-                                    <Badge variant="secondary" className="text-xs">
+                                    <Badge
+                                        variant="secondary"
+                                        className="text-xs bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 border-blue-200"
+                                    >
                                         +{product.sku.sku_value.length - 2}
                                     </Badge>
                                 )}
@@ -710,21 +780,21 @@ export default function ProductsPage() {
                         )}
 
                         <div className="flex items-center justify-between mb-3">
-                            <div className="text-xl font-bold text-blue-600">
+                            <div className="text-xl font-bold text-blue-600 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                                 ${price.toFixed(2)}
                             </div>
-                            {rating > 0 && (
-                                <div className="flex items-center gap-1">
-                                    <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                                    <span className="text-sm text-gray-600">
-                                        {rating.toFixed(1)}
-                                    </span>
-                                </div>
+                            {stock > 0 && (
+                                <Badge
+                                    variant="outline"
+                                    className="text-green-600 border-green-600 bg-green-50 text-xs"
+                                >
+                                    {stock} left
+                                </Badge>
                             )}
                         </div>
 
                         <Button
-                            className="w-full"
+                            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
                             onClick={() => handleAddToCart(product.sku._id)}
                             disabled={stock === 0}
                         >
@@ -738,14 +808,14 @@ export default function ProductsPage() {
     };
 
     const ProductSkeleton = () => (
-        <Card className="overflow-hidden">
+        <Card className="overflow-hidden animate-pulse">
             <CardContent className="p-0">
-                <Skeleton className="aspect-square w-full" />
+                <Skeleton className="aspect-square w-full bg-gradient-to-r from-blue-100 to-indigo-100" />
                 <div className="p-4 space-y-2">
-                    <Skeleton className="h-4 w-3/4" />
-                    <Skeleton className="h-4 w-1/2" />
-                    <Skeleton className="h-6 w-1/3" />
-                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-4 w-3/4 bg-gradient-to-r from-blue-100 to-indigo-100" />
+                    <Skeleton className="h-4 w-1/2 bg-gradient-to-r from-blue-100 to-indigo-100" />
+                    <Skeleton className="h-6 w-1/3 bg-gradient-to-r from-blue-100 to-indigo-100" />
+                    <Skeleton className="h-10 w-full bg-gradient-to-r from-blue-100 to-indigo-100" />
                 </div>
             </CardContent>
         </Card>
@@ -753,21 +823,24 @@ export default function ProductsPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-50">
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
                 <div className="container mx-auto px-4 py-8">
                     <div className="flex gap-8">
                         <div className="hidden lg:block w-64 space-y-6">
-                            <Skeleton className="h-8 w-32" />
+                            <Skeleton className="h-8 w-32 bg-gradient-to-r from-blue-100 to-indigo-100" />
                             <div className="space-y-4">
                                 {[...Array(5)].map((_, i) => (
-                                    <Skeleton key={i} className="h-4 w-full" />
+                                    <Skeleton
+                                        key={i}
+                                        className="h-4 w-full bg-gradient-to-r from-blue-100 to-indigo-100"
+                                    />
                                 ))}
                             </div>
                         </div>
                         <div className="flex-1">
                             <div className="flex justify-between items-center mb-6">
-                                <Skeleton className="h-8 w-48" />
-                                <Skeleton className="h-10 w-32" />
+                                <Skeleton className="h-8 w-48 bg-gradient-to-r from-blue-100 to-indigo-100" />
+                                <Skeleton className="h-10 w-32 bg-gradient-to-r from-blue-100 to-indigo-100" />
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {[...Array(12)].map((_, i) => (
@@ -782,22 +855,24 @@ export default function ProductsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
             <div className="container mx-auto px-4 py-8">
                 {/* Breadcrumb */}
                 <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
-                    <Link href="/" className="hover:text-blue-600">
+                    <Link href="/" className="hover:text-blue-600 transition-colors duration-200">
                         Home
                     </Link>
-                    <span>/</span>
-                    <span className="text-gray-900 font-medium">Products</span>
+                    <span className="text-blue-400">/</span>
+                    <span className="text-blue-600 font-medium">Products</span>
                 </nav>
 
                 {/* Header */}
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900">All Products</h1>
-                        <p className="text-gray-600 mt-1">
+                        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+                            All Products
+                        </h1>
+                        <p className="text-gray-600 text-lg">
                             Discover amazing products from our marketplace
                         </p>
                     </div>
@@ -805,11 +880,16 @@ export default function ProductsPage() {
                     {/* Controls */}
                     <div className="flex items-center gap-4">
                         {/* View Mode Toggle */}
-                        <div className="hidden sm:flex items-center border rounded-lg p-1">
+                        <div className="hidden sm:flex items-center border border-blue-200 rounded-lg p-1 bg-white/80 backdrop-blur-sm">
                             <Button
                                 variant={viewMode === 'grid' ? 'default' : 'ghost'}
                                 size="sm"
                                 onClick={() => setViewMode('grid')}
+                                className={
+                                    viewMode === 'grid'
+                                        ? 'bg-blue-600 hover:bg-blue-700'
+                                        : 'hover:bg-blue-50'
+                                }
                             >
                                 <Grid3X3 className="h-4 w-4" />
                             </Button>
@@ -817,6 +897,11 @@ export default function ProductsPage() {
                                 variant={viewMode === 'list' ? 'default' : 'ghost'}
                                 size="sm"
                                 onClick={() => setViewMode('list')}
+                                className={
+                                    viewMode === 'list'
+                                        ? 'bg-blue-600 hover:bg-blue-700'
+                                        : 'hover:bg-blue-50'
+                                }
                             >
                                 <List className="h-4 w-4" />
                             </Button>
@@ -824,11 +909,11 @@ export default function ProductsPage() {
 
                         {/* Sort */}
                         <Select value={sortBy} onValueChange={setSortBy}>
-                            <SelectTrigger className="w-48">
-                                <ArrowUpDown className="h-4 w-4 mr-2" />
+                            <SelectTrigger className="w-48 border-blue-200 focus:border-blue-500 bg-white/80 backdrop-blur-sm">
+                                <ArrowUpDown className="h-4 w-4 mr-2 text-blue-600" />
                                 <SelectValue />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className="bg-white/95 backdrop-blur-sm border-blue-200">
                                 <SelectItem value="featured">Featured</SelectItem>
                                 <SelectItem value="newest">Newest</SelectItem>
                                 <SelectItem value="price-low">Price: Low to High</SelectItem>
@@ -840,14 +925,20 @@ export default function ProductsPage() {
                         {/* Mobile Filter Toggle */}
                         <Sheet open={showFilters} onOpenChange={setShowFilters}>
                             <SheetTrigger asChild>
-                                <Button variant="outline" className="lg:hidden">
+                                <Button
+                                    variant="outline"
+                                    className="lg:hidden border-blue-200 text-blue-600 hover:bg-blue-50"
+                                >
                                     <SlidersHorizontal className="h-4 w-4 mr-2" />
                                     Filters
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="left" className="w-80">
+                            <SheetContent
+                                side="left"
+                                className="w-80 bg-gradient-to-b from-white to-blue-50/30 backdrop-blur-xl"
+                            >
                                 <SheetHeader>
-                                    <SheetTitle>Filters</SheetTitle>
+                                    <SheetTitle className="text-blue-600">Filters</SheetTitle>
                                 </SheetHeader>
                                 <div className="mt-6">
                                     <FilterSidebar />
@@ -868,16 +959,28 @@ export default function ProductsPage() {
                     {/* Products */}
                     <div className="flex-1">
                         {/* Results Info */}
-                        <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center justify-between mb-6 p-4 bg-white/80 backdrop-blur-sm rounded-lg border border-blue-100">
                             <p className="text-gray-600">
-                                Showing {filteredAndSortedProducts.length} of {products.length}{' '}
+                                Showing{' '}
+                                <span className="font-semibold text-blue-600">
+                                    {filteredAndSortedProducts.length}
+                                </span>{' '}
+                                of{' '}
+                                <span className="font-semibold text-blue-600">
+                                    {products.length}
+                                </span>{' '}
                                 products
                             </p>
                             {(filters.categories.length > 0 ||
                                 filters.searchQuery ||
                                 filters.inStock ||
                                 filters.rating > 0) && (
-                                <Button variant="ghost" size="sm" onClick={clearFilters}>
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={clearFilters}
+                                    className="text-blue-600 hover:bg-blue-50"
+                                >
                                     <X className="h-4 w-4 mr-2" />
                                     Clear filters
                                 </Button>
@@ -886,9 +989,9 @@ export default function ProductsPage() {
 
                         {/* Products Grid */}
                         {filteredAndSortedProducts.length === 0 ? (
-                            <div className="text-center py-12">
-                                <div className="text-gray-400 mb-4">
-                                    <Search className="h-16 w-16 mx-auto" />
+                            <div className="text-center py-12 bg-white/80 backdrop-blur-sm rounded-2xl border border-blue-100">
+                                <div className="text-blue-400 mb-4">
+                                    <Search className="h-16 w-16 mx-auto animate-pulse" />
                                 </div>
                                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
                                     No products found
@@ -896,7 +999,12 @@ export default function ProductsPage() {
                                 <p className="text-gray-600 mb-4">
                                     Try adjusting your filters or search terms
                                 </p>
-                                <Button onClick={clearFilters}>Clear all filters</Button>
+                                <Button
+                                    onClick={clearFilters}
+                                    className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                                >
+                                    Clear all filters
+                                </Button>
                             </div>
                         ) : (
                             <div
@@ -906,14 +1014,55 @@ export default function ProductsPage() {
                                         : 'space-y-4'
                                 }
                             >
-                                {filteredAndSortedProducts.map((product) => (
-                                    <ProductCard key={product.sku._id} product={product} />
+                                {filteredAndSortedProducts.map((product, index) => (
+                                    <div
+                                        key={product.sku._id}
+                                        className="animate-fade-in"
+                                        style={{ animationDelay: `${index * 100}ms` }}
+                                    >
+                                        <ProductCard product={product} />
+                                    </div>
                                 ))}
                             </div>
                         )}
                     </div>
                 </div>
             </div>
+
+            <style jsx global>{`
+                @keyframes fade-in {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                .animate-fade-in {
+                    animation: fade-in 0.6s ease-out forwards;
+                    opacity: 0;
+                }
+
+                .scrollbar-thin {
+                    scrollbar-width: thin;
+                }
+
+                .scrollbar-thumb-blue-300::-webkit-scrollbar-thumb {
+                    background-color: #93c5fd;
+                    border-radius: 6px;
+                }
+
+                .scrollbar-track-blue-50::-webkit-scrollbar-track {
+                    background-color: #eff6ff;
+                }
+
+                .scrollbar-thin::-webkit-scrollbar {
+                    width: 6px;
+                }
+            `}</style>
         </div>
     );
 }

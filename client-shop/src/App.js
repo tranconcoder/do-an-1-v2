@@ -4,7 +4,8 @@ import AppRoutes from './routes';
 import { ToastProvider } from './contexts/ToastContext';
 import { API_URL } from './configs/env.config';
 import { fetchWarehouses } from './store/slices/warehouseSlice';
-import { selectIsAuthenticated, fetchUserProfile } from './store/userSlice';
+import { selectIsAuthenticated, fetchUserProfile, clearAuthState } from './store/userSlice';
+import { setLogoutCallback } from './configs/axios';
 
 function App() {
     const dispatch = useDispatch();
@@ -16,6 +17,16 @@ function App() {
         console.log('Direct from process.env:', process.env.REACT_APP_API_URL);
         console.log('From config:', API_URL);
     }, []);
+
+    // Set up logout callback for axios interceptor
+    useEffect(() => {
+        const handleTokenExpiration = () => {
+            console.log('Token expired, logging out user...');
+            dispatch(clearAuthState());
+        };
+
+        setLogoutCallback(handleTokenExpiration);
+    }, [dispatch]);
 
     // Fetch user profile khi reload trang và đã authenticated
     useEffect(() => {
