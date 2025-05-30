@@ -10,16 +10,16 @@ export const ADDRESS_COLLECTION_NAME = 'addresses';
 const addressSchema = new Schema<model.address.AddressSchema>(
     {
         user: { type: ObjectId, ref: USER_MODEL_NAME, required },
-        
+
         recipient_name: { type: String, required, maxLength: 100 },
         recipient_phone: { type: String, required, length: 10 },
-        
+
         location: { type: ObjectId, ref: LOCATION_MODEL_NAME, required },
-        
-        address_label: { type: String, maxLength: 50 }, // e.g., "Home", "Office", "Other"
-        
+
+        address_label: { type: String, maxLength: 50 },
+
         is_default: { type: Boolean, default: false },
-        
+
         is_active: { type: Boolean, default: true }
     },
     {
@@ -29,9 +29,9 @@ const addressSchema = new Schema<model.address.AddressSchema>(
 );
 
 // Ensure only one default address per user
-addressSchema.index({ user: 1, is_default: 1 }, { 
-    unique: true, 
-    partialFilterExpression: { is_default: true, is_active: true } 
+addressSchema.index({ user: 1, is_default: 1 }, {
+    unique: true,
+    partialFilterExpression: { is_default: true, is_active: true }
 });
 
 // Index for efficient queries

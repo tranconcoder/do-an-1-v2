@@ -27,6 +27,8 @@ import { assertFulfilled, assertRejected, sleep } from '@/utils/promise.util.js'
 
 import _ from 'lodash';
 import CartService from './cart.service.js';
+import { PaymentType } from '@/enums/payment.enum.js';
+import { findOneOrder } from '@/models/repository/order/index.js';
 
 export default new (class OrderService {
     public async createOrder({ userId, paymentType }: service.order.arguments.CreateOrder) {
@@ -39,7 +41,6 @@ export default new (class OrderService {
         if (!checkout) throw new NotFoundErrorResponse({ message: 'Not found checkout info!' });
 
         /* ------------------- Get shipping address  ------------------- */
-        console.log("SHIP-INFO", checkout.ship_info)
         const shippingAddress = await findAddressById({
             id: checkout.ship_info,
             options: { lean: true, populate: 'location' }
@@ -48,6 +49,7 @@ export default new (class OrderService {
 
         // Type assertion for populated location
         const location = shippingAddress.location as any;
+        if (!location) throw new NotFoundErrorResponse({ message: 'Shipping address not found!' });
 
         /* ---------- Check product quantity in inventory  ---------- */
         const shops = checkout.shops_info.flatMap((shop) =>
@@ -165,12 +167,26 @@ export default new (class OrderService {
 
                     /* ------------------------- Order  ------------------------- */
                     order_checkout: checkout,
-                    order_status: OrderStatus.PENDING_PAYMENT
+                    order_status:
+                        paymentType === PaymentType.COD ?
+                            OrderStatus.PENDING :
+                            OrderStatus.PENDING_PAYMENT
                 });
             });
     }
 
-    public async getOrderHistory({ userId, status }: service.order.arguments.GetOrderHistory) {
+    public async getOrderHistory({
+        userId,
+        status,
+        page = 1,
+        limit = 10,
+        search,
+        sortBy = 'created_at',
+        sortOrder = 'desc',
+        paymentType,
+        dateFrom,
+        dateTo
+    }: service.order.arguments.GetOrderHistory) {
         const query: any = { customer: userId };
 
         // Filter by status if provided
@@ -178,11 +194,139 @@ export default new (class OrderService {
             query.order_status = status;
         }
 
-        const orders = await orderModel
-            .find(query)
-            .sort({ createdAt: -1 })
-            .lean();
+        // Filter by payment type if provided
+        if (paymentType) {
+            query.payment_type = paymentType;
+        }
 
-        return orders;
+        // Filter by date range if provided
+        if (dateFrom || dateTo) {
+            query.created_at = {};
+            if (dateFrom) {
+                query.created_at.$gte = new Date(dateFrom);
+            }
+            if (dateTo) {
+                query.created_at.$lte = new Date(dateTo);
+            }
+        }
+
+        // Search functionality
+        if (search) {
+            const searchRegex = new RegExp(search, 'i');
+            query.$or = [
+                { customer_full_name: searchRegex },
+                { customer_phone: searchRegex },
+                { customer_email: searchRegex },
+                { customer_address: searchRegex },
+                { _id: searchRegex }
+            ];
+        }
+
+        // Calculate pagination
+        const skip = (page - 1) * limit;
+
+        // Build sort object
+        const sortObj: any = {};
+        sortObj[sortBy] = sortOrder === 'asc' ? 1 : -1;
+
+        // Execute query with pagination
+        const [orders, totalCount] = await Promise.all([
+            orderModel
+                .find(query)
+                .sort(sortObj)
+                .skip(skip)
+                .limit(limit)
+                .lean(),
+            orderModel.countDocuments(query)
+        ]);
+
+        // Calculate pagination info
+        const totalPages = Math.ceil(totalCount / limit);
+        const hasNextPage = page < totalPages;
+        const hasPrevPage = page > 1;
+
+        return {
+            orders,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                totalCount,
+                limit,
+                hasNextPage,
+                hasPrevPage
+            }
+        };
+    }
+
+    public async cancelOrder({ userId, orderId }: service.order.arguments.CancelOrder) {
+        /* ------------------- Find the order ------------------- */
+        const order = await findOneOrder({
+            query: {
+                customer: userId,
+                _id: orderId
+            },
+            options: { lean: true }
+        });
+
+        if (!order) {
+            throw new NotFoundErrorResponse({ message: 'Order not found!' });
+        }
+
+        /* ----------- Check if order can be cancelled ----------- */
+        if (order.order_status !== OrderStatus.PENDING_PAYMENT && order.order_status !== OrderStatus.PENDING) {
+            throw new BadRequestErrorResponse({
+                message: 'Order cannot be cancelled at this stage!'
+            });
+        }
+
+        /* ------------- Revert inventory for products ------------- */
+        const shops = order.order_checkout.shops_info.flatMap((shop) =>
+            shop.products_info.map((product) => ({
+                id: product.id,
+                quantity: product.quantity
+            }))
+        );
+
+        await Promise.all(
+            shops.map(async ({ id, quantity }) => {
+                /* -------------------- Find inventory  -------------------- */
+                const inventory = await findOneInventory({
+                    query: { inventory_sku: id },
+                    select: ['_id']
+                }).lean();
+
+                if (inventory) {
+                    /* ------------ Use pessimistic lock to revert inventory ------------ */
+                    await pessimisticLock(
+                        PessimisticKeys.INVENTORY,
+                        inventory._id,
+                        async () => await revertProductInventory(id, quantity)
+                    );
+                }
+            })
+        );
+
+        /* ------------- Cancel discounts if any ------------- */
+        if (order.discount?.discount_id) {
+            await cancelDiscount(order.discount.discount_id.toString());
+        }
+
+        // Cancel shop discounts
+        await Promise.all(
+            order.order_checkout.shops_info.map(async (shop) => {
+                if (shop.discount?.discount_id) {
+                    await cancelDiscount(shop.discount.discount_id);
+                }
+            })
+        );
+
+        /* ------------- Update order status to cancelled ------------- */
+        const updatedOrder = await orderModel.findByIdAndUpdate(
+            orderId,
+            { order_status: OrderStatus.CANCELLED },
+            { new: true }
+        );
+
+        return updatedOrder;
     }
 })();

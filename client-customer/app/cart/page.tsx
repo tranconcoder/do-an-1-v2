@@ -416,9 +416,6 @@ export default function CartPage() {
 
             const checkoutResult = await checkoutService.checkout(checkoutRequest);
 
-            // Store checkout data for payment page
-            localStorage.setItem('checkoutData', JSON.stringify(checkoutResult.metadata));
-
             toast({
                 title: 'Thành công!',
                 description: `Tính toán đơn hàng thành công. Tổng tiền: ${checkoutResult.metadata.total_checkout.toLocaleString(

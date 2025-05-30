@@ -4,3 +4,175 @@
 [2025-05-30T01:33:34.207Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('6837d28b28f541ca98a02bae'), products: [ { sku: ObjectId('6837da23693fdfe6476dc551'), product_name: "Iphone 16 Pro Max 2", product_thumb: "6837da23693fdfe6476dc528", cart_quantity: 12, product_price: 30000000, product_status: "active", _id: ObjectId('6837dd26693fdfe6476dc866') }, { sku: ObjectId('6837da23693fdfe6476dc553'), product_name: "Iphone 16 Pro Max 2", product_thumb: "6837da23693fdfe6476dc529", cart_quantity: 2, product_price: 35000000, product_status: "active", _id: ObjectId('6837dde2693fdfe6476dc8c4') } ], _id: ObjectId('6837db11693fdfe6476dc5fd') } ]}::
 [2025-05-30T01:34:32.389Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('6837d28b28f541ca98a02bae'), products: [ { sku: ObjectId('6837da23693fdfe6476dc551'), product_name: "Iphone 16 Pro Max 2", product_thumb: "6837da23693fdfe6476dc528", cart_quantity: 12, product_price: 30000000, product_status: "active", _id: ObjectId('6837dd26693fdfe6476dc866') }, { sku: ObjectId('6837da23693fdfe6476dc553'), product_name: "Iphone 16 Pro Max 2", product_thumb: "6837da23693fdfe6476dc529", cart_quantity: 2, product_price: 35000000, product_status: "active", _id: ObjectId('6837dde2693fdfe6476dc8c4') } ], _id: ObjectId('6837db11693fdfe6476dc5fd') } ]}::
 [2025-05-30T01:35:13.724Z] [error]: HIDE::400::MongoServerError::Plan executor error during findAndModify :: caused by :: Cannot create field 'products' in element {cart_shop: [ { shop: ObjectId('6837d28b28f541ca98a02bae'), products: [ { sku: ObjectId('6837da23693fdfe6476dc551'), product_name: "Iphone 16 Pro Max 2", product_thumb: "6837da23693fdfe6476dc528", cart_quantity: 12, product_price: 30000000, product_status: "active", _id: ObjectId('6837dd26693fdfe6476dc866') }, { sku: ObjectId('6837da23693fdfe6476dc553'), product_name: "Iphone 16 Pro Max 2", product_thumb: "6837da23693fdfe6476dc529", cart_quantity: 2, product_price: 35000000, product_status: "active", _id: ObjectId('6837dde2693fdfe6476dc8c4') } ], _id: ObjectId('6837db11693fdfe6476dc5fd') } ]}::
+[2025-05-30T08:42:10.795Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:10.801Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:10.854Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:10.959Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:11.113Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:11.319Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:11.574Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:11.878Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:12.231Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:12.634Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:13.087Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:13.590Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:14.094Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:14.598Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:15.101Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:15.605Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:16.110Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:16.615Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:17.119Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:17.623Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:18.126Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:18.630Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:19.132Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:19.634Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:20.136Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:20.639Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:21.142Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:21.646Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:22.149Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:22.652Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:23.156Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:23.658Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:24.162Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:24.667Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:25.170Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:25.672Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:22.318Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:26.652Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:27.154Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:27.655Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:28.158Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:28.660Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:29.162Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:29.664Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:30.166Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:30.667Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:31.169Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:31.670Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:32.172Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:32.673Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:33.175Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:33.677Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:34.170Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:34.645Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:35.112Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:35.587Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:36.227Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:36.702Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:37.172Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:37.646Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:38.121Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:38.596Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:39.066Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:39.541Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:40.006Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:40.481Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:40.957Z] [error]: Redis error: Error: Failed to connect
+[2025-05-30T08:42:41.441Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-30T08:42:41.442Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-30T08:45:09.958Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-30T08:45:09.974Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-30T08:45:10.099Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-30T08:45:10.119Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-30T08:47:09.070Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-30T09:09:59.173Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T09:13:03.802Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-30T09:13:03.816Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-30T09:13:03.919Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-30T09:13:03.923Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-05-30T09:16:45.336Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T09:16:45.479Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-30T09:16:48.220Z] [error]: HIDE::403::Forbidden::Token not found!::
