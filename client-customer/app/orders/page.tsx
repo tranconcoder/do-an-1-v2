@@ -15,6 +15,17 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
 import {
     Loader2,
@@ -83,6 +94,10 @@ export default function OrderHistoryPage() {
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('all');
     const [cancellingOrderId, setCancellingOrderId] = useState<string | null>(null);
+    const [showCancelDialog, setShowCancelDialog] = useState(false);
+    const [orderToCancel, setOrderToCancel] = useState<OrderHistoryItem | null>(null);
+    const [cancelCountdown, setCancelCountdown] = useState(5);
+    const [canCancel, setCanCancel] = useState(false);
 
     // Filter and search states
     const [searchTerm, setSearchTerm] = useState('');
@@ -157,6 +172,29 @@ export default function OrderHistoryPage() {
         setCurrentPage(1);
     }, [activeTab, searchDebounce, paymentTypeFilter, dateFrom, dateTo]);
 
+    // Handle countdown for cancel dialog
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+
+        if (showCancelDialog && cancelCountdown > 0) {
+            interval = setInterval(() => {
+                setCancelCountdown((prev) => {
+                    if (prev <= 1) {
+                        setCanCancel(true);
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+        }
+
+        return () => {
+            if (interval) {
+                clearInterval(interval);
+            }
+        };
+    }, [showCancelDialog, cancelCountdown]);
+
     const handleTabChange = (value: string) => {
         setActiveTab(value);
     };
@@ -175,6 +213,12 @@ export default function OrderHistoryPage() {
                 description: 'Đơn hàng đã được hủy thành công.',
                 variant: 'default'
             });
+
+            // Close dialog and reset state
+            setShowCancelDialog(false);
+            setOrderToCancel(null);
+            setCancelCountdown(5);
+            setCanCancel(false);
 
             // Refresh the orders list
             await fetchOrders();
@@ -477,7 +521,12 @@ export default function OrderHistoryPage() {
                             <Button
                                 variant="destructive"
                                 size="sm"
-                                onClick={() => handleCancelOrder(order._id)}
+                                onClick={() => {
+                                    setShowCancelDialog(true);
+                                    setOrderToCancel(order);
+                                    setCancelCountdown(5);
+                                    setCanCancel(false);
+                                }}
                                 disabled={isCancelling}
                             >
                                 {isCancelling ? (
@@ -764,6 +813,86 @@ export default function OrderHistoryPage() {
                     ))}
                 </Tabs>
             </div>
+
+            {/* Cancel Dialog */}
+            {showCancelDialog && orderToCancel && (
+                <AlertDialog
+                    open={showCancelDialog}
+                    onOpenChange={(open) => {
+                        if (!open) {
+                            setShowCancelDialog(false);
+                            setOrderToCancel(null);
+                            setCancelCountdown(5);
+                            setCanCancel(false);
+                        }
+                    }}
+                >
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle className="flex items-center gap-2">
+                                <XCircle className="h-5 w-5 text-red-500" />
+                                Xác nhận hủy đơn hàng
+                            </AlertDialogTitle>
+                            <AlertDialogDescription className="space-y-2">
+                                <p>Bạn có chắc chắn muốn hủy đơn hàng này không?</p>
+                                <div className="bg-gray-50 p-3 rounded-lg space-y-1">
+                                    <p className="font-medium">
+                                        Mã đơn hàng: #{(orderToCancel._id || '').slice(-8) || 'N/A'}
+                                    </p>
+                                    <p className="text-sm text-gray-600">
+                                        Shop: {orderToCancel.shop_name || 'Unknown Shop'}
+                                    </p>
+                                    <p className="text-sm text-gray-600">
+                                        Tổng tiền:{' '}
+                                        {formatPrice(orderToCancel.price_to_payment || 0)}
+                                    </p>
+                                </div>
+                                <p className="text-sm text-red-600">
+                                    ⚠️ Hành động này không thể hoàn tác.
+                                </p>
+                                {!canCancel && (
+                                    <p className="text-sm text-blue-600 bg-blue-50 p-2 rounded">
+                                        🕐 Vui lòng đợi {cancelCountdown} giây để xác nhận hủy đơn
+                                        hàng.
+                                    </p>
+                                )}
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel
+                                onClick={() => {
+                                    setShowCancelDialog(false);
+                                    setOrderToCancel(null);
+                                    setCancelCountdown(5);
+                                    setCanCancel(false);
+                                }}
+                                disabled={cancellingOrderId === orderToCancel._id}
+                            >
+                                Không, giữ đơn hàng
+                            </AlertDialogCancel>
+                            <AlertDialogAction
+                                onClick={() => handleCancelOrder(orderToCancel._id)}
+                                disabled={cancellingOrderId === orderToCancel._id || !canCancel}
+                                className="bg-red-600 hover:bg-red-700 disabled:bg-gray-400"
+                            >
+                                {cancellingOrderId === orderToCancel._id ? (
+                                    <>
+                                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                        Đang hủy...
+                                    </>
+                                ) : !canCancel ? (
+                                    <>
+                                        <Clock className="h-4 w-4 mr-2" />
+                                        Chờ {cancelCountdown}s
+                                    </>
+                                ) : (
+                                    'Có, hủy đơn hàng'
+                                )}
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+            )}
         </div>
     );
 }
