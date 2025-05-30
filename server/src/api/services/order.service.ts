@@ -3,7 +3,7 @@ import { PessimisticKeys } from '@/enums/redis.enum.js';
 import { OrderStatus } from '@/enums/order.enum.js';
 
 /* ------------------------- Models ------------------------- */
-import { findOneCheckout } from '@/models/repository/checkout/index.js';
+import { findOneCheckout, deleteCheckout } from '@/models/repository/checkout/index.js';
 import orderModel from '@/models/order.model.js';
 import { userModel } from '@/models/user.model.js';
 import { findAddressById } from '@/models/repository/address/index.js';
@@ -250,7 +250,19 @@ export default new (class OrderService {
         }
 
         /* ----------- Return all successful orders ----------- */
-        return successfulOrders.map(({ value }) => value.order);
+        const orders = successfulOrders.map(({ value }) => value.order);
+
+        /* ----------- Delete checkout after successful order creation ----------- */
+        try {
+            await deleteCheckout({
+                query: { user: userId }
+            });
+        } catch (error) {
+            console.error('Failed to delete checkout after order creation:', error);
+            // Don't throw error here as orders are already created successfully
+        }
+
+        return orders;
     }
 
     public async getOrderHistory({

@@ -385,3 +385,16 @@
 [2025-05-30T17:13:42.551Z] [error]: HIDE::403::Forbidden::Permission denied!::
 [2025-05-30T17:15:09.081Z] [error]: HIDE::403::Forbidden::Permission denied!::
 [2025-05-30T17:16:32.304Z] [error]: HIDE::400::TypeError::undefined is not an object (evaluating 'order.products_info.map')::
+[2025-05-30T17:26:58.872Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-05-30T17:28:41.507Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid MongoDB ObjectId",
+    "path": [
+      "shopId"
+    ]
+  }
+]::
+[2025-05-30T17:29:53.666Z] [error]: HIDE::400::VersionError::No matching document found for id "6839d2e08bfad2e05971a5bd" version 5 modifiedPaths "cart_shop"::
+[2025-05-30T17:31:17.631Z] [error]: HIDE::400::VersionError::No matching document found for id "6839d2e08bfad2e05971a5bd" version 7 modifiedPaths "cart_shop"::
