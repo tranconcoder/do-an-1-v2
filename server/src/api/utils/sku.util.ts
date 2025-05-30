@@ -44,12 +44,14 @@ export const getAllSKUAggregate = (limit: number, page: number) => [
             product_slug: 1,
             product_thumb: 1,
             product_images: 1,
+            product_variations: 1,
             'sku._id': 1,
             'sku.sku_product': 1,
             'sku.sku_price': 1,
             'sku.sku_stock': 1,
             'sku.sku_thumb': 1,
             'sku.sku_images': 1,
+            'sku.sku_tier_idx': 1,
             'sku.sku_value': 1
         }
     }
@@ -99,12 +101,14 @@ export const getAllSKUAggregateSort = (limit: number, page: number, sort: string
             product_slug: 1,
             product_thumb: 1,
             product_images: 1,
+            product_variations: 1,
             'sku._id': 1,
             'sku.sku_product': 1,
             'sku.sku_price': 1,
             'sku.sku_stock': 1,
             'sku.sku_thumb': 1,
             'sku.sku_images': 1,
+            'sku.sku_tier_idx': 1,
             'sku.sku_value': 1
         }
     }

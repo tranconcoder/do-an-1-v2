@@ -130,6 +130,7 @@ export interface ProductSkuDetail {
     sku_stock: number;
     sku_thumb: string; // Media ID for this specific SKU
     sku_images: string[]; // Media IDs for this specific SKU
+    sku_tier_idx: number[]; // Tier index array for variations
     sku_value: { key: string; value: string }[];
   };
   sold_count?: number;
@@ -150,6 +151,7 @@ export interface ProductSku {
   product_slug: string;
   product_thumb: string; // Media ID for SPU
   product_images: string[]; // Media IDs for SPU
+  product_variations?: ProductVariation[]; // Product variations for tier index mapping
   sku: {
     _id: string; // SKU ID
     sku_product: string; // SPU ID (links back to parent SPU)
@@ -157,6 +159,7 @@ export interface ProductSku {
     sku_stock: number;
     sku_thumb: string; // Media ID for this specific SKU
     sku_images: string[]; // Media IDs for this specific SKU
+    sku_tier_idx: number[]; // Tier index array for variations
     sku_value: { key: string; value: string }[];
   };
   sold_count?: number;
