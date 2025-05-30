@@ -19,8 +19,24 @@ declare global {
                     customer_email: string;
                     customer_address: string;
 
+                    /* -------------------------- Shop -------------------------- */
+                    shop_id: moduleTypes.mongoose.ObjectId;
+                    shop_name: string;
+                    shop_logo?: string;
+
                     /* ------------------------ Products ------------------------ */
-                    order_checkout: model.checkout.CheckoutSchema;
+                    products_info: Array<{
+                        sku_id: moduleTypes.mongoose.ObjectId;
+                        product_name: string;
+                        quantity: number;
+                        thumb: string;
+                        price: number;
+                        price_raw: number;
+                        sku_variations: Array<{
+                            key: string;
+                            value: string;
+                        }>;
+                    }>;
 
                     /* ------------------------ Discount ------------------------ */
                     discount?: {
@@ -31,8 +47,22 @@ declare global {
                         discount_value: number;
                     };
 
+                    /* ---------------------- Shop Discount --------------------- */
+                    shop_discount?: {
+                        discount_id: moduleTypes.mongoose.ObjectId;
+                        discount_code: string;
+                        discount_name: string;
+                        discount_type: DiscountTypeEnum;
+                        discount_value: number;
+                    };
+
+                    /* ------------------------ Shipping ------------------------ */
+                    ship_info: moduleTypes.mongoose.ObjectId;
+                    fee_ship: number;
+
                     /* ------------------------- Price  ------------------------- */
                     price_total_raw: number;
+                    total_discount_price: number;
                     price_to_payment: number;
 
                     /* ------------------------ Payment  ------------------------ */

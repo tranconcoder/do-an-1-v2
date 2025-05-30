@@ -6,7 +6,7 @@ export interface CreateOrderRequest {
 
 export interface CreateOrderResponse {
     message: string;
-    metadata: {
+    metadata: Array<{
         _id: string;
         customer: string;
         customer_address: string;
@@ -14,14 +14,44 @@ export interface CreateOrderResponse {
         customer_email: string;
         customer_full_name: string;
         customer_phone: string;
+        shop_id: string;
+        shop_name: string;
+        products_info: Array<{
+            sku_id: string;
+            product_name: string;
+            quantity: number;
+            thumb: string;
+            price: number;
+            price_raw: number;
+            sku_variations: Array<{
+                key: string;
+                value: string;
+            }>;
+        }>;
         payment_type: string;
         payment_paid: boolean;
         price_to_payment: number;
         price_total_raw: number;
+        total_discount_price: number;
+        fee_ship: number;
+        discount?: {
+            discount_id: string;
+            discount_name: string;
+            discount_code: string;
+            discount_value: number;
+            discount_type: string;
+        };
+        shop_discount?: {
+            discount_id: string;
+            discount_name: string;
+            discount_code: string;
+            discount_value: number;
+            discount_type: string;
+        };
         order_status: string;
         created_at: string;
         updated_at: string;
-    };
+    }>;
 }
 
 export interface CancelOrderResponse {
@@ -41,49 +71,36 @@ export interface OrderHistoryItem {
     customer_email: string;
     customer_full_name: string;
     customer_phone: string;
+    shop_id: string;
+    shop_name: string;
+    shop_logo?: string;
+    products_info: Array<{
+        sku_id: string;
+        product_name: string;
+        quantity: number;
+        thumb: string;
+        price: number;
+        price_raw: number;
+        sku_variations: Array<{
+            key: string;
+            value: string;
+        }>;
+    }>;
     payment_type: string;
     payment_paid: boolean;
     price_to_payment: number;
     price_total_raw: number;
+    total_discount_price: number;
+    fee_ship: number;
     order_status: string;
-    order_checkout: {
-        shops_info: Array<{
-            shop_id: string;
-            shop_name: string;
-            products_info: Array<{
-                id: string;
-                name: string;
-                thumb: string;
-                price: number;
-                quantity: number;
-                price_raw: number;
-            }>;
-            fee_ship: number;
-            total_price_raw: number;
-            total_discount_price: number;
-            discount?: {
-                discount_id: string;
-                discount_name: string;
-                discount_code: string;
-                discount_value: number;
-                discount_type: string;
-            };
-        }>;
-        total_price_raw: number;
-        total_checkout: number;
-        total_fee_ship: number;
-        total_discount_shop_price: number;
-        total_discount_admin_price: number;
-        total_discount_price: number;
-        discount?: {
-            discount_id: string;
-            discount_name: string;
-            discount_code: string;
-            discount_value: number;
-            discount_type: string;
-        };
-    };
     discount?: {
+        discount_id: string;
+        discount_name: string;
+        discount_code: string;
+        discount_value: number;
+        discount_type: string;
+    };
+    shop_discount?: {
         discount_id: string;
         discount_name: string;
         discount_code: string;

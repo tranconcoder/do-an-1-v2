@@ -440,7 +440,7 @@ export default function CartPage() {
     };
 
     // Handle order creation
-    const handleCreateOrder = async (paymentType: 'cod' | 'vnpay' | 'momo' = 'cod') => {
+    const handleCreateOrder = async (paymentType: 'cod' | 'vnpay' | 'bank_transfer' = 'cod') => {
         setIsOrdering(true);
         try {
             const orderRequest: CreateOrderRequest = {
@@ -450,10 +450,21 @@ export default function CartPage() {
             const orderResult = await orderService.createOrder(orderRequest);
             console.log('Order result:', orderResult);
 
-            toast({
-                title: 'Thành công',
-                description: 'Đặt hàng thành công'
-            });
+            // Handle multiple orders response
+            const orders = orderResult.metadata;
+            const orderCount = orders.length;
+
+            if (orderCount === 1) {
+                toast({
+                    title: 'Thành công',
+                    description: 'Đặt hàng thành công'
+                });
+            } else {
+                toast({
+                    title: 'Thành công',
+                    description: `Đặt ${orderCount} đơn hàng thành công`
+                });
+            }
 
             // Refresh cart after successful order
             dispatch(fetchCart());

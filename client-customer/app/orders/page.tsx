@@ -274,7 +274,7 @@ export default function OrderHistoryPage() {
                             </div>
                             <div>
                                 <CardTitle className="text-lg">
-                                    Đơn hàng #{order._id.slice(-8)}
+                                    Đơn hàng #{(order._id || '').slice(-8) || 'N/A'}
                                 </CardTitle>
                                 <p className="text-sm text-gray-500">
                                     Đặt hàng:{' '}
@@ -303,15 +303,17 @@ export default function OrderHistoryPage() {
                                 }
                             />
                             <AvatarFallback>
-                                {order.customer_full_name.charAt(0).toUpperCase()}
+                                {order.customer_full_name?.charAt(0).toUpperCase() || 'U'}
                             </AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
-                            <p className="font-medium">{order.customer_full_name}</p>
+                            <p className="font-medium">
+                                {order.customer_full_name || 'Unknown Customer'}
+                            </p>
                             <div className="flex items-center space-x-4 text-sm text-gray-500">
                                 <div className="flex items-center">
                                     <Phone className="h-3 w-3 mr-1" />
-                                    {order.customer_phone}
+                                    {order.customer_phone || 'N/A'}
                                 </div>
                                 {order.customer_email && (
                                     <div className="flex items-center">
@@ -328,7 +330,9 @@ export default function OrderHistoryPage() {
                         <MapPin className="h-4 w-4 text-gray-400 mt-0.5" />
                         <div>
                             <p className="font-medium">Địa chỉ giao hàng:</p>
-                            <p className="text-gray-600">{order.customer_address}</p>
+                            <p className="text-gray-600">
+                                {order.customer_address || 'Không có thông tin'}
+                            </p>
                         </div>
                     </div>
 
@@ -338,60 +342,90 @@ export default function OrderHistoryPage() {
                             <ShoppingBag className="h-4 w-4 mr-2" />
                             Sản phẩm đã đặt:
                         </p>
-                        {order.order_checkout.shops_info.map((shop, shopIndex) => (
-                            <div key={shopIndex} className="border rounded-lg p-3">
-                                <div className="flex items-center space-x-2 mb-3">
-                                    <Avatar className="h-8 w-8">
-                                        <AvatarFallback>
-                                            {shop.shop_name.charAt(0).toUpperCase()}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                    <p className="font-medium text-sm">{shop.shop_name}</p>
-                                </div>
+                        <div className="border rounded-lg p-3">
+                            <div className="flex items-center space-x-2 mb-3">
+                                <Avatar className="h-8 w-8">
+                                    <AvatarImage
+                                        src={
+                                            order.shop_logo
+                                                ? getMediaUrl(order.shop_logo)
+                                                : undefined
+                                        }
+                                    />
+                                    <AvatarFallback>
+                                        {order.shop_name?.charAt(0).toUpperCase() || 'S'}
+                                    </AvatarFallback>
+                                </Avatar>
+                                <p className="font-medium text-sm">
+                                    {order.shop_name || 'Unknown Shop'}
+                                </p>
+                            </div>
 
-                                <div className="space-y-2">
-                                    {shop.products_info.slice(0, 2).map((product, productIndex) => (
-                                        <div
-                                            key={productIndex}
-                                            className="flex items-center space-x-3"
-                                        >
-                                            <img
-                                                src={getMediaUrl(product.thumb)}
-                                                alt={product.name}
-                                                className="h-12 w-12 object-cover rounded"
-                                            />
-                                            <div className="flex-1">
-                                                <p className="text-sm font-medium">
-                                                    {product.name}
-                                                </p>
-                                                <p className="text-xs text-gray-500">
-                                                    Số lượng: {product.quantity} ×{' '}
-                                                    {formatPrice(product.price)}
-                                                </p>
-                                            </div>
+                            <div className="space-y-2">
+                                {order.products_info?.slice(0, 2).map((product, productIndex) => (
+                                    <div key={productIndex} className="flex items-center space-x-3">
+                                        <img
+                                            src={getMediaUrl(product.thumb)}
+                                            alt={product.product_name || 'Product'}
+                                            className="h-12 w-12 object-cover rounded"
+                                        />
+                                        <div className="flex-1">
                                             <p className="text-sm font-medium">
-                                                {formatPrice(product.price * product.quantity)}
+                                                {product.product_name || 'Unknown Product'}
+                                            </p>
+                                            <p className="text-xs text-gray-500">
+                                                Số lượng: {product.quantity || 0} ×{' '}
+                                                {formatPrice(product.price || 0)}
                                             </p>
                                         </div>
-                                    ))}
-
-                                    {shop.products_info.length > 2 && (
-                                        <p className="text-sm text-gray-500 text-center py-2">
-                                            ... và {shop.products_info.length - 2} sản phẩm khác
-                                        </p>
-                                    )}
-                                </div>
-
-                                {shop.discount && (
-                                    <div className="mt-2 p-2 bg-green-50 rounded text-sm">
-                                        <p className="text-green-700">
-                                            Giảm giá: {shop.discount.discount_name} (-
-                                            {formatPrice(shop.discount.discount_value)})
+                                        <p className="text-sm font-medium">
+                                            {formatPrice(
+                                                (product.price || 0) * (product.quantity || 0)
+                                            )}
                                         </p>
                                     </div>
+                                )) || []}
+
+                                {(order.products_info?.length || 0) > 2 && (
+                                    <p className="text-sm text-gray-500 text-center py-2">
+                                        ... và {(order.products_info?.length || 0) - 2} sản phẩm
+                                        khác
+                                    </p>
                                 )}
                             </div>
-                        ))}
+
+                            {/* Shop Discount */}
+                            {order.shop_discount && (
+                                <div className="mt-2 p-2 bg-green-50 rounded text-sm">
+                                    <p className="text-green-700">
+                                        Giảm giá shop:{' '}
+                                        {order.shop_discount.discount_name || 'Discount'} (-
+                                        {formatPrice(order.shop_discount.discount_value || 0)})
+                                    </p>
+                                </div>
+                            )}
+
+                            {/* Admin Discount */}
+                            {order.discount && (
+                                <div className="mt-2 p-2 bg-blue-50 rounded text-sm">
+                                    <p className="text-blue-700">
+                                        Giảm giá hệ thống:{' '}
+                                        {order.discount.discount_name || 'Discount'} (-
+                                        {formatPrice(order.discount.discount_value || 0)})
+                                    </p>
+                                </div>
+                            )}
+
+                            {/* Shipping Fee */}
+                            <div className="mt-2 pt-2 border-t">
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-gray-600">Phí vận chuyển:</span>
+                                    <span className="font-medium">
+                                        {formatPrice(order.fee_ship || 0)}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Payment Info */}
@@ -399,11 +433,11 @@ export default function OrderHistoryPage() {
                         <div>
                             <p className="text-sm text-gray-600">Phương thức thanh toán:</p>
                             <p className="font-medium">
-                                {
-                                    PAYMENT_TYPE_MAP[
-                                        order.payment_type as keyof typeof PAYMENT_TYPE_MAP
-                                    ]
-                                }
+                                {order.payment_type
+                                    ? PAYMENT_TYPE_MAP[
+                                          order.payment_type as keyof typeof PAYMENT_TYPE_MAP
+                                      ] || order.payment_type
+                                    : 'Không xác định'}
                             </p>
                             <p className="text-sm text-gray-600">
                                 Trạng thái:{' '}
@@ -413,12 +447,11 @@ export default function OrderHistoryPage() {
                         <div className="text-right">
                             <p className="text-sm text-gray-600">Tổng tiền:</p>
                             <p className="text-xl font-bold text-blue-600">
-                                {formatPrice(order.price_to_payment)}
+                                {formatPrice(order.price_to_payment || 0)}
                             </p>
-                            {order.order_checkout.discount && (
+                            {(order.total_discount_price || 0) > 0 && (
                                 <p className="text-sm text-green-600">
-                                    Đã giảm:{' '}
-                                    {formatPrice(order.price_total_raw - order.price_to_payment)}
+                                    Đã giảm: {formatPrice(order.total_discount_price || 0)}
                                 </p>
                             )}
                         </div>

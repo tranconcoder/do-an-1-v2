@@ -120,7 +120,8 @@ class RBACService {
                         actions: [
                             RoleActions.CREATE_OWN,
                             RoleActions.UPDATE_OWN,
-                            RoleActions.DELETE_OWN
+                            RoleActions.DELETE_OWN,
+                            RoleActions.READ_OWN
                         ],
                         attributes: '*'
                     },
@@ -176,6 +177,18 @@ class RBACService {
                     {
                         resource: resourcesId.find(
                             (resource) => resource.name === Resources.PRODUCT
+                        )?.id,
+                        actions: [
+                            RoleActions.CREATE_OWN,
+                            RoleActions.READ_OWN,
+                            RoleActions.UPDATE_OWN,
+                            RoleActions.DELETE_OWN
+                        ],
+                        attributes: '*'
+                    },
+                    {
+                        resource: resourcesId.find(
+                            (resource) => resource.name === Resources.ORDER
                         )?.id,
                         actions: [
                             RoleActions.CREATE_OWN,

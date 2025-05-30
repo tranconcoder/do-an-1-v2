@@ -7,6 +7,7 @@ import { findOneCheckout } from '@/models/repository/checkout/index.js';
 import orderModel from '@/models/order.model.js';
 import { userModel } from '@/models/user.model.js';
 import { findAddressById } from '@/models/repository/address/index.js';
+import { findShopById } from '@/models/repository/shop/index.js';
 
 /* -------------------------- Repo -------------------------- */
 import { cancelDiscount } from '@/models/repository/discount/index.js';
@@ -51,15 +52,12 @@ export default new (class OrderService {
         const location = shippingAddress.location as any;
         if (!location) throw new NotFoundErrorResponse({ message: 'Shipping address not found!' });
 
-        /* ---------- Check product quantity in inventory  ---------- */
-        const shops = checkout.shops_info.flatMap((shop) =>
-            shop.products_info.map((x) => ({
-                discount_code: '',
-                discount_id: '',
-                ..._.pick(x, ['id', 'quantity']),
-                ..._.pick(shop.discount, ['discount_code', 'discount_id'])
-            }))
-        );
+        /* ---------- Validate shops exist ---------- */
+        if (checkout.shops_info.length === 0) {
+            throw new BadRequestErrorResponse({
+                message: 'No shops found in checkout!'
+            });
+        }
 
         /* ------------- Check admin discount if exists ------------- */
         const discountAdmin = checkout.discount;
@@ -71,83 +69,90 @@ export default new (class OrderService {
             });
         }
 
-        /* ----------- Handle inventory and shop discount ----------- */
-        console.log("SHOPS", shops)
-        return await Promise.allSettled(
-            shops.map(async ({ id, quantity, discount_id, discount_code }, index) => {
-                /* -------------------- Check inventory  -------------------- */
-                const inventory = await findOneInventory({
-                    query: { inventory_sku: id },
-                    select: ['_id']
-                }).lean();
-                if (!inventory)
-                    throw new NotFoundErrorResponse({ message: 'Not found inventory!' });
+        /* ----------- Process each shop separately ----------- */
+        const orderResults = await Promise.allSettled(
+            checkout.shops_info.map(async (shopInfo) => {
+                /* ------------------- Get shop information ------------------- */
+                const shop = await findShopById({ id: shopInfo.shop_id, options: { lean: true } });
+                if (!shop) throw new NotFoundErrorResponse({ message: `Shop ${shopInfo.shop_id} not found!` });
 
-                /* ------------ Check and handle inventory stock ------------ */
-                const orderedInventory = await pessimisticLock(
-                    PessimisticKeys.INVENTORY,
-                    inventory._id,
-                    async () => await orderProductInventory(id, quantity)
+                /* ---------- Check product quantity in inventory  ---------- */
+                const products = shopInfo.products_info.map((product) => ({
+                    sku_id: product.id,
+                    quantity: product.quantity,
+                    product_name: product.name,
+                    thumb: product.thumb,
+                    price: product.price,
+                    price_raw: product.price_raw
+                }));
+
+                /* ----------- Handle inventory for this shop ----------- */
+                const inventoryResults = await Promise.allSettled(
+                    products.map(async ({ sku_id, quantity }, index) => {
+                        /* -------------------- Check inventory  -------------------- */
+                        const inventory = await findOneInventory({
+                            query: { inventory_sku: sku_id },
+                            select: ['_id']
+                        }).lean();
+                        if (!inventory)
+                            throw new NotFoundErrorResponse({ message: 'Not found inventory!' });
+
+                        /* ------------ Check and handle inventory stock ------------ */
+                        const orderedInventory = await pessimisticLock(
+                            PessimisticKeys.INVENTORY,
+                            inventory._id,
+                            async () => await orderProductInventory(sku_id, quantity)
+                        );
+                        if (!orderedInventory) {
+                            throw new BadRequestErrorResponse({
+                                message: 'Product stock is not enough!',
+                                hideOnProduction: true
+                            });
+                        }
+
+                        return {
+                            sku_id,
+                            quantity,
+                            index
+                        };
+                    })
                 );
-                if (!orderedInventory) {
-                    throw new BadRequestErrorResponse({
-                        message: 'Product stock is not enough!',
-                        hideOnProduction: true
+
+                /* ----------- Check if all inventory operations succeeded ----------- */
+                const isInventorySuccessAll = inventoryResults.every((x) => x.status === 'fulfilled');
+                if (!isInventorySuccessAll) {
+                    /* ----------- Cleanup successfully ordered items ----------- */
+                    const successfulInventoryResults = inventoryResults.filter(assertFulfilled);
+                    const firstInventoryRejectMessage =
+                        inventoryResults.find(assertRejected)?.reason || 'Some error when ordering!';
+
+                    await Promise.all(
+                        successfulInventoryResults.map(async ({ value }) => {
+                            /* ----------------- Revert inventory stock ----------------- */
+                            await revertProductInventory(value.sku_id, value.quantity);
+                        })
+                    );
+
+                    throw firstInventoryRejectMessage;
+                }
+
+                /* --------------------- Check shop discount --------------------- */
+                if (shopInfo.discount?.discount_id) {
+                    await DiscountService.useDiscount({
+                        userId,
+                        discountCode: shopInfo.discount.discount_code,
+                        discountId: shopInfo.discount.discount_id.toString()
                     });
                 }
 
-                /* --------------------- Check discount --------------------- */
-                await DiscountService.useDiscount({
-                    userId,
-                    discountCode: discount_code?.toString() || '',
-                    discountId: discount_id?.toString() || ''
+                /* ------------- Remove products from cart for this shop ------------- */
+                await CartService.deleteProductsFromCart({
+                    user: userId,
+                    products: products.map((x) => x.sku_id)
                 });
 
-                return {
-                    productId: id,
-                    quantity,
-                    discountCode: discount_code,
-                    discountId: discount_id,
-                    index
-                };
-            })
-        )
-            .then(async (results) => {
-                const isSuccessAll = results.every((x) => x.status === 'fulfilled');
-                if (isSuccessAll) return Promise.resolve(); // Move to next then
-
-                /* ----------- Otherwise cleanup successfully item ----------- */
-                const successfullyResults = results.filter(assertFulfilled);
-                const firstRejectMessage =
-                    results.find(assertRejected)?.reason || 'Some error when ordering!';
-
-                await Promise.all(
-                    successfullyResults.map(async ({ value }) => {
-                        /* ----------------- Revert inventory stock ----------------- */
-                        await revertProductInventory(value.productId, value.quantity);
-
-                        /* -------------------- Revert discount  -------------------- */
-                        await cancelDiscount(value.discountId);
-                    })
-                );
-
-                /* ------------- Return first error to frontend ------------- */
-                return Promise.reject(firstRejectMessage);
-            })
-            .then(async () => {
-                /* ------------- Remove product ordered in cart ------------- */
-                console.log("1")
-                console.log(
-                    await CartService.deleteProductsFromCart({
-                        user: userId,
-                        products: shops.map((x) => x.id)
-                    })
-                );
-                console.log("2")
-            })
-            .then(async () => {
-                /* ------------------ Handle create order  ------------------ */
-                return await orderModel.create({
+                /* ------------------ Create order for this shop ------------------ */
+                const order = await orderModel.create({
                     /* ------------------------ Customer ------------------------ */
                     customer: userId,
                     customer_address: `${location.address}, ${location.ward?.ward_name ? location.ward.ward_name + ', ' : ''}${location.district.district_name}, ${location.province.province_name}`,
@@ -156,23 +161,96 @@ export default new (class OrderService {
                     customer_full_name: shippingAddress.recipient_name,
                     customer_phone: shippingAddress.recipient_phone,
 
+                    /* -------------------------- Shop -------------------------- */
+                    shop_id: shopInfo.shop_id,
+                    shop_name: shop.shop_name,
+                    shop_logo: shop.shop_logo,
+
+                    /* ------------------------ Products ------------------------ */
+                    products_info: products.map(product => ({
+                        sku_id: product.sku_id,
+                        product_name: product.product_name,
+                        quantity: product.quantity,
+                        thumb: product.thumb,
+                        price: product.price,
+                        price_raw: product.price_raw,
+                        sku_variations: [] // Will be populated from SKU data if needed
+                    })),
+
+                    /* ------------------------ Shipping ------------------------ */
+                    ship_info: checkout.ship_info,
+                    fee_ship: shopInfo.fee_ship,
+
                     /* ------------------------ Payment  ------------------------ */
                     payment_type: paymentType,
                     payment_paid: false,
-                    price_to_payment: checkout.total_checkout,
-                    price_total_raw: checkout.total_price_raw,
+                    price_to_payment: shopInfo.total_price_raw + shopInfo.fee_ship - shopInfo.total_discount_price,
+                    price_total_raw: shopInfo.total_price_raw,
+                    total_discount_price: shopInfo.total_discount_price,
 
                     /* ------------------------ Discount ------------------------ */
                     discount: discountAdmin,
+                    shop_discount: shopInfo.discount,
 
                     /* ------------------------- Order  ------------------------- */
-                    order_checkout: checkout,
                     order_status:
                         paymentType === PaymentType.COD ?
                             OrderStatus.PENDING :
                             OrderStatus.PENDING_PAYMENT
                 });
-            });
+
+                return {
+                    shopId: shopInfo.shop_id,
+                    order,
+                    products
+                };
+            })
+        );
+
+        /* ----------- Handle results from all shops ----------- */
+        const successfulOrders = orderResults.filter(assertFulfilled);
+        const failedOrders = orderResults.filter(assertRejected);
+
+        /* ----------- If some orders failed, cleanup successful ones ----------- */
+        if (failedOrders.length > 0) {
+            /* ----------- Revert successful orders ----------- */
+            await Promise.all(
+                successfulOrders.map(async ({ value }) => {
+                    /* ----------- Revert inventory for successful orders ----------- */
+                    await Promise.all(
+                        value.products.map(async ({ sku_id, quantity }) => {
+                            const inventory = await findOneInventory({
+                                query: { inventory_sku: sku_id },
+                                select: ['_id']
+                            }).lean();
+
+                            if (inventory) {
+                                await pessimisticLock(
+                                    PessimisticKeys.INVENTORY,
+                                    inventory._id,
+                                    async () => await revertProductInventory(sku_id, quantity)
+                                );
+                            }
+                        })
+                    );
+
+                    /* ----------- Delete the created order ----------- */
+                    await orderModel.findByIdAndDelete(value.order._id);
+                })
+            );
+
+            /* ----------- Cancel admin discount if it was used ----------- */
+            if (discountAdmin?.discount_id) {
+                await cancelDiscount(discountAdmin.discount_id.toString());
+            }
+
+            /* ----------- Return first error ----------- */
+            const firstError = failedOrders[0].reason;
+            throw firstError;
+        }
+
+        /* ----------- Return all successful orders ----------- */
+        return successfulOrders.map(({ value }) => value.order);
     }
 
     public async getOrderHistory({
@@ -218,6 +296,7 @@ export default new (class OrderService {
                 { customer_phone: searchRegex },
                 { customer_email: searchRegex },
                 { customer_address: searchRegex },
+                { shop_name: searchRegex },
                 { _id: searchRegex }
             ];
         }
@@ -280,18 +359,11 @@ export default new (class OrderService {
         }
 
         /* ------------- Revert inventory for products ------------- */
-        const shops = order.order_checkout.shops_info.flatMap((shop) =>
-            shop.products_info.map((product) => ({
-                id: product.id,
-                quantity: product.quantity
-            }))
-        );
-
         await Promise.all(
-            shops.map(async ({ id, quantity }) => {
+            order.products_info.map(async ({ sku_id, quantity }) => {
                 /* -------------------- Find inventory  -------------------- */
                 const inventory = await findOneInventory({
-                    query: { inventory_sku: id },
+                    query: { inventory_sku: sku_id },
                     select: ['_id']
                 }).lean();
 
@@ -300,7 +372,7 @@ export default new (class OrderService {
                     await pessimisticLock(
                         PessimisticKeys.INVENTORY,
                         inventory._id,
-                        async () => await revertProductInventory(id, quantity)
+                        async () => await revertProductInventory(sku_id.toString(), quantity)
                     );
                 }
             })
@@ -311,14 +383,9 @@ export default new (class OrderService {
             await cancelDiscount(order.discount.discount_id.toString());
         }
 
-        // Cancel shop discounts
-        await Promise.all(
-            order.order_checkout.shops_info.map(async (shop) => {
-                if (shop.discount?.discount_id) {
-                    await cancelDiscount(shop.discount.discount_id);
-                }
-            })
-        );
+        if (order.shop_discount?.discount_id) {
+            await cancelDiscount(order.shop_discount.discount_id.toString());
+        }
 
         /* ------------- Update order status to cancelled ------------- */
         const updatedOrder = await orderModel.findByIdAndUpdate(
@@ -343,7 +410,7 @@ export default new (class OrderService {
         dateTo
     }: service.order.arguments.GetShopOrders) {
         const query: any = {
-            'order_checkout.shops_info.shop_id': shopId
+            shop_id: shopId
         };
 
         // Filter by status if provided
@@ -424,11 +491,7 @@ export default new (class OrderService {
         }
 
         /* ----------- Check if order belongs to shop ----------- */
-        const orderBelongsToShop = order.order_checkout.shops_info.some(
-            shop => shop.shop_id === shopId
-        );
-
-        if (!orderBelongsToShop) {
+        if (order.shop_id.toString() !== shopId) {
             throw new BadRequestErrorResponse({
                 message: 'This order does not belong to your shop!'
             });
@@ -460,11 +523,7 @@ export default new (class OrderService {
         }
 
         /* ----------- Check if order belongs to shop ----------- */
-        const orderBelongsToShop = order.order_checkout.shops_info.some(
-            shop => shop.shop_id === shopId
-        );
-
-        if (!orderBelongsToShop) {
+        if (order.shop_id.toString() !== shopId) {
             throw new BadRequestErrorResponse({
                 message: 'This order does not belong to your shop!'
             });
@@ -478,18 +537,11 @@ export default new (class OrderService {
         }
 
         /* ------------- Revert inventory for products ------------- */
-        const shopProducts = order.order_checkout.shops_info
-            .filter(shop => shop.shop_id === shopId)
-            .flatMap(shop => shop.products_info.map(product => ({
-                id: product.id,
-                quantity: product.quantity
-            })));
-
         await Promise.all(
-            shopProducts.map(async ({ id, quantity }) => {
+            order.products_info.map(async ({ sku_id, quantity }) => {
                 /* -------------------- Find inventory  -------------------- */
                 const inventory = await findOneInventory({
-                    query: { inventory_sku: id },
+                    query: { inventory_sku: sku_id },
                     select: ['_id']
                 }).lean();
 
@@ -498,16 +550,15 @@ export default new (class OrderService {
                     await pessimisticLock(
                         PessimisticKeys.INVENTORY,
                         inventory._id,
-                        async () => await revertProductInventory(id, quantity)
+                        async () => await revertProductInventory(sku_id.toString(), quantity)
                     );
                 }
             })
         );
 
-        /* ------------- Cancel shop discounts if any ------------- */
-        const shopInfo = order.order_checkout.shops_info.find(shop => shop.shop_id === shopId);
-        if (shopInfo?.discount?.discount_id) {
-            await cancelDiscount(shopInfo.discount.discount_id);
+        /* ------------- Cancel shop discount if any ------------- */
+        if (order.shop_discount?.discount_id) {
+            await cancelDiscount(order.shop_discount.discount_id.toString());
         }
 
         /* ------------- Update order status to cancelled ------------- */

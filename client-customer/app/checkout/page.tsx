@@ -115,9 +115,17 @@ export default function CheckoutPage() {
 
             const orderResult = await orderService.createOrder(orderRequest);
 
-            toast.success('Đặt hàng thành công! Cảm ơn bạn đã mua sắm.');
+            // Handle multiple orders response
+            const orders = orderResult.metadata;
+            const orderCount = orders.length;
 
-            // Redirect to orders page instead of profile
+            if (orderCount === 1) {
+                toast.success('Đặt hàng thành công! Cảm ơn bạn đã mua sắm.');
+            } else {
+                toast.success(`Đặt ${orderCount} đơn hàng thành công! Cảm ơn bạn đã mua sắm.`);
+            }
+
+            // Redirect to orders page
             router.push('/orders');
         } catch (error: any) {
             console.error('Order error:', error);
