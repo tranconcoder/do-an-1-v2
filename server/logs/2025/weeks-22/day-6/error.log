@@ -970,3 +970,246 @@
 [2025-05-31T13:18:47.836Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-05-31T13:19:00.088Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-05-31T13:19:00.089Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:22:07.929Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T14:22:18.403Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:22:18.408Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:22:31.099Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:22:31.211Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:22:41.387Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:22:41.589Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:22:52.214Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:22:52.512Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:22:57.621Z] [error]: Failed to connect
+[2025-05-31T14:23:02.883Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:23:03.295Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:23:13.789Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:23:14.296Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:23:25.084Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:23:25.583Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:23:30.013Z] [error]: Failed to connect
+[2025-05-31T14:23:36.114Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:23:36.619Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:23:47.491Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:23:47.981Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:23:58.493Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:23:58.987Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:24:09.497Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:24:10.017Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:24:20.858Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:24:21.353Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:24:30.127Z] [error]: Failed to connect
+[2025-05-31T14:24:31.913Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:24:32.423Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:24:42.943Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:24:43.437Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:24:54.180Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:24:54.674Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:25:05.184Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:25:05.701Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:30:33.210Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:30:33.700Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:30:44.206Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:30:44.695Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:30:46.544Z] [error]: Failed to connect
+[2025-05-31T14:30:55.199Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:30:55.728Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:31:06.392Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:31:06.882Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:31:17.476Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:31:17.993Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:31:28.532Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:31:29.026Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:31:39.821Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:31:40.313Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:31:46.743Z] [error]: Failed to connect
+[2025-05-31T14:31:50.819Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:31:51.335Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:32:01.867Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:32:02.361Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:32:13.048Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:32:13.539Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:32:24.048Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:32:24.577Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:32:29.991Z] [error]: Failed to connect
+[2025-05-31T14:32:35.209Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:32:35.701Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:32:46.205Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:32:46.704Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T14:54:34.146Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T14:54:34.327Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T14:55:02.044Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T14:55:02.125Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T14:55:59.546Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:55:59.582Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:04.884Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:04.886Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:08.297Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:08.301Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:08.394Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:20.606Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:20.613Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:48.404Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:48.408Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:48.410Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:57.509Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-31T14:56:57.768Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-31T14:56:58.270Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:58.283Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:56:58.285Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:01.281Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:01.284Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:01.582Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:03.124Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:03.143Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:04.114Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:04.131Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:04.133Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:11.135Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:24.064Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:24.065Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:24.066Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:57.258Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:57.264Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:57:57.672Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:58:00.382Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:58:06.354Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:58:06.439Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:58:13.926Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:58:33.893Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:58:33.895Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T14:58:33.899Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:00:16.786Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:00:16.800Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:00:17.290Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:00:20.353Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:00:21.117Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:00:21.135Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:00:30.485Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:00:47.347Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:00:47.349Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:00:47.352Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:02.409Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-31T15:02:02.589Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-31T15:02:03.331Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:03.362Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:06.829Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:06.832Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:07.158Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:09.019Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:12.861Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:12.867Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:23.004Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:32.783Z] [error]: HIDE::400::TypeError::undefined is not an object (evaluating 'this.vnpayConfig.returnUrl')::
+[2025-05-31T15:02:36.088Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:36.089Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:36.098Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:50.363Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:50.368Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:50.650Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:55.223Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:55.226Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:02:55.236Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:03:10.062Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:03:11.482Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:03:11.488Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:03:21.161Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:03:29.162Z] [error]: HIDE::400::TypeError::undefined is not an object (evaluating 'this.vnpayConfig.returnUrl')::
+[2025-05-31T15:03:33.762Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:03:33.790Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:03:33.792Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:04:36.181Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:04:36.201Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:04:36.478Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:04:41.870Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:04:43.165Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:04:43.174Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:04:48.276Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:05:03.342Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:05:03.370Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:05:03.372Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:05:52.050Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:05:52.085Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:05:52.586Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:05:55.960Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:05:56.797Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:05:56.807Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:06:01.063Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:06:10.562Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:06:10.580Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:06:10.581Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:02.206Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:02.262Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:09.740Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:09.741Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:09.947Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:12.519Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:12.531Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:13.056Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:13.057Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:13.067Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:16.935Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:16.943Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:23.858Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:23.865Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:23.866Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:54.890Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:54.905Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:54.942Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:55.219Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:55.283Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:59.545Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:59.546Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:20:59.757Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:21:01.411Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:21:01.414Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:21:01.592Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:22:17.643Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:22:17.665Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:22:18.314Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:22:18.315Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:22:18.319Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:22:25.135Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:22:25.143Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:22:32.832Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:22:32.834Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:22:32.836Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:54:32.082Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:54:32.083Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:54:32.086Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:59:22.384Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:59:22.385Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:59:22.395Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:59:39.595Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:59:39.599Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:59:39.600Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:59:39.600Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:59:39.611Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T15:59:39.617Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:07:37.331Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:07:37.337Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:07:37.341Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:07:37.354Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:07:37.360Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:07:37.361Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:13:34.519Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:13:34.520Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:13:34.521Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:13:34.522Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:13:34.523Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:13:34.524Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:14:11.081Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:14:11.100Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:15:23.433Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-05-31T16:16:02.193Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-31T16:16:02.328Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:16:02.336Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:17:06.275Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:17:06.278Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:17:29.024Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:17:29.027Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:17:37.629Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:17:39.503Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:17:43.549Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:17:43.572Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T16:18:04.254Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T16:18:19.927Z] [error]: HIDE::404::NotFound::Not found file!::

@@ -35,6 +35,7 @@
         "request-ip": "^3.3.0",
         "slugify": "^1.6.6",
         "uuid": "^11.1.0",
+        "vnpay": "^2.3.0",
         "winston": "^3.17.0",
         "winston-daily-rotate-file": "^5.0.0",
         "zlib": "^1.0.5",
@@ -883,6 +884,8 @@
     "vary": ["vary@1.1.2", "", {}, "sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg=="],
 
     "vizion": ["vizion@2.2.1", "", { "dependencies": { "async": "^2.6.3", "git-node-fs": "^1.0.0", "ini": "^1.3.5", "js-git": "^0.7.8" } }, "sha512-sfAcO2yeSU0CSPFI/DmZp3FsFE9T+8913nv1xWBOyzODv13fwkn6Vl7HqxGpkr9F608M+8SuFId3s+BlZqfXww=="],
+
+    "vnpay": ["vnpay@2.3.0", "", { "dependencies": { "dayjs": "^1.11.13" } }, "sha512-Mm2VMxEGMlv+yVt8SUk7sHaz1RSndkL4m4+JkzIRklgfWdUUbrF1JOQgcb/hAq+93gEC25lr5yIDk6fDbAq4kA=="],
 
     "webidl-conversions": ["webidl-conversions@7.0.0", "", {}, "sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g=="],
 
