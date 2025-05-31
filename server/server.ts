@@ -20,26 +20,24 @@ import RBACService from '@/services/rbac.service.js';
 import mediaService from '@/services/media.service.js';
 import categoryService from '@/services/category.service.js';
 
-if (NODE_ENV === 'development') {
-    await new Promise((resolve) => {
-        // kill 4000 with bun
-        try {
-            console.log('Attempting to kill port 4000...');
-            child_process.execSync('bun run kill-port 4000');
-            console.log('Port 4000 killed successfully.');
-            resolve(null);
-        } catch (error: any) {
-            console.error(`Failed to kill port 4000: ${error.message}`);
-        }
-    });
-}
+await new Promise((resolve) => {
+    // kill 4000 with bun
+    try {
+        console.log('Attempting to kill port 4000...');
+        child_process.execSync('bun run kill-port 4000');
+        console.log('Port 4000 killed successfully.');
+        resolve(null);
+    } catch (error: any) {
+        console.error(`Failed to kill port 4000: ${error.message}`);
+    }
+});
 
-const server = http
+const server = https
     .createServer(
-        // {
-        //     key: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.pem')),
-        //     cert: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.cert'))
-        // },
+        {
+            key: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.pem')),
+            cert: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.cert'))
+        },
         app
     )
     .listen(Number(PORT), HOST, () => {
@@ -78,7 +76,7 @@ process.on('SIGINT', async () => {
 /* ---------------------------------------------------------- */
 /*                        Initial data                        */
 /* ---------------------------------------------------------- */
-const isInit = true;
+const isInit = false;
 
 await RBACService.getInstance().initRBAC();
 await mediaService.initMedia();
