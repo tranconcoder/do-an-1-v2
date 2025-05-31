@@ -856,3 +856,48 @@
 [2025-05-31T06:18:59.829Z] [error]: HIDE::403::Forbidden::Invalid token!::
 [2025-05-31T06:18:59.870Z] [error]: HIDE::403::Forbidden::Invalid token!::
 [2025-05-31T06:18:59.871Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-05-31T06:31:35.858Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "boolean",
+    "received": "string",
+    "path": [
+      "is_draft"
+    ],
+    "message": "Expected boolean, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "boolean",
+    "received": "string",
+    "path": [
+      "is_publish"
+    ],
+    "message": "Expected boolean, received string"
+  }
+]::
+[2025-05-31T06:35:57.677Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:35:57.784Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:35:58.077Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:06.203Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:06.310Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:06.593Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:06.693Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:06.696Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:06.803Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:07.111Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:07.328Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:07.431Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:07.833Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:07.938Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:09.496Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:09.596Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:36:10.006Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:38:16.299Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:38:16.436Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:38:16.555Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:38:16.664Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:38:22.146Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:38:22.288Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:38:22.450Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:38:22.574Z] [error]: HIDE::403::Forbidden::Invalid role!::
