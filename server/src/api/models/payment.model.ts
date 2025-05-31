@@ -49,7 +49,6 @@ export const paymentSchema = new Schema<model.payment.PaymentSchema>(
 
 // Create indexes
 paymentSchema.index({ order_id: 1, payment_status: 1 });
-paymentSchema.index({ txn_ref: 1 }, { unique: true });
 paymentSchema.index({ vnpay_transaction_no: 1 }, { sparse: true });
 
 const paymentModel = model<model.payment.PaymentSchema>(PAYMENT_MODEL_NAME, paymentSchema);
