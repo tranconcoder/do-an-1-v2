@@ -20,33 +20,33 @@ import RBACService from '@/services/rbac.service.js';
 import mediaService from '@/services/media.service.js';
 import categoryService from '@/services/category.service.js';
 
-// await new Promise((resolve) => {
-//     // kill 4000 with bun
-//     try {
-//         console.log('Attempting to kill port 4000...');
-//         child_process.execSync('bun run kill-port 4000');
-//         console.log('Port 4000 killed successfully.');
-//         resolve(null);
-//     } catch (error: any) {
-//         console.error(`Failed to kill port 4000: ${error.message}`);
-//     }
-// });
-
-// const server = https
-//     .createServer(
-//         {
-//             key: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.pem')),
-//             cert: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.cert'))
-//         },
-//         app
-//     )
-//     .listen(Number(PORT), () => {
-//         console.log(`Server is running at ${BASE_URL}`);
-//     });
-
-const server = app.listen(Number(PORT), () => {
-    console.log(`Server is running at ${BASE_URL}`);
+await new Promise((resolve) => {
+    // kill 4000 with bun
+    try {
+        console.log('Attempting to kill port 4000...');
+        child_process.execSync('bun run kill-port 4000');
+        console.log('Port 4000 killed successfully.');
+        resolve(null);
+    } catch (error: any) {
+        console.error(`Failed to kill port 4000: ${error.message}`);
+    }
 });
+
+const server = https
+    .createServer(
+        {
+            key: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.pem')),
+            cert: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.cert'))
+        },
+        app
+    )
+    .listen(Number(PORT), () => {
+        console.log(`Server is running at ${BASE_URL}`);
+    });
+
+// const server = app.listen(Number(PORT), () => {
+//     console.log(`Server is running at ${BASE_URL}`);
+// });
 
 server.on("close", () => {
     // Close database connection
