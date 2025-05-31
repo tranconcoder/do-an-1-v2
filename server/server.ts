@@ -40,7 +40,7 @@ const server = https
         },
         app
     )
-    .listen(Number(PORT), HOST, () => {
+    .listen(Number(PORT), () => {
         console.log(`Server is running at ${BASE_URL}`);
     });
 
