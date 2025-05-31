@@ -19,5 +19,6 @@ postRouteValidated.use(authenticate);
 
 postRouteValidated.post('/create', validateCreateOrder, catchError(orderController.createOrder));
 postRouteValidated.post('/create-vnpay', catchError(orderController.createOrderWithVNPay));
+postRouteValidated.post('/create-vnpay-payment', catchError(orderController.createOrderWithVNPayPayment));
 
 export default postRoute; 

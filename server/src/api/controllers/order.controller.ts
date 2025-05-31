@@ -140,4 +140,18 @@ export default new (class OrderController {
             })
         }).send(res);
     };
+
+    public createOrderWithVNPayPayment = async (req: Request, res: any, _: any) => {
+        const { bankCode } = req.body;
+        const ipAddr = req.ip || req.connection.remoteAddress || '127.0.0.1';
+
+        new CreatedResponse({
+            message: 'Orders created and payment URL generated successfully',
+            metadata: await orderService.createOrderWithVNPayPayment({
+                userId: req.userId as string,
+                bankCode,
+                ipAddr
+            })
+        }).send(res);
+    };
 })();

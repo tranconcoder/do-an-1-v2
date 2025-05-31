@@ -66,6 +66,7 @@ declare global {
                     price_to_payment: number;
 
                     /* ------------------------ Payment  ------------------------ */
+                    payment_id?: moduleTypes.mongoose.ObjectId;
                     payment_type: PaymentType;
                     payment_bank?: string;
                     payment_paid: boolean;

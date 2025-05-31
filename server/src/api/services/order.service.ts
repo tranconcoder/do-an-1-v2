@@ -8,6 +8,7 @@ import orderModel from '@/models/order.model.js';
 import { userModel } from '@/models/user.model.js';
 import { findAddressById } from '@/models/repository/address/index.js';
 import { findShopById, findShopByUser } from '@/models/repository/shop/index.js';
+import paymentModel from '@/models/payment.model.js';
 
 /* -------------------------- Repo -------------------------- */
 import { cancelDiscount } from '@/models/repository/discount/index.js';
@@ -30,6 +31,7 @@ import _ from 'lodash';
 import CartService from './cart.service.js';
 import { PaymentType } from '@/enums/payment.enum.js';
 import { findOneOrder } from '@/models/repository/order/index.js';
+import PaymentService from './payment.service.js';
 
 export default new (class OrderService {
     public async createOrder({ userId, paymentType }: service.order.arguments.CreateOrder) {
@@ -236,6 +238,11 @@ export default new (class OrderService {
 
                     /* ----------- Delete the created order ----------- */
                     await orderModel.findByIdAndDelete(value.order._id);
+
+                    /* ----------- Delete the associated payment record ----------- */
+                    if (value.order.payment_id) {
+                        await paymentModel.findByIdAndDelete(value.order.payment_id);
+                    }
                 })
             );
 
@@ -735,6 +742,24 @@ export default new (class OrderService {
                     products: products.map((x) => x.sku_id)
                 });
 
+                /* ------------- Create payment record for this order ------------- */
+                const paymentAmount = shopInfo.total_price_raw + shopInfo.fee_ship - shopInfo.total_discount_price;
+
+                // Generate a temporary unique txn_ref
+                const tempTxnRef = `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+                const payment = await paymentModel.create({
+                    txn_ref: tempTxnRef, // Temporary unique value
+                    amount: paymentAmount,
+                    payment_method: 'vnpay',
+                    payment_status: 'pending',
+                    created_at: new Date(),
+                    vnpay_data: {
+                        amount: paymentAmount,
+                        shop_name: shop.shop_name
+                    }
+                });
+
                 /* ------------------ Create order for this shop ------------------ */
                 const order = await orderModel.create({
                     /* ------------------------ Customer ------------------------ */
@@ -766,9 +791,10 @@ export default new (class OrderService {
                     fee_ship: shopInfo.fee_ship,
 
                     /* ------------------------ Payment  ------------------------ */
+                    payment_id: payment._id, // Link to payment record
                     payment_type: PaymentType.VNPAY,
                     payment_paid: false,
-                    price_to_payment: shopInfo.total_price_raw + shopInfo.fee_ship - shopInfo.total_discount_price,
+                    price_to_payment: paymentAmount,
                     price_total_raw: shopInfo.total_price_raw,
                     total_discount_price: shopInfo.total_discount_price,
 
@@ -779,6 +805,10 @@ export default new (class OrderService {
                     /* ------------------------- Order  ------------------------- */
                     order_status: OrderStatus.PENDING_PAYMENT
                 });
+
+                /* ------------- Update payment record with order info ------------- */
+                payment.txn_ref = payment._id.toString(); // Use payment ID as txnRef
+                await payment.save();
 
                 return {
                     shopId: shopInfo.shop_id,
@@ -817,6 +847,11 @@ export default new (class OrderService {
 
                     /* ----------- Delete the created order ----------- */
                     await orderModel.findByIdAndDelete(value.order._id);
+
+                    /* ----------- Delete the associated payment record ----------- */
+                    if (value.order.payment_id) {
+                        await paymentModel.findByIdAndDelete(value.order.payment_id);
+                    }
                 })
             );
 
@@ -844,5 +879,39 @@ export default new (class OrderService {
         }
 
         return orders;
+    }
+
+    public async createOrderWithVNPayPayment({
+        userId,
+        bankCode,
+        ipAddr
+    }: service.order.arguments.CreateOrderWithVNPayPayment) {
+        /* ------------------- Create orders first ------------------- */
+        const orders = await this.createOrderWithVNPay({ userId });
+
+        /* ------------------- Calculate total amount ------------------- */
+        const totalAmount = orders.reduce((sum, order) => sum + order.price_to_payment, 0);
+
+        /* ------------------- Get first order for payment URL generation ------------------- */
+        const firstOrder = orders[0];
+        const orderInfo = orders.length === 1
+            ? `Thanh toan don hang ${firstOrder._id}`
+            : `Thanh toan ${orders.length} don hang`;
+
+        /* ------------------- Create VNPay payment URL ------------------- */
+        const paymentUrl = await PaymentService.createVNPayPaymentUrl({
+            orderId: firstOrder._id.toString(),
+            amount: totalAmount,
+            orderInfo,
+            ipAddr,
+            bankCode
+        });
+
+        return {
+            orders,
+            paymentUrl: paymentUrl.paymentUrl,
+            totalAmount,
+            txnRef: paymentUrl.txnRef
+        };
     }
 })();

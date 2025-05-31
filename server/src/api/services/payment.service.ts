@@ -4,8 +4,61 @@ import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error
 import orderModel from '@/models/order.model.js';
 import { OrderStatus } from '@/enums/order.enum.js';
 import paymentModel from '@/models/payment.model.js';
+import {
+    ignoreLogger,
+    VNPay,
+    VnpLocale,
+    ProductCode,
+    dateFormat,
+    VnpCurrCode,
+    Bank,
+    VerifyIpnCall,
+    IpnFailChecksum,
+    IpnOrderNotFound,
+    IpnInvalidAmount,
+    InpOrderAlreadyConfirmed,
+    IpnUnknownError,
+    IpnSuccess
+} from 'vnpay';
 
 export default new (class PaymentService {
+    private static vnpay = new VNPay({
+        tmnCode: 'FNAX6Q4P',
+        secureSecret: 'ZVXPMEMXF4K5UU246CAA3DNO2DCV6QSR',
+        vnpayHost: 'https://sandbox.vnpayment.vn',
+        queryDrAndRefundHost: 'https://sandbox.vnpayment.vn', // tùy chọn, trường hợp khi url của querydr và refund khác với url khởi tạo thanh toán (thường sẽ sử dụng cho production)
+
+        testMode: true, // tùy chọn, ghi đè vnpayHost thành sandbox nếu là true
+        hashAlgorithm: 'SHA512' as any, // tùy chọn - fix type issue
+
+        /**
+         * Bật/tắt ghi log
+         * Nếu enableLog là false, loggerFn sẽ không được sử dụng trong bất kỳ phương thức nào
+         */
+        enableLog: true, // tùy chọn
+
+        /**
+         * Hàm `loggerFn` sẽ được gọi để ghi log khi enableLog là true
+         * Mặc định, loggerFn sẽ ghi log ra console
+         * Bạn có thể cung cấp một hàm khác nếu muốn ghi log vào nơi khác
+         *
+         * `ignoreLogger` là một hàm không làm gì cả
+         */
+        loggerFn: ignoreLogger, // tùy chọn
+
+        /**
+         * Tùy chỉnh các đường dẫn API của VNPay
+         * Thường không cần thay đổi trừ khi:
+         * - VNPay cập nhật đường dẫn của họ
+         * - Có sự khác biệt giữa môi trường sandbox và production
+         */
+        endpoints: {
+            paymentEndpoint: 'paymentv2/vpcpay.html',
+            queryDrRefundEndpoint: 'merchant_webapi/api/transaction',
+            getBankListEndpoint: 'qrpayauth/api/merchant/get_bank_list',
+        }, // tùy chọn
+    });
+
     private readonly vnpayConfig = {
         tmnCode: 'FNAX6Q4P',
         hashSecret: 'ZVXPMEMXF4K5UU246CAA3DNO2DCV6QSR',
@@ -14,26 +67,6 @@ export default new (class PaymentService {
         ipnUrl: 'https://do-an-1-v2.onrender.com/payment/vnpay-ipn'
     };
 
-    private sortObject(obj: any) {
-        const sorted: any = {};
-        const str = [];
-
-        // Get all keys and sort them alphabetically
-        for (const key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                str.push(key);
-            }
-        }
-        str.sort();
-
-        // Create sorted object
-        for (let key = 0; key < str.length; key++) {
-            sorted[str[key]] = obj[str[key]];
-        }
-
-        console.log('Sorted parameters:', sorted);
-        return sorted;
-    }
 
     private sortParams(obj: any) {
         const sortedObj: any = Object.entries(obj)
@@ -76,27 +109,11 @@ export default new (class PaymentService {
         return signature;
     }
 
-    private createHmacSha512(key: string, data: string): string {
-        return crypto.createHmac('sha512', key).update(data, 'utf8').digest('hex');
-    }
-
-    private formatDate(date: Date): string {
-        // Format: yyyyMMddHHmmss (GMT+7)
-        const vietnamTime = new Date(date.getTime() + (7 * 60 * 60 * 1000));
-        const year = vietnamTime.getUTCFullYear();
-        const month = String(vietnamTime.getUTCMonth() + 1).padStart(2, '0');
-        const day = String(vietnamTime.getUTCDate()).padStart(2, '0');
-        const hours = String(vietnamTime.getUTCHours()).padStart(2, '0');
-        const minutes = String(vietnamTime.getUTCMinutes()).padStart(2, '0');
-        const seconds = String(vietnamTime.getUTCSeconds()).padStart(2, '0');
-
-        return `${year}${month}${day}${hours}${minutes}${seconds}`;
-    }
 
     private formatVNPayAmount(amount: number): number {
         // VNPay requires amount in smallest currency unit (VND cents)
         // Convert to integer and ensure no decimal places
-        const vnpAmount = Math.round(Number(amount) * 100);
+        const vnpAmount = Math.round(amount);
 
         // Additional validation
         if (isNaN(vnpAmount) || vnpAmount <= 0) {
@@ -113,7 +130,7 @@ export default new (class PaymentService {
         orderInfo,
         ipAddr,
         locale = 'vn',
-        bankCode = ''
+        bankCode = ""
     }: {
         orderId: string;
         amount: number;
@@ -135,73 +152,45 @@ export default new (class PaymentService {
             });
         }
 
-        const date = new Date();
-        const createDate = this.formatDate(date);
+        /* ------------------- Find existing payment record ------------------- */
+        if (!order.payment_id) {
+            throw new NotFoundErrorResponse({ message: 'Payment record not found for this order!' });
+        }
 
-        // Create expiry date (15 minutes later)
-        const expireDate = this.formatDate(new Date(date.getTime() + 15 * 60 * 1000));
+        const payment = await paymentModel.findById(order.payment_id);
+        if (!payment) {
+            throw new NotFoundErrorResponse({ message: 'Payment record not found!' });
+        }
 
-        // Generate transaction reference
-        const txnRef = orderId;
+        /* ------------------- Use payment ID as transaction reference ------------------- */
+        const txnRef = payment._id.toString();
 
-        let vnpParams: any = {
-            vnp_Version: '2.1.0',
-            vnp_Command: 'pay',
-            vnp_TmnCode: this.vnpayConfig.tmnCode,
+        /* ------------------- Set expiration date ------------------- */
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const paymentUrl = PaymentService.vnpay.buildPaymentUrl({
             vnp_Amount: this.formatVNPayAmount(amount),
-            vnp_CreateDate: createDate,
-            vnp_CurrCode: 'VND',
             vnp_IpAddr: ipAddr,
-            vnp_Locale: locale,
-            vnp_OrderInfo: "Chuyen khoan qua VNPAY",
-            vnp_OrderType: 'other',
-            vnp_ReturnUrl: this.vnpayConfig.returnUrl,
             vnp_TxnRef: txnRef,
-            vnp_ExpireDate: expireDate,
-            vnp_IpnUrl: this.vnpayConfig.ipnUrl
-        };
-
-        // Add bank code if provided
-        if (bankCode && bankCode !== '') {
-            // vnpParams['vnp_BankCode'] = "MSCBVNVX";
-        }
-
-        console.log('VNPay Params before sorting:', vnpParams);
-
-        // Generate signature using the improved method
-        vnpParams = this.sortParams(vnpParams);
-        console.log('VNPay Params after sorting:', vnpParams);
-        const signature = this.createVNPaySignature(vnpParams, this.vnpayConfig.hashSecret);
-
-        // Create final URL using URLSearchParams (like working code)
-        const urlParams = new URLSearchParams();
-        for (let [key, value] of Object.entries(vnpParams)) {
-            urlParams.append(key, String(value));
-        }
-        urlParams.append('vnp_SecureHash', signature);
-
-        const paymentUrl = this.vnpayConfig.url + '?' + urlParams.toString();
-        console.log("VNPay Params after signature:", { ...vnpParams, vnp_SecureHash: signature });
-
-        console.log('Final payment URL:', paymentUrl);
-
-        /* ------------------- Create payment record ------------------- */
-        await paymentModel.create({
-            order_id: orderId,
-            txn_ref: txnRef,
-            amount: amount,
-            payment_method: 'vnpay',
-            payment_status: 'pending',
-            payment_url: paymentUrl,
-            created_at: new Date(),
-            vnpay_data: {
-                vnp_TxnRef: txnRef,
-                vnp_Amount: this.formatVNPayAmount(amount),
-                vnp_OrderInfo: orderInfo,
-                vnp_CreateDate: createDate,
-                vnp_ExpireDate: expireDate
-            }
+            vnp_OrderInfo: orderInfo,
+            vnp_OrderType: ProductCode.Other,
+            vnp_ReturnUrl: this.vnpayConfig.returnUrl,
+            vnp_Locale: VnpLocale.VN,
+            vnp_CreateDate: dateFormat(new Date()),
+            vnp_ExpireDate: dateFormat(tomorrow),
+            vnp_CurrCode: VnpCurrCode.VND
         });
+
+        /* ------------------- Update payment record with URL and VNPay data ------------------- */
+        payment.payment_url = paymentUrl;
+        payment.vnpay_data = {
+            vnp_TxnRef: txnRef,
+            vnp_Amount: this.formatVNPayAmount(amount),
+            vnp_OrderInfo: orderInfo,
+            vnp_CreateDate: dateFormat(new Date()).toString()
+        };
+        await payment.save();
 
         return {
             paymentUrl,
@@ -244,8 +233,8 @@ export default new (class PaymentService {
                 await payment.save();
 
                 /* ------------------- Update order status ------------------- */
-                await orderModel.findByIdAndUpdate(
-                    payment.order_id,
+                const updatedOrder = await orderModel.findOneAndUpdate(
+                    { payment_id: payment._id },
                     {
                         order_status: OrderStatus.PENDING,
                         payment_paid: true,
@@ -257,7 +246,7 @@ export default new (class PaymentService {
                 return {
                     success: true,
                     message: 'Payment successful',
-                    orderId: payment.order_id.toString(),
+                    orderId: updatedOrder?._id.toString(),
                     txnRef: vnpTxnRef,
                     amount: vnpAmount / 100
                 };
@@ -268,10 +257,13 @@ export default new (class PaymentService {
                 payment.completed_at = new Date();
                 await payment.save();
 
+                /* ------------------- Find order for failed payment ------------------- */
+                const order = await orderModel.findOne({ payment_id: payment._id });
+
                 return {
                     success: false,
                     message: 'Payment failed',
-                    orderId: payment.order_id.toString(),
+                    orderId: order?._id.toString(),
                     txnRef: vnpTxnRef,
                     responseCode: vnpResponseCode
                 };
@@ -283,12 +275,79 @@ export default new (class PaymentService {
     }
 
     public async handleVNPayIPN(vnpParams: any) {
-        // Similar to handleVNPayReturn but for server-to-server notification
-        return await this.handleVNPayReturn(vnpParams);
+        try {
+            // Xác thực IPN call sử dụng VNPay library
+            const verify: VerifyIpnCall = PaymentService.vnpay.verifyIpnCall(vnpParams);
+
+            // Kiểm tra tính toàn vẹn của dữ liệu
+            if (!verify.isVerified) {
+                console.log('❌ IPN verification failed - Invalid checksum');
+                return IpnFailChecksum;
+            }
+
+            // Kiểm tra kết quả thanh toán
+            if (!verify.isSuccess) {
+                console.log('❌ IPN verification failed - Payment not successful');
+                return IpnUnknownError;
+            }
+
+            console.log('✅ IPN verification successful', verify);
+
+            // Tìm payment record trong database
+            const payment = await paymentModel.findOne({ txn_ref: verify.vnp_TxnRef });
+
+            // Nếu không tìm thấy payment record
+            if (!payment) {
+                console.log('❌ Payment record not found for txnRef:', verify.vnp_TxnRef);
+                return IpnOrderNotFound;
+            }
+
+            // Kiểm tra số tiền thanh toán có khớp không
+            if (verify.vnp_Amount !== payment.amount) {
+                console.log('❌ Amount mismatch:', {
+                    vnpayAmount: verify.vnp_Amount,
+                    dbAmount: payment.amount
+                });
+                return IpnInvalidAmount;
+            }
+
+            // Kiểm tra nếu payment đã được xác nhận trước đó
+            if (payment.payment_status === 'completed') {
+                console.log('⚠️ Payment already confirmed for txnRef:', verify.vnp_TxnRef);
+                return InpOrderAlreadyConfirmed;
+            }
+
+            // Cập nhật trạng thái payment
+            payment.payment_status = 'completed';
+            payment.vnpay_transaction_no = String(verify.vnp_TransactionNo || '');
+            payment.vnpay_response_code = String(verify.vnp_ResponseCode || '');
+            payment.completed_at = new Date();
+            await payment.save();
+
+            // Cập nhật trạng thái order - find by payment_id instead of order_id
+            await orderModel.findOneAndUpdate(
+                { payment_id: payment._id },
+                {
+                    order_status: OrderStatus.PENDING,
+                    payment_paid: true,
+                    payment_date: new Date()
+                },
+                { new: true }
+            );
+
+            console.log('✅ Payment and order updated successfully for txnRef:', verify.vnp_TxnRef);
+
+            // Trả về thành công cho VNPay
+            return IpnSuccess;
+
+        } catch (error) {
+            console.error('❌ IPN handling error:', error);
+            return IpnUnknownError;
+        }
     }
 
     public async getPaymentByTxnRef(txnRef: string) {
-        const payment = await paymentModel.findOne({ txn_ref: txnRef }).populate('order_id');
+        const payment = await paymentModel.findOne({ txn_ref: txnRef });
         if (!payment) {
             throw new NotFoundErrorResponse({ message: 'Payment not found!' });
         }
@@ -296,8 +355,67 @@ export default new (class PaymentService {
     }
 
     public async getPaymentsByOrderId(orderId: string) {
-        const payments = await paymentModel.find({ order_id: orderId });
-        return payments;
+        // Find the order first to get the payment_id
+        const order = await orderModel.findById(orderId);
+        if (!order || !order.payment_id) {
+            return [];
+        }
+
+        // Find the payment by payment_id
+        const payment = await paymentModel.findById(order.payment_id);
+        return payment ? [payment] : [];
+    }
+
+    public async updatePaymentStatusById(paymentId: string) {
+        console.log('🔍 Finding payment by ID:', paymentId);
+
+        // Find payment by ID
+        const payment = await paymentModel.findById(paymentId);
+        if (!payment) {
+            throw new NotFoundErrorResponse({ message: 'Payment not found!' });
+        }
+
+        console.log('💳 Found payment:', {
+            id: payment._id,
+            status: payment.payment_status,
+            amount: payment.amount
+        });
+
+        // Check if payment is already completed
+        if (payment.payment_status === 'completed') {
+            console.log('⚠️ Payment already completed');
+            return payment;
+        }
+
+        // Update payment status to completed
+        payment.payment_status = 'completed';
+        payment.completed_at = new Date();
+        await payment.save();
+
+        console.log('✅ Payment status updated to completed');
+
+        // Find and update the corresponding order
+        const order = await orderModel.findOneAndUpdate(
+            { payment_id: payment._id },
+            {
+                order_status: OrderStatus.PENDING,
+                payment_paid: true,
+                payment_date: new Date()
+            },
+            { new: true }
+        );
+
+        if (order) {
+            console.log('📦 Order status updated:', {
+                orderId: order._id,
+                newStatus: order.order_status,
+                paymentPaid: order.payment_paid
+            });
+        } else {
+            console.log('⚠️ No order found for payment ID:', paymentId);
+        }
+
+        return payment;
     }
 
     // public testSignatureGeneration() {

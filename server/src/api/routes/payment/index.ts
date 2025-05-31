@@ -41,23 +41,32 @@ paymentRoute.get(
 /**
  * VNPay IPN URL (public endpoint for VNPay server-to-server notification)
  * This endpoint is called by VNPay to notify the server about the transaction status.
- * @route GET /api/payment/vnpay/ipn
+ * @route GET/POST /api/payment/vnpay-ipn
  * @access Public
  * @param {object} req.query - VNPay IPN parameters
  * @returns {object} 200 - A success message with RspCode and Message
  */
 paymentRoute.get(
     '/vnpay-ipn',
-    (req, res, next) => {
-        console.log({
-            query: req.query,
-            body: req.body,
-        })
+    validateVNPayReturn,
+    catchError(paymentController.handleVNPayIPN as any)
+);
 
-        res.send('OK');
-    },
-    // validateVNPayReturn,
-    // catchError(paymentController.handleVNPayIPN as any)
+paymentRoute.post(
+    '/vnpay-ipn',
+    catchError(paymentController.handleVNPayIPN as any)
+);
+
+/**
+ * Update payment status by payment ID (simple endpoint)
+ * @route POST /api/payment/update-status
+ * @access Public
+ * @param {string} paymentId - Payment ID from VNPay txnRef
+ * @returns {object} 200 - Success response with updated payment data
+ */
+paymentRoute.post(
+    '/update-status',
+    catchError(paymentController.updatePaymentStatus)
 );
 
 /**

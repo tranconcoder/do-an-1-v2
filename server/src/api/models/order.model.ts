@@ -76,6 +76,7 @@ const orderSchema = new Schema<model.order.OrderSchema>(
         fee_ship: { type: Number, required: true, default: 0 },
 
         /* ------------------------ Payment  ------------------------ */
+        payment_id: { type: ObjectId, required: false },
         payment_type: { type: String, enum: PaymentType, required },
         payment_bank: { type: String, enum: PaymentBank },
         payment_paid: { type: Boolean, default: false },

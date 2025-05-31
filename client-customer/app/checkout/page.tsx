@@ -111,23 +111,29 @@ export default function CheckoutPage() {
         setIsProcessing(true);
         try {
             if (selectedPayment === 'vnpay') {
-                // Handle VNPay payment with bank code selection
-                const result = await paymentService.processVNPayCheckout(
-                    selectedBankCode || undefined
-                );
+                // Handle VNPay payment - Create orders and get payment URL
+                console.log('🚀 Creating VNPay order with bank code:', selectedBankCode);
 
-                if (result.orders.length === 1) {
-                    toast.success('Đơn hàng đã được tạo! Vui lòng hoàn tất thanh toán.');
+                const result = await orderService.createOrderWithVNPayPayment({
+                    bankCode: selectedBankCode || undefined
+                });
+
+                console.log('✅ VNPay order created:', result);
+
+                const { orders, paymentUrl, totalAmount } = result.metadata;
+
+                // Show success message
+                if (orders.length === 1) {
+                    toast.success('Đơn hàng đã được tạo! Đang chuyển đến trang thanh toán...');
                 } else {
                     toast.success(
-                        `${result.orders.length} đơn hàng đã được tạo! Vui lòng hoàn tất thanh toán.`
+                        `${orders.length} đơn hàng đã được tạo! Đang chuyển đến trang thanh toán...`
                     );
                 }
 
-                // Redirect to orders page after a short delay
-                setTimeout(() => {
-                    router.push('/orders');
-                }, 2000);
+                // Redirect to VNPay payment page
+                console.log('🔄 Redirecting to VNPay payment URL:', paymentUrl);
+                window.location.href = paymentUrl;
             } else {
                 // Handle COD payment (existing logic)
                 const orderRequest: CreateOrderRequest = {

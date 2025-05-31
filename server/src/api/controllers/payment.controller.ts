@@ -70,7 +70,8 @@ export default new (class PaymentController {
             console.log('IPN URL:', req.url);
             console.log('IPN IP:', req.ip || req.connection.remoteAddress);
 
-            const vnpParams = req.query;
+            // Handle both GET (query params) and POST (body params) requests
+            const vnpParams = req.method === 'GET' ? req.query : req.body;
 
             // Validate required parameters
             if (!vnpParams.vnp_TxnRef || !vnpParams.vnp_ResponseCode || !vnpParams.vnp_SecureHash) {
@@ -83,24 +84,14 @@ export default new (class PaymentController {
 
             console.log('Processing VNPay IPN for transaction:', vnpParams.vnp_TxnRef);
 
+            // Use the new VNPay library method for IPN verification
             const result = await paymentService.handleVNPayIPN(vnpParams);
 
             console.log('VNPay IPN processing result:', result);
 
-            // VNPay requires specific response format for IPN
-            if (result.success) {
-                console.log('✅ VNPay IPN processed successfully');
-                res.status(200).json({
-                    RspCode: '00',
-                    Message: 'Confirm Success'
-                });
-            } else {
-                console.log('❌ VNPay IPN processing failed:', result.message);
-                res.status(200).json({
-                    RspCode: '01',
-                    Message: result.message || 'Order not found'
-                });
-            }
+            // Return the result directly from VNPay library (it returns proper IPN response format)
+            return res.status(200).json(result);
+
         } catch (error: any) {
             console.error('❌ VNPay IPN Error:', error);
             console.error('Error stack:', error.stack);
@@ -140,60 +131,38 @@ export default new (class PaymentController {
         }).send(res);
     };
 
-    public testVNPay = async (req: Request, res: Response, _: any) => {
+    public updatePaymentStatus = async (req: Request, res: Response, _: any) => {
         try {
-            // Example: Client should get IP from ipify.org before calling this API
-            // const clientIp = await fetch('https://api.ipify.org').then(res => res.text());
+            const { paymentId } = req.body;
 
-            const testData = {
-                orderId: '6745a1b2c3d4e5f6789012ab', // Make sure this order exists in your database
-                amount: 100000, // 100,000 VND
-                orderInfo: 'Test payment for order #6745a1b2c3d4e5f6789012ab',
-                ipAddr: '203.113.152.1', // Example IP - in real usage, get from ipify.org
-                locale: 'vn' as const,
-                bankCode: 'VNPAYQR' // Optional: for QR code payment
-            };
+            console.log('🔄 Updating payment status for payment ID:', paymentId);
 
-            const result = await paymentService.createVNPayPaymentUrl(testData);
+            if (!paymentId) {
+                res.status(400).json({
+                    success: false,
+                    message: 'Payment ID is required'
+                });
+                return;
+            }
 
-            res.json({
+            // Find payment by ID
+            const payment = await paymentService.updatePaymentStatusById(paymentId);
+
+            console.log('✅ Payment status updated successfully');
+
+            res.status(200).json({
                 success: true,
-                message: 'VNPay URL generated successfully',
-                data: result,
-                testInfo: {
-                    usedIP: testData.ipAddr,
-                    amount: testData.amount,
-                    amountInVND: testData.amount,
-                    note: 'In production, client should get IP from https://api.ipify.org'
-                }
+                message: 'Payment status updated successfully',
+                data: payment
             });
+
         } catch (error: any) {
-            console.error('VNPay test error:', error);
+            console.error('❌ Update payment status error:', error);
+
             res.status(500).json({
                 success: false,
-                message: error.message || 'Unknown error',
-                error: error.stack
+                message: error.message || 'Failed to update payment status'
             });
         }
     };
-
-    // public testVNPaySignature = async (req: Request, res: Response, _: any) => {
-    //     try {
-    //         const testSignature = await paymentService.testSignatureGeneration();
-
-    //         res.json({
-    //             success: true,
-    //             message: 'Signature generation test completed',
-    //             testSignature,
-    //             note: 'Check console logs for detailed steps'
-    //         });
-    //     } catch (error: any) {
-    //         console.error('Signature test error:', error);
-    //         res.status(500).json({
-    //             success: false,
-    //             message: error.message || 'Unknown error',
-    //             error: error.stack
-    //         });
-    //     }
-    // };
 })(); 

@@ -63,6 +63,24 @@ export interface CancelOrderResponse {
     };
 }
 
+export interface CreateOrderWithVNPayPaymentRequest {
+    bankCode?: string;
+}
+
+export interface CreateOrderWithVNPayPaymentResponse {
+    message: string;
+    metadata: {
+        orders: Array<{
+            _id: string;
+            order_status: string;
+            price_to_payment: number;
+        }>;
+        paymentUrl: string;
+        totalAmount: number;
+        txnRef: string;
+    };
+}
+
 export interface OrderHistoryItem {
     _id: string;
     customer: string;
@@ -194,6 +212,14 @@ class OrderService {
      */
     async cancelOrder(orderId: string): Promise<CancelOrderResponse> {
         const response = await apiClient.patch<CancelOrderResponse>(`/order/${orderId}/cancel`);
+        return response.data;
+    }
+
+    /**
+     * Create orders with VNPay payment and get payment URL
+     */
+    async createOrderWithVNPayPayment(request: CreateOrderWithVNPayPaymentRequest): Promise<CreateOrderWithVNPayPaymentResponse> {
+        const response = await apiClient.post<CreateOrderWithVNPayPaymentResponse>('/order/create-vnpay-payment', request);
         return response.data;
     }
 }

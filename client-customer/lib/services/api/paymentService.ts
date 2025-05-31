@@ -190,6 +190,44 @@ class PaymentService {
             throw error;
         }
     }
+
+    async simulateIPNCall(vnpayParams: Record<string, string>) {
+        try {
+            console.log('🔄 Calling IPN simulation API with params:', vnpayParams);
+            console.log('🌐 API Base URL:', process.env.NEXT_PUBLIC_API_URL);
+            console.log('📡 Full endpoint:', '/payment/vnpay-ipn');
+
+            const response = await apiClient.post('/payment/vnpay-ipn', vnpayParams);
+
+            console.log('✅ IPN API Response:', response.data);
+            console.log('📊 Response status:', response.status);
+            console.log('📋 Response headers:', response.headers);
+
+            return response.data;
+        } catch (error: any) {
+            console.error('❌ IPN API Error:', error);
+            console.error('❌ Error response:', error.response?.data);
+            console.error('❌ Error status:', error.response?.status);
+            console.error('❌ Error config:', error.config);
+            throw error;
+        }
+    }
+
+    async updatePaymentStatus(paymentId: string) {
+        try {
+            console.log('🔄 Updating payment status for payment ID:', paymentId);
+
+            const response = await apiClient.post('/payment/update-status', {
+                paymentId: paymentId
+            });
+
+            console.log('✅ Payment status updated:', response.data);
+            return response.data;
+        } catch (error: any) {
+            console.error('❌ Update payment status error:', error);
+            throw error;
+        }
+    }
 }
 
 export default new PaymentService(); 

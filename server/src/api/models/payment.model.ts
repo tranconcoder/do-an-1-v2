@@ -1,13 +1,11 @@
 import { Schema, model } from 'mongoose';
 import { required, ObjectId, timestamps } from '@/configs/mongoose.config.js';
-import { ORDER_MODEL_NAME } from './order.model.js';
 
 export const PAYMENT_MODEL_NAME = 'Payment';
 export const PAYMENT_COLLECTION_NAME = 'Payments';
 
 export const paymentSchema = new Schema<model.payment.PaymentSchema>(
     {
-        order_id: { type: ObjectId, ref: ORDER_MODEL_NAME, required, index: true },
         txn_ref: { type: String, required, unique: true, index: true },
         amount: { type: Number, required },
         payment_method: { type: String, required, enum: ['cod', 'vnpay', 'bank_transfer'] },
@@ -48,7 +46,6 @@ export const paymentSchema = new Schema<model.payment.PaymentSchema>(
 );
 
 // Create indexes
-paymentSchema.index({ order_id: 1, payment_status: 1 });
 paymentSchema.index({ vnpay_transaction_no: 1 }, { sparse: true });
 
 const paymentModel = model<model.payment.PaymentSchema>(PAYMENT_MODEL_NAME, paymentSchema);

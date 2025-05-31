@@ -17,6 +17,12 @@ declare global {
                     userId: string;
                 }
 
+                interface CreateOrderWithVNPayPayment {
+                    userId: string;
+                    bankCode?: string;
+                    ipAddr: string;
+                }
+
                 interface GetOrderHistory {
                     userId: string;
                     status?: OrderStatus | 'all';

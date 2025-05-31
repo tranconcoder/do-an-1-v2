@@ -9,7 +9,6 @@ declare global {
 
             type PaymentSchema<isModel = false, isDoc = false> = moduleTypes.mongoose.MongooseType<
                 {
-                    order_id: moduleTypes.mongoose.ObjectId;
                     txn_ref: string;
                     amount: number;
                     payment_method: 'cod' | 'vnpay' | 'bank_transfer';
