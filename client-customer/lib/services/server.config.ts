@@ -6,4 +6,4 @@
  */
 
 export const BACKEND_API_URL: string =
-  process.env.NEXT_PUBLIC_API_URL || "https://aliconcon.tail61bbbd.ts.net:4000"; 
+  process.env.NEXT_PUBLIC_API_URL || "https://3.107.91.101:4000"; 

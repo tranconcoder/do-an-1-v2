@@ -10,6 +10,7 @@ const axiosInstance: AxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 30000
   // withCredentials: true, // Uncomment if you need to send cookies with requests
 });
 
@@ -18,7 +19,7 @@ axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     // Get token from Redux store
     const token = localStorage.getItem('accessToken');
-    
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

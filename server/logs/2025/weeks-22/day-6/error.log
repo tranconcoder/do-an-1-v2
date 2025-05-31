@@ -951,3 +951,22 @@
 ]::
 [2025-05-31T06:53:45.576Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-05-31T08:08:09.743Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T13:13:03.870Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T13:13:04.181Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T13:14:18.536Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T13:17:32.416Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T13:17:37.843Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T13:18:00.169Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-31T13:18:03.118Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T13:18:03.126Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T13:18:11.269Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T13:18:11.271Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T13:18:11.495Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T13:18:15.981Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T13:18:20.686Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T13:18:20.689Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T13:18:43.009Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T13:18:43.011Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T13:18:47.836Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T13:19:00.088Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T13:19:00.089Z] [error]: HIDE::404::NotFound::Not found file!::
