@@ -59,8 +59,23 @@ app.use(
         exposedHeaders: ['Content-Disposition']
     })
 );
-// Compression
-app.use(compression());
+// Compression - Disabled for Bun compatibility (Brotli not supported)
+// app.use(compression({
+//     // Force only gzip compression for Bun compatibility
+//     filter: (req, res) => {
+//         // Don't compress responses with this request header
+//         if (req.headers['x-no-compression']) {
+//             return false;
+//         }
+//         // fallback to standard filter function
+//         return compression.filter(req, res);
+//     },
+//     // Only use gzip compression (disable Brotli)
+//     threshold: 1024,
+//     level: 6,
+//     // Force gzip encoding only
+//     enforceEncoding: 'gzip'
+// }));
 
 /* ------------------------------------------------------ */
 /*                        Database                        */
