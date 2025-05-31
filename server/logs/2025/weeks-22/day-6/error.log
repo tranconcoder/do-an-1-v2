@@ -901,3 +901,51 @@
 [2025-05-31T06:38:22.288Z] [error]: HIDE::403::Forbidden::Invalid role!::
 [2025-05-31T06:38:22.450Z] [error]: HIDE::403::Forbidden::Invalid role!::
 [2025-05-31T06:38:22.574Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:42:18.554Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:42:18.660Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:42:18.955Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:42:19.057Z] [error]: HIDE::403::Forbidden::Invalid role!::
+[2025-05-31T06:48:34.184Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_min_order_cost"
+    ],
+    "message": "Minimum order cost is required"
+  }
+]::
+[2025-05-31T06:48:50.246Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_min_order_cost"
+    ],
+    "message": "Minimum order cost is required"
+  }
+]::
+[2025-05-31T06:48:52.556Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_min_order_cost"
+    ],
+    "message": "Minimum order cost is required"
+  }
+]::
+[2025-05-31T06:48:53.060Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_min_order_cost"
+    ],
+    "message": "Minimum order cost is required"
+  }
+]::

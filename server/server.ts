@@ -7,7 +7,7 @@ import fs from 'fs/promises';
 import child_process from 'child_process';
 
 // Configs
-import { HOST, PORT, BASE_URL } from './src/configs/server.config.js';
+import { HOST, PORT, BASE_URL, NODE_ENV } from './src/configs/server.config.js';
 
 // App
 import app from './src/app.js';
@@ -19,17 +19,19 @@ import RBACService from '@/services/rbac.service.js';
 import mediaService from '@/services/media.service.js';
 import categoryService from '@/services/category.service.js';
 
-await new Promise((resolve) => {
-    // kill 4000 with bun
-    try {
-        console.log('Attempting to kill port 4000...');
-        child_process.execSync('bun run kill-port 4000');
-        console.log('Port 4000 killed successfully.');
-        resolve(null);
-    } catch (error: any) {
-        console.error(`Failed to kill port 4000: ${error.message}`);
-    }
-});
+if (NODE_ENV === 'development') {
+    await new Promise((resolve) => {
+        // kill 4000 with bun
+        try {
+            console.log('Attempting to kill port 4000...');
+            child_process.execSync('bun run kill-port 4000');
+            console.log('Port 4000 killed successfully.');
+            resolve(null);
+        } catch (error: any) {
+            console.error(`Failed to kill port 4000: ${error.message}`);
+        }
+    });
+}
 
 const server = https
     .createServer(
@@ -94,7 +96,7 @@ if (isInit) {
             data.map(async (item: any) => {
                 return provinceModel.create(item);
             })
-        ).catch(() => {});
+        ).catch(() => { });
     });
     jsonfile.readFile(districtsJsonFile, (err, data) => {
         if (err) {
@@ -105,7 +107,7 @@ if (isInit) {
             data.map(async (item: any) => {
                 return districtModel.create(item);
             })
-        ).catch(() => {});
+        ).catch(() => { });
     });
     jsonfile.readFile(wardJsonFile, (err, data) => {
         if (err) {
@@ -116,6 +118,6 @@ if (isInit) {
             data.map(async (item: any) => {
                 return wardModel.create(item);
             })
-        ).catch((err) => {});
+        ).catch((err) => { });
     });
 }
