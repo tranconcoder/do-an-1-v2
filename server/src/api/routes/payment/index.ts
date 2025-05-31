@@ -53,7 +53,8 @@ paymentRoute.get(
             query: req.query,
             body: req.body,
         })
-        next();
+
+        res.send('OK');
     },
     // validateVNPayReturn,
     // catchError(paymentController.handleVNPayIPN as any)
