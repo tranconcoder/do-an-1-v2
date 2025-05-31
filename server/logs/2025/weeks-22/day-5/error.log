@@ -403,3 +403,86 @@
 [2025-05-30T17:37:19.505Z] [error]: HIDE::404::NotFound::No checkout data found!::
 [2025-05-30T17:37:19.569Z] [error]: HIDE::404::NotFound::No checkout data found!::
 [2025-05-30T17:37:32.296Z] [error]: HIDE::400::VersionError::No matching document found for id "6839d2e08bfad2e05971a5bd" version 10 modifiedPaths "cart_shop"::
+[2025-05-30T17:42:55.037Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-30T17:42:55.067Z] [error]: HIDE::404::NotFound::Shop not found!::
+[2025-05-30T17:45:31.979Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-30T17:45:32.751Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-30T17:45:32.919Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-30T17:45:33.190Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-30T18:09:58.927Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T18:09:58.982Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T18:10:14.994Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T18:10:15.020Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T18:16:14.161Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T18:16:14.221Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T18:16:43.944Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T18:16:44.008Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T18:37:42.301Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T18:37:42.435Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T18:47:26.691Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T18:47:26.747Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T18:59:46.112Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-30T18:59:46.505Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-30T19:02:55.800Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T19:03:14.659Z] [error]: HIDE::404::NotFound::Order not found!::
+[2025-05-30T19:21:12.520Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-30T19:29:04.207Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-30T19:34:17.519Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-30T19:34:19.356Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T19:34:19.431Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T19:35:42.358Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T19:35:42.402Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-30T19:35:49.271Z] [error]: HIDE::400::BadRequest::No shops found in checkout!::
+[2025-05-30T19:35:51.961Z] [error]: HIDE::400::BadRequest::No shops found in checkout!::
+[2025-05-30T20:02:39.914Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.Payments index: txn_ref_1 dup key: { txn_ref: "683a08a1c6f352e9d5f10c4b" }::
+[2025-05-30T20:02:57.353Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.Payments index: txn_ref_1 dup key: { txn_ref: "683a08a1c6f352e9d5f10c4b" }::
+[2025-05-30T20:04:34.114Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.Payments index: txn_ref_1 dup key: { txn_ref: "683a0f1f6e911f4b7773a88b" }::
+[2025-05-30T20:06:19.084Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.Payments index: txn_ref_1 dup key: { txn_ref: "683a0f1f6e911f4b7773a88b" }::
+[2025-05-30T20:08:34.068Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.Payments index: txn_ref_1 dup key: { txn_ref: "683a0f1f6e911f4b7773a88b" }::
+[2025-05-30T20:08:36.611Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.Payments index: txn_ref_1 dup key: { txn_ref: "683a0f1f6e911f4b7773a88b" }::
+[2025-05-30T20:09:02.640Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-30T20:10:24.252Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-30T20:12:03.744Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-30T20:19:34.322Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.Payments index: txn_ref_1 dup key: { txn_ref: "683a1113cc24ebf5fffc9fe7" }::
+[2025-05-30T20:30:52.683Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-30T20:30:53.446Z] [error]: HIDE::404::NotFound::Route is not exists::

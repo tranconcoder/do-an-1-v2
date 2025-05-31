@@ -11,6 +11,10 @@ export const getFeeShipByDistance = (distance: number) => {
         if (distance >= rangeDistances[i]) {
             feeShip += rangeDistances[i] * rangeFees[i];
             distance -= rangeDistances[i];
+        } else {
+            feeShip += distance * rangeFees[i];
+            distance = 0;
+            break;
         }
     }
 

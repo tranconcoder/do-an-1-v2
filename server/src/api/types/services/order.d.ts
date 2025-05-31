@@ -10,7 +10,11 @@ declare global {
             namespace arguments {
                 interface CreateOrder {
                     userId: string;
-                    paymentType: PaymentType;
+                    paymentType: import('@/enums/payment.enum.js').PaymentType;
+                }
+
+                interface CreateOrderWithVNPay {
+                    userId: string;
                 }
 
                 interface GetOrderHistory {

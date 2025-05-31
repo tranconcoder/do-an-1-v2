@@ -178,33 +178,38 @@ const ProductCard = ({
                             <div className="flex justify-between items-start mb-2">
                                 <div className="flex-1">
                                     {shopInfo && (
-                                        <div className="flex items-center gap-2 mb-3 p-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
-                                            <div className="w-6 h-6 relative">
-                                                <Image
-                                                    src={
-                                                        shopInfo.logo
-                                                            ? mediaService.getMediaUrl(
-                                                                  shopInfo.logo
-                                                              )
-                                                            : '/placeholder-person.svg'
-                                                    }
-                                                    alt={shopInfo.name}
-                                                    fill
-                                                    className="rounded-full object-cover ring-2 ring-blue-200"
-                                                />
-                                            </div>
-                                            <span className="text-sm text-blue-700 font-medium">
-                                                {shopInfo.name}
-                                            </span>
-                                            {shopInfo.location && (
-                                                <div className="flex items-center gap-1">
-                                                    <MapPin className="h-3 w-3 text-blue-400" />
-                                                    <span className="text-xs text-blue-600">
-                                                        {shopInfo.location}
-                                                    </span>
+                                        <Link href={`/shop/${product.product_shop}`}>
+                                            <div className="flex items-center gap-2 mb-3 p-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100 hover:from-blue-100 hover:to-indigo-100 transition-all duration-200 cursor-pointer group hover:shadow-md">
+                                                <div className="w-6 h-6 relative">
+                                                    <Image
+                                                        src={
+                                                            shopInfo.logo
+                                                                ? mediaService.getMediaUrl(
+                                                                      shopInfo.logo
+                                                                  )
+                                                                : '/placeholder-person.svg'
+                                                        }
+                                                        alt={shopInfo.name}
+                                                        fill
+                                                        className="rounded-full object-cover ring-2 ring-blue-200 group-hover:ring-blue-300 transition-all duration-200"
+                                                    />
                                                 </div>
-                                            )}
-                                        </div>
+                                                <span className="text-sm text-blue-700 font-medium group-hover:text-blue-800 transition-colors duration-200">
+                                                    {shopInfo.name}
+                                                </span>
+                                                {shopInfo.location && (
+                                                    <div className="flex items-center gap-1">
+                                                        <MapPin className="h-3 w-3 text-blue-400" />
+                                                        <span className="text-xs text-blue-600">
+                                                            {shopInfo.location}
+                                                        </span>
+                                                    </div>
+                                                )}
+                                                <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                                    <Eye className="h-3 w-3 text-blue-500" />
+                                                </div>
+                                            </div>
+                                        </Link>
                                     )}
                                     <Link href={`/products/${product.sku._id}`}>
                                         <h3 className="font-semibold text-lg text-gray-900 hover:text-blue-600 transition-colors duration-200 mb-2">
@@ -350,23 +355,28 @@ const ProductCard = ({
                 {/* Content */}
                 <div className="p-4">
                     {shopInfo && (
-                        <div className="flex items-center gap-2 mb-3 p-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
-                            <div className="w-5 h-5 relative">
-                                <Image
-                                    src={
-                                        shopInfo.logo
-                                            ? mediaService.getMediaUrl(shopInfo.logo)
-                                            : '/placeholder-person.svg'
-                                    }
-                                    alt={shopInfo.name}
-                                    fill
-                                    className="rounded-full object-cover ring-2 ring-blue-200"
-                                />
+                        <Link href={`/shop/${product.product_shop}`}>
+                            <div className="flex items-center gap-2 mb-3 p-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100 hover:from-blue-100 hover:to-indigo-100 transition-all duration-200 cursor-pointer group hover:shadow-md">
+                                <div className="w-6 h-6 relative">
+                                    <Image
+                                        src={
+                                            shopInfo.logo
+                                                ? mediaService.getMediaUrl(shopInfo.logo)
+                                                : '/placeholder-person.svg'
+                                        }
+                                        alt={shopInfo.name}
+                                        fill
+                                        className="rounded-full object-cover ring-2 ring-blue-200 group-hover:ring-blue-300 transition-all duration-200"
+                                    />
+                                </div>
+                                <span className="text-xs text-blue-700 truncate font-medium group-hover:text-blue-800 transition-colors duration-200">
+                                    {shopInfo.name}
+                                </span>
+                                <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                    <Eye className="h-3 w-3 text-blue-500" />
+                                </div>
                             </div>
-                            <span className="text-xs text-blue-700 truncate font-medium">
-                                {shopInfo.name}
-                            </span>
-                        </div>
+                        </Link>
                     )}
 
                     <Link href={`/products/${product.sku._id}`}>

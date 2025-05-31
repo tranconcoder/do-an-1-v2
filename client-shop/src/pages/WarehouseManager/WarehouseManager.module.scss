@@ -226,6 +226,28 @@
                     color: #718096;
                     flex-shrink: 0;
                 }
+
+                span:not(.label) {
+                    word-wrap: break-word;
+                    word-break: break-word;
+                    hyphens: auto;
+                    flex: 1;
+                    min-width: 0;
+                }
+
+                &.address-item {
+                    align-items: flex-start;
+
+                    .label {
+                        margin-top: 2px;
+                    }
+
+                    span:not(.label) {
+                        line-height: 1.4;
+                        color: #2d3748;
+                        font-size: 14px;
+                    }
+                }
             }
         }
 

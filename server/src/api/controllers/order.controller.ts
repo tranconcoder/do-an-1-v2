@@ -131,4 +131,13 @@ export default new (class OrderController {
             } : {}
         }).send(res);
     };
+
+    public createOrderWithVNPay = async (req: Request, res: any, _: any) => {
+        new CreatedResponse({
+            message: 'Order created with VNPay payment successfully',
+            metadata: await orderService.createOrderWithVNPay({
+                userId: req.userId as string
+            })
+        }).send(res);
+    };
 })();

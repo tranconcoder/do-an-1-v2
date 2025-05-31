@@ -23,8 +23,14 @@ import { NotFoundErrorResponse } from './api/response/error.response.js';
 const app = express();
 
 /* ------------------------------------------------------ */
+/*                        App config                      */
+/* ------------------------------------------------------ */
+app.set('trust proxy', true);
+
+/* ------------------------------------------------------ */
 /*                  Express middlewares                   */
 /* ------------------------------------------------------ */
+
 // Body parser
 app.use(express.json());
 app.use(express.raw());

@@ -69,6 +69,7 @@ declare global {
                     payment_type: PaymentType;
                     payment_bank?: string;
                     payment_paid: boolean;
+                    payment_date?: Date;
 
                     /* ------------------------- Status ------------------------- */
                     order_status: OrderStatus;

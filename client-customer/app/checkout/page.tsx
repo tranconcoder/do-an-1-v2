@@ -3,23 +3,23 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import { ArrowLeft, CreditCard, Truck, MapPin, Store, Package } from 'lucide-react';
+import { ArrowLeft, Truck, MapPin, Store, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from 'sonner';
 import { mediaService } from '@/lib/services/api/mediaService';
 import checkoutService from '@/lib/services/api/checkoutService';
 import orderService, { CreateOrderRequest } from '@/lib/services/api/orderService';
+import paymentService from '@/lib/services/api/paymentService';
 import addressService from '@/lib/services/api/addressService';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/lib/store/store';
 import { useAppDispatch } from '@/lib/store/hooks';
 import { fetchUserAddresses } from '@/lib/store/slices/addressSlice';
+import VNPayPaymentOptions from '@/components/common/VNPayPaymentOptions';
 
 interface CheckoutData {
     _id: string;
@@ -58,6 +58,7 @@ export default function CheckoutPage() {
 
     const [checkoutData, setCheckoutData] = useState<CheckoutData | null>(null);
     const [selectedPayment, setSelectedPayment] = useState<'cod' | 'vnpay'>('cod');
+    const [selectedBankCode, setSelectedBankCode] = useState<string>('');
     const [isProcessing, setIsProcessing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -109,24 +110,45 @@ export default function CheckoutPage() {
 
         setIsProcessing(true);
         try {
-            const orderRequest: CreateOrderRequest = {
-                paymentType: selectedPayment
-            };
+            if (selectedPayment === 'vnpay') {
+                // Handle VNPay payment with bank code selection
+                const result = await paymentService.processVNPayCheckout(
+                    selectedBankCode || undefined
+                );
 
-            const orderResult = await orderService.createOrder(orderRequest);
+                if (result.orders.length === 1) {
+                    toast.success('Đơn hàng đã được tạo! Vui lòng hoàn tất thanh toán.');
+                } else {
+                    toast.success(
+                        `${result.orders.length} đơn hàng đã được tạo! Vui lòng hoàn tất thanh toán.`
+                    );
+                }
 
-            // Handle multiple orders response
-            const orders = orderResult.metadata;
-            const orderCount = orders.length;
-
-            if (orderCount === 1) {
-                toast.success('Đặt hàng thành công! Cảm ơn bạn đã mua sắm.');
+                // Redirect to orders page after a short delay
+                setTimeout(() => {
+                    router.push('/orders');
+                }, 2000);
             } else {
-                toast.success(`Đặt ${orderCount} đơn hàng thành công! Cảm ơn bạn đã mua sắm.`);
-            }
+                // Handle COD payment (existing logic)
+                const orderRequest: CreateOrderRequest = {
+                    paymentType: selectedPayment
+                };
 
-            // Redirect to orders page
-            router.push('/orders');
+                const orderResult = await orderService.createOrder(orderRequest);
+
+                // Handle multiple orders response
+                const orders = orderResult.metadata;
+                const orderCount = orders.length;
+
+                if (orderCount === 1) {
+                    toast.success('Đặt hàng thành công! Cảm ơn bạn đã mua sắm.');
+                } else {
+                    toast.success(`Đặt ${orderCount} đơn hàng thành công! Cảm ơn bạn đã mua sắm.`);
+                }
+
+                // Redirect to orders page
+                router.push('/orders');
+            }
         } catch (error: any) {
             console.error('Order error:', error);
             toast.error(error.response?.data?.message || 'Có lỗi xảy ra khi đặt hàng');
@@ -300,53 +322,12 @@ export default function CheckoutPage() {
                         ))}
 
                         {/* Payment Method */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle className="flex items-center gap-2">
-                                    <CreditCard className="h-5 w-5 text-purple-600" />
-                                    Phương thức thanh toán
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <RadioGroup
-                                    value={selectedPayment}
-                                    onValueChange={(value: 'cod' | 'vnpay') =>
-                                        setSelectedPayment(value)
-                                    }
-                                >
-                                    <div className="flex items-center space-x-2 p-6 border rounded-lg hover:bg-gray-50">
-                                        <RadioGroupItem value="cod" id="cod" />
-                                        <Label htmlFor="cod" className="flex-grow cursor-pointer">
-                                            <div className="flex items-center gap-4">
-                                                <Truck className="h-6 w-6 text-green-600" />
-                                                <div>
-                                                    <p className="font-semibold text-base">
-                                                        Thanh toán khi nhận hàng (COD)
-                                                    </p>
-                                                    <p className="text-sm text-gray-600 mt-1">
-                                                        Thanh toán bằng tiền mặt khi nhận hàng
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </Label>
-                                    </div>
-                                    <div className="flex items-center space-x-2 p-6 border rounded-lg hover:bg-gray-50 opacity-75">
-                                        <RadioGroupItem value="vnpay" id="vnpay" disabled />
-                                        <Label htmlFor="vnpay" className="flex-grow cursor-pointer">
-                                            <div className="flex items-center gap-4">
-                                                <CreditCard className="h-6 w-6 text-blue-600" />
-                                                <div>
-                                                    <p className="font-semibold text-base">VNPay</p>
-                                                    <p className="text-sm text-gray-600 mt-1">
-                                                        Thanh toán online qua VNPay (Sắp ra mắt)
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </Label>
-                                    </div>
-                                </RadioGroup>
-                            </CardContent>
-                        </Card>
+                        <VNPayPaymentOptions
+                            selectedPayment={selectedPayment}
+                            onPaymentChange={setSelectedPayment}
+                            selectedBankCode={selectedBankCode}
+                            onBankCodeChange={setSelectedBankCode}
+                        />
                     </div>
 
                     {/* Order Summary */}

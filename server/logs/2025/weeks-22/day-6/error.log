@@ -1,0 +1,163 @@
+[2025-05-31T02:52:55.830Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-31T02:53:03.302Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.Payments index: txn_ref_1 dup key: { txn_ref: "683a6e8eaf7f30a1f93327f1" }::
+[2025-05-31T02:55:51.779Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-31T03:06:17.067Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-31T03:06:19.445Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.Payments index: txn_ref_1 dup key: { txn_ref: "683a70d9af7f30a1f93328b7" }::
+[2025-05-31T03:07:22.338Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-31T03:10:14.195Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-31T03:13:49.005Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.Payments index: txn_ref_1 dup key: { txn_ref: "683a7316af7f30a1f933324a" }::
+[2025-05-31T03:14:13.780Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-31T03:31:51.690Z] [error]: HIDE::400::VersionError::No matching document found for id "6839d2e08bfad2e05971a5bd" version 37 modifiedPaths "cart_shop"::
+[2025-05-31T03:31:57.968Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-31T03:31:57.984Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-31T03:57:08.758Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T03:57:08.916Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T03:59:34.772Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T03:59:35.034Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T04:03:33.176Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-05-31T04:06:48.338Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-31T04:22:03.672Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-31T04:22:03.835Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-05-31T04:22:16.323Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T04:22:56.149Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-31T04:34:50.136Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T04:34:50.324Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T04:37:24.607Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T04:37:24.869Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T04:39:41.190Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T04:39:41.374Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-05-31T04:39:59.596Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T04:39:59.727Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T04:39:59.945Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T04:40:00.014Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T04:50:36.954Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::
+[2025-05-31T04:51:32.598Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "string",
+    "received": "undefined",
+    "path": [
+      "bankCode"
+    ],
+    "message": "Required"
+  }
+]::

@@ -18,17 +18,23 @@ import { RootState } from '@/lib/store/store';
 import ProfileBox from '@/components/common/ProfileBox';
 import { logout } from '@/lib/store/slices/userSlice';
 import CartHoverCard from '@/components/common/CartHoverCard';
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
     const dispatch = useDispatch();
     const { accessToken, user, shop } = useSelector((state: RootState) => state.user);
     const isLoggedIn = !!accessToken;
+    const pathname = usePathname();
 
     const handleLogout = () => {
         dispatch(logout());
         // Optionally, redirect to home or login page after logout
         // router.push('/');
     };
+
+    if (pathname.includes('/payment/vnpay-return')) {
+        return null;
+    }
 
     return (
         <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/70 border-b border-blue-100">
@@ -110,7 +116,13 @@ export default function Header() {
                                 <span className="sr-only">Menu</span>
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" sideOffset={8} avoidCollisions={true} collisionPadding={16} className="z-[60]">
+                        <DropdownMenuContent
+                            align="end"
+                            sideOffset={8}
+                            avoidCollisions={true}
+                            collisionPadding={16}
+                            className="z-[60]"
+                        >
                             <DropdownMenuItem asChild>
                                 <Link href="/">Trang chủ</Link>
                             </DropdownMenuItem>

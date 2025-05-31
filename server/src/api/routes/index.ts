@@ -17,6 +17,7 @@ import skuRouter from './sku/index.js';
 import wishListRouter from './wishlist/index.js';
 import otpRoute from './otp/index.js';
 import addressRoute from './address/index.js';
+import paymentRoute from './payment/index.js';
 
 const rootRoute = Router();
 
@@ -65,5 +66,8 @@ rootRoute.use('/wishlist', wishListRouter);
 
 /* ------------------------ Address ------------------------ */
 rootRoute.use('/address', addressRoute);
+
+/* ------------------------ Payment ------------------------ */
+rootRoute.use('/payment', paymentRoute);
 
 export default rootRoute;

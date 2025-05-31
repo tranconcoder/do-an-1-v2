@@ -172,9 +172,9 @@ function WarehouseManager() {
                                 </span>
                             </div>
                             <div className={cx('warehouse-info')}>
-                                <div className={cx('info-item')}>
+                                <div className={cx('info-item', 'address-item')}>
                                     <span className={cx('label')}>Địa chỉ:</span>
-                                    <span>{warehouse.address?.address}</span>
+                                    <span>{warehouse.address?.text}</span>
                                 </div>
                                 <div className={cx('info-item')}>
                                     <span className={cx('label')}>Điện thoại:</span>

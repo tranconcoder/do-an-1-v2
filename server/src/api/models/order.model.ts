@@ -79,6 +79,7 @@ const orderSchema = new Schema<model.order.OrderSchema>(
         payment_type: { type: String, enum: PaymentType, required },
         payment_bank: { type: String, enum: PaymentBank },
         payment_paid: { type: Boolean, default: false },
+        payment_date: { type: Date },
 
         /* ------------------------- Price  ------------------------- */
         price_total_raw: { type: Number, required },

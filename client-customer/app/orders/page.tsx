@@ -53,8 +53,10 @@ import orderService, {
     GetOrderHistoryParams,
     PaginationInfo
 } from '@/lib/services/api/orderService';
+import paymentService from '@/lib/services/api/paymentService';
 import { getMediaUrl } from '@/lib/services/api/mediaService';
 import { formatPrice } from '@/lib/utils/cartUtils';
+import VNPayPaymentModal from '@/components/common/VNPayPaymentModal';
 
 // Order status mapping to Vietnamese
 const ORDER_STATUS_MAP = {
@@ -98,6 +100,10 @@ export default function OrderHistoryPage() {
     const [orderToCancel, setOrderToCancel] = useState<OrderHistoryItem | null>(null);
     const [cancelCountdown, setCancelCountdown] = useState(5);
     const [canCancel, setCanCancel] = useState(false);
+
+    // Payment modal states
+    const [showPaymentModal, setShowPaymentModal] = useState(false);
+    const [orderToPayFor, setOrderToPayFor] = useState<OrderHistoryItem | null>(null);
 
     // Filter and search states
     const [searchTerm, setSearchTerm] = useState('');
@@ -233,6 +239,11 @@ export default function OrderHistoryPage() {
         } finally {
             setCancellingOrderId(null);
         }
+    };
+
+    const handlePayment = (order: OrderHistoryItem) => {
+        setOrderToPayFor(order);
+        setShowPaymentModal(true);
     };
 
     const handleSortToggle = () => {
@@ -512,7 +523,7 @@ export default function OrderHistoryPage() {
                             Xem chi tiết
                         </Button>
                         {order.order_status === 'pending_payment' && (
-                            <Button size="sm">
+                            <Button size="sm" onClick={() => handlePayment(order)}>
                                 <CreditCard className="h-4 w-4 mr-2" />
                                 Thanh toán
                             </Button>
@@ -892,6 +903,21 @@ export default function OrderHistoryPage() {
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
+            )}
+
+            {/* Payment Modal */}
+            {showPaymentModal && orderToPayFor && (
+                <VNPayPaymentModal
+                    isOpen={showPaymentModal}
+                    onClose={() => {
+                        setShowPaymentModal(false);
+                        setOrderToPayFor(null);
+                    }}
+                    order={orderToPayFor}
+                    onPaymentSuccess={() => {
+                        fetchOrders(); // Refresh orders after successful payment
+                    }}
+                />
             )}
         </div>
     );
