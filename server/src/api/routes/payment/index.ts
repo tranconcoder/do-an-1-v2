@@ -55,8 +55,8 @@ paymentRoute.get(
         })
         next();
     },
-    validateVNPayReturn,
-    catchError(paymentController.handleVNPayIPN as any)
+    // validateVNPayReturn,
+    // catchError(paymentController.handleVNPayIPN as any)
 );
 
 /**
