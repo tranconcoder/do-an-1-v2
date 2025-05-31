@@ -32,17 +32,21 @@ await new Promise((resolve) => {
     }
 });
 
-const server = https
-    .createServer(
-        {
-            key: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.pem')),
-            cert: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.cert'))
-        },
-        app
-    )
-    .listen(Number(PORT), () => {
-        console.log(`Server is running at ${BASE_URL}`);
-    });
+// const server = https
+//     .createServer(
+//         {
+//             key: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.pem')),
+//             cert: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.cert'))
+//         },
+//         app
+//     )
+//     .listen(Number(PORT), () => {
+//         console.log(`Server is running at ${BASE_URL}`);
+//     });
+
+const server = app.listen(Number(PORT), () => {
+    console.log(`Server is running at ${BASE_URL}`);
+});
 
 server.on("close", () => {
     // Close database connection
