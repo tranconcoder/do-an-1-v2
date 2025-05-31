@@ -274,31 +274,6 @@ export default function VNPayReturnPage({ searchParams }: VNPayReturnPageProps) 
                         orderId={isSuccess ? orderId : undefined}
                         vnpayParams={vnpayParams}
                     />
-
-                    {/* Debug Information (only in development) */}
-                    {process.env.NODE_ENV === 'development' &&
-                        Object.keys(vnpayParams).length > 0 && (
-                            <>
-                                <Separator />
-                                <div className="bg-gray-50 p-4 rounded-lg">
-                                    <h4 className="text-sm font-medium text-gray-800 mb-3">
-                                        Debug - VNPay Parameters:
-                                    </h4>
-                                    <div className="grid grid-cols-1 gap-2 text-xs">
-                                        {Object.entries(vnpayParams).map(([key, value]) => (
-                                            <div key={key} className="flex justify-between">
-                                                <span className="font-mono text-gray-600">
-                                                    {key}:
-                                                </span>
-                                                <span className="font-mono text-gray-900 ml-2 break-all">
-                                                    {value}
-                                                </span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </>
-                        )}
                 </CardContent>
             </Card>
             <Toaster />

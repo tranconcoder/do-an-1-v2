@@ -16,27 +16,6 @@ export default function PaymentReturnActions({
     orderId,
     vnpayParams
 }: PaymentReturnActionsProps) {
-    const handleGoToOrders = () => {
-        if (typeof window !== 'undefined') {
-            window.opener?.location.assign('/orders');
-            window.close();
-        }
-    };
-
-    const handleGoHome = () => {
-        if (typeof window !== 'undefined') {
-            window.opener?.location.assign('/');
-            window.close();
-        }
-    };
-
-    const handleViewOrderDetail = () => {
-        if (orderId && typeof window !== 'undefined') {
-            window.opener?.location.assign(`/orders/${orderId}`);
-            window.close();
-        }
-    };
-
     const handleTestWithSampleData = () => {
         if (typeof window !== 'undefined') {
             const sampleUrl =
@@ -47,32 +26,18 @@ export default function PaymentReturnActions({
 
     return (
         <>
-            <CloseWindowButton />
-
             {/* Action Buttons */}
             <div className="flex flex-col space-y-3">
-                {/* Capture Screenshot Button - Always show for successful payments */}
-                {isSuccess && <CaptureScreenshot orderId={orderId} />}
-
-                {isSuccess && orderId && (
-                    <Button
-                        onClick={handleViewOrderDetail}
-                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-200"
-                    >
-                        <Receipt className="h-4 w-4 mr-2" />
-                        Xem chi tiết đơn hàng
-                    </Button>
+                {/* Close and Screenshot buttons side by side for successful payments */}
+                {isSuccess && (
+                    <div className="grid grid-cols-2 gap-3">
+                        <CloseWindowButton inline />
+                        <CaptureScreenshot orderId={orderId} />
+                    </div>
                 )}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <Button onClick={handleGoToOrders} variant="outline" className="w-full">
-                        <Receipt className="h-4 w-4 mr-2" />
-                        Xem tất cả đơn hàng
-                    </Button>
-                    <Button onClick={handleGoHome} variant="outline" className="w-full">
-                        <ArrowLeft className="h-4 w-4 mr-2" />
-                        Về trang chủ
-                    </Button>
-                </div>
+
+                {/* Close button only for failed payments */}
+                {!isSuccess && <CloseWindowButton inline />}
 
                 {/* Test Button (only in development) */}
                 {process.env.NODE_ENV === 'development' && !Object.keys(vnpayParams).length && (

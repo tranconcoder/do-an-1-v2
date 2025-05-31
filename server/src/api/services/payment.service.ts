@@ -10,8 +10,8 @@ export default new (class PaymentService {
         tmnCode: 'FNAX6Q4P',
         hashSecret: 'ZVXPMEMXF4K5UU246CAA3DNO2DCV6QSR',
         url: 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html',
-        returnUrl: 'http://localhost:3000/payment/vnpay-return',
-        ipnUrl: 'http://localhost:4000/api/payment/vnpay-ipn'
+        returnUrl: 'https://aliconcon.tail61bbbd.ts.net:3000/payment/vnpay-return',
+        ipnUrl: 'https://aliconcon.tail61bbbd.ts.net:4000/payment/vnpay-ipn'
     };
 
     private sortObject(obj: any) {

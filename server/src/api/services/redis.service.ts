@@ -5,7 +5,8 @@ import LoggerService from './logger.service.js';
 import {
     PESSIMISTIC_EXPIRE_TIME,
     PESSIMISTIC_RETRY_TIMES,
-    PESSIMISTIC_WAITING_TIME
+    PESSIMISTIC_WAITING_TIME,
+    REDIS_CONFIG
 } from '@/configs/redis.config.js';
 import {
     getKeyTokenKey,
@@ -18,7 +19,11 @@ import {
 /* ---------------------------------------------------------- */
 /*                         Init client                        */
 /* ---------------------------------------------------------- */
-const redisClient = await createClient()
+const redisClient = await createClient({
+    username: REDIS_CONFIG.username,
+    password: REDIS_CONFIG.password,
+    socket: REDIS_CONFIG.socket
+})
     .on('error', (err) => {
         const message = `Redis error: ${err}`;
 

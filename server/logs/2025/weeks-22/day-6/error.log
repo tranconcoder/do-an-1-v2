@@ -161,3 +161,563 @@
     "message": "Required"
   }
 ]::
+[2025-05-31T05:39:06.744Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "too_small",
+    "minimum": 6,
+    "type": "string",
+    "inclusive": true,
+    "exact": false,
+    "message": "String must contain at least 6 character(s)",
+    "path": [
+      "shop_name"
+    ]
+  },
+  {
+    "code": "too_small",
+    "minimum": 6,
+    "type": "string",
+    "inclusive": true,
+    "exact": false,
+    "message": "String must contain at least 6 character(s)",
+    "path": [
+      "shop_owner_fullName"
+    ]
+  }
+]::
+[2025-05-31T05:39:44.369Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "too_small",
+    "minimum": 6,
+    "type": "string",
+    "inclusive": true,
+    "exact": false,
+    "message": "String must contain at least 6 character(s)",
+    "path": [
+      "shop_name"
+    ]
+  },
+  {
+    "code": "too_small",
+    "minimum": 6,
+    "type": "string",
+    "inclusive": true,
+    "exact": false,
+    "message": "String must contain at least 6 character(s)",
+    "path": [
+      "shop_owner_fullName"
+    ]
+  }
+]::
+[2025-05-31T05:40:37.190Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-05-31T05:41:12.391Z] [error]: HIDE::404::NotFound::Not found checkout info!::
+[2025-05-31T05:49:11.169Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-05-31T05:49:13.821Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-05-31T05:49:22.740Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-05-31T05:54:35.926Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-31T06:07:17.143Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T06:07:17.174Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T06:07:17.174Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T06:07:17.179Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T06:07:17.179Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T06:07:17.232Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T06:07:17.233Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T06:07:17.335Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T06:07:17.335Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T06:07:17.487Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T06:07:17.487Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T06:07:17.689Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:17.940Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:18.242Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:18.594Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:18.995Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:19.446Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:19.948Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:20.449Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:20.951Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:21.453Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:21.955Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:22.456Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:22.957Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:23.459Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:23.960Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:24.463Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:24.964Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:25.466Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:25.967Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:26.470Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:26.971Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:27.473Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:27.974Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:28.475Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:28.976Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:29.478Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:29.984Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:30.486Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:30.987Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:31.489Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:31.990Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:32.491Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:32.993Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:33.494Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:33.996Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:34.498Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:34.999Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:35.501Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:36.002Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:36.503Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:37.004Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:37.506Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:38.007Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:38.511Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:39.014Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:39.515Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:40.016Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:40.518Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:41.019Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:41.520Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:42.021Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:42.522Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:43.023Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:43.525Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:44.025Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:44.528Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:45.029Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:45.530Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:46.032Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:46.533Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:47.035Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:47.536Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:48.038Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:48.539Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:49.041Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:49.543Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:50.044Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:50.546Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:51.047Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:51.548Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:52.050Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:52.552Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:53.053Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:53.555Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:54.056Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:54.558Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:55.059Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:55.560Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:56.061Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:56.563Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:57.064Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:57.565Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:58.066Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:58.568Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:59.069Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:07:59.570Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:00.072Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:00.574Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:01.075Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:01.576Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:02.078Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:02.579Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:03.080Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:03.581Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:04.082Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:04.583Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:05.084Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:05.586Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:06.087Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:06.588Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:07.089Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:07.590Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:08.091Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:08.593Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:09.094Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:09.596Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:10.097Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:10.599Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:11.100Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:11.601Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:12.103Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:12.605Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:13.106Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:13.607Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:14.108Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:14.611Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:15.112Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:15.614Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:16.115Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:16.618Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:17.120Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:17.622Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:18.124Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:18.626Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:19.128Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:19.630Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:20.131Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:20.633Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:21.134Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:21.636Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:22.137Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:22.639Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:23.141Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:23.642Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:24.143Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:24.647Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:25.148Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:25.650Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:26.151Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:26.653Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:27.154Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:27.656Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:28.157Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:28.659Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:29.161Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:29.662Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:30.163Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:30.664Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:31.165Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:31.666Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:32.168Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:32.669Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:33.171Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:33.672Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:34.173Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:34.677Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:35.178Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:35.680Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:36.181Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:36.682Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:37.183Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:37.684Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:38.186Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:38.687Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:39.188Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:39.690Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:40.191Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:40.692Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:41.193Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:41.695Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:42.196Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:42.697Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:43.198Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:43.699Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:44.201Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:44.702Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:45.205Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:45.707Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:46.209Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:46.710Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:47.211Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:47.713Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:48.214Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:48.716Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:49.218Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:49.720Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:50.223Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:50.724Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:51.226Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:51.728Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:52.233Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:52.734Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:53.235Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:53.737Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:54.238Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:54.743Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:55.244Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:55.745Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:56.247Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:56.748Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:57.250Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:57.751Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:58.253Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:58.754Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:59.256Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:08:59.757Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:00.259Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:00.760Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:01.262Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:01.763Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:02.264Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:04.171Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:04.174Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:04.227Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:04.329Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:04.483Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:04.685Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:04.938Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:05.240Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:05.592Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:05.994Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:06.445Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:06.948Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:07.450Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:07.952Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:08.454Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:09.411Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:09.414Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:09.467Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:09.570Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:09.721Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:09.923Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:10.818Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:10.822Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:10.874Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:10.977Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:11.130Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:11.332Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:11.585Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:11.886Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:12.238Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:12.641Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:14.318Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:14.327Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:14.381Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:14.486Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:14.638Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:14.840Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:15.093Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:15.395Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:15.747Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:16.149Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:16.601Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:17.103Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:17.605Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:18.107Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:18.608Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:19.110Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:19.612Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:20.113Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:20.615Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:21.117Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:21.618Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:22.120Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:22.622Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:23.123Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:23.624Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:24.126Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:24.628Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:25.129Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:25.631Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:26.133Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:26.635Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:27.137Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:27.640Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:28.142Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:28.645Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:29.147Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:29.649Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:30.150Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:30.651Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:31.153Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:31.654Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:32.155Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:32.657Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:33.158Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:33.659Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:34.160Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:34.662Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:35.164Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:35.665Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:36.166Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:36.668Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:37.169Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:37.670Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:38.171Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:38.672Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:39.174Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:39.676Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:40.178Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:40.679Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:41.180Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:41.681Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:42.183Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:42.684Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:43.185Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:43.687Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:44.188Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:44.690Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:45.191Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:45.693Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:46.194Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:46.696Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:47.197Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:47.699Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:48.200Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:48.702Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:49.203Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:49.705Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:50.206Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:50.707Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:51.208Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:51.710Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:52.211Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:52.712Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:53.214Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:53.715Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:54.216Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:54.718Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:55.219Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:55.721Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:56.222Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:56.723Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:57.225Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:57.726Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:58.227Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:58.729Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:59.230Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:09:59.732Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:00.233Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:00.735Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:01.236Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:01.738Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:02.239Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:32.545Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:32.549Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:32.602Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:32.705Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:32.858Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:33.062Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:33.315Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:33.617Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:10:35.533Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:35.601Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:35.719Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:35.889Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:36.103Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:36.375Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:36.697Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:37.055Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:37.464Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:37.923Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:38.431Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:38.994Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:39.553Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:40.114Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:40.677Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:41.238Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:41.798Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:42.359Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:42.917Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:43.488Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:44.059Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:44.622Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:45.206Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:45.766Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:46.328Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:46.887Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:47.444Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:48.005Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:48.575Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:49.134Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:49.692Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:50.251Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:50.812Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:51.372Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:51.930Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:52.491Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:53.048Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:53.609Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:54.168Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:54.728Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:55.289Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:55.849Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:56.406Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:56.970Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:57.539Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:58.096Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:58.658Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:10:59.218Z] [error]: Redis error: Error: WRONGPASS invalid username-password pair
+[2025-05-31T06:15:47.521Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:47.536Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:47.592Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:47.696Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:47.849Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:48.052Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:48.306Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:48.608Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:48.962Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:49.365Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:49.816Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:50.318Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:50.820Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:51.321Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:51.823Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:52.324Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:52.826Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:53.327Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:53.829Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:54.330Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:54.831Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:55.333Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:55.834Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:56.336Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:56.838Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:57.340Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:57.842Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:59.299Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:59.313Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:59.367Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:59.470Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:59.623Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:15:59.827Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:00.081Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:00.382Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:00.735Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:01.137Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:01.588Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:02.090Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:02.591Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:03.093Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:03.595Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:04.097Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:04.598Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:05.101Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:05.602Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:06.104Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:06.605Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:07.107Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:07.608Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:08.110Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:08.611Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:09.113Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:09.615Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:10.117Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:10.620Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:11.122Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:11.624Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:12.126Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:12.628Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:13.130Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:13.632Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:14.134Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:14.635Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:15.137Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:15.639Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:16.141Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:16.643Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:17.146Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:17.648Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:18.150Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:19.414Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:19.417Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:19.469Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:19.571Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:19.723Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:19.924Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:20.176Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:20.477Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:20.829Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:21.230Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:21.681Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:22.183Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:22.685Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:23.187Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:23.689Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:24.190Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:24.692Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:25.194Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:25.696Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:26.197Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:26.700Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:27.202Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:27.703Z] [error]: Redis error: Error: Failed to connect
+[2025-05-31T06:16:28.205Z] [error]: Redis error: Error: Failed to connect

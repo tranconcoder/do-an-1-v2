@@ -48,6 +48,13 @@ paymentRoute.get(
  */
 paymentRoute.get(
     '/vnpay-ipn',
+    (req, res, next) => {
+        console.log({
+            query: req.query,
+            body: req.body,
+        })
+        next();
+    },
     validateVNPayReturn,
     catchError(paymentController.handleVNPayIPN as any)
 );
