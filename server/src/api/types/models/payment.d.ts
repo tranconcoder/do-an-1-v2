@@ -1,3 +1,5 @@
+import "";
+
 declare global {
     namespace model {
         namespace payment {
