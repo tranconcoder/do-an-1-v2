@@ -4,46 +4,8 @@ import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error
 import orderModel from '@/models/order.model.js';
 import { OrderStatus } from '@/enums/order.enum.js';
 import paymentModel from '@/models/payment.model.js';
-import { ignoreLogger, VNPay, VnpLocale, ProductCode, dateFormat, VnpCurrCode, Bank } from 'vnpay';
 
 export default new (class PaymentService {
-    private static vnpay = new VNPay({
-        tmnCode: 'FNAX6Q4P',
-        secureSecret: 'ZVXPMEMXF4K5UU246CAA3DNO2DCV6QSR',
-        vnpayHost: 'https://sandbox.vnpayment.vn',
-        queryDrAndRefundHost: 'https://sandbox.vnpayment.vn', // tùy chọn, trường hợp khi url của querydr và refund khác với url khởi tạo thanh toán (thường sẽ sử dụng cho production)
-
-        testMode: true, // tùy chọn, ghi đè vnpayHost thành sandbox nếu là true
-        hashAlgorithm: 'SHA512' as const, // tùy chọn
-
-        /**
-         * Bật/tắt ghi log
-         * Nếu enableLog là false, loggerFn sẽ không được sử dụng trong bất kỳ phương thức nào
-         */
-        enableLog: true, // tùy chọn
-
-        /**
-         * Hàm `loggerFn` sẽ được gọi để ghi log khi enableLog là true
-         * Mặc định, loggerFn sẽ ghi log ra console
-         * Bạn có thể cung cấp một hàm khác nếu muốn ghi log vào nơi khác
-         *
-         * `ignoreLogger` là một hàm không làm gì cả
-         */
-        loggerFn: ignoreLogger, // tùy chọn
-
-        /**
-         * Tùy chỉnh các đường dẫn API của VNPay
-         * Thường không cần thay đổi trừ khi:
-         * - VNPay cập nhật đường dẫn của họ
-         * - Có sự khác biệt giữa môi trường sandbox và production
-         */
-        endpoints: {
-            paymentEndpoint: 'paymentv2/vpcpay.html',
-            queryDrRefundEndpoint: 'merchant_webapi/api/transaction',
-            getBankListEndpoint: 'qrpayauth/api/merchant/get_bank_list',
-        }, // tùy chọn
-    });
-
     private readonly vnpayConfig = {
         tmnCode: 'FNAX6Q4P',
         hashSecret: 'ZVXPMEMXF4K5UU246CAA3DNO2DCV6QSR',
@@ -52,6 +14,26 @@ export default new (class PaymentService {
         ipnUrl: 'https://do-an-1-v2.onrender.com/payment/vnpay-ipn'
     };
 
+    private sortObject(obj: any) {
+        const sorted: any = {};
+        const str = [];
+
+        // Get all keys and sort them alphabetically
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                str.push(key);
+            }
+        }
+        str.sort();
+
+        // Create sorted object
+        for (let key = 0; key < str.length; key++) {
+            sorted[str[key]] = obj[str[key]];
+        }
+
+        console.log('Sorted parameters:', sorted);
+        return sorted;
+    }
 
     private sortParams(obj: any) {
         const sortedObj: any = Object.entries(obj)
@@ -94,11 +76,27 @@ export default new (class PaymentService {
         return signature;
     }
 
+    private createHmacSha512(key: string, data: string): string {
+        return crypto.createHmac('sha512', key).update(data, 'utf8').digest('hex');
+    }
+
+    private formatDate(date: Date): string {
+        // Format: yyyyMMddHHmmss (GMT+7)
+        const vietnamTime = new Date(date.getTime() + (7 * 60 * 60 * 1000));
+        const year = vietnamTime.getUTCFullYear();
+        const month = String(vietnamTime.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(vietnamTime.getUTCDate()).padStart(2, '0');
+        const hours = String(vietnamTime.getUTCHours()).padStart(2, '0');
+        const minutes = String(vietnamTime.getUTCMinutes()).padStart(2, '0');
+        const seconds = String(vietnamTime.getUTCSeconds()).padStart(2, '0');
+
+        return `${year}${month}${day}${hours}${minutes}${seconds}`;
+    }
 
     private formatVNPayAmount(amount: number): number {
         // VNPay requires amount in smallest currency unit (VND cents)
         // Convert to integer and ensure no decimal places
-        const vnpAmount = Math.round(amount);
+        const vnpAmount = Math.round(Number(amount) * 100);
 
         // Additional validation
         if (isNaN(vnpAmount) || vnpAmount <= 0) {
@@ -115,7 +113,7 @@ export default new (class PaymentService {
         orderInfo,
         ipAddr,
         locale = 'vn',
-        bankCode = ""
+        bankCode = ''
     }: {
         orderId: string;
         amount: number;
@@ -137,26 +135,55 @@ export default new (class PaymentService {
             });
         }
 
-        /* ------------------- Generate transaction reference ------------------- */
-        const txnRef = `${orderId}-${Date.now()}`;
+        const date = new Date();
+        const createDate = this.formatDate(date);
 
-        /* ------------------- Set expiration date ------------------- */
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
+        // Create expiry date (15 minutes later)
+        const expireDate = this.formatDate(new Date(date.getTime() + 15 * 60 * 1000));
 
-        const paymentUrl = PaymentService.vnpay.buildPaymentUrl({
+        // Generate transaction reference
+        const txnRef = orderId;
+
+        let vnpParams: any = {
+            vnp_Version: '2.1.0',
+            vnp_Command: 'pay',
+            vnp_TmnCode: this.vnpayConfig.tmnCode,
             vnp_Amount: this.formatVNPayAmount(amount),
+            vnp_CreateDate: createDate,
+            vnp_CurrCode: 'VND',
             vnp_IpAddr: ipAddr,
-            vnp_TxnRef: txnRef,
-            vnp_OrderInfo: orderInfo,
-            vnp_OrderType: ProductCode.Other,
+            vnp_Locale: locale,
+            vnp_OrderInfo: "Chuyen khoan qua VNPAY",
+            vnp_OrderType: 'other',
             vnp_ReturnUrl: this.vnpayConfig.returnUrl,
-            vnp_Locale: VnpLocale.VN,
-            vnp_CreateDate: dateFormat(new Date()),
-            vnp_ExpireDate: dateFormat(tomorrow),
-            vnp_BankCode: bankCode || "VNPAYQR",
-            vnp_CurrCode: VnpCurrCode.VND,
-        });
+            vnp_TxnRef: txnRef,
+            vnp_ExpireDate: expireDate,
+            vnp_IpnUrl: this.vnpayConfig.ipnUrl
+        };
+
+        // Add bank code if provided
+        if (bankCode && bankCode !== '') {
+            // vnpParams['vnp_BankCode'] = "MSCBVNVX";
+        }
+
+        console.log('VNPay Params before sorting:', vnpParams);
+
+        // Generate signature using the improved method
+        vnpParams = this.sortParams(vnpParams);
+        console.log('VNPay Params after sorting:', vnpParams);
+        const signature = this.createVNPaySignature(vnpParams, this.vnpayConfig.hashSecret);
+
+        // Create final URL using URLSearchParams (like working code)
+        const urlParams = new URLSearchParams();
+        for (let [key, value] of Object.entries(vnpParams)) {
+            urlParams.append(key, String(value));
+        }
+        urlParams.append('vnp_SecureHash', signature);
+
+        const paymentUrl = this.vnpayConfig.url + '?' + urlParams.toString();
+        console.log("VNPay Params after signature:", { ...vnpParams, vnp_SecureHash: signature });
+
+        console.log('Final payment URL:', paymentUrl);
 
         /* ------------------- Create payment record ------------------- */
         await paymentModel.create({
@@ -171,8 +198,8 @@ export default new (class PaymentService {
                 vnp_TxnRef: txnRef,
                 vnp_Amount: this.formatVNPayAmount(amount),
                 vnp_OrderInfo: orderInfo,
-                vnp_CreateDate: dateFormat(new Date()),
-                vnp_ExpireDate: dateFormat(tomorrow)
+                vnp_CreateDate: createDate,
+                vnp_ExpireDate: expireDate
             }
         });
 
