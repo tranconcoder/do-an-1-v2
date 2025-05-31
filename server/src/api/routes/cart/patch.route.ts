@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import catchError from '@/middlewares/catchError.middleware.js';
-import validateRequestBody from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import { updateCart, validateUpdateCart } from '@/validations/zod/cart.zod.js';
 import { generateValidateWithParamsId } from '@/middlewares/zod.middleware.js';

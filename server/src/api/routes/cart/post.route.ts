@@ -1,8 +1,5 @@
 import { Router } from 'express';
 import catchError from '@/middlewares/catchError.middleware.js';
-import validateRequestBody, {
-    validateRequestParams
-} from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import { addToCartSchema, updateCart, validateAddToCart } from '@/validations/zod/cart.zod.js';
 import cartController from '@/controllers/cart.controller.js';
