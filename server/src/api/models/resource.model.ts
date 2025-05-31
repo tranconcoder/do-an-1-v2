@@ -20,7 +20,7 @@ export const resourceSchema = new Schema<model.rbac.ResourceSchema>(
 );
 
 resourceSchema.pre('save', function (next) {
-    this.resource_slug = slugify.default(this.resource_name, { lower: true, locale: 'vi' });
+    this.resource_slug = slugify(this.resource_name, { lower: true, locale: 'vi' });
     next();
 });
 
