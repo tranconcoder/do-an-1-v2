@@ -3,6 +3,7 @@ import './src/api/helpers/loadEnv.helper';
 import jsonfile from 'jsonfile';
 
 import https from 'https';
+import http from 'http';
 import fs from 'fs/promises';
 import child_process from 'child_process';
 
@@ -33,15 +34,15 @@ if (NODE_ENV === 'development') {
     });
 }
 
-const server = https
+const server = http
     .createServer(
-        {
-            key: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.pem')),
-            cert: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.cert'))
-        },
+        // {
+        //     key: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.pem')),
+        //     cert: await fs.readFile(path.join(import.meta.dirname, './src/api/assets/ssl/key.cert'))
+        // },
         app
     )
-    .listen(PORT, HOST, () => {
+    .listen(Number(PORT), HOST, () => {
         console.log(`Server is running at ${BASE_URL}`);
     });
 
