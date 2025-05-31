@@ -49,7 +49,7 @@ export default new (class PaymentService {
         hashSecret: 'ZVXPMEMXF4K5UU246CAA3DNO2DCV6QSR',
         url: 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html',
         returnUrl: 'https://aliconcon.tail61bbbd.ts.net:3000/payment/vnpay-return',
-        ipnUrl: 'https://3.107.91.101:4000/payment/vnpay-ipn'
+        ipnUrl: 'https://do-an-1-v2.onrender.com/payment/vnpay-ipn'
     };
 
 

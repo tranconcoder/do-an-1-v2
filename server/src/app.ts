@@ -35,6 +35,7 @@ app.set('trust proxy', true);
 app.use(express.json());
 app.use(express.raw());
 app.use(express.text());
+
 // Parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
 
@@ -43,6 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 /* ------------------------------------------------------ */
 // Morgan
 app.use(morgan('dev'));
+
 // Helmet for security
 app.use(
     helmet({
@@ -50,6 +52,7 @@ app.use(
         crossOriginEmbedderPolicy: false
     })
 );
+
 // CORS
 app.use(
     cors({
