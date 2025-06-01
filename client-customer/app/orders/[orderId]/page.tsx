@@ -12,7 +12,10 @@ import {
     CreditCard,
     Store,
     Phone,
-    Mail
+    Mail,
+    XCircle,
+    Clock,
+    Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -21,6 +24,16 @@ import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 import { mediaService } from '@/lib/services/api/mediaService';
 import orderService, { OrderHistoryItem } from '@/lib/services/api/orderService';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle
+} from '@/components/ui/alert-dialog';
 
 interface OrderDetailPageProps {}
 
@@ -69,6 +82,10 @@ const getPaymentTypeText = (type: string) => {
     }
 };
 
+const formatPrice = (price: number) => {
+    return price.toLocaleString('vi-VN') + '₫';
+};
+
 export default function OrderDetailPage({}: OrderDetailPageProps) {
     const router = useRouter();
     const params = useParams();
@@ -77,6 +94,11 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
     const [order, setOrder] = useState<OrderHistoryItem | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isCancelling, setIsCancelling] = useState(false);
+
+    // Cancel dialog states
+    const [showCancelDialog, setShowCancelDialog] = useState(false);
+    const [cancelCountdown, setCancelCountdown] = useState(5);
+    const [canCancel, setCanCancel] = useState(false);
 
     useEffect(() => {
         const fetchOrderDetail = async () => {
@@ -98,23 +120,67 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
         fetchOrderDetail();
     }, [orderId, router]);
 
+    // Handle countdown for cancel dialog
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+
+        if (showCancelDialog && cancelCountdown > 0) {
+            interval = setInterval(() => {
+                setCancelCountdown((prev) => {
+                    if (prev <= 1) {
+                        setCanCancel(true);
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+        }
+
+        return () => {
+            if (interval) {
+                clearInterval(interval);
+            }
+        };
+    }, [showCancelDialog, cancelCountdown]);
+
     const handleCancelOrder = async () => {
-        if (!order || order.order_status !== 'pending') return;
+        if (!order) return;
 
         try {
             setIsCancelling(true);
-            await orderService.cancelOrder(order._id);
-            toast.success('Đơn hàng đã được hủy thành công');
+            const response = await orderService.cancelOrder(order._id);
+
+            // Check if refund information is available
+            const refundInfo = response.metadata.refund_info;
+
+            toast.success(
+                refundInfo
+                    ? `Đơn hàng đã được hủy thành công. Hoàn tiền ${formatPrice(
+                          refundInfo.refund_amount
+                      )} đang được xử lý.`
+                    : 'Đơn hàng đã được hủy thành công.'
+            );
+
+            // Close dialog and reset state
+            setShowCancelDialog(false);
+            setCancelCountdown(5);
+            setCanCancel(false);
 
             // Refresh order data
-            const response = await orderService.getOrderById(orderId);
-            setOrder(response.metadata);
+            const updatedResponse = await orderService.getOrderById(orderId);
+            setOrder(updatedResponse.metadata);
         } catch (error: any) {
             console.error('Error cancelling order:', error);
             toast.error('Không thể hủy đơn hàng');
         } finally {
             setIsCancelling(false);
         }
+    };
+
+    const handleCancelClick = () => {
+        setShowCancelDialog(true);
+        setCancelCountdown(5);
+        setCanCancel(false);
     };
 
     if (isLoading) {
@@ -197,7 +263,7 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
                                     {order.order_status === 'pending' && (
                                         <Button
                                             variant="outline"
-                                            onClick={handleCancelOrder}
+                                            onClick={handleCancelClick}
                                             disabled={isCancelling}
                                             className="text-red-600 border-red-600 hover:bg-red-50"
                                         >
@@ -261,7 +327,10 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
                                                     </p>
                                                 </div>
                                                 <div className="text-right">
-                                                    <Badge variant="outline" className="text-purple-600 border-purple-300">
+                                                    <Badge
+                                                        variant="outline"
+                                                        className="text-purple-600 border-purple-300"
+                                                    >
                                                         {warehouse.distance_km} km
                                                     </Badge>
                                                 </div>
@@ -550,6 +619,83 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
                     </div>
                 </div>
             </div>
+
+            {/* Cancel Dialog */}
+            {showCancelDialog && order && (
+                <AlertDialog
+                    open={showCancelDialog}
+                    onOpenChange={(open) => {
+                        if (!open) {
+                            setShowCancelDialog(false);
+                            setCancelCountdown(5);
+                            setCanCancel(false);
+                        }
+                    }}
+                >
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle className="flex items-center gap-2">
+                                <XCircle className="h-5 w-5 text-red-500" />
+                                Xác nhận hủy đơn hàng
+                            </AlertDialogTitle>
+                            <AlertDialogDescription className="space-y-2">
+                                <p>Bạn có chắc chắn muốn hủy đơn hàng này không?</p>
+                                <div className="bg-gray-50 p-3 rounded-lg space-y-1">
+                                    <p className="font-medium">
+                                        Mã đơn hàng: #{(order._id || '').slice(-8) || 'N/A'}
+                                    </p>
+                                    <p className="text-sm text-gray-600">
+                                        Shop: {order.shop_name || 'Unknown Shop'}
+                                    </p>
+                                    <p className="text-sm text-gray-600">
+                                        Tổng tiền: {formatPrice(order.price_to_payment || 0)}
+                                    </p>
+                                </div>
+                                <p className="text-sm text-red-600">
+                                    ⚠️ Hành động này không thể hoàn tác.
+                                </p>
+                                {!canCancel && (
+                                    <p className="text-sm text-blue-600 bg-blue-50 p-2 rounded">
+                                        🕐 Vui lòng đợi {cancelCountdown} giây để xác nhận hủy đơn
+                                        hàng.
+                                    </p>
+                                )}
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel
+                                onClick={() => {
+                                    setShowCancelDialog(false);
+                                    setCancelCountdown(5);
+                                    setCanCancel(false);
+                                }}
+                                disabled={isCancelling}
+                            >
+                                Không, giữ đơn hàng
+                            </AlertDialogCancel>
+                            <AlertDialogAction
+                                onClick={handleCancelOrder}
+                                disabled={isCancelling || !canCancel}
+                                className="bg-red-600 hover:bg-red-700 disabled:bg-gray-400"
+                            >
+                                {isCancelling ? (
+                                    <>
+                                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                        Đang hủy...
+                                    </>
+                                ) : !canCancel ? (
+                                    <>
+                                        <Clock className="h-4 w-4 mr-2" />
+                                        Chờ {cancelCountdown}s
+                                    </>
+                                ) : (
+                                    'Có, hủy đơn hàng'
+                                )}
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+            )}
         </div>
     );
 }

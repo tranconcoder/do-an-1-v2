@@ -93,7 +93,7 @@ export default function OrderHistoryPage() {
     const [orders, setOrders] = useState<OrderHistoryItem[]>([]);
     const [pagination, setPagination] = useState<PaginationInfo | null>(null);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState('all');
+    const [activeTab, setActiveTab] = useState('pending');
     const [cancellingOrderId, setCancellingOrderId] = useState<string | null>(null);
     const [showCancelDialog, setShowCancelDialog] = useState(false);
     const [orderToCancel, setOrderToCancel] = useState<OrderHistoryItem | null>(null);
@@ -106,6 +106,7 @@ export default function OrderHistoryPage() {
 
     // Filter and search states
     const [searchTerm, setSearchTerm] = useState('');
+    const [showSearchInput, setShowSearchInput] = useState(false);
     const [paymentTypeFilter, setPaymentTypeFilter] = useState('all');
     const [sortBy, setSortBy] = useState<'created_at' | 'updated_at' | 'price_to_payment'>(
         'created_at'
@@ -262,6 +263,7 @@ export default function OrderHistoryPage() {
 
     const clearFilters = () => {
         setSearchTerm('');
+        setShowSearchInput(false);
         setPaymentTypeFilter('all');
         setDateFrom('');
         setDateTo('');
@@ -716,16 +718,101 @@ export default function OrderHistoryPage() {
                     <p className="text-gray-600">Theo dõi và quản lý các đơn hàng của bạn</p>
                 </div>
 
-                {/* Filters and Search */}
-                <Card className="mb-6">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Filter className="h-5 w-5" />
-                            Bộ lọc và tìm kiếm
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        {/* Search */}
+                {/* Compact Filters */}
+                <div className="mb-6 flex flex-wrap items-center gap-3 p-4 bg-white rounded-lg border">
+                    {/* Search Toggle Button */}
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowSearchInput(!showSearchInput)}
+                        className="flex items-center gap-2"
+                    >
+                        <Search className="h-4 w-4" />
+                        Tìm kiếm
+                    </Button>
+
+                    {/* Payment Type Filter */}
+                    <Select value={paymentTypeFilter} onValueChange={setPaymentTypeFilter}>
+                        <SelectTrigger className="w-48">
+                            <SelectValue placeholder="Phương thức thanh toán" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">Tất cả phương thức</SelectItem>
+                            <SelectItem value="cod">COD</SelectItem>
+                            <SelectItem value="vnpay">VNPay</SelectItem>
+                        </SelectContent>
+                    </Select>
+
+                    {/* Date From */}
+                    <Input
+                        type="date"
+                        placeholder="Từ ngày"
+                        value={dateFrom}
+                        onChange={(e) => setDateFrom(e.target.value)}
+                        className="w-40"
+                    />
+
+                    {/* Date To */}
+                    <Input
+                        type="date"
+                        placeholder="Đến ngày"
+                        value={dateTo}
+                        onChange={(e) => setDateTo(e.target.value)}
+                        className="w-40"
+                    />
+
+                    {/* Sort */}
+                    <div className="flex gap-1">
+                        <Select value={sortBy} onValueChange={(value: any) => setSortBy(value)}>
+                            <SelectTrigger className="w-36">
+                                <SelectValue placeholder="Sắp xếp" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {SORT_OPTIONS.map((option) => (
+                                    <SelectItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <Button variant="outline" size="sm" onClick={handleSortToggle}>
+                            {sortOrder === 'asc' ? (
+                                <SortAsc className="h-4 w-4" />
+                            ) : (
+                                <SortDesc className="h-4 w-4" />
+                            )}
+                        </Button>
+                    </div>
+
+                    {/* Clear Filters */}
+                    <Button variant="outline" size="sm" onClick={clearFilters}>
+                        <RefreshCw className="h-4 w-4 mr-1" />
+                        Xóa bộ lọc
+                    </Button>
+
+                    {/* Items per page */}
+                    <div className="flex items-center gap-2 ml-auto">
+                        <span className="text-sm text-gray-600">Hiển thị:</span>
+                        <Select
+                            value={itemsPerPage.toString()}
+                            onValueChange={(value) => setItemsPerPage(parseInt(value))}
+                        >
+                            <SelectTrigger className="w-16">
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="5">5</SelectItem>
+                                <SelectItem value="10">10</SelectItem>
+                                <SelectItem value="20">20</SelectItem>
+                                <SelectItem value="50">50</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
+
+                {/* Collapsible Search */}
+                {showSearchInput && (
+                    <div className="mb-6">
                         <div className="relative">
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                             <Input
@@ -733,100 +820,15 @@ export default function OrderHistoryPage() {
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="pl-10"
+                                autoFocus
                             />
                         </div>
-
-                        {/* Filter Row */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {/* Payment Type Filter */}
-                            <Select value={paymentTypeFilter} onValueChange={setPaymentTypeFilter}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Phương thức thanh toán" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="all">Tất cả</SelectItem>
-                                    <SelectItem value="cod">COD</SelectItem>
-                                    <SelectItem value="vnpay">VNPay</SelectItem>
-                                </SelectContent>
-                            </Select>
-
-                            {/* Date From */}
-                            <Input
-                                type="date"
-                                placeholder="Từ ngày"
-                                value={dateFrom}
-                                onChange={(e) => setDateFrom(e.target.value)}
-                            />
-
-                            {/* Date To */}
-                            <Input
-                                type="date"
-                                placeholder="Đến ngày"
-                                value={dateTo}
-                                onChange={(e) => setDateTo(e.target.value)}
-                            />
-
-                            {/* Sort */}
-                            <div className="flex gap-2">
-                                <Select
-                                    value={sortBy}
-                                    onValueChange={(value: any) => setSortBy(value)}
-                                >
-                                    <SelectTrigger className="flex-1">
-                                        <SelectValue placeholder="Sắp xếp theo" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {SORT_OPTIONS.map((option) => (
-                                            <SelectItem key={option.value} value={option.value}>
-                                                {option.label}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                                <Button variant="outline" size="icon" onClick={handleSortToggle}>
-                                    {sortOrder === 'asc' ? (
-                                        <SortAsc className="h-4 w-4" />
-                                    ) : (
-                                        <SortDesc className="h-4 w-4" />
-                                    )}
-                                </Button>
-                            </div>
-                        </div>
-
-                        {/* Clear Filters */}
-                        <div className="flex justify-between items-center">
-                            <Button variant="outline" onClick={clearFilters}>
-                                Xóa bộ lọc
-                            </Button>
-                            <div className="flex items-center gap-2">
-                                <span className="text-sm text-gray-600">Hiển thị:</span>
-                                <Select
-                                    value={itemsPerPage.toString()}
-                                    onValueChange={(value) => setItemsPerPage(parseInt(value))}
-                                >
-                                    <SelectTrigger className="w-20">
-                                        <SelectValue />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="5">5</SelectItem>
-                                        <SelectItem value="10">10</SelectItem>
-                                        <SelectItem value="20">20</SelectItem>
-                                        <SelectItem value="50">50</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                                <span className="text-sm text-gray-600">đơn hàng</span>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                )}
 
                 {/* Tabs */}
                 <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-                    <TabsList className="grid w-full grid-cols-7 mb-6">
-                        <TabsTrigger value="all" className="flex items-center space-x-2">
-                            <Package className="h-4 w-4" />
-                            <span>Tất cả</span>
-                        </TabsTrigger>
+                    <TabsList className="grid w-full grid-cols-6 mb-6">
                         <TabsTrigger value="pending" className="flex items-center space-x-2">
                             <Clock className="h-4 w-4" />
                             <span>Chờ xử lý</span>
@@ -858,7 +860,6 @@ export default function OrderHistoryPage() {
 
                     {/* Tab Contents */}
                     {[
-                        'all',
                         'pending',
                         'pending_payment',
                         'delivering',
@@ -879,11 +880,9 @@ export default function OrderHistoryPage() {
                                         Không có đơn hàng nào
                                     </h3>
                                     <p className="text-gray-500 mb-6">
-                                        {status === 'all'
-                                            ? 'Bạn chưa có đơn hàng nào. Hãy bắt đầu mua sắm!'
-                                            : `Không có đơn hàng nào ở trạng thái "${
-                                                  getOrderStatusInfo(status).label
-                                              }"`}
+                                        {`Không có đơn hàng nào ở trạng thái "${
+                                            getOrderStatusInfo(status).label
+                                        }"`}
                                     </p>
                                     <Button onClick={() => router.push('/products')}>
                                         <ShoppingBag className="h-4 w-4 mr-2" />

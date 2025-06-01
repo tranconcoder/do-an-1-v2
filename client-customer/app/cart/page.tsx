@@ -489,7 +489,11 @@ export default function CartPage() {
                     <div className="md:col-span-2 space-y-6">
                         {/* Checkbox chọn tất cả */}
                         <div className="flex items-center gap-3 p-4 bg-white rounded-lg shadow-sm border">
-                            <Checkbox checked={isAllActive} onCheckedChange={handleSelectAll} />
+                            <Checkbox
+                                checked={isAllActive}
+                                onCheckedChange={handleSelectAll}
+                                className="h-5 w-5 border-2 border-blue-400 data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-blue-500 data-[state=checked]:to-purple-600 data-[state=checked]:border-blue-500 focus-visible:ring-blue-500"
+                            />
                             <span className="font-medium text-gray-700">
                                 Chọn tất cả ({cartItems.length} sản phẩm)
                             </span>
@@ -503,18 +507,22 @@ export default function CartPage() {
                                         onCheckedChange={(checked) =>
                                             handleSelectShop(shopGroup.items, checked as boolean)
                                         }
-                                        className="mr-2"
+                                        className="mr-2 h-5 w-5 border-2 border-blue-400 data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-blue-500 data-[state=checked]:to-purple-600 data-[state=checked]:border-blue-500 focus-visible:ring-blue-500"
                                     />
-                                    {shopGroup.shopLogo && (
-                                        <Image
-                                            src={mediaService.getMediaUrl(shopGroup.shopLogo)}
-                                            alt={`${shopGroup.shopName} logo`}
-                                            width={32}
-                                            height={32}
-                                            objectFit="cover"
-                                            className="rounded-full"
-                                        />
-                                    )}
+                                    <div className="w-8 h-8 rounded-md overflow-hidden bg-gray-100 flex items-center justify-center flex-shrink-0">
+                                        {shopGroup.shopLogo ? (
+                                            <Image
+                                                src={mediaService.getMediaUrl(shopGroup.shopLogo)}
+                                                alt={`${shopGroup.shopName} logo`}
+                                                width={32}
+                                                height={32}
+                                                objectFit="cover"
+                                                className="w-full h-full object-cover"
+                                            />
+                                        ) : (
+                                            <Store className="h-5 w-5 text-gray-400" />
+                                        )}
+                                    </div>
                                     <h2 className="text-xl font-semibold text-gray-700">
                                         Shop: {shopGroup.shopName}
                                     </h2>
@@ -584,7 +592,11 @@ export default function CartPage() {
                                 {shopGroup.items.map((item) => (
                                     <Card
                                         key={item.sku_id}
-                                        className="p-4 shadow-md rounded-lg hover:shadow-lg transition-shadow"
+                                        className={`p-4 shadow-md rounded-lg hover:shadow-lg transition-all duration-200 ${
+                                            activeItems.includes(item.sku_id)
+                                                ? 'border-2 border-blue-400 shadow-blue-200 bg-gradient-to-r from-blue-50 to-purple-50'
+                                                : 'border border-gray-200'
+                                        }`}
                                     >
                                         <div className="flex flex-col sm:flex-row items-center gap-4">
                                             <div className="flex items-center gap-3">
@@ -596,6 +608,7 @@ export default function CartPage() {
                                                             checked as boolean
                                                         )
                                                     }
+                                                    className="h-5 w-5 border-2 border-blue-400 data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-blue-500 data-[state=checked]:to-purple-600 data-[state=checked]:border-blue-500 focus-visible:ring-blue-500"
                                                 />
                                                 <div className="relative h-24 w-24 sm:h-28 sm:w-28 rounded-md overflow-hidden flex-shrink-0">
                                                     <Image
@@ -612,13 +625,29 @@ export default function CartPage() {
                                             <div className="flex-grow text-center sm:text-left">
                                                 <Link
                                                     href={`/products/${item.spu_id}?sku=${item.sku_id}`}
-                                                    className="hover:text-blue-600"
+                                                    className={`hover:text-blue-600 ${
+                                                        activeItems.includes(item.sku_id)
+                                                            ? 'text-blue-700'
+                                                            : ''
+                                                    }`}
                                                 >
-                                                    <h3 className="text-base font-semibold text-gray-800">
+                                                    <h3
+                                                        className={`text-base font-semibold ${
+                                                            activeItems.includes(item.sku_id)
+                                                                ? 'text-blue-800'
+                                                                : 'text-gray-800'
+                                                        }`}
+                                                    >
                                                         {item.product_name}
                                                     </h3>
                                                 </Link>
-                                                <p className="text-sm font-bold text-blue-600 mt-1">
+                                                <p
+                                                    className={`text-sm font-bold mt-1 ${
+                                                        activeItems.includes(item.sku_id)
+                                                            ? 'text-blue-600'
+                                                            : 'text-blue-600'
+                                                    }`}
+                                                >
                                                     {item.sku_price.toLocaleString('vi-VN')}₫
                                                 </p>
                                             </div>
@@ -705,8 +734,8 @@ export default function CartPage() {
                         {activeItems.length > 0 && (
                             <div className="mt-4 p-3 bg-white rounded-lg border">
                                 <div className="flex items-center gap-2 mb-2">
-                                    <MapPin className="h-4 w-4 text-green-600" />
-                                    <span className="text-sm font-medium text-green-700">
+                                    <MapPin className="h-4 w-4 text-blue-600" />
+                                    <span className="text-sm font-medium text-blue-700">
                                         Địa chỉ giao hàng
                                     </span>
                                 </div>
@@ -857,7 +886,7 @@ export default function CartPage() {
                         <CardFooter className="mt-6 p-0">
                             <Button
                                 onClick={handleCheckout}
-                                className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-base py-3"
+                                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white text-base py-3 shadow-lg hover:shadow-blue-200 transition-all duration-200"
                                 disabled={
                                     activeItems.length === 0 || !selectedAddressId || isCheckingOut
                                 }

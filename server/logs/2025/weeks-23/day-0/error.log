@@ -153,3 +153,34 @@
 [2025-06-01T03:05:58.630Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-01T03:06:44.113Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-01T03:06:58.246Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:09:40.386Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-01T03:10:06.545Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-01T03:10:13.131Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-06-01T03:10:26.165Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:12:09.793Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:12:16.258Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:12:21.791Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:12:23.276Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:12:25.102Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:12:56.916Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:14:28.743Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:14:45.338Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:15:36.069Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:15:36.667Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:15:42.334Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:16:30.733Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:16:45.743Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:17:06.440Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:17:27.072Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:17:28.198Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:17:44.476Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:17:46.415Z] [error]: HIDE::404::NotFound::Not found file!::
