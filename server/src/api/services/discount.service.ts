@@ -29,7 +29,7 @@ import skuModel from '@/models/sku.model.js';
 import skuService from './sku.service.js';
 import { getAllSKUAggregate } from '@/utils/sku.util.js';
 import { ITEM_PER_PAGE } from '@/configs/server.config.js';
-import { checkSKUListIsAvailable, findSKU } from '@/models/repository/sku/index.js';
+import { checkSKUListIsAvailable } from '@/models/repository/sku/index.js';
 import { findOneShop, findShopById } from '@/models/repository/shop/index.js';
 
 export default class DiscountService {
@@ -289,7 +289,6 @@ export default class DiscountService {
             throw new NotFoundErrorResponse({
                 message: 'Not found discount or discount is invalid!'
             });
-        console.log("DISCOUNT TEST:::", discount);
 
         const discountSKUs = discount.discount_skus.map((x) => x.toString());
 
@@ -304,20 +303,19 @@ export default class DiscountService {
             });
 
         /* ---------------------- Get products ---------------------- */
-        const foundSKUs = await findSKU({
-            query: {
-                _id: { $in: skuIds },
-                is_deleted: false
-            },
-            options: { populate: ['sku_product'] }
-        });
+        const foundSKUs = await skuModel
+            .find({
+                _id: { $in: skuIds }
+            })
+            .populate('sku_product')
+            .lean();
         if (foundSKUs.length !== skuIds.length)
             throw new BadRequestErrorResponse({ message: 'Get products failed!' });
 
         /* ---------------------- Handle calc  ---------------------- */
         let totalPrice = 0;
         let totalDiscount = 0;
-        let totalProductPriceToDiscount = 0; // To check min to apply product
+        let totalProductPriceToDiscount = 0;
 
         await Promise.all(
             foundSKUs.map(async (sku) => {
@@ -520,4 +518,90 @@ export default class DiscountService {
             success: await deleteDiscount(discountId)
         };
     };
-}
+
+    /* ---------------------------------------------------------- */
+    /*                           Toggle                           */
+    /* ---------------------------------------------------------- */
+
+    /* ------------------- Toggle publish status ------------------- */
+    public static toggleDiscountPublish = async ({
+        discountId,
+        userId,
+        is_publish
+    }: {
+        discountId: string;
+        userId: string;
+        is_publish: boolean;
+    }) => {
+        /* --------------- Check shop owns the discount --------------- */
+        const shop = await findOneShop({
+            query: { shop_userId: userId },
+            options: { lean: true }
+        });
+        if (!shop) {
+            throw new NotFoundErrorResponse({ message: 'Shop not found!' });
+        }
+
+        const discount = await discountModel.findOne({
+            _id: discountId,
+            discount_shop: shop._id
+        });
+        if (!discount) {
+            throw new ForbiddenErrorResponse({ message: 'Not permission to update discount!' });
+        }
+
+        /* -------------- Update discount publish status -------------- */
+        const updatedDiscount = await discountModel.findByIdAndUpdate(
+            discountId,
+            { $set: { is_publish } },
+            { new: true, lean: true }
+        );
+
+        if (!updatedDiscount) {
+            throw new BadRequestErrorResponse({ message: 'Failed to update discount publish status!' });
+        }
+
+        return updatedDiscount;
+    };
+
+    /* ------------------- Toggle available status ------------------- */
+    public static toggleDiscountAvailable = async ({
+        discountId,
+        userId,
+        is_available
+    }: {
+        discountId: string;
+        userId: string;
+        is_available: boolean;
+    }) => {
+        /* --------------- Check shop owns the discount --------------- */
+        const shop = await findOneShop({
+            query: { shop_userId: userId },
+            options: { lean: true }
+        });
+        if (!shop) {
+            throw new NotFoundErrorResponse({ message: 'Shop not found!' });
+        }
+
+        const discount = await discountModel.findOne({
+            _id: discountId,
+            discount_shop: shop._id
+        });
+        if (!discount) {
+            throw new ForbiddenErrorResponse({ message: 'Not permission to update discount!' });
+        }
+
+        /* -------------- Update discount available status ------------- */
+        const updatedDiscount = await discountModel.findByIdAndUpdate(
+            discountId,
+            { $set: { is_available } },
+            { new: true, lean: true }
+        );
+
+        if (!updatedDiscount) {
+            throw new BadRequestErrorResponse({ message: 'Failed to update discount available status!' });
+        }
+
+        return updatedDiscount;
+    };
+} 

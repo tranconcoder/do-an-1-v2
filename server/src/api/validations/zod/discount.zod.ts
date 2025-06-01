@@ -304,14 +304,50 @@ export const setDiscountAvailabilitySchema = z.object({
     // is_available: z.boolean() // This would be part of the body for a specific endpoint
 });
 export type SetDiscountAvailabilitySchema = z.infer<typeof setDiscountAvailabilitySchema>;
-// Specific validators for set available / unavailable might use a schema that includes the boolean
-// export const validateSetAvailableDiscount = generateValidateWithBody(setDiscountAvailabilitySchema.extend({ is_available: z.literal(true) }));
-// export const validateSetUnavailableDiscount = generateValidateWithBody(setDiscountAvailabilitySchema.extend({ is_available: z.literal(false) }));
-// The Joi schema was just Joi.object(_.pick(schema, '_id')). The actual boolean was likely in controller logic or a different schema.
-// For simplicity, if these are just for identifying the discount by ID:
+
 export const validateSetDiscountAvailabilityParams = generateValidateWithParams(
     setDiscountAvailabilitySchema
 );
+
+/* ---------------------------------------------------------- */
+/*                        Toggle Status                       */
+/* ---------------------------------------------------------- */
+
+/* ------------------- Toggle Publish Schema ------------------- */
+export const toggleDiscountPublishParamsSchema = z.object({
+    discountId: zodId
+});
+
+export const toggleDiscountPublishBodySchema = z.object({
+    is_publish: z.boolean({
+        required_error: 'is_publish field is required',
+        invalid_type_error: 'is_publish must be a boolean'
+    })
+});
+
+export type ToggleDiscountPublishParamsSchema = z.infer<typeof toggleDiscountPublishParamsSchema>;
+export type ToggleDiscountPublishBodySchema = z.infer<typeof toggleDiscountPublishBodySchema>;
+
+export const validateToggleDiscountPublishParams = generateValidateWithParams(toggleDiscountPublishParamsSchema);
+export const validateToggleDiscountPublishBody = generateValidateWithBody(toggleDiscountPublishBodySchema);
+
+/* ------------------- Toggle Available Schema ------------------- */
+export const toggleDiscountAvailableParamsSchema = z.object({
+    discountId: zodId
+});
+
+export const toggleDiscountAvailableBodySchema = z.object({
+    is_available: z.boolean({
+        required_error: 'is_available field is required',
+        invalid_type_error: 'is_available must be a boolean'
+    })
+});
+
+export type ToggleDiscountAvailableParamsSchema = z.infer<typeof toggleDiscountAvailableParamsSchema>;
+export type ToggleDiscountAvailableBodySchema = z.infer<typeof toggleDiscountAvailableBodySchema>;
+
+export const validateToggleDiscountAvailableParams = generateValidateWithParams(toggleDiscountAvailableParamsSchema);
+export const validateToggleDiscountAvailableBody = generateValidateWithBody(toggleDiscountAvailableBodySchema);
 
 /* ---------------------------------------------------------- */
 /*                           Delete                           */
@@ -320,4 +356,4 @@ export const deleteDiscountSchema = z.object({
     discountId: zodId
 });
 export type DeleteDiscountSchema = z.infer<typeof deleteDiscountSchema>;
-export const validateDeleteDiscountParams = generateValidateWithParams(deleteDiscountSchema); // Assuming discountId is a URL parameter
+export const validateDeleteDiscountParams = generateValidateWithParams(deleteDiscountSchema);

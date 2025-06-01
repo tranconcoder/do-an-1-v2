@@ -116,4 +116,40 @@ export default class DiscountController {
             })
         }).send(res);
     };
+
+    /* ---------------------------------------------------------- */
+    /*                           Toggle                           */
+    /* ---------------------------------------------------------- */
+
+    /* ------------------- Toggle publish status ------------------- */
+    public static toggleDiscountPublish: RequestWithParams<{ discountId: string }> & RequestWithBody<{ is_publish: boolean }> = async (
+        req,
+        res,
+        _
+    ) => {
+        new OkResponse({
+            message: 'Toggle discount publish status successfully',
+            metadata: await DiscountService.toggleDiscountPublish({
+                discountId: req.params.discountId,
+                userId: req.userId as string,
+                is_publish: req.body.is_publish
+            })
+        }).send(res);
+    };
+
+    /* ------------------- Toggle available status ------------------- */
+    public static toggleDiscountAvailable: RequestWithParams<{ discountId: string }> & RequestWithBody<{ is_available: boolean }> = async (
+        req,
+        res,
+        _
+    ) => {
+        new OkResponse({
+            message: 'Toggle discount available status successfully',
+            metadata: await DiscountService.toggleDiscountAvailable({
+                discountId: req.params.discountId,
+                userId: req.userId as string,
+                is_available: req.body.is_available
+            })
+        }).send(res);
+    };
 }
