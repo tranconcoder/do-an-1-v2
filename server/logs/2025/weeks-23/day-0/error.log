@@ -223,3 +223,47 @@
 [2025-06-01T03:31:45.589Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-01T03:31:51.141Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-01T03:31:57.156Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:34:38.911Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-06-01T03:34:41.550Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_min_order_cost"
+    ],
+    "message": "Minimum order cost is required"
+  }
+]::
+[2025-06-01T03:34:56.029Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-06-01T03:37:05.031Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_min_order_cost"
+    ],
+    "message": "Minimum order cost is required"
+  }
+]::

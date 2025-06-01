@@ -24,9 +24,14 @@ export const phoneNumber = z
     .regex(/(\+84|84|0[3|5|7|8|9])+([0-9]{8})\b/, { message: 'Invalid phone number format' });
 
 export const pagination = z.object({
-    page: z.number().int().min(1).default(1),
-    limit: z.number().int().min(1).max(100).default(10)
+    page: z.string().default('1').refine((val) => !isNaN(Number(val)) && Number(val) >= 1, {
+        message: 'Page must be a positive integer'
+    }),
+    limit: z.string().default('10').refine((val) => !isNaN(Number(val)) && Number(val) >= 1 && Number(val) <= 100, {
+        message: 'Limit must be between 1 and 100'
+    })
 });
+
 export type Pagination = z.infer<typeof pagination>;
 export const validatePagination = generateValidateWithQuery(pagination);
 

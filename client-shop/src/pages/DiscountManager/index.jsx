@@ -263,39 +263,6 @@ function DiscountManager() {
                 </div>
 
                 <div className={cx('form-section')}>
-                    <h2>Giới hạn sử dụng</h2>
-
-                    <div className={cx('form-row')}>
-                        <div className={cx('form-group', { invalid: errors.discount_count })}>
-                            <label>Tổng số lượng mã</label>
-                            <input
-                                type="number"
-                                name="discount_count"
-                                value={formData.discount_count}
-                                onChange={handleInputChange}
-                                placeholder="Tổng số lần mã có thể sử dụng"
-                                min="0"
-                            />
-                            {errors.discount_count && (
-                                <div className={cx('error-message')}>{errors.discount_count}</div>
-                            )}
-                        </div>
-
-                        <div className={cx('form-group')}>
-                            <label>Giới hạn mỗi người dùng</label>
-                            <input
-                                type="number"
-                                name="discount_user_max_use"
-                                value={formData.discount_user_max_use}
-                                onChange={handleInputChange}
-                                placeholder="Số lần sử dụng tối đa cho mỗi người"
-                                min="0"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                <div className={cx('form-section')}>
                     <h2>Thời gian áp dụng</h2>
 
                     <div className={cx('form-row')}>
