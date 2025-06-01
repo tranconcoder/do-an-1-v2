@@ -40,6 +40,17 @@ export const checkoutSchema = new Schema<model.checkout.CheckoutSchema>(
                     },
                     required: false
                 },
+                warehouses_info: {
+                    type: [
+                        {
+                            warehouse_id: { type: String, required },
+                            warehouse_name: { type: String, required },
+                            warehouse_address: { type: String, required },
+                            distance_km: { type: Number, required }
+                        }
+                    ],
+                    required
+                },
                 products_info: {
                     type: [
                         {

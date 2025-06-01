@@ -24,6 +24,7 @@ import {
 import { decreaseWarehouseStock } from '@/models/repository/warehouses/index.js';
 import inventoryModel from '@/models/inventory.model.js';
 import skuModel from '@/models/sku.model.js';
+import mongoose from 'mongoose';
 
 export default new (class SPUService {
     /* ---------------------------------------------------------- */
@@ -124,6 +125,74 @@ export default new (class SPUService {
     /*                             Get                            */
     /* ---------------------------------------------------------- */
 
+    /* ----------------------- Get SPU by ID ---------------------- */
+    async getSPUById({ userId, spuId }: service.spu.arguments.GetSPUById) {
+        const shop = await findOneShop({
+            query: { shop_userId: userId, is_deleted: false },
+            options: { lean: true }
+        });
+        if (!shop) throw new NotFoundErrorResponse({ message: 'Shop not found!' });
+
+        const spu = await findOneSPU({
+            query: {
+                _id: spuId,
+                product_shop: shop._id,
+                is_deleted: false
+            },
+            options: { lean: true }
+        });
+        if (!spu) throw new NotFoundErrorResponse({ message: 'SPU not found!' });
+
+        // Get SKUs with their inventory information using aggregation
+        const skusWithInventory = await skuModel.aggregate([
+            {
+                $match: {
+                    sku_product: new mongoose.Types.ObjectId(spuId),
+                    is_deleted: false
+                }
+            },
+            {
+                $lookup: {
+                    from: 'inventories',
+                    localField: '_id',
+                    foreignField: 'inventory_sku',
+                    as: 'inventory'
+                }
+            },
+            {
+                $unwind: {
+                    path: '$inventory',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $match: {
+                    $or: [
+                        { 'inventory.is_deleted': { $ne: true } },
+                        { inventory: { $exists: false } }
+                    ]
+                }
+            },
+            {
+                $addFields: {
+                    warehouse: '$inventory.inventory_warehouses'
+                }
+            },
+            {
+                $project: {
+                    inventory: 0
+                }
+            }
+        ]);
+
+        return {
+            ...spu,
+            sku_list: skusWithInventory,
+            minPrice: await findMinPriceSKU(spuId),
+            maxPrice: await findMaxPriceSKU(spuId)
+        };
+    }
+
     /* ---------------------------------------------------------- */
     /*                           Get all                          */
     /* ---------------------------------------------------------- */
@@ -177,7 +246,214 @@ export default new (class SPUService {
     /*                           Update                           */
     /* ---------------------------------------------------------- */
 
-    async updateSPU() {}
+    async updateSPU(payload: service.spu.arguments.UpdateSPU) {
+        const { spuId, userId, sku_list, sku_images_map, mediaIds, ...updateData } = payload;
+
+        /* ---------------------- Check shop ----------------------- */
+        const shop = await findOneShop({
+            query: { shop_userId: userId, is_deleted: false },
+            options: { lean: true }
+        });
+        if (!shop) throw new NotFoundErrorResponse({ message: 'Shop not found!' });
+
+        /* ---------------------- Check SPU ----------------------- */
+        const existingSPU = await findOneSPU({
+            query: {
+                _id: spuId,
+                product_shop: shop._id,
+                is_deleted: false
+            },
+            options: { lean: true }
+        });
+        if (!existingSPU) throw new NotFoundErrorResponse({ message: 'SPU not found!' });
+
+        /* --------------------- Check category --------------------- */
+        if (updateData.product_category) {
+            const category = await findOneCategory({
+                query: { _id: updateData.product_category, is_active: true, is_deleted: false },
+                options: { lean: true }
+            });
+            if (!category) {
+                throw new NotFoundErrorResponse({ message: 'Invalid category!' });
+            }
+        }
+
+        /* --------------------- Check media ids ------------------ */
+        if (sku_list && mediaIds) {
+            const skuThumbCount = mediaIds[SKUImages.SKU_THUMB]?.length || 0;
+            if (skuThumbCount !== sku_list.length)
+                throw new BadRequestErrorResponse({ message: 'Invalid SKU thumb count!' });
+            if (sku_images_map && sku_images_map.length !== sku_list.length)
+                throw new BadRequestErrorResponse({ message: 'Invalid SKU images map!' });
+        }
+
+        /* --------------------- Update SPU data ------------------- */
+        const quantity = sku_list ? sku_list.reduce((acc, cur) => acc + cur.sku_stock, 0) : existingSPU.product_quantity;
+
+        const spuUpdateData: any = {
+            ...updateData,
+            product_quantity: quantity
+        };
+
+        // Only update media if new media is provided
+        if (mediaIds) {
+            if (mediaIds[SPUImages.PRODUCT_THUMB]?.[0]) {
+                spuUpdateData.product_thumb = mediaIds[SPUImages.PRODUCT_THUMB][0];
+            }
+            if (mediaIds[SPUImages.PRODUCT_IMAGES]?.length) {
+                spuUpdateData.product_images = mediaIds[SPUImages.PRODUCT_IMAGES];
+            }
+        }
+
+        const updatedSPU = await findOneAndUpdateSPU({
+            query: { _id: spuId },
+            update: spuUpdateData,
+            options: { lean: true, new: true }
+        });
+
+        /* --------------------- Update SKUs ------------------- */
+        if (sku_list && mediaIds) {
+            try {
+                // Get existing SKUs
+                const existingSKUs = await findSKU({
+                    query: { sku_product: spuId, is_deleted: false },
+                    options: { lean: true }
+                });
+
+                // Track which existing SKUs to keep/update
+                const skusToUpdate: any[] = [];
+                const skusToCreate: any[] = [];
+                const existingSKUIds = existingSKUs.map(sku => sku._id.toString());
+
+                sku_list.forEach((sku, index) => {
+                    if (sku.id && existingSKUIds.includes(sku.id)) {
+                        // This is an existing SKU to update
+                        skusToUpdate.push({ ...sku, index, existingId: sku.id });
+                    } else {
+                        // This is a new SKU to create
+                        skusToCreate.push({ ...sku, index });
+                    }
+                });
+
+                // Find SKUs to delete (existing SKUs not in the new list)
+                const newSKUIds = sku_list.filter(sku => sku.id).map(sku => sku.id);
+                const skusToDelete = existingSKUs.filter(sku => !newSKUIds.includes(sku._id.toString()));
+
+                // Delete SKUs that are no longer needed
+                if (skusToDelete.length > 0) {
+                    await skuModel.updateMany(
+                        { _id: { $in: skusToDelete.map(sku => sku._id) } },
+                        { $set: { is_deleted: true } }
+                    );
+
+                    // Also delete their inventories
+                    await inventoryModel.updateMany(
+                        { inventory_sku: { $in: skusToDelete.map(sku => sku._id) }, is_deleted: false },
+                        { $set: { is_deleted: true, deleted_at: new Date() } }
+                    );
+                }
+
+                // Update existing SKUs
+                const updatedSKUs = [];
+                for (const skuData of skusToUpdate) {
+                    const skuImageStartIdx = sku_images_map
+                        ? sku_images_map.slice(0, skuData.index).reduce((acc, cur) => acc + cur, 0)
+                        : 0;
+                    const skuImageCount = sku_images_map ? sku_images_map[skuData.index] : 0;
+
+                    const updateFields: any = {
+                        sku_price: skuData.sku_price,
+                        sku_stock: skuData.sku_stock,
+                        sku_tier_idx: skuData.sku_tier_idx
+                    };
+
+                    // Only update media if new media is provided
+                    if (mediaIds[SKUImages.SKU_THUMB]?.[skuData.index]) {
+                        updateFields.sku_thumb = mediaIds[SKUImages.SKU_THUMB][skuData.index];
+                    }
+                    if (mediaIds[SKUImages.SKU_IMAGES]?.length) {
+                        const skuImages = mediaIds[SKUImages.SKU_IMAGES].slice(
+                            skuImageStartIdx,
+                            skuImageStartIdx + skuImageCount
+                        );
+                        if (skuImages.length > 0) {
+                            updateFields.sku_images = skuImages;
+                        }
+                    }
+
+                    const updatedSKU = await skuModel.findByIdAndUpdate(
+                        skuData.existingId,
+                        { $set: updateFields },
+                        { new: true, lean: true }
+                    );
+
+                    if (updatedSKU) {
+                        // Update inventory if warehouse changed
+                        if (skuData.warehouse) {
+                            await inventoryModel.findOneAndUpdate(
+                                {
+                                    inventory_sku: skuData.existingId,
+                                    is_deleted: false
+                                },
+                                {
+                                    $set: {
+                                        inventory_warehouses: skuData.warehouse,
+                                        inventory_stock: skuData.sku_stock
+                                    }
+                                },
+                                { new: true }
+                            );
+                        }
+
+                        // Add warehouse field to the returned SKU
+                        updatedSKUs.push({
+                            ...updatedSKU,
+                            warehouse: skuData.warehouse
+                        });
+                    }
+                }
+
+                // Create new SKUs
+                const createdSKUs = [];
+                for (const skuData of skusToCreate) {
+                    const skuImageStartIdx = sku_images_map
+                        ? sku_images_map.slice(0, skuData.index).reduce((acc, cur) => acc + cur, 0)
+                        : 0;
+                    const skuImageCount = sku_images_map ? sku_images_map[skuData.index] : 0;
+
+                    const newSKU = await skuService.createSKU({
+                        sku_price: skuData.sku_price,
+                        sku_stock: skuData.sku_stock,
+                        sku_tier_idx: skuData.sku_tier_idx,
+                        sku_product: spuId,
+                        sku_thumb: mediaIds[SKUImages.SKU_THUMB]?.[skuData.index],
+                        sku_images: mediaIds[SKUImages.SKU_IMAGES]?.slice(
+                            skuImageStartIdx,
+                            skuImageStartIdx + skuImageCount
+                        ) || [],
+                        warehouse: skuData.warehouse
+                    });
+
+                    // Add warehouse field to the returned SKU
+                    const skuObject = newSKU.toObject();
+                    createdSKUs.push({
+                        ...skuObject,
+                        warehouse: skuData.warehouse
+                    });
+                }
+
+                return {
+                    spu: updatedSPU,
+                    sku_list: [...updatedSKUs, ...createdSKUs]
+                };
+            } catch (error) {
+                console.log(error);
+                throw new BadRequestErrorResponse({ message: 'Update SKU failed!' });
+            }
+        }
+
+        return { spu: updatedSPU };
+    }
 
     /* ----------------------- Publish SPU ---------------------- */
     async publishSPU({ userId, spuId }: service.spu.arguments.PublishSPU) {

@@ -113,12 +113,24 @@ export default new (class CheckoutService {
 
                 /* --------------- Get warehouses info --------------- */
                 const warehousesIds = inventories.map((x: any) => x.inventory_warehouses.toString());
+                // Remove duplicate warehouse IDs
+                const uniqueWarehouseIds = [...new Set(warehousesIds)];
                 const warehouses = await Promise.all(
-                    warehousesIds.map(async (x) => {
+                    uniqueWarehouseIds.map(async (x) => {
                         return await findOneWarehouse({
                             query: { _id: x },
-                            only: ['address', "_id"] as any,
-                            options: { lean: true, populate: "address" }
+                            only: ['address', "_id", "name"] as any,
+                            options: {
+                                lean: true,
+                                populate: {
+                                    path: "address",
+                                    populate: [
+                                        { path: "ward" },
+                                        { path: "district" },
+                                        { path: "province" }
+                                    ]
+                                }
+                            }
                         });
                     })
                 )
@@ -130,10 +142,24 @@ export default new (class CheckoutService {
                         if (!location || !location.coordinates)
                             return null;
 
+                        // Build full address string
+                        let fullAddress = location.address || '';
+                        if ((location.ward as any)?.ward_name) {
+                            fullAddress += `, ${(location.ward as any).ward_name}`;
+                        }
+                        if ((location.district as any)?.district_name) {
+                            fullAddress += `, ${(location.district as any).district_name}`;
+                        }
+                        if ((location.province as any)?.province_name) {
+                            fullAddress += `, ${(location.province as any).province_name}`;
+                        }
+
                         return {
                             x: location.coordinates.x!,
                             y: location.coordinates.y!,
-                            warehouse_id: x._id.toString()
+                            warehouse_id: x._id.toString(),
+                            warehouse_name: x.name,
+                            warehouse_address: fullAddress
                         }
                     })
                 ).then((x) => x.filter((x: any) => x !== null));
@@ -236,6 +262,12 @@ export default new (class CheckoutService {
                             discount_id: discount._id
                         }
                         : undefined,
+                    warehouses_info: warehouseCoordinates.map((warehouse, index) => ({
+                        warehouse_id: warehouse!.warehouse_id,
+                        warehouse_name: warehouse!.warehouse_name,
+                        warehouse_address: warehouse!.warehouse_address,
+                        distance_km: Math.round((distanceRes.distances[0][index] / 1000) * 100) / 100
+                    })),
                     fee_ship: feeShipShop,
                     total_discount_price: discountPriceShop,
                     total_price_raw: totalPriceRawShop,

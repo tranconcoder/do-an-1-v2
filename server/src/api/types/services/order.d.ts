@@ -49,6 +49,11 @@ declare global {
                     dateTo?: string;
                 }
 
+                interface GetOrderById {
+                    userId: string;
+                    orderId: string;
+                }
+
                 interface CancelOrder {
                     userId: string;
                     orderId: string;

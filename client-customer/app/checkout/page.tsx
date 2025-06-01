@@ -27,6 +27,12 @@ interface CheckoutData {
     shops_info: Array<{
         shop_id: string;
         shop_name: string;
+        warehouses_info?: Array<{
+            warehouse_id: string;
+            warehouse_name: string;
+            warehouse_address: string;
+            distance_km: number;
+        }>;
         products_info: Array<{
             id: string;
             name: string;
@@ -282,6 +288,41 @@ export default function CheckoutPage() {
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
+                                    {/* Warehouse Information */}
+                                    {shop.warehouses_info && shop.warehouses_info.length > 0 && (
+                                        <div className="bg-blue-50 p-4 rounded-lg">
+                                            <h4 className="font-semibold text-blue-800 mb-3 flex items-center gap-2">
+                                                <Package className="h-4 w-4" />
+                                                Kho hàng giao đến bạn
+                                            </h4>
+                                            <div className="space-y-2">
+                                                {shop.warehouses_info.map((warehouse) => (
+                                                    <div
+                                                        key={warehouse.warehouse_id}
+                                                        className="flex items-center justify-between bg-white p-3 rounded border"
+                                                    >
+                                                        <div className="flex-1">
+                                                            <p className="font-medium text-gray-800">
+                                                                {warehouse.warehouse_name}
+                                                            </p>
+                                                            <p className="text-sm text-gray-600">
+                                                                {warehouse.warehouse_address}
+                                                            </p>
+                                                        </div>
+                                                        <div className="text-right">
+                                                            <Badge
+                                                                variant="outline"
+                                                                className="text-blue-600"
+                                                            >
+                                                                {warehouse.distance_km} km
+                                                            </Badge>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
                                     {shop.products_info.map((product) => (
                                         <div
                                             key={product.id}

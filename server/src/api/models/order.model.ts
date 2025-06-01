@@ -74,6 +74,17 @@ const orderSchema = new Schema<model.order.OrderSchema>(
         /* ------------------------ Shipping ------------------------ */
         ship_info: { type: ObjectId, required: true },
         fee_ship: { type: Number, required: true, default: 0 },
+        warehouses_info: {
+            type: [
+                {
+                    warehouse_id: { type: String, required },
+                    warehouse_name: { type: String, required },
+                    warehouse_address: { type: String, required },
+                    distance_km: { type: Number, required }
+                }
+            ],
+            default: []
+        },
 
         /* ------------------------ Payment  ------------------------ */
         payment_id: { type: ObjectId, required: false },

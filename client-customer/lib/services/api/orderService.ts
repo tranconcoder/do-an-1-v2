@@ -97,6 +97,12 @@ export interface OrderHistoryItem {
     shop_id: string;
     shop_name: string;
     shop_logo?: string;
+    warehouses_info?: Array<{
+        warehouse_id: string;
+        warehouse_name: string;
+        warehouse_address: string;
+        distance_km: number;
+    }>;
     products_info: Array<{
         sku_id: string;
         product_name: string;
@@ -220,6 +226,14 @@ class OrderService {
         const response = await apiClient.get<GetOrderHistoryResponse>('/order/history', {
             params: queryParams
         });
+        return response.data;
+    }
+
+    /**
+     * Get order detail by ID
+     */
+    async getOrderById(orderId: string): Promise<{ message: string; metadata: OrderHistoryItem }> {
+        const response = await apiClient.get<{ message: string; metadata: OrderHistoryItem }>(`/order/${orderId}`);
         return response.data;
     }
 

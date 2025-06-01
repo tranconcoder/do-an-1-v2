@@ -6,7 +6,7 @@ declare global {
             /* ====================================================== */
             /*                       DEFINITION                       */
             /* ====================================================== */
-            namespace definition {}
+            namespace definition { }
 
             /* ------------------------------------------------------ */
             /*                   Function arguments                   */
@@ -37,13 +37,19 @@ declare global {
                 /* ------------------------------------------------------ */
                 /*                         Search                         */
                 /* ------------------------------------------------------ */
-                interface SearchProduct extends joiTypes.product.definition.SearchProductSchema {}
+                interface SearchProduct extends joiTypes.product.definition.SearchProductSchema { }
 
                 /* ------------------------------------------------------ */
                 /*                          Get                           */
                 /* ------------------------------------------------------ */
                 interface GetProductWithSlug {
                     slug: string;
+                }
+
+                /* ----------------------- Get SPU by ID ---------------------- */
+                interface GetSPUById {
+                    spuId: string;
+                    userId: string;
                 }
 
                 /* ---------------------------------------------------------- */
@@ -57,18 +63,18 @@ declare global {
                 /* --------------- Get all product by shop -------------- */
                 interface GetAllProductByShop
                     extends Pick<model.spu.SPUSchema, 'product_shop'>,
-                        commonTypes.object.Pagination {
+                    commonTypes.object.Pagination {
                     userId: string;
                 }
 
-                interface GetAllProductDraftByShop extends Omit<GetAllProductByShop, 'userId'> {}
+                interface GetAllProductDraftByShop extends Omit<GetAllProductByShop, 'userId'> { }
 
-                interface GetAllProductPublishByShop extends Omit<GetAllProductByShop, 'userId'> {}
+                interface GetAllProductPublishByShop extends Omit<GetAllProductByShop, 'userId'> { }
 
-                interface GetAllProductUndraftByShop extends Omit<GetAllProductByShop, 'userId'> {}
+                interface GetAllProductUndraftByShop extends Omit<GetAllProductByShop, 'userId'> { }
 
                 interface GetAllProductUnpublishByShop
-                    extends Omit<GetAllProductByShop, 'userId'> {}
+                    extends Omit<GetAllProductByShop, 'userId'> { }
 
                 /* ---------------------------------------------------------- */
                 /*                           Update                           */
@@ -77,12 +83,33 @@ declare global {
                     spuId: string;
                     userId: string;
                 }
-                interface DraftSPU extends PublishSPU {}
+                interface DraftSPU extends PublishSPU { }
+
+                /* ----------------------- Update SPU ----------------------- */
+                interface UpdateSPU
+                    extends Partial<Pick<
+                        model.spu.SPUSchema,
+                        | 'product_name'
+                        | 'product_description'
+                        | 'product_category'
+                        | 'product_attributes'
+                        | 'product_variations'
+                        | 'product_thumb'
+                        | 'product_images'
+                        | 'is_draft'
+                        | 'is_publish'
+                    >> {
+                    spuId: string;
+                    userId: string;
+                    sku_list?: (Omit<service.sku.arguments.CreateSKU, 'sku_product'> & { id?: string })[];
+                    sku_images_map?: Array<number>;
+                    mediaIds?: commonTypes.object.ObjectAnyKeys<Array<string>>;
+                }
 
                 /* --------------------- Update product --------------------- */
                 interface UpdateProduct
                     extends joiTypes.product.definition.UpdateProductSchema,
-                        Pick<model.spu.SPUSchema, 'product_shop'> {
+                    Pick<model.spu.SPUSchema, 'product_shop'> {
                     product_attributes: model.spu.ProductSchemaList;
                 }
 
@@ -91,7 +118,7 @@ declare global {
                     product_shop: string;
                 }
 
-                interface SetPublishProduct extends SetDraftProduct {}
+                interface SetPublishProduct extends SetDraftProduct { }
 
                 /* ------------------- Remove product ------------------- */
                 type RemoveProduct = joiTypes.product.definition.DeleteProductSchema['product_id'];

@@ -33,6 +33,12 @@ declare global {
                             discount_type: DiscountTypeEnum;
                             discount_value: number;
                         };
+                        warehouses_info: Array<{
+                            warehouse_id: string;
+                            warehouse_name: string;
+                            warehouse_address: string;
+                            distance_km: number;
+                        }>;
                         products_info: Array<{
                             id: string;
                             name: string;

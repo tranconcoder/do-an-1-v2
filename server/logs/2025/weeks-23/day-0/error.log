@@ -38,3 +38,118 @@
 [2025-06-01T01:19:48.881Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-01T01:20:06.430Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-01T01:23:18.599Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:26:15.250Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:26:19.519Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:26:21.324Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:28:46.701Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:33:36.065Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:56:52.894Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-06-01T01:56:55.806Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-06-01T01:56:57.375Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "too_small",
+    "minimum": 1,
+    "type": "array",
+    "inclusive": true,
+    "exact": false,
+    "message": "At least one SKU is required if not applying to all products",
+    "path": [
+      "discount_skus"
+    ]
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_min_order_cost"
+    ],
+    "message": "Minimum order cost is required"
+  }
+]::
+[2025-06-01T01:57:22.630Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "string",
+    "path": [
+      "limit"
+    ],
+    "message": "Expected number, received string"
+  }
+]::
+[2025-06-01T01:57:27.321Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "too_small",
+    "minimum": 1,
+    "type": "array",
+    "inclusive": true,
+    "exact": false,
+    "message": "At least one SKU is required if not applying to all products",
+    "path": [
+      "discount_skus"
+    ]
+  },
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_min_order_cost"
+    ],
+    "message": "Minimum order cost is required"
+  }
+]::
+[2025-06-01T01:57:30.105Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_min_order_cost"
+    ],
+    "message": "Minimum order cost is required"
+  }
+]::
+[2025-06-01T02:34:26.273Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-01T02:36:22.684Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-01T02:40:05.284Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T02:40:07.984Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T02:40:11.495Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T02:44:00.438Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T02:45:48.895Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T02:45:51.328Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T02:46:55.586Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T02:49:43.999Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T02:49:55.073Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T02:52:42.105Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T02:58:49.826Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:03:47.746Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:05:25.235Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-01T03:05:25.254Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-01T03:05:25.835Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:05:39.309Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:05:57.107Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:05:58.630Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:06:44.113Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:06:58.246Z] [error]: HIDE::404::NotFound::Not found file!::

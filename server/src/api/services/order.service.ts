@@ -183,6 +183,7 @@ export default new (class OrderService {
                     /* ------------------------ Shipping ------------------------ */
                     ship_info: checkout.ship_info,
                     fee_ship: shopInfo.fee_ship,
+                    warehouses_info: shopInfo.warehouses_info || [],
 
                     /* ------------------------ Payment  ------------------------ */
                     payment_type: paymentType,
@@ -355,6 +356,20 @@ export default new (class OrderService {
                 hasPrevPage
             }
         };
+    }
+
+    public async getOrderById({ userId, orderId }: service.order.arguments.GetOrderById) {
+        /* ------------------- Find the order ------------------- */
+        const order = await orderModel.findOne({
+            _id: orderId,
+            customer: userId
+        }).lean();
+
+        if (!order) {
+            throw new NotFoundErrorResponse({ message: 'Order not found!' });
+        }
+
+        return order;
     }
 
     public async cancelOrder({ userId, orderId }: service.order.arguments.CancelOrder) {
@@ -978,6 +993,7 @@ export default new (class OrderService {
                     /* ------------------------ Shipping ------------------------ */
                     ship_info: checkout.ship_info,
                     fee_ship: shopInfo.fee_ship,
+                    warehouses_info: shopInfo.warehouses_info || [],
 
                     /* ------------------------ Payment  ------------------------ */
                     payment_id: payment._id, // Link to payment record

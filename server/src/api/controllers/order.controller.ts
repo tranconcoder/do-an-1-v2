@@ -52,6 +52,18 @@ export default new (class OrderController {
         }).send(res);
     };
 
+    public getOrderById: RequestWithParams<OrderParamsSchema> = async (req, res, _) => {
+        const { orderId } = req.params;
+
+        new OkResponse({
+            message: 'Get order detail successfully',
+            metadata: await orderService.getOrderById({
+                userId: req.userId as string,
+                orderId: orderId
+            })
+        }).send(res);
+    };
+
     public getShopOrders: RequestWithQuery<GetShopOrdersQuerySchema> = async (req, res, _) => {
         const {
             status,

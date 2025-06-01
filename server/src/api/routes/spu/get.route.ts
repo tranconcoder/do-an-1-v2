@@ -2,7 +2,7 @@ import { Router } from 'express';
 import catchError from '@/middlewares/catchError.middleware.js';
 import { authenticate, authenticateNotRequired } from '@/middlewares/jwt.middleware.js';
 import spuController from '@/controllers/spu.controller.js';
-import { pagination, validatePagination } from '@/configs/joi.config.js';
+import { pagination, validatePagination, validateParamsId } from '@/configs/joi.config.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
 import { Resources } from '@/enums/rbac.enum.js';
 
@@ -27,6 +27,14 @@ getRouteValidate.get(
     authorization('readOwn', Resources.PRODUCT),
     validatePagination,
     catchError(spuController.getAllSPUOwnByShop)
+);
+
+/* ------------------- Get SPU by ID for edit ------------------ */
+getRouteValidate.get(
+    '/:spuId',
+    authorization('readOwn', Resources.PRODUCT),
+    validateParamsId('spuId'),
+    catchError(spuController.getSPUById)
 );
 
 // /* ----------------- Get product by id  ----------------- */

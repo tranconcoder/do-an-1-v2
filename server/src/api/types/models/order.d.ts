@@ -59,6 +59,12 @@ declare global {
                     /* ------------------------ Shipping ------------------------ */
                     ship_info: moduleTypes.mongoose.ObjectId;
                     fee_ship: number;
+                    warehouses_info: Array<{
+                        warehouse_id: string;
+                        warehouse_name: string;
+                        warehouse_address: string;
+                        distance_km: number;
+                    }>;
 
                     /* ------------------------- Price  ------------------------- */
                     price_total_raw: number;

@@ -11,7 +11,17 @@ declare global {
                     | 'product_images'
                     | 'product_quantity'
                     | 'mediaIds'
-                > {}
+                > { }
+
+            interface UpdateSPU
+                extends Omit<
+                    service.spu.arguments.UpdateSPU,
+                    | 'spuId'
+                    | 'userId'
+                    | 'product_thumb'
+                    | 'product_images'
+                    | 'mediaIds'
+                > { }
         }
     }
 }
