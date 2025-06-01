@@ -13,7 +13,6 @@ import {
     Building,
     Hash
 } from 'lucide-react';
-import CloseWindowButton from './components/CloseWindowButton';
 import PaymentReturnActions from './components/PaymentReturnActions';
 
 // VNPay response codes mapping
@@ -88,7 +87,6 @@ function formatDateTime(dateTimeStr: string) {
 function LoadingState() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center p-4">
-            <CloseWindowButton />
             <Card className="w-full max-w-md shadow-xl border-0">
                 <CardContent className="flex flex-col items-center justify-center py-12">
                     <div className="relative">
@@ -111,8 +109,6 @@ export default function VNPayReturnPage({ searchParams }: VNPayReturnPageProps) 
     if (!searchParams.vnp_TxnRef || !searchParams.vnp_ResponseCode) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-pink-50 flex items-center justify-center p-4">
-                <CloseWindowButton />
-
                 <Card className="w-full max-w-md shadow-xl border-0" data-payment-card>
                     <CardHeader className="text-center">
                         <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4 shadow-lg">

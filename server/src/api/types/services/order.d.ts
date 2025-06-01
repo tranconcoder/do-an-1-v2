@@ -1,5 +1,5 @@
 import type { OrderStatus } from '@/enums/order.enum';
-import type { PaymentBank, PaymentType } from '@/enums/payment.enum.js';
+import type { PaymentType } from '@/enums/payment.enum.js';
 
 declare global {
     namespace service {

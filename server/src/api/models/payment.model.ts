@@ -17,6 +17,33 @@ export const paymentSchema = new Schema<model.payment.PaymentSchema>(
         },
         payment_url: { type: String },
 
+        // Refund fields
+        refund_amount: { type: Number, default: 0 },
+        refund_status: {
+            type: String,
+            enum: ['none', 'pending', 'completed', 'failed'],
+            default: 'none'
+        },
+        refund_date: { type: Date },
+        refund_reason: { type: String },
+        refund_transaction_id: { type: String },
+
+        // Refund history - danh sách các lần hoàn tiền
+        refund_history: [{
+            refund_id: { type: String, required: true },
+            amount: { type: Number, required: true },
+            status: {
+                type: String,
+                required: true,
+                enum: ['pending', 'completed', 'failed']
+            },
+            reason: { type: String },
+            transaction_id: { type: String },
+            created_at: { type: Date, default: Date.now },
+            completed_at: { type: Date },
+            notes: { type: String }
+        }],
+
         // VNPay specific fields
         vnpay_transaction_no: { type: String },
         vnpay_response_code: { type: String },
@@ -27,7 +54,14 @@ export const paymentSchema = new Schema<model.payment.PaymentSchema>(
             vnp_CreateDate: { type: String },
             vnp_PayDate: { type: String },
             vnp_BankCode: { type: String },
-            vnp_CardType: { type: String }
+            vnp_CardType: { type: String },
+            // Additional VNPay return parameters
+            vnp_ResponseCode: { type: String },
+            vnp_TransactionNo: { type: String },
+            vnp_BankTranNo: { type: String },
+            vnp_TransactionStatus: { type: String },
+            return_processed_at: { type: String },
+            failure_reason: { type: String }
         },
 
         // Timestamps
@@ -47,6 +81,8 @@ export const paymentSchema = new Schema<model.payment.PaymentSchema>(
 
 // Create indexes
 paymentSchema.index({ vnpay_transaction_no: 1 }, { sparse: true });
+paymentSchema.index({ refund_status: 1 });
+paymentSchema.index({ refund_transaction_id: 1 }, { sparse: true });
 
 const paymentModel = model<model.payment.PaymentSchema>(PAYMENT_MODEL_NAME, paymentSchema);
 

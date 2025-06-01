@@ -7,6 +7,7 @@ import {
     VNPayReturnSchema,
     PaymentQuerySchema
 } from '@/validations/zod/payment.zod.js';
+import { BadRequestErrorResponse } from '@/response/error.response.js';
 
 export default new (class PaymentController {
     public createVNPayPayment: RequestWithBody<CreateVNPayPaymentSchema> = async (req, res, _) => {
@@ -132,10 +133,118 @@ export default new (class PaymentController {
     };
 
     public updatePaymentStatus = async (req: Request, res: Response, _: any) => {
-        try {
-            const { paymentId } = req.body;
+        const { paymentId } = req.body;
 
-            console.log('🔄 Updating payment status for payment ID:', paymentId);
+        if (!paymentId) {
+            throw new BadRequestErrorResponse({ message: 'Payment ID is required!' });
+        }
+
+        new OkResponse({
+            message: 'Payment status updated successfully',
+            metadata: await paymentService.updatePaymentStatusById(paymentId)
+        }).send(res);
+    };
+
+    // ==================== REFUND ENDPOINTS ====================
+
+    public createRefund = async (req: Request, res: Response, _: any) => {
+        try {
+            const { paymentId, amount, reason, notes } = req.body;
+
+            console.log('🔄 Creating refund:', { paymentId, amount, reason });
+
+            if (!paymentId || !amount) {
+                res.status(400).json({
+                    success: false,
+                    message: 'Payment ID and amount are required'
+                });
+                return;
+            }
+
+            const result = await paymentService.createRefund({
+                paymentId,
+                amount: parseFloat(amount),
+                reason,
+                notes
+            });
+
+            console.log('✅ Refund created successfully');
+
+            res.status(201).json({
+                success: true,
+                message: 'Refund created successfully',
+                data: {
+                    refund_id: result.refundId,
+                    payment_id: paymentId,
+                    amount: amount,
+                    status: 'pending',
+                    refund_entry: result.refundEntry
+                }
+            });
+
+        } catch (error: any) {
+            console.error('❌ Create refund error:', error);
+
+            res.status(error.statusCode || 500).json({
+                success: false,
+                message: error.message || 'Failed to create refund'
+            });
+        }
+    };
+
+    public updateRefundStatus = async (req: Request, res: Response, _: any) => {
+        try {
+            const { paymentId, refundId, status, transactionId, notes } = req.body;
+
+            console.log('🔄 Updating refund status:', { paymentId, refundId, status });
+
+            if (!paymentId || !refundId || !status) {
+                res.status(400).json({
+                    success: false,
+                    message: 'Payment ID, refund ID, and status are required'
+                });
+                return;
+            }
+
+            if (!['completed', 'failed'].includes(status)) {
+                res.status(400).json({
+                    success: false,
+                    message: 'Status must be either "completed" or "failed"'
+                });
+                return;
+            }
+
+            const payment = await paymentService.updateRefundStatus({
+                paymentId,
+                refundId,
+                status,
+                transactionId,
+                notes
+            });
+
+            console.log('✅ Refund status updated successfully');
+
+            res.status(200).json({
+                success: true,
+                message: 'Refund status updated successfully',
+                data: payment
+            });
+
+        } catch (error: any) {
+            console.error('❌ Update refund status error:', error);
+
+            res.status(error.statusCode || 500).json({
+                success: false,
+                message: error.message || 'Failed to update refund status'
+            });
+        }
+    };
+
+    public getRefundHistory = async (req: Request, res: Response, _: any) => {
+        try {
+            const { paymentId } = req.params;
+
+            console.log('🔍 Getting refund history for payment:', paymentId);
 
             if (!paymentId) {
                 res.status(400).json({
@@ -145,24 +254,97 @@ export default new (class PaymentController {
                 return;
             }
 
-            // Find payment by ID
-            const payment = await paymentService.updatePaymentStatusById(paymentId);
+            const refundHistory = await paymentService.getRefundHistory(paymentId);
 
-            console.log('✅ Payment status updated successfully');
+            console.log('✅ Refund history retrieved successfully');
 
             res.status(200).json({
                 success: true,
-                message: 'Payment status updated successfully',
-                data: payment
+                message: 'Refund history retrieved successfully',
+                data: refundHistory
             });
 
         } catch (error: any) {
-            console.error('❌ Update payment status error:', error);
+            console.error('❌ Get refund history error:', error);
 
-            res.status(500).json({
+            res.status(error.statusCode || 500).json({
                 success: false,
-                message: error.message || 'Failed to update payment status'
+                message: error.message || 'Failed to get refund history'
             });
         }
     };
+
+    public getRefundsByStatus = async (req: Request, res: Response, _: any) => {
+        try {
+            const { status } = req.params;
+
+            console.log('🔍 Getting refunds by status:', status);
+
+            if (!['pending', 'completed', 'failed'].includes(status)) {
+                res.status(400).json({
+                    success: false,
+                    message: 'Invalid status. Must be pending, completed, or failed'
+                });
+                return;
+            }
+
+            const refunds = await paymentService.getRefundsByStatus(status as 'pending' | 'completed' | 'failed');
+
+            console.log('✅ Refunds retrieved successfully');
+
+            res.status(200).json({
+                success: true,
+                message: 'Refunds retrieved successfully',
+                data: refunds
+            });
+
+        } catch (error: any) {
+            console.error('❌ Get refunds by status error:', error);
+
+            res.status(error.statusCode || 500).json({
+                success: false,
+                message: error.message || 'Failed to get refunds'
+            });
+        }
+    };
+
+    public processVNPayRefund = async (req: Request, res: Response, _: any) => {
+        try {
+            const { paymentId, refundId, amount } = req.body;
+
+            console.log('🔄 Processing VNPay refund:', { paymentId, refundId, amount });
+
+            if (!paymentId || !refundId || !amount) {
+                res.status(400).json({
+                    success: false,
+                    message: 'Payment ID, refund ID, and amount are required'
+                });
+                return;
+            }
+
+            const result = await paymentService.processVNPayRefund({
+                paymentId,
+                refundId,
+                amount: parseFloat(amount)
+            });
+
+            console.log('✅ VNPay refund processed successfully');
+
+            res.status(200).json({
+                success: true,
+                message: 'VNPay refund processed successfully',
+                data: result
+            });
+
+        } catch (error: any) {
+            console.error('❌ Process VNPay refund error:', error);
+
+            res.status(error.statusCode || 500).json({
+                success: false,
+                message: error.message || 'Failed to process VNPay refund'
+            });
+        }
+    };
+
+    // ==================== END REFUND ENDPOINTS ====================
 })(); 

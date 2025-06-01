@@ -3,7 +3,7 @@ import { ObjectId } from '@/configs/mongoose.config.js';
 import { required, timestamps } from '@/configs/mongoose.config.js';
 import { DiscountTypeEnum } from '@/enums/discount.enum.js';
 import { OrderStatus } from '@/enums/order.enum.js';
-import { PaymentBank, PaymentType } from '@/enums/payment.enum.js';
+import { PaymentType } from '@/enums/payment.enum.js';
 
 export const ORDER_MODEL_NAME = 'Order';
 export const ORDER_COLLECTION_NAME = 'orders';
@@ -78,7 +78,6 @@ const orderSchema = new Schema<model.order.OrderSchema>(
         /* ------------------------ Payment  ------------------------ */
         payment_id: { type: ObjectId, required: false },
         payment_type: { type: String, enum: PaymentType, required },
-        payment_bank: { type: String, enum: PaymentBank },
         payment_paid: { type: Boolean, default: false },
         payment_date: { type: Date },
 

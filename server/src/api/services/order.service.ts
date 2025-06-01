@@ -23,6 +23,7 @@ import { BadRequestErrorResponse, NotFoundErrorResponse } from '@/response/error
 /* ------------------------ Services ------------------------ */
 import { pessimisticLock } from './redis.service.js';
 import DiscountService from './discount.service.js';
+import paymentService from './payment.service.js';
 
 /* ------------------------- Utils  ------------------------- */
 import { assertFulfilled, assertRejected, sleep } from '@/utils/promise.util.js';
@@ -377,6 +378,85 @@ export default new (class OrderService {
             });
         }
 
+        /* ------------- Process refund for paid orders ------------- */
+        let refundResult = null;
+
+        // Only process refunds for orders that have a payment record
+        if (order.payment_id) {
+            const payment = await paymentModel.findById(order.payment_id);
+
+            if (payment) {
+                // Case 1: Order was actually paid (payment completed)
+                if (order.payment_paid && payment.payment_status === 'completed') {
+                    try {
+                        console.log('🔄 Processing automatic refund for paid cancelled order:', orderId);
+
+                        // Create refund for the full order amount
+                        refundResult = await paymentService.createRefund({
+                            paymentId: order.payment_id.toString(),
+                            amount: order.price_to_payment,
+                            reason: 'Order cancelled by customer',
+                            notes: `Automatic refund for cancelled order #${orderId}`
+                        });
+
+                        console.log('✅ Refund created successfully:', refundResult.refundId);
+
+                        // If payment method is VNPay, process the refund immediately
+                        if (payment.payment_method === 'vnpay') {
+                            try {
+                                await paymentService.processVNPayRefund({
+                                    paymentId: order.payment_id.toString(),
+                                    refundId: refundResult.refundId,
+                                    amount: order.price_to_payment
+                                });
+                                console.log('✅ VNPay refund processed successfully');
+                            } catch (vnpayError) {
+                                console.error('❌ VNPay refund processing failed:', vnpayError);
+                                // Continue with order cancellation even if VNPay refund fails
+                                // The refund status will be marked as failed and can be retried later
+                            }
+                        }
+
+                    } catch (refundError) {
+                        console.error('❌ Failed to create refund for cancelled order:', refundError);
+                        // Continue with order cancellation even if refund creation fails
+                        // This ensures the order can still be cancelled
+                    }
+                }
+                // Case 2: Order was never paid (payment pending) - VNPay orders that were cancelled before payment
+                else if (!order.payment_paid && payment.payment_status === 'pending' && payment.payment_method === 'vnpay') {
+                    try {
+                        console.log('🔄 Creating tracking refund for unpaid VNPay order:', orderId);
+
+                        // Create a tracking refund record but don't process through VNPay
+                        refundResult = await paymentService.createRefund({
+                            paymentId: order.payment_id.toString(),
+                            amount: order.price_to_payment,
+                            reason: 'Order cancelled by customer (never paid)',
+                            notes: `Tracking refund for cancelled order #${orderId} - no payment was processed`
+                        });
+
+                        // Immediately mark as completed since no actual payment was made
+                        await paymentService.processVNPayRefund({
+                            paymentId: order.payment_id.toString(),
+                            refundId: refundResult.refundId,
+                            amount: order.price_to_payment
+                        });
+
+                        console.log('✅ Tracking refund completed for unpaid order');
+
+                    } catch (refundError) {
+                        console.error('❌ Failed to create tracking refund:', refundError);
+                        // Continue with order cancellation
+                    }
+                }
+                // Case 3: COD orders - no refund needed since no payment was made
+                else {
+                    console.log('ℹ️ No refund needed for COD or unpaid order');
+                }
+            }
+        }
+
         /* ------------- Revert inventory for products ------------- */
         await Promise.all(
             order.products_info.map(async ({ sku_id, quantity }) => {
@@ -409,11 +489,27 @@ export default new (class OrderService {
         /* ------------- Update order status to cancelled ------------- */
         const updatedOrder = await orderModel.findByIdAndUpdate(
             orderId,
-            { order_status: OrderStatus.CANCELLED },
+            {
+                order_status: OrderStatus.CANCELLED,
+                cancellation_reason: 'Cancelled by customer',
+                cancelled_at: new Date()
+            },
             { new: true }
         );
 
-        return updatedOrder;
+        if (!updatedOrder) {
+            throw new NotFoundErrorResponse({ message: 'Failed to update order status!' });
+        }
+
+        // Return order with refund information
+        return {
+            ...updatedOrder.toObject(),
+            refund_info: refundResult ? {
+                refund_id: refundResult.refundId,
+                refund_amount: order.price_to_payment,
+                refund_status: 'pending'
+            } : null
+        };
     }
 
     public async getShopOrders({
@@ -585,6 +681,85 @@ export default new (class OrderService {
             });
         }
 
+        /* ------------- Process refund for paid orders ------------- */
+        let refundResult = null;
+
+        // Only process refunds for orders that have a payment record
+        if (order.payment_id) {
+            const payment = await paymentModel.findById(order.payment_id);
+
+            if (payment) {
+                // Case 1: Order was actually paid (payment completed)
+                if (order.payment_paid && payment.payment_status === 'completed') {
+                    try {
+                        console.log('🔄 Processing automatic refund for paid rejected order:', orderId);
+
+                        // Create refund for the full order amount
+                        refundResult = await paymentService.createRefund({
+                            paymentId: order.payment_id.toString(),
+                            amount: order.price_to_payment,
+                            reason: 'Order rejected by shop',
+                            notes: `Automatic refund for order rejected by shop. Reason: ${reason || 'No reason provided'}`
+                        });
+
+                        console.log('✅ Refund created successfully:', refundResult.refundId);
+
+                        // If payment method is VNPay, process the refund immediately
+                        if (payment.payment_method === 'vnpay') {
+                            try {
+                                await paymentService.processVNPayRefund({
+                                    paymentId: order.payment_id.toString(),
+                                    refundId: refundResult.refundId,
+                                    amount: order.price_to_payment
+                                });
+                                console.log('✅ VNPay refund processed successfully');
+                            } catch (vnpayError) {
+                                console.error('❌ VNPay refund processing failed:', vnpayError);
+                                // Continue with order rejection even if VNPay refund fails
+                                // The refund status will be marked as failed and can be retried later
+                            }
+                        }
+
+                    } catch (refundError) {
+                        console.error('❌ Failed to create refund for rejected order:', refundError);
+                        // Continue with order rejection even if refund creation fails
+                        // This ensures the order can still be rejected
+                    }
+                }
+                // Case 2: Order was never paid (payment pending) - VNPay orders that were rejected before payment
+                else if (!order.payment_paid && payment.payment_status === 'pending' && payment.payment_method === 'vnpay') {
+                    try {
+                        console.log('🔄 Creating tracking refund for unpaid VNPay order:', orderId);
+
+                        // Create a tracking refund record but don't process through VNPay
+                        refundResult = await paymentService.createRefund({
+                            paymentId: order.payment_id.toString(),
+                            amount: order.price_to_payment,
+                            reason: 'Order rejected by shop (never paid)',
+                            notes: `Tracking refund for rejected order #${orderId} - no payment was processed. Reason: ${reason || 'No reason provided'}`
+                        });
+
+                        // Immediately mark as completed since no actual payment was made
+                        await paymentService.processVNPayRefund({
+                            paymentId: order.payment_id.toString(),
+                            refundId: refundResult.refundId,
+                            amount: order.price_to_payment
+                        });
+
+                        console.log('✅ Tracking refund completed for unpaid order');
+
+                    } catch (refundError) {
+                        console.error('❌ Failed to create tracking refund:', refundError);
+                        // Continue with order rejection
+                    }
+                }
+                // Case 3: COD orders - no refund needed since no payment was made
+                else {
+                    console.log('ℹ️ No refund needed for COD or unpaid order');
+                }
+            }
+        }
+
         /* ------------- Revert inventory for products ------------- */
         await Promise.all(
             order.products_info.map(async ({ sku_id, quantity }) => {
@@ -615,12 +790,26 @@ export default new (class OrderService {
             orderId,
             {
                 order_status: OrderStatus.CANCELLED,
-                rejection_reason: reason || 'Order rejected by shop'
+                rejection_reason: reason || 'Order rejected by shop',
+                rejected_at: new Date(),
+                rejected_by_shop: true
             },
             { new: true }
         );
 
-        return updatedOrder;
+        if (!updatedOrder) {
+            throw new NotFoundErrorResponse({ message: 'Failed to update order status!' });
+        }
+
+        // Return order with refund information
+        return {
+            ...updatedOrder.toObject(),
+            refund_info: refundResult ? {
+                refund_id: refundResult.refundId,
+                refund_amount: order.price_to_payment,
+                refund_status: 'pending'
+            } : null
+        };
     }
 
     public async createOrderWithVNPay({ userId }: service.order.arguments.CreateOrderWithVNPay) {
@@ -914,4 +1103,4 @@ export default new (class OrderService {
             txnRef: paymentUrl.txnRef
         };
     }
-})();
+})(); 

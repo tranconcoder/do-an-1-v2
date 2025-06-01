@@ -84,9 +84,36 @@ class PaymentService {
 
     // Handle VNPay return (process payment result)
     async handleVNPayReturn(params: Record<string, string>): Promise<PaymentReturnData> {
+        console.log('🔄 Sending VNPay return data to server:', params);
+
+        // Send all VNPay parameters to server for processing
         const queryString = new URLSearchParams(params).toString();
         const response = await apiClient.get(`/payment/vnpay/return?${queryString}`);
+
+        console.log('✅ Server response for VNPay return:', response.data);
         return response.data.metadata;
+    }
+
+    // Process VNPay return on client side (called from return page)
+    async processVNPayReturn(vnpayParams: Record<string, string>): Promise<PaymentReturnData> {
+        try {
+            console.log('🚀 Processing VNPay return with full parameters:', vnpayParams);
+
+            // Validate required parameters
+            if (!vnpayParams.vnp_TxnRef || !vnpayParams.vnp_ResponseCode) {
+                throw new Error('Missing required VNPay parameters');
+            }
+
+            // Call the server's VNPay return handler with all parameters
+            const result = await this.handleVNPayReturn(vnpayParams);
+
+            console.log('✅ VNPay return processing completed:', result);
+            return result;
+
+        } catch (error: any) {
+            console.error('❌ VNPay return processing failed:', error);
+            throw error;
+        }
     }
 
     // Get payment by transaction reference
@@ -218,7 +245,7 @@ class PaymentService {
             console.log('🔄 Updating payment status for payment ID:', paymentId);
 
             const response = await apiClient.post('/payment/update-status', {
-                paymentId: paymentId
+                paymentId
             });
 
             console.log('✅ Payment status updated:', response.data);
@@ -228,6 +255,120 @@ class PaymentService {
             throw error;
         }
     }
+
+    // ==================== REFUND METHODS ====================
+
+    /**
+     * Create a refund for a payment
+     */
+    async createRefund({
+        paymentId,
+        amount,
+        reason,
+        notes
+    }: {
+        paymentId: string;
+        amount: number;
+        reason?: string;
+        notes?: string;
+    }) {
+        try {
+            const response = await apiClient.post('/payment/refund/create', {
+                paymentId,
+                amount,
+                reason,
+                notes
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Create refund error:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Update refund status
+     */
+    async updateRefundStatus({
+        paymentId,
+        refundId,
+        status,
+        transactionId,
+        notes
+    }: {
+        paymentId: string;
+        refundId: string;
+        status: 'completed' | 'failed';
+        transactionId?: string;
+        notes?: string;
+    }) {
+        try {
+            const response = await apiClient.put('/payment/refund/status', {
+                paymentId,
+                refundId,
+                status,
+                transactionId,
+                notes
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Update refund status error:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Get refund history for a payment
+     */
+    async getRefundHistory(paymentId: string) {
+        try {
+            const response = await apiClient.get(`/payment/${paymentId}/refunds`);
+            return response.data;
+        } catch (error) {
+            console.error('Get refund history error:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Get refunds by status (admin function)
+     */
+    async getRefundsByStatus(status: 'pending' | 'completed' | 'failed') {
+        try {
+            const response = await apiClient.get(`/payment/refunds/status/${status}`);
+            return response.data;
+        } catch (error) {
+            console.error('Get refunds by status error:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Process VNPay refund
+     */
+    async processVNPayRefund({
+        paymentId,
+        refundId,
+        amount
+    }: {
+        paymentId: string;
+        refundId: string;
+        amount: number;
+    }) {
+        try {
+            const response = await apiClient.post('/payment/refund/vnpay/process', {
+                paymentId,
+                refundId,
+                amount
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Process VNPay refund error:', error);
+            throw error;
+        }
+    }
+
+    // ==================== END REFUND METHODS ====================
 }
 
 export default new PaymentService(); 

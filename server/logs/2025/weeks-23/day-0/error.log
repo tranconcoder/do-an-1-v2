@@ -1,0 +1,40 @@
+[2025-06-01T00:05:06.653Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T00:05:13.035Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-06-01T00:05:23.977Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T00:05:29.800Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-01T00:05:29.808Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-01T00:06:38.932Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T00:09:07.584Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T00:09:19.878Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T00:57:26.445Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T00:57:34.437Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T00:58:10.238Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:00:01.329Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-01T01:00:11.344Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T01:00:11.346Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T01:00:45.096Z] [error]: connection <monitor> to 159.143.58.14:27017 timed out
+[2025-06-01T01:01:30.335Z] [error]: connection <monitor> to 159.143.58.14:27017 timed out
+[2025-06-01T01:02:30.202Z] [error]: connection <monitor> to 159.143.58.14:27017 timed out
+[2025-06-01T01:02:35.739Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T01:03:30.196Z] [error]: Failed to connect
+[2025-06-01T01:04:30.008Z] [error]: Failed to connect
+[2025-06-01T01:04:50.908Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T01:05:30.009Z] [error]: Failed to connect
+[2025-06-01T01:06:30.009Z] [error]: Failed to connect
+[2025-06-01T01:07:08.338Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T01:18:34.665Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:18:39.679Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:18:51.135Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:18:52.709Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:18:54.663Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:18:59.081Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:18:59.453Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:19:13.340Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:19:20.631Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:19:34.557Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:19:35.897Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:19:39.498Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:19:42.402Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:19:48.881Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:20:06.430Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T01:23:18.599Z] [error]: HIDE::404::NotFound::Not found file!::

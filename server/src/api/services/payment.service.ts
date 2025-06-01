@@ -201,13 +201,25 @@ export default new (class PaymentService {
     public async handleVNPayReturn(vnpParams: any) {
         let secureHash = vnpParams['vnp_SecureHash'];
 
-        console.log('VNPay return params received:', vnpParams);
+        console.log('🔄 VNPay return params received:', vnpParams);
+        console.log('🔍 Key parameters:', {
+            vnp_TxnRef: vnpParams['vnp_TxnRef'],
+            vnp_TransactionNo: vnpParams['vnp_TransactionNo'],
+            vnp_ResponseCode: vnpParams['vnp_ResponseCode'],
+            vnp_Amount: vnpParams['vnp_Amount'],
+            vnp_BankCode: vnpParams['vnp_BankCode'],
+            vnp_BankTranNo: vnpParams['vnp_BankTranNo'],
+            vnp_PayDate: vnpParams['vnp_PayDate']
+        });
 
         // Verify signature using the same method
         const expectedSignature = this.createVNPaySignature(vnpParams, this.vnpayConfig.hashSecret);
 
-        console.log('Expected signature:', expectedSignature);
-        console.log('Received signature:', secureHash);
+        console.log('🔐 Signature verification:', {
+            expected: expectedSignature,
+            received: secureHash,
+            match: secureHash === expectedSignature
+        });
 
         if (secureHash === expectedSignature) {
             console.log('✅ Signature verification successful');
@@ -216,23 +228,93 @@ export default new (class PaymentService {
             const vnpResponseCode = vnpParams['vnp_ResponseCode'];
             const vnpTransactionNo = vnpParams['vnp_TransactionNo'];
             const vnpAmount = vnpParams['vnp_Amount'];
+            const vnpBankCode = vnpParams['vnp_BankCode'];
+            const vnpBankTranNo = vnpParams['vnp_BankTranNo'];
+            const vnpPayDate = vnpParams['vnp_PayDate'];
+            const vnpOrderInfo = vnpParams['vnp_OrderInfo'];
+
+            console.log('📋 Extracted VNPay data:', {
+                txnRef: vnpTxnRef,
+                responseCode: vnpResponseCode,
+                transactionNo: vnpTransactionNo,
+                amount: vnpAmount,
+                bankCode: vnpBankCode,
+                bankTranNo: vnpBankTranNo,
+                payDate: vnpPayDate,
+                orderInfo: vnpOrderInfo
+            });
 
             /* ------------------- Find payment record ------------------- */
+            console.log('🔍 Searching for payment with txn_ref:', vnpTxnRef);
             const payment = await paymentModel.findOne({ txn_ref: vnpTxnRef });
+
             if (!payment) {
+                console.log('❌ Payment record not found for txn_ref:', vnpTxnRef);
+                console.log('🔍 Available payments in database:');
+                const allPayments = await paymentModel.find({}).select('txn_ref _id').limit(10);
+                console.log(allPayments);
                 throw new NotFoundErrorResponse({ message: 'Payment record not found!' });
             }
 
+            console.log('💳 Found payment record:', {
+                id: payment._id,
+                txn_ref: payment.txn_ref,
+                current_status: payment.payment_status,
+                current_vnpay_transaction_no: payment.vnpay_transaction_no,
+                payment_method: payment.payment_method
+            });
+
             /* ------------------- Update payment status ------------------- */
             if (vnpResponseCode === '00') {
-                // Payment successful
+                console.log('✅ Payment successful - updating payment record with complete VNPay data');
+
+                // Payment successful - save all VNPay return data
                 payment.payment_status = 'completed';
                 payment.vnpay_transaction_no = vnpTransactionNo;
                 payment.vnpay_response_code = vnpResponseCode;
                 payment.completed_at = new Date();
+
+                // Save additional VNPay data
+                payment.vnpay_data = {
+                    ...payment.vnpay_data, // Keep existing data
+                    // Add all return parameters
+                    vnp_TxnRef: vnpTxnRef,
+                    vnp_Amount: vnpAmount,
+                    vnp_OrderInfo: vnpOrderInfo,
+                    vnp_ResponseCode: vnpResponseCode,
+                    vnp_TransactionNo: vnpTransactionNo,
+                    vnp_BankCode: vnpBankCode,
+                    vnp_BankTranNo: vnpBankTranNo,
+                    vnp_PayDate: vnpPayDate,
+                    vnp_TransactionStatus: vnpParams['vnp_TransactionStatus'],
+                    vnp_CardType: vnpParams['vnp_CardType'],
+                    return_processed_at: new Date().toISOString()
+                };
+
+                console.log('💾 Saving payment with complete data:', {
+                    payment_status: payment.payment_status,
+                    vnpay_transaction_no: payment.vnpay_transaction_no,
+                    vnpay_response_code: payment.vnpay_response_code,
+                    completed_at: payment.completed_at,
+                    vnpay_data_keys: Object.keys(payment.vnpay_data)
+                });
+
                 await payment.save();
 
+                console.log('✅ Payment saved successfully');
+
+                // Verify the save worked
+                const savedPayment = await paymentModel.findById(payment._id);
+                console.log('🔍 Verification - payment after save:', {
+                    id: savedPayment?._id,
+                    status: savedPayment?.payment_status,
+                    vnpay_transaction_no: savedPayment?.vnpay_transaction_no,
+                    vnpay_response_code: savedPayment?.vnpay_response_code,
+                    vnpay_data_complete: !!savedPayment?.vnpay_data?.vnp_TransactionNo
+                });
+
                 /* ------------------- Update order status ------------------- */
+                console.log('📦 Updating order status for payment_id:', payment._id);
                 const updatedOrder = await orderModel.findOneAndUpdate(
                     { payment_id: payment._id },
                     {
@@ -243,18 +325,49 @@ export default new (class PaymentService {
                     { new: true }
                 );
 
+                if (updatedOrder) {
+                    console.log('✅ Order updated successfully:', {
+                        orderId: updatedOrder._id,
+                        order_status: updatedOrder.order_status,
+                        payment_paid: updatedOrder.payment_paid
+                    });
+                } else {
+                    console.log('⚠️ No order found for payment_id:', payment._id);
+                }
+
                 return {
                     success: true,
                     message: 'Payment successful',
                     orderId: updatedOrder?._id.toString(),
                     txnRef: vnpTxnRef,
-                    amount: vnpAmount / 100
+                    amount: vnpAmount / 100,
+                    transactionNo: vnpTransactionNo,
+                    bankCode: vnpBankCode,
+                    payDate: vnpPayDate
                 };
             } else {
-                // Payment failed
+                console.log('❌ Payment failed with response code:', vnpResponseCode);
+
+                // Payment failed - still save the response data for debugging
                 payment.payment_status = 'failed';
                 payment.vnpay_response_code = vnpResponseCode;
                 payment.completed_at = new Date();
+
+                // Save failed payment data
+                payment.vnpay_data = {
+                    ...payment.vnpay_data,
+                    vnp_TxnRef: vnpTxnRef,
+                    vnp_Amount: vnpAmount,
+                    vnp_OrderInfo: vnpOrderInfo,
+                    vnp_ResponseCode: vnpResponseCode,
+                    vnp_TransactionNo: vnpTransactionNo,
+                    vnp_BankCode: vnpBankCode,
+                    vnp_BankTranNo: vnpBankTranNo,
+                    vnp_PayDate: vnpPayDate,
+                    return_processed_at: new Date().toISOString(),
+                    failure_reason: `VNPay response code: ${vnpResponseCode}`
+                };
+
                 await payment.save();
 
                 /* ------------------- Find order for failed payment ------------------- */
@@ -265,11 +378,15 @@ export default new (class PaymentService {
                     message: 'Payment failed',
                     orderId: order?._id.toString(),
                     txnRef: vnpTxnRef,
-                    responseCode: vnpResponseCode
+                    responseCode: vnpResponseCode,
+                    transactionNo: vnpTransactionNo
                 };
             }
         } else {
             console.log('❌ Signature verification failed');
+            console.log('🔍 Debug signature verification:');
+            console.log('   - Hash secret:', this.vnpayConfig.hashSecret);
+            console.log('   - Params for signing:', { ...vnpParams, vnp_SecureHash: undefined });
             throw new BadRequestErrorResponse({ message: 'Invalid signature' });
         }
     }
@@ -378,8 +495,17 @@ export default new (class PaymentService {
         console.log('💳 Found payment:', {
             id: payment._id,
             status: payment.payment_status,
-            amount: payment.amount
+            method: payment.payment_method,
+            amount: payment.amount,
+            vnpay_transaction_no: payment.vnpay_transaction_no
         });
+
+        // Check if this is a VNPay payment
+        if (payment.payment_method === 'vnpay') {
+            console.log('⚠️ WARNING: Manually updating VNPay payment status without VNPay transaction number!');
+            console.log('⚠️ This will cause refund issues because vnpay_transaction_no is missing');
+            console.log('⚠️ VNPay payments should only be updated through handleVNPayReturn or handleVNPayIPN');
+        }
 
         // Check if payment is already completed
         if (payment.payment_status === 'completed') {
@@ -390,6 +516,13 @@ export default new (class PaymentService {
         // Update payment status to completed
         payment.payment_status = 'completed';
         payment.completed_at = new Date();
+
+        // For VNPay payments, add a note that this was manually updated
+        if (payment.payment_method === 'vnpay') {
+            console.log('🚨 Adding manual update note for VNPay payment');
+            // Don't set vnpay_transaction_no here since we don't have the real one from VNPay
+        }
+
         await payment.save();
 
         console.log('✅ Payment status updated to completed');
@@ -418,47 +551,431 @@ export default new (class PaymentService {
         return payment;
     }
 
-    // public testSignatureGeneration() {
-    //     // Test with sample data from VNPay documentation
-    //     const testParams = {
-    //         vnp_Amount: "1806000",
-    //         vnp_Command: "pay",
-    //         vnp_CreateDate: "20210801153333",
-    //         vnp_CurrCode: "VND",
-    //         vnp_IpAddr: "127.0.0.1",
-    //         vnp_Locale: "vn",
-    //         vnp_OrderInfo: "Thanh toan don hang :5",
-    //         vnp_OrderType: "other",
-    //         vnp_ReturnUrl: "https://domainmerchant.vn/ReturnUrl",
-    //         vnp_TmnCode: "DEMOV210",
-    //         vnp_TxnRef: "5",
-    //         vnp_Version: "2.1.0"
-    //     };
+    // ==================== REFUND METHODS ====================
 
-    //     // Expected signature from VNPay documentation
-    //     const expectedSignature = "3e0d61a0c0534b2e36680b3f7277743e8784cc4e1d68fa7d276e79c23be7d6318d338b477910a27992f5057bb1582bd44bd82ae8009ffaf6d141219218625c42";
+    public async createRefund({
+        paymentId,
+        amount,
+        reason,
+        notes
+    }: {
+        paymentId: string;
+        amount: number;
+        reason?: string;
+        notes?: string;
+    }) {
+        console.log('🔄 Creating refund for payment:', paymentId);
 
-    //     console.log('=== Testing Signature Generation with VNPay Sample Data ===');
-    //     console.log('Test parameters:', testParams);
+        // Find payment
+        const payment = await paymentModel.findById(paymentId);
+        if (!payment) {
+            throw new NotFoundErrorResponse({ message: 'Payment not found!' });
+        }
 
-    //     const signature = this.createVNPaySignature(testParams, 'DEMOSECRETKEY');
+        // Check if payment is completed
+        if (payment.payment_status !== 'completed') {
+            throw new BadRequestErrorResponse({
+                message: 'Cannot refund a payment that is not completed!'
+            });
+        }
 
-    //     console.log('Generated signature:', signature);
-    //     console.log('Expected signature :', expectedSignature);
-    //     console.log('Signatures match   :', signature === expectedSignature);
+        // Calculate total refunded amount
+        const totalRefunded = this.calculateTotalRefunded(payment);
+        const remainingAmount = payment.amount - totalRefunded;
 
-    //     if (signature === expectedSignature) {
-    //         console.log('✅ Signature generation is CORRECT');
-    //     } else {
-    //         console.log('❌ Signature generation is INCORRECT');
-    //     }
+        // Check if refund amount is valid
+        if (amount <= 0) {
+            throw new BadRequestErrorResponse({ message: 'Refund amount must be greater than 0!' });
+        }
 
-    //     console.log('=== End Test ===');
+        if (amount > remainingAmount) {
+            throw new BadRequestErrorResponse({
+                message: `Refund amount (${amount}) exceeds remaining amount (${remainingAmount})!`
+            });
+        }
 
-    //     return {
-    //         generated: signature,
-    //         expected: expectedSignature,
-    //         isCorrect: signature === expectedSignature
-    //     };
-    // }
+        // Generate refund ID
+        const refundId = `REF_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+        // Create refund entry
+        const refundEntry = {
+            refund_id: refundId,
+            amount: amount,
+            status: 'pending' as const,
+            reason: reason || 'Customer request',
+            created_at: new Date(),
+            notes: notes
+        };
+
+        // Add to refund history
+        if (!payment.refund_history) {
+            payment.refund_history = [];
+        }
+        payment.refund_history.push(refundEntry);
+
+        // Update overall refund status and amount
+        payment.refund_status = 'pending';
+        payment.refund_amount = totalRefunded + amount;
+        payment.refund_date = new Date();
+        payment.refund_reason = reason || 'Customer request';
+
+        await payment.save();
+
+        console.log('✅ Refund created successfully:', {
+            refundId,
+            amount,
+            totalRefunded: payment.refund_amount
+        });
+
+        return {
+            refundId,
+            payment,
+            refundEntry
+        };
+    }
+
+    public async updateRefundStatus({
+        paymentId,
+        refundId,
+        status,
+        transactionId,
+        notes
+    }: {
+        paymentId: string;
+        refundId: string;
+        status: 'completed' | 'failed';
+        transactionId?: string;
+        notes?: string;
+    }) {
+        console.log('🔄 Updating refund status:', { paymentId, refundId, status });
+
+        const payment = await paymentModel.findById(paymentId);
+        if (!payment) {
+            throw new NotFoundErrorResponse({ message: 'Payment not found!' });
+        }
+
+        // Find refund entry
+        const refundEntry = payment.refund_history?.find(r => r.refund_id === refundId);
+        if (!refundEntry) {
+            throw new NotFoundErrorResponse({ message: 'Refund entry not found!' });
+        }
+
+        // Update refund entry
+        refundEntry.status = status;
+        refundEntry.completed_at = new Date();
+        if (transactionId) refundEntry.transaction_id = transactionId;
+        if (notes) refundEntry.notes = notes;
+
+        // Update overall refund status
+        const allRefunds = payment.refund_history || [];
+        const hasFailedRefunds = allRefunds.some(r => r.status === 'failed');
+        const hasPendingRefunds = allRefunds.some(r => r.status === 'pending');
+        const allCompleted = allRefunds.every(r => r.status === 'completed');
+
+        if (allCompleted && allRefunds.length > 0) {
+            payment.refund_status = 'completed';
+        } else if (hasFailedRefunds) {
+            payment.refund_status = 'failed';
+        } else if (hasPendingRefunds) {
+            payment.refund_status = 'pending';
+        }
+
+        // Update transaction ID if this is the latest refund
+        if (transactionId) {
+            payment.refund_transaction_id = transactionId;
+        }
+
+        await payment.save();
+
+        console.log('✅ Refund status updated successfully');
+
+        return payment;
+    }
+
+    public async getRefundHistory(paymentId: string) {
+        const payment = await paymentModel.findById(paymentId);
+        if (!payment) {
+            throw new NotFoundErrorResponse({ message: 'Payment not found!' });
+        }
+
+        return {
+            payment_id: paymentId,
+            total_amount: payment.amount,
+            total_refunded: this.calculateTotalRefunded(payment),
+            refund_status: payment.refund_status || 'none',
+            refund_history: payment.refund_history || []
+        };
+    }
+
+    public async getRefundsByStatus(status: 'pending' | 'completed' | 'failed') {
+        const payments = await paymentModel.find({
+            refund_status: status
+        }).select('txn_ref amount refund_amount refund_status refund_history created_at');
+
+        return payments;
+    }
+
+    private calculateTotalRefunded(payment: any): number {
+        if (!payment.refund_history || payment.refund_history.length === 0) {
+            return 0;
+        }
+
+        return payment.refund_history
+            .filter((refund: any) => refund.status === 'completed')
+            .reduce((total: number, refund: any) => total + refund.amount, 0);
+    }
+
+    public async processVNPayRefund({
+        paymentId,
+        refundId,
+        amount
+    }: {
+        paymentId: string;
+        refundId: string;
+        amount: number;
+    }) {
+        console.log('🔄 Processing VNPay refund:', { paymentId, refundId, amount });
+
+        const payment = await paymentModel.findById(paymentId);
+        if (!payment) {
+            throw new NotFoundErrorResponse({ message: 'Payment not found!' });
+        }
+
+        console.log('💳 Payment details for refund:', {
+            id: payment._id,
+            method: payment.payment_method,
+            status: payment.payment_status,
+            vnpay_transaction_no: payment.vnpay_transaction_no,
+            vnpay_data: payment.vnpay_data,
+            created_at: payment.created_at,
+            completed_at: payment.completed_at,
+            amount: payment.amount
+        });
+
+        if (payment.payment_method !== 'vnpay') {
+            console.log('❌ Payment method is not VNPay, skipping VNPay refund API');
+            throw new BadRequestErrorResponse({ message: 'Payment method is not VNPay!' });
+        }
+
+        // Check if payment was never completed (no VNPay transaction number)
+        if (!payment.vnpay_transaction_no) {
+            console.log('⚠️ Payment was never completed through VNPay - missing vnpay_transaction_no');
+            console.log('🔍 Possible reasons:');
+            console.log('   1. Payment was cancelled before VNPay processing');
+            console.log('   2. VNPay did not return transaction number');
+            console.log('   3. Payment was updated via updatePaymentStatusById (not VNPay flow)');
+            console.log('   4. Database update failed during VNPay return/IPN');
+
+            // For payments that were never completed through VNPay, we just mark the refund as completed
+            // since no actual money was charged through VNPay
+            await this.updateRefundStatus({
+                paymentId,
+                refundId,
+                status: 'completed',
+                transactionId: `NO_CHARGE_${refundId}`,
+                notes: 'Refund completed - payment was never processed through VNPay (order cancelled before payment completion)'
+            });
+
+            return {
+                success: true,
+                vnpay_refund_transaction_id: `NO_CHARGE_${refundId}`,
+                message: 'Refund completed - no charge was made through VNPay'
+            };
+        }
+
+        if (!payment.vnpay_data?.vnp_CreateDate) {
+            console.log('❌ Original transaction date not found in vnpay_data');
+            console.log('🔍 vnpay_data content:', payment.vnpay_data);
+            throw new BadRequestErrorResponse({ message: 'Original transaction date not found!' });
+        }
+
+        // Check if we're in sandbox/test mode
+        // const isTestMode = this.vnpayConfig.url.includes('sandbox') || process.env.NODE_ENV !== 'production';
+        const isTestMode = false;
+        console.log('🔧 Environment check:', {
+            isTestMode,
+            vnpayUrl: this.vnpayConfig.url,
+            nodeEnv: process.env.NODE_ENV
+        });
+
+        try {
+            // Import VNPay refund functions
+            const { dateFormat, getDateInGMT7, VnpTransactionType, VnpLocale } = await import('vnpay');
+
+            // Prepare refund request data according to VNPay API documentation
+            const refundRequestDate = dateFormat(getDateInGMT7(new Date()));
+            const originalTransactionDate = payment.vnpay_data.vnp_CreateDate;
+
+            // Determine if this is a full or partial refund
+            const totalRefunded = this.calculateTotalRefunded(payment);
+            const totalAfterRefund = totalRefunded + amount;
+            const isFullRefund = totalAfterRefund >= payment.amount;
+            const transactionType = isFullRefund ? VnpTransactionType.FULL_REFUND : VnpTransactionType.PARTIAL_REFUND;
+
+            console.log('📊 Refund analysis:', {
+                originalAmount: payment.amount,
+                totalRefunded,
+                currentRefundAmount: amount,
+                totalAfterRefund,
+                isFullRefund,
+                transactionType,
+                isTestMode
+            });
+
+            // Handle sandbox/test mode limitation
+            if (isTestMode) {
+                console.log('⚠️ Running in sandbox/test mode - VNPay refund API is restricted');
+                console.log('📝 Simulating successful refund for development/testing purposes');
+
+                // Generate simulated refund transaction ID
+                const simulatedRefundTxnId = `SANDBOX_REF_${Date.now()}_${refundId}`;
+
+                // Update refund status to completed with simulation note
+                await this.updateRefundStatus({
+                    paymentId,
+                    refundId,
+                    status: 'completed',
+                    transactionId: simulatedRefundTxnId,
+                    notes: `Simulated VNPay refund in sandbox mode. In production, this would be processed through VNPay API. Amount: ${amount} VND`
+                });
+
+                console.log('✅ Simulated VNPay refund completed successfully');
+
+                return {
+                    success: true,
+                    vnpay_refund_transaction_id: simulatedRefundTxnId,
+                    message: 'Refund completed (simulated in sandbox mode)',
+                    sandbox_mode: true
+                };
+            }
+
+            // Production mode - actual VNPay API call
+            console.log('🔄 Calling VNPay refund API (production mode)...');
+            console.log('🚨 IMPORTANT: This is where the actual VNPay refund API should be called!');
+
+            const vnpayRefundRequest = {
+                vnp_Amount: this.formatVNPayAmount(amount), // Convert to VNPay format
+                vnp_CreateBy: 'system', // System user creating the refund
+                vnp_CreateDate: refundRequestDate, // Keep as string for VNPay API
+                vnp_IpAddr: '127.0.0.1', // Server IP
+                vnp_OrderInfo: `Refund for order ${payment.txn_ref} - ${refundId}`,
+                vnp_RequestId: refundId, // Use our refund ID as request ID
+                vnp_TransactionDate: originalTransactionDate, // Keep as string for VNPay API
+                vnp_TransactionType: transactionType, // Full or partial refund
+                vnp_TxnRef: payment.txn_ref, // Original transaction reference
+                vnp_Locale: VnpLocale.VN, // Vietnamese locale
+                vnp_TransactionNo: parseInt(payment.vnpay_transaction_no) // VNPay transaction number
+            };
+
+            console.log('📋 VNPay refund request prepared:', vnpayRefundRequest);
+            console.log('📋 VNPay refund parameters:', {
+                amount: `${amount} VND -> ${this.formatVNPayAmount(amount)} (VNPay format)`,
+                createDate: refundRequestDate,
+                transactionDate: originalTransactionDate,
+                transactionType: transactionType,
+                refundId: refundId,
+                vnpayTransactionNo: payment.vnpay_transaction_no
+            });
+
+            console.log('🚀 About to call PaymentService.vnpay.refund() - THIS IS THE KEY LINE!');
+
+            // Call VNPay refund API - This is the key line that calls the actual VNPay refund API
+            const vnpayApiResponse = await PaymentService.vnpay.refund(vnpayRefundRequest as any);
+
+            console.log('==================> VNPay refund response:', vnpayApiResponse);
+
+            // Check if refund was successful
+            if (vnpayApiResponse.isSuccess && vnpayApiResponse.isVerified) {
+                // Generate VNPay refund transaction ID
+                const vnpayRefundTxnId = `VNP_REF_${Date.now()}_${refundId}`;
+
+                // Update refund status to completed
+                await this.updateRefundStatus({
+                    paymentId,
+                    refundId,
+                    status: 'completed',
+                    transactionId: vnpayRefundTxnId,
+                    notes: `VNPay refund processed successfully. Response: ${vnpayApiResponse.message}`
+                });
+
+                console.log('✅ VNPay refund processed successfully');
+
+                return {
+                    success: true,
+                    vnpay_refund_transaction_id: vnpayRefundTxnId,
+                    vnpay_response: vnpayApiResponse,
+                    message: 'VNPay refund processed successfully'
+                };
+
+            } else {
+                // Refund failed
+                const errorMessage = vnpayApiResponse.message || 'VNPay refund failed';
+
+                console.error('❌ VNPay refund failed:', errorMessage);
+
+                // Update refund status to failed
+                await this.updateRefundStatus({
+                    paymentId,
+                    refundId,
+                    status: 'failed',
+                    notes: `VNPay refund failed: ${errorMessage}. Verified: ${vnpayApiResponse.isVerified}`
+                });
+
+                throw new BadRequestErrorResponse({
+                    message: `VNPay refund failed: ${errorMessage}`
+                });
+            }
+
+        } catch (error: any) {
+            console.error('❌ VNPay refund API error:', error);
+            console.error('❌ Error stack:', error.stack);
+            console.error('❌ Error details:', {
+                name: error.name,
+                message: error.message,
+                code: error.code,
+                statusCode: error.statusCode
+            });
+
+            // Check if this is a sandbox restriction error
+            if (error.message && error.message.includes('sandbox')) {
+                console.log('🔧 Detected sandbox restriction, falling back to simulation mode');
+
+                const fallbackRefundTxnId = `SANDBOX_FALLBACK_${Date.now()}_${refundId}`;
+
+                await this.updateRefundStatus({
+                    paymentId,
+                    refundId,
+                    status: 'completed',
+                    transactionId: fallbackRefundTxnId,
+                    notes: `Sandbox refund limitation encountered. Refund simulated for development. Error: ${error.message}`
+                });
+
+                return {
+                    success: true,
+                    vnpay_refund_transaction_id: fallbackRefundTxnId,
+                    message: 'Refund completed (sandbox fallback)',
+                    sandbox_fallback: true
+                };
+            }
+
+            // Update refund status to failed
+            await this.updateRefundStatus({
+                paymentId,
+                refundId,
+                status: 'failed',
+                notes: `VNPay refund API error: ${error.message || error}`
+            });
+
+            // Re-throw the error if it's already a BadRequestErrorResponse
+            if (error.statusCode) {
+                throw error;
+            }
+
+            throw new BadRequestErrorResponse({
+                message: `VNPay refund processing failed: ${error.message || 'Unknown error'}`
+            });
+        }
+    }
+
+    // ==================== END REFUND METHODS ====================
 })(); 

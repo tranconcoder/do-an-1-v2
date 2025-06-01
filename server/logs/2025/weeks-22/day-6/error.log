@@ -1273,3 +1273,54 @@
 [2025-05-31T18:40:44.648Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-05-31T18:40:50.757Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-05-31T18:46:46.217Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T18:58:28.373Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-05-31T19:01:15.297Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T19:01:20.414Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T19:02:24.217Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T19:02:40.061Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T19:08:11.374Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T19:08:22.956Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T19:08:22.958Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T19:08:22.993Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:01:14.050Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:02:18.680Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:02:32.165Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:13:00.717Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-31T20:13:01.066Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-31T20:15:18.083Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T20:15:20.714Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T20:15:21.323Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T20:15:22.102Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T20:15:22.956Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T20:15:27.233Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T20:15:36.634Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T20:15:44.757Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T20:15:44.765Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-05-31T20:16:07.267Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:16:15.812Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:17:11.459Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:17:26.337Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:18:04.806Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-31T20:18:04.892Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-31T20:18:04.990Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-31T20:18:05.053Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-31T20:18:13.714Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:25:51.676Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-31T20:25:51.805Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-31T20:26:10.327Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-05-31T20:26:37.811Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:31:22.983Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:43:14.067Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:43:19.757Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:43:34.965Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:44:20.039Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:45:30.858Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:48:20.571Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T20:48:26.523Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T21:11:11.330Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T21:11:12.616Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T21:11:55.751Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T21:12:00.652Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T21:12:34.160Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T21:15:36.987Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-05-31T21:15:40.687Z] [error]: HIDE::404::NotFound::Not found file!::

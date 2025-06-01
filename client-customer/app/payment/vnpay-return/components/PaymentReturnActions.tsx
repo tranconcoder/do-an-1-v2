@@ -1,13 +1,13 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Receipt, Loader2, CheckCircle, XCircle } from 'lucide-react';
-import CloseWindowButton from './CloseWindowButton';
+import { ArrowLeft, Receipt, Loader2, CheckCircle, XCircle, ShoppingBag } from 'lucide-react';
 import CaptureScreenshot from './CaptureScreenshot';
 import { useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import paymentService from '@/lib/services/api/paymentService';
 import React from 'react';
+import Link from 'next/link';
 
 interface PaymentReturnActionsProps {
     isSuccess: boolean;
@@ -47,25 +47,27 @@ export default function PaymentReturnActions({
         responseCode: parsedVnpayParams.vnp_ResponseCode
     });
 
-    // Simple payment status update using payment ID
-    const updatePaymentStatus = async () => {
+    // Process VNPay return with full parameters
+    const processVNPayReturn = async () => {
         if (!isSuccess || !parsedVnpayParams.vnp_TxnRef) {
-            console.log('❌ Skipping payment update - payment not successful or missing txnRef');
+            console.log(
+                '❌ Skipping VNPay return processing - payment not successful or missing txnRef'
+            );
             console.log('❌ Debug info:', { isSuccess, vnpTxnRef: parsedVnpayParams.vnp_TxnRef });
             return;
         }
 
-        console.log('🚀 Starting payment status update...');
-        console.log('💳 Payment ID (vnp_TxnRef):', parsedVnpayParams.vnp_TxnRef);
+        console.log('🚀 Starting VNPay return processing...');
+        console.log('📋 Full VNPay parameters:', parsedVnpayParams);
 
         setIpnProcessing(true);
         setIpnError(null);
 
         try {
-            // Use payment ID from vnp_TxnRef to update status
-            const result = await paymentService.updatePaymentStatus(parsedVnpayParams.vnp_TxnRef);
+            // Send all VNPay parameters to server for complete processing
+            const result = await paymentService.processVNPayReturn(parsedVnpayParams);
 
-            console.log('✅ Payment status update response:', result);
+            console.log('✅ VNPay return processing response:', result);
 
             if (result.success) {
                 setIpnCompleted(true);
@@ -75,13 +77,13 @@ export default function PaymentReturnActions({
                     variant: 'default'
                 });
 
-                console.log('🎉 Payment processing completed successfully!');
+                console.log('🎉 VNPay return processing completed successfully!');
                 console.log('📦 Order status updated: PENDING_PAYMENT → PENDING');
             } else {
-                throw new Error(result.message || 'Payment update failed');
+                throw new Error(result.message || 'VNPay return processing failed');
             }
         } catch (error: any) {
-            console.error('❌ Payment Status Update Error:', error);
+            console.error('❌ VNPay Return Processing Error:', error);
             console.error('❌ Error details:', {
                 message: error.message,
                 response: error.response?.data,
@@ -93,12 +95,12 @@ export default function PaymentReturnActions({
             const errorMessage =
                 error.response?.data?.message ||
                 error.message ||
-                'Không thể cập nhật trạng thái thanh toán';
+                'Không thể xử lý kết quả thanh toán VNPay';
 
             setIpnError(errorMessage);
             toast({
-                title: '⚠️ Lỗi cập nhật thanh toán',
-                description: `Có lỗi xảy ra khi cập nhật trạng thái: ${errorMessage}`,
+                title: '⚠️ Lỗi xử lý thanh toán',
+                description: `Có lỗi xảy ra khi xử lý kết quả thanh toán: ${errorMessage}`,
                 variant: 'destructive'
             });
         } finally {
@@ -106,23 +108,23 @@ export default function PaymentReturnActions({
         }
     };
 
-    // Auto-trigger payment status update for successful payments when component mounts
+    // Auto-trigger VNPay return processing for successful payments when component mounts
     useEffect(() => {
         if (isSuccess && parsedVnpayParams.vnp_TxnRef && !ipnCompleted && !ipnProcessing) {
-            console.log('🚀 Auto-triggering payment status update...');
+            console.log('🚀 Auto-triggering VNPay return processing...');
 
-            // Delay to show the success page first, then trigger update
+            // Delay to show the success page first, then trigger processing
             const timer = setTimeout(() => {
-                console.log('⏰ Payment status update timer triggered');
-                updatePaymentStatus();
+                console.log('⏰ VNPay return processing timer triggered');
+                processVNPayReturn();
             }, 1000); // Reduced delay to 1 second for faster processing
 
             return () => {
-                console.log('🧹 Cleaning up update timer');
+                console.log('🧹 Cleaning up processing timer');
                 clearTimeout(timer);
             };
         } else {
-            console.log('⏭️ Skipping auto payment update:', {
+            console.log('⏭️ Skipping auto VNPay return processing:', {
                 isSuccess,
                 hasTxnRef: !!parsedVnpayParams.vnp_TxnRef,
                 ipnCompleted,
@@ -169,7 +171,7 @@ export default function PaymentReturnActions({
                                 <p className="font-medium">❌ Lỗi xử lý thanh toán</p>
                                 <p className="text-sm text-gray-600 mb-2">{ipnError}</p>
                                 <Button
-                                    onClick={updatePaymentStatus}
+                                    onClick={processVNPayReturn}
                                     variant="outline"
                                     size="sm"
                                     className="mt-2"
@@ -209,87 +211,20 @@ export default function PaymentReturnActions({
 
             {/* Action Buttons */}
             <div className="flex flex-col space-y-3">
-                {/* Close and Screenshot buttons side by side for successful payments */}
+                {/* Screenshot and Orders buttons for successful payments */}
                 {isSuccess && (
                     <div className="grid grid-cols-2 gap-3">
-                        <CloseWindowButton inline />
                         <CaptureScreenshot orderId={orderId} />
+                        <Link href="/orders" className="w-full">
+                            <Button
+                                variant="default"
+                                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                            >
+                                <ShoppingBag className="h-4 w-4 mr-2" />
+                                Xem đơn hàng
+                            </Button>
+                        </Link>
                     </div>
-                )}
-
-                {/* Close button only for failed payments */}
-                {!isSuccess && <CloseWindowButton inline />}
-
-                {/* Manual IPN trigger for debugging */}
-                {process.env.NODE_ENV === 'development' && isSuccess && !ipnCompleted && (
-                    <Button
-                        onClick={updatePaymentStatus}
-                        variant="secondary"
-                        className="w-full"
-                        disabled={ipnProcessing}
-                    >
-                        {ipnProcessing ? (
-                            <>
-                                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                                Đang cập nhật...
-                            </>
-                        ) : (
-                            '🔄 Cập nhật trạng thái thủ công'
-                        )}
-                    </Button>
-                )}
-
-                {/* Manual IPN trigger - Always visible in dev */}
-                {process.env.NODE_ENV === 'development' && isSuccess && (
-                    <Button
-                        onClick={() => {
-                            console.log('🔧 Manual IPN trigger clicked');
-                            console.log('🔧 Current state:', { ipnCompleted, ipnProcessing });
-                            console.log('🔧 VNPay params:', parsedVnpayParams);
-                            updatePaymentStatus();
-                        }}
-                        variant="outline"
-                        className="w-full bg-yellow-50 hover:bg-yellow-100 text-yellow-800 border-yellow-300"
-                        disabled={ipnProcessing}
-                    >
-                        {ipnProcessing ? (
-                            <>
-                                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                                Đang cập nhật...
-                            </>
-                        ) : (
-                            '🔧 Debug: Cập nhật trạng thái'
-                        )}
-                    </Button>
-                )}
-
-                {/* Manual IPN trigger - Always visible for successful payments */}
-                {isSuccess && (
-                    <Button
-                        onClick={() => {
-                            console.log('🔄 Manual IPN trigger for successful payment');
-                            console.log('📋 Payment details:', {
-                                paymentId: parsedVnpayParams.vnp_TxnRef,
-                                amount: parsedVnpayParams.vnp_Amount,
-                                responseCode: parsedVnpayParams.vnp_ResponseCode
-                            });
-                            updatePaymentStatus();
-                        }}
-                        variant="default"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                        disabled={ipnProcessing}
-                    >
-                        {ipnProcessing ? (
-                            <>
-                                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                                Đang cập nhật trạng thái...
-                            </>
-                        ) : ipnCompleted ? (
-                            '✅ Đã cập nhật thành công'
-                        ) : (
-                            '🔄 Cập nhật trạng thái thanh toán'
-                        )}
-                    </Button>
                 )}
             </div>
         </>

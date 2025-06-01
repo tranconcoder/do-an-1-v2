@@ -1,7 +1,7 @@
 import apiClient from '../axiosInstance';
 
 export interface CreateOrderRequest {
-    paymentType: 'cod' | 'vnpay' | 'bank_transfer' | 'credit_card';
+    paymentType: 'cod' | 'vnpay';
 }
 
 export interface CreateOrderResponse {
@@ -60,6 +60,11 @@ export interface CancelOrderResponse {
         _id: string;
         order_status: string;
         updated_at: string;
+        refund_info?: {
+            refund_id: string;
+            refund_amount: number;
+            refund_status: 'pending' | 'completed' | 'failed';
+        };
     };
 }
 
@@ -106,6 +111,7 @@ export interface OrderHistoryItem {
     }>;
     payment_type: string;
     payment_paid: boolean;
+    payment_date?: string;
     price_to_payment: number;
     price_total_raw: number;
     total_discount_price: number;
@@ -127,6 +133,16 @@ export interface OrderHistoryItem {
     };
     created_at: string;
     updated_at: string;
+    refund_info?: {
+        refund_id: string;
+        refund_amount: number;
+        refund_status: 'pending' | 'completed' | 'failed';
+    };
+    cancellation_reason?: string;
+    rejection_reason?: string;
+    cancelled_at?: string;
+    rejected_at?: string;
+    rejected_by_shop?: boolean;
 }
 
 export interface GetOrderHistoryParams {

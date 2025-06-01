@@ -46,7 +46,8 @@ import {
     ChevronLeft,
     ChevronRight,
     SortAsc,
-    SortDesc
+    SortDesc,
+    RefreshCw
 } from 'lucide-react';
 import orderService, {
     OrderHistoryItem,
@@ -75,9 +76,7 @@ const ORDER_STATUS_MAP = {
 // Payment type mapping to Vietnamese
 const PAYMENT_TYPE_MAP = {
     cod: 'Thanh toán khi nhận hàng',
-    vnpay: 'VNPay',
-    bank_transfer: 'Chuyển khoản ngân hàng',
-    credit_card: 'Thẻ tín dụng'
+    vnpay: 'VNPay'
 };
 
 // Sort options
@@ -212,11 +211,18 @@ export default function OrderHistoryPage() {
     const handleCancelOrder = async (orderId: string) => {
         try {
             setCancellingOrderId(orderId);
-            await orderService.cancelOrder(orderId);
+            const response = await orderService.cancelOrder(orderId);
+
+            // Check if refund information is available
+            const refundInfo = response.metadata.refund_info;
 
             toast({
                 title: 'Thành công',
-                description: 'Đơn hàng đã được hủy thành công.',
+                description: refundInfo
+                    ? `Đơn hàng đã được hủy thành công. Hoàn tiền ${formatPrice(
+                          refundInfo.refund_amount
+                      )} đang được xử lý.`
+                    : 'Đơn hàng đã được hủy thành công.',
                 variant: 'default'
             });
 
@@ -342,6 +348,12 @@ export default function OrderHistoryPage() {
                                 <StatusIcon className="h-3 w-3 mr-1" />
                                 {statusInfo.label}
                             </Badge>
+                            {order.payment_paid && (
+                                <Badge className="bg-green-100 text-green-800 border-green-300">
+                                    <CheckCircle className="h-3 w-3 mr-1" />
+                                    Đã thanh toán
+                                </Badge>
+                            )}
                         </div>
                     </div>
                 </CardHeader>
@@ -494,10 +506,26 @@ export default function OrderHistoryPage() {
                                       ] || order.payment_type
                                     : 'Không xác định'}
                             </p>
-                            <p className="text-sm text-gray-600">
-                                Trạng thái:{' '}
-                                {order.payment_paid ? 'Đã thanh toán' : 'Chưa thanh toán'}
-                            </p>
+                            <div className="flex items-center gap-2 mt-1">
+                                <p className="text-sm text-gray-600">Trạng thái:</p>
+                                {order.payment_paid ? (
+                                    <Badge className="bg-green-100 text-green-800 border-green-300">
+                                        <CheckCircle className="h-3 w-3 mr-1" />
+                                        Đã thanh toán
+                                    </Badge>
+                                ) : (
+                                    <Badge className="bg-orange-100 text-orange-800 border-orange-300">
+                                        <Clock className="h-3 w-3 mr-1" />
+                                        Chưa thanh toán
+                                    </Badge>
+                                )}
+                            </div>
+                            {order.payment_paid && order.payment_date && (
+                                <p className="text-xs text-green-600 mt-1 flex items-center">
+                                    <Calendar className="h-3 w-3 mr-1" />
+                                    Thanh toán lúc: {formatDate(order.payment_date)}
+                                </p>
+                            )}
                         </div>
                         <div className="text-right">
                             <p className="text-sm text-gray-600">Tổng tiền:</p>
@@ -509,8 +537,133 @@ export default function OrderHistoryPage() {
                                     Đã giảm: {formatPrice(order.total_discount_price || 0)}
                                 </p>
                             )}
+                            {order.payment_paid && (
+                                <div className="flex items-center justify-end mt-1">
+                                    <Badge
+                                        variant="outline"
+                                        className="bg-green-50 text-green-700 border-green-300"
+                                    >
+                                        <CheckCircle className="h-3 w-3 mr-1" />
+                                        Đã thanh toán
+                                    </Badge>
+                                </div>
+                            )}
                         </div>
                     </div>
+
+                    {/* Refund Information */}
+                    {order.order_status === 'cancelled' && order.refund_info && (
+                        <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-sm font-medium text-yellow-800 flex items-center">
+                                        <RefreshCw className="h-4 w-4 mr-2" />
+                                        Thông tin hoàn tiền
+                                    </p>
+                                    <div className="mt-2 space-y-1">
+                                        <p className="text-sm text-gray-600">
+                                            Mã hoàn tiền:{' '}
+                                            <span className="font-mono text-xs">
+                                                {order.refund_info.refund_id}
+                                            </span>
+                                        </p>
+                                        <p className="text-sm text-gray-600">
+                                            Số tiền hoàn:{' '}
+                                            <span className="font-medium text-yellow-700">
+                                                {formatPrice(order.refund_info.refund_amount)}
+                                            </span>
+                                        </p>
+                                        {order.cancellation_reason && (
+                                            <p className="text-sm text-gray-600">
+                                                Lý do hủy:{' '}
+                                                <span className="italic">
+                                                    {order.cancellation_reason}
+                                                </span>
+                                            </p>
+                                        )}
+                                        {order.rejection_reason && order.rejected_by_shop && (
+                                            <p className="text-sm text-gray-600">
+                                                Lý do từ chối:{' '}
+                                                <span className="italic">
+                                                    {order.rejection_reason}
+                                                </span>
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="text-right">
+                                    <Badge
+                                        className={
+                                            order.refund_info.refund_status === 'completed'
+                                                ? 'bg-green-100 text-green-800 border-green-300'
+                                                : order.refund_info.refund_status === 'failed'
+                                                ? 'bg-red-100 text-red-800 border-red-300'
+                                                : 'bg-yellow-100 text-yellow-800 border-yellow-300'
+                                        }
+                                    >
+                                        {order.refund_info.refund_status === 'completed' && (
+                                            <CheckCircle className="h-3 w-3 mr-1" />
+                                        )}
+                                        {order.refund_info.refund_status === 'failed' && (
+                                            <XCircle className="h-3 w-3 mr-1" />
+                                        )}
+                                        {order.refund_info.refund_status === 'pending' && (
+                                            <Clock className="h-3 w-3 mr-1" />
+                                        )}
+                                        {order.refund_info.refund_status === 'completed'
+                                            ? 'Đã hoàn tiền'
+                                            : order.refund_info.refund_status === 'failed'
+                                            ? 'Hoàn tiền thất bại'
+                                            : 'Đang xử lý hoàn tiền'}
+                                    </Badge>
+                                    {order.refund_info.refund_status === 'completed' && (
+                                        <p className="text-xs text-green-600 mt-1">
+                                            Tiền sẽ được hoàn về tài khoản trong 1-3 ngày làm việc
+                                        </p>
+                                    )}
+                                    {order.refund_info.refund_status === 'pending' && (
+                                        <p className="text-xs text-yellow-600 mt-1">
+                                            Đang xử lý, vui lòng chờ
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Cancellation Info for orders without refund */}
+                    {order.order_status === 'cancelled' && !order.refund_info && (
+                        <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                            <p className="text-sm font-medium text-gray-700 flex items-center">
+                                <XCircle className="h-4 w-4 mr-2" />
+                                Đơn hàng đã bị hủy
+                            </p>
+                            <div className="mt-2 space-y-1">
+                                {order.cancellation_reason && (
+                                    <p className="text-sm text-gray-600">
+                                        Lý do hủy:{' '}
+                                        <span className="italic">{order.cancellation_reason}</span>
+                                    </p>
+                                )}
+                                {order.rejection_reason && order.rejected_by_shop && (
+                                    <p className="text-sm text-gray-600">
+                                        Lý do từ chối:{' '}
+                                        <span className="italic">{order.rejection_reason}</span>
+                                    </p>
+                                )}
+                                {order.cancelled_at && (
+                                    <p className="text-sm text-gray-600">
+                                        Thời gian hủy: {formatDate(order.cancelled_at)}
+                                    </p>
+                                )}
+                                {order.rejected_at && (
+                                    <p className="text-sm text-gray-600">
+                                        Thời gian từ chối: {formatDate(order.rejected_at)}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    )}
 
                     {/* Actions */}
                     <div className="flex justify-end space-x-2 pt-2">
@@ -594,8 +747,6 @@ export default function OrderHistoryPage() {
                                     <SelectItem value="all">Tất cả</SelectItem>
                                     <SelectItem value="cod">COD</SelectItem>
                                     <SelectItem value="vnpay">VNPay</SelectItem>
-                                    <SelectItem value="bank_transfer">Chuyển khoản</SelectItem>
-                                    <SelectItem value="credit_card">Thẻ tín dụng</SelectItem>
                                 </SelectContent>
                             </Select>
 
