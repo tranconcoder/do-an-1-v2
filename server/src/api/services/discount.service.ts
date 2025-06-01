@@ -157,6 +157,35 @@ export default class DiscountService {
         return discount;
     };
 
+    /* ------------- Get discount for edit by shop ------------- */
+    public static getDiscountForEdit = async ({
+        discountId,
+        userId
+    }: {
+        discountId: string;
+        userId: string;
+    }) => {
+        /* --------------- Check shop owns the discount --------------- */
+        const shop = await findOneShop({
+            query: { shop_userId: userId },
+            options: { lean: true }
+        });
+        if (!shop) {
+            throw new NotFoundErrorResponse({ message: 'Shop not found!' });
+        }
+
+        const discount = await discountModel.findOne({
+            _id: discountId,
+            discount_shop: shop._id
+        }).lean();
+
+        if (!discount) {
+            throw new ForbiddenErrorResponse({ message: 'Not permission to access this discount!' });
+        }
+
+        return discount;
+    };
+
     public static getAllShopOwnDiscount = async (
         payload: service.discount.arguments.GetAllShopOwnDiscount
     ) => {

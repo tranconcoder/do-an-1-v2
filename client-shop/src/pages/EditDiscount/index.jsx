@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
-import styles from './DiscountManager.module.scss';
+import styles from './EditDiscount.module.scss';
 import axiosClient from '../../configs/axios';
 import { API_URL } from '../../configs/env.config';
-import ProductSelection from './components/ProductSelection';
+import ProductSelection from '../DiscountManager/components/ProductSelection';
 import { useToast } from '../../contexts/ToastContext';
-import { convertDatetimeLocalToISO } from '../../utils/datetime';
+import { convertDatetimeLocalToISO, convertISOToDatetimeLocal } from '../../utils/datetime';
 
 const cx = classNames.bind(styles);
 
-function DiscountManager() {
+function EditDiscount() {
     const navigate = useNavigate();
+    const { discountId } = useParams();
     const [loading, setLoading] = useState(false);
+    const [fetchLoading, setFetchLoading] = useState(true);
     const [errors, setErrors] = useState({});
     const { showToast } = useToast();
+    const [originalData, setOriginalData] = useState(null);
     const [formData, setFormData] = useState({
         discount_name: '',
         discount_description: '',
@@ -32,6 +35,53 @@ function DiscountManager() {
         is_apply_all_product: true,
         is_available: true
     });
+
+    useEffect(() => {
+        fetchDiscountDetails();
+    }, [discountId]);
+
+    const fetchDiscountDetails = async () => {
+        try {
+            setFetchLoading(true);
+            const response = await axiosClient.get(`${API_URL}/discount/${discountId}`);
+
+            if (response.data && response.data.statusCode === 200) {
+                const discount = response.data.metadata;
+
+                const discountData = {
+                    discount_name: discount.discount_name || '',
+                    discount_description: discount.discount_description || '',
+                    discount_code: discount.discount_code || '',
+                    discount_type: discount.discount_type || 'percentage',
+                    discount_value: discount.discount_value || '',
+                    discount_count: discount.discount_count || '',
+                    discount_max_value: discount.discount_max_value || '',
+                    discount_user_max_use: discount.discount_user_max_use || '',
+                    discount_min_order_cost: discount.discount_min_order_cost || '',
+                    discount_start_at: convertISOToDatetimeLocal(discount.discount_start_at),
+                    discount_end_at: convertISOToDatetimeLocal(discount.discount_end_at),
+                    discount_skus: discount.discount_skus || [],
+                    is_publish: discount.is_publish !== undefined ? discount.is_publish : true,
+                    is_apply_all_product:
+                        discount.is_apply_all_product !== undefined
+                            ? discount.is_apply_all_product
+                            : true,
+                    is_available: discount.is_available !== undefined ? discount.is_available : true
+                };
+
+                setFormData(discountData);
+                setOriginalData(discountData);
+            }
+        } catch (error) {
+            console.error('Error fetching discount details:', error);
+            const errorMessage =
+                error.response?.data?.message || 'Không thể tải thông tin mã giảm giá';
+            showToast(errorMessage, 'error');
+            navigate('/discounts');
+        } finally {
+            setFetchLoading(false);
+        }
+    };
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -111,6 +161,7 @@ function DiscountManager() {
         try {
             setLoading(true);
             const data = {
+                _id: discountId,
                 ...formData,
                 discount_count: Number(formData.discount_count),
                 discount_max_value: formData.discount_max_value
@@ -129,26 +180,43 @@ function DiscountManager() {
             if (!data.discount_max_value) delete data.discount_max_value;
             if (data.is_apply_all_product) delete data.discount_skus;
 
-            const response = await axiosClient.post(`${API_URL}/discount/create`, data);
+            const response = await axiosClient.put(`${API_URL}/discount`, data);
 
-            if (response.data && response.data.statusCode === 201) {
-                showToast('Mã giảm giá được tạo thành công!', 'success');
+            if (response.data && response.data.statusCode === 200) {
+                showToast('Mã giảm giá được cập nhật thành công!', 'success');
                 navigate('/discounts');
             }
         } catch (error) {
-            console.error('Error creating discount:', error);
+            console.error('Error updating discount:', error);
             const errorMessage =
-                error.response?.data?.message || 'Không thể tạo mã giảm giá. Vui lòng thử lại.';
+                error.response?.data?.message ||
+                'Không thể cập nhật mã giảm giá. Vui lòng thử lại.';
             showToast(errorMessage, 'error');
         } finally {
             setLoading(false);
         }
     };
 
+    const handleCancel = () => {
+        navigate('/discounts');
+    };
+
+    if (fetchLoading) {
+        return (
+            <div className={cx('discount-manager')}>
+                <div className={cx('loading-state')}>
+                    <div className={cx('loader')}></div>
+                    <p>Đang tải thông tin mã giảm giá...</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className={cx('discount-manager')}>
             <div className={cx('header')}>
-                <h1>Tạo Mã Giảm Giá Mới</h1>
+                <h1>Chỉnh Sửa Mã Giảm Giá</h1>
+                <p className={cx('subtitle')}>Mã: {formData.discount_code}</p>
             </div>
 
             <form onSubmit={handleSubmit} className={cx('discount-form')}>
@@ -384,7 +452,18 @@ function DiscountManager() {
                             checked={formData.is_publish}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="is_publish">Xuất bản ngay lập tức</label>
+                        <label htmlFor="is_publish">Xuất bản</label>
+                    </div>
+
+                    <div className={cx('checkbox-group')}>
+                        <input
+                            type="checkbox"
+                            id="is_available"
+                            name="is_available"
+                            checked={formData.is_available}
+                            onChange={handleInputChange}
+                        />
+                        <label htmlFor="is_available">Có sẵn để sử dụng</label>
                     </div>
                 </div>
 
@@ -392,22 +471,14 @@ function DiscountManager() {
                     <div className={cx('actions')}>
                         <button
                             type="button"
-                            className={cx('draft-btn')}
-                            onClick={() => {
-                                setFormData((prev) => ({ ...prev, is_publish: false }));
-                                document.querySelector('form').requestSubmit();
-                            }}
+                            className={cx('cancel-btn')}
+                            onClick={handleCancel}
                             disabled={loading}
                         >
-                            Lưu nháp
+                            Hủy
                         </button>
-                        <button
-                            type="submit"
-                            className={cx('submit-btn')}
-                            onClick={() => setFormData((prev) => ({ ...prev, is_publish: true }))}
-                            disabled={loading}
-                        >
-                            {loading ? 'Đang tạo...' : 'Tạo mã giảm giá'}
+                        <button type="submit" className={cx('submit-btn')} disabled={loading}>
+                            {loading ? 'Đang cập nhật...' : 'Cập nhật mã giảm giá'}
                         </button>
                     </div>
                 </div>
@@ -416,4 +487,4 @@ function DiscountManager() {
     );
 }
 
-export default DiscountManager;
+export default EditDiscount;

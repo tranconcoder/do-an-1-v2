@@ -37,8 +37,14 @@ export const createDiscountSchema = z
             .array(zodId)
             .min(1, 'At least one SKU is required if not applying to all products')
             .optional(),
-        discount_start_at: z.coerce.date({ required_error: 'Discount start date is required' }),
-        discount_end_at: z.coerce.date({ required_error: 'Discount end date is required' }),
+        discount_start_at: z.coerce.date({
+            required_error: 'Discount start date is required',
+            invalid_type_error: 'Invalid datetime format. Please provide a valid datetime.'
+        }),
+        discount_end_at: z.coerce.date({
+            required_error: 'Discount end date is required',
+            invalid_type_error: 'Invalid datetime format. Please provide a valid datetime.'
+        }),
         discount_max_value: z.number().min(0, 'Max value cannot be negative').optional(),
         discount_min_order_cost: z
             .number({ required_error: 'Minimum order cost is required' })
@@ -184,8 +190,12 @@ export const updateDiscountSchema = z
         discount_value: z.number().optional(),
         discount_count: z.number().int().min(1, 'Discount count must be at least 1').optional(),
         discount_skus: z.array(zodId).min(1, 'At least one SKU is required').optional().nullable(), // Allow null to clear
-        discount_start_at: z.coerce.date().optional(),
-        discount_end_at: z.coerce.date().optional(),
+        discount_start_at: z.coerce.date({
+            invalid_type_error: 'Invalid datetime format. Please provide a valid datetime.'
+        }).optional(),
+        discount_end_at: z.coerce.date({
+            invalid_type_error: 'Invalid datetime format. Please provide a valid datetime.'
+        }).optional(),
         discount_max_value: z.number().min(0, 'Max value cannot be negative').optional().nullable(), // Allow null to clear
         discount_min_order_cost: z
             .number()

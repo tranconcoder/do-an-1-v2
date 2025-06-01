@@ -1,15 +1,11 @@
 import { Router } from 'express';
 import DiscountController from '@/controllers/discount.controller.js';
 import catchError from '@/middlewares/catchError.middleware.js';
-import {
-    validateRequestParams,
-    validateRequestQuery
-} from '@/middlewares/joiValidate.middleware.js';
+
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
 import { Resources } from '@/enums/rbac.enum.js';
 import { validatePagination, validateParamsId } from '@/configs/joi.config.js';
-import { generateValidateWithQuery } from '@/middlewares/zod.middleware';
 import {
     validateGetAllOwnShopDiscount,
     validateGetAllProductDiscountByCodeParams,

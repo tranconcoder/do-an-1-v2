@@ -26,6 +26,22 @@ export default class DiscountController {
     /* ---------------------------------------------------------- */
     /*                            Get                             */
     /* ---------------------------------------------------------- */
+
+    /* ------------------- Get discount by ID ------------------- */
+    public static getDiscountById: RequestWithParams<{ discountId: string }> = async (
+        req,
+        res,
+        _
+    ) => {
+        new OkResponse({
+            message: 'Get discount by ID successfully',
+            metadata: await DiscountService.getDiscountForEdit({
+                discountId: req.params.discountId,
+                userId: req.userId as string
+            })
+        }).send(res);
+    };
+
     /* ------------------ Get all own discount ------------------ */
     public static getAllShopOwnDiscount: RequestWithQuery<joiTypes.discount.GetAllOwnShopDiscount> =
         async (req, res, _) => {

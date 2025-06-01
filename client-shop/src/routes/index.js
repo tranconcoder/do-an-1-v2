@@ -22,6 +22,7 @@ import AdminShopRegistrationDetail from '../pages/AdminShopRegistrationDetail';
 import OrderManager from '../pages/OrderManager';
 import DiscountManager from '../pages/DiscountManager';
 import DiscountList from '../pages/DiscountList';
+import EditDiscount from '../pages/EditDiscount';
 
 // Guards
 import ShopStatusGuard from '../components/ShopStatusGuard';
@@ -87,6 +88,7 @@ const AppRoutes = () => {
                     <Route path="orders" element={<OrderManager />} />
                     <Route path="discounts" element={<DiscountList />} />
                     <Route path="discounts/new" element={<DiscountManager />} />
+                    <Route path="discounts/:discountId/edit" element={<EditDiscount />} />
                     <Route path="customers" element={<h1>Shop Customers</h1>} />
                     <Route path="settings" element={<h1>Shop Settings</h1>} />
                 </Route>

@@ -560,3 +560,46 @@
 [2025-06-01T05:50:58.587Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
 [2025-06-01T05:51:11.601Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-01T05:51:15.714Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T05:52:00.699Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-06-01T05:52:35.849Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-06-01T05:52:41.281Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-06-01T05:54:06.189Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T05:55:40.732Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T05:56:05.660Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T05:56:06.348Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-01T05:56:08.149Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:04:36.094Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:04:38.974Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T06:04:39.065Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T06:04:42.632Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T06:04:42.718Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T06:05:12.738Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-01T06:05:22.754Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T06:05:22.756Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T06:05:32.830Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T06:05:32.923Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T06:05:43.072Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T06:05:43.264Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T06:05:53.540Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T06:05:53.820Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T06:06:00.470Z] [error]: Failed to connect
+[2025-06-01T06:06:04.172Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T06:06:04.606Z] [error]: Redis error: Error: Failed to connect
+[2025-06-01T06:06:22.281Z] [error]: VISIBLE::409::Conflict::Conflict with discount: mùa hè::
+[2025-06-01T06:06:42.204Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T06:10:56.273Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T06:14:22.982Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T06:15:11.749Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_count"
+    ],
+    "message": "Discount count is required"
+  }
+]::
+[2025-06-01T06:15:40.865Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T06:19:33.387Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T06:29:24.012Z] [error]: HIDE::404::NotFound::Not found file!::
