@@ -93,7 +93,7 @@ export default function OrderHistoryPage() {
     const [orders, setOrders] = useState<OrderHistoryItem[]>([]);
     const [pagination, setPagination] = useState<PaginationInfo | null>(null);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState('pending');
+    const [activeTab, setActiveTab] = useState('pending_payment');
     const [cancellingOrderId, setCancellingOrderId] = useState<string | null>(null);
     const [showCancelDialog, setShowCancelDialog] = useState(false);
     const [orderToCancel, setOrderToCancel] = useState<OrderHistoryItem | null>(null);
@@ -120,12 +120,43 @@ export default function OrderHistoryPage() {
     // Debounced search
     const [searchDebounce, setSearchDebounce] = useState('');
 
+    // Tab sliding indicator position
+    const [indicatorStyle, setIndicatorStyle] = useState({ left: '0%', width: '16.666%' });
+
+    // Tab colors for sliding effect
+    const tabColors = {
+        pending_payment: 'from-orange-500 to-red-500',
+        pending: 'from-yellow-500 to-orange-500',
+        delivering: 'from-blue-500 to-cyan-500',
+        success: 'from-green-500 to-emerald-500',
+        completed: 'from-emerald-600 to-teal-600',
+        cancelled: 'from-red-500 to-pink-500'
+    };
+
     useEffect(() => {
         const timer = setTimeout(() => {
             setSearchDebounce(searchTerm);
         }, 500);
         return () => clearTimeout(timer);
     }, [searchTerm]);
+
+    // Update indicator position when active tab changes
+    useEffect(() => {
+        const tabOrder = [
+            'pending_payment',
+            'pending',
+            'delivering',
+            'success',
+            'completed',
+            'cancelled'
+        ];
+        const activeIndex = tabOrder.indexOf(activeTab);
+        const leftPosition = (activeIndex * 100) / 6; // 6 tabs total
+        setIndicatorStyle({
+            left: `${leftPosition}%`,
+            width: '16.666%' // 100% / 6 tabs
+        });
+    }, [activeTab]);
 
     // Fetch orders based on filters
     const fetchOrders = useCallback(async () => {
@@ -828,46 +859,79 @@ export default function OrderHistoryPage() {
 
                 {/* Tabs */}
                 <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-                    <TabsList className="grid w-full grid-cols-6 mb-6">
-                        <TabsTrigger value="pending" className="flex items-center space-x-2">
-                            <Clock className="h-4 w-4" />
-                            <span>Chờ xử lý</span>
-                        </TabsTrigger>
-                        <TabsTrigger
-                            value="pending_payment"
-                            className="flex items-center space-x-2"
-                        >
-                            <CreditCard className="h-4 w-4" />
-                            <span>Chờ thanh toán</span>
-                        </TabsTrigger>
-                        <TabsTrigger value="delivering" className="flex items-center space-x-2">
-                            <Truck className="h-4 w-4" />
-                            <span>Đang giao</span>
-                        </TabsTrigger>
-                        <TabsTrigger value="success" className="flex items-center space-x-2">
-                            <CheckCircle className="h-4 w-4" />
-                            <span>Đã thanh toán</span>
-                        </TabsTrigger>
-                        <TabsTrigger value="completed" className="flex items-center space-x-2">
-                            <CheckCircle className="h-4 w-4" />
-                            <span>Hoàn thành</span>
-                        </TabsTrigger>
-                        <TabsTrigger value="cancelled" className="flex items-center space-x-2">
-                            <XCircle className="h-4 w-4" />
-                            <span>Đã hủy</span>
-                        </TabsTrigger>
-                    </TabsList>
+                    <div className="relative">
+                        <TabsList className="grid w-full grid-cols-6 mb-6 h-16 bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-2 relative overflow-hidden">
+                            {/* Sliding Background Indicator */}
+                            <div
+                                className={`absolute top-2 bottom-2 bg-gradient-to-r ${
+                                    tabColors[activeTab as keyof typeof tabColors]
+                                } rounded-lg transition-all duration-500 ease-in-out shadow-lg z-0`}
+                                style={{
+                                    left: indicatorStyle.left,
+                                    width: indicatorStyle.width,
+                                    transform: 'translateX(0)'
+                                }}
+                            />
+
+                            <TabsTrigger
+                                value="pending_payment"
+                                className="flex items-center space-x-2 h-12 text-base font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 data-[state=active]:text-white data-[state=active]:shadow-lg rounded-lg relative z-10 data-[state=active]:bg-transparent"
+                            >
+                                <CreditCard className="h-5 w-5" />
+                                <span>Chờ thanh toán</span>
+                            </TabsTrigger>
+                            <TabsTrigger
+                                value="pending"
+                                className="flex items-center space-x-2 h-12 text-base font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 data-[state=active]:text-white data-[state=active]:shadow-lg rounded-lg relative z-10 data-[state=active]:bg-transparent"
+                            >
+                                <Clock className="h-5 w-5" />
+                                <span>Chờ xử lý</span>
+                            </TabsTrigger>
+                            <TabsTrigger
+                                value="delivering"
+                                className="flex items-center space-x-2 h-12 text-base font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 data-[state=active]:text-white data-[state=active]:shadow-lg rounded-lg relative z-10 data-[state=active]:bg-transparent"
+                            >
+                                <Truck className="h-5 w-5" />
+                                <span>Đang giao</span>
+                            </TabsTrigger>
+                            <TabsTrigger
+                                value="success"
+                                className="flex items-center space-x-2 h-12 text-base font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 data-[state=active]:text-white data-[state=active]:shadow-lg rounded-lg relative z-10 data-[state=active]:bg-transparent"
+                            >
+                                <CheckCircle className="h-5 w-5" />
+                                <span>Đã thanh toán</span>
+                            </TabsTrigger>
+                            <TabsTrigger
+                                value="completed"
+                                className="flex items-center space-x-2 h-12 text-base font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 data-[state=active]:text-white data-[state=active]:shadow-lg rounded-lg relative z-10 data-[state=active]:bg-transparent"
+                            >
+                                <CheckCircle className="h-5 w-5" />
+                                <span>Hoàn thành</span>
+                            </TabsTrigger>
+                            <TabsTrigger
+                                value="cancelled"
+                                className="flex items-center space-x-2 h-12 text-base font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 data-[state=active]:text-white data-[state=active]:shadow-lg rounded-lg relative z-10 data-[state=active]:bg-transparent"
+                            >
+                                <XCircle className="h-5 w-5" />
+                                <span>Đã hủy</span>
+                            </TabsTrigger>
+                        </TabsList>
+                    </div>
 
                     {/* Tab Contents */}
                     {[
-                        'pending',
                         'pending_payment',
+                        'pending',
                         'delivering',
                         'success',
                         'completed',
                         'cancelled'
                     ].map((status) => (
-                        <TabsContent key={status} value={status} className="mt-6">
+                        <TabsContent
+                            key={status}
+                            value={status}
+                            className="mt-6 transition-all duration-500 ease-in-out transform"
+                        >
                             {loading ? (
                                 <div className="flex justify-center items-center py-12">
                                     <Loader2 className="h-8 w-8 animate-spin text-blue-600" />

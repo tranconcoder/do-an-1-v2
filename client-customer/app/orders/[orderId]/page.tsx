@@ -308,34 +308,71 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
                                         <Package className="h-5 w-5 text-purple-600" />
-                                        Kho hàng giao đến bạn
+                                        Thông tin kho hàng giao đến bạn
                                     </CardTitle>
+                                    <p className="text-sm text-gray-600 mt-1">
+                                        Đơn hàng sẽ được giao từ {order.warehouses_info.length} kho
+                                        hàng
+                                    </p>
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="space-y-3">
-                                        {order.warehouses_info.map((warehouse) => (
+                                    <div className="space-y-4">
+                                        {order.warehouses_info.map((warehouse, index) => (
                                             <div
                                                 key={warehouse.warehouse_id}
-                                                className="flex items-center justify-between p-4 bg-purple-50 rounded-lg border"
+                                                className="relative p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200 hover:shadow-md transition-shadow"
                                             >
-                                                <div className="flex-1">
-                                                    <p className="font-medium text-purple-800">
-                                                        {warehouse.warehouse_name}
-                                                    </p>
-                                                    <p className="text-sm text-gray-600 mt-1">
-                                                        {warehouse.warehouse_address}
-                                                    </p>
-                                                </div>
-                                                <div className="text-right">
-                                                    <Badge
-                                                        variant="outline"
-                                                        className="text-purple-600 border-purple-300"
-                                                    >
-                                                        {warehouse.distance_km} km
-                                                    </Badge>
+                                                <div className="flex items-start justify-between">
+                                                    <div className="flex-1">
+                                                        <div className="flex items-center gap-2 mb-2">
+                                                            <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                                                <Package className="h-4 w-4 text-purple-600" />
+                                                            </div>
+                                                            <div>
+                                                                <p className="font-semibold text-purple-800">
+                                                                    {warehouse.warehouse_name}
+                                                                </p>
+                                                                <p className="text-xs text-purple-600">
+                                                                    Mã kho: {warehouse.warehouse_id}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="ml-10">
+                                                            <p className="text-sm text-gray-700 mb-2">
+                                                                📍 {warehouse.warehouse_address}
+                                                            </p>
+                                                            <div className="flex items-center gap-4 text-xs text-gray-600">
+                                                                <span className="flex items-center gap-1">
+                                                                    🚚 Khoảng cách:{' '}
+                                                                    {warehouse.distance_km} km
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-right">
+                                                        <Badge
+                                                            variant="outline"
+                                                            className="text-purple-600 border-purple-300 bg-white"
+                                                        >
+                                                            {warehouse.distance_km} km
+                                                        </Badge>
+                                                        {index === 0 && (
+                                                            <p className="text-xs text-purple-600 mt-1 font-medium">
+                                                                Kho chính
+                                                            </p>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
                                         ))}
+                                        <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                            <p className="text-sm text-blue-700 flex items-center gap-2">
+                                                <Package className="h-4 w-4" />
+                                                <span className="font-medium">Lưu ý:</span>
+                                                Sản phẩm sẽ được đóng gói và giao từ kho gần nhất để
+                                                đảm bảo thời gian giao hàng nhanh nhất.
+                                            </p>
+                                        </div>
                                     </div>
                                 </CardContent>
                             </Card>
