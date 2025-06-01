@@ -267,3 +267,267 @@
     "message": "Minimum order cost is required"
   }
 ]::
+[2025-06-01T03:45:44.817Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_min_order_cost"
+    ],
+    "message": "Minimum order cost is required"
+  }
+]::
+[2025-06-01T03:45:47.934Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_min_order_cost"
+    ],
+    "message": "Minimum order cost is required"
+  }
+]::
+[2025-06-01T03:46:22.016Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "number",
+    "received": "undefined",
+    "path": [
+      "discount_min_order_cost"
+    ],
+    "message": "Minimum order cost is required"
+  }
+]::
+[2025-06-01T03:47:06.481Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:50:52.396Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:52:16.841Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:52:16.907Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:52:17.237Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:52:19.224Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:52:19.295Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:52:19.654Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:56:33.812Z] [error]: HIDE::400::MongoServerError::invalid argument to $limit stage: Expected a number in: $limit: "10"::
+[2025-06-01T03:56:34.058Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:56:35.567Z] [error]: HIDE::400::MongoServerError::invalid argument to $limit stage: Expected a number in: $limit: "10"::
+[2025-06-01T03:56:38.913Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:56:38.978Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:56:39.335Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:56:46.902Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:56:46.970Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:56:47.338Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:56:50.574Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:56:51.967Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:56:52.046Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:56:52.404Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "shop" (type string) at path "_id" for model "Order"::
+[2025-06-01T03:59:14.054Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T03:59:29.697Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:59:34.405Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T03:59:42.011Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T03:59:47.650Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T03:59:59.789Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:03:04.836Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:03:51.478Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:03:52.120Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:03:58.007Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:04:08.138Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:04:08.771Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:07:37.304Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:08:11.136Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:08:29.424Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:09:57.109Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:10:02.108Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:10:29.748Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:13:29.714Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:14:53.736Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:15:02.280Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:15:02.934Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:15:03.203Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:15:03.436Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:15:03.574Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:15:03.848Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:15:10.426Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:19:32.803Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:19:51.645Z] [error]: HIDE::400::MongoServerError::invalid argument to $limit stage: Expected a number in: $limit: "10"::
+[2025-06-01T04:25:51.412Z] [error]: HIDE::400::MongoServerError::invalid argument to $limit stage: Expected a number in: $limit: "10"::
+[2025-06-01T04:26:34.795Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:26:34.898Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-01T04:26:38.092Z] [error]: HIDE::400::MongoServerError::invalid argument to $limit stage: Expected a number in: $limit: "10"::
+[2025-06-01T04:26:43.677Z] [error]: HIDE::400::MongoServerError::invalid argument to $limit stage: Expected a number in: $limit: "10"::
+[2025-06-01T04:26:59.216Z] [error]: HIDE::400::MongoServerError::invalid argument to $limit stage: Expected a number in: $limit: "10"::
+[2025-06-01T04:27:17.866Z] [error]: HIDE::400::MongoServerError::invalid argument to $limit stage: Expected a number in: $limit: "10"::
+[2025-06-01T04:27:43.497Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-01T04:27:43.543Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-01T04:27:44.328Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:28:06.255Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:28:18.251Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:28:23.612Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:28:24.535Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:30:04.077Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid phone number format",
+    "path": [
+      "phoneNumber"
+    ]
+  }
+]::
+[2025-06-01T04:30:10.350Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-01T04:30:20.963Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:30:32.187Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:30:35.112Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid phone number format",
+    "path": [
+      "phoneNumber"
+    ]
+  }
+]::
+[2025-06-01T04:32:07.558Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:33:25.088Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:33:52.283Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:35:57.800Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-06-01T04:36:08.743Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-01T04:36:08.912Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-01T04:36:16.487Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-01T04:36:16.621Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-01T04:36:17.607Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:37:21.307Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:38:07.004Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:38:28.638Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:38:32.673Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-06-01T04:38:43.166Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:38:56.276Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:40:09.194Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:40:23.271Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:40:27.004Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:40:41.557Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:40:49.821Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:40:51.846Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:43:17.789Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:44:11.062Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:45:05.215Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:45:37.093Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:45:50.791Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:46:02.579Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:46:03.610Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:46:44.657Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T04:47:58.111Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:49:27.554Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:51:34.896Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:53:22.635Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:54:44.313Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:55:21.959Z] [error]: HIDE::400::MongoServerError::path option to $unwind stage should be prefixed with a '$': product::
+[2025-06-01T04:55:43.703Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:56:04.947Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T04:57:57.583Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-06-01T04:58:02.062Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-06-01T05:00:29.756Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
+[2025-06-01T05:01:10.447Z] [error]: HIDE::400::TypeError::undefined is not an object (evaluating '(await DiscountService.getDiscountAmount({
+        discountCode: discount.discount_code,
+        products: shop.products.map((x) => ({
+          id: x.sku.toString(),
+          quantity: x.cart_quantity
+        }))
+      })).totalDiscount')::
+[2025-06-01T05:01:46.120Z] [error]: HIDE::400::MongoServerError::path option to $unwind stage should be prefixed with a '$': product::
+[2025-06-01T05:03:29.548Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-06-01T05:03:39.780Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-06-01T05:03:50.055Z] [error]: HIDE::400::MongoServerError::path option to $unwind stage should be prefixed with a '$': product::
+[2025-06-01T05:03:58.771Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "boolean",
+    "received": "string",
+    "path": [
+      "is_draft"
+    ],
+    "message": "Expected boolean, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "boolean",
+    "received": "string",
+    "path": [
+      "is_publish"
+    ],
+    "message": "Expected boolean, received string"
+  }
+]::
+[2025-06-01T05:03:59.898Z] [error]: HIDE::400::MongoServerError::path option to $unwind stage should be prefixed with a '$': product::
+[2025-06-01T05:04:15.727Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "boolean",
+    "received": "string",
+    "path": [
+      "is_draft"
+    ],
+    "message": "Expected boolean, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "boolean",
+    "received": "string",
+    "path": [
+      "is_publish"
+    ],
+    "message": "Expected boolean, received string"
+  }
+]::
+[2025-06-01T05:04:52.785Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "boolean",
+    "received": "string",
+    "path": [
+      "is_draft"
+    ],
+    "message": "Expected boolean, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "boolean",
+    "received": "string",
+    "path": [
+      "is_publish"
+    ],
+    "message": "Expected boolean, received string"
+  }
+]::
+[2025-06-01T05:05:37.709Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "boolean",
+    "received": "string",
+    "path": [
+      "is_draft"
+    ],
+    "message": "Expected boolean, received string"
+  },
+  {
+    "code": "invalid_type",
+    "expected": "boolean",
+    "received": "string",
+    "path": [
+      "is_publish"
+    ],
+    "message": "Expected boolean, received string"
+  }
+]::
+[2025-06-01T05:07:50.133Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-06-01T05:07:53.722Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-06-01T05:08:31.035Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-06-01T05:17:41.587Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-06-01T05:17:48.613Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-06-01T05:19:39.580Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-06-01T05:19:56.426Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-06-01T05:20:08.346Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-06-01T05:20:14.453Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-06-01T05:20:16.445Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
+[2025-06-01T05:20:47.011Z] [error]: HIDE::400::TypeError::undefined is not an object (evaluating 'sku_list.length')::
+[2025-06-01T05:21:00.068Z] [error]: HIDE::400::TypeError::undefined is not an object (evaluating 'sku_list.length')::

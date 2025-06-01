@@ -4,28 +4,38 @@ import spuService from '@/services/spu.service.js';
 import { SPUImages } from '@/enums/spu.enum.js';
 import { RequestHandler } from 'express';
 import { findShopByUser } from '@/models/repository/shop';
+import { CreateSPU } from '@/validations/zod/spu.zod';
 
 export default new (class SPUController {
     /* ---------------------------------------------------------- */
     /*                            Crate                           */
     /* ---------------------------------------------------------- */
-    createSPU: RequestWithBody<joiTypes.spu.CreateSPU> = async (req, res, next) => {
+    createSPU: RequestWithBody<CreateSPU> = async (req, res, next) => {
         const shop = await findShopByUser({
             userId: req.userId!,
             options: {
                 lean: true
             }
         });
-        console.log("SHOP:::", shop)
+        console.log("SHOP:::", shop);
+        console.log("BODY:::", req.body);
 
         new CreatedResponse({
             message: 'Create product successfully!',
             metadata: await spuService.createSPU({
-                ...req.body,
                 product_shop: req.userId as string,
                 product_thumb: req.mediaIds?.[SPUImages.PRODUCT_THUMB]?.[0] as string,
                 product_images: req.mediaIds?.[SPUImages.PRODUCT_IMAGES] || [],
-                mediaIds: req.mediaIds as NonNullable<typeof req.mediaIds>
+                mediaIds: req.mediaIds as NonNullable<typeof req.mediaIds>,
+                is_draft: req.body.is_draft,
+                is_publish: req.body.is_publish,
+                product_attributes: req.body.product_attributes,
+                product_category: req.body.product_category,
+                product_description: req.body.product_description,
+                product_name: req.body.product_name,
+                product_variations: req.body.product_variations,
+                sku_images_map: req.body.sku_images_map,
+                sku_list: req.body.sku_list,
             })
         }).send(res);
     };

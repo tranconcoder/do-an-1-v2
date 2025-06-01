@@ -173,6 +173,7 @@ export default class DiscountService {
         return {
             discounts: await findDiscountPageSplitting({
                 query: { discount_shop: shop._id },
+                select: ['is_admin_voucher', 'is_available', 'is_publish', 'is_apply_all_product'],
                 options: {
                     lean: true,
                     sort: {
@@ -288,6 +289,7 @@ export default class DiscountService {
             throw new NotFoundErrorResponse({
                 message: 'Not found discount or discount is invalid!'
             });
+        console.log("DISCOUNT TEST:::", discount);
         if (discount.discount_count && discount.discount_count <= discount.discount_used_count)
             throw new BadRequestErrorResponse({ message: 'Discount is out of code!' });
 

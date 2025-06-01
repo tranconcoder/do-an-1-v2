@@ -48,10 +48,10 @@ const discountSchema = new Schema<model.discount.DiscountSchema>(
         discount_end_at: { type: Date, required },
 
         /* ------------------------ Metadata ------------------------ */
-        is_publish: { type: Boolean, default: true, select: false },
-        is_apply_all_product: { type: Boolean, default: false, select: false },
-        is_admin_voucher: { type: Boolean, default: false, select: false },
-        is_available: { type: Boolean, default: false, select: false }
+        is_publish: { type: Boolean, default: true },
+        is_apply_all_product: { type: Boolean, default: false },
+        is_admin_voucher: { type: Boolean, default: false },
+        is_available: { type: Boolean, default: false }
     },
     {
         timestamps,

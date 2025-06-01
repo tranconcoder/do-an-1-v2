@@ -12,8 +12,8 @@ export default new (class SKUController {
         new OkResponse({
             message: 'Get popular sku by all successfully!',
             metadata: await skuService.getPopularSKUByAll({
-                page: req.query.page,
-                limit: req.query.limit
+                page: Number(req.query.page),
+                limit: Number(req.query.limit)
             })
         }).send(res);
     };

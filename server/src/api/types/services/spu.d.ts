@@ -1,4 +1,5 @@
 import type { CategoryEnum } from '@/enums/spu.enum.ts';
+import type { CreateSPU as CreateSPUZod } from '@/validations/zod/spu.zod.js';
 
 declare global {
     namespace service {
@@ -15,23 +16,11 @@ declare global {
                 /* ------------------------------------------------------ */
                 /*                         Create                         */
                 /* ------------------------------------------------------ */
-                interface CreateSPU
-                    extends Pick<
-                        model.spu.SPUSchema,
-                        | 'product_name'
-                        | 'product_shop'
-                        | 'product_description'
-                        | 'product_category'
-                        | 'product_attributes'
-                        | 'product_variations'
-                        | 'product_thumb'
-                        | 'product_images'
-                        | 'is_draft'
-                        | 'is_publish'
-                    > {
+                interface CreateSPU extends CreateSPUZod {
                     sku_list: Omit<service.sku.arguments.CreateSKU, 'sku_product'>[];
                     sku_images_map: Array<number>;
                     mediaIds: commonTypes.object.ObjectAnyKeys<Array<string>>;
+                    product_shop: string;
                 }
 
                 /* ------------------------------------------------------ */

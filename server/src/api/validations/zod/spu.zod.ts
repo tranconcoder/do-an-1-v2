@@ -36,8 +36,12 @@ export const createSPU = z.object({
             warehouse: zodId
         })
     ),
-    is_draft: z.boolean().default(true),
-    is_publish: z.boolean().default(false)
+    is_draft: z.string().default('true').refine((val) => val === 'true' || val === 'false', {
+        message: 'Is draft must be a boolean'
+    }),
+    is_publish: z.string().default('false').refine((val) => val === 'true' || val === 'false', {
+        message: 'Is publish must be a boolean'
+    })
 });
 
 export type CreateSPU = z.infer<typeof createSPU>;

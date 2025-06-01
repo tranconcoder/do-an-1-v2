@@ -77,6 +77,15 @@ function DiscountManager() {
             newErrors.discount_count = 'Tổng số lượng mã phải là số';
         }
 
+        if (!formData.discount_min_order_cost) {
+            newErrors.discount_min_order_cost = 'Vui lòng nhập giá trị đơn hàng tối thiểu';
+        } else if (
+            isNaN(Number(formData.discount_min_order_cost)) ||
+            Number(formData.discount_min_order_cost) < 0
+        ) {
+            newErrors.discount_min_order_cost = 'Giá trị đơn hàng tối thiểu phải là số không âm';
+        }
+
         if (!formData.discount_start_at) {
             newErrors.discount_start_at = 'Vui lòng chọn thời gian bắt đầu';
         }
@@ -106,7 +115,7 @@ function DiscountManager() {
                 discount_max_value: formData.discount_max_value
                     ? Number(formData.discount_max_value)
                     : null,
-                discount_min_order_cost: Number(formData.discount_min_order_cost),
+                discount_min_order_cost: Number(formData.discount_min_order_cost) || 0,
                 discount_user_max_use: Number(formData.discount_user_max_use) || 1,
                 discount_value: Number(formData.discount_value)
             };
@@ -114,7 +123,6 @@ function DiscountManager() {
             if (!data.discount_description) delete data.discount_description;
             if (!data.discount_count) delete data.discount_count;
             if (!data.discount_max_value) delete data.discount_max_value;
-            if (!data.discount_min_order_cost) delete data.discount_min_order_cost;
             if (data.is_apply_all_product) delete data.discount_skus;
 
             const response = await axiosClient.post(`${API_URL}/discount/create`, data);
@@ -230,6 +238,46 @@ function DiscountManager() {
                                 <div className={cx('error-message')}>{errors.discount_value}</div>
                             )}
                         </div>
+                    </div>
+
+                    <div className={cx('form-row')}>
+                        <div
+                            className={cx('form-group', {
+                                invalid: errors.discount_min_order_cost
+                            })}
+                        >
+                            <label>
+                                Giá trị đơn hàng tối thiểu
+                                <span className={cx('required')}>*</span>
+                            </label>
+                            <input
+                                type="number"
+                                name="discount_min_order_cost"
+                                value={formData.discount_min_order_cost}
+                                onChange={handleInputChange}
+                                placeholder="Giá trị đơn hàng tối thiểu để áp dụng mã"
+                                min="0"
+                            />
+                            {errors.discount_min_order_cost && (
+                                <div className={cx('error-message')}>
+                                    {errors.discount_min_order_cost}
+                                </div>
+                            )}
+                        </div>
+
+                        {formData.discount_type === 'percentage' && (
+                            <div className={cx('form-group')}>
+                                <label>Giá trị giảm tối đa</label>
+                                <input
+                                    type="number"
+                                    name="discount_max_value"
+                                    value={formData.discount_max_value}
+                                    onChange={handleInputChange}
+                                    placeholder="Số tiền giảm tối đa (chỉ áp dụng cho % giảm)"
+                                    min="0"
+                                />
+                            </div>
+                        )}
                     </div>
 
                     <div className={cx('form-row')}>

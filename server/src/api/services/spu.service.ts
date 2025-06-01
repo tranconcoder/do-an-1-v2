@@ -24,14 +24,25 @@ import {
 import { decreaseWarehouseStock } from '@/models/repository/warehouses/index.js';
 import inventoryModel from '@/models/inventory.model.js';
 import skuModel from '@/models/sku.model.js';
-import mongoose from 'mongoose';
 
 export default new (class SPUService {
     /* ---------------------------------------------------------- */
     /*                           Create                           */
     /* ---------------------------------------------------------- */
     async createSPU(payload: service.spu.arguments.CreateSPU) {
-        const { product_category, product_shop, sku_list, sku_images_map, mediaIds } = payload;
+        const {
+            product_category,
+            product_shop,
+            sku_list,
+            sku_images_map,
+            mediaIds,
+            is_draft,
+            is_publish,
+            product_attributes,
+            product_variations,
+            product_description,
+            product_name
+        } = payload;
 
         /* --------------------- Check media ids ------------------ */
         const skuThumbCount = mediaIds[SKUImages.SKU_THUMB].length;
@@ -65,23 +76,22 @@ export default new (class SPUService {
         /* --------------------- Handle save spu ------------------- */
         const quantity = sku_list.reduce((acc, cur) => acc + cur.sku_stock, 0);
         const spu = await spuModel.create({
-            product_name: payload.product_name,
+            product_name,
             product_quantity: quantity,
             product_category: category._id,
-            product_description: payload.product_description,
-            product_attributes: payload.product_attributes,
-            product_variations: payload.product_variations,
+            product_description,
+            product_attributes,
+            product_variations,
             product_shop: shop._id,
             product_sold: 0,
             product_thumb: mediaIds[SPUImages.PRODUCT_THUMB][0],
             product_images: mediaIds[SPUImages.PRODUCT_IMAGES],
-            is_draft: payload.is_draft,
-            is_publish: payload.is_publish
+            is_publish,
+            is_draft
         });
 
         /* --------------------- Handle save sku ------------------- */
         try {
-            const { sku_list, product_shop } = payload;
             let skuPromises: model.sku.SKU<false, true>[] = [];
 
             if (sku_list.length) {
@@ -143,51 +153,12 @@ export default new (class SPUService {
         });
         if (!spu) throw new NotFoundErrorResponse({ message: 'SPU not found!' });
 
-        // Get SKUs with their inventory information using aggregation
-        const skusWithInventory = await skuModel.aggregate([
-            {
-                $match: {
-                    sku_product: new mongoose.Types.ObjectId(spuId),
-                    is_deleted: false
-                }
-            },
-            {
-                $lookup: {
-                    from: 'inventories',
-                    localField: '_id',
-                    foreignField: 'inventory_sku',
-                    as: 'inventory'
-                }
-            },
-            {
-                $unwind: {
-                    path: '$inventory',
-                    preserveNullAndEmptyArrays: true
-                }
-            },
-            {
-                $match: {
-                    $or: [
-                        { 'inventory.is_deleted': { $ne: true } },
-                        { inventory: { $exists: false } }
-                    ]
-                }
-            },
-            {
-                $addFields: {
-                    warehouse: '$inventory.inventory_warehouses'
-                }
-            },
-            {
-                $project: {
-                    inventory: 0
-                }
-            }
-        ]);
+        // Get SKUs for this SPU
+        const skus = await findSKUOfSPU({ spuId });
 
         return {
             ...spu,
-            sku_list: skusWithInventory,
+            sku_list: skus,
             minPrice: await findMinPriceSKU(spuId),
             maxPrice: await findMaxPriceSKU(spuId)
         };
@@ -364,7 +335,8 @@ export default new (class SPUService {
                     const updateFields: any = {
                         sku_price: skuData.sku_price,
                         sku_stock: skuData.sku_stock,
-                        sku_tier_idx: skuData.sku_tier_idx
+                        sku_tier_idx: skuData.sku_tier_idx,
+                        warehouse: skuData.warehouse
                     };
 
                     // Only update media if new media is provided
@@ -388,28 +360,7 @@ export default new (class SPUService {
                     );
 
                     if (updatedSKU) {
-                        // Update inventory if warehouse changed
-                        if (skuData.warehouse) {
-                            await inventoryModel.findOneAndUpdate(
-                                {
-                                    inventory_sku: skuData.existingId,
-                                    is_deleted: false
-                                },
-                                {
-                                    $set: {
-                                        inventory_warehouses: skuData.warehouse,
-                                        inventory_stock: skuData.sku_stock
-                                    }
-                                },
-                                { new: true }
-                            );
-                        }
-
-                        // Add warehouse field to the returned SKU
-                        updatedSKUs.push({
-                            ...updatedSKU,
-                            warehouse: skuData.warehouse
-                        });
+                        updatedSKUs.push(updatedSKU);
                     }
                 }
 
@@ -434,12 +385,7 @@ export default new (class SPUService {
                         warehouse: skuData.warehouse
                     });
 
-                    // Add warehouse field to the returned SKU
-                    const skuObject = newSKU.toObject();
-                    createdSKUs.push({
-                        ...skuObject,
-                        warehouse: skuData.warehouse
-                    });
+                    createdSKUs.push(newSKU.toObject());
                 }
 
                 return {

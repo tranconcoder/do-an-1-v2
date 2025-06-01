@@ -14,7 +14,7 @@ import DiscountService from './discount.service.js';
 import { userModel } from '@/models/user.model.js';
 import shopModel from '@/models/shop.model.js';
 import { findOneCartByUser } from '@/models/repository/cart/index.js';
-import { findDiscountByCode } from '@/models/repository/discount/index.js';
+import { findOneDiscount } from '@/models/repository/discount/index.js';
 import { findOneAndUpdateCheckout, findOneCheckout } from '@/models/repository/checkout/index.js';
 import { findAddressById } from '@/models/repository/address/index.js';
 import { Matrix } from './openrouteservice.service.js';
@@ -207,13 +207,21 @@ export default new (class CheckoutService {
                     (discount) => discount.shopId === shop.shop.toString()
                 );
                 const discount =
-                    discountInfo && (await findDiscountByCode(discountInfo.discountCode));
+                    discountInfo && (await findOneDiscount({
+                        query: {
+                            discount_code: discountInfo.discountCode
+                        },
+                        options: {
+                            lean: true
+                        }
+                    }));
+                console.log("DISCOUNT INFO TEST:::", discount, discountInfo);
 
                 /* ------------- Get amount of discount by shop ------------- */
                 const discountPriceShop = discount
                     ? (
                         await DiscountService.getDiscountAmount({
-                            discountCode: discountInfo.discountCode,
+                            discountCode: discount.discount_code,
                             products: shop.products.map((x) => ({
                                 id: x.sku.toString(),
                                 quantity: x.cart_quantity,
@@ -231,7 +239,7 @@ export default new (class CheckoutService {
                         discountAdmin.is_available &&
                         (discountAdmin.is_apply_all_product ||
                             discountAdmin?.discount_skus
-                                ?.map((x) => x.toString())
+                                ?.map((x: any) => x.toString())
                                 ?.includes(product.sku.toString()))
                     ) {
                         totalPriceProductToApplyAdminVoucher += product.cart_quantity * product.product_price;

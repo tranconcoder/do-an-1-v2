@@ -32,8 +32,8 @@ export default class DiscountController {
             new OkResponse({
                 message: 'Get all shop own discount successfully',
                 metadata: await DiscountService.getAllShopOwnDiscount({
-                    limit: req.query.limit,
-                    page: req.query.page,
+                    limit: Number(req.query.limit),
+                    page: Number(req.query.page),
                     userId: req.userId as string,
                     sortBy: req.query.sortBy,
                     sortType: req.query.sortType
@@ -67,16 +67,16 @@ export default class DiscountController {
         any,
         joiTypes.discount.GetAllProductDiscountByCodeQuery
     > = async (req, res, _) => {
-            const products = await DiscountService.getAllProductDiscountByCode({
-                code: req.params.code,
-                limit: req.query.limit,
-                page: req.query.page
-            });
+        const products = await DiscountService.getAllProductDiscountByCode({
+            code: req.params.code,
+            limit: req.query.limit,
+            page: req.query.page
+        });
 
-            new OkResponse({
-                message: 'Get all product discount by code successfully',
-                metadata: { products }
-            }).send(res);
+        new OkResponse({
+            message: 'Get all product discount by code successfully',
+            metadata: { products }
+        }).send(res);
     };
 
     /* ---------------------------------------------------------- */

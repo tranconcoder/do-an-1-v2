@@ -51,29 +51,26 @@ export const findOneDiscount = generateFindOne<model.discount.DiscountSchema>(di
 /* ------------------ Find discount by id ------------------ */
 export const findDiscountById = generateFindById<model.discount.DiscountSchema>(discountModel);
 
-/* ----------------- Find discount by code  ----------------- */
-export const findDiscountByCode = async (discountCode: string) => {
-    return await discountModel.findOne({ discount_code: discountCode }).lean();
-};
-
 /* -------------- Find discount valid by code  -------------- */
 export const findDiscountValidByCode = (discountCode: string) => {
+    console.log(new Date().toISOString());
+    console.log(discountCode);
     return findOneDiscount({
         query: {
             discount_code: discountCode,
             is_available: true,
-            discount_start_at: { $lte: new Date() },
-            discount_end_at: { $gte: new Date() },
+            discount_start_at: { $lte: new Date().toISOString() },
+            discount_end_at: { $gte: new Date().toISOString() },
             $or: [
                 { discount_count: null },
+                { discount_count: { $exists: false } },
                 {
                     $expr: {
-                        $lt: ['discount_used_count', 'discount_count']
+                        $lt: ['$discount_used_count', '$discount_count']
                     }
                 }
             ]
         },
-        projection: '+is_admin_voucher +is_apply_all_product'
     });
 };
 
