@@ -230,6 +230,8 @@ export default new (class CheckoutService {
                     ).totalDiscount
                     : 0;
 
+                console.log("DISCOUNT PRICE SHOP TEST:::", discountPriceShop);
+
                 const productsInfo = shop.products.map((product) => {
                     totalPriceRawShop += product.cart_quantity * product.product_price;
 

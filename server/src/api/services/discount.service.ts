@@ -29,7 +29,7 @@ import skuModel from '@/models/sku.model.js';
 import skuService from './sku.service.js';
 import { getAllSKUAggregate } from '@/utils/sku.util.js';
 import { ITEM_PER_PAGE } from '@/configs/server.config.js';
-import { checkSKUListIsAvailable } from '@/models/repository/sku/index.js';
+import { checkSKUListIsAvailable, findSKU } from '@/models/repository/sku/index.js';
 import { findOneShop, findShopById } from '@/models/repository/shop/index.js';
 
 export default class DiscountService {
@@ -290,8 +290,6 @@ export default class DiscountService {
                 message: 'Not found discount or discount is invalid!'
             });
         console.log("DISCOUNT TEST:::", discount);
-        if (discount.discount_count && discount.discount_count <= discount.discount_used_count)
-            throw new BadRequestErrorResponse({ message: 'Discount is out of code!' });
 
         const discountSKUs = discount.discount_skus.map((x) => x.toString());
 
@@ -306,12 +304,13 @@ export default class DiscountService {
             });
 
         /* ---------------------- Get products ---------------------- */
-        const foundSKUs = await skuModel
-            .find({
+        const foundSKUs = await findSKU({
+            query: {
                 _id: { $in: skuIds },
-                options: { populate: ['sku_product'] }
-            })
-            .lean();
+                is_deleted: false
+            },
+            options: { populate: ['sku_product'] }
+        });
         if (foundSKUs.length !== skuIds.length)
             throw new BadRequestErrorResponse({ message: 'Get products failed!' });
 

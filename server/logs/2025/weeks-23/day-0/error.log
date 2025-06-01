@@ -531,3 +531,28 @@
 [2025-06-01T05:20:16.445Z] [error]: HIDE::400::ValidationError::"sku_images" is required::
 [2025-06-01T05:20:47.011Z] [error]: HIDE::400::TypeError::undefined is not an object (evaluating 'sku_list.length')::
 [2025-06-01T05:21:00.068Z] [error]: HIDE::400::TypeError::undefined is not an object (evaluating 'sku_list.length')::
+[2025-06-01T05:23:56.129Z] [error]: HIDE::400::MongoServerError::path option to $unwind stage should be prefixed with a '$': product::
+[2025-06-01T05:24:03.003Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-06-01T05:24:10.700Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-06-01T05:24:27.947Z] [error]: HIDE::400::ValidationError::"product_thumb" is required::
+[2025-06-01T05:25:02.696Z] [error]: HIDE::400::MongoServerError::path option to $unwind stage should be prefixed with a '$': product::
+[2025-06-01T05:25:10.123Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-01T05:25:46.003Z] [error]: HIDE::400::MongoServerError::FieldPath field names may not be empty strings.::
+[2025-06-01T05:25:55.628Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-01T05:25:55.633Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-01T05:25:55.701Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-01T05:25:55.703Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-01T05:26:25.602Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-01T05:26:25.699Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-01T05:26:29.148Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T05:26:32.529Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T05:27:57.975Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T05:28:05.995Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-01T05:28:06.076Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-01T05:28:06.385Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T05:28:07.110Z] [error]: HIDE::400::BadRequest::Get products failed!::
+[2025-06-01T05:29:44.515Z] [error]: HIDE::400::BadRequest::Get products failed!::
+[2025-06-01T05:35:31.633Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T05:35:41.830Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T05:35:50.060Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T05:35:57.088Z] [error]: HIDE::404::NotFound::Not found file!::

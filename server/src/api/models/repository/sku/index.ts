@@ -54,7 +54,7 @@ export const checkSKUListIsAvailable = async (payload: repo.sku.CheckSKUListAvai
     const result = await skuModel.aggregate([
         {
             $match: {
-                sku_id: { $in: skuList.map((id) => new mongoose.Types.ObjectId(id)) },
+                _id: { $in: skuList.map((id) => new mongoose.Types.ObjectId(id)) },
                 is_deleted: false
             }
         },
@@ -74,7 +74,7 @@ export const checkSKUListIsAvailable = async (payload: repo.sku.CheckSKUListAvai
             }
         },
         {
-            $unwind: 'product'
+            $unwind: '$product'
         }
     ]);
 
