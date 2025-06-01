@@ -603,3 +603,46 @@
 [2025-06-01T06:15:40.865Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
 [2025-06-01T06:19:33.387Z] [error]: HIDE::404::NotFound::Not found discount or discount is invalid!::
 [2025-06-01T06:29:24.012Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:31:33.767Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "too_small",
+    "minimum": 1,
+    "type": "array",
+    "inclusive": true,
+    "exact": false,
+    "message": "At least one SKU is required if not applying to all products",
+    "path": [
+      "discount_skus"
+    ]
+  },
+  {
+    "code": "custom",
+    "message": "Discount SKUs are required when not applying to all products",
+    "path": [
+      "discount_skus"
+    ]
+  }
+]::
+[2025-06-01T06:31:34.675Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:31:44.616Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:32:32.612Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:32:36.622Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:32:44.542Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:32:53.342Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:32:58.291Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:34:06.526Z] [error]: HIDE::400::BadRequest::Discount is invalid!::
+[2025-06-01T06:34:13.437Z] [error]: HIDE::400::BadRequest::Discount is invalid!::
+[2025-06-01T06:34:23.647Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:34:34.224Z] [error]: HIDE::400::BadRequest::Discount is invalid!::
+[2025-06-01T06:35:16.226Z] [error]: HIDE::400::BadRequest::Discount is invalid!::
+[2025-06-01T06:35:32.924Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:35:43.318Z] [error]: HIDE::400::BadRequest::Discount is invalid!::
+[2025-06-01T06:37:19.955Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:37:29.360Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-06-01T06:37:29.573Z] [error]: HIDE::404::NotFound::No checkout data found!::
+[2025-06-01T06:37:29.664Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:37:42.369Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:37:46.963Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:37:54.717Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:38:16.709Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-01T06:38:32.457Z] [error]: HIDE::404::NotFound::Not found file!::

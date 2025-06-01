@@ -473,6 +473,8 @@ export default class DiscountService {
     }: service.discount.arguments.UseDiscount) => {
         if (!discountId || !discountCode) return;
 
+        console.log("DISCOUNT CODE:::", discountCode)
+
         const newDiscount = await pessimisticLock(
             PessimisticKeys.DISCOUNT,
             discountId,
@@ -485,9 +487,10 @@ export default class DiscountService {
                         is_available: true,
                         $or: [
                             { discount_count: null },
+                            { discount_count: { $exists: false } },
                             {
                                 $expr: {
-                                    $lt: ['discount_count_used', 'discount_count']
+                                    $lt: ['$discount_count_used', '$discount_count']
                                 }
                             }
                         ]
