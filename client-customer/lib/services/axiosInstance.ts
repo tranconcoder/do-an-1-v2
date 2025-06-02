@@ -17,14 +17,16 @@ const axiosInstance: AxiosInstance = axios.create({
 // Request Interceptor
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // Get token from Redux store
+    // Get token from localStorage (where Redux store persists it)
     const token = localStorage.getItem('accessToken');
 
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      // Remove quotes if token is stored as JSON string
+      const cleanToken = token.replace(/"/g, '');
+      config.headers.Authorization = `Bearer ${cleanToken}`;
     }
-    // You can modify the request config here (e.g., add auth tokens)
-    console.log('Starting Request', config);
+
+    console.log('Starting Request', config.url, config.headers.Authorization ? 'with auth' : 'without auth');
     return config;
   },
   (error: AxiosError) => {

@@ -211,4 +211,21 @@
 
 .nav-text {
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nav-badge {
+    background-color: #e53e3e;
+    color: white;
+    border-radius: 10px;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    min-width: 18px;
+    text-align: center;
+    margin-left: 0.5rem;
+    line-height: 1;
 }

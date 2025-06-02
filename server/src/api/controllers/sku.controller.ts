@@ -35,8 +35,8 @@ export default new (class SKUController {
         new OkResponse({
             message: 'Get all sku by shop successfully!',
             metadata: await skuService.getAllShopSKUByAll({
-                page: req.query.page,
-                limit: req.query.limit,
+                page: Number(req.query.page),
+                limit: Number(req.query.limit),
                 shopId: req.params.shopId
             })
         }).send(res);

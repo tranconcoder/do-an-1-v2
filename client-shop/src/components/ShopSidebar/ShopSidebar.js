@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './ShopSidebar.module.scss';
 import { selectShopInfo } from '../../store/slices/shopSlice';
+import { selectTotalUnreadCount } from '../../store/slices/chatSlice';
 import { getMediaUrl, getTextPlaceholder } from '../../utils/media';
 // Import icons
 import {
@@ -16,7 +17,8 @@ import {
     MdChevronLeft,
     MdChevronRight,
     MdDiscount,
-    MdWarehouse
+    MdWarehouse,
+    MdChat
 } from 'react-icons/md';
 
 const cx = classNames.bind(styles);
@@ -24,6 +26,7 @@ const cx = classNames.bind(styles);
 function ShopSidebar({ collapsed, toggleSidebar }) {
     // Get shop information from Redux state
     const shopInfo = useSelector(selectShopInfo);
+    const totalUnreadCount = useSelector(selectTotalUnreadCount);
     console.log(shopInfo);
 
     const navItems = [
@@ -47,6 +50,12 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
             path: '/discounts',
             icon: <MdDiscount className={cx('nav-icon')} />,
             text: 'Khuyến Mãi'
+        },
+        {
+            path: '/chat',
+            icon: <MdChat className={cx('nav-icon')} />,
+            text: 'Tin Nhắn',
+            badge: totalUnreadCount > 0 ? totalUnreadCount : null
         },
         {
             path: '/customers',
@@ -131,7 +140,16 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
                                 className={({ isActive }) => cx({ active: isActive })}
                             >
                                 {item.icon}
-                                {!collapsed && <span className={cx('nav-text')}>{item.text}</span>}
+                                {!collapsed && (
+                                    <span className={cx('nav-text')}>
+                                        {item.text}
+                                        {item.badge && (
+                                            <span className={cx('nav-badge')}>
+                                                {item.badge > 99 ? '99+' : item.badge}
+                                            </span>
+                                        )}
+                                    </span>
+                                )}
                             </NavLink>
                         </li>
                     ))}

@@ -23,6 +23,7 @@ import OrderManager from '../pages/OrderManager';
 import DiscountManager from '../pages/DiscountManager';
 import DiscountList from '../pages/DiscountList';
 import EditDiscount from '../pages/EditDiscount';
+import Chat from '../pages/Chat';
 
 // Guards
 import ShopStatusGuard from '../components/ShopStatusGuard';
@@ -89,6 +90,7 @@ const AppRoutes = () => {
                     <Route path="discounts" element={<DiscountList />} />
                     <Route path="discounts/new" element={<DiscountManager />} />
                     <Route path="discounts/:discountId/edit" element={<EditDiscount />} />
+                    <Route path="chat" element={<Chat />} />
                     <Route path="customers" element={<h1>Shop Customers</h1>} />
                     <Route path="settings" element={<h1>Shop Settings</h1>} />
                 </Route>

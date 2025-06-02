@@ -18,6 +18,7 @@ import wishListRouter from './wishlist/index.js';
 import otpRoute from './otp/index.js';
 import addressRoute from './address/index.js';
 import paymentRoute from './payment/index.js';
+import chatRoute from './chat/index.js';
 
 const rootRoute = Router();
 
@@ -69,5 +70,8 @@ rootRoute.use('/address', addressRoute);
 
 /* ------------------------ Payment ------------------------ */
 rootRoute.use('/payment', paymentRoute);
+
+/* -------------------------- Chat -------------------------- */
+rootRoute.use('/chat', chatRoute);
 
 export default rootRoute;

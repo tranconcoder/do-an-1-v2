@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import NextImage from 'next/image';
 import Link from 'next/link';
 import {
     AlertTriangle,
@@ -23,12 +22,22 @@ import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
 import { ProductCard, ProductCardSkeleton } from '@/components/ui/ProductCard';
+import { FloatingChat, ChatButton, FloatingChatButton } from '@/components/ui/FloatingChat';
+import { CustomImage } from '@/components/ui/CustomImage';
 import { cn } from '@/lib/utils';
+import { useAppSelector } from '@/lib/store/hooks';
 
 const ShopProfilePage = () => {
     const params = useParams();
     const router = useRouter();
     const shopId = params.shopId as string;
+
+    // Get user data from Redux store
+    const { user, accessToken, isAuthenticated } = useAppSelector((state) => ({
+        user: state.user.user,
+        accessToken: state.user.accessToken,
+        isAuthenticated: state.user.isAuthenticated
+    }));
 
     const [shop, setShop] = useState<Shop | null>(null);
     const [loadingShop, setLoadingShop] = useState(true);
@@ -42,6 +51,10 @@ const ShopProfilePage = () => {
     const [shopCategories, setShopCategories] = useState<Category[]>([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
     const [loadingCategories, setLoadingCategories] = useState(true);
+
+    // Chat state
+    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [isChatMinimized, setIsChatMinimized] = useState(false);
 
     useEffect(() => {
         if (shopId) {
@@ -108,6 +121,25 @@ const ShopProfilePage = () => {
         if (location.district?.district_name) parts.push(location.district.district_name);
         if (location.province?.province_name) parts.push(location.province.province_name);
         return parts.join(', ');
+    };
+
+    const handleChatOpen = () => {
+        if (!isAuthenticated || !user || !accessToken) {
+            // Redirect to login or show login modal
+            router.push('/auth/login');
+            return;
+        }
+        setIsChatOpen(true);
+        setIsChatMinimized(false);
+    };
+
+    const handleChatClose = () => {
+        setIsChatOpen(false);
+        setIsChatMinimized(false);
+    };
+
+    const handleChatToggleMinimize = () => {
+        setIsChatMinimized(!isChatMinimized);
     };
 
     if (loadingShop) {
@@ -185,17 +217,13 @@ const ShopProfilePage = () => {
                     {/* Shop Info Section */}
                     <div className="bg-white shadow-xl rounded-xl p-6 md:p-8 mb-10 flex flex-col md:flex-row items-center gap-6 md:gap-8">
                         <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-slate-100 shadow-md flex-shrink-0">
-                            <NextImage
+                            <CustomImage
                                 src={mediaService.getMediaUrl(shop.shop_logo)}
                                 alt={`${shop.shop_name} logo`}
-                                layout="fill"
+                                fill
                                 objectFit="cover"
                                 className="bg-gray-100"
-                                onError={(e) => {
-                                    const target = e.target as HTMLImageElement;
-                                    target.src = '/placeholder.svg';
-                                    target.srcset = '';
-                                }}
+                                fallbackSrc="/placeholder.jpg"
                             />
                         </div>
                         <div className="text-center md:text-left flex-grow">
@@ -227,6 +255,16 @@ const ShopProfilePage = () => {
                                 )}
                             </div>
                         </div>
+
+                        {/* Chat Button */}
+                        <div className="flex flex-col items-center md:items-end gap-2">
+                            <ChatButton onClick={handleChatOpen} className="w-full md:w-auto" />
+                            <p className="text-xs text-gray-500 text-center">
+                                {isAuthenticated
+                                    ? 'Liên hệ trực tiếp với shop'
+                                    : 'Đăng nhập để chat với shop'}
+                            </p>
+                        </div>
                     </div>
 
                     {/* Products Section */}
@@ -256,7 +294,7 @@ const ShopProfilePage = () => {
                                 >
                                     All Products
                                 </Button>
-                                {shopCategories.map((cat) => (
+                                {shopCategories.map((cat, index) => (
                                     <Button
                                         key={cat._id}
                                         variant={
@@ -346,11 +384,11 @@ const ShopProfilePage = () => {
 
                         {!loadingProducts && !errorProducts && filteredProducts.length > 0 && (
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                                {filteredProducts.map((product) => (
+                                {filteredProducts.map((product, index) => (
                                     <ProductCard
-                                        key={product._id}
+                                        key={index}
                                         product={product}
-                                        showShopInfo={false} // Don't show shop info since we're already on the shop page
+                                        showShopInfo={false}
                                     />
                                 ))}
                             </div>
@@ -358,6 +396,33 @@ const ShopProfilePage = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Floating Chat Component */}
+            {shop && isAuthenticated && user && accessToken && (
+                <FloatingChat
+                    shop={{
+                        _id: shop._id,
+                        shop_name: shop.shop_name,
+                        shop_logo: shop.shop_logo,
+                        shop_userId: shop.shop_userId
+                    }}
+                    isOpen={isChatOpen}
+                    onClose={handleChatClose}
+                    onToggleMinimize={handleChatToggleMinimize}
+                    isMinimized={isChatMinimized}
+                    currentUserId={user._id}
+                    userToken={accessToken}
+                />
+            )}
+
+            {/* Floating Action Button */}
+            {shop && (
+                <FloatingChatButton
+                    onClick={handleChatOpen}
+                    isOpen={isChatOpen}
+                    hasUnread={false}
+                />
+            )}
         </>
     );
 };

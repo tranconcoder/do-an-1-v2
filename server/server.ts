@@ -20,6 +20,9 @@ import RBACService from '@/services/rbac.service.js';
 import mediaService from '@/services/media.service.js';
 import categoryService from '@/services/category.service.js';
 
+// Socket.IO
+import SocketIOService from '@/services/socketio.service.js';
+
 // await new Promise((resolve) => {
 //     // kill 4000 with bun
 //     try {
@@ -47,6 +50,12 @@ const server = https
 // const server = app.listen(Number(PORT), () => {
 //     console.log(`Server is running at ${BASE_URL}`);
 // });
+
+/* ---------------------------------------------------------- */
+/*                       Socket.IO Setup                     */
+/* ---------------------------------------------------------- */
+// Initialize Socket.IO service
+SocketIOService.getInstance().initialize(server);
 
 server.on("close", () => {
     // Close database connection
