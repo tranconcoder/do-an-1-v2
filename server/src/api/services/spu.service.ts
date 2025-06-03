@@ -74,7 +74,7 @@ export default new (class SPUService {
             });
 
         /* --------------------- Handle save spu ------------------- */
-        const quantity = sku_list.reduce((acc, cur) => acc + cur.sku_stock, 0);
+        const quantity = sku_list.reduce((acc, cur) => acc + Number(cur.sku_stock), 0);
         const spu = await spuModel.create({
             product_name,
             product_quantity: quantity,

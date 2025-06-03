@@ -41,6 +41,7 @@
         "typescript": "^5.8.2"
     },
     "dependencies": {
+        "@coinpaprika/api-nodejs-client": "^2.0.0",
         "@types/nodemailer": "^6.4.17",
         "accesscontrol": "^2.2.1",
         "aws-sdk": "^2.1692.0",
