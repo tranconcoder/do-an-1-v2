@@ -54,6 +54,11 @@
             "date": 1748871553858,
             "name": "logs/2025/weeks-23/day-1/warn.log",
             "hash": "de67dea920d6643732309b7ae3f4eeb9e40e14e573ebfbd5e3bc9656cfbfca90"
+        },
+        {
+            "date": 1748909675951,
+            "name": "logs/2025/weeks-23/day-2/warn.log",
+            "hash": "72dfef6f47a806ca1ab3433d0839ea1556572ea91afc89b8aae926ba1c102eba"
         }
     ],
     "hashType": "sha256"

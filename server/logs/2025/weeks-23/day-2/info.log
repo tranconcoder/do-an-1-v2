@@ -1,0 +1,58 @@
+[2025-06-03T00:00:00.149Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:00:00.157Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:01:00.181Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:01:00.182Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:02:00.139Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:02:00.140Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:03:01.804Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:03:01.806Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:04:03.285Z] [info]: User disconnected: Trần Văn Còn  User (683ad9c4a57da745de42b9a8)
+[2025-06-03T00:04:03.340Z] [info]: User disconnected: Trần Văn Còn SHOP (683ad7cdd47acfe33eb35312)
+[2025-06-03T00:14:31.409Z] [info]: Server closed
+[2025-06-03T00:14:35.958Z] [info]: Socket.IO service initialized
+[2025-06-03T00:14:36.437Z] [info]: User connected: Trần Văn Còn  User (683ad9c4a57da745de42b9a8)
+[2025-06-03T00:15:00.147Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:15:00.148Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:16:00.795Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:16:00.795Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:17:01.988Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:17:01.989Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:17:41.623Z] [info]: User disconnected: Trần Văn Còn  User (683ad9c4a57da745de42b9a8)
+[2025-06-03T00:18:00.428Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:18:00.430Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:19:00.198Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:19:00.199Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:20:01.505Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:20:01.506Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:21:00.472Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:21:00.472Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:21:01.259Z] [info]: User connected: Trần Văn Còn SHOP (683ad7cdd47acfe33eb35312)
+[2025-06-03T00:21:02.185Z] [info]: User 683ad7cdd47acfe33eb35312 joined conversation 683dc02f4d90a47f5d98d61f
+[2025-06-03T00:21:02.340Z] [info]: Messages marked as read by 683ad7cdd47acfe33eb35312 in conversation 683dc02f4d90a47f5d98d61f
+[2025-06-03T00:22:00.160Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:22:00.161Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:23:00.444Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:23:00.445Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:24:00.467Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:24:00.468Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:25:00.718Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:25:00.721Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:26:00.167Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:26:00.168Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:27:01.434Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:27:01.436Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:28:01.797Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:28:01.803Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:28:39.653Z] [info]: User 683ad7cdd47acfe33eb35312 left conversation 683dc02f4d90a47f5d98d61f
+[2025-06-03T00:28:39.818Z] [info]: User disconnected: Trần Văn Còn SHOP (683ad7cdd47acfe33eb35312)
+[2025-06-03T00:28:41.054Z] [info]: User connected: Trần Văn Còn SHOP (683ad7cdd47acfe33eb35312)
+[2025-06-03T00:29:00.160Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:29:00.161Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:30:00.589Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:30:00.596Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:31:00.823Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:31:00.824Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:32:02.037Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:32:02.038Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-03T00:33:00.184Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-03T00:33:00.186Z] [info]: Cleanup key token: 0 refresh token used cleaned
