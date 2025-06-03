@@ -6,7 +6,7 @@ import { URL } from 'url';
 import { WebSocketServer, WebSocket } from 'ws';
 
 // Import tools and resources
-import { introduceAliconconTool, getPopularProductsTool, paymentMethodsTool, getUserProfileTool, getCartTool, addToCartTool } from './tools/index.js';
+import { introduceAliconconTool, getPopularProductsTool, paymentMethodsTool, getUserProfileTool, showProfileTool, getCartTool, addToCartTool } from './tools/index.js';
 import { companyIntroductionResource } from './resources/index.js';
 
 const mcpServer = new McpServer({
@@ -51,6 +51,13 @@ mcpServer.tool(
 );
 
 mcpServer.tool(
+    showProfileTool.name,
+    showProfileTool.description,
+    showProfileTool.inputSchema,
+    async (args) => showProfileTool.handler(args)
+);
+
+mcpServer.tool(
     getCartTool.name,
     getCartTool.description,
     getCartTool.inputSchema,
@@ -69,6 +76,7 @@ registeredTools.set(introduceAliconconTool.name, introduceAliconconTool);
 registeredTools.set(getPopularProductsTool.name, getPopularProductsTool);
 registeredTools.set(paymentMethodsTool.name, paymentMethodsTool);
 registeredTools.set(getUserProfileTool.name, getUserProfileTool);
+registeredTools.set(showProfileTool.name, showProfileTool);
 registeredTools.set(getCartTool.name, getCartTool);
 registeredTools.set(addToCartTool.name, addToCartTool);
 

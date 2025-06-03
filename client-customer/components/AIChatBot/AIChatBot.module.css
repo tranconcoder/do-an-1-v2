@@ -327,6 +327,30 @@
     text-decoration: underline;
 }
 
+.messageImage {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    margin: 8px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.messageImage:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.messageImage.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 4px 0;
+}
+
 .timestamp {
     font-size: 11px;
     color: #999;

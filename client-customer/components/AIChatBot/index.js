@@ -373,6 +373,11 @@ function AIChatBot() {
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
             .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>')
             .replace(/`(.*?)`/g, '<code>$1</code>')
+            // Handle images before links to avoid conflicts
+            .replace(
+                /!\[([^\]]*)\]\(([^)]+)\)/g,
+                '<img src="$2" alt="$1" class="messageImage" onerror="this.style.display=\'none\'" />'
+            )
             .replace(
                 /\[([^\]]+)\]\(([^)]+)\)/g,
                 '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'

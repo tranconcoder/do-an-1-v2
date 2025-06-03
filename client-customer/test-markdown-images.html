@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Test Markdown Images in AIChatBot</title>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                margin: 40px;
+                background: #f5f5f5;
+            }
+
+            .test-container {
+                max-width: 600px;
+                margin: 0 auto;
+                background: white;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .markdown-test {
+                border: 1px solid #ddd;
+                padding: 20px;
+                border-radius: 8px;
+                margin: 20px 0;
+                background: #f9f9f9;
+            }
+
+            .messageImage {
+                max-width: 100%;
+                max-height: 300px;
+                border-radius: 8px;
+                margin: 8px 0;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+                cursor: pointer;
+                object-fit: cover;
+            }
+
+            .messageImage:hover {
+                transform: scale(1.02);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            .messageImage.avatar {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin: 4px 0;
+            }
+
+            .test-button {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 14px;
+                margin: 10px;
+            }
+
+            .test-result {
+                margin-top: 20px;
+                padding: 15px;
+                border-radius: 8px;
+                background: #e8f5e8;
+                border-left: 4px solid #4caf50;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="test-container">
+            <h1>🖼️ Test Markdown Images in AIChatBot</h1>
+            <p>
+                Trang này giúp test khả năng hiển thị hình ảnh từ markdown trong AIChatBot
+                component.
+            </p>
+
+            <div class="markdown-test">
+                <h3>📝 Test Markdown Input:</h3>
+                <pre id="markdownInput">
+# 👤 Profile của Trần Văn Còn User
+
+![Avatar của bạn](https://aliconcon.tail61bbbd.ts.net:4000/media/683dd84682d322f28ec1b284)
+
+---
+
+## 📋 Thông tin cá nhân
+
+**👤 Họ tên**: Trần Văn Còn User
+**📧 Email**: helo@gmail.com
+**📱 Điện thoại**: 0905123456
+**🏷️ Vai trò**: USER
+**📊 Trạng thái**: ✅ Hoạt động
+
+---
+
+🛍️ Chúc bạn có trải nghiệm mua sắm vui vẻ tại **Aliconcon**! 😊
+            </pre
+                >
+            </div>
+
+            <button class="test-button" onclick="testMarkdownRendering()">
+                🧪 Test Markdown Rendering
+            </button>
+            <button class="test-button" onclick="connectToChatBot()">💬 Connect to ChatBot</button>
+
+            <div id="testResult" class="test-result" style="display: none">
+                <h3>✅ Rendered Output:</h3>
+                <div id="renderedContent"></div>
+            </div>
+        </div>
+
+        <script>
+            function renderMarkdown(content) {
+                if (!content) return '';
+
+                let html = content
+                    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                    .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>')
+                    .replace(/`(.*?)`/g, '<code>$1</code>')
+                    // Handle images before links to avoid conflicts
+                    .replace(
+                        /!\[([^\]]*)\]\(([^)]+)\)/g,
+                        '<img src="$2" alt="$1" class="messageImage" onerror="this.style.display=\'none\'" />'
+                    )
+                    .replace(
+                        /\[([^\]]+)\]\(([^)]+)\)/g,
+                        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+                    )
+                    .replace(/^- (.*$)/gim, '<li>$1</li>')
+                    .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+                    .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
+                    .replace(/---/g, '<hr>')
+                    .replace(/\n/g, '<br>');
+
+                return html;
+            }
+
+            function testMarkdownRendering() {
+                const markdownContent = document.getElementById('markdownInput').textContent.trim();
+                const renderedHTML = renderMarkdown(markdownContent);
+
+                document.getElementById('renderedContent').innerHTML = renderedHTML;
+                document.getElementById('testResult').style.display = 'block';
+
+                console.log('📝 Original markdown:', markdownContent);
+                console.log('🎨 Rendered HTML:', renderedHTML);
+            }
+
+            function connectToChatBot() {
+                // Simulate connecting to ChatBot WebSocket
+                console.log('💬 Connecting to ChatBot...');
+                alert('Mở DevTools Console để xem logs. Sau đó test với AIChatBot thực tế!');
+
+                // Test message that would be sent
+                const testMessage = {
+                    type: 'chat',
+                    content: 'Hiển thị profile của tôi',
+                    context: {
+                        currentPage: '/test-markdown-images',
+                        testMode: true
+                    }
+                };
+
+                console.log('📨 Test message would be sent:', testMessage);
+                console.log(
+                    '🤖 AI sẽ gọi show-profile tool và trả về markdown có chứa avatar image'
+                );
+            }
+
+            // Auto-run test when page loads
+            window.addEventListener('load', () => {
+                setTimeout(testMarkdownRendering, 1000);
+            });
+        </script>
+    </body>
+</html>
