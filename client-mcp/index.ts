@@ -20,7 +20,7 @@ config();
 const logger = pino(pretty({ colorize: true }));
 
 // Configuration
-const OPENROUTER_API_KEY = "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";
+const OPENROUTER_API_KEY = "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";
 // const MODEL_NAME = process.env.LLM_MODEL || "meta-llama/llama-3-70b-instruct";
 const MODEL_NAME = process.env.LLM_MODEL || "deepseek/deepseek-chat-v3-0324:free";
 const DISABLE_THINKING = process.env.DISABLE_THINKING === "true" || true;
@@ -625,9 +625,19 @@ Câu hỏi của khách hàng: ${query}`;
             // Call tool to get user profile
             let profileResponse: string;
             let userProfile: UserProfile;
+            let cartInfo: any = null;
 
             if (accessToken) {
                 profileResponse = await this.callMCPTool('get-user-profile', { accessToken });
+
+                // Also get cart information if user is logged in
+                try {
+                    const cartResponse = await this.callMCPTool('get-cart', { accessToken });
+                    cartInfo = JSON.parse(cartResponse);
+                    console.log(`🛒 [${socketId}] Cart info loaded:`, cartInfo.cartItemCount || 0, 'items');
+                } catch (cartError) {
+                    console.log(`⚠️ [${socketId}] Could not load cart:`, cartError);
+                }
             } else {
                 profileResponse = await this.callMCPTool('get-user-profile', {});
             }
@@ -638,6 +648,10 @@ Câu hỏi của khách hàng: ${query}`;
 
             try {
                 const profileData = JSON.parse(profileResponse);
+                profileData.user_avatar = 'https://aliconcon.tail61bbbd.ts.net:4000/media/' + profileData.user_avatar;
+                console.log({
+                    profileData
+                })
 
                 userProfile = {
                     ...profileData,
@@ -664,14 +678,23 @@ Câu hỏi của khách hàng: ${query}`;
             // Save profile to Redis
             await this.memoryStore.saveUserProfile(socketId, userProfile);
 
-            // Generate welcome message based on profile
-            const welcomeMessage = this.generateWelcomeMessage(userProfile, context);
+            // Save cart info to context if available
+            if (cartInfo) {
+                await this.memoryStore.updateContext(socketId, {
+                    ...context,
+                    cartInfo: cartInfo
+                });
+            }
+
+            // Generate welcome message based on profile and cart
+            const welcomeMessage = this.generateWelcomeMessage(userProfile, context, cartInfo);
 
             // Send welcome response
             this.sendToClient(ws, {
                 type: 'profile_initialized',
                 profile: userProfile,
                 welcomeMessage: welcomeMessage,
+                cartInfo: cartInfo,
                 timestamp: new Date().toISOString()
             });
 
@@ -699,7 +722,7 @@ Câu hỏi của khách hàng: ${query}`;
         }
     }
 
-    generateWelcomeMessage(profile: UserProfile, context?: any): string {
+    generateWelcomeMessage(profile: UserProfile, context?: any, cartInfo?: any): string {
         const currentTime = new Date();
         const hour = currentTime.getHours();
 
@@ -731,6 +754,29 @@ Câu hỏi của khách hàng: ${query}`;
             }
         }
 
+        // Add cart information if available
+        let cartMessage = '';
+        if (cartInfo && cartInfo.success && cartInfo.cartItemCount > 0) {
+            cartMessage = `\n\n🛒 **Giỏ hàng của bạn**: ${cartInfo.cartItemCount} sản phẩm`;
+
+            // Show a few cart items if available
+            if (cartInfo.data && Array.isArray(cartInfo.data) && cartInfo.data.length > 0) {
+                const firstItem = cartInfo.data[0];
+                if (firstItem.cart_shop && firstItem.cart_shop.products && firstItem.cart_shop.products.length > 0) {
+                    const product = firstItem.cart_shop.products[0];
+                    cartMessage += `\n- ${product.product_name}: ${product.cart_quantity}x`;
+
+                    if (cartInfo.data.length > 1 || firstItem.cart_shop.products.length > 1) {
+                        cartMessage += `\n- ...và còn nhiều sản phẩm khác`;
+                    }
+                }
+            }
+
+            cartMessage += `\n\n💡 Hỏi tôi về "giỏ hàng" để xem chi tiết hoặc "thanh toán" để hoàn tất đơn hàng!`;
+        } else if (!profile.isGuest) {
+            cartMessage = `\n\n🛒 **Giỏ hàng trống** - Tìm sản phẩm yêu thích và thêm vào giỏ hàng nhé!`;
+        }
+
         const features = [
             "🔍 Tìm kiếm và khám phá sản phẩm",
             "💰 So sánh giá từ nhiều cửa hàng",
@@ -744,7 +790,7 @@ Câu hỏi của khách hàng: ${query}`;
 
         return `${personalGreeting}
 
-${roleInfo}
+${roleInfo}${cartMessage}
 
 Tôi là AI Assistant của Aliconcon, sẵn sàng hỗ trợ bạn:
 

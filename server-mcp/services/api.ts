@@ -171,9 +171,43 @@ export class ApiService {
                     Authorization: `Bearer ${accessToken}`
                 }
             });
+
             return response.data;
-        } catch (error) {
-            throw this.handleError(error as AxiosError);
+        } catch (error: any) {
+            console.error('API Error getting user profile:', error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || 'Failed to get user profile');
+        }
+    }
+
+    // Get user cart with access token
+    async getUserCart(accessToken: string) {
+        try {
+            const response = await this.client.get('/cart', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+
+            return response.data;
+        } catch (error: any) {
+            console.error('API Error getting user cart:', error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || 'Failed to get user cart');
+        }
+    }
+
+    // Add product to cart with access token
+    async addToCart(accessToken: string, skuId: string, quantity: number = 1) {
+        try {
+            const response = await this.client.post(`/cart/add/${skuId}/${quantity}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+
+            return response.data;
+        } catch (error: any) {
+            console.error('API Error adding to cart:', error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || 'Failed to add product to cart');
         }
     }
 }

@@ -12,9 +12,6 @@ export const getUserProfileTool = {
         try {
             // Create a new service instance with authorization header if token provided
             let response: ApiResponse<any>;
-            console.log({
-                accessToken
-            })
 
             if (accessToken) {
                 // Call API with authorization header
