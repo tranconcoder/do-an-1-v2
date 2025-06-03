@@ -1,14 +1,25 @@
 import axios, { AxiosError } from 'axios';
 import type { AxiosInstance, AxiosResponse } from 'axios';
+import https from 'https';
+
+const agent = new https.Agent({
+    rejectUnauthorized: false,
+});
 
 // API Configuration
 const API_CONFIG = {
-    baseURL: process.env.API_BASE_URL || 'http://localhost:4000',
+    baseURL: process.env.API_BASE_URL,
     timeout: 10000, // 10 seconds
     headers: {
         'Content-Type': 'application/json',
-    }
+    },
+    httpsAgent: agent,
 };
+
+if (!API_CONFIG.baseURL) {
+    console.error('❌ API_BASE_URL is not set!');
+    process.exit(1);
+}
 
 // Create axios instance
 const apiClient: AxiosInstance = axios.create(API_CONFIG);
@@ -123,6 +134,7 @@ export class ApiService {
             return new Error(`API Error ${status}: ${message}`);
         } else if (error.request) {
             // Request was made but no response received
+            console.log(error)
             return new Error('Không thể kết nối đến server API. Vui lòng kiểm tra kết nối mạng.');
         } else {
             // Something else happened

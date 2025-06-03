@@ -1,40 +1,103 @@
 # AI ChatBot Component - Customer App
 
-Bong bóng chat AI toàn cục cho ứng dụng client-customer (Next.js). Component này hiển thị một bubble chat floating ở góc phải màn hình và cung cấp giao diện chat với AI hỗ trợ mua sắm.
+Bong bóng chat AI toàn cục cho ứng dụng client-customer (Next.js) với **WebSocket real-time** và **markdown rendering**. Component này kết nối trực tiếp với MCP server qua WebSocket để cung cấp trải nghiệm chat AI thông minh.
 
-## Tính năng hiện tại
+## 🚀 Tính năng mới
 
-✅ **Giao diện hoàn chỉnh**
+✅ **WebSocket Real-time Communication**
 
--   Bubble chat floating với hiệu ứng hover đẹp mắt
--   Cửa sổ chat responsive với animation mượt mà
--   Design hiện đại với gradient và shadow
--   Typing indicator khi AI đang "suy nghĩ"
--   Auto-scroll tin nhắn và auto-resize input
--   Timestamp cho mỗi tin nhắn
--   Avatar khác biệt cho user và AI
--   Tối ưu cho Next.js với 'use client' directive
+-   Kết nối WebSocket tự động với MCP server
+-   Auto-reconnect khi mất kết nối
+-   Typing indicators thời gian thực
+-   Connection status hiển thị trực quan
 
-✅ **Chức năng cơ bản**
+✅ **Markdown Rendering**
 
--   Toggle mở/đóng chat window
--   Gửi tin nhắn bằng Enter hoặc nút Send
--   Simulation AI response với context mua sắm
--   Notification dot (cho tin nhắn mới)
--   Welcome message phù hợp với shopping experience
+-   AI responses được render dưới dạng markdown
+-   Hỗ trợ headers, bold, italic, lists, links, code blocks
+-   Styling đẹp mắt cho nội dung phong phú
 
-## Cấu trúc files
+✅ **Context-Aware AI**
 
+-   Gửi context từ trang hiện tại (URL, user agent, etc.)
+-   Tích hợp với shopping cart và recently viewed (TODO)
+-   AI hiểu được ngữ cảnh mua sắm
+
+✅ **Error Handling & Fallbacks**
+
+-   Graceful error handling khi WebSocket fails
+-   Visual error messages với styling riêng
+-   Fallback responses khi không kết nối được
+
+## 🔧 Cài đặt và Tích hợp
+
+### 1. Khởi động MCP System
+
+```bash
+# Từ root directory
+./run_aliconcon_mcp.sh
 ```
-client-customer/components/AIChatBot/
-├── index.js                    # Component chính
-├── AIChatBot.module.css       # CSS Module styling
-└── README.md                  # Documentation
+
+Hệ thống sẽ khởi động:
+
+-   **MCP Server**: `http://localhost:8000`
+-   **WebSocket Server**: `ws://localhost:8001/chat` (HTTP)
+-   **Secure WebSocket**: `wss://localhost:8001/chat` (HTTPS)
+-   **Console Chat**: Terminal interface
+
+### 1.1. Enable WSS (Secure WebSocket)
+
+Để sử dụng WSS thay vì WS:
+
+```bash
+# Set environment variable for HTTPS
+export USE_HTTPS=true
+
+# Run the system
+./run_aliconcon_mcp.sh
 ```
 
-## Tích hợp với Next.js App
+**SSL Certificates**:
 
-### 1. Thêm vào Root Layout
+-   Hệ thống tự động tạo self-signed certificates cho development
+-   Đặt certificates tùy chỉnh trong `./certificates/` directory:
+    -   `./certificates/key.pem` (private key)
+    -   `./certificates/cert.pem` (certificate)
+
+**Production Setup**:
+
+```bash
+# Use real SSL certificates for production
+mkdir -p certificates
+cp your-ssl-key.pem certificates/key.pem
+cp your-ssl-cert.pem certificates/cert.pem
+export USE_HTTPS=true
+```
+
+### 2. Cấu hình Environment Variables
+
+Tạo file `.env.local` trong `client-customer`:
+
+```env
+# WebSocket URL for AI ChatBot (Secure - Recommended)
+NEXT_PUBLIC_WS_URL=wss://localhost:8001/chat
+
+# Or for development (Non-secure)
+# NEXT_PUBLIC_WS_URL=ws://localhost:8001/chat
+
+# Optional: Custom configuration
+NEXT_PUBLIC_AI_ASSISTANT_NAME="Aliconcon AI Assistant"
+```
+
+**🔒 Security Note**:
+
+-   Use `wss://` (WebSocket Secure) for production
+-   Use `ws://` only for local development
+-   Set `USE_HTTPS=true` on server to enable WSS
+
+### 3. Thêm Component vào Next.js App
+
+#### Option A: Global (Recommended)
 
 Chỉnh sửa `client-customer/app/layout.js`:
 
@@ -54,12 +117,12 @@ export default function RootLayout({ children }) {
 }
 ```
 
-### 2. Hoặc thêm vào component cụ thể
+#### Option B: Specific Pages
 
 ```javascript
 import AIChatBot from '../../components/AIChatBot';
 
-export default function HomePage() {
+export default function ProductPage() {
     return (
         <div>
             {/* Page content */}
@@ -69,287 +132,232 @@ export default function HomePage() {
 }
 ```
 
-## Tích hợp MCP (TODO)
+## 📡 WebSocket Protocol
 
-### 1. Cài đặt MCP Client
+### Message Types
 
-```bash
-cd client-customer
-npm install @modelcontextprotocol/sdk
-```
-
-### 2. Tạo MCP Service
-
-Tạo file `client-customer/lib/services/mcpService.js`:
+#### Client → Server
 
 ```javascript
-import { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
-
-class MCPService {
-    constructor() {
-        this.client = null;
-        this.isConnected = false;
-    }
-
-    async connect() {
-        // Kết nối với MCP server
-        const transport = new StdioClientTransport({
-            command: 'shopping-ai-server',
-            args: []
-        });
-
-        this.client = new Client(
-            {
-                name: 'customer-shopping-assistant',
-                version: '1.0.0'
-            },
-            {
-                capabilities: {
-                    tools: {
-                        product_search: {},
-                        shop_info: {},
-                        order_tracking: {},
-                        recommendations: {}
-                    }
-                }
-            }
-        );
-
-        await this.client.connect(transport);
-        this.isConnected = true;
-    }
-
-    async sendMessage(message, context = {}) {
-        if (!this.isConnected || !this.client) {
-            throw new Error('MCP client not connected');
-        }
-
-        // Gửi tin nhắn với shopping context
-        const response = await this.client.request({
-            method: 'tools/call',
-            params: {
-                name: 'shopping_chat',
-                arguments: {
-                    message,
-                    context: {
-                        userId: context.userId,
-                        currentPage: context.currentPage,
-                        cartItems: context.cartItems,
-                        recentlyViewed: context.recentlyViewed
-                    }
-                }
-            }
-        });
-
-        return response.content;
-    }
-
-    async searchProducts(query) {
-        return await this.client.request({
-            method: 'tools/call',
-            params: {
-                name: 'product_search',
-                arguments: { query }
-            }
-        });
-    }
-
-    async getRecommendations(userId) {
-        return await this.client.request({
-            method: 'tools/call',
-            params: {
-                name: 'recommendations',
-                arguments: { userId }
-            }
-        });
+// Chat message
+{
+    type: 'chat',
+    content: 'Tôi muốn tìm iPhone 15',
+    context: {
+        currentPage: '/products',
+        userAgent: '...',
+        cartItems: [],
+        recentlyViewed: []
     }
 }
 
-export default new MCPService();
+// Ping
+{
+    type: 'ping'
+}
 ```
 
-### 3. Cập nhật AIChatBot Component
-
-Thay thế phần AI response trong `components/AIChatBot/index.js`:
+#### Server → Client
 
 ```javascript
-import mcpService from '../../lib/services/mcpService';
-import { useAuth } from '../../hooks/useAuth'; // Giả sử có auth hook
+// Welcome message
+{
+    type: 'welcome',
+    message: 'Chào mừng đến với Aliconcon AI Assistant!',
+    timestamp: '2025-01-15T10:30:00.000Z',
+    clientId: '1642248600000'
+}
 
-// Trong component:
-const { user } = useAuth();
+// AI response
+{
+    type: 'message',
+    content: '# Sản phẩm iPhone 15\n\n**Giá**: 29.990.000đ...',
+    sender: 'ai',
+    timestamp: '2025-01-15T10:30:05.000Z',
+    markdown: true
+}
 
-const handleSendMessage = async () => {
-    if (!inputValue.trim()) return;
+// Typing indicator
+{
+    type: 'typing',
+    isTyping: true,
+    timestamp: '2025-01-15T10:30:02.000Z'
+}
 
-    const userMessage = {
-        id: Date.now(),
-        content: inputValue.trim(),
-        sender: 'user',
-        timestamp: new Date()
-    };
+// Error
+{
+    type: 'error',
+    message: 'Message content is required',
+    timestamp: '2025-01-15T10:30:00.000Z'
+}
+```
 
-    setMessages((prev) => [...prev, userMessage]);
-    setInputValue('');
-    setIsTyping(true);
+## 🎨 Markdown Support
 
-    try {
-        // Lấy context từ user và page hiện tại
-        const context = {
-            userId: user?.id,
-            currentPage: window.location.pathname,
-            cartItems: [], // Get from cart state
-            recentlyViewed: [] // Get from localStorage or state
-        };
+AI có thể trả lời với markdown formatting:
 
-        // Gọi MCP service với context
-        const aiResponseContent = await mcpService.sendMessage(userMessage.content, context);
+```markdown
+# Sản phẩm iPhone 15 Pro Max
 
-        const aiResponse = {
-            id: Date.now() + 1,
-            content: aiResponseContent,
-            sender: 'ai',
-            timestamp: new Date()
-        };
+**Giá**: _29.990.000đ_
 
-        setMessages((prev) => [...prev, aiResponse]);
-    } catch (error) {
-        console.error('MCP Error:', error);
+## Đặc điểm nổi bật:
 
-        const errorResponse = {
-            id: Date.now() + 1,
-            content: 'Xin lỗi, tôi đang gặp sự cố kỹ thuật. Vui lòng thử lại sau.',
-            sender: 'ai',
-            timestamp: new Date()
-        };
+-   Camera 48MP Pro
+-   Chip A17 Pro
+-   Titanium design
 
-        setMessages((prev) => [...prev, errorResponse]);
-    } finally {
-        setIsTyping(false);
-    }
+> **Khuyến mãi**: Trả góp 0% trong 12 tháng
+
+[Xem chi tiết](https://aliconcon.com/iphone-15)
+```
+
+Sẽ được render thành HTML với styling đẹp mắt.
+
+## 🔄 Connection Management
+
+### Auto-Reconnect
+
+Component tự động reconnect khi:
+
+-   WebSocket connection bị đứt
+-   Server restart
+-   Network issues
+
+### Connection States
+
+-   **Đang kết nối...**: Initial connection
+-   **Đã kết nối**: Connected and ready
+-   **Mất kết nối**: Disconnected, attempting reconnect
+-   **Lỗi kết nối**: Connection error
+-   **Đã ngắt kết nối**: Manually disconnected
+
+## 🛍️ Shopping Context Integration
+
+### Current Implementation
+
+```javascript
+const context = {
+    currentPage: window.location.pathname,
+    userAgent: navigator.userAgent,
+    timestamp: new Date().toISOString(),
+    cartItems: [], // TODO: Get from Redux/Context
+    recentlyViewed: [] // TODO: Get from localStorage
 };
 ```
 
-### 4. Khởi tạo MCP trong Root Layout
+### TODO: Full Integration
 
 ```javascript
-'use client';
-
-import { useEffect } from 'react';
-import mcpService from '../lib/services/mcpService';
-
-export default function RootLayout({ children }) {
-    useEffect(() => {
-        // Khởi tạo MCP connection
-        const initializeMCP = async () => {
-            try {
-                await mcpService.connect();
-                console.log('Shopping AI service connected successfully');
-            } catch (error) {
-                console.error('Failed to connect MCP service:', error);
-            }
-        };
-
-        initializeMCP();
-    }, []);
-
-    // ... rest of layout
-}
-```
-
-## Tích hợp với Redux Store
-
-```javascript
+// With Redux
 import { useSelector } from 'react-redux';
 
-// Trong AIChatBot component:
 const cartItems = useSelector((state) => state.cart.items);
 const user = useSelector((state) => state.auth.user);
 const recentlyViewed = useSelector((state) => state.products.recentlyViewed);
 
-// Sử dụng trong context cho MCP
 const context = {
     userId: user?.id,
+    currentPage: window.location.pathname,
     cartItems,
     recentlyViewed,
-    currentPage: window.location.pathname
+    searchHistory: [], // From search state
+    wishlist: [], // From wishlist state
+    orderHistory: [] // From order state
 };
 ```
 
-## Customization
+## 🎯 AI Capabilities
 
-### Thay đổi theme cho shopping
+### Current Tools Available
+
+1. **introduce**: Company information about Aliconcon
+2. **popular-products**: Get popular/trending products
+
+### AI Features
+
+-   **Tool Calling**: AI can call MCP tools for real data
+-   **Fallback Mode**: Context-aware responses when tools fail
+-   **Markdown Responses**: Rich formatting for better UX
+-   **Shopping Context**: Understands e-commerce context
+
+### Example Interactions
+
+**User**: "Giới thiệu về Aliconcon" **AI**: Returns formatted company information with markdown
+
+**User**: "Sản phẩm nào đang bán chạy?" **AI**: Calls `popular-products` tool and formats results
+
+**User**: "Tôi muốn mua iPhone" **AI**: Provides product recommendations with pricing and links
+
+## 🔧 Customization
+
+### Styling
 
 ```css
-/* AIChatBot.module.css */
-.chatBubble {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%); /* Shopping colors */
+/* Custom error message styling */
+.messageBubble.errorMessage {
+    background: #your-error-color;
+    border-left: 3px solid #your-border-color;
 }
 
-.welcomeMessage h3::after {
-    content: ' 🛍️';
+/* Custom markdown styling */
+.messageBubble h1 {
+    color: #your-brand-color;
 }
 ```
 
-### Thêm shopping features
-
--   **Product recommendations**: Hiển thị sản phẩm gợi ý trong chat
--   **Cart integration**: Thêm sản phẩm vào giỏ hàng từ chat
--   **Order tracking**: Tra cứu trạng thái đơn hàng
--   **Price alerts**: Thiết lập thông báo giá
--   **Wishlist management**: Quản lý danh sách yêu thích
-
-## Next.js Specific Features
-
-### Server-side Integration
+### Configuration
 
 ```javascript
-// pages/api/ai-chat.js (nếu dùng Pages Router)
-export default async function handler(req, res) {
-    // Proxy requests to MCP server
-    const response = await mcpService.sendMessage(req.body.message);
-    res.json({ response });
-}
+// Custom WebSocket URL
+const WS_URL = process.env.NEXT_PUBLIC_WS_URL || 'ws://your-server:port/chat';
+
+// Custom reconnect interval
+const RECONNECT_INTERVAL = 5000; // 5 seconds
 ```
 
-### Image Optimization
+## 📱 Responsive Design
 
-```javascript
-import Image from 'next/image';
+-   ✅ Desktop: 380px width floating window
+-   ✅ Mobile: Full width with margins
+-   ✅ Tablet: Responsive sizing
+-   ✅ Touch-friendly controls
 
-// Trong message bubble hiển thị product images
-<Image
-    src={product.imageUrl}
-    alt={product.name}
-    width={200}
-    height={150}
-    className={styles.productImage}
-/>;
-```
+## 🚀 Performance
 
-## Responsive Design
+-   **Lazy Loading**: Component only loads when needed
+-   **Memory Efficient**: Proper cleanup on unmount
+-   **Optimized Rendering**: Efficient markdown parsing
+-   **Connection Pooling**: Single WebSocket per session
 
--   ✅ Desktop (380px width)
--   ✅ Mobile (full width với margin)
--   ✅ Tablet (responsive)
--   ✅ Next.js SSR compatible
+## 🔒 Security
 
-## Performance Optimizations
+-   **Input Sanitization**: Safe markdown rendering
+-   **XSS Protection**: `dangerouslySetInnerHTML` with safe content
+-   **CORS Handling**: Proper WebSocket CORS configuration
+-   **Error Boundaries**: Graceful error handling
 
--   Lazy loading với Next.js dynamic imports
--   CSS Modules cho styling isolation
--   Debounced typing indicators
--   Memory efficient với proper cleanup
--   Image optimization với Next.js Image component
+## 🐛 Troubleshooting
 
-## Browser Support
+### WebSocket Connection Issues
 
--   ✅ Chrome 70+
--   ✅ Firefox 65+
--   ✅ Safari 12+
--   ✅ Edge 79+
+1. **Check MCP server**: `curl http://localhost:8000/health`
+2. **Check WebSocket**: Browser dev tools → Network → WS
+3. **Firewall**: Ensure ports 8000, 8001 are open
+4. **Environment**: Verify `NEXT_PUBLIC_WS_URL`
+
+### Markdown Not Rendering
+
+1. **Check message.markdown flag**: Should be `true`
+2. **Inspect HTML**: Check if markdown is converted
+3. **CSS Issues**: Verify markdown styles are loaded
+
+### AI Not Responding
+
+1. **Check OpenRouter API key**: `echo $OPENROUTER_API_KEY`
+2. **Check MCP tools**: Visit `http://localhost:8000/tools`
+3. **Check logs**: MCP client console output
 
 ---
 
-**Lưu ý**: Component hiện tại sử dụng simulation responses với context mua sắm. Cần tích hợp MCP để có AI shopping assistant thực tế.
+**🎉 Ready to use!** The AI ChatBot now provides real-time, intelligent shopping assistance with beautiful markdown responses and robust WebSocket connectivity.

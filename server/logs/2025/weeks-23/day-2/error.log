@@ -269,3 +269,16 @@
 [2025-06-03T09:23:22.854Z] [error]: Redis error: Error: Socket closed unexpectedly
 [2025-06-03T13:02:14.231Z] [error]: Redis error: Error: Socket closed unexpectedly
 [2025-06-03T13:02:22.705Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-03T14:52:05.765Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-06-03T14:52:31.989Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T14:52:32.090Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T14:57:03.538Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T14:57:03.689Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T14:59:32.955Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-03T14:59:32.983Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-03T15:17:00.367Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-03T16:00:55.159Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T16:04:33.881Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-06-03T16:04:36.727Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-06-03T16:05:05.148Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.conversations index: customer_id_1_shop_id_1 dup key: { customer_id: null, shop_id: null }::
+[2025-06-03T16:05:38.030Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.conversations index: customer_id_1_shop_id_1 dup key: { customer_id: null, shop_id: null }::

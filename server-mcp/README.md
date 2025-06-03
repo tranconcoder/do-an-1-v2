@@ -75,6 +75,41 @@ get - popular - products();
 get - popular - products({ page: 2, limit: 20 });
 ```
 
+### 3. `payment-methods`
+
+**Description**: Cung cấp thông tin về các phương thức thanh toán được hỗ trợ trên Aliconcon
+
+**Parameters**:
+
+-   `method` (optional): Phương thức thanh toán cụ thể
+    -   `"all"` - Tất cả phương thức (mặc định)
+    -   `"cod"` - Thanh toán khi nhận hàng (phương thức chính)
+    -   `"vnpay"` - VNPay - cổng thanh toán điện tử (phương thức chính)
+    -   `"bank-transfer"` - Chuyển khoản ngân hàng
+    -   `"e-wallet"` - Ví điện tử khác (MoMo, ZaloPay, ShopeePay)
+    -   `"credit-card"` - Thẻ tín dụng quốc tế
+
+**Example Usage**:
+
+```javascript
+// Get all payment methods
+payment - methods();
+
+// Get primary payment methods
+payment - methods({ method: 'cod' });
+payment - methods({ method: 'vnpay' });
+
+// Get additional payment methods
+payment - methods({ method: 'e-wallet' });
+```
+
+**Key Features**:
+
+-   **COD**: An tâm kiểm tra hàng trước khi thanh toán, phù hợp cho lần đầu mua online
+-   **VNPay**: Thanh toán nhanh chóng, xử lý tự động, phù hợp cho khách hàng thường xuyên
+-   **So sánh**: Cung cấp bảng so sánh chi tiết giữa các phương thức
+-   **Gợi ý**: Đưa ra khuyến nghị phương thức phù hợp theo từng tình huống
+
 ## 📚 Available Resources
 
 ### 1. `company://about`

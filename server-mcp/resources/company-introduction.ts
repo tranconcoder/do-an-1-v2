@@ -60,6 +60,13 @@ Chúng tôi cam kết mang đến trải nghiệm mua sắm tuyệt vời nhất
 - **Thanh toán bảo mật**: Mã hóa thông tin thanh toán theo tiêu chuẩn quốc tế
 - **Xác thực người dùng**: Hệ thống xác thực 2 lớp đảm bảo an toàn tài khoản
 - **Bảo vệ thông tin**: Cam kết bảo mật thông tin cá nhân của khách hàng
+- **Đa dạng phương thức**: COD, chuyển khoản, ví điện tử, thẻ tín dụng
+
+### Phương thức thanh toán
+- **Thanh toán khi nhận hàng (COD)**: Tạo cảm giác an tâm, kiểm tra hàng trước khi trả tiền
+- **VNPay**: Cổng thanh toán điện tử hiện đại, tiết kiệm thời gian, xử lý tự động
+- **Chuyển khoản ngân hàng**: Phương thức truyền thống, phù hợp cho đơn hàng lớn
+- **Ví điện tử khác**: MoMo, ZaloPay, ShopeePay - đa dạng lựa chọn
 
 ### Dịch vụ khách hàng
 - **Hỗ trợ 24/7**: Đội ngũ chăm sóc khách hàng luôn sẵn sàng hỗ trợ
