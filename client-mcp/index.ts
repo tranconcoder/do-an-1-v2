@@ -12,8 +12,9 @@ config();
 const logger = pino(pretty({ colorize: true }));
 
 // Configuration
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || "";
-const MODEL_NAME = process.env.LLM_MODEL || "openai/gpt-4o";
+const OPENROUTER_API_KEY = "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";
+// const MODEL_NAME = process.env.LLM_MODEL || "meta-llama/llama-3-70b-instruct";
+const MODEL_NAME = process.env.LLM_MODEL || "deepseek/deepseek-chat-v3-0324:free";
 const DISABLE_THINKING = process.env.DISABLE_THINKING === "true" || true;
 const MCP_SERVER_URL = process.env.MCP_URL || "http://localhost:8000";
 

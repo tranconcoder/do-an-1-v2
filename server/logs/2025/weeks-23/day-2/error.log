@@ -267,3 +267,5 @@
 [2025-06-03T09:13:35.753Z] [error]: Redis error: Error: Socket closed unexpectedly
 [2025-06-03T09:14:43.719Z] [error]: Redis error: Error: Socket closed unexpectedly
 [2025-06-03T09:23:22.854Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-03T13:02:14.231Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-03T13:02:22.705Z] [error]: Redis error: Error: Socket closed unexpectedly
