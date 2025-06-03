@@ -262,3 +262,8 @@
 [2025-06-03T00:29:47.537Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-03T06:10:21.613Z] [error]: HIDE::404::NotFound::SPU not found!::
 [2025-06-03T06:10:35.153Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-03T09:12:15.674Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-03T09:12:41.776Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-03T09:13:35.753Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-03T09:14:43.719Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-03T09:23:22.854Z] [error]: Redis error: Error: Socket closed unexpectedly

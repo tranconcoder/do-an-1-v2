@@ -1,128 +1,171 @@
-# Aliconcon MCP Client
+# Aliconcon MCP Client - OpenRouter + AI Models
 
-Ứng dụng client để kết nối với Aliconcon MCP Server sử dụng Llama 3.2 thông qua Ollama.
+Trợ lý AI thông minh cho nền tảng thương mại điện tử Aliconcon, sử dụng các AI models MIỄN PHÍ qua OpenRouter với MCP (Model Context Protocol).
 
-## 🚀 Cài đặt
+## 🚀 Tính năng
 
-### 1. Cài đặt dependencies
+-   **MIỄN PHÍ**: Sử dụng Qwen3 30B và các models khác hoàn toàn miễn phí qua OpenRouter
+-   **MCP Integration**: Kết nối với MCP server để truy cập tools và resources
+-   **Tool Calling**: AI có thể gọi các tools để lấy thông tin thực tế (với models hỗ trợ)
+-   **Fallback System**: Tự động chuyển sang chế độ fallback nếu model không hỗ trợ tools
+-   **Multi-Model Support**: Hỗ trợ hơn 300 AI models qua OpenRouter
+
+## 🔧 Cài đặt
+
+### 1. Lấy API Key MIỄN PHÍ từ OpenRouter
+
+1. Truy cập [https://openrouter.ai](https://openrouter.ai)
+2. Đăng ký tài khoản MIỄN PHÍ
+3. Vào Dashboard → Keys → Create Key
+4. Copy API key
+
+### 2. Cấu hình Environment
 
 ```bash
+# Đặt API key (REQUIRED)
+export OPENROUTER_API_KEY='your_api_key_here'
+
+# Cấu hình tùy chọn
+export LLM_MODEL='qwen/qwen3-30b-a3b:free'  # Model mặc định (MIỄN PHÍ)
+export LLM_TEMPERATURE='0.7'
+export DISABLE_THINKING='true'
+export MCP_PORT='8000'
+export MCP_URL='http://localhost:8000'
+```
+
+### 3. Cài đặt dependencies
+
+```bash
+cd client-mcp
 bun install
 ```
 
-### 2. Cài đặt Ollama
+## 🎯 Sử dụng
+
+### Chạy từ script tự động (Khuyến nghị)
 
 ```bash
-# Trên macOS
-brew install ollama
-
-# Trên Linux
-curl -fsSL https://ollama.ai/install.sh | sh
-
-# Trên Windows
-# Tải từ https://ollama.ai/download
+# Từ thư mục gốc dự án
+./run_aliconcon_mcp.sh
 ```
 
-### 3. Tải model Llama 3.2
+### Chạy thủ công
 
 ```bash
-ollama pull llama3.2:1b
-# hoặc cho model lớn hơn:
-# ollama pull llama3.2:3b
-```
-
-### 4. Khởi động Ollama server
-
-```bash
-ollama serve
-```
-
-## 🏃‍♂️ Chạy ứng dụng
-
-### Bước 1: Khởi động MCP Server
-
-```bash
-cd ../server-mcp
+# Terminal 1: Start MCP server
+cd server-mcp
 bun run server.ts
-```
 
-### Bước 2: Khởi động Client
-
-```bash
-# Terminal mới
+# Terminal 2: Start client
 cd client-mcp
-bun start
+export OPENROUTER_API_KEY='your_api_key_here'
+bun run index.ts
 ```
 
-## 🔧 Cấu hình
+## 🤖 Models được khuyến nghị
 
-Bạn có thể tùy chỉnh cấu hình thông qua biến môi trường:
+### Models MIỄN PHÍ hỗ trợ Tool Calling:
 
 ```bash
-# URL của MCP server
-export MCP_URL="http://localhost:8000/sse"
-
-# URL của Ollama
-export OLLAMA_URL="http://localhost:11434"
-
-# Model Llama sử dụng
-export LLM_MODEL="llama3.2:1b"
-
-# Nhiệt độ cho model (0.0 - 1.0)
-export LLM_TEMPERATURE="0.7"
+export LLM_MODEL='qwen/qwen3-30b-a3b:free'        # Qwen3 30B (Khuyến nghị)
+export LLM_MODEL='meta-llama/llama-4-maverick:free' # Llama 4 Maverick
+export LLM_MODEL='google/gemini-2.5-pro:free'     # Gemini 2.5 Pro
 ```
 
-## 💬 Sử dụng
-
-Sau khi khởi động, bạn có thể hỏi các câu hỏi như:
-
--   **Giới thiệu về Aliconcon**: "Giới thiệu về nền tảng Aliconcon"
--   **Sản phẩm phổ biến**: "Cho tôi xem sản phẩm bán chạy nhất"
--   **Thông tin dịch vụ**: "Aliconcon có những tính năng gì?"
--   **Hỗ trợ khách hàng**: "Làm sao để mua hàng trên Aliconcon?"
-
-## 🛠️ Tính năng
-
--   ✅ Kết nối với Aliconcon MCP Server
--   ✅ Sử dụng Llama 3.2 thông qua Ollama
--   ✅ Hỗ trợ tiếng Việt
--   ✅ Tích hợp công cụ MCP:
-    -   `introduce`: Giới thiệu về Aliconcon
-    -   `popular-products`: Sản phẩm phổ biến
--   ✅ Giao diện console thân thiện
--   ✅ Logging chi tiết
--   ✅ Xử lý lỗi robust
-
-## 🔍 Troubleshooting
-
-### Lỗi kết nối Ollama
+### Models MIỄN PHÍ không hỗ trợ Tool Calling (sử dụng fallback):
 
 ```bash
-# Kiểm tra Ollama đang chạy
-curl http://localhost:11434/api/tags
-
-# Khởi động lại Ollama
-ollama serve
+export LLM_MODEL='deepseek/deepseek-r1:free'      # DeepSeek R1
+export LLM_MODEL='mistral/mistral-small-3.1:free' # Mistral Small 3.1
 ```
 
-### Lỗi kết nối MCP Server
+### Models CÓ PHÍ với Tool Calling mạnh:
 
 ```bash
-# Kiểm tra MCP server
-curl http://localhost:8000
-
-# Khởi động lại MCP server
-cd ../server-mcp && bun run server.ts
+export LLM_MODEL='openai/gpt-4o'                  # GPT-4o
+export LLM_MODEL='anthropic/claude-3.5-sonnet'    # Claude 3.5 Sonnet
+export LLM_MODEL='google/gemini-2.5-pro'          # Gemini 2.5 Pro (paid)
 ```
 
-### Model không tồn tại
+## ⚠️ Xử lý lỗi thường gặp
+
+### Lỗi 401 - No auth credentials found
+
+```
+❌ Error: 401 No auth credentials found
+```
+
+**Nguyên nhân**: API key không được đặt hoặc không hợp lệ
+
+**Giải pháp**:
+
+1. Kiểm tra API key đã được đặt: `echo $OPENROUTER_API_KEY`
+2. Nếu chưa có, đặt API key: `export OPENROUTER_API_KEY='your_key'`
+3. Nếu đã có, kiểm tra key có đúng không tại [https://openrouter.ai/keys](https://openrouter.ai/keys)
+4. Tạo key mới nếu cần thiết
+
+### Lỗi 404 - No endpoints found that support tool use
+
+```
+❌ Error: 404 No endpoints found that support tool use
+```
+
+**Nguyên nhân**: Model hiện tại không hỗ trợ tool calling
+
+**Giải pháp**: Hệ thống sẽ tự động chuyển sang chế độ fallback, hoặc bạn có thể thay đổi model:
 
 ```bash
-# Liệt kê models có sẵn
-ollama list
+export LLM_MODEL='qwen/qwen3-30b-a3b:free'  # Model miễn phí hỗ trợ tools
+```
 
-# Tải model cần thiết
-ollama pull llama3.2:1b
+### Lỗi "No endpoints found for model"
+
+**Nguyên nhân**: Model không tồn tại hoặc không khả dụng
+
+**Giải pháp**: Kiểm tra danh sách models khả dụng tại [https://openrouter.ai/models](https://openrouter.ai/models)
+
+## 🛠️ Available Tools
+
+-   `introduce`: Giới thiệu về nền tảng Aliconcon
+-   `popular-products`: Lấy danh sách sản phẩm phổ biến
+
+## 🔄 Chế độ Fallback
+
+Khi model không hỗ trợ tool calling, hệ thống tự động chuyển sang chế độ fallback với:
+
+-   Context-aware prompting với thông tin về Aliconcon
+-   Static responses cho các câu hỏi phổ biến
+-   Vẫn cung cấp trải nghiệm người dùng tốt
+
+## 📖 Tham khảo
+
+-   [OpenRouter Documentation](https://openrouter.ai/docs)
+-   [OpenRouter Models](https://openrouter.ai/models)
+-   [OpenRouter Tool Calling Guide](https://openrouter.ai/docs/features/tool-calling)
+
+## 🔄 Cấu hình nâng cao
+
+### Bật Thinking Traces (cho models hỗ trợ)
+
+```bash
+export DISABLE_THINKING='false'
+```
+
+### Sử dụng Model Routing
+
+```bash
+# Ưu tiên tốc độ
+export LLM_MODEL='qwen/qwen3-30b-a3b:nitro'
+
+# Ưu tiên giá rẻ
+export LLM_MODEL='qwen/qwen3-30b-a3b:floor'
+```
+
+### Thay đổi Temperature
+
+```bash
+export LLM_TEMPERATURE='0.3'  # Conservative
+export LLM_TEMPERATURE='0.9'  # Creative
 ```
 
 ## 📁 Cấu trúc dự án
