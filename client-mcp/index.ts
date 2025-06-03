@@ -642,16 +642,9 @@ Câu hỏi của khách hàng: ${query}`;
                 profileResponse = await this.callMCPTool('get-user-profile', {});
             }
 
-            console.log({
-                profileResponse: JSON.parse(profileResponse)
-            })
-
             try {
                 const profileData = JSON.parse(profileResponse);
                 profileData.user_avatar = 'https://aliconcon.tail61bbbd.ts.net:4000/media/' + profileData.user_avatar;
-                console.log({
-                    profileData
-                })
 
                 userProfile = {
                     ...profileData,

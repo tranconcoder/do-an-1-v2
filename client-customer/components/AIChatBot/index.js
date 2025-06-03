@@ -387,6 +387,93 @@ function AIChatBot() {
             .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
             .replace(/\n/g, '<br>');
 
+        // Handle markdown tables
+        html = renderMarkdownTables(html);
+
+        return html;
+    };
+
+    const renderMarkdownTables = (html) => {
+        // Split by <br> to process line by line
+        const lines = html.split('<br>');
+        let inTable = false;
+        let tableLines = [];
+        let result = [];
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+
+            // Check if line looks like a table row (contains |)
+            if (line.includes('|') && line.split('|').length >= 3) {
+                if (!inTable) {
+                    inTable = true;
+                    tableLines = [];
+                }
+                tableLines.push(line);
+            } else {
+                // If we were in a table, process it
+                if (inTable && tableLines.length > 0) {
+                    result.push(processMarkdownTable(tableLines));
+                    tableLines = [];
+                    inTable = false;
+                }
+
+                // Add the current line
+                if (line) {
+                    result.push(line);
+                }
+            }
+        }
+
+        // Handle table at the end
+        if (inTable && tableLines.length > 0) {
+            result.push(processMarkdownTable(tableLines));
+        }
+
+        return result.join('<br>');
+    };
+
+    const processMarkdownTable = (tableLines) => {
+        if (tableLines.length < 2) return tableLines.join('<br>');
+
+        let html = '<div class="tableWrapper"><table class="markdownTable">';
+        let isHeaderProcessed = false;
+
+        for (let i = 0; i < tableLines.length; i++) {
+            const line = tableLines[i].trim();
+
+            // Skip separator line (contains only |, -, and spaces)
+            if (line.match(/^[\|\-\s:]+$/)) {
+                continue;
+            }
+
+            // Split by | and clean up
+            const cells = line
+                .split('|')
+                .map((cell) => cell.trim())
+                .filter((cell) => cell !== ''); // Remove empty cells from start/end
+
+            if (cells.length === 0) continue;
+
+            // First data row becomes header
+            if (!isHeaderProcessed) {
+                html += '<thead><tr>';
+                cells.forEach((cell) => {
+                    html += `<th>${cell}</th>`;
+                });
+                html += '</tr></thead><tbody>';
+                isHeaderProcessed = true;
+            } else {
+                // Data rows
+                html += '<tr>';
+                cells.forEach((cell) => {
+                    html += `<td>${cell}</td>`;
+                });
+                html += '</tr>';
+            }
+        }
+
+        html += '</tbody></table></div>';
         return html;
     };
 
