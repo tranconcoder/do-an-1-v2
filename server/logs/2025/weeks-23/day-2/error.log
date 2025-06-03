@@ -282,3 +282,186 @@
 [2025-06-03T16:04:36.727Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
 [2025-06-03T16:05:05.148Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.conversations index: customer_id_1_shop_id_1 dup key: { customer_id: null, shop_id: null }::
 [2025-06-03T16:05:38.030Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.conversations index: customer_id_1_shop_id_1 dup key: { customer_id: null, shop_id: null }::
+[2025-06-03T16:07:40.116Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.conversations index: customer_id_1_shop_id_1 dup key: { customer_id: null, shop_id: null }::
+[2025-06-03T16:10:25.540Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid MongoDB ObjectId",
+    "path": [
+      "shopId"
+    ]
+  }
+]::
+[2025-06-03T16:10:25.542Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid MongoDB ObjectId",
+    "path": [
+      "shopId"
+    ]
+  }
+]::
+[2025-06-03T16:10:25.570Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid MongoDB ObjectId",
+    "path": [
+      "shopId"
+    ]
+  }
+]::
+[2025-06-03T16:10:25.585Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid MongoDB ObjectId",
+    "path": [
+      "shopId"
+    ]
+  }
+]::
+[2025-06-03T16:10:28.360Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:10:28.402Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:10:28.411Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:10:28.421Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:11:56.286Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T16:12:09.530Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T16:12:09.687Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T16:12:09.860Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T16:12:10.063Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T16:12:10.845Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T16:12:10.847Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T16:12:10.976Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T16:12:10.978Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T16:12:15.170Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:12:20.661Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-06-03T16:17:53.115Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:18:29.073Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-06-03T16:22:14.498Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:31:42.797Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:31:42.805Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:31:42.808Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:31:42.951Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:32:40.663Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:32:49.294Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:05.866Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:05.931Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:05.938Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:05.964Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:23.870Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:23.936Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:23.940Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:23.944Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:24.770Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:24.827Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:24.831Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:24.832Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:27.368Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T16:33:34.211Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:34.279Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:34.282Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:33:34.293Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:42:04.353Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:42:37.067Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:42:46.220Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:42:48.414Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:42:59.383Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:43:47.852Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T16:43:48.182Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T16:43:57.866Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-03T16:43:58.191Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T16:43:59.478Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T16:44:00.252Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:48:21.525Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:48:37.435Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:48:55.878Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:26.198Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:27.964Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:29.969Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:33.346Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:35.591Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:35.976Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:37.884Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:38.457Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:38.679Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:38.990Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:39.438Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:40.999Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:49:56.124Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:50:58.930Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:51:00.430Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:51:22.540Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:51:24.704Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T16:53:31.732Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T16:53:31.808Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T16:55:47.713Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-06-03T16:56:18.483Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-06-03T16:58:17.763Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-06-03T16:58:28.993Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid phone number format",
+    "path": [
+      "phoneNumber"
+    ]
+  }
+]::
+[2025-06-03T16:58:45.591Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-06-03T16:58:59.198Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-06-03T16:59:12.710Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-06-03T16:59:37.211Z] [error]: HIDE::404::NotFound::Fields is exists!::
+[2025-06-03T16:59:51.544Z] [error]: HIDE::404::NotFound::Fields is exists!::
+[2025-06-03T17:00:04.564Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:04.594Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:04.639Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:04.644Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:36.201Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-06-03T17:00:37.062Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-06-03T17:00:37.064Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-06-03T17:00:37.111Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-03T17:00:53.124Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.126Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.133Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.135Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.137Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.137Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.256Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.261Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.262Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.263Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.265Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.278Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.364Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.373Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.375Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.376Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:53.377Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.630Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.695Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.708Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.710Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.713Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.728Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.730Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.782Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.810Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.859Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.864Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.888Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.898Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.944Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.985Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.988Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:00:57.990Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:01:01.488Z] [error]: HIDE::400::BadRequest::Cannot approve shop with status active::
+[2025-06-03T17:05:39.670Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:05:39.673Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:05:39.674Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:05:39.675Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:06:01.853Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.conversations index: customer_id_1_shop_id_1 dup key: { customer_id: null, shop_id: null }::
+[2025-06-03T17:16:22.454Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token not found!::
+[2025-06-03T17:16:52.913Z] [error]: HIDE::404::NotFound::Route is not exists::

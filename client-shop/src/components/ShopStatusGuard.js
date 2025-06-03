@@ -3,9 +3,14 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Spin } from 'antd';
 import { ShopStatus } from '../constants/shop.enum';
-import { logoutUser as logout, fetchUserProfile } from '../store/userSlice';
+import {
+    logoutUser as logout,
+    fetchUserProfile,
+    selectIsAuthenticated,
+    selectAuthInitialized,
+    selectUserLoading
+} from '../store/userSlice';
 import { selectShopInfo } from '../store/slices/shopSlice';
-import { selectUserLoading, selectIsAuthenticated } from '../store/userSlice';
 import { ACCESS_TOKEN_KEY } from '../configs/jwt.config';
 
 /**
@@ -20,8 +25,8 @@ const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/' }) => {
     const dispatch = useDispatch();
     const shopInfo = useSelector(selectShopInfo);
     const isAuthenticated = useSelector(selectIsAuthenticated);
+    const authInitialized = useSelector(selectAuthInitialized);
     const userLoading = useSelector(selectUserLoading);
-    const [isLoading, setIsLoading] = useState(true);
     const [hasTriedFetch, setHasTriedFetch] = useState(false);
 
     // Get shop status from the Redux store (which is populated from user profile)
@@ -30,41 +35,48 @@ const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/' }) => {
     // Check if we actually have a token
     const hasValidToken = !!localStorage.getItem(ACCESS_TOKEN_KEY);
 
-    // Effect to handle initial loading and fetch user profile if needed
+    // Effect to handle profile fetch if needed (only if auth is initialized but no shop info)
     useEffect(() => {
-        let timeoutId;
-
-        // If not authenticated or no valid token, don't try to fetch
-        if (!isAuthenticated || !hasValidToken) {
-            setIsLoading(false);
-            return;
-        }
-
-        // If authenticated but no shop info and not already loading and haven't tried yet
-        if (isAuthenticated && hasValidToken && !shopInfo && !userLoading && !hasTriedFetch) {
-            console.log('Fetching user profile for shop info...');
+        // Only try to fetch if authenticated, initialized, has token, no shop info yet, and haven't tried
+        if (
+            isAuthenticated &&
+            authInitialized &&
+            hasValidToken &&
+            !shopInfo &&
+            !userLoading &&
+            !hasTriedFetch
+        ) {
+            console.log('Auth initialized but no shop info found, fetching user profile...');
             setHasTriedFetch(true);
             dispatch(fetchUserProfile());
         }
+    }, [
+        isAuthenticated,
+        authInitialized,
+        hasValidToken,
+        shopInfo,
+        userLoading,
+        hasTriedFetch,
+        dispatch
+    ]);
 
-        // Set a timeout to stop loading state after reasonable time
-        timeoutId = setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
-
-        return () => {
-            if (timeoutId) {
-                clearTimeout(timeoutId);
-            }
-        };
-    }, [isAuthenticated, hasValidToken, shopInfo, userLoading, hasTriedFetch, dispatch]);
-
-    // Update loading state based on user loading state
-    useEffect(() => {
-        if (!userLoading) {
-            setIsLoading(false);
-        }
-    }, [userLoading]);
+    // Show loading spinner while authentication is being initialized
+    if (!authInitialized) {
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100vh',
+                    flexDirection: 'column'
+                }}
+            >
+                <Spin size="large" />
+                <div style={{ marginTop: 16, color: '#666' }}>Đang khởi tạo xác thực...</div>
+            </div>
+        );
+    }
 
     // If not authenticated or no valid token, redirect to login
     if (!isAuthenticated || !hasValidToken) {
@@ -72,46 +84,93 @@ const ShopStatusGuard = ({ children, requiredStatus, redirectTo = '/' }) => {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
-    // Show loading spinner when initially loading or fetching profile
-    if ((userLoading || (isLoading && !shopInfo)) && isAuthenticated && hasValidToken) {
+    // Show loading spinner when fetching profile data
+    if (userLoading && isAuthenticated && hasValidToken) {
         return (
             <div
                 style={{
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    height: '100vh'
+                    height: '100vh',
+                    flexDirection: 'column'
                 }}
             >
-                <Spin size="large" tip="Đang tải thông tin cửa hàng..." />
+                <Spin size="large" />
+                <div style={{ marginTop: 16, color: '#666' }}>Đang tải thông tin cửa hàng...</div>
             </div>
         );
     }
 
-    // If authenticated with valid token but no shop info after loading, something is wrong
-    if (isAuthenticated && hasValidToken && !shopInfo && !isLoading && hasTriedFetch) {
+    // If authenticated with valid token but no shop info after initialization and fetch attempt
+    if (
+        isAuthenticated &&
+        authInitialized &&
+        hasValidToken &&
+        !shopInfo &&
+        hasTriedFetch &&
+        !userLoading
+    ) {
         console.log(
             'User is authenticated but shopInfo is missing after fetch attempt. Redirecting to login.'
         );
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
-    // If shop status doesn't match the required status, redirect
-    if (shopInfo && shopStatus !== requiredStatus) {
-        console.log(`Shop status ${shopStatus} doesn't match required ${requiredStatus}`);
+    // If we have shop info, check the status
+    if (shopInfo) {
+        // If shop status doesn't match the required status, redirect
+        if (shopStatus !== requiredStatus) {
+            console.log(`Shop status ${shopStatus} doesn't match required ${requiredStatus}`);
 
-        // Special case for pending status - redirect to pending page
-        if (shopStatus === ShopStatus.PENDING) {
-            dispatch(logout());
-            return <Navigate to="/login" state={{ from: location }} replace />;
+            // Special case for pending status - redirect to login with logout
+            if (shopStatus === ShopStatus.PENDING) {
+                dispatch(logout());
+                return <Navigate to="/login" state={{ from: location }} replace />;
+            }
+
+            // For any other mismatch, use the provided redirect
+            return <Navigate to={redirectTo} state={{ from: location }} replace />;
         }
 
-        // For any other mismatch, use the provided redirect
-        return <Navigate to={redirectTo} state={{ from: location }} replace />;
+        // Status matches, render the protected component
+        return <>{children}</>;
     }
 
-    // If status matches or still loading, render the protected component
-    return <>{children}</>;
+    // If authenticated and initialized but still no shop info and haven't tried fetching
+    if (isAuthenticated && authInitialized && !shopInfo && !hasTriedFetch && !userLoading) {
+        // Show loading while we trigger the fetch
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100vh',
+                    flexDirection: 'column'
+                }}
+            >
+                <Spin size="large" />
+                <div style={{ marginTop: 16, color: '#666' }}>Đang tải thông tin cửa hàng...</div>
+            </div>
+        );
+    }
+
+    // Default loading state
+    return (
+        <div
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100vh',
+                flexDirection: 'column'
+            }}
+        >
+            <Spin size="large" />
+            <div style={{ marginTop: 16, color: '#666' }}>Đang tải...</div>
+        </div>
+    );
 };
 
 export default ShopStatusGuard;

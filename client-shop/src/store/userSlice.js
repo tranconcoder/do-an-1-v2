@@ -3,6 +3,67 @@ import axiosClient, { setAuthTokens } from '../configs/axios';
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '../configs/jwt.config';
 import { setShopInfo, clearShopInfo } from './slices/shopSlice';
 
+// Helper function to check if token exists and is valid
+const isTokenValid = () => {
+    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+    if (!token) return false;
+
+    try {
+        // Basic token format check (should be JWT)
+        const parts = token.split('.');
+        if (parts.length !== 3) return false;
+
+        // Decode payload to check expiration
+        const payload = JSON.parse(atob(parts[1]));
+        const currentTime = Date.now() / 1000;
+
+        // Check if token is expired (with 5 minute buffer)
+        return payload.exp > currentTime + 300;
+    } catch (error) {
+        console.error('Token validation error:', error);
+        return false;
+    }
+};
+
+// Async thunk for initializing authentication state on app start
+export const initializeAuth = createAsyncThunk(
+    'user/initializeAuth',
+    async (_, { dispatch, rejectWithValue }) => {
+        try {
+            const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+
+            if (!token || !isTokenValid()) {
+                // Clear invalid tokens
+                localStorage.removeItem(ACCESS_TOKEN_KEY);
+                localStorage.removeItem(REFRESH_TOKEN_KEY);
+                return rejectWithValue('No valid token found');
+            }
+
+            // Set auth tokens in axios
+            setAuthTokens(token, localStorage.getItem(REFRESH_TOKEN_KEY));
+
+            // Fetch user profile to validate token and get user data
+            const response = await axiosClient.get('/user/profile');
+            const { user, shop } = response.data.metadata;
+
+            // Update shop slice
+            if (shop) {
+                dispatch(setShopInfo(shop));
+            }
+
+            return { user, shop, isValid: true };
+        } catch (error) {
+            // If initialization fails, clear tokens
+            localStorage.removeItem(ACCESS_TOKEN_KEY);
+            localStorage.removeItem(REFRESH_TOKEN_KEY);
+            dispatch(clearShopInfo());
+
+            console.error('Auth initialization failed:', error);
+            return rejectWithValue('Authentication initialization failed');
+        }
+    }
+);
+
 // Async thunk for login operation
 export const loginUser = createAsyncThunk(
     'user/login',
@@ -32,6 +93,9 @@ export const loginUser = createAsyncThunk(
             // Store tokens
             localStorage.setItem(ACCESS_TOKEN_KEY, token.accessToken);
             localStorage.setItem(REFRESH_TOKEN_KEY, token.refreshToken);
+
+            // Set auth tokens in axios
+            setAuthTokens(token.accessToken, token.refreshToken);
 
             // Update shop slice
             dispatch(setShopInfo(shop));
@@ -63,6 +127,9 @@ export const registerShop = createAsyncThunk(
             localStorage.setItem(ACCESS_TOKEN_KEY, token.accessToken);
             localStorage.setItem(REFRESH_TOKEN_KEY, token.refreshToken);
 
+            // Set auth tokens in axios
+            setAuthTokens(token.accessToken, token.refreshToken);
+
             // Update shop slice
             dispatch(setShopInfo(shop));
 
@@ -83,6 +150,12 @@ export const fetchUserProfile = createAsyncThunk(
             const token = localStorage.getItem(ACCESS_TOKEN_KEY);
             if (!token) {
                 return rejectWithValue('No authentication token available');
+            }
+
+            // Validate token before making request
+            if (!isTokenValid()) {
+                dispatch(clearAuthState());
+                return rejectWithValue('Token expired or invalid');
             }
 
             const response = await axiosClient.get('/user/profile');
@@ -115,13 +188,20 @@ export const logoutUser = createAsyncThunk(
             // Continue with logout even if API call fails
         } finally {
             // Always clear local state
-            localStorage.removeItem(ACCESS_TOKEN_KEY);
-            localStorage.removeItem(REFRESH_TOKEN_KEY);
-            dispatch(clearShopInfo());
+            dispatch(clearAuthState());
         }
         return true;
     }
 );
+
+// Determine initial authentication state more carefully
+const getInitialAuthState = () => {
+    const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+    if (!token) return false;
+
+    // Only return true if token exists and appears valid
+    return isTokenValid();
+};
 
 const initialState = {
     currentUser: {
@@ -134,7 +214,8 @@ const initialState = {
         user_sex: false,
         user_status: 'ACTIVE'
     },
-    isAuthenticated: !!localStorage.getItem(ACCESS_TOKEN_KEY),
+    isAuthenticated: getInitialAuthState(),
+    authInitialized: false, // Track if auth has been initialized
     loading: false,
     error: null
 };
@@ -159,12 +240,42 @@ const userSlice = createSlice({
             localStorage.removeItem(REFRESH_TOKEN_KEY);
             return {
                 ...initialState,
-                isAuthenticated: false
+                isAuthenticated: false,
+                authInitialized: true // Keep initialized state
             };
+        },
+        // Set auth initialized flag
+        setAuthInitialized: (state) => {
+            state.authInitialized = true;
         }
     },
     extraReducers: (builder) => {
         builder
+            // Initialize auth actions
+            .addCase(initializeAuth.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(initializeAuth.fulfilled, (state, action) => {
+                state.loading = false;
+                state.authInitialized = true;
+                if (action.payload.isValid) {
+                    state.currentUser = {
+                        ...state.currentUser,
+                        ...action.payload.user
+                    };
+                    state.isAuthenticated = true;
+                } else {
+                    state.isAuthenticated = false;
+                }
+            })
+            .addCase(initializeAuth.rejected, (state, action) => {
+                state.loading = false;
+                state.authInitialized = true;
+                state.isAuthenticated = false;
+                state.error = action.payload;
+            })
+
             // Login actions
             .addCase(loginUser.pending, (state) => {
                 state.loading = true;
@@ -172,6 +283,7 @@ const userSlice = createSlice({
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false;
+                state.authInitialized = true;
                 state.currentUser = {
                     ...state.currentUser,
                     ...action.payload.user
@@ -190,6 +302,7 @@ const userSlice = createSlice({
             })
             .addCase(registerShop.fulfilled, (state, action) => {
                 state.loading = false;
+                state.authInitialized = true;
                 state.currentUser = {
                     ...state.currentUser,
                     ...action.payload.user
@@ -204,52 +317,44 @@ const userSlice = createSlice({
             // Fetch profile actions
             .addCase(fetchUserProfile.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(fetchUserProfile.fulfilled, (state, action) => {
                 state.loading = false;
-                if (action.payload.user) {
-                    state.currentUser = {
-                        ...state.currentUser,
-                        ...action.payload.user
-                    };
-                }
+                state.authInitialized = true;
+                state.currentUser = {
+                    ...state.currentUser,
+                    ...action.payload.user
+                };
             })
             .addCase(fetchUserProfile.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
-                // If token is invalid, clear authentication state
-                if (action.payload === 'No authentication token available') {
-                    state.isAuthenticated = false;
-                }
+                state.authInitialized = true;
+                // Don't set error for profile fetch failures to avoid blocking UI
+                console.error('Profile fetch failed:', action.payload);
             })
 
             // Logout actions
             .addCase(logoutUser.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(logoutUser.fulfilled, (state) => {
-                return {
-                    ...initialState,
-                    isAuthenticated: false
-                };
-            })
-            .addCase(logoutUser.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
-                // Even if logout fails, clear auth state
-                return {
-                    ...initialState,
-                    isAuthenticated: false,
-                    error: action.payload
-                };
+                state.authInitialized = true;
+                state.isAuthenticated = false;
+                state.currentUser = initialState.currentUser;
+            })
+            .addCase(logoutUser.rejected, (state) => {
+                state.loading = false;
+                state.authInitialized = true;
+                state.isAuthenticated = false;
+                state.currentUser = initialState.currentUser;
             });
     }
 });
 
-// Export actions and reducer
-export const { clearError, updateUserProfile, clearAuthState } = userSlice.actions;
+export const { clearError, updateUserProfile, clearAuthState, setAuthInitialized } =
+    userSlice.actions;
+
 export default userSlice.reducer;
 
 // Selectors
@@ -260,5 +365,6 @@ export const selectUserAvatar = (state) => state.user.currentUser.user_avatar;
 export const selectUserFullName = (state) => state.user.currentUser.user_fullName;
 export const selectUserRole = (state) => state.user.currentUser.user_role;
 export const selectIsAuthenticated = (state) => state.user.isAuthenticated;
+export const selectAuthInitialized = (state) => state.user.authInitialized;
 export const selectUserLoading = (state) => state.user.loading;
 export const selectUserError = (state) => state.user.error;
