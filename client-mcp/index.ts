@@ -12,8 +12,8 @@ config();
 const logger = pino(pretty({ colorize: true }));
 
 // Configuration
-const OPENROUTER_API_KEY = "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";
-const MODEL_NAME = process.env.LLM_MODEL || "meta-llama/llama-4-maverick:free";
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || "";
+const MODEL_NAME = process.env.LLM_MODEL || "openai/gpt-4o";
 const DISABLE_THINKING = process.env.DISABLE_THINKING === "true" || true;
 const MCP_SERVER_URL = process.env.MCP_URL || "http://localhost:8000";
 
