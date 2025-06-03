@@ -10,8 +10,8 @@ import { createServer as createHttpServer } from 'http';
 import { IncomingMessage } from 'http';
 import * as fs from 'fs';
 import * as path from 'path';
-import { conversationMemory } from './lib/memory-store.js';
-import type { ConversationMessage } from './lib/memory-store.js';
+import { conversationMemory, ConversationMemoryStore } from './lib/memory-store.js';
+import type { ConversationMessage, ConversationSession, UserProfile } from './lib/memory-store.js';
 
 // Load environment variables
 config();
@@ -20,7 +20,7 @@ config();
 const logger = pino(pretty({ colorize: true }));
 
 // Configuration
-const OPENROUTER_API_KEY = "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";
+const OPENROUTER_API_KEY = "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";
 // const MODEL_NAME = process.env.LLM_MODEL || "meta-llama/llama-3-70b-instruct";
 const MODEL_NAME = process.env.LLM_MODEL || "deepseek/deepseek-chat-v3-0324:free";
 const DISABLE_THINKING = process.env.DISABLE_THINKING === "true" || true;
@@ -60,9 +60,14 @@ class AliconconMCPClient {
     private availableTools: any[] = [];
     private connectedClients: Map<WebSocket, string> = new Map(); // ws -> socketId
     private socketClients: Map<string, WebSocket> = new Map(); // socketId -> ws
+    private memoryStore: ConversationMemoryStore; // Thêm property cho memoryStore
 
     constructor() {
-        this.rl = readline.createInterface({ input, output });
+        this.rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+        this.memoryStore = conversationMemory; // Khởi tạo memoryStore
     }
 
     async connectToServer(): Promise<boolean> {
@@ -295,6 +300,9 @@ Sử dụng thông tin trên để trả lời một cách cá nhân hóa và ch
             }
 
         } catch (error) {
+            console.log({
+                error
+            })
             logger.error("❌ Error processing query with memory:", error);
 
             // Fallback processing
@@ -563,36 +571,186 @@ Câu hỏi của khách hàng: ${query}`;
 
     // Handle WebSocket messages from clients
     async handleWebSocketMessage(ws: WebSocket, message: any, socketId: string): Promise<void> {
-        logger.info(`📨 Received message from ${socketId}:`, message);
+        try {
+            console.log(`📨 [${socketId}] Received message:`, message);
 
-        switch (message.type) {
-            case 'chat':
-                await this.handleChatMessage(ws, message, socketId);
-                break;
+            switch (message.type) {
+                case 'init_profile':
+                    await this.handleInitProfile(ws, message, socketId);
+                    break;
 
-            case 'ping':
-                this.sendToClient(ws, {
-                    type: 'pong',
-                    timestamp: new Date().toISOString()
-                });
-                break;
+                case 'chat':
+                    await this.handleChatMessage(ws, message, socketId);
+                    break;
 
-            case 'get_stats':
-                const stats = await conversationMemory.getSessionStats(socketId);
-                this.sendToClient(ws, {
-                    type: 'stats',
-                    data: stats,
-                    timestamp: new Date().toISOString()
-                });
-                break;
+                case 'get_conversation_history':
+                    await this.handleGetConversationHistory(ws, socketId);
+                    break;
 
-            default:
-                this.sendToClient(ws, {
-                    type: 'error',
-                    message: `Unknown message type: ${message.type}`,
-                    timestamp: new Date().toISOString()
-                });
+                case 'clear_conversation':
+                    await this.handleClearConversation(ws, socketId);
+                    break;
+
+                case 'ping':
+                    this.sendToClient(ws, {
+                        type: 'pong',
+                        timestamp: new Date().toISOString()
+                    });
+                    break;
+
+                default:
+                    this.sendToClient(ws, {
+                        type: 'error',
+                        message: `Unknown message type: ${message.type}`,
+                        timestamp: new Date().toISOString()
+                    });
+            }
+        } catch (error: any) {
+            console.error(`❌ [${socketId}] Error handling message:`, error);
+            this.sendToClient(ws, {
+                type: 'error',
+                message: 'Đã xảy ra lỗi khi xử lý tin nhắn',
+                error: error.message,
+                timestamp: new Date().toISOString()
+            });
         }
+    }
+
+    async handleInitProfile(ws: WebSocket, message: any, socketId: string): Promise<void> {
+        try {
+            const { accessToken, context } = message;
+
+            console.log(`🔐 [${socketId}] Initializing profile...`);
+
+            // Call tool to get user profile
+            let profileResponse: string;
+            let userProfile: UserProfile;
+
+            if (accessToken) {
+                profileResponse = await this.callMCPTool('get-user-profile', { accessToken });
+            } else {
+                profileResponse = await this.callMCPTool('get-user-profile', {});
+            }
+
+            console.log({
+                profileResponse: JSON.parse(profileResponse)
+            })
+
+            try {
+                const profileData = JSON.parse(profileResponse);
+
+                userProfile = {
+                    ...profileData,
+                };
+            } catch (parseError) {
+                console.error('❌ Error parsing profile response:', parseError);
+                // Fallback to guest user
+                userProfile = {
+                    _id: "guest",
+                    user_fullName: "Khách",
+                    user_email: null,
+                    phoneNumber: null,
+                    user_role: "guest",
+                    user_avatar: null,
+                    user_sex: null,
+                    user_status: "active",
+                    user_dayOfBirth: null,
+                    role_name: "USER",
+                    isGuest: true,
+                    accessToken: accessToken || undefined
+                };
+            }
+
+            // Save profile to Redis
+            await this.memoryStore.saveUserProfile(socketId, userProfile);
+
+            // Generate welcome message based on profile
+            const welcomeMessage = this.generateWelcomeMessage(userProfile, context);
+
+            // Send welcome response
+            this.sendToClient(ws, {
+                type: 'profile_initialized',
+                profile: userProfile,
+                welcomeMessage: welcomeMessage,
+                timestamp: new Date().toISOString()
+            });
+
+            // Add welcome message to conversation history
+            await this.memoryStore.addMessage(socketId, {
+                id: `welcome_${Date.now()}`,
+                content: welcomeMessage,
+                role: 'assistant',
+                timestamp: new Date(),
+                context: { isWelcomeMessage: true }
+            });
+
+            console.log(`✅ [${socketId}] Profile initialized for user: ${userProfile.user_fullName}`);
+
+        } catch (error: any) {
+            console.error(`❌ [${socketId}] Error initializing profile:`, error);
+
+            // Send error response
+            this.sendToClient(ws, {
+                type: 'profile_error',
+                message: 'Không thể khởi tạo profile người dùng',
+                error: error.message,
+                timestamp: new Date().toISOString()
+            });
+        }
+    }
+
+    generateWelcomeMessage(profile: UserProfile, context?: any): string {
+        const currentTime = new Date();
+        const hour = currentTime.getHours();
+
+        let timeGreeting = '';
+        if (hour < 12) {
+            timeGreeting = 'Chào buổi sáng';
+        } else if (hour < 18) {
+            timeGreeting = 'Chào buổi chiều';
+        } else {
+            timeGreeting = 'Chào buổi tối';
+        }
+
+        let personalGreeting = '';
+        let roleInfo = '';
+
+        if (profile.isGuest) {
+            personalGreeting = `${timeGreeting}! Xin chào bạn`;
+            roleInfo = "Bạn đang truy cập với tư cách khách. Hãy đăng nhập để có trải nghiệm tốt hơn!";
+        } else {
+            const displayName = profile.user_fullName || 'bạn';
+            personalGreeting = `${timeGreeting} ${displayName}!`;
+
+            if (profile.role_name === 'ADMIN') {
+                roleInfo = "Bạn đang đăng nhập với quyền Quản trị viên.";
+            } else if (profile.role_name === 'SHOP_OWNER') {
+                roleInfo = "Bạn đang đăng nhập với tư cách chủ cửa hàng.";
+            } else {
+                roleInfo = "Chào mừng bạn đến với Aliconcon!";
+            }
+        }
+
+        const features = [
+            "🔍 Tìm kiếm và khám phá sản phẩm",
+            "💰 So sánh giá từ nhiều cửa hàng",
+            "⭐ Xem đánh giá sản phẩm",
+            "🛒 Tư vấn mua sắm thông minh",
+            "💳 Hướng dẫn thanh toán",
+            "📞 Hỗ trợ khách hàng 24/7"
+        ];
+
+        const contextInfo = context?.currentPage ? `\n\n📍 Bạn đang ở trang: ${context.currentPage}` : '';
+
+        return `${personalGreeting}
+
+${roleInfo}
+
+Tôi là AI Assistant của Aliconcon, sẵn sàng hỗ trợ bạn:
+
+${features.join('\n')}
+
+Hãy hỏi tôi bất cứ điều gì về sản phẩm, dịch vụ, hoặc cách sử dụng website! 😊${contextInfo}`;
     }
 
     // Handle chat messages with memory
@@ -775,6 +933,46 @@ Câu hỏi của khách hàng: ${query}`;
         // Close Redis connection
         await conversationMemory.close();
         logger.info("🔌 Redis connection closed");
+    }
+
+    async handleGetConversationHistory(ws: WebSocket, socketId: string): Promise<void> {
+        try {
+            const history = await this.memoryStore.getConversationHistory(socketId, 20);
+
+            this.sendToClient(ws, {
+                type: 'conversation_history',
+                history: history,
+                timestamp: new Date().toISOString()
+            });
+        } catch (error: any) {
+            console.error(`❌ [${socketId}] Error getting conversation history:`, error);
+            this.sendToClient(ws, {
+                type: 'error',
+                message: 'Không thể lấy lịch sử hội thoại',
+                error: error.message,
+                timestamp: new Date().toISOString()
+            });
+        }
+    }
+
+    async handleClearConversation(ws: WebSocket, socketId: string): Promise<void> {
+        try {
+            await this.memoryStore.removeSession(socketId);
+
+            this.sendToClient(ws, {
+                type: 'conversation_cleared',
+                message: 'Đã xóa lịch sử hội thoại',
+                timestamp: new Date().toISOString()
+            });
+        } catch (error: any) {
+            console.error(`❌ [${socketId}] Error clearing conversation:`, error);
+            this.sendToClient(ws, {
+                type: 'error',
+                message: 'Không thể xóa lịch sử hội thoại',
+                error: error.message,
+                timestamp: new Date().toISOString()
+            });
+        }
     }
 }
 

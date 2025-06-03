@@ -162,6 +162,20 @@ export class ApiService {
     async getShopById(id: string) {
         return this.get(`/shop/${id}`);
     }
+
+    // Get user profile with access token
+    async getUserProfile(accessToken: string) {
+        try {
+            const response = await this.client.get('/user/profile', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw this.handleError(error as AxiosError);
+        }
+    }
 }
 
 // Export singleton instance

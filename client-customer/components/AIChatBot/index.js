@@ -12,6 +12,8 @@ function AIChatBot() {
     const [hasNotification, setHasNotification] = useState(false);
     const [isConnected, setIsConnected] = useState(false);
     const [connectionStatus, setConnectionStatus] = useState('Đang kết nối...');
+    const [userProfile, setUserProfile] = useState(null);
+    const [isProfileInitialized, setIsProfileInitialized] = useState(false);
 
     const messagesEndRef = useRef(null);
     const inputRef = useRef(null);
@@ -23,13 +25,93 @@ function AIChatBot() {
 
     if (!WS_URL) {
         console.error('❌ NEXT_PUBLIC_WS_URL is not set!');
-
         return <div>NEXT_PUBLIC_WS_URL is not set</div>;
     }
 
     WS_URL = WS_URL.replace('ws://', 'wss://');
 
     const RECONNECT_INTERVAL = 3000; // 3 seconds
+
+    // Helper function to get access token
+    const getAccessToken = () => {
+        try {
+            // Try to get from localStorage first (common pattern)
+            const token = localStorage.getItem('accessToken');
+
+            if (token) {
+                console.log('🔐 Found access token in localStorage');
+                return token;
+            }
+
+            // Try to get from Redux store if available
+            if (typeof window !== 'undefined' && window.__REDUX_STORE__) {
+                const state = window.__REDUX_STORE__.getState();
+                const reduxToken =
+                    state?.auth?.token || state?.user?.accessToken || state?.auth?.accessToken;
+
+                if (reduxToken) {
+                    console.log('🔐 Found access token in Redux store');
+                    return reduxToken;
+                }
+            }
+
+            // Try to get from cookies
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const [name, value] = cookie.trim().split('=');
+                if (name === 'accessToken' || name === 'authToken') {
+                    console.log('🔐 Found access token in cookies');
+                    return decodeURIComponent(value);
+                }
+            }
+
+            console.log('🔓 No access token found - user is guest');
+            return null;
+        } catch (error) {
+            console.error('❌ Error getting access token:', error);
+            return null;
+        }
+    };
+
+    // Helper function to get current context
+    const getCurrentContext = () => {
+        return {
+            currentPage: window.location.pathname,
+            currentUrl: window.location.href,
+            userAgent: navigator.userAgent,
+            timestamp: new Date().toISOString(),
+            language: navigator.language || 'vi-VN',
+            // Add more context as needed
+            cartItems: [], // TODO: Get from Redux/Context
+            recentlyViewed: [], // TODO: Get from localStorage
+            searchQuery: new URLSearchParams(window.location.search).get('q') || null
+        };
+    };
+
+    // Initialize profile when WebSocket connects
+    const initializeProfile = () => {
+        if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
+            console.warn('⚠️ Cannot init profile - WebSocket not connected');
+            return;
+        }
+
+        const accessToken = getAccessToken();
+        const context = getCurrentContext();
+
+        console.log('🔄 Initializing user profile...', {
+            hasToken: !!accessToken,
+            context: context.currentPage
+        });
+
+        const initMessage = {
+            type: 'init_profile',
+            accessToken: accessToken,
+            context: context
+        };
+
+        wsRef.current.send(JSON.stringify(initMessage));
+        setIsProfileInitialized(true);
+    };
 
     // Auto scroll to bottom when new messages
     useEffect(() => {
@@ -61,6 +143,7 @@ function AIChatBot() {
     const connectWebSocket = () => {
         try {
             setConnectionStatus('Đang kết nối...');
+            setIsProfileInitialized(false);
             wsRef.current = new WebSocket(WS_URL);
 
             wsRef.current.onopen = () => {
@@ -68,7 +151,10 @@ function AIChatBot() {
                 setIsConnected(true);
                 setConnectionStatus('Đã kết nối');
 
-                // Clear any reconnection timeout
+                setTimeout(() => {
+                    initializeProfile();
+                }, 500);
+
                 if (reconnectTimeoutRef.current) {
                     clearTimeout(reconnectTimeoutRef.current);
                     reconnectTimeoutRef.current = null;
@@ -88,8 +174,8 @@ function AIChatBot() {
                 console.log('🔌 WebSocket connection closed');
                 setIsConnected(false);
                 setConnectionStatus('Mất kết nối');
+                setIsProfileInitialized(false);
 
-                // Attempt to reconnect if chat is still open
                 if (isOpen) {
                     reconnectTimeoutRef.current = setTimeout(() => {
                         console.log('🔄 Attempting to reconnect...');
@@ -102,6 +188,7 @@ function AIChatBot() {
                 console.error('❌ WebSocket error:', error);
                 setIsConnected(false);
                 setConnectionStatus('Lỗi kết nối');
+                setIsProfileInitialized(false);
             };
         } catch (error) {
             console.error('❌ Failed to create WebSocket connection:', error);
@@ -122,6 +209,8 @@ function AIChatBot() {
 
         setIsConnected(false);
         setConnectionStatus('Đã ngắt kết nối');
+        setIsProfileInitialized(false);
+        setUserProfile(null);
     };
 
     const handleWebSocketMessage = (data) => {
@@ -130,6 +219,35 @@ function AIChatBot() {
         switch (data.type) {
             case 'welcome':
                 console.log('👋 Welcome message received');
+                break;
+
+            case 'profile_initialized':
+                console.log('✅ Profile initialized successfully');
+                setUserProfile(data.profile);
+
+                if (data.welcomeMessage) {
+                    const welcomeMessage = {
+                        id: `welcome_${Date.now()}`,
+                        content: data.welcomeMessage,
+                        sender: 'ai',
+                        timestamp: new Date(data.timestamp),
+                        markdown: true,
+                        isWelcome: true
+                    };
+                    setMessages([welcomeMessage]);
+                }
+                break;
+
+            case 'profile_error':
+                console.error('❌ Profile initialization error:', data.message);
+                const errorMessage = {
+                    id: Date.now(),
+                    content: `Lỗi khởi tạo profile: ${data.message}`,
+                    sender: 'ai',
+                    timestamp: new Date(),
+                    error: true
+                };
+                setMessages((prev) => [...prev, errorMessage]);
                 break;
 
             case 'message':
@@ -150,14 +268,14 @@ function AIChatBot() {
 
             case 'error':
                 console.error('❌ WebSocket error:', data.message);
-                const errorMessage = {
+                const errorMsg = {
                     id: Date.now(),
                     content: `Lỗi: ${data.message}`,
                     sender: 'ai',
                     timestamp: new Date(),
                     error: true
                 };
-                setMessages((prev) => [...prev, errorMessage]);
+                setMessages((prev) => [...prev, errorMsg]);
                 setIsTyping(false);
                 break;
 
@@ -204,17 +322,8 @@ function AIChatBot() {
         setMessages((prev) => [...prev, userMessage]);
         setInputValue('');
 
-        // Get context from current page
-        const context = {
-            currentPage: window.location.pathname,
-            userAgent: navigator.userAgent,
-            timestamp: new Date().toISOString(),
-            // Add more context as needed
-            cartItems: [], // TODO: Get from Redux/Context
-            recentlyViewed: [] // TODO: Get from localStorage
-        };
+        const context = getCurrentContext();
 
-        // Send message via WebSocket
         const sent = sendWebSocketMessage({
             type: 'chat',
             content: userMessage.content,
@@ -222,7 +331,6 @@ function AIChatBot() {
         });
 
         if (!sent) {
-            // Fallback if WebSocket is not connected
             const errorMessage = {
                 id: Date.now() + 1,
                 content: 'Không thể kết nối đến AI Assistant. Vui lòng thử lại sau.',
@@ -243,7 +351,6 @@ function AIChatBot() {
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
-        // Auto-resize textarea
         e.target.style.height = 'auto';
         e.target.style.height = e.target.scrollHeight + 'px';
     };
@@ -255,57 +362,59 @@ function AIChatBot() {
         });
     };
 
-    // Simple markdown renderer for basic formatting
     const renderMarkdown = (content) => {
         if (!content) return '';
 
-        // Convert markdown to HTML (basic implementation)
         let html = content
-            // Headers
             .replace(/^### (.*$)/gim, '<h3>$1</h3>')
             .replace(/^## (.*$)/gim, '<h2>$1</h2>')
             .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-            // Bold
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            // Italic
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            // Code blocks
             .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>')
-            // Inline code
             .replace(/`(.*?)`/g, '<code>$1</code>')
-            // Links
             .replace(
                 /\[([^\]]+)\]\(([^)]+)\)/g,
                 '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
             )
-            // Lists
             .replace(/^- (.*$)/gim, '<li>$1</li>')
             .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
-            // Quotes
             .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
-            // Line breaks
             .replace(/\n/g, '<br>');
 
         return html;
     };
 
-    const renderWelcomeMessage = () => (
-        <div className={styles.welcomeMessage}>
-            <div className={styles.welcomeIcon}>
-                <MdPsychology />
-            </div>
-            <h3>AI Shopping Assistant</h3>
-            <p>
-                Xin chào! Tôi là trợ lý mua sắm thông minh của Aliconcon. Hãy hỏi tôi về sản phẩm,
-                cửa hàng, hoặc bất kỳ thông tin gì bạn cần!
-            </p>
-            {!isConnected && (
-                <p style={{ color: '#ff6b6b', fontSize: '12px', marginTop: '8px' }}>
-                    ⚠️ {connectionStatus}
+    const renderWelcomeMessage = () => {
+        const profileDisplay = userProfile
+            ? `${userProfile.isGuest ? 'Khách' : userProfile.user_fullName || 'bạn'}`
+            : 'bạn';
+
+        return (
+            <div className={styles.welcomeMessage}>
+                <div className={styles.welcomeIcon}>
+                    <MdPsychology />
+                </div>
+                <h3>AI Shopping Assistant</h3>
+                <p>
+                    Xin chào {profileDisplay}! Tôi là trợ lý mua sắm thông minh của Aliconcon.{' '}
+                    {isProfileInitialized
+                        ? 'Hãy hỏi tôi về sản phẩm, cửa hàng, hoặc bất kỳ thông tin gì bạn cần!'
+                        : 'Đang khởi tạo profile của bạn...'}
                 </p>
-            )}
-        </div>
-    );
+                {!isConnected && (
+                    <p style={{ color: '#ff6b6b', fontSize: '12px', marginTop: '8px' }}>
+                        ⚠️ {connectionStatus}
+                    </p>
+                )}
+                {isConnected && !isProfileInitialized && (
+                    <p style={{ color: '#ffa500', fontSize: '12px', marginTop: '8px' }}>
+                        🔄 Đang khởi tạo profile...
+                    </p>
+                )}
+            </div>
+        );
+    };
 
     const renderMessages = () => (
         <div className={styles.chatMessages}>
@@ -370,57 +479,75 @@ function AIChatBot() {
         </div>
     );
 
-    const renderChatWindow = () => (
-        <div className={`${styles.chatWindow} ${isOpen ? styles.open : ''}`}>
-            <div className={styles.chatHeader}>
-                <div className={styles.headerInfo}>
-                    <div className={styles.avatar}>
-                        <MdSmartToy />
-                    </div>
-                    <div className={styles.info}>
-                        <div className={styles.name}>AI Shopping Assistant</div>
-                        <div className={styles.status}>
-                            <div
-                                className={`${styles.onlineDot} ${
-                                    !isConnected ? styles.offline : ''
-                                }`}
-                            ></div>
-                            {connectionStatus}
+    const renderChatWindow = () => {
+        const profileDisplay = userProfile
+            ? `${userProfile.isGuest ? 'Khách' : userProfile.user_fullName || 'User'}`
+            : 'User';
+
+        return (
+            <div className={`${styles.chatWindow} ${isOpen ? styles.open : ''}`}>
+                <div className={styles.chatHeader}>
+                    <div className={styles.headerInfo}>
+                        <div className={styles.avatar}>
+                            <MdSmartToy />
+                        </div>
+                        <div className={styles.info}>
+                            <div className={styles.name}>
+                                AI Assistant{' '}
+                                {userProfile && !userProfile.isGuest && `- ${profileDisplay}`}
+                            </div>
+                            <div className={styles.status}>
+                                <div
+                                    className={`${styles.onlineDot} ${
+                                        !isConnected ? styles.offline : ''
+                                    }`}
+                                ></div>
+                                {connectionStatus}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <button className={styles.closeButton} onClick={handleToggleChat}>
-                    <MdClose />
-                </button>
-            </div>
-
-            {renderMessages()}
-
-            <div className={styles.chatInput}>
-                <div className={styles.inputContainer}>
-                    <textarea
-                        ref={inputRef}
-                        className={styles.textInput}
-                        value={inputValue}
-                        onChange={handleInputChange}
-                        onKeyPress={handleKeyPress}
-                        placeholder={
-                            isConnected ? 'Hỏi về sản phẩm hoặc cần hỗ trợ...' : 'Đang kết nối...'
-                        }
-                        rows="1"
-                        disabled={!isConnected}
-                    />
-                    <button
-                        className={styles.sendButton}
-                        onClick={handleSendMessage}
-                        disabled={!inputValue.trim() || isTyping || !isConnected}
-                    >
-                        <MdSend />
+                    <button className={styles.closeButton} onClick={handleToggleChat}>
+                        <MdClose />
                     </button>
                 </div>
+
+                {renderMessages()}
+
+                <div className={styles.chatInput}>
+                    <div className={styles.inputContainer}>
+                        <textarea
+                            ref={inputRef}
+                            className={styles.textInput}
+                            value={inputValue}
+                            onChange={handleInputChange}
+                            onKeyPress={handleKeyPress}
+                            placeholder={
+                                isConnected && isProfileInitialized
+                                    ? 'Hỏi về sản phẩm hoặc cần hỗ trợ...'
+                                    : isConnected
+                                    ? 'Đang khởi tạo...'
+                                    : 'Đang kết nối...'
+                            }
+                            rows="1"
+                            disabled={!isConnected || !isProfileInitialized}
+                        />
+                        <button
+                            className={styles.sendButton}
+                            onClick={handleSendMessage}
+                            disabled={
+                                !inputValue.trim() ||
+                                isTyping ||
+                                !isConnected ||
+                                !isProfileInitialized
+                            }
+                        >
+                            <MdSend />
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-    );
+        );
+    };
 
     return (
         <div className={styles.aiChatBot}>

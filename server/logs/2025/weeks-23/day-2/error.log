@@ -465,3 +465,7 @@
 [2025-06-03T17:06:01.853Z] [error]: HIDE::400::MongoServerError::E11000 duplicate key error collection: test.conversations index: customer_id_1_shop_id_1 dup key: { customer_id: null, shop_id: null }::
 [2025-06-03T17:16:22.454Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token not found!::
 [2025-06-03T17:16:52.913Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T17:49:23.197Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:49:23.224Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:49:23.233Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T17:49:23.243Z] [error]: HIDE::404::NotFound::Not found file!::

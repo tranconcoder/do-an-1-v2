@@ -144,12 +144,12 @@ class SocketService {
 
             // ULTRA-AGGRESSIVE WebSocket prevention configuration
             const socketConfig = {
-                auth: {
-                    token: token
-                },
+            auth: {
+                token: token
+            },
                 // ABSOLUTELY FORCE polling only - NEVER use WebSocket
                 transports: ['polling'],
-                timeout: 20000,
+            timeout: 20000,
                 forceNew: true,
                 upgrade: false, // NEVER upgrade to WebSocket
                 rememberUpgrade: false,
@@ -592,18 +592,18 @@ class SocketService {
     // Message methods with error handling
     sendMessage(receiverId, content, type = 'text') {
         try {
-            if (!this.socket?.connected) {
+        if (!this.socket?.connected) {
                 console.error('❌ Socket not connected');
-                return false;
-            }
+            return false;
+        }
 
             console.log('📤 Sending message:', { receiverId, content, type });
-            this.socket.emit('send_message', {
-                receiverId,
-                content,
-                type
-            });
-            return true;
+        this.socket.emit('send_message', {
+            receiverId,
+            content,
+            type
+        });
+        return true;
         } catch (error) {
             console.error('❌ Error sending message:', error);
             return false;
@@ -612,16 +612,16 @@ class SocketService {
 
     markAsRead(conversationId, messageIds = []) {
         try {
-            if (!this.socket?.connected) {
+        if (!this.socket?.connected) {
                 console.error('❌ Socket not connected');
-                return false;
-            }
+            return false;
+        }
 
-            this.socket.emit('mark_as_read', {
-                conversationId,
-                messageIds
-            });
-            return true;
+        this.socket.emit('mark_as_read', {
+            conversationId,
+            messageIds
+        });
+        return true;
         } catch (error) {
             console.error('❌ Error marking as read:', error);
             return false;
@@ -630,15 +630,15 @@ class SocketService {
 
     joinConversation(conversationId) {
         try {
-            if (!this.socket?.connected) {
+        if (!this.socket?.connected) {
                 console.error('❌ Socket not connected');
-                return false;
-            }
+            return false;
+        }
 
-            this.socket.emit('join_conversation', {
-                conversationId
-            });
-            return true;
+        this.socket.emit('join_conversation', {
+            conversationId
+        });
+        return true;
         } catch (error) {
             console.error('❌ Error joining conversation:', error);
             return false;
@@ -647,15 +647,15 @@ class SocketService {
 
     leaveConversation(conversationId) {
         try {
-            if (!this.socket?.connected) {
+        if (!this.socket?.connected) {
                 console.error('❌ Socket not connected');
-                return false;
-            }
+            return false;
+        }
 
-            this.socket.emit('leave_conversation', {
-                conversationId
-            });
-            return true;
+        this.socket.emit('leave_conversation', {
+            conversationId
+        });
+        return true;
         } catch (error) {
             console.error('❌ Error leaving conversation:', error);
             return false;
@@ -665,16 +665,16 @@ class SocketService {
     // Typing methods with error handling
     startTyping(conversationId, receiverId = null) {
         try {
-            if (!this.socket?.connected) {
+        if (!this.socket?.connected) {
                 console.error('❌ Socket not connected');
-                return false;
-            }
+            return false;
+        }
 
-            this.socket.emit('typing_start', {
-                conversationId,
-                receiverId
-            });
-            return true;
+        this.socket.emit('typing_start', {
+            conversationId,
+            receiverId
+        });
+        return true;
         } catch (error) {
             console.error('❌ Error starting typing:', error);
             return false;
@@ -683,16 +683,16 @@ class SocketService {
 
     stopTyping(conversationId, receiverId = null) {
         try {
-            if (!this.socket?.connected) {
+        if (!this.socket?.connected) {
                 console.error('❌ Socket not connected');
-                return false;
-            }
+            return false;
+        }
 
-            this.socket.emit('typing_stop', {
-                conversationId,
-                receiverId
-            });
-            return true;
+        this.socket.emit('typing_stop', {
+            conversationId,
+            receiverId
+        });
+        return true;
         } catch (error) {
             console.error('❌ Error stopping typing:', error);
             return false;
@@ -704,12 +704,12 @@ class SocketService {
         console.log('🔌 Disconnecting socket...');
         this.isConnecting = false;
         this.safeDisconnect();
-        store.dispatch(setConnected(false));
+            store.dispatch(setConnected(false));
     }
 
     isConnected() {
         try {
-            return this.socket?.connected || false;
+        return this.socket?.connected || false;
         } catch (error) {
             console.error('❌ Error checking connection status:', error);
             return false;

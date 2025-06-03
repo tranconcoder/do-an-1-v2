@@ -21,6 +21,7 @@ export interface ConversationSession {
         cartItems?: any[];
         recentlyViewed?: any[];
         preferences?: any;
+        userProfile?: UserProfile;
     };
     metadata: {
         createdAt: Date;
@@ -29,11 +30,27 @@ export interface ConversationSession {
     };
 }
 
+export interface UserProfile {
+    _id: string;
+    user_fullName: string;
+    user_email: string | null;
+    phoneNumber: string | null;
+    user_role: string;
+    user_avatar: string | null;
+    user_sex: boolean | null;
+    user_status: string;
+    user_dayOfBirth: string | null;
+    role_name?: string;
+    isGuest: boolean;
+    accessToken?: string;
+}
+
 export class ConversationMemoryStore {
     private redis: RedisClientType;
     private readonly keyPrefix = 'mcp:conversation:';
     private readonly contextKeyPrefix = 'mcp:context:';
     private readonly statsKeyPrefix = 'mcp:stats:';
+    private readonly profileKeyPrefix = 'mcp:profile:';
     private readonly maxMessagesPerConversation = 100;
     private readonly sessionTimeout = 24 * 60 * 60; // 24 hours in seconds
     private isConnected = false;
@@ -283,21 +300,26 @@ export class ConversationMemoryStore {
      */
     async removeSession(socketId: string): Promise<void> {
         if (!this.isConnected) {
-            return;
+            await this.initialize();
         }
 
         try {
-            const messagesKey = `${this.keyPrefix}${socketId}:messages`;
+            const conversationKey = `${this.keyPrefix}${socketId}`;
             const contextKey = `${this.contextKeyPrefix}${socketId}`;
             const statsKey = `${this.statsKeyPrefix}${socketId}`;
+            const profileKey = `${this.profileKeyPrefix}${socketId}`;
 
             await Promise.all([
-                this.redis.del(messagesKey),
+                this.redis.del(conversationKey),
                 this.redis.del(contextKey),
-                this.redis.del(statsKey)
+                this.redis.del(statsKey),
+                this.redis.del(profileKey)
             ]);
+
+            console.log(`🗑️ Session ${socketId} removed completely from Redis`);
         } catch (error) {
-            console.error('Error removing session:', error);
+            console.error('❌ Error removing session:', error);
+            throw error;
         }
     }
 
@@ -416,6 +438,58 @@ export class ConversationMemoryStore {
     async close(): Promise<void> {
         if (this.redis) {
             await this.redis.quit();
+        }
+    }
+
+    async saveUserProfile(socketId: string, profile: UserProfile): Promise<void> {
+        if (!this.isConnected) {
+            await this.initialize();
+        }
+
+        try {
+            const profileKey = `${this.profileKeyPrefix}${socketId}`;
+            await this.redis.setEx(profileKey, this.sessionTimeout, JSON.stringify(profile));
+
+            await this.updateContext(socketId, { userProfile: profile });
+
+            console.log(`✅ Profile saved for socket: ${socketId}`);
+        } catch (error) {
+            console.error('❌ Error saving user profile:', error);
+            throw error;
+        }
+    }
+
+    async getUserProfile(socketId: string): Promise<UserProfile | null> {
+        if (!this.isConnected) {
+            await this.initialize();
+        }
+
+        try {
+            const profileKey = `${this.profileKeyPrefix}${socketId}`;
+            const profileData = await this.redis.get(profileKey);
+
+            if (profileData) {
+                return JSON.parse(profileData) as UserProfile;
+            }
+
+            return null;
+        } catch (error) {
+            console.error('❌ Error getting user profile:', error);
+            return null;
+        }
+    }
+
+    async removeUserProfile(socketId: string): Promise<void> {
+        if (!this.isConnected) {
+            await this.initialize();
+        }
+
+        try {
+            const profileKey = `${this.profileKeyPrefix}${socketId}`;
+            await this.redis.del(profileKey);
+            console.log(`🗑️ Profile removed for socket: ${socketId}`);
+        } catch (error) {
+            console.error('❌ Error removing user profile:', error);
         }
     }
 }
