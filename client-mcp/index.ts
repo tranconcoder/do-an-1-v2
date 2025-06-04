@@ -20,8 +20,9 @@ config();
 const logger = pino(pretty({ colorize: true }));
 
 // Configuration
-const OPENROUTER_API_KEY = "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";
+const OPENROUTER_API_KEY = "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";
 // const MODEL_NAME = process.env.LLM_MODEL || "meta-llama/llama-3-70b-instruct";
+
 const MODEL_NAME = process.env.LLM_MODEL || "deepseek/deepseek-chat-v3-0324:free";
 const DISABLE_THINKING = process.env.DISABLE_THINKING === "true" || true;
 const MCP_SERVER_URL = process.env.MCP_URL || "http://localhost:8000";
@@ -37,7 +38,7 @@ const openai = new OpenAI({
 
 // WebSocket server for real-time chat
 let wss: WebSocketServer | null = null;
-let httpServer: any = null; // Use any to handle both HTTP and HTTPS server types
+let httpServer: any = null;
 
 // Helper function to convert MCP tool definitions to OpenAI format
 function convertToolFormat(tool: any): any {
@@ -240,7 +241,6 @@ Sử dụng thông tin trên để trả lời một cách cá nhân hóa và ch
                             });
 
                             logger.info(`✅ Tool ${toolName} executed successfully`);
-
                         } catch (error) {
                             logger.error(`❌ Error calling tool ${toolName}:`, error);
                             messages.push({

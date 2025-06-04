@@ -40,3 +40,28 @@
 [2025-06-04T04:57:39.290Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-06-04T04:57:39.422Z] [error]: HIDE::403::Forbidden::Token is invalid!::
 [2025-06-04T04:57:39.515Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-04T06:10:52.264Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T06:10:52.267Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T06:10:52.269Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T06:10:52.271Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T06:45:16.558Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T06:45:16.617Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T06:45:16.621Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T06:45:16.622Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T06:45:35.268Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T06:45:35.323Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T06:45:35.326Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T06:45:35.345Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T06:54:52.671Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-04T06:55:02.698Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T06:55:02.701Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T06:55:12.768Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T06:55:12.866Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T06:55:23.897Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T06:55:24.095Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T06:55:34.398Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T06:55:34.692Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T06:55:45.048Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T06:55:45.449Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T06:55:56.321Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T06:55:56.817Z] [error]: Redis error: Error: Failed to connect
