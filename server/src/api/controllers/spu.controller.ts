@@ -93,24 +93,7 @@ export default new (class SPUController {
         }).send(res);
     };
 
-    /* ---------------------------------------------------------- */
-    /*                           Update                           */
-    /* ---------------------------------------------------------- */
 
-    /* ----------------------- Update SPU ----------------------- */
-    updateSPU: RequestWithParams<{ spuId: string }> & RequestWithBody<joiTypes.spu.UpdateSPU> = async (req, res, next) => {
-        new OkResponse({
-            message: 'Update product successfully!',
-            metadata: await spuService.updateSPU({
-                ...req.body,
-                spuId: req.params.spuId,
-                userId: req.userId as string,
-                product_thumb: req.mediaIds?.[SPUImages.PRODUCT_THUMB]?.[0] as string,
-                product_images: req.mediaIds?.[SPUImages.PRODUCT_IMAGES] || [],
-                mediaIds: req.mediaIds as NonNullable<typeof req.mediaIds>
-            })
-        }).send(res);
-    };
 
     /* ----------------------- Publish SPU ---------------------- */
     publishSPU: RequestWithParams<{ spuId: string }> = async (req, res, _) => {

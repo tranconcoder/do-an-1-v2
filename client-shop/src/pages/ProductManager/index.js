@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './ProductManager.module.scss';
-import { FaSearch, FaEdit, FaTrash, FaEye, FaEyeSlash, FaPlusCircle } from 'react-icons/fa';
+import { FaSearch, FaTrash, FaEye, FaEyeSlash, FaPlusCircle } from 'react-icons/fa';
 import axiosClient from '../../configs/axios';
 import { API_URL } from '../../configs/env.config';
 import { useToast } from '../../contexts/ToastContext';
@@ -245,13 +245,6 @@ function ProductManager() {
                                             </div>
                                         </div>
                                         <div className={cx('product-actions')}>
-                                            <Link
-                                                to={`/products/edit/${product._id}`}
-                                                className={cx('edit-btn')}
-                                                title="Chỉnh sửa sản phẩm"
-                                            >
-                                                <FaEdit /> Sửa
-                                            </Link>
                                             <button
                                                 className={cx('visibility-btn', {
                                                     'is-published': product.is_publish

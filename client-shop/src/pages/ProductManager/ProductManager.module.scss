@@ -17,7 +17,7 @@
 
         .add-product-btn {
             padding: 0.75rem 1.5rem;
-            background-color: #4CAF50;
+            background-color: #4caf50;
             color: white;
             border: none;
             border-radius: 6px;
@@ -126,7 +126,7 @@
             height: 40px;
             border-radius: 50%;
             border: 3px solid rgba(0, 0, 0, 0.1);
-            border-top-color: #4CAF50;
+            border-top-color: #4caf50;
             animation: spin 1s infinite linear;
             margin-bottom: 1rem;
         }
@@ -182,31 +182,31 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 1.5rem;
-        
+
         .product-card {
             background-color: white;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             transition: transform 0.2s, box-shadow 0.2s;
-            
+
             &:hover {
                 transform: translateY(-4px);
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             }
-            
+
             .product-image {
                 height: 180px;
                 position: relative;
                 overflow: hidden;
-                
+
                 img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
                     transition: transform 0.3s;
                 }
-                
+
                 .product-status-badge {
                     position: absolute;
                     top: 10px;
@@ -216,22 +216,22 @@
                     font-size: 0.75rem;
                     font-weight: 600;
                     z-index: 1;
-                    
+
                     &.is-published {
                         background-color: rgba(46, 125, 50, 0.95);
                         color: white;
                     }
-                    
+
                     &.is-draft {
                         background-color: rgba(117, 117, 117, 0.95);
                         color: white;
                     }
                 }
             }
-            
+
             .product-content {
                 padding: 1rem;
-                
+
                 .product-name {
                     font-size: 1rem;
                     font-weight: 600;
@@ -243,29 +243,29 @@
                     overflow: hidden;
                     height: 2.75rem;
                 }
-                
+
                 .product-meta {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     margin-bottom: 1rem;
-                    
+
                     .product-price {
                         font-weight: 600;
                         color: #2e7d32;
                     }
-                    
+
                     .product-quantity {
                         font-size: 0.875rem;
                         color: #757575;
                     }
                 }
-                
+
                 .product-actions {
                     display: flex;
                     gap: 0.5rem;
-                    
-                    button, .edit-btn {
+
+                    button {
                         flex: 1;
                         padding: 0.5rem;
                         border: none;
@@ -278,42 +278,33 @@
                         gap: 0.5rem;
                         text-decoration: none;
                         transition: all 0.2s;
-                        
+
                         svg {
                             font-size: 0.875rem;
                         }
                     }
-                    
-                    .edit-btn {
-                        background-color: #2196F3;
-                        color: white;
-                        
-                        &:hover {
-                            background-color: #1976D2;
-                        }
-                    }
-                    
+
                     .visibility-btn {
                         background-color: #757575;
                         color: white;
-                        
+
                         &.is-published {
-                            background-color: #4CAF50;
-                            
+                            background-color: #4caf50;
+
                             &:hover {
-                                background-color: #388E3C;
+                                background-color: #388e3c;
                             }
                         }
-                        
+
                         &:hover {
                             background-color: #616161;
                         }
                     }
-                    
+
                     .delete-btn {
                         background-color: #f44336;
                         color: white;
-                        
+
                         &:hover {
                             background-color: #d32f2f;
                         }
@@ -327,20 +318,20 @@
         .filters {
             flex-direction: column;
             align-items: stretch;
-            
+
             .status-filters {
                 overflow-x: auto;
                 padding-bottom: 0.5rem;
                 justify-content: flex-start;
                 width: 100%;
             }
-            
+
             .search {
                 flex: none;
                 width: 100%;
             }
         }
-        
+
         .products-grid {
             grid-template-columns: 1fr;
         }

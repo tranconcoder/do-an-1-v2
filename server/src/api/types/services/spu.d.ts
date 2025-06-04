@@ -74,26 +74,7 @@ declare global {
                 }
                 interface DraftSPU extends PublishSPU { }
 
-                /* ----------------------- Update SPU ----------------------- */
-                interface UpdateSPU
-                    extends Partial<Pick<
-                        model.spu.SPUSchema,
-                        | 'product_name'
-                        | 'product_description'
-                        | 'product_category'
-                        | 'product_attributes'
-                        | 'product_variations'
-                        | 'product_thumb'
-                        | 'product_images'
-                        | 'is_draft'
-                        | 'is_publish'
-                    >> {
-                    spuId: string;
-                    userId: string;
-                    sku_list?: (Omit<service.sku.arguments.CreateSKU, 'sku_product'> & { id?: string })[];
-                    sku_images_map?: Array<number>;
-                    mediaIds?: commonTypes.object.ObjectAnyKeys<Array<string>>;
-                }
+
 
                 /* --------------------- Update product --------------------- */
                 interface UpdateProduct
