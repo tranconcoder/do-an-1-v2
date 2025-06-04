@@ -69,6 +69,11 @@ declare global {
                     orderId: string;
                     reason?: string;
                 }
+
+                interface CompleteOrder {
+                    shopId: string;
+                    orderId: string;
+                }
             }
         }
     }

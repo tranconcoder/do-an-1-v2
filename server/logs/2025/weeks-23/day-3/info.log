@@ -628,3 +628,88 @@
 [2025-06-04T06:54:00.156Z] [info]: Cleanup key token: 5 key token cleaned
 [2025-06-04T06:54:00.156Z] [info]: Cleanup key token: 0 refresh token used cleaned
 [2025-06-04T07:04:41.050Z] [info]: Server closed
+[2025-06-04T09:52:36.743Z] [info]: Socket.IO service initialized
+[2025-06-04T09:53:00.180Z] [info]: Cleanup key token: 5 key token cleaned
+[2025-06-04T09:53:00.180Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T09:54:00.448Z] [info]: Cleanup key token: 5 key token cleaned
+[2025-06-04T09:54:00.449Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T09:55:00.124Z] [info]: Cleanup key token: 5 key token cleaned
+[2025-06-04T09:55:00.125Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T09:56:00.436Z] [info]: Cleanup key token: 5 key token cleaned
+[2025-06-04T09:56:00.437Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T09:57:00.436Z] [info]: Cleanup key token: 5 key token cleaned
+[2025-06-04T09:57:00.437Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T09:58:00.484Z] [info]: Cleanup key token: 5 key token cleaned
+[2025-06-04T09:58:00.484Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T09:58:20.591Z] [info]: User connected: Tran Con (683f29a5768a422efb9e5d8d)
+[2025-06-04T09:58:20.851Z] [info]: User disconnected: Tran Con (683f29a5768a422efb9e5d8d)
+[2025-06-04T09:58:34.535Z] [info]: User connected: Tran Con (683f29a5768a422efb9e5d8d)
+[2025-06-04T09:59:00.432Z] [info]: Cleanup key token: 5 key token cleaned
+[2025-06-04T09:59:00.433Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:00:00.427Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:00:00.428Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:01:02.110Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:01:02.111Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:02:00.128Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:02:00.129Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:03:00.412Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:03:00.413Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:04:00.386Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:04:00.386Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:05:00.508Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:05:00.508Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:06:00.407Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:06:00.407Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:07:00.490Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:07:00.491Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:08:00.373Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:08:00.373Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:09:01.304Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:09:01.306Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:09:25.106Z] [info]: User disconnected: Tran Con (683f29a5768a422efb9e5d8d)
+[2025-06-04T10:10:00.459Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:10:00.460Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:11:00.365Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:11:00.365Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:12:00.477Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:12:00.478Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:13:00.438Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:13:00.440Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:14:00.499Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:14:00.500Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:15:00.481Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:15:00.482Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:16:02.171Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:16:02.172Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:17:00.115Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:17:00.116Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:17:22.102Z] [info]: Socket.IO service initialized
+[2025-06-04T10:17:24.609Z] [info]: Socket.IO service initialized
+[2025-06-04T10:17:28.449Z] [info]: Socket.IO service initialized
+[2025-06-04T10:17:41.011Z] [info]: Socket.IO service initialized
+[2025-06-04T10:17:47.773Z] [info]: Socket.IO service initialized
+[2025-06-04T10:18:01.999Z] [info]: Socket.IO service initialized
+[2025-06-04T10:18:04.278Z] [info]: Socket.IO service initialized
+[2025-06-04T10:19:00.222Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:19:00.227Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:19:41.792Z] [info]: Socket.IO service initialized
+[2025-06-04T10:19:55.720Z] [info]: Socket.IO service initialized
+[2025-06-04T10:20:00.256Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:20:00.257Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:20:06.276Z] [info]: Socket.IO service initialized
+[2025-06-04T10:21:01.048Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:21:01.048Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:21:38.509Z] [info]: Socket.IO service initialized
+[2025-06-04T10:22:00.978Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:22:00.979Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:23:00.464Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:23:00.464Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:24:00.106Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:24:00.106Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:25:00.282Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:25:00.283Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:26:00.523Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:26:00.524Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:27:00.455Z] [info]: Cleanup key token: 6 key token cleaned
+[2025-06-04T10:27:00.455Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T10:27:10.746Z] [info]: Socket.IO service initialized

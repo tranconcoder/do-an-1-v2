@@ -98,7 +98,13 @@ const orderSchema = new Schema<model.order.OrderSchema>(
         price_to_payment: { type: Number, required },
 
         /* ------------------------- Order  ------------------------- */
-        order_status: { type: String, enum: OrderStatus, default: OrderStatus.PENDING_PAYMENT }
+        order_status: { type: String, enum: OrderStatus, default: OrderStatus.PENDING_PAYMENT },
+        completed_at: { type: Date },
+        cancelled_at: { type: Date },
+        rejected_at: { type: Date },
+        rejected_by_shop: { type: Boolean, default: false },
+        cancellation_reason: { type: String },
+        rejection_reason: { type: String }
     },
     {
         timestamps,

@@ -827,6 +827,55 @@ export default new (class OrderService {
         };
     }
 
+    public async completeOrder({ shopId, orderId }: service.order.arguments.CompleteOrder) {
+        /* ----------- Find shop by user ID ----------- */
+        const shop = await findShopByUser({
+            userId: shopId,
+            options: { lean: true }
+        });
+
+        if (!shop) {
+            throw new NotFoundErrorResponse({ message: 'Shop not found for this user!' });
+        }
+
+        /* ------------------- Find the order ------------------- */
+        const order = await orderModel.findById(orderId);
+
+        if (!order) {
+            throw new NotFoundErrorResponse({ message: 'Order not found!' });
+        }
+
+        /* ----------- Check if order belongs to shop ----------- */
+        if (order.shop_id.toString() !== shop._id.toString()) {
+            throw new BadRequestErrorResponse({
+                message: 'This order does not belong to your shop!'
+            });
+        }
+
+        /* ----------- Check if order can be completed ----------- */
+        if (order.order_status !== OrderStatus.DELIVERING) {
+            throw new BadRequestErrorResponse({
+                message: 'Only orders with delivering status can be marked as completed!'
+            });
+        }
+
+        /* ------------- Update order status to completed ------------- */
+        const updatedOrder = await orderModel.findByIdAndUpdate(
+            orderId,
+            {
+                order_status: OrderStatus.COMPLETED,
+                completed_at: new Date()
+            },
+            { new: true }
+        );
+
+        if (!updatedOrder) {
+            throw new NotFoundErrorResponse({ message: 'Failed to update order status!' });
+        }
+
+        return updatedOrder;
+    }
+
     public async createOrderWithVNPay({ userId }: service.order.arguments.CreateOrderWithVNPay) {
         /* ------------------- Check user information  ------------------- */
         const user = await userModel.findById(userId);

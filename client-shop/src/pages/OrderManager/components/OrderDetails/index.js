@@ -5,7 +5,14 @@ import axiosClient from '../../../../configs/axios';
 
 const cx = classNames.bind(styles);
 
-function OrderDetails({ order, onClose, onUpdateStatus, onApproveOrder, onRejectOrder }) {
+function OrderDetails({
+    order,
+    onClose,
+    onUpdateStatus,
+    onApproveOrder,
+    onRejectOrder,
+    onCompleteOrder
+}) {
     // Format date to a more readable format
     const formatDate = (dateString) => {
         try {
@@ -91,7 +98,7 @@ function OrderDetails({ order, onClose, onUpdateStatus, onApproveOrder, onReject
                                             <button
                                                 className={cx('deliver-btn')}
                                                 onClick={() =>
-                                                    onUpdateStatus(order._id, 'completed')
+                                                    onCompleteOrder && onCompleteOrder(order._id)
                                                 }
                                             >
                                                 Xác Nhận Đã Giao

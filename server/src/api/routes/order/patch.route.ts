@@ -41,4 +41,11 @@ patchRouteValidated.patch(
     catchError(orderController.rejectOrder)
 );
 
+patchRouteValidated.patch(
+    '/:orderId/complete',
+    validateOrderParams,
+    authorization("updateOwn", Resources.ORDER),
+    catchError(orderController.completeOrder)
+);
+
 export default patchRoute; 

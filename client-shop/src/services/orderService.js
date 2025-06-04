@@ -80,6 +80,21 @@ async function updateOrderStatus(orderId, status) {
 }
 
 /**
+ * Complete a delivering order (mark as delivered)
+ * @param {string} orderId - The order ID to complete
+ * @returns {Promise<Object>} Response with updated order data
+ */
+async function completeOrder(orderId) {
+    try {
+        const response = await axiosClient.patch(`/order/${orderId}/complete`);
+        return response.data;
+    } catch (error) {
+        console.error('Error completing order:', error);
+        throw error;
+    }
+}
+
+/**
  * Get order details by ID
  * @param {string} orderId - The order ID
  * @returns {Promise<Object>} Response with order details
@@ -98,6 +113,7 @@ export default {
     getShopOrders,
     approveOrder,
     rejectOrder,
+    completeOrder,
     updateOrderStatus,
     getOrderDetails
 };

@@ -65,3 +65,105 @@
 [2025-06-04T06:55:45.449Z] [error]: Redis error: Error: Failed to connect
 [2025-06-04T06:55:56.321Z] [error]: Redis error: Error: Failed to connect
 [2025-06-04T06:55:56.817Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T09:54:00.257Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-04T09:54:01.186Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-04T09:54:26.228Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-06-04T10:13:20.794Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-06-04T10:13:26.307Z] [error]: HIDE::400::BadRequest::Product is out of stock!::
+[2025-06-04T10:14:20.670Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T10:14:38.652Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:14:58.619Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:05.865Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:06.030Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:06.202Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:06.370Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:06.513Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:06.673Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:06.916Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:07.077Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:07.234Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:07.402Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:07.585Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:07.738Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:07.925Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:08.137Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:08.406Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:08.580Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:08.724Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:08.862Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:09.001Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:09.143Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:09.283Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:09.416Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:09.584Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:09.774Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:09.938Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:10.101Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:10.239Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:10.379Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:10.662Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:10.908Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:11.179Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:11.356Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:11.521Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:11.734Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:11.986Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:12.224Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:12.444Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:12.613Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:12.773Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:12.931Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:13.092Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:13.254Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:13.401Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:13.562Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:13.711Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:13.882Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:14.051Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:14.202Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:14.408Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:14.811Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:15.122Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:15.401Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:15.479Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:15.619Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:15.715Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T10:15:15.844Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:15.876Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:15.998Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:16.033Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:16.189Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:16.346Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:16.503Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:16.660Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:16.820Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:17.018Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:17.221Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:17.394Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:17.594Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:17.795Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:17.991Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:18.161Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:18.337Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:18.546Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:18.794Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:18.954Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:19.132Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:19.297Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:19.464Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:19.656Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:19.944Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:20.182Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:20.397Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:20.603Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:20.817Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:20.989Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:21.149Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:21.311Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:21.471Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:21.663Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:21.818Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:22.054Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:15:42.507Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:16:17.653Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-04T10:16:22.806Z] [error]: HIDE::404::NotFound::Route is not exists::

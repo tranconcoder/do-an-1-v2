@@ -80,6 +80,12 @@ declare global {
 
                     /* ------------------------- Status ------------------------- */
                     order_status: OrderStatus;
+                    completed_at?: Date;
+                    cancelled_at?: Date;
+                    rejected_at?: Date;
+                    rejected_by_shop?: boolean;
+                    cancellation_reason?: string;
+                    rejection_reason?: string;
                 },
                 isModel,
                 isDoc,

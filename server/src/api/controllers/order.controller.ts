@@ -144,6 +144,22 @@ export default new (class OrderController {
         }).send(res);
     };
 
+    public completeOrder: RequestWithParams<OrderParamsSchema> = async (req, res, _) => {
+        const { orderId } = req.params;
+        const result = await orderService.completeOrder({
+            shopId: req.userId as string,
+            orderId: orderId
+        });
+
+        new OkResponse({
+            message: 'Order completed successfully',
+            metadata: result ? {
+                _id: result._id.toString(),
+                order_status: result.order_status
+            } : {}
+        }).send(res);
+    };
+
     public createOrderWithVNPay = async (req: Request, res: any, _: any) => {
         new CreatedResponse({
             message: 'Order created with VNPay payment successfully',

@@ -158,15 +158,32 @@ function OrderManager() {
         }
     };
 
+    // Complete order (mark as delivered)
+    const handleCompleteOrder = async (orderId) => {
+        try {
+            setProcessingOrderId(orderId);
+            await axiosClient.patch(`/order/${orderId}/complete`);
+
+            showToast('Đơn hàng đã được đánh dấu là đã giao thành công', 'success');
+            fetchOrders(); // Refresh the orders list
+        } catch (error) {
+            console.error('Error completing order:', error);
+            const errorMessage = error.response?.data?.message || 'Lỗi khi hoàn thành đơn hàng';
+            showToast(errorMessage, 'error');
+        } finally {
+            setProcessingOrderId(null);
+        }
+    };
+
     // Update order status (for other status changes)
     const handleUpdateStatus = async (orderId, newStatus) => {
         try {
             setProcessingOrderId(orderId);
 
-            // Use specific endpoints for approve/reject, generic for others
+            // Use specific endpoints for different actions
             if (newStatus === 'completed') {
-                // This should actually be a different endpoint for marking as delivered
-                await axiosClient.patch(`/order/${orderId}/status`, { status: newStatus });
+                await handleCompleteOrder(orderId);
+                return; // Exit early since handleCompleteOrder already handles the UI updates
             } else {
                 await axiosClient.patch(`/order/${orderId}/status`, { status: newStatus });
             }
@@ -351,10 +368,7 @@ function OrderManager() {
                                                         <button
                                                             className={cx('deliver-btn')}
                                                             onClick={() =>
-                                                                handleUpdateStatus(
-                                                                    order._id,
-                                                                    'completed'
-                                                                )
+                                                                handleCompleteOrder(order._id)
                                                             }
                                                             disabled={
                                                                 processingOrderId === order._id
@@ -431,6 +445,7 @@ function OrderManager() {
                     onUpdateStatus={handleUpdateStatus}
                     onApproveOrder={handleApproveOrder}
                     onRejectOrder={handleShowRejectModal}
+                    onCompleteOrder={handleCompleteOrder}
                 />
             )}
         </div>
