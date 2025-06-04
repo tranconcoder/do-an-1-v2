@@ -39,10 +39,13 @@ export default new (class CategoryService {
     /* ---------------------------------------------------------- */
 
     /* ------------------- Get all categories ------------------- */
-    async getAllCategories() {
-        return await findCategories({
-            query: { is_deleted: false }
-        });
+    async getAllCategories(active?: boolean) {
+        const query: any = { is_deleted: false };
+        if (active !== undefined) {
+            query.is_active = active;
+        }
+
+        return await findCategories({ query });
     }
 
     /* ---------------------------------------------------------- */

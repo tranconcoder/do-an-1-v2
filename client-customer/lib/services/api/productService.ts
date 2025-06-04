@@ -145,13 +145,18 @@ export interface ProductSku {
   product_name: string;
   product_quantity: number; // Overall SPU quantity. SKU stock is separate.
   product_description: string;
-  product_category: string; // Category ID
   product_shop: string; // Shop ID
-  product_rating_avg?: number;
+  product_sold: number; // Add this field from API response
+  product_rating_avg: number; // Make this required as it's in API response
   product_slug: string;
   product_thumb: string; // Media ID for SPU
   product_images: string[]; // Media IDs for SPU
-  product_variations?: ProductVariation[]; // Product variations for tier index mapping
+  product_variations: ProductVariation[]; // Product variations for tier index mapping - make required
+  category: {
+    category_name: string;
+    category_icon: string;
+    category_description: string;
+  }; // Add category field from API response
   sku: {
     _id: string; // SKU ID
     sku_product: string; // SPU ID (links back to parent SPU)

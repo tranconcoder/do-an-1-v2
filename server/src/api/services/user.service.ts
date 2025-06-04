@@ -32,16 +32,12 @@ export default class UserService {
         });
         const result: commonTypes.object.ObjectAnyKeys = { user };
 
-        console.log('GET USER PROFILE:::');
-        console.log({ user });
         /* --------------------- Add role data  --------------------- */
         const roleData = await roleService.getUserRoleData({
             userId: user._id.toString(),
             roleId: user.user_role.toString()
         });
 
-        console.log('ROLE DATA:::');
-        console.log({ roleData });
         if (roleData && roleData.role_name !== RoleNames.USER)
             result[roleData.role_name] = roleData.role_data || true;
         else result.user.role_name = RoleNames.USER;

@@ -495,3 +495,28 @@
 [2025-06-03T18:41:37.823Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-03T18:41:37.825Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-03T18:41:38.106Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:54:30.367Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-06-03T18:54:36.973Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-06-03T18:54:50.661Z] [error]: HIDE::400::BadRequest::Product stock is not enough!::
+[2025-06-03T18:55:10.117Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:55:11.089Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:55:15.837Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:55:30.101Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:55:30.110Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:55:30.111Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:55:30.173Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:55:51.646Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T18:55:51.717Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-03T18:56:25.918Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:57:12.154Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:57:15.595Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T18:57:20.253Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T18:57:23.951Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:57:24.118Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T18:57:33.470Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:58:20.226Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-03T18:58:30.754Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:58:36.514Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:59:04.989Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:59:12.622Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-03T18:59:32.967Z] [error]: HIDE::404::NotFound::Route is not exists::

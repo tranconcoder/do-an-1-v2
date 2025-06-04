@@ -46,7 +46,7 @@ function NewProduct() {
         const fetchCategories = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get(`${API_URL}/category`);
+                const response = await axios.get(`${API_URL}/category?active=true`);
                 if (response.data && response.data.metadata) {
                     setCategories(response.data.metadata);
                 }

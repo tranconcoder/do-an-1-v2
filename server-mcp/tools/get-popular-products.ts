@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { apiService } from '../services/api.js';
-import type { ApiResponse } from '../services/api.js';
 
 export const getPopularProductsTool = {
     name: "get-popular-products",

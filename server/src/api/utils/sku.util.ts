@@ -1,3 +1,4 @@
+import { CATEGORY_COLLECTION_NAME } from '@/models/category.model';
 import { SKU_COLLECTION_NAME } from '@/models/sku.model.js';
 
 export const getAllSKUAggregate = (limit: number, page: number) => [
@@ -8,6 +9,26 @@ export const getAllSKUAggregate = (limit: number, page: number) => [
             is_publish: true
         }
     },
+
+    /* ---------------- Only get category active ---------------- */
+    {
+        $lookup: {
+            from: CATEGORY_COLLECTION_NAME,
+            localField: 'product_category',
+            foreignField: '_id',
+            as: 'category'
+        }
+    },
+    {
+        $unwind: '$category'
+    },
+    {
+        $match: {
+            'category.is_active': true
+        }
+    },
+
+    /* ---------------- Only get sku not deleted ---------------- */
     {
         $lookup: {
             from: SKU_COLLECTION_NAME,
@@ -24,20 +45,32 @@ export const getAllSKUAggregate = (limit: number, page: number) => [
             'sku.is_deleted': false
         }
     },
+
+    /* ---------------- Pagination ---------------- */
     {
         $skip: (page - 1) * limit
     },
     {
         $limit: limit
     },
+
+    /* ---------------- Add SKU value field ---------------- */
     addSKUValueField,
+
+    /* ---------------- Project ---------------- */
     {
         $project: {
             _id: 1,
+
+            /* ------------------------ Category ------------------------ */
+            'category.category_name': 1,
+            'category.category_icon': 1,
+            'category.category_description': 1,
+
+            /* ------------------------- Product ------------------------ */
             product_name: 1,
             product_quantity: 1,
             product_description: 1,
-            product_category: 1,
             product_shop: 1,
             product_sold: 1,
             product_rating_avg: 1,
@@ -45,6 +78,8 @@ export const getAllSKUAggregate = (limit: number, page: number) => [
             product_thumb: 1,
             product_images: 1,
             product_variations: 1,
+
+            /* --------------------------- SKU -------------------------- */
             'sku._id': 1,
             'sku.sku_product': 1,
             'sku.sku_price': 1,
@@ -57,12 +92,29 @@ export const getAllSKUAggregate = (limit: number, page: number) => [
     }
 ];
 
+/* ---------------- Sort ---------------- */
 export const getAllSKUAggregateSort = (limit: number, page: number, sort: string) => [
     {
         $match: {
             is_deleted: false,
             is_draft: false,
             is_publish: true
+        }
+    },
+    {
+        $lookup: {
+            from: CATEGORY_COLLECTION_NAME,
+            localField: 'product_category',
+            foreignField: '_id',
+            as: 'category'
+        }
+    },
+    {
+        $unwind: '$category'
+    },
+    {
+        $match: {
+            'category.is_active': true
         }
     },
     {
@@ -91,10 +143,17 @@ export const getAllSKUAggregateSort = (limit: number, page: number, sort: string
     {
         $project: {
             _id: 1,
+
+            /* ------------------------ Category ------------------------ */
+            'category.category_name': 1,
+            'category.category_icon': 1,
+            'category.category_description': 1,
+
+
+            /* ------------------------- Product ------------------------ */
             product_name: 1,
             product_quantity: 1,
             product_description: 1,
-            product_category: 1,
             product_shop: 1,
             product_sold: 1,
             product_rating_avg: 1,
@@ -102,6 +161,8 @@ export const getAllSKUAggregateSort = (limit: number, page: number, sort: string
             product_thumb: 1,
             product_images: 1,
             product_variations: 1,
+
+            /* --------------------------- SKU -------------------------- */
             'sku._id': 1,
             'sku.sku_product': 1,
             'sku.sku_price': 1,

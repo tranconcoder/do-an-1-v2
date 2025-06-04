@@ -1,0 +1,42 @@
+[2025-06-04T01:22:18.814Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-04T01:22:18.819Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-04T01:22:20.039Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-04T01:22:20.619Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-04T01:22:21.211Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-04T01:22:22.021Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-04T01:23:43.065Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-04T01:31:51.128Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-04T01:34:21.430Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:11:59.488Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-06-04T04:12:04.916Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-06-04T04:32:35.813Z] [error]: HIDE::400::MongoServerError::FieldPath field names may not contain '.'. Consider using $getField or $setField.::
+[2025-06-04T04:32:35.939Z] [error]: HIDE::400::MongoServerError::FieldPath field names may not contain '.'. Consider using $getField or $setField.::
+[2025-06-04T04:32:42.109Z] [error]: HIDE::400::MongoServerError::FieldPath field names may not contain '.'. Consider using $getField or $setField.::
+[2025-06-04T04:47:56.973Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:47:56.976Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:48:17.508Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:48:17.511Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:48:27.578Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:48:27.679Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:48:38.620Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:48:38.819Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:48:49.172Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:48:49.466Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:48:59.821Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:49:00.215Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T04:52:51.665Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "invalid_type",
+    "expected": "boolean",
+    "received": "string",
+    "path": [
+      "active"
+    ],
+    "message": "Expected boolean, received string"
+  }
+]::
+[2025-06-04T04:57:17.172Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-04T04:57:39.196Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T04:57:39.290Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T04:57:39.422Z] [error]: HIDE::403::Forbidden::Token is invalid!::
+[2025-06-04T04:57:39.515Z] [error]: HIDE::403::Forbidden::Token not found!::

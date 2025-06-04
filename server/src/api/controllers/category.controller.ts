@@ -21,9 +21,16 @@ export default new (class CategoryController {
     /*                             Get                            */
     /* ---------------------------------------------------------- */
     getAlLCategories: RequestHandler = async (req, res, _) => {
+        const active =
+            req.query.active === 'true'
+                ? true
+                : req.query.active === 'false'
+                    ? false
+                    : undefined;
+
         new OkResponse({
             message: 'Get all categories successfully',
-            metadata: await categoryService.getAllCategories()
+            metadata: await categoryService.getAllCategories(active)
         }).send(res);
     };
 

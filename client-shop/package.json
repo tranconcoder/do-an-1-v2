@@ -33,7 +33,7 @@
     },
     "scripts": {
         "start": "react-scripts start",
-        "start:https": "HTTPS=true GENERATE_SOURCEMAP=false WDS_SOCKET_PORT=0 react-scripts start",
+        "dev": "HTTPS=true GENERATE_SOURCEMAP=false WDS_SOCKET_PORT=0 react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"

@@ -3,19 +3,20 @@ import categoryController from '@/controllers/category.controller.js';
 import { Resources } from '@/enums/rbac.enum.js';
 import { authorization } from '@/middlewares/authorization.middleware.js';
 import catchError from '@/middlewares/catchError.middleware.js';
-import validateRequestBody, {
-    validateRequestParams
-} from '@/middlewares/joiValidate.middleware.js';
 import { authenticate } from '@/middlewares/jwt.middleware.js';
 import { cleanUpMediaOnError, uploadSingleMedia } from '@/middlewares/media.middleware.js';
 import { uploadCategory } from '@/middlewares/multer.middleware.js';
-import { validateCreateCategory, validateUpdateCategory } from '@/validations/zod/category.zod';
+import { validateCreateCategory, validateGetAllCategories, validateUpdateCategory } from '@/validations/zod/category.zod';
 import { Router } from 'express';
 
 const categoryRoute = Router();
 const categoryRouteValidate = Router();
 
-categoryRoute.get('/', catchError(categoryController.getAlLCategories));
+categoryRoute.get(
+    '/',
+    validateGetAllCategories,
+    catchError(categoryController.getAlLCategories)
+);
 
 /* ---------------------------------------------------------- */
 /*                          Validated                         */

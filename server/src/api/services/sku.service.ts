@@ -328,6 +328,26 @@ export default new (class SKUService {
             {
                 $match: skuMatchConditions
             },
+
+            /* ---------------- Only get category active ---------------- */
+            {
+                $lookup: {
+                    from: CATEGORY_COLLECTION_NAME,
+                    localField: 'product_category',
+                    foreignField: '_id',
+                    as: 'category'
+                }
+            },
+            {
+                $unwind: '$category'
+            },
+            {
+                $match: {
+                    'category.is_active': true
+                }
+            },
+
+            /* ---------------- Calculate SKU value ---------------- */
             {
                 $addFields: {
                     'sku.sku_value': {
@@ -369,10 +389,16 @@ export default new (class SKUService {
             {
                 $project: {
                     _id: 1,
+
+                    /* ------------------------ Category ------------------------ */
+                    'category.category_name': 1,
+                    'category.category_icon': 1,
+                    'category.category_description': 1,
+
+                    /* ------------------------- Product ------------------------ */
                     product_name: 1,
                     product_quantity: 1,
                     product_description: 1,
-                    product_category: 1,
                     product_shop: 1,
                     product_sold: 1,
                     product_rating_avg: 1,
@@ -380,6 +406,8 @@ export default new (class SKUService {
                     product_thumb: 1,
                     product_images: 1,
                     product_variations: 1,
+
+                    /* --------------------------- SKU -------------------------- */
                     'sku._id': 1,
                     'sku.sku_product': 1,
                     'sku.sku_price': 1,

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { zodId } from './index';
-import { generateValidateWithBody } from '@/middlewares/zod.middleware.js';
+import { generateValidateWithBody, generateValidateWithQuery } from '@/middlewares/zod.middleware.js';
 
 // Base category schema
 const categoryBase = {
@@ -10,6 +10,16 @@ const categoryBase = {
     category_parent: zodId.optional(),
     is_active: z.boolean().optional()
 } as const;
+
+// Get categories schema
+export const getAllCategoriesSchema = z.object({
+    active: z
+        .string()
+        .refine((val) => val === 'true' || val === 'false', {
+            message: 'Active must be true or false'
+        })
+        .optional()
+})
 
 // Create category schema
 export const createCategorySchema = z.object({
@@ -27,7 +37,9 @@ export const updateCategorySchema = z.object({
 // Export types
 export type CreateCategorySchema = z.infer<typeof createCategorySchema>;
 export type UpdateCategorySchema = z.infer<typeof updateCategorySchema>;
+export type GetAllCategoriesSchema = z.infer<typeof getAllCategoriesSchema>;
 
 // Export validation functions
 export const validateCreateCategory = generateValidateWithBody(createCategorySchema);
 export const validateUpdateCategory = generateValidateWithBody(updateCategorySchema);
+export const validateGetAllCategories = generateValidateWithQuery(getAllCategoriesSchema);

@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "start": "bun run index.ts",
-        "dev": "bun --watch index.ts"
+        "dev": "bun run --hot index.ts"
     },
     "dependencies": {
         "openai": "^4.73.1",

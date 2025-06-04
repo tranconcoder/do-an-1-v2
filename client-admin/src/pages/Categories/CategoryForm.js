@@ -55,7 +55,7 @@ const CategoryForm = () => {
         const fetchCategories = async () => {
             try {
                 setLoading(true);
-                const response = await axiosClient.get('/category/');
+                const response = await axiosClient.get('/category');
 
                 if (response.metadata && Array.isArray(response.metadata)) {
                     // Filter out the current category if in edit mode to avoid self-reference
@@ -129,7 +129,7 @@ const CategoryForm = () => {
             const fetchCategoryDetails = async () => {
                 try {
                     setLoading(true);
-                    const response = await axiosClient.get('/category/');
+                    const response = await axiosClient.get('/category');
 
                     if (response.metadata && Array.isArray(response.metadata)) {
                         const category = response.metadata.find((cat) => cat._id === id);

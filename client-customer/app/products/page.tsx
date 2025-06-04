@@ -175,7 +175,10 @@ export default function ProductsPage() {
                 limit: 50 // Load more products
             };
 
+            console.log('API Filters being sent:', apiFilters); // Debug log
+
             const productsData = await productService.getAllProducts(apiFilters);
+            console.log('Products received from API:', productsData); // Debug log
             setProducts(productsData);
 
             // Load shop info for products
@@ -235,6 +238,11 @@ export default function ProductsPage() {
         // 2. Và không phải lần đầu mount
         // 3. Và (có searchQuery hoặc có filters khác được set)
         if (categories.length > 0 && !isInitialMount.current) {
+            console.log('Loading products with filters:', {
+                searchQuery,
+                filters,
+                sortBy
+            }); // Debug log
             loadProducts();
         }
     }, [
