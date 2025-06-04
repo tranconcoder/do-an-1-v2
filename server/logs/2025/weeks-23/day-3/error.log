@@ -167,3 +167,12 @@
 [2025-06-04T10:15:42.507Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-06-04T10:16:17.653Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-06-04T10:16:22.806Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-04T10:27:56.066Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:29:03.370Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:29:03.548Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:29:13.112Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T10:29:13.442Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T11:10:56.394Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-04T11:10:58.841Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-04T11:15:43.380Z] [error]: HIDE::400::BadRequest::You are not the customer of this order::
+[2025-06-04T11:15:51.057Z] [error]: HIDE::400::BadRequest::You are not the customer of this order::

@@ -15,7 +15,8 @@ import {
     Mail,
     XCircle,
     Clock,
-    Loader2
+    Loader2,
+    Star
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,6 +25,9 @@ import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 import { mediaService } from '@/lib/services/api/mediaService';
 import orderService, { OrderHistoryItem } from '@/lib/services/api/orderService';
+import reviewService, { Review } from '@/lib/services/api/reviewService';
+import ReviewForm from '@/components/review/ReviewForm';
+import ReviewDisplay from '@/components/review/ReviewDisplay';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -100,6 +104,12 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
     const [cancelCountdown, setCancelCountdown] = useState(5);
     const [canCancel, setCanCancel] = useState(false);
 
+    // Review states
+    const [reviews, setReviews] = useState<Review[]>([]);
+    const [loadingReviews, setLoadingReviews] = useState(false);
+    const [showReviewForm, setShowReviewForm] = useState(false);
+    const [selectedSkuForReview, setSelectedSkuForReview] = useState<any>(null);
+
     useEffect(() => {
         const fetchOrderDetail = async () => {
             if (!orderId) return;
@@ -108,6 +118,11 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
                 setIsLoading(true);
                 const response = await orderService.getOrderById(orderId);
                 setOrder(response.metadata);
+
+                // Fetch reviews for this order if it's completed
+                if (response.metadata.order_status === 'completed') {
+                    await fetchOrderReviews(orderId);
+                }
             } catch (error: any) {
                 console.error('Error fetching order detail:', error);
                 toast.error('Không thể tải thông tin đơn hàng');
@@ -119,6 +134,20 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
 
         fetchOrderDetail();
     }, [orderId, router]);
+
+    // Function to fetch reviews for the order
+    const fetchOrderReviews = async (orderId: string) => {
+        try {
+            setLoadingReviews(true);
+            const response = await reviewService.getReviewsByOrderId(orderId);
+            setReviews(response.metadata);
+        } catch (error) {
+            console.error('Error fetching reviews:', error);
+            // Don't show error toast for reviews as it's not critical
+        } finally {
+            setLoadingReviews(false);
+        }
+    };
 
     // Handle countdown for cancel dialog
     useEffect(() => {
@@ -181,6 +210,31 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
         setShowCancelDialog(true);
         setCancelCountdown(5);
         setCanCancel(false);
+    };
+
+    // Review handling functions
+    const handleWriteReview = (sku: any) => {
+        setSelectedSkuForReview(sku);
+        setShowReviewForm(true);
+    };
+
+    const handleReviewSubmitted = async () => {
+        setShowReviewForm(false);
+        setSelectedSkuForReview(null);
+        // Refresh reviews
+        if (orderId) {
+            await fetchOrderReviews(orderId);
+        }
+    };
+
+    const handleCancelReview = () => {
+        setShowReviewForm(false);
+        setSelectedSkuForReview(null);
+    };
+
+    // Check if a SKU has been reviewed
+    const isSkuReviewed = (skuId: string) => {
+        return reviews.some((review) => review.sku_id === skuId);
     };
 
     if (isLoading) {
@@ -418,13 +472,39 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
                                                     </div>
                                                 )}
                                         </div>
-                                        <div className="text-right">
-                                            <p className="text-sm text-gray-600">
-                                                SL: {product.quantity}
-                                            </p>
-                                            <p className="font-semibold text-blue-600">
-                                                {product.price.toLocaleString('vi-VN')}₫
-                                            </p>
+                                        <div className="text-right flex flex-col items-end gap-2">
+                                            <div>
+                                                <p className="text-sm text-gray-600">
+                                                    SL: {product.quantity}
+                                                </p>
+                                                <p className="font-semibold text-blue-600">
+                                                    {product.price.toLocaleString('vi-VN')}₫
+                                                </p>
+                                            </div>
+                                            {/* Review button for completed orders */}
+                                            {order.order_status === 'completed' && (
+                                                <div>
+                                                    {isSkuReviewed(product.sku_id) ? (
+                                                        <Badge
+                                                            variant="outline"
+                                                            className="text-green-600 border-green-600"
+                                                        >
+                                                            Đã đánh giá
+                                                        </Badge>
+                                                    ) : (
+                                                        <Button
+                                                            size="sm"
+                                                            variant="outline"
+                                                            onClick={() =>
+                                                                handleWriteReview(product)
+                                                            }
+                                                            className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                                                        >
+                                                            Viết đánh giá
+                                                        </Button>
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 ))}
@@ -454,6 +534,57 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
                                 </div>
                             </CardContent>
                         </Card>
+
+                        {/* Reviews Section */}
+                        {order.order_status === 'completed' && (
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle className="flex items-center gap-2">
+                                        <Star className="h-5 w-5 text-yellow-500" />
+                                        Đánh giá sản phẩm
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    {loadingReviews ? (
+                                        <div className="text-center py-4">
+                                            <div className="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+                                            <p className="text-sm text-gray-500 mt-2">
+                                                Đang tải đánh giá...
+                                            </p>
+                                        </div>
+                                    ) : reviews.length > 0 ? (
+                                        <div className="space-y-4">
+                                            {reviews.map((review) => {
+                                                const product = order.products_info.find(
+                                                    (p) => p.sku_id === review.sku_id
+                                                );
+                                                return (
+                                                    <ReviewDisplay
+                                                        key={review._id}
+                                                        review={review}
+                                                        showProductInfo={true}
+                                                        productName={product?.product_name}
+                                                        productThumb={product?.thumb}
+                                                        productVariations={product?.sku_variations}
+                                                    />
+                                                );
+                                            })}
+                                        </div>
+                                    ) : (
+                                        <div className="text-center py-8">
+                                            <Star className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+                                            <p className="text-gray-500">
+                                                Chưa có đánh giá nào cho đơn hàng này
+                                            </p>
+                                            <p className="text-sm text-gray-400 mt-1">
+                                                Hãy chia sẻ trải nghiệm của bạn về các sản phẩm đã
+                                                mua
+                                            </p>
+                                        </div>
+                                    )}
+                                </CardContent>
+                            </Card>
+                        )}
                     </div>
 
                     {/* Sidebar */}
@@ -732,6 +863,20 @@ export default function OrderDetailPage({}: OrderDetailPageProps) {
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
+            )}
+
+            {/* Review Form Modal */}
+            {showReviewForm && selectedSkuForReview && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                    <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                        <ReviewForm
+                            orderId={order._id}
+                            sku={selectedSkuForReview}
+                            onReviewSubmitted={handleReviewSubmitted}
+                            onCancel={handleCancelReview}
+                        />
+                    </div>
+                </div>
             )}
         </div>
     );

@@ -19,6 +19,7 @@ import otpRoute from './otp/index.js';
 import addressRoute from './address/index.js';
 import paymentRoute from './payment/index.js';
 import chatRoute from './chat/index.js';
+import reviewRoute from './review/index.js';
 
 const rootRoute = Router();
 
@@ -73,5 +74,8 @@ rootRoute.use('/payment', paymentRoute);
 
 /* -------------------------- Chat -------------------------- */
 rootRoute.use('/chat', chatRoute);
+
+/* -------------------------- Review -------------------------- */
+rootRoute.use('/review', reviewRoute);
 
 export default rootRoute;

@@ -16,6 +16,8 @@ import productService, {
 } from '@/lib/services/api/productService';
 import { Category } from '@/lib/services/api/categoryService';
 import shopService, { Shop } from '@/lib/services/api/shopService';
+import reviewService, { Review } from '@/lib/services/api/reviewService';
+import ReviewDisplay from '@/components/review/ReviewDisplay';
 import { mediaService } from '@/lib/services/api/mediaService';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -90,6 +92,8 @@ export default function ProductDetailPage() {
     const [ratingBreakdown, setRatingBreakdown] = useState<RatingBreakdown | null>(null);
     const [showReviewForm, setShowReviewForm] = useState(false);
     const [newReview, setNewReview] = useState({ rating: 5, comment: '' });
+    const [latestReview, setLatestReview] = useState<Review | null>(null);
+    const [loadingLatestReview, setLoadingLatestReview] = useState(false);
 
     // Image modal states
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
@@ -369,6 +373,20 @@ export default function ProductDetailPage() {
         console.log('Submit review:', reviewData);
     };
 
+    // Function to fetch latest review for a SKU
+    const fetchLatestReview = async (skuId: string) => {
+        try {
+            setLoadingLatestReview(true);
+            const response = await reviewService.getLastReviewBySkuId(skuId);
+            setLatestReview(response.metadata);
+        } catch (error) {
+            console.error('Error fetching latest review:', error);
+            setLatestReview(null);
+        } finally {
+            setLoadingLatestReview(false);
+        }
+    };
+
     // Update current SKU when selections change
     useEffect(() => {
         if (!product) return;
@@ -388,6 +406,13 @@ export default function ProductDetailPage() {
             }
         }
     }, [selectedVariations, product]);
+
+    // Fetch latest review when current SKU changes
+    useEffect(() => {
+        if (currentSku?._id) {
+            fetchLatestReview(currentSku._id);
+        }
+    }, [currentSku]);
 
     useEffect(() => {
         if (productId) {
@@ -654,6 +679,33 @@ export default function ProductDetailPage() {
                                 description={product.spu_select.product_description}
                                 attributes={product.spu_select.product_attributes}
                             />
+                        </div>
+
+                        <Separator />
+
+                        {/* Latest Review for Current SKU */}
+                        <div className="p-6">
+                            <h3 className="text-lg font-semibold mb-4">Đánh giá gần nhất</h3>
+                            {loadingLatestReview ? (
+                                <div className="text-center py-8">
+                                    <div className="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+                                    <p className="text-sm text-gray-500 mt-2">
+                                        Đang tải đánh giá...
+                                    </p>
+                                </div>
+                            ) : latestReview ? (
+                                <ReviewDisplay review={latestReview} showProductInfo={false} />
+                            ) : (
+                                <div className="text-center py-8 bg-gray-50 rounded-lg">
+                                    <Star className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+                                    <p className="text-gray-500">
+                                        Chưa có đánh giá nào cho sản phẩm này
+                                    </p>
+                                    <p className="text-sm text-gray-400 mt-1">
+                                        Hãy là người đầu tiên đánh giá sản phẩm này
+                                    </p>
+                                </div>
+                            )}
                         </div>
 
                         <Separator />
