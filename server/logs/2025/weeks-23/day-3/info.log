@@ -888,3 +888,16 @@
 [2025-06-04T11:50:00.717Z] [info]: Cleanup key token: 0 refresh token used cleaned
 [2025-06-04T11:51:00.814Z] [info]: Cleanup key token: 7 key token cleaned
 [2025-06-04T11:51:00.815Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T11:51:36.570Z] [info]: Server closed
+[2025-06-04T12:52:45.997Z] [info]: Socket.IO service initialized
+[2025-06-04T12:53:00.572Z] [info]: Cleanup key token: 7 key token cleaned
+[2025-06-04T12:53:00.574Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T13:02:48.345Z] [info]: Socket.IO service initialized
+[2025-06-04T13:03:01.279Z] [info]: Cleanup key token: 7 key token cleaned
+[2025-06-04T13:03:01.280Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T13:04:00.907Z] [info]: Cleanup key token: 7 key token cleaned
+[2025-06-04T13:04:00.912Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T13:05:00.217Z] [info]: Cleanup key token: 7 key token cleaned
+[2025-06-04T13:05:00.217Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-04T13:06:00.461Z] [info]: Cleanup key token: 7 key token cleaned
+[2025-06-04T13:06:00.462Z] [info]: Cleanup key token: 0 refresh token used cleaned

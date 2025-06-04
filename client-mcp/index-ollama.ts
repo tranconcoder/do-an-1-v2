@@ -11,7 +11,7 @@ import { IncomingMessage } from 'http';
 import * as fs from 'fs';
 import * as path from 'path';
 import { conversationMemory, ConversationMemoryStore } from './lib/memory-store.js';
-import type { ConversationMessage, ConversationSession, UserProfile } from './lib/memory-store.js';
+import type { ConversationMessage, UserProfile } from './lib/memory-store.js';
 
 // Load environment variables
 config();
