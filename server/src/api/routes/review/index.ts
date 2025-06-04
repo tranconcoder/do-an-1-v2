@@ -29,5 +29,11 @@ reviewRoute.get(
     catchError(reviewController.getLastReviewBySkuId)
 );
 
+/* ------------------ Get reviews by SKU with statistics ------------------ */
+reviewRoute.get(
+    "/sku/:skuId/all",
+    validateParamsId("skuId"),
+    catchError(reviewController.getReviewsBySkuId)
+);
 
 export default reviewRoute;

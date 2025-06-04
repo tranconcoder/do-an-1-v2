@@ -59,4 +59,45 @@ export default new class ReviewService {
     async getLastReviewBySkuId(skuId: string, userId: string) {
         return await findOneReview({ query: { sku_id: skuId, user_id: userId }, options: { sort: { createdAt: -1 } } });
     }
+
+    /* ---------------------------------------------------------- */
+    /*              Get reviews by SKU with statistics            */
+    /* ---------------------------------------------------------- */
+    async getReviewsBySkuId(skuId: string) {
+        // Get all reviews for this SKU
+        const reviews = await findReview({
+            query: { sku_id: skuId },
+            options: {
+                sort: { createdAt: -1 },
+                populate: [
+                    { path: 'user_id', select: 'user_fullName user_avatar' },
+                    { path: 'review_images' }
+                ]
+            }
+        });
+
+        // Calculate statistics
+        const totalReviews = reviews.length;
+        let averageRating = 0;
+        const ratingBreakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+        if (totalReviews > 0) {
+            const totalRating = reviews.reduce((sum, review) => sum + review.review_rating, 0);
+            averageRating = Math.round((totalRating / totalReviews) * 10) / 10; // Round to 1 decimal place
+
+            // Count ratings breakdown
+            reviews.forEach(review => {
+                ratingBreakdown[review.review_rating as keyof typeof ratingBreakdown]++;
+            });
+        }
+
+        return {
+            reviews,
+            statistics: {
+                totalReviews,
+                averageRating,
+                ratingBreakdown
+            }
+        };
+    }
 }

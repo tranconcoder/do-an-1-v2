@@ -34,4 +34,14 @@ export default new class ReviewController {
             metadata: await reviewService.getLastReviewBySkuId(req.params.skuId, req.userId!)
         }).send(res);
     }
+
+    /* ---------------------------------------------------------- */
+    /*                Get reviews by SKU with statistics          */
+    /* ---------------------------------------------------------- */
+    getReviewsBySkuId: RequestWithParams<{ skuId: string }> = async (req, res, _next) => {
+        new OkResponse({
+            message: 'Reviews with statistics fetched successfully',
+            metadata: await reviewService.getReviewsBySkuId(req.params.skuId)
+        }).send(res);
+    }
 }

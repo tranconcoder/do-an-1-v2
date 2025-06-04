@@ -10,7 +10,11 @@ export interface CreateReviewRequest {
 
 export interface Review {
     _id: string;
-    user_id: string;
+    user_id: {
+        _id: string;
+        user_fullName: string;
+        user_avatar?: string;
+    } | string;
     order_id: string;
     shop_id: string;
     sku_id: string;
@@ -19,6 +23,23 @@ export interface Review {
     review_images: string[];
     createdAt: string;
     updatedAt: string;
+}
+
+export interface ReviewStatistics {
+    totalReviews: number;
+    averageRating: number;
+    ratingBreakdown: {
+        1: number;
+        2: number;
+        3: number;
+        4: number;
+        5: number;
+    };
+}
+
+export interface ReviewsWithStatistics {
+    reviews: Review[];
+    statistics: ReviewStatistics;
 }
 
 export interface CreateReviewResponse {
@@ -34,6 +55,11 @@ export interface GetReviewsByOrderResponse {
 export interface GetLastReviewBySkuResponse {
     message: string;
     metadata: Review | null;
+}
+
+export interface GetReviewsBySkuResponse {
+    message: string;
+    metadata: ReviewsWithStatistics;
 }
 
 class ReviewService {
@@ -58,6 +84,14 @@ class ReviewService {
      */
     async getLastReviewBySkuId(skuId: string): Promise<GetLastReviewBySkuResponse> {
         const response = await apiClient.get<GetLastReviewBySkuResponse>(`/review/sku/${skuId}`);
+        return response.data;
+    }
+
+    /**
+     * Get all reviews by SKU ID with statistics
+     */
+    async getReviewsBySkuId(skuId: string): Promise<GetReviewsBySkuResponse> {
+        const response = await apiClient.get<GetReviewsBySkuResponse>(`/review/sku/${skuId}/all`);
         return response.data;
     }
 }

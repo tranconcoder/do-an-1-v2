@@ -176,3 +176,63 @@
 [2025-06-04T11:10:58.841Z] [error]: HIDE::403::Forbidden::Token not found!::
 [2025-06-04T11:15:43.380Z] [error]: HIDE::400::BadRequest::You are not the customer of this order::
 [2025-06-04T11:15:51.057Z] [error]: HIDE::400::BadRequest::You are not the customer of this order::
+[2025-06-04T13:19:52.984Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-04T13:21:06.499Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:21:06.554Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:21:06.557Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:21:06.569Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:22:00.827Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:22:00.842Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:22:00.895Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:22:00.905Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:27:01.486Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:27:01.551Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:27:58.795Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:27:58.874Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:29:04.076Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:29:04.137Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:36:07.768Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:36:07.925Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:37:00.420Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:37:00.519Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:37:05.524Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:37:05.626Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:37:07.357Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:37:07.390Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T13:37:09.617Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:37:09.627Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:37:09.629Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:37:09.632Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:37:22.253Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:37:22.411Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:37:22.412Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:37:22.439Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:41:30.127Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:41:30.129Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:41:30.130Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:41:30.136Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:42:47.936Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-04T13:43:39.514Z] [error]: Failed to connect
+[2025-06-04T13:44:31.847Z] [error]: Failed to connect
+[2025-06-04T13:45:03.969Z] [error]: Redis error: Error: Failed to connect
+[2025-06-04T13:45:30.215Z] [error]: Failed to connect
+[2025-06-04T13:45:36.636Z] [error]: HIDE::400::MongoServerSelectionError::Failed to connect::
+[2025-06-04T13:45:36.642Z] [error]: HIDE::400::MongoServerSelectionError::Failed to connect::
+[2025-06-04T13:45:36.643Z] [error]: HIDE::400::MongoServerSelectionError::Failed to connect::
+[2025-06-04T13:45:36.646Z] [error]: HIDE::400::MongoServerSelectionError::Failed to connect::
+[2025-06-04T13:45:36.647Z] [error]: HIDE::400::MongoServerSelectionError::Failed to connect::
+[2025-06-04T13:45:36.700Z] [error]: HIDE::400::MongoServerSelectionError::Failed to connect::
+[2025-06-04T13:49:11.845Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-04T13:53:47.707Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:53:47.711Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:53:47.714Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:53:47.725Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:58:15.148Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:58:15.150Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:58:15.197Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T13:58:15.211Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-04T14:07:51.705Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-04T14:08:29.819Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-04T14:09:05.123Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-04T14:10:50.216Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-04T14:10:50.842Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::

@@ -11,7 +11,7 @@ import { IncomingMessage } from 'http';
 import * as fs from 'fs';
 import * as path from 'path';
 import { conversationMemory, ConversationMemoryStore } from './lib/memory-store.js';
-import type { ConversationMessage, ConversationSession, UserProfile } from './lib/memory-store.js';
+import type { ConversationMessage, UserProfile } from './lib/memory-store.js';
 
 // Load environment variables
 config();
@@ -20,10 +20,11 @@ config();
 const logger = pino(pretty({ colorize: true }));
 
 // Configuration
-const OPENROUTER_API_KEY = "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";
-// const MODEL_NAME = process.env.LLM_MODEL || "meta-llama/llama-3-70b-instruct";
+const OPENROUTER_API_KEY = "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";
 
+// const MODEL_NAME = process.env.LLM_MODEL || "meta-llama/llama-3-70b-instruct";
 const MODEL_NAME = process.env.LLM_MODEL || "deepseek/deepseek-chat-v3-0324:free";
+
 const DISABLE_THINKING = process.env.DISABLE_THINKING === "true" || true;
 const MCP_SERVER_URL = process.env.MCP_URL || "http://localhost:8000";
 const WEBSOCKET_PORT = process.env.WEBSOCKET_PORT || 8001;
@@ -162,9 +163,6 @@ QUAN TRỌNG: Trả lời bằng Markdown format để hiển thị đẹp trên
 
 THÔNG TIN VỀ ALICONCON:
 - Aliconcon là nền tảng thương mại điện tử đa dạng với hàng triệu sản phẩm
-- Chuyên cung cấp các sản phẩm: điện tử, thời trang, gia dụng, sách, đồ chơi
-- Có hệ thống giao hàng nhanh toàn quốc
-- Hỗ trợ thanh toán đa dạng: COD, chuyển khoản, ví điện tử
 - Có chương trình khuyến mãi và tích điểm thường xuyên
 - Hỗ trợ khách hàng 24/7
 
@@ -195,8 +193,8 @@ Sử dụng thông tin trên để trả lời một cách cá nhân hóa và ch
                     model: MODEL_NAME,
                     messages: messages,
                     tools: useTools ? availableTools : undefined,
-                    temperature: 0.7,
-                    max_tokens: 2048
+                    temperature: 0.2,
+                    max_tokens: 8096
                 });
 
                 const message = response.choices[0]?.message;
@@ -255,8 +253,8 @@ Sử dụng thông tin trên để trả lời một cách cá nhân hóa và ch
                     const finalResponse = await openai.chat.completions.create({
                         model: MODEL_NAME,
                         messages: messages,
-                        max_tokens: 1000,
-                        temperature: 0.7
+                        max_tokens: 100000,
+                        temperature: 0.2
                     });
 
                     const finalMessage = finalResponse.choices[0]?.message;

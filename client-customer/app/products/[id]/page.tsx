@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronRight, Star, Heart, ShoppingCart, Zap, X } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 import productService, {
     ProductDetailResponse,
@@ -46,19 +46,7 @@ import {
     ProductNavigation
 } from '@/components/product-detail';
 
-// Review interface
-interface Review {
-    _id: string;
-    user_name: string;
-    user_avatar?: string;
-    rating: number;
-    comment: string;
-    created_at: string;
-    helpful_count?: number;
-    images?: string[];
-}
-
-// Rating breakdown interface
+// Rating breakdown interface (kept for compatibility with other components)
 interface RatingBreakdown {
     5: number;
     4: number;
@@ -87,11 +75,6 @@ export default function ProductDetailPage() {
     const [currentSku, setCurrentSku] = useState<ProductDetailResponse | SkuOther | null>(null);
 
     // Review states
-    const [reviews, setReviews] = useState<Review[]>([]);
-    const [loadingReviews, setLoadingReviews] = useState(false);
-    const [ratingBreakdown, setRatingBreakdown] = useState<RatingBreakdown | null>(null);
-    const [showReviewForm, setShowReviewForm] = useState(false);
-    const [newReview, setNewReview] = useState({ rating: 5, comment: '' });
     const [latestReview, setLatestReview] = useState<Review | null>(null);
     const [loadingLatestReview, setLoadingLatestReview] = useState(false);
 
@@ -368,11 +351,6 @@ export default function ProductDetailPage() {
         console.log('Buy now clicked', currentSku?._id);
     };
 
-    const handleSubmitReview = (reviewData: { rating: number; comment: string }) => {
-        // TODO: Implement review submission
-        console.log('Submit review:', reviewData);
-    };
-
     // Function to fetch latest review for a SKU
     const fetchLatestReview = async (skuId: string) => {
         try {
@@ -491,46 +469,6 @@ export default function ProductDetailPage() {
                             setLoadingRelated(false);
                         }
                     }
-
-                    // Fetch reviews (mock data for now)
-                    setLoadingReviews(true);
-                    try {
-                        // Mock reviews data
-                        const mockReviews: Review[] = [
-                            {
-                                _id: '1',
-                                user_name: 'Nguyễn Văn A',
-                                rating: 5,
-                                comment: 'Sản phẩm tuyệt vời! Rất đáng mua.',
-                                created_at: new Date().toISOString(),
-                                helpful_count: 12
-                            },
-                            {
-                                _id: '2',
-                                user_name: 'Trần Thị B',
-                                rating: 4,
-                                comment: 'Chất lượng tốt, giao hàng nhanh.',
-                                created_at: new Date(Date.now() - 86400000).toISOString(),
-                                helpful_count: 8
-                            }
-                        ];
-                        setReviews(mockReviews);
-
-                        // Mock rating breakdown
-                        setRatingBreakdown({
-                            5: 150,
-                            4: 45,
-                            3: 12,
-                            2: 3,
-                            1: 2,
-                            total: 212,
-                            average: 4.6
-                        });
-                    } catch (reviewError) {
-                        console.error('Error fetching reviews:', reviewError);
-                    } finally {
-                        setLoadingReviews(false);
-                    }
                 } catch (err) {
                     setError('Failed to load product details');
                     console.error('Error fetching product:', err);
@@ -631,7 +569,7 @@ export default function ProductDetailPage() {
                                 {/* Product Header */}
                                 <ProductHeader
                                     productName={product.spu_select.product_name}
-                                    rating={ratingBreakdown?.average || 0}
+                                    rating={0}
                                     soldCount={product.spu_select.product_sold || 0}
                                 />
 
@@ -712,12 +650,7 @@ export default function ProductDetailPage() {
 
                         {/* Product Reviews */}
                         <div className="p-6">
-                            <ProductReviews
-                                reviews={reviews}
-                                ratingBreakdown={ratingBreakdown}
-                                loading={loadingReviews}
-                                onSubmitReview={handleSubmitReview}
-                            />
+                            {currentSku?._id && <ProductReviews skuId={currentSku._id} />}
                         </div>
                     </div>
 
