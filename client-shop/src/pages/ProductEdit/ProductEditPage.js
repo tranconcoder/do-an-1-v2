@@ -399,464 +399,482 @@ const ProductEditPage = () => {
 
     return (
         <div className={cx('product-edit')}>
-            {/* Header */}
-            <div className={cx('page-header')}>
-                <div className={cx('header-top')}>
-                    <Link to="/products" className={cx('back-link')}>
-                        <FaArrowLeft /> Quay lại
-                    </Link>
-                    <div className={cx('header-content')}>
-                        <h1>Chỉnh sửa sản phẩm</h1>
-                        <div className={cx('product-meta')}>
-                            <span className={cx('product-id')}>ID: {id}</span>
-                            <div className={cx('status-badges')}>
-                                <span
-                                    className={cx(
-                                        'badge',
-                                        formData.is_draft ? 'draft' : 'published'
-                                    )}
-                                >
-                                    {formData.is_draft ? 'Bản nháp' : 'Đã đăng'}
-                                </span>
-                                <span
-                                    className={cx(
-                                        'badge',
-                                        formData.is_publish ? 'public' : 'private'
-                                    )}
-                                >
-                                    {formData.is_publish ? (
-                                        <>
-                                            <FaEye /> Công khai
-                                        </>
-                                    ) : (
-                                        <>
-                                            <FaEyeSlash /> Riêng tư
-                                        </>
-                                    )}
-                                </span>
+            <div className={cx('edit-container')}>
+                {/* Header */}
+                <div className={cx('page-header')}>
+                    <div className={cx('header-top')}>
+                        <Link to="/products" className={cx('back-link')}>
+                            <FaArrowLeft /> Quay lại
+                        </Link>
+                        <div className={cx('header-content')}>
+                            <h1>Chỉnh sửa sản phẩm</h1>
+                            <div className={cx('product-meta')}>
+                                <span className={cx('product-id')}>ID: {id}</span>
+                                <div className={cx('status-badges')}>
+                                    <span
+                                        className={cx(
+                                            'badge',
+                                            formData.is_draft ? 'draft' : 'published'
+                                        )}
+                                    >
+                                        {formData.is_draft ? 'Bản nháp' : 'Đã đăng'}
+                                    </span>
+                                    <span
+                                        className={cx(
+                                            'badge',
+                                            formData.is_publish ? 'public' : 'private'
+                                        )}
+                                    >
+                                        {formData.is_publish ? (
+                                            <>
+                                                <FaEye /> Công khai
+                                            </>
+                                        ) : (
+                                            <>
+                                                <FaEyeSlash /> Riêng tư
+                                            </>
+                                        )}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Tab Navigation */}
-            <div className={cx('tab-navigation')}>
-                <button
-                    className={cx('tab-button', { active: activeTab === 'basic' })}
-                    onClick={() => setActiveTab('basic')}
-                >
-                    <FaInfoCircle /> Thông tin cơ bản
-                </button>
-                <button
-                    className={cx('tab-button', { active: activeTab === 'attributes' })}
-                    onClick={() => setActiveTab('attributes')}
-                >
-                    <FaTag /> Thuộc tính
-                </button>
-                <button
-                    className={cx('tab-button', { active: activeTab === 'images' })}
-                    onClick={() => setActiveTab('images')}
-                >
-                    <FaImage /> Hình ảnh
-                </button>
-                <button
-                    className={cx('tab-button', { active: activeTab === 'sku' })}
-                    onClick={() => setActiveTab('sku')}
-                >
-                    <FaBox /> Quản lý SKU
-                </button>
-            </div>
+                {/* Tab Navigation */}
+                <div className={cx('tab-navigation')}>
+                    <button
+                        className={cx('tab-button', { active: activeTab === 'basic' })}
+                        onClick={() => setActiveTab('basic')}
+                    >
+                        <FaInfoCircle /> Thông tin cơ bản
+                    </button>
+                    <button
+                        className={cx('tab-button', { active: activeTab === 'attributes' })}
+                        onClick={() => setActiveTab('attributes')}
+                    >
+                        <FaTag /> Thuộc tính
+                    </button>
+                    <button
+                        className={cx('tab-button', { active: activeTab === 'images' })}
+                        onClick={() => setActiveTab('images')}
+                    >
+                        <FaImage /> Hình ảnh
+                    </button>
+                    <button
+                        className={cx('tab-button', { active: activeTab === 'sku' })}
+                        onClick={() => setActiveTab('sku')}
+                    >
+                        <FaBox /> Quản lý SKU
+                    </button>
+                </div>
 
-            <form onSubmit={handleSubmit} className={cx('edit-form')}>
-                {/* Basic Information Tab */}
-                {activeTab === 'basic' && (
-                    <div className={cx('form-section', 'tab-content')}>
-                        <div className={cx('section-header')}>
-                            <h3>
-                                <FaInfoCircle /> Thông tin cơ bản
-                            </h3>
-                        </div>
-
-                        <div className={cx('form-grid')}>
-                            <div className={cx('form-group')}>
-                                <label>Tên sản phẩm *</label>
-                                <input
-                                    type="text"
-                                    value={formData.product_name}
-                                    onChange={(e) =>
-                                        handleInputChange('product_name', e.target.value)
-                                    }
-                                    placeholder="Nhập tên sản phẩm"
-                                    required
-                                />
+                <form onSubmit={handleSubmit} className={cx('edit-form')}>
+                    {/* Basic Information Tab */}
+                    {activeTab === 'basic' && (
+                        <div className={cx('form-section', 'tab-content')}>
+                            <div className={cx('section-header')}>
+                                <h3>
+                                    <FaInfoCircle /> Thông tin cơ bản
+                                </h3>
                             </div>
 
-                            <div className={cx('form-group')}>
-                                <label>Danh mục *</label>
-                                <select
-                                    value={formData.product_category}
-                                    onChange={(e) =>
-                                        handleInputChange('product_category', e.target.value)
-                                    }
-                                    required
-                                >
-                                    <option value="">Chọn danh mục</option>
-                                    {categories.map((cat) => (
-                                        <option key={cat._id} value={cat._id}>
-                                            {cat.category_name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-
-                        <div className={cx('form-group')}>
-                            <label>Mô tả sản phẩm</label>
-                            <textarea
-                                value={formData.product_description}
-                                onChange={(e) =>
-                                    handleInputChange('product_description', e.target.value)
-                                }
-                                placeholder="Nhập mô tả chi tiết về sản phẩm"
-                                rows="6"
-                            />
-                        </div>
-
-                        <div className={cx('form-group', 'checkbox-group')}>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    checked={formData.is_draft}
-                                    onChange={(e) =>
-                                        handleInputChange('is_draft', e.target.checked)
-                                    }
-                                />
-                                Lưu dưới dạng bản nháp
-                            </label>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    checked={formData.is_publish}
-                                    onChange={(e) =>
-                                        handleInputChange('is_publish', e.target.checked)
-                                    }
-                                />
-                                Đăng bán công khai
-                            </label>
-                        </div>
-                    </div>
-                )}
-
-                {/* Product Attributes Tab */}
-                {activeTab === 'attributes' && (
-                    <div className={cx('form-section', 'tab-content')}>
-                        <div className={cx('section-header')}>
-                            <h3>
-                                <FaTag /> Thuộc tính sản phẩm
-                            </h3>
-                        </div>
-
-                        {/* Add new attribute */}
-                        <div className={cx('add-attribute-section')}>
-                            <h4>Thêm thuộc tính mới</h4>
-                            <div className={cx('attribute-input-row')}>
-                                <input
-                                    type="text"
-                                    className={cx('attribute-input')}
-                                    placeholder="Tên thuộc tính (VD: Màu sắc, Kích thước...)"
-                                    value={newAttribute.attr_name}
-                                    onChange={(e) =>
-                                        setNewAttribute((prev) => ({
-                                            ...prev,
-                                            attr_name: e.target.value
-                                        }))
-                                    }
-                                />
-                                <input
-                                    type="text"
-                                    className={cx('attribute-input')}
-                                    placeholder="Giá trị (VD: Đỏ, XL...)"
-                                    value={newAttribute.attr_value}
-                                    onChange={(e) =>
-                                        setNewAttribute((prev) => ({
-                                            ...prev,
-                                            attr_value: e.target.value
-                                        }))
-                                    }
-                                />
-                                <button
-                                    type="button"
-                                    onClick={addNewAttribute}
-                                    className={cx('add-btn')}
-                                >
-                                    <FaPlus /> Thêm
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Existing attributes */}
-                        {productData.product_attributes &&
-                            productData.product_attributes.length > 0 && (
-                                <div className={cx('existing-attributes')}>
-                                    <h4>Thuộc tính hiện có</h4>
-                                    {productData.product_attributes.map((attr, index) => {
-                                        const isMarkedForRemoval =
-                                            formData.product_attributes_to_remove.includes(
-                                                attr._id
-                                            );
-                                        const isEditing = editingAttributes[index];
-
-                                        if (isMarkedForRemoval) return null;
-
-                                        return (
-                                            <AttributeItem
-                                                key={attr._id}
-                                                attribute={attr}
-                                                index={index}
-                                                isEditing={isEditing}
-                                                onStartEdit={() => startEditingAttribute(index)}
-                                                onSaveEdit={(updatedAttr) =>
-                                                    saveAttributeEdit(index, updatedAttr)
-                                                }
-                                                onRemove={() => removeAttribute(index, false)}
-                                                onCancelEdit={() =>
-                                                    setEditingAttributes((prev) => ({
-                                                        ...prev,
-                                                        [index]: false
-                                                    }))
-                                                }
-                                            />
-                                        );
-                                    })}
+                            <div className={cx('form-grid')}>
+                                <div className={cx('form-group')}>
+                                    <label>Tên sản phẩm *</label>
+                                    <input
+                                        type="text"
+                                        value={formData.product_name}
+                                        onChange={(e) =>
+                                            handleInputChange('product_name', e.target.value)
+                                        }
+                                        placeholder="Nhập tên sản phẩm"
+                                        required
+                                    />
                                 </div>
-                            )}
 
-                        {/* New attributes to be added */}
-                        {formData.product_attributes_to_add.length > 0 && (
-                            <div className={cx('new-attributes')}>
-                                <h4>Thuộc tính mới sẽ được thêm</h4>
-                                {formData.product_attributes_to_add.map((attr, index) => (
-                                    <div key={index} className={cx('attribute-row', 'new')}>
-                                        <span className={cx('attr-name')}>{attr.attr_name}</span>
-                                        <span className={cx('attr-value')}>{attr.attr_value}</span>
-                                        <button
-                                            type="button"
-                                            onClick={() => removeAttribute(index, true)}
-                                            className={cx('remove-btn')}
-                                        >
-                                            <FaTrash />
-                                        </button>
-                                    </div>
-                                ))}
+                                <div className={cx('form-group')}>
+                                    <label>Danh mục *</label>
+                                    <select
+                                        value={formData.product_category}
+                                        onChange={(e) =>
+                                            handleInputChange('product_category', e.target.value)
+                                        }
+                                        required
+                                    >
+                                        <option value="">Chọn danh mục</option>
+                                        {categories.map((cat) => (
+                                            <option key={cat._id} value={cat._id}>
+                                                {cat.category_name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
                             </div>
-                        )}
-                    </div>
-                )}
 
-                {/* Images Tab */}
-                {activeTab === 'images' && (
-                    <div className={cx('form-section', 'tab-content')}>
-                        <div className={cx('section-header')}>
-                            <h3>
-                                <FaImage /> Quản lý hình ảnh
-                            </h3>
+                            <div className={cx('form-group')}>
+                                <label>Mô tả sản phẩm</label>
+                                <textarea
+                                    value={formData.product_description}
+                                    onChange={(e) =>
+                                        handleInputChange('product_description', e.target.value)
+                                    }
+                                    placeholder="Nhập mô tả chi tiết về sản phẩm"
+                                    rows="6"
+                                />
+                            </div>
+
+                            <div className={cx('form-group', 'checkbox-group')}>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        checked={formData.is_draft}
+                                        onChange={(e) =>
+                                            handleInputChange('is_draft', e.target.checked)
+                                        }
+                                    />
+                                    Lưu dưới dạng bản nháp
+                                </label>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        checked={formData.is_publish}
+                                        onChange={(e) =>
+                                            handleInputChange('is_publish', e.target.checked)
+                                        }
+                                    />
+                                    Đăng bán công khai
+                                </label>
+                            </div>
                         </div>
+                    )}
 
-                        <div className={cx('images-grid')}>
-                            {/* Product Thumbnail */}
-                            <div className={cx('image-upload-section')}>
-                                <h4>Ảnh đại diện sản phẩm</h4>
-                                <div className={cx('upload-area')}>
-                                    {imagePreview.productThumb ? (
-                                        <div className={cx('image-preview')}>
-                                            <img
-                                                src={imagePreview.productThumb}
-                                                alt="Product thumbnail"
-                                            />
+                    {/* Product Attributes Tab */}
+                    {activeTab === 'attributes' && (
+                        <div className={cx('form-section', 'tab-content')}>
+                            <div className={cx('section-header')}>
+                                <h3>
+                                    <FaTag /> Thuộc tính sản phẩm
+                                </h3>
+                            </div>
+
+                            {/* Add new attribute */}
+                            <div className={cx('add-attribute-section')}>
+                                <h4>Thêm thuộc tính mới</h4>
+                                <div className={cx('attribute-input-row')}>
+                                    <input
+                                        type="text"
+                                        className={cx('attribute-input')}
+                                        placeholder="Tên thuộc tính (VD: Màu sắc, Kích thước...)"
+                                        value={newAttribute.attr_name}
+                                        onChange={(e) =>
+                                            setNewAttribute((prev) => ({
+                                                ...prev,
+                                                attr_name: e.target.value
+                                            }))
+                                        }
+                                    />
+                                    <input
+                                        type="text"
+                                        className={cx('attribute-input')}
+                                        placeholder="Giá trị (VD: Đỏ, XL...)"
+                                        value={newAttribute.attr_value}
+                                        onChange={(e) =>
+                                            setNewAttribute((prev) => ({
+                                                ...prev,
+                                                attr_value: e.target.value
+                                            }))
+                                        }
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={addNewAttribute}
+                                        className={cx('add-btn')}
+                                    >
+                                        <FaPlus /> Thêm
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Existing attributes */}
+                            {productData.product_attributes &&
+                                productData.product_attributes.length > 0 && (
+                                    <div className={cx('existing-attributes')}>
+                                        <h4>Thuộc tính hiện có</h4>
+                                        {productData.product_attributes.map((attr, index) => {
+                                            const isMarkedForRemoval =
+                                                formData.product_attributes_to_remove.includes(
+                                                    attr._id
+                                                );
+                                            const isEditing = editingAttributes[index];
+
+                                            if (isMarkedForRemoval) return null;
+
+                                            return (
+                                                <AttributeItem
+                                                    key={attr._id}
+                                                    attribute={attr}
+                                                    index={index}
+                                                    isEditing={isEditing}
+                                                    onStartEdit={() => startEditingAttribute(index)}
+                                                    onSaveEdit={(updatedAttr) =>
+                                                        saveAttributeEdit(index, updatedAttr)
+                                                    }
+                                                    onRemove={() => removeAttribute(index, false)}
+                                                    onCancelEdit={() =>
+                                                        setEditingAttributes((prev) => ({
+                                                            ...prev,
+                                                            [index]: false
+                                                        }))
+                                                    }
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                )}
+
+                            {/* New attributes to be added */}
+                            {formData.product_attributes_to_add.length > 0 && (
+                                <div className={cx('new-attributes')}>
+                                    <h4>Thuộc tính mới sẽ được thêm</h4>
+                                    {formData.product_attributes_to_add.map((attr, index) => (
+                                        <div key={index} className={cx('attribute-row', 'new')}>
+                                            <span className={cx('attr-name')}>
+                                                {attr.attr_name}
+                                            </span>
+                                            <span className={cx('attr-value')}>
+                                                {attr.attr_value}
+                                            </span>
                                             <button
                                                 type="button"
-                                                onClick={() => {
-                                                    setProductThumb(null);
-                                                    setImagePreview((prev) => ({
-                                                        ...prev,
-                                                        productThumb: null
-                                                    }));
-                                                }}
-                                                className={cx('remove-image-btn')}
+                                                onClick={() => removeAttribute(index, true)}
+                                                className={cx('remove-btn')}
                                             >
                                                 <FaTrash />
                                             </button>
                                         </div>
-                                    ) : productData.product_thumb ? (
-                                        <div className={cx('current-image')}>
-                                            <img
-                                                src={getMediaUrl(
-                                                    productData.product_thumb?._id ||
-                                                        productData.product_thumb
-                                                )}
-                                                alt="Current thumbnail"
-                                                onError={(e) => {
-                                                    console.error(
-                                                        '❌ Thumbnail image failed to load:',
-                                                        productData.product_thumb
-                                                    );
-                                                    e.target.style.border = '2px solid red';
-                                                }}
-                                            />
-                                            <span>Ảnh hiện tại</span>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            {console.log(
-                                                '⚠️ No product thumb found:',
-                                                productData.product_thumb
-                                            )}
-                                            <p>Không có ảnh đại diện</p>
-                                        </div>
-                                    )}
-
-                                    <label className={cx('upload-button')}>
-                                        <FaUpload /> Chọn ảnh đại diện
-                                        <input
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={(e) =>
-                                                handleFileUpload('product_thumb', e.target.files)
-                                            }
-                                            hidden
-                                        />
-                                    </label>
+                                    ))}
                                 </div>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Images Tab */}
+                    {activeTab === 'images' && (
+                        <div className={cx('form-section', 'tab-content')}>
+                            <div className={cx('section-header')}>
+                                <h3>
+                                    <FaImage /> Quản lý hình ảnh
+                                </h3>
                             </div>
 
-                            {/* Product Images */}
-                            <div className={cx('image-upload-section')}>
-                                <h4>Ảnh sản phẩm (tối đa 10 ảnh)</h4>
-                                <div className={cx('upload-area')}>
-                                    {imagePreview.productImages.length > 0 && (
-                                        <div className={cx('image-grid')}>
-                                            {imagePreview.productImages.map((src, index) => (
-                                                <div key={index} className={cx('image-preview')}>
-                                                    <img src={src} alt={`Product ${index + 1}`} />
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    {productData.product_images &&
-                                        productData.product_images.length > 0 &&
-                                        !imagePreview.productImages.length && (
-                                            <div className={cx('current-images')}>
-                                                <p>Ảnh hiện tại:</p>
-                                                <div className={cx('image-grid')}>
-                                                    {productData.product_images.map(
-                                                        (img, index) => {
-                                                            console.log(
-                                                                `🖼️ Product image ${index}:`,
-                                                                img
-                                                            );
-                                                            return (
-                                                                <img
-                                                                    key={index}
-                                                                    src={getMediaUrl(
-                                                                        img?._id || img
-                                                                    )}
-                                                                    alt={`Current ${index + 1}`}
-                                                                    onError={(e) => {
-                                                                        console.error(
-                                                                            '❌ Product image failed to load:',
-                                                                            img
-                                                                        );
-                                                                        e.target.style.border =
-                                                                            '2px solid red';
-                                                                    }}
-                                                                    onLoad={() => {
-                                                                        console.log(
-                                                                            '✅ Product image loaded:',
-                                                                            getMediaUrl(img)
-                                                                        );
-                                                                    }}
-                                                                />
-                                                            );
-                                                        }
+                            <div className={cx('images-grid')}>
+                                {/* Product Thumbnail */}
+                                <div className={cx('image-upload-section')}>
+                                    <h4>Ảnh đại diện sản phẩm</h4>
+                                    <div className={cx('upload-area')}>
+                                        {imagePreview.productThumb ? (
+                                            <div className={cx('image-preview')}>
+                                                <img
+                                                    src={imagePreview.productThumb}
+                                                    alt="Product thumbnail"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setProductThumb(null);
+                                                        setImagePreview((prev) => ({
+                                                            ...prev,
+                                                            productThumb: null
+                                                        }));
+                                                    }}
+                                                    className={cx('remove-image-btn')}
+                                                >
+                                                    <FaTrash />
+                                                </button>
+                                            </div>
+                                        ) : productData.product_thumb ? (
+                                            <div className={cx('current-image')}>
+                                                <img
+                                                    src={getMediaUrl(
+                                                        productData.product_thumb?._id ||
+                                                            productData.product_thumb
                                                     )}
-                                                </div>
+                                                    alt="Current thumbnail"
+                                                    onError={(e) => {
+                                                        console.error(
+                                                            '❌ Thumbnail image failed to load:',
+                                                            productData.product_thumb
+                                                        );
+                                                        e.target.style.border = '2px solid red';
+                                                    }}
+                                                />
+                                                <span>Ảnh hiện tại</span>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                {console.log(
+                                                    '⚠️ No product thumb found:',
+                                                    productData.product_thumb
+                                                )}
+                                                <p>Không có ảnh đại diện</p>
                                             </div>
                                         )}
 
-                                    {/* Debug: Show when no images */}
-                                    {(!productData.product_images ||
-                                        productData.product_images.length === 0) && (
-                                        <div
-                                            style={{
-                                                padding: '10px',
-                                                border: '1px dashed #ccc',
-                                                margin: '10px 0'
-                                            }}
-                                        >
-                                            {console.log(
-                                                '⚠️ No product images found:',
-                                                productData.product_images
-                                            )}
-                                            <p>Không có ảnh sản phẩm hiện tại</p>
-                                        </div>
-                                    )}
+                                        <label className={cx('upload-button')}>
+                                            <FaUpload /> Chọn ảnh đại diện
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) =>
+                                                    handleFileUpload(
+                                                        'product_thumb',
+                                                        e.target.files
+                                                    )
+                                                }
+                                                hidden
+                                            />
+                                        </label>
+                                    </div>
+                                </div>
 
-                                    <label className={cx('upload-button')}>
-                                        <FaUpload /> Chọn ảnh sản phẩm
-                                        <input
-                                            type="file"
-                                            accept="image/*"
-                                            multiple
-                                            onChange={(e) =>
-                                                handleFileUpload('product_images', e.target.files)
-                                            }
-                                            hidden
-                                        />
-                                    </label>
+                                {/* Product Images */}
+                                <div className={cx('image-upload-section')}>
+                                    <h4>Ảnh sản phẩm (tối đa 10 ảnh)</h4>
+                                    <div className={cx('upload-area')}>
+                                        {imagePreview.productImages.length > 0 && (
+                                            <div className={cx('image-grid')}>
+                                                {imagePreview.productImages.map((src, index) => (
+                                                    <div
+                                                        key={index}
+                                                        className={cx('image-preview')}
+                                                    >
+                                                        <img
+                                                            src={src}
+                                                            alt={`Product ${index + 1}`}
+                                                        />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        {productData.product_images &&
+                                            productData.product_images.length > 0 &&
+                                            !imagePreview.productImages.length && (
+                                                <div className={cx('current-images')}>
+                                                    <p>Ảnh hiện tại:</p>
+                                                    <div className={cx('image-grid')}>
+                                                        {productData.product_images.map(
+                                                            (img, index) => {
+                                                                console.log(
+                                                                    `🖼️ Product image ${index}:`,
+                                                                    img
+                                                                );
+                                                                return (
+                                                                    <img
+                                                                        key={index}
+                                                                        src={getMediaUrl(
+                                                                            img?._id || img
+                                                                        )}
+                                                                        alt={`Current ${index + 1}`}
+                                                                        onError={(e) => {
+                                                                            console.error(
+                                                                                '❌ Product image failed to load:',
+                                                                                img
+                                                                            );
+                                                                            e.target.style.border =
+                                                                                '2px solid red';
+                                                                        }}
+                                                                        onLoad={() => {
+                                                                            console.log(
+                                                                                '✅ Product image loaded:',
+                                                                                getMediaUrl(img)
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                );
+                                                            }
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                        {/* Debug: Show when no images */}
+                                        {(!productData.product_images ||
+                                            productData.product_images.length === 0) && (
+                                            <div
+                                                style={{
+                                                    padding: '10px',
+                                                    border: '1px dashed #ccc',
+                                                    margin: '10px 0'
+                                                }}
+                                            >
+                                                {console.log(
+                                                    '⚠️ No product images found:',
+                                                    productData.product_images
+                                                )}
+                                                <p>Không có ảnh sản phẩm hiện tại</p>
+                                            </div>
+                                        )}
+
+                                        <label className={cx('upload-button')}>
+                                            <FaUpload /> Chọn ảnh sản phẩm
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                multiple
+                                                onChange={(e) =>
+                                                    handleFileUpload(
+                                                        'product_images',
+                                                        e.target.files
+                                                    )
+                                                }
+                                                hidden
+                                            />
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
 
-                {/* SKU Management Tab */}
-                {activeTab === 'sku' && (
-                    <div className={cx('form-section', 'tab-content')}>
-                        <div className={cx('section-header')}>
-                            <h3>
-                                <FaBox /> Quản lý SKU
-                            </h3>
+                    {/* SKU Management Tab */}
+                    {activeTab === 'sku' && (
+                        <div className={cx('form-section', 'tab-content')}>
+                            <div className={cx('section-header')}>
+                                <h3>
+                                    <FaBox /> Quản lý SKU
+                                </h3>
+                            </div>
+
+                            <div className={cx('sku-list')}>
+                                {formData.sku_updates.map((sku, index) => (
+                                    <SKUEditCard
+                                        key={sku.sku_id}
+                                        sku={sku}
+                                        skuIndex={index}
+                                        productData={productData}
+                                        skuFiles={skuFiles}
+                                        onChange={(field, value) =>
+                                            handleSKUChange(index, field, value)
+                                        }
+                                        onFileUpload={(type, files) =>
+                                            handleFileUpload(type, files, index)
+                                        }
+                                    />
+                                ))}
+                            </div>
                         </div>
+                    )}
 
-                        <div className={cx('sku-list')}>
-                            {formData.sku_updates.map((sku, index) => (
-                                <SKUEditCard
-                                    key={sku.sku_id}
-                                    sku={sku}
-                                    skuIndex={index}
-                                    productData={productData}
-                                    skuFiles={skuFiles}
-                                    onChange={(field, value) =>
-                                        handleSKUChange(index, field, value)
-                                    }
-                                    onFileUpload={(type, files) =>
-                                        handleFileUpload(type, files, index)
-                                    }
-                                />
-                            ))}
-                        </div>
+                    {/* Submit Button */}
+                    <div className={cx('form-actions')}>
+                        <button type="submit" disabled={saving} className={cx('save-btn')}>
+                            <FaSave /> {saving ? 'Đang lưu...' : 'Lưu thay đổi'}
+                        </button>
                     </div>
-                )}
-
-                {/* Submit Button */}
-                <div className={cx('form-actions')}>
-                    <button type="submit" disabled={saving} className={cx('save-btn')}>
-                        <FaSave /> {saving ? 'Đang lưu...' : 'Lưu thay đổi'}
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     );
 };

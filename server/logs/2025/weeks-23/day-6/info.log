@@ -641,3 +641,7 @@
 [2025-06-07T16:32:00.141Z] [info]: Cleanup key token: 2 key token cleaned
 [2025-06-07T16:32:00.142Z] [info]: Cleanup key token: 0 refresh token used cleaned
 [2025-06-07T16:32:48.567Z] [info]: Server closed
+[2025-06-07T16:39:46.330Z] [info]: Socket.IO service initialized
+[2025-06-07T16:40:02.794Z] [info]: Cleanup key token: 2 key token cleaned
+[2025-06-07T16:40:02.794Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-07T16:40:13.906Z] [info]: Server closed
