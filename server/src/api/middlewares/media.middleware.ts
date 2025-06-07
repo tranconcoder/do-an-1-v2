@@ -90,16 +90,13 @@ export const uploadFieldsMedia = (
             Object.fromEntries(
                 Object.keys(fields).map((key) => [
                     key,
-                    Joi.array()
-                        .items(Joi.object())
-                        .min(fields[key].min)
-                        .max(fields[key].max)
-                        .required()
+                    fields[key].min > 0
+                        ? Joi.array().items(Joi.object()).min(fields[key].min).max(fields[key].max).required()
+                        : Joi.array().items(Joi.object()).min(fields[key].min).max(fields[key].max).optional()
                 ])
             )
         )
-            .unknown()
-            .required();
+            .unknown();
 
         multerMiddleware.fields(fieldArray)(req, res, async (err) => {
             if (err) return next(err);
@@ -116,7 +113,10 @@ export const uploadFieldsMedia = (
                 await Promise.all(
                     Object.keys(filesFields).map(async (key) => {
                         const files = filesFields[key];
-                        mediaIds[key] = [];
+                        if (!files || files.length === 0) {
+                            mediaIds[key] = [];
+                            return;
+                        }
 
                         if (fields[key].sort) {
                             // Strategy pattern

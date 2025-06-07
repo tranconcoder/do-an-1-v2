@@ -1,5 +1,5 @@
 import type { CategoryEnum } from '@/enums/spu.enum.ts';
-import type { CreateSPU as CreateSPUZod } from '@/validations/zod/spu.zod.js';
+import type { CreateSPU as CreateSPUZod, UpdateSPU as UpdateSPUZod } from '@/validations/zod/spu.zod.js';
 
 declare global {
     namespace service {
@@ -17,10 +17,21 @@ declare global {
                 /*                         Create                         */
                 /* ------------------------------------------------------ */
                 interface CreateSPU extends CreateSPUZod {
-                    sku_list: Omit<service.sku.arguments.CreateSKU, 'sku_product'>[];
+                    sku_list: Omit<service.sku.arguments.CreateSKU, 'sku_product' | 'sku_thumb' | 'sku_images'>[];
                     sku_images_map: Array<number>;
                     mediaIds: commonTypes.object.ObjectAnyKeys<Array<string>>;
                     product_shop: string;
+                    product_thumb: string;
+                    product_images: string[];
+                }
+
+                /* ------------------------------------------------------ */
+                /*                         Update                         */
+                /* ------------------------------------------------------ */
+                interface UpdateSPU extends UpdateSPUZod {
+                    spuId: string;
+                    userId: string;
+                    mediaIds?: commonTypes.object.ObjectAnyKeys<Array<string>>;
                 }
 
                 /* ------------------------------------------------------ */
@@ -66,15 +77,13 @@ declare global {
                     extends Omit<GetAllProductByShop, 'userId'> { }
 
                 /* ---------------------------------------------------------- */
-                /*                           Update                           */
+                /*                      Status Updates                        */
                 /* ---------------------------------------------------------- */
                 interface PublishSPU {
                     spuId: string;
                     userId: string;
                 }
                 interface DraftSPU extends PublishSPU { }
-
-
 
                 /* --------------------- Update product --------------------- */
                 interface UpdateProduct

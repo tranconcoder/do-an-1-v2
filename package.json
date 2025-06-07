@@ -1,10 +1,14 @@
 {
   "dependencies": {
+    "@types/express": "^5.0.2",
     "create-next-app": "^15.2.3",
+    "express": "^5.1.0",
     "jsonfile": "^6.1.0",
     "kill-port": "^2.0.1",
     "nodemailer": "^7.0.3",
-    "redis": "^4.7.0"
+    "redis": "^4.7.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

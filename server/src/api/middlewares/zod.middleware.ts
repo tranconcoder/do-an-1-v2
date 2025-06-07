@@ -16,6 +16,27 @@ export const generateValidateWithBody = (schema: z.ZodSchema): RequestHandler =>
     };
 };
 
+// Middleware to parse JSON fields from FormData
+export const parseJSONFields = (jsonFields: string[]): RequestHandler => {
+    return (req, res, next) => {
+        try {
+            for (const field of jsonFields) {
+                if (req.body[field] && typeof req.body[field] === 'string') {
+                    try {
+                        req.body[field] = JSON.parse(req.body[field]);
+                    } catch (error) {
+                        console.warn(`Failed to parse JSON field '${field}':`, req.body[field]);
+                        // If parsing fails, leave as is (might be validation will catch it)
+                    }
+                }
+            }
+            next();
+        } catch (error) {
+            next(error);
+        }
+    };
+};
+
 export const generateValidateWithParams = (schema: z.ZodSchema): RequestHandler => {
     return (req, res, next) => {
         const result = schema.safeParse(req.params);

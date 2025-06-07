@@ -4,7 +4,7 @@ import spuService from '@/services/spu.service.js';
 import { SPUImages } from '@/enums/spu.enum.js';
 import { RequestHandler } from 'express';
 import { findShopByUser } from '@/models/repository/shop';
-import { CreateSPU } from '@/validations/zod/spu.zod';
+import { CreateSPU, UpdateSPU } from '@/validations/zod/spu.zod';
 
 export default new (class SPUController {
     /* ---------------------------------------------------------- */
@@ -36,6 +36,21 @@ export default new (class SPUController {
                 product_variations: req.body.product_variations,
                 sku_images_map: req.body.sku_images_map,
                 sku_list: req.body.sku_list,
+            })
+        }).send(res);
+    };
+
+    /* ---------------------------------------------------------- */
+    /*                            Update                           */
+    /* ---------------------------------------------------------- */
+    updateSPU: RequestWithBody<UpdateSPU> & RequestWithParams<{ spuId: string }> = async (req, res, next) => {
+        new OkResponse({
+            message: 'Update product successfully!',
+            metadata: await spuService.updateSPU({
+                spuId: req.params.spuId,
+                userId: req.userId as string,
+                mediaIds: req.mediaIds || {},
+                ...req.body
             })
         }).send(res);
     };
@@ -92,8 +107,6 @@ export default new (class SPUController {
             })
         }).send(res);
     };
-
-
 
     /* ----------------------- Publish SPU ---------------------- */
     publishSPU: RequestWithParams<{ spuId: string }> = async (req, res, _) => {
