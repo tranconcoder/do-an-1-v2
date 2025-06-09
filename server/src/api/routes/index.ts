@@ -20,6 +20,7 @@ import addressRoute from './address/index.js';
 import paymentRoute from './payment/index.js';
 import chatRoute from './chat/index.js';
 import reviewRoute from './review/index.js';
+import savedDiscountRoute from './savedDiscount/index.js';
 
 const rootRoute = Router();
 
@@ -31,6 +32,9 @@ rootRoute.use('/otp', otpRoute);
 
 /* ------------------------ Discount  ----------------------- */
 rootRoute.use('/discount', discountRoute);
+
+/* -------------------- Saved Discount  -------------------- */
+rootRoute.use('/saved-discount', savedDiscountRoute);
 
 /* -------------------------- Cart  -------------------------- */
 rootRoute.use('/cart', cartRoute);

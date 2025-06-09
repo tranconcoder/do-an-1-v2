@@ -1,0 +1,174 @@
+[2025-06-09T02:10:21.778Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-09T02:10:21.846Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-09T02:11:03.594Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:12:04.456Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:12:11.616Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:12:31.238Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:12:38.870Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:13:03.051Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:03.082Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:03.122Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:03.247Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:05.670Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:06.792Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:07.255Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:11.640Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:11.771Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:18.597Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:28.974Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:29.119Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:33.283Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:48.074Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:13:48.223Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:14:31.699Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:14:31.965Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:15:35.192Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:15:50.893Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:15:50.981Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:15:51.498Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:16:25.338Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-06-09T02:17:27.422Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:17:27.627Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:18:26.733Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:18:47.238Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:18:51.238Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:18:53.215Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:19:31.794Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:20:37.626Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:21:34.988Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:22:56.131Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:23:24.128Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:23:57.169Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:23:57.245Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:24:09.795Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:24:10.159Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:24:10.555Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:24:13.744Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:24:21.948Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:25:51.253Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:25:51.278Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:25:51.301Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:25:51.331Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:25:51.491Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:25:51.654Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:25:52.776Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:25:52.907Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:25:55.006Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:25:55.193Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:25:59.681Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:25:59.828Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:26:11.476Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:26:23.735Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:26:29.822Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:26:30.276Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:27:14.988Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:27:15.097Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T02:37:52.646Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-06-09T02:38:01.210Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-06-09T02:38:13.370Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-06-09T02:38:45.073Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-06-09T02:38:55.191Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-06-09T02:39:16.438Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-06-09T02:39:24.925Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:40:13.865Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-06-09T02:40:25.208Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-06-09T02:40:48.632Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:41:00.653Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:46:00.495Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:46:49.751Z] [error]: HIDE::400::BadRequest::Warehouses not found!::
+[2025-06-09T02:46:52.728Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:47:49.525Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:50:16.171Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:50:25.388Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:57:18.019Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T02:58:15.273Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:00:40.968Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:36.130Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:36.309Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:36.501Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:39.211Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:39.388Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:43.821Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:43.882Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:43.923Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:44.032Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:50.220Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:50.299Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:54.382Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:01:54.558Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:02:11.597Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:02:11.785Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:02:22.284Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:03:23.735Z] [error]: HIDE::404::NotFound::Not found file!::

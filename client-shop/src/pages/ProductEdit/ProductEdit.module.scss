@@ -782,31 +782,31 @@
 
 .error {
     background: white;
-    padding: 48px;
-    border-radius: 16px;
+    padding: 3rem;
+    border-radius: 8px;
     text-align: center;
-    margin-top: 32px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-top: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
     h2 {
-        color: #ef4444;
-        margin-bottom: 16px;
-        font-weight: 700;
+        color: #ff4d4f;
+        margin-bottom: 1rem;
+        font-weight: 600;
     }
 }
 
 // Responsive Design
 @media (max-width: 1024px) {
     .product-edit {
-        padding: 16px;
+        padding: 1rem;
     }
 
     .page-header {
-        padding: 24px;
+        padding: 1.5rem;
     }
 
     .form-section.tab-content {
-        padding: 24px;
+        padding: 1.5rem;
     }
 
     .images-grid {
@@ -818,16 +818,16 @@
     .header-top {
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
+        gap: 1rem;
     }
 
     .header-content h1 {
-        font-size: 24px;
+        font-size: 1.5rem;
     }
 
     .tab-navigation {
         flex-direction: column;
-        gap: 8px;
+        gap: 0.5rem;
     }
 
     .tab-button {
@@ -840,12 +840,12 @@
 
     .attribute-input-row {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 0.75rem;
     }
 
     .attribute-row {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 0.75rem;
         text-align: left;
     }
 
@@ -855,13 +855,13 @@
 
     .form-group.checkbox-group {
         flex-direction: column;
-        gap: 16px;
+        gap: 1rem;
     }
 
     .product-meta {
         flex-direction: column;
         align-items: flex-start;
-        gap: 12px;
+        gap: 0.75rem;
     }
 
     .status-badges {
@@ -871,18 +871,18 @@
 
 @media (max-width: 480px) {
     .product-edit {
-        padding: 12px;
+        padding: 0.75rem;
     }
 
     .page-header {
-        padding: 20px;
+        padding: 1.25rem;
     }
 
     .form-section.tab-content {
-        padding: 20px;
+        padding: 1.25rem;
     }
 
     .image-grid {
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
     }
 }

@@ -144,6 +144,25 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
         }));
     };
 
+    const handleKeepCurrentLocation = () => {
+        setWarehouseAddress({
+            provinceId: '',
+            districtId: '',
+            wardId: '',
+            address: '',
+            coordinates: {
+                lat: null,
+                lng: null
+            }
+        });
+        // Clear location-related errors
+        const newErrors = { ...errors };
+        delete newErrors.provinceId;
+        delete newErrors.districtId;
+        delete newErrors.address;
+        setErrors(newErrors);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -190,22 +209,31 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
             }
 
             console.log('📦 Payload to API:');
-            const payload = {
+            const isUpdatingLocationForLog =
+                warehouseAddress.provinceId ||
+                warehouseAddress.districtId ||
+                warehouseAddress.address.trim();
+            const payloadForLog = {
                 name: warehouseName,
                 phoneNumber: warehousePhone,
-                location: {
-                    ...warehouseAddress,
-                    ...(warehouseAddress.coordinates.lat && warehouseAddress.coordinates.lng
-                        ? {
-                              coordinates: {
-                                  x: warehouseAddress.coordinates.lng,
-                                  y: warehouseAddress.coordinates.lat
+                ...(isUpdatingLocationForLog && {
+                    location: {
+                        provinceId: warehouseAddress.provinceId,
+                        districtId: warehouseAddress.districtId,
+                        ...(warehouseAddress.wardId && { wardId: warehouseAddress.wardId }),
+                        address: warehouseAddress.address,
+                        ...(warehouseAddress.coordinates.lat && warehouseAddress.coordinates.lng
+                            ? {
+                                  coordinates: {
+                                      x: warehouseAddress.coordinates.lng,
+                                      y: warehouseAddress.coordinates.lat
+                                  }
                               }
-                          }
-                        : {})
-                }
+                            : {})
+                    }
+                })
             };
-            console.dir(payload, { depth: null });
+            console.dir(payloadForLog, { depth: null });
             console.groupEnd();
         }
 
@@ -218,14 +246,24 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
         } else if (!/^\+?[0-9]{10,15}$/.test(warehousePhone)) {
             validationErrors.phoneNumber = 'Số điện thoại không hợp lệ';
         }
-        if (!warehouseAddress.provinceId) {
-            validationErrors.provinceId = 'Vui lòng chọn tỉnh/thành phố';
-        }
-        if (!warehouseAddress.districtId) {
-            validationErrors.districtId = 'Vui lòng chọn quận/huyện';
-        }
-        if (!warehouseAddress.address.trim()) {
-            validationErrors.address = 'Vui lòng nhập địa chỉ chi tiết';
+
+        // Location validation: only validate if user is trying to update location
+        const isUpdatingLocation =
+            warehouseAddress.provinceId ||
+            warehouseAddress.districtId ||
+            warehouseAddress.address.trim();
+
+        if (isUpdatingLocation) {
+            // If user is updating location, then all required fields must be filled
+            if (!warehouseAddress.provinceId) {
+                validationErrors.provinceId = 'Vui lòng chọn tỉnh/thành phố';
+            }
+            if (!warehouseAddress.districtId) {
+                validationErrors.districtId = 'Vui lòng chọn quận/huyện';
+            }
+            if (!warehouseAddress.address.trim()) {
+                validationErrors.address = 'Vui lòng nhập địa chỉ chi tiết';
+            }
         }
 
         if (Object.keys(validationErrors).length > 0) {
@@ -238,9 +276,21 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
         try {
             const updatedWarehouse = {
                 name: warehouseName,
-                phoneNumber: warehousePhone,
-                location: {
-                    ...warehouseAddress,
+                phoneNumber: warehousePhone
+            };
+
+            // Only include location if user is updating it
+            const isUpdatingLocation =
+                warehouseAddress.provinceId ||
+                warehouseAddress.districtId ||
+                warehouseAddress.address.trim();
+
+            if (isUpdatingLocation) {
+                updatedWarehouse.location = {
+                    provinceId: warehouseAddress.provinceId,
+                    districtId: warehouseAddress.districtId,
+                    ...(warehouseAddress.wardId && { wardId: warehouseAddress.wardId }),
+                    address: warehouseAddress.address,
                     // Include coordinates if they exist (server expects x=lng, y=lat)
                     ...(warehouseAddress.coordinates.lat && warehouseAddress.coordinates.lng
                         ? {
@@ -250,8 +300,8 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
                               }
                           }
                         : {})
-                }
-            };
+                };
+            }
 
             await onEditWarehouse(warehouse._id, updatedWarehouse);
             handleClose();
@@ -314,7 +364,33 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
                     </div>
 
                     <div className={cx('form-group')}>
-                        <label htmlFor="warehouse-province">Tỉnh/Thành Phố *</label>
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                marginBottom: '8px'
+                            }}
+                        >
+                            <label htmlFor="warehouse-province">Địa chỉ kho hàng</label>
+                            <button
+                                type="button"
+                                onClick={handleKeepCurrentLocation}
+                                style={{
+                                    padding: '4px 8px',
+                                    fontSize: '12px',
+                                    backgroundColor: '#f0f0f0',
+                                    border: '1px solid #ccc',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                Giữ nguyên địa chỉ hiện tại
+                            </button>
+                        </div>
+                        <label htmlFor="warehouse-province">
+                            Tỉnh/Thành Phố {warehouseAddress.provinceId && '*'}
+                        </label>
                         <select
                             id="warehouse-province"
                             value={warehouseAddress.provinceId}
@@ -334,7 +410,9 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
                     </div>
 
                     <div className={cx('form-group')}>
-                        <label htmlFor="warehouse-district">Quận/Huyện *</label>
+                        <label htmlFor="warehouse-district">
+                            Quận/Huyện {warehouseAddress.provinceId && '*'}
+                        </label>
                         <select
                             id="warehouse-district"
                             value={warehouseAddress.districtId}
@@ -372,7 +450,9 @@ function EditWarehouseModal({ isOpen, onClose, onEditWarehouse, warehouse }) {
                     </div>
 
                     <div className={cx('form-group')}>
-                        <label htmlFor="warehouse-address">Địa Chỉ Chi Tiết *</label>
+                        <label htmlFor="warehouse-address">
+                            Địa Chỉ Chi Tiết {warehouseAddress.provinceId && '*'}
+                        </label>
                         <input
                             type="text"
                             id="warehouse-address"

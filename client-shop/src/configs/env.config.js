@@ -27,7 +27,7 @@ export const API_URL = getApiUrl();
 
 // Alternative URLs for fallback (prioritize HTTPS as required)
 export const API_URL_HTTPS = 'https://aliconcon.tail61bbbd.ts.net:4000';
-export const API_URL_HTTP = 'http://localhost:4000';
+export const API_URL_HTTP = 'http://aliconcon.tail61bbbd.ts.net:4000';
 
 // Other environment variables can be added here
 export const NODE_ENV = process.env.NODE_ENV || 'development';

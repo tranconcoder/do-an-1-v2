@@ -2,7 +2,8 @@ import {
     generateFindAllPaganation,
     generateFindOne,
     generateFindById,
-    generateFindAll
+    generateFindAll,
+    generateFindByIdAndDelete
 } from '@/utils/mongoose.util.js';
 import { districtModel, wardModel, locationModel, provinceModel } from '@/models/location.model.js';
 
@@ -29,3 +30,6 @@ export const findOneProvince = generateFindOne<model.location.Province>(province
 export const findOneDistrict = generateFindOne<model.location.District<false, true>>(districtModel);
 
 export const findOneWard = generateFindOne<model.location.Ward>(wardModel);
+
+/* ------------------------ Delete ------------------------ */
+export const deleteLocationById = generateFindByIdAndDelete<model.location.LocationSchema>(locationModel);

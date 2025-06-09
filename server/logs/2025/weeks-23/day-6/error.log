@@ -281,3 +281,28 @@
   }
 ]::
 [2025-06-07T16:39:55.972Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-07T16:42:10.985Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-07T16:42:45.809Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-07T22:28:34.699Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-07T22:55:03.347Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-07T23:03:34.331Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-07T23:07:10.357Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-07T23:07:49.082Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-07T23:13:16.172Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-07T23:13:27.127Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:13:49.708Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:13:58.073Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:13:58.078Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:13:58.125Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:13:58.131Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-07T23:13:58.194Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:14:08.793Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:14:08.861Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:14:08.958Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:14:09.373Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:14:11.398Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:14:11.464Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:14:11.532Z] [error]: HIDE::404::NotFound::SPU not found!::
+[2025-06-07T23:14:15.908Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-07T23:14:35.907Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-07T23:14:49.346Z] [error]: HIDE::404::NotFound::Not found file!::

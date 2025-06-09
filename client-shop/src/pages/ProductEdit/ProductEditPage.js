@@ -19,6 +19,7 @@ import {
 import axiosClient from '../../configs/axios';
 import { useToast } from '../../contexts/ToastContext';
 import { getMediaUrl } from '../../utils/media';
+import MarkdownEditor from '../../components/MarkdownEditor';
 
 const cx = classNames.bind(styles);
 
@@ -512,17 +513,16 @@ const ProductEditPage = () => {
                                 </div>
                             </div>
 
-                            <div className={cx('form-group')}>
-                                <label>Mô tả sản phẩm</label>
-                                <textarea
-                                    value={formData.product_description}
-                                    onChange={(e) =>
-                                        handleInputChange('product_description', e.target.value)
-                                    }
-                                    placeholder="Nhập mô tả chi tiết về sản phẩm"
-                                    rows="6"
-                                />
-                            </div>
+                            <MarkdownEditor
+                                label="Mô tả sản phẩm"
+                                value={formData.product_description}
+                                onChange={(value) =>
+                                    handleInputChange('product_description', value)
+                                }
+                                placeholder="Nhập mô tả chi tiết về sản phẩm... Hỗ trợ Markdown"
+                                height={200}
+                                helpText="Sử dụng Markdown để định dạng văn bản. Ví dụ: **in đậm**, *in nghiêng*, # Tiêu đề"
+                            />
 
                             <div className={cx('form-group', 'checkbox-group')}>
                                 <label>

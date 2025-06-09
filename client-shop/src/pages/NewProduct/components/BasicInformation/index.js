@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './BasicInformation.module.scss';
+import MarkdownEditor from '../../../../components/MarkdownEditor';
 
 const cx = classNames.bind(styles);
 
@@ -66,18 +67,22 @@ function BasicInformation({ formData, categories, handleInputChange }) {
                 </select>
             </div>
 
-            <div className={cx('form-group')}>
-                <label>
-                    Description <span className={cx('required-mark')}>*</span>
-                </label>
-                <textarea
-                    name="product_description"
-                    value={formData.product_description}
-                    onChange={handleInputChange}
-                    required
-                    rows={5}
-                ></textarea>
-            </div>
+            <MarkdownEditor
+                label="Description"
+                value={formData.product_description}
+                onChange={(value) =>
+                    handleInputChange({
+                        target: {
+                            name: 'product_description',
+                            value: value
+                        }
+                    })
+                }
+                placeholder="Mô tả chi tiết về sản phẩm... Hỗ trợ Markdown"
+                required={true}
+                height={180}
+                helpText="Sử dụng Markdown để định dạng văn bản. Ví dụ: **in đậm**, *in nghiêng*, # Tiêu đề"
+            />
         </div>
     );
 }

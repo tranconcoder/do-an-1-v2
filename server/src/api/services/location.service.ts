@@ -6,7 +6,8 @@ import {
     findOneProvince,
     findProvince,
     findOneLocation,
-    findLocationById
+    findLocationById,
+    deleteLocationById
 } from '@/models/repository/location/index.js';
 import { provinceModel, districtModel, wardModel, locationModel } from '@/models/location.model.js';
 import { BadRequestErrorResponse } from '@/response/error.response.js';
@@ -235,5 +236,18 @@ export default new (class LocationService {
         if (!updated) throw new BadRequestErrorResponse({ message: 'Update coordinates failed!' });
 
         return updated;
+    }
+
+    /* ---------------------------------------------------------- */
+    /*                           Delete                           */
+    /* ---------------------------------------------------------- */
+    async deleteLocation(locationId: string) {
+        try {
+            const deletedLocation = await deleteLocationById(locationId);
+            return !!deletedLocation;
+        } catch (error) {
+            console.warn('⚠️ [LOCATION SERVICE] Failed to delete location:', locationId, error);
+            return false;
+        }
     }
 })();

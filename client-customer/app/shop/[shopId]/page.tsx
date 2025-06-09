@@ -11,26 +11,35 @@ import {
     Info,
     MapPin,
     ShoppingBag,
-    List
+    List,
+    Gift
 } from 'lucide-react';
 
 import shopService, { Shop, ShopProductSku } from '@/lib/services/api/shopService';
 import { mediaService } from '@/lib/services/api/mediaService';
 import { categoryService, Category } from '@/lib/services/api/categoryService';
+import discountService, { Discount } from '@/lib/services/api/discountService';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
 import { ProductCard, ProductCardSkeleton } from '@/components/ui/ProductCard';
+import {
+    DiscountCardCompact,
+    DiscountCardCompactSkeleton
+} from '@/components/ui/DiscountCardCompact';
+import { DiscountDialog } from '@/components/ui/DiscountDialog';
 import { FloatingChat, ChatButton, FloatingChatButton } from '@/components/ui/FloatingChat';
 import { CustomImage } from '@/components/ui/CustomImage';
 import { cn } from '@/lib/utils';
 import { useAppSelector } from '@/lib/store/hooks';
+import { useToast } from '@/hooks/use-toast';
 
 const ShopProfilePage = () => {
     const params = useParams();
     const router = useRouter();
     const shopId = params.shopId as string;
+    const { toast } = useToast();
 
     // Get user data from Redux store
     const { user, accessToken, isAuthenticated } = useAppSelector((state) => ({
@@ -51,6 +60,13 @@ const ShopProfilePage = () => {
     const [shopCategories, setShopCategories] = useState<Category[]>([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
     const [loadingCategories, setLoadingCategories] = useState(true);
+
+    const [discounts, setDiscounts] = useState<Discount[]>([]);
+    const [loadingDiscounts, setLoadingDiscounts] = useState(true);
+    const [errorDiscounts, setErrorDiscounts] = useState<string | null>(null);
+    const [selectedDiscount, setSelectedDiscount] = useState<Discount | null>(null);
+    const [isDiscountDialogOpen, setIsDiscountDialogOpen] = useState(false);
+    const [savedDiscountIds, setSavedDiscountIds] = useState<string[]>([]);
 
     // Chat state
     const [isChatOpen, setIsChatOpen] = useState(false);
@@ -95,9 +111,39 @@ const ShopProfilePage = () => {
                 setLoadingCategories(false);
             };
 
+            const fetchDiscounts = async () => {
+                setLoadingDiscounts(true);
+                setErrorDiscounts(null);
+                try {
+                    const discountData = await discountService.getDiscountCodesInShop({
+                        shopId,
+                        limit: 20,
+                        page: 1
+                    });
+                    setDiscounts(discountData);
+                } catch (err) {
+                    console.error('Failed to fetch discounts:', err);
+                    setErrorDiscounts('Could not load discounts for this shop.');
+                }
+                setLoadingDiscounts(false);
+            };
+
+            const fetchSavedDiscountIds = async () => {
+                if (isAuthenticated && user) {
+                    try {
+                        const savedIds = await discountService.getSavedDiscountIds();
+                        setSavedDiscountIds(savedIds);
+                    } catch (err) {
+                        console.error('Failed to fetch saved discount IDs:', err);
+                    }
+                }
+            };
+
             fetchShopDetails();
             fetchShopProducts();
             fetchCategories();
+            fetchDiscounts();
+            fetchSavedDiscountIds();
         }
     }, [shopId]);
 
@@ -140,6 +186,48 @@ const ShopProfilePage = () => {
 
     const handleChatToggleMinimize = () => {
         setIsChatMinimized(!isChatMinimized);
+    };
+
+    const handleDiscountClick = (discount: Discount) => {
+        setSelectedDiscount(discount);
+        setIsDiscountDialogOpen(true);
+    };
+
+    const handleDiscountDialogClose = () => {
+        setIsDiscountDialogOpen(false);
+        setSelectedDiscount(null);
+    };
+
+    const handleSaveToggle = async (discountId: string, isSaved: boolean) => {
+        if (!isAuthenticated || !user) {
+            router.push('/auth/login');
+            return;
+        }
+
+        try {
+            if (isSaved) {
+                await discountService.unsaveDiscount(discountId);
+                setSavedDiscountIds((prev) => prev.filter((id) => id !== discountId));
+                toast({
+                    title: 'Đã bỏ lưu mã giảm giá',
+                    description: 'Mã giảm giá đã được xóa khỏi danh sách yêu thích.'
+                });
+            } else {
+                await discountService.saveDiscount(discountId);
+                setSavedDiscountIds((prev) => [...prev, discountId]);
+                toast({
+                    title: 'Đã lưu mã giảm giá',
+                    description: 'Mã giảm giá đã được thêm vào danh sách yêu thích.'
+                });
+            }
+        } catch (err: any) {
+            console.error('Failed to toggle save discount:', err);
+            toast({
+                title: 'Lỗi',
+                description: err.response?.data?.message || 'Không thể thực hiện thao tác này.',
+                variant: 'destructive'
+            });
+        }
     };
 
     if (loadingShop) {
@@ -266,6 +354,78 @@ const ShopProfilePage = () => {
                             </p>
                         </div>
                     </div>
+
+                    {/* Discounts Section */}
+                    {!loadingDiscounts && discounts.length > 0 && (
+                        <div className="mb-10">
+                            <div className="flex justify-between items-center mb-1">
+                                <h2 className="text-2xl font-semibold text-slate-700 flex items-center">
+                                    <Gift className="w-6 h-6 mr-2 text-purple-600" /> Khuyến mãi
+                                </h2>
+                                <span className="text-sm text-gray-500">
+                                    {discounts.length} mã giảm giá
+                                </span>
+                            </div>
+                            <Separator className="mb-4" />
+
+                            <div className="relative">
+                                <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+                                    {discounts.map((discount) => (
+                                        <DiscountCardCompact
+                                            key={discount._id}
+                                            discount={discount}
+                                            onClick={() => handleDiscountClick(discount)}
+                                            isSaved={savedDiscountIds.includes(discount._id)}
+                                            onSaveToggle={handleSaveToggle}
+                                            isAuthenticated={isAuthenticated}
+                                        />
+                                    ))}
+                                </div>
+
+                                {/* Scroll indicator */}
+                                {discounts.length > 3 && (
+                                    <div className="text-center mt-2">
+                                        <p className="text-xs text-gray-400">
+                                            Vuốt ngang để xem thêm
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {loadingDiscounts && (
+                        <div className="mb-10">
+                            <div className="flex justify-between items-center mb-1">
+                                <h2 className="text-2xl font-semibold text-slate-700 flex items-center">
+                                    <Gift className="w-6 h-6 mr-2 text-purple-600" /> Khuyến mãi
+                                </h2>
+                            </div>
+                            <Separator className="mb-4" />
+
+                            <div className="flex gap-4 overflow-x-auto pb-4">
+                                {[...Array(3)].map((_, i) => (
+                                    <DiscountCardCompactSkeleton key={i} />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {!loadingDiscounts && errorDiscounts && (
+                        <div className="mb-10">
+                            <div className="flex justify-between items-center mb-1">
+                                <h2 className="text-2xl font-semibold text-slate-700 flex items-center">
+                                    <Gift className="w-6 h-6 mr-2 text-purple-600" /> Khuyến mãi
+                                </h2>
+                            </div>
+                            <Separator className="mb-4" />
+
+                            <div className="text-center py-6 bg-white rounded-lg shadow border border-red-200">
+                                <AlertTriangle className="mx-auto h-8 w-8 text-red-400 mb-2" />
+                                <p className="text-red-500 text-sm">{errorDiscounts}</p>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Products Section */}
                     <div>
@@ -423,6 +583,13 @@ const ShopProfilePage = () => {
                     hasUnread={false}
                 />
             )}
+
+            {/* Discount Detail Dialog */}
+            <DiscountDialog
+                discount={selectedDiscount}
+                isOpen={isDiscountDialogOpen}
+                onClose={handleDiscountDialogClose}
+            />
         </>
     );
 };

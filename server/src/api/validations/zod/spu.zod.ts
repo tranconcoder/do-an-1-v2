@@ -5,7 +5,7 @@ import { generateValidateWithBody } from '@/middlewares/zod.middleware';
 export const createSPU = z.object({
     product_name: z.string(),
     product_category: zodId,
-    product_description: z.string(),
+    product_description: z.string().min(10).max(50000),
     product_attributes: z.array(
         z.object({
             attr_name: z.string(),
@@ -42,7 +42,7 @@ export const validateCreateSPU = generateValidateWithBody(createSPU);
 export const updateSPU = z.object({
     // Basic SPU information - optional for updates
     product_name: z.string().optional(),
-    product_description: z.string().optional(),
+    product_description: z.string().min(10).max(50000).optional(),
     product_category: zodId.optional(),
 
     /* -------------------- Product attribute ------------------- */

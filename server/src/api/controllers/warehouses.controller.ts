@@ -2,19 +2,20 @@ import { CreatedResponse, OkResponse } from '@/response/success.response.js';
 import warehousesService from '@/services/warehouses.service.js';
 import { RequestWithBody, RequestWithParams } from '@/types/request.js';
 import { RequestHandler } from 'express';
+import { CreateWarehouseSchema, UpdateWarehouseSchema, WarehouseParamsSchema } from '@/validations/zod/warehouse.zod.js';
 
-export default new (class WarehousesService {
+export default new (class WarehousesController {
     /* ---------------------------------------------------------- */
     /*                           Create                           */
     /* ---------------------------------------------------------- */
-    create: RequestWithBody<joiTypes.warehouses.arguments.CreateWarehouse> = async (
+    create: RequestWithBody<CreateWarehouseSchema> = async (
         req,
         res,
         _
     ) => {
         new CreatedResponse({
             message: 'Create warehouse successfully!',
-            metadata: await warehousesService.createWarehouses({
+            metadata: await warehousesService.createWarehouseWithZod({
                 ...req.body,
                 shop: req.userId as string
             })
@@ -34,20 +35,20 @@ export default new (class WarehousesService {
     /* ---------------------------------------------------------- */
     /*                           Update                           */
     /* ---------------------------------------------------------- */
-    update: RequestHandler<{ warehouseId: string }> = async (req, res, _) => {
+    update: RequestHandler<WarehouseParamsSchema, any, UpdateWarehouseSchema> = async (req, res, _) => {
         new OkResponse({
             message: 'Update warehouse successfully!',
-            metadata: await warehousesService.updateWarehouses({
-                id: req.params.warehouseId,
-                update: req.body
-            })
+            metadata: await warehousesService.updateWarehouseWithZod(
+                req.params.warehouseId,
+                req.body
+            )
         }).send(res);
     };
 
     /* ---------------------------------------------------------- */
     /*                           Delete                           */
     /* ---------------------------------------------------------- */
-    delete: RequestWithParams<{ warehouseId: string }> = async (req, res, _) => {
+    delete: RequestWithParams<WarehouseParamsSchema> = async (req, res, _) => {
         new OkResponse({
             message: 'Delete warehouse successfully!',
             metadata: await warehousesService.deleteWarehouses({
