@@ -623,3 +623,171 @@
 [2025-06-09T06:03:59.052Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-09T06:04:09.851Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-09T06:04:25.876Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:00:46.325Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-09T08:04:30.926Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:04:31.268Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:04:54.926Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:04:54.932Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:05:06.153Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-06-09T08:05:08.394Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-06-09T08:05:17.755Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-06-09T08:05:19.217Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-06-09T08:05:27.581Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-06-09T08:05:32.344Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:05:32.410Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:08:15.821Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T08:08:15.943Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T08:08:26.744Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:08:28.059Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:08:30.614Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:10:26.005Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T08:10:33.211Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T08:10:33.279Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T08:10:33.808Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:10:39.175Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:10:44.048Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:10:54.481Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:10:54.483Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:10:54.484Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:10:54.485Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:10:58.902Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:10:58.994Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T08:10:58.999Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T08:10:59.132Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T08:11:22.659Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T08:11:22.782Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T08:11:22.924Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T08:11:24.079Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T08:11:34.087Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-06-09T08:11:48.432Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-06-09T08:11:55.848Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-06-09T08:12:08.860Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:12:08.865Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:12:08.866Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:12:08.870Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:12:43.539Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:12:43.546Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:12:43.557Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:12:43.562Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:12:46.726Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:12:49.011Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:12:51.117Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:13:04.430Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:15:40.019Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:17:25.115Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:17:25.146Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:17:25.203Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:17:25.230Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T08:23:37.399Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-06-09T08:24:02.791Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T08:25:46.489Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-06-09T08:25:46.744Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-06-09T08:34:41.479Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-06-09T08:42:03.394Z] [error]: Redis error: Error: Socket closed unexpectedly
+[2025-06-09T08:44:22.295Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-06-09T08:46:24.157Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-09T08:46:24.285Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-09T08:46:40.811Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-06-09T08:46:41.258Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-06-09T08:47:03.979Z] [error]: HIDE::400::TypeError::null is not an object (evaluating 'role.role_name')::
+[2025-06-09T08:47:09.536Z] [error]: HIDE::404::NotFound::Username or password is not correct!::
+[2025-06-09T08:47:36.594Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid phone number format",
+    "path": [
+      "phoneNumber"
+    ]
+  },
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-06-09T08:47:36.630Z] [error]: HIDE::400::BadRequest::[
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Invalid phone number format",
+    "path": [
+      "phoneNumber"
+    ]
+  },
+  {
+    "validation": "regex",
+    "code": "invalid_string",
+    "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "path": [
+      "password"
+    ]
+  }
+]::
+[2025-06-09T08:49:20.360Z] [error]: Redis error: Error: Failed to connect
+[2025-06-09T08:49:20.362Z] [error]: Redis error: Error: Failed to connect
+[2025-06-09T08:49:30.425Z] [error]: Redis error: Error: Failed to connect
+[2025-06-09T08:49:30.531Z] [error]: Redis error: Error: Failed to connect
+[2025-06-09T08:59:04.460Z] [error]: HIDE::404::NotFound::User not found::
+[2025-06-09T09:01:08.081Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.082Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.083Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.093Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.099Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.113Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.242Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.244Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.250Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.251Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.254Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.257Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.380Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.382Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.385Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.386Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:08.386Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:01:18.857Z] [error]: HIDE::409::Conflict::User is exists!::
+[2025-06-09T09:02:41.902Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:41.945Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:41.963Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:41.980Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:41.981Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:41.982Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:42.026Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:42.159Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:42.182Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:42.184Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:42.186Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:42.189Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:42.200Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:42.314Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:42.336Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:42.337Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:02:42.401Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:04:26.233Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:04:26.289Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:04:26.290Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:04:26.293Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:09:46.277Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T09:09:57.172Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T09:09:57.184Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T09:09:58.218Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T09:10:15.799Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T09:10:18.551Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T09:10:29.878Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:10:29.893Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:10:29.894Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:10:29.946Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:18:24.829Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:18:25.056Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:18:25.061Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:18:25.063Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:22:30.304Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:22:30.329Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:22:30.330Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:22:30.360Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T09:32:14.224Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T09:32:55.699Z] [error]: HIDE::403::Forbidden::Token not found!::

@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './Chat.module.scss';
 import socketService from '../../services/socketService';
 import { getMediaUrl, getTextPlaceholder } from '../../utils/media';
+import { createKeyHandler } from '../../utils/keyboardSafety';
 import {
     selectCurrentUser,
     selectUserId,
@@ -306,12 +307,14 @@ function Chat() {
         }
     };
 
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            handleSendMessage();
-        }
-    };
+    const handleKeyPress = createKeyHandler(
+        {
+            enter: () => {
+                handleSendMessage();
+            }
+        },
+        'Chat'
+    );
 
     const formatTimestamp = (timestamp) => {
         const date = new Date(timestamp);

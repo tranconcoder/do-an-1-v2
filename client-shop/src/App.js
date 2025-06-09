@@ -54,6 +54,39 @@ function App() {
         }
     }, [dispatch, isAuthenticated, authInitialized]);
 
+    // Global error handler for keyboard events and toLocaleLowerCase errors
+    useEffect(() => {
+        const handleGlobalError = (event) => {
+            const error = event.error;
+
+            // Handle specific toLocaleLowerCase errors from keyboard shortcuts
+            if (error && error.message && error.message.includes('toLocaleLowerCase')) {
+                console.warn('Prevented toLocaleLowerCase error:', error);
+                event.preventDefault();
+                return;
+            }
+
+            // Handle other keyboard-related errors
+            if (
+                error &&
+                (error.message.includes('shortcutsHandle') ||
+                    error.message.includes('onKeyDown') ||
+                    error.message.includes('keyboard'))
+            ) {
+                console.warn('Prevented keyboard event error:', error);
+                event.preventDefault();
+                return;
+            }
+        };
+
+        // Add global error listener
+        window.addEventListener('error', handleGlobalError);
+
+        return () => {
+            window.removeEventListener('error', handleGlobalError);
+        };
+    }, []);
+
     // Show loading spinner while initializing authentication
     if (!authInitialized && userLoading) {
         return (

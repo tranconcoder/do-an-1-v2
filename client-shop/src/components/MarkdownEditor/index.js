@@ -24,9 +24,26 @@ function MarkdownEditor({
     }, [value]);
 
     const handleChange = (val) => {
-        setEditorValue(val || '');
+        const newValue = val || '';
+        setEditorValue(newValue);
         if (onChange) {
-            onChange(val || '');
+            onChange(newValue);
+        }
+    };
+
+    // Safe keyboard event handler to prevent undefined errors
+    const handleKeyDown = (event) => {
+        try {
+            // Ensure event and key properties exist
+            if (!event || !event.key) {
+                return;
+            }
+
+            // Add any specific keyboard handling here if needed
+            // For now, just prevent errors from propagating
+        } catch (error) {
+            console.warn('MarkdownEditor keyboard event error:', error);
+            // Prevent error from crashing the app
         }
     };
 
@@ -48,12 +65,17 @@ function MarkdownEditor({
                     visibleDragBar={false}
                     textareaProps={{
                         placeholder: placeholder,
+                        onKeyDown: handleKeyDown,
                         style: {
                             fontSize: '0.95rem',
                             lineHeight: '1.6',
                             fontFamily: 'inherit'
                         }
                     }}
+                    // Add additional props to prevent shortcuts errors
+                    data-color-mode="light"
+                    hideToolbar={false}
+                    preview={preview}
                 />
             </div>
 

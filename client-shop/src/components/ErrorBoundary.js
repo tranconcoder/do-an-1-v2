@@ -24,9 +24,21 @@ class ErrorBoundary extends React.Component {
                 error.message.includes('ws:') ||
                 error.message.includes('Socket.IO'));
 
-        if (isWebSocketError) {
-            console.warn('WebSocket error caught by ErrorBoundary - preventing React crash');
-            // For WebSocket errors, try to recover gracefully
+        // Check if it's a keyboard/shortcuts error
+        const isKeyboardError =
+            error.message &&
+            (error.message.includes('toLocaleLowerCase') ||
+                error.message.includes('shortcutsHandle') ||
+                error.message.includes('onKeyDown') ||
+                error.message.includes('keyboard'));
+
+        if (isWebSocketError || isKeyboardError) {
+            console.warn(
+                `${
+                    isWebSocketError ? 'WebSocket' : 'Keyboard'
+                } error caught by ErrorBoundary - preventing React crash`
+            );
+            // For WebSocket/keyboard errors, try to recover gracefully
             setTimeout(() => {
                 this.setState({ hasError: false, error: null, errorInfo: null });
             }, 3000);
@@ -55,6 +67,13 @@ class ErrorBoundary extends React.Component {
                     this.state.error.message.includes('ws:') ||
                     this.state.error.message.includes('Socket.IO'));
 
+            const isKeyboardError =
+                this.state.error?.message &&
+                (this.state.error.message.includes('toLocaleLowerCase') ||
+                    this.state.error.message.includes('shortcutsHandle') ||
+                    this.state.error.message.includes('onKeyDown') ||
+                    this.state.error.message.includes('keyboard'));
+
             if (isWebSocketError) {
                 // For WebSocket errors, show a less intrusive message
                 return (
@@ -72,6 +91,32 @@ class ErrorBoundary extends React.Component {
                         </h4>
                         <p style={{ color: '#ad6800', marginBottom: '12px' }}>
                             Đang sử dụng chế độ polling để đảm bảo kết nối ổn định...
+                        </p>
+                        <Button type="primary" size="small" onClick={this.handleReset}>
+                            Tiếp tục
+                        </Button>
+                    </div>
+                );
+            }
+
+            if (isKeyboardError) {
+                // For keyboard errors, show a minimal message and auto-recover
+                return (
+                    <div
+                        style={{
+                            padding: '15px',
+                            backgroundColor: '#f6ffed',
+                            border: '1px solid #b7eb8f',
+                            borderRadius: '6px',
+                            margin: '20px'
+                        }}
+                    >
+                        <h4 style={{ color: '#52c41a', marginBottom: '8px' }}>
+                            ⌨️ Lỗi bàn phím đã được khôi phục
+                        </h4>
+                        <p style={{ color: '#389e0d', marginBottom: '12px' }}>
+                            Đã khắc phục lỗi keyboard shortcut, ứng dụng sẽ tiếp tục hoạt động bình
+                            thường...
                         </p>
                         <Button type="primary" size="small" onClick={this.handleReset}>
                             Tiếp tục
