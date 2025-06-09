@@ -18,7 +18,8 @@ import {
     Heart,
     Settings,
     LayoutPanelLeft,
-    LogOut
+    LogOut,
+    Tag
 } from 'lucide-react';
 import type { User, Shop } from '@/lib/store/slices/userSlice';
 import { getMediaUrl } from '@/lib/services/api/mediaService';
@@ -105,6 +106,15 @@ export default function ProfileBox({ user, shop, handleLogout }: ProfileBoxProps
                     >
                         <Heart className="h-5 w-5" />
                         <span className="text-sm">Danh sách yêu thích</span>
+                    </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <Link
+                        href="/saved-discounts"
+                        className="flex items-center gap-3 px-2 py-2.5 rounded-md hover:bg-white/10 dark:hover:bg-slate-800/60 transition-colors"
+                    >
+                        <Tag className="h-5 w-5" />
+                        <span className="text-sm">Mã giảm giá đã lưu</span>
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>

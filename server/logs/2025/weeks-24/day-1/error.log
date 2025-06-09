@@ -172,3 +172,65 @@
 [2025-06-09T03:02:11.785Z] [error]: Socket authentication failed: HIDE::403::Forbidden::Token is expired or invalid!::
 [2025-06-09T03:02:22.284Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-09T03:03:23.735Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:04:15.523Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:04:27.656Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:04:54.275Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:05:00.082Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:05:23.324Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:05:45.672Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:07:19.144Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-09T03:07:23.788Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:09:20.526Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:09:42.571Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:10:11.162Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:10:11.272Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:10:36.188Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:11:02.581Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:12:17.432Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:15:59.167Z] [error]: HIDE::403::Forbidden::Token is expired or invalid!::
+[2025-06-09T03:16:08.789Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T03:16:08.802Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T03:16:09.373Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:16:15.706Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T03:16:15.845Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T03:16:16.010Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T03:16:16.025Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T03:16:37.397Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T03:18:09.849Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:18:26.094Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:18:27.814Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:19:05.458Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:19:08.073Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:21:23.518Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:23:59.144Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:24:38.311Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:24:42.823Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:26:53.685Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:27:42.314Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:28:02.665Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:28:31.504Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:28:56.367Z] [error]: HIDE::404::NotFound::Not found file!::

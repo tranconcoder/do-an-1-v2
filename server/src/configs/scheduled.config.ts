@@ -11,6 +11,9 @@ export const CLEAN_UP_KEY_TOKEN_CRON_TIME =
 // Cleanup product remove failed scheduled
 export const CLEAN_UP_PRODUCT_CRON_TIME = process.env.CLEAN_UP_PRODUCT_CRON_TIME || CRON_TIME_DEV;
 
+// Sync inventory stock with SKU scheduled - every minute
+export const SYNC_INVENTORY_SKU_CRON_TIME = process.env.SYNC_INVENTORY_SKU_CRON_TIME || '* * * * *';
+
 export const getCronOptions = (options: service.scheduled.arguments.GetCronOption) => {
     return {
         timeZone: TIMEZONE,

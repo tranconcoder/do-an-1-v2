@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 import store from '../store';
-import { API_URL, API_URL_HTTPS, API_URL_HTTP } from '../configs/env.config';
+import { API_URL, API_URL_HTTPS } from '../configs/env.config';
 import {
     setConnected,
     setConnectionError,
@@ -34,8 +34,8 @@ class SocketService {
         this.maxReconnectAttempts = 5;
         this.reconnectDelay = 1000;
         this.isConnecting = false;
-        // Prioritize HTTPS as required, with HTTP as last resort
-        this.connectionUrls = [API_URL, API_URL_HTTPS, API_URL_HTTP];
+        // HTTPS ONLY for security - no HTTP fallback
+        this.connectionUrls = [API_URL, API_URL_HTTPS];
         this.currentUrlIndex = 0;
         this.hasTriedPollingOnly = false;
 
@@ -134,7 +134,7 @@ class SocketService {
 
     async attemptConnection(token) {
         const serverUrl = this.connectionUrls[this.currentUrlIndex];
-        console.log(`🔗 Attempting to connect to: ${serverUrl}`);
+        console.log(`🔗 Attempting HTTPS connection to: ${serverUrl}`);
 
         try {
             // Clean up any existing socket
@@ -304,27 +304,27 @@ class SocketService {
             // Clean up failed socket
             this.safeDisconnect();
 
-            // Try next URL if available
+            // Try next HTTPS URL if available
             if (this.currentUrlIndex < this.connectionUrls.length - 1) {
                 this.currentUrlIndex++;
-                console.log('🔄 Trying next connection URL...');
+                console.log('🔄 Trying next HTTPS URL...');
                 await this.attemptConnection(token);
                 return;
             }
 
-            // All URLs failed - try ultra-safe polling mode
+            // All HTTPS URLs failed - try ultra-safe HTTPS polling mode
             if (
                 this.currentUrlIndex >= this.connectionUrls.length - 1 &&
                 !this.hasTriedPollingOnly
             ) {
-                console.log('🛡️ Trying ultra-safe polling-only fallback...');
+                console.log('🛡️ Trying ultra-safe HTTPS polling-only fallback...');
                 this.hasTriedPollingOnly = true;
                 this.currentUrlIndex = 0;
                 await this.attemptUltraSafeConnection(token);
                 return;
             }
 
-            // All connection attempts failed
+            // All HTTPS connection attempts failed
             this.isConnecting = false;
             this.currentUrlIndex = 0;
             store.dispatch(setConnectionError(`Connection failed: ${error.message}`));
@@ -335,8 +335,8 @@ class SocketService {
     }
 
     async attemptUltraSafeConnection(token) {
-        const serverUrl = this.connectionUrls[0]; // Use primary URL
-        console.log(`🛡️ Attempting ULTRA-SAFE polling connection to: ${serverUrl}`);
+        const serverUrl = this.connectionUrls[0]; // Use primary HTTPS URL
+        console.log(`🛡️ Attempting ULTRA-SAFE HTTPS polling connection to: ${serverUrl}`);
 
         try {
             this.safeDisconnect();

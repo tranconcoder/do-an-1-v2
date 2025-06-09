@@ -46,12 +46,14 @@ function NewProduct() {
         const fetchCategories = async () => {
             try {
                 setLoading(true);
+                console.log('🔗 Fetching categories from HTTPS API:', API_URL);
                 const response = await axios.get(`${API_URL}/category?active=true`);
                 if (response.data && response.data.metadata) {
                     setCategories(response.data.metadata);
+                    console.log('✅ Categories fetched successfully via HTTPS');
                 }
             } catch (error) {
-                console.error('Error fetching categories:', error);
+                console.error('❌ Error fetching categories via HTTPS:', error);
             } finally {
                 setLoading(false);
             }
@@ -262,7 +264,8 @@ function NewProduct() {
             // Prepare FormData for submission
             const formDataToSubmit = prepareFormDataForSubmission(formData);
 
-            // Submit the form data to the API
+            // Submit the form data to the API via HTTPS
+            console.log('🔗 Creating product via HTTPS API:', API_URL);
             const response = await axiosClient.post(`${API_URL}/spu/create`, formDataToSubmit, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -270,6 +273,7 @@ function NewProduct() {
             });
 
             if (response.data && response.data.statusCode === 201) {
+                console.log('✅ Product created successfully via HTTPS');
                 alert('Product created successfully!');
                 navigate('/products');
             }

@@ -96,6 +96,24 @@ export const discountService = {
             `/saved-discount/check/${discountId}`
         );
         return response.data.metadata.isSaved;
+    },
+
+    // Get user saved discounts
+    getSavedDiscounts: async (params?: { limit?: number; page?: number }) => {
+        const { limit = 20, page = 1 } = params || {};
+        const response = await apiClient.get<{
+            message: string;
+            metadata: {
+                discounts: Array<{
+                    discount_id: Discount;
+                    saved_at: string;
+                }>;
+                totalCount: number;
+                currentPage: number;
+                totalPages: number;
+            };
+        }>(`/saved-discount?limit=${limit}&page=${page}`);
+        return response.data.metadata;
     }
 };
 
