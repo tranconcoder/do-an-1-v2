@@ -6,6 +6,8 @@ import { OrderStatus } from '@/enums/order.enum.js';
 import { findOneCheckout, deleteCheckout } from '@/models/repository/checkout/index.js';
 import orderModel from '@/models/order.model.js';
 import { userModel } from '@/models/user.model.js';
+import { spuModel } from '@/models/spu.model.js';
+import skuModel from '@/models/sku.model.js';
 import { findAddressById } from '@/models/repository/address/index.js';
 import { findShopById, findShopByUser } from '@/models/repository/shop/index.js';
 import paymentModel from '@/models/payment.model.js';

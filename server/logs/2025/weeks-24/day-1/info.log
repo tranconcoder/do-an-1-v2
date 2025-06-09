@@ -402,3 +402,29 @@
 [2025-06-09T04:01:00.133Z] [info]: Cleanup key token: 0 refresh token used cleaned
 [2025-06-09T04:02:00.735Z] [info]: Cleanup key token: 4 key token cleaned
 [2025-06-09T04:02:00.736Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T04:02:08.315Z] [info]: Socket.IO service initialized
+[2025-06-09T04:03:00.098Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T04:03:00.130Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T04:03:00.131Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T04:04:00.246Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T04:04:00.246Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T04:05:00.293Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T04:05:00.294Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T04:05:21.820Z] [info]: Socket.IO service initialized
+[2025-06-09T04:05:35.340Z] [info]: Socket.IO service initialized
+[2025-06-09T04:05:48.684Z] [info]: Socket.IO service initialized
+[2025-06-09T04:05:58.868Z] [info]: Socket.IO service initialized
+[2025-06-09T04:06:00.297Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T04:06:00.356Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T04:06:00.356Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T04:06:29.283Z] [info]: Socket.IO service initialized
+[2025-06-09T04:06:49.848Z] [info]: Socket.IO service initialized
+[2025-06-09T04:07:03.492Z] [info]: Socket.IO service initialized
+[2025-06-09T04:07:11.603Z] [info]: Socket.IO service initialized
+[2025-06-09T04:07:22.530Z] [info]: Socket.IO service initialized
+[2025-06-09T04:07:34.795Z] [info]: Socket.IO service initialized
+[2025-06-09T04:07:46.246Z] [info]: Socket.IO service initialized
+[2025-06-09T04:08:00.588Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T04:08:00.628Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T04:08:00.629Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T04:08:53.238Z] [info]: Socket.IO service initialized

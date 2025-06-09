@@ -13,6 +13,8 @@ import DiscountService from './discount.service.js';
 /* ------------------------- Models ------------------------- */
 import { userModel } from '@/models/user.model.js';
 import shopModel from '@/models/shop.model.js';
+import { spuModel } from '@/models/spu.model.js';
+import skuModel from '@/models/sku.model.js';
 import { findOneCartByUser } from '@/models/repository/cart/index.js';
 import { findOneDiscount } from '@/models/repository/discount/index.js';
 import { findOneAndUpdateCheckout, findOneCheckout } from '@/models/repository/checkout/index.js';
@@ -73,7 +75,10 @@ export default new (class CheckoutService {
 
         /* --------------------- Admin voucher  --------------------- */
         let totalPriceProductToApplyAdminVoucher = 0;
-        const discountAdmin = discountCode && (await findDiscountByCode(discountCode));
+        const discountAdmin = discountCode && (await findOneDiscount({
+            query: { discount_code: discountCode },
+            options: { lean: true }
+        }));
 
         if (discountAdmin) {
             if (!discountAdmin.is_admin_voucher)
@@ -232,17 +237,22 @@ export default new (class CheckoutService {
 
                 console.log("DISCOUNT PRICE SHOP TEST:::", discountPriceShop);
 
-                const productsInfo = shop.products.map((product) => {
+                const productsInfo = await Promise.all(shop.products.map(async (product) => {
                     totalPriceRawShop += product.cart_quantity * product.product_price;
+
+                    /* --------------- Get SKU and SPU info for discount check --------------- */
+                    const sku = await skuModel.findById(product.sku).populate('sku_product').lean();
+                    const spu = sku?.sku_product as any;
 
                     /* --------------- Calculating admin discount --------------- */
                     if (
                         discountAdmin &&
                         discountAdmin.is_available &&
+                        spu &&
                         (discountAdmin.is_apply_all_product ||
-                            discountAdmin?.discount_skus
+                            discountAdmin?.discount_skus // Note: field name is still discount_skus but contains SPU IDs
                                 ?.map((x: any) => x.toString())
-                                ?.includes(product.sku.toString()))
+                                ?.includes(spu._id.toString()))
                     ) {
                         totalPriceProductToApplyAdminVoucher += product.cart_quantity * product.product_price;
                     }
@@ -255,7 +265,7 @@ export default new (class CheckoutService {
                         price: product.product_price,
                         price_raw: product.cart_quantity * product.product_price
                     };
-                });
+                }));
 
                 /* ---------------------- Each product ---------------------- */
                 checkoutResult.shops_info.push({

@@ -243,13 +243,14 @@ export default class DiscountService {
         limit,
         page
     }: service.discount.arguments.GetAllDiscountCodeWithProduct) => {
+        // Note: productId should be SPU ID since discount_skus now contains SPU IDs
         return await findDiscountPageSplitting({
             query: {
                 discount_start_at: { $lte: new Date() },
                 discount_end_at: { $gte: new Date() },
                 is_available: true,
                 is_publish: true,
-                $or: [{ discount_skus: [productId] }, { is_apply_all_product: true }]
+                $or: [{ discount_skus: [productId] }, { is_apply_all_product: true }] // discount_skus contains SPU IDs
             },
             options: {
                 sort: { is_admin_voucher: -1, updated_at: -1 }
@@ -295,12 +296,12 @@ export default class DiscountService {
                 page
             });
         } else {
-            /* ------------------ Get specific product ------------------ */
+            /* ------------------ Get specific product by SPU ------------------ */
             return await spuModel.aggregate([
                 ...getAllSKUAggregate(limit, page),
                 {
                     $match: {
-                        'sku.id': {
+                        '_id': { // Match SPU IDs directly since discount_skus now contains SPU IDs
                             $in: discount.discount_skus.map((x) => new mongoose.Types.ObjectId(x))
                         }
                     }
@@ -321,7 +322,7 @@ export default class DiscountService {
                 message: 'Not found discount or discount is invalid!'
             });
 
-        const discountSKUs = discount.discount_skus.map((x) => x.toString());
+        const discountSPUs = discount.discount_skus.map((x) => x.toString()); // Note: field name is discount_skus but contains SPU IDs
 
         /* ----------- Check product is available to use  ----------- */
         const skuIds = products.map((x) => x.id);
@@ -360,17 +361,17 @@ export default class DiscountService {
                 if (
                     // Admin -> all
                     (discount.is_admin_voucher && discount.is_apply_all_product) ||
-                    // Admin -> specific
-                    (discount.is_admin_voucher && discountSKUs.includes(sku._id.toString())) ||
+                    // Admin -> specific (check SPU ID)
+                    (discount.is_admin_voucher && discountSPUs.includes(spu._id.toString())) ||
                     // Shop -> all
                     (!discount.is_admin_voucher &&
                         discount.is_apply_all_product &&
                         spu.product_shop.toString() === discount.discount_shop.toString()) ||
-                    // Shop -> specific
+                    // Shop -> specific (check SPU ID)
                     (!discount.is_admin_voucher &&
                         !discount.is_apply_all_product &&
                         spu.product_shop.toString() === discount.discount_shop.toString() &&
-                        discountSKUs.includes(sku._id.toString()))
+                        discountSPUs.includes(spu._id.toString()))
                 ) {
                     totalProductPriceToDiscount += priceRaw;
                 }
