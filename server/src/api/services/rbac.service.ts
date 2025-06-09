@@ -160,6 +160,13 @@ class RBACService {
                             RoleActions.DELETE_OWN
                         ],
                         attributes: '*'
+                    },
+                    {
+                        resource: resourcesId.find(
+                            (resource) => resource.name === Resources.SHOP_ANALYTICS
+                        )?.id,
+                        actions: [RoleActions.READ_OWN],
+                        attributes: '*'
                     }
                 ]
             },

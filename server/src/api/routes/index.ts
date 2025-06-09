@@ -21,6 +21,7 @@ import paymentRoute from './payment/index.js';
 import chatRoute from './chat/index.js';
 import reviewRoute from './review/index.js';
 import savedDiscountRoute from './savedDiscount/index.js';
+import analyticsRoute from './analytics/index.js';
 
 const rootRoute = Router();
 
@@ -81,5 +82,8 @@ rootRoute.use('/chat', chatRoute);
 
 /* -------------------------- Review -------------------------- */
 rootRoute.use('/review', reviewRoute);
+
+/* ------------------------ Analytics ------------------------ */
+rootRoute.use('/analytics', analyticsRoute);
 
 export default rootRoute;

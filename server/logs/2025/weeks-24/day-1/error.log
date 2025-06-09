@@ -524,3 +524,102 @@
 [2025-06-09T05:17:35.711Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-09T05:17:39.493Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-09T05:17:53.751Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:18:32.099Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:29:05.015Z] [error]: HIDE::404::NotFound::User not found::
+[2025-06-09T05:29:20.662Z] [error]: HIDE::404::NotFound::User not found::
+[2025-06-09T05:29:31.162Z] [error]: HIDE::404::NotFound::User not found::
+[2025-06-09T05:29:35.324Z] [error]: HIDE::404::NotFound::User not found::
+[2025-06-09T05:29:38.131Z] [error]: HIDE::404::NotFound::User not found::
+[2025-06-09T05:29:49.521Z] [error]: HIDE::404::NotFound::User not found::
+[2025-06-09T05:30:54.703Z] [error]: HIDE::400::Error::invalid_grant: Token has been expired or revoked.::
+[2025-06-09T05:35:35.312Z] [error]: HIDE::400::Error::invalid_grant: Token has been expired or revoked.::
+[2025-06-09T05:36:44.212Z] [error]: HIDE::403::Forbidden::Username or password is not correct!::
+[2025-06-09T05:37:00.350Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:37:02.509Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:37:37.329Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:39:25.810Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:41:39.510Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:42:13.554Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:42:39.225Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:43:27.732Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:43:39.863Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:44:32.645Z] [error]: HIDE::404::NotFound::Shop not found for this user!::
+[2025-06-09T05:44:32.793Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:44:32.932Z] [error]: HIDE::404::NotFound::Shop not found for this user!::
+[2025-06-09T05:44:51.664Z] [error]: HIDE::404::NotFound::Shop not found for this user!::
+[2025-06-09T05:44:51.792Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:45:07.346Z] [error]: HIDE::404::NotFound::Shop not found for this user!::
+[2025-06-09T05:45:07.527Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:45:15.734Z] [error]: HIDE::404::NotFound::Shop not found for this user!::
+[2025-06-09T05:45:15.839Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:45:35.074Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:45:35.315Z] [error]: HIDE::404::NotFound::Shop not found for this user!::
+[2025-06-09T05:45:35.473Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:45:35.588Z] [error]: HIDE::404::NotFound::Shop not found for this user!::
+[2025-06-09T05:46:24.821Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:46:25.237Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:46:42.207Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:46:53.996Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:46:54.492Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:47:13.266Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:47:13.841Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:47:19.194Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:47:56.233Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:48:11.719Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:48:13.454Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:48:15.052Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:48:16.632Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:48:18.502Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:48:41.201Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:49:08.027Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:49:08.608Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:49:12.103Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:49:33.681Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:49:34.094Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:49:37.959Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:49:56.075Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:50:44.902Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:50:45.295Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:50:47.875Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:50:49.322Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:53:42.764Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:53:43.110Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:53:45.895Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:54:13.230Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:54:58.891Z] [error]: HIDE::400::CastError::Cast to ObjectId failed for value "/68466dfe47f01723aa57fb3b/i" (type RegExp) at path "_id" for model "Order"::
+[2025-06-09T05:56:32.657Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:56:35.544Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:56:37.073Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:57:01.971Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:57:05.956Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:57:37.601Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:57:38.189Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:58:16.790Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:58:17.325Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:58:19.443Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:59:08.172Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:59:12.942Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:59:58.944Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T05:59:59.777Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:00:37.261Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:00:38.085Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:00:46.979Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:00:50.599Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:00:57.130Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:01:07.413Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:01:46.637Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:02:01.538Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:02:13.635Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:02:31.698Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:02:48.532Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:02:57.574Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:03:00.962Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:03:19.133Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:03:31.495Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:03:38.113Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:03:38.650Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:03:42.376Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:03:48.442Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:03:59.052Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:04:09.851Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T06:04:25.876Z] [error]: HIDE::404::NotFound::Not found file!::
