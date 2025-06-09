@@ -36,4 +36,10 @@ reviewRoute.get(
     catchError(reviewController.getReviewsBySkuId)
 );
 
+/* ------------------ Get reviews by shop with pagination ------------------ */
+reviewRoute.get(
+    "/shop/own",
+    catchError(reviewController.getReviewsByShop)
+);
+
 export default reviewRoute;

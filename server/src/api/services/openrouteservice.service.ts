@@ -1,5 +1,6 @@
 import Openrouteservice from 'openrouteservice-js';
 import { OPEN_ROUTESERVICE_API_KEY } from '@/configs/openrouteservice.config';
+console.log("OPEN_ROUTESERVICE_API_KEY:::", OPEN_ROUTESERVICE_API_KEY)
 
 export const Geocode = new Openrouteservice.Geocode({ api_key: OPEN_ROUTESERVICE_API_KEY });
 

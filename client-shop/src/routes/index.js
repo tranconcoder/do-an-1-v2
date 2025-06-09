@@ -26,6 +26,7 @@ import DiscountList from '../pages/DiscountList';
 import DiscountDetail from '../pages/DiscountDetail';
 import EditDiscount from '../pages/EditDiscount';
 import Chat from '../pages/Chat';
+import ReviewManager from '../pages/ReviewManager';
 
 // Guards
 import ShopStatusGuard from '../components/ShopStatusGuard';
@@ -95,6 +96,7 @@ const AppRoutes = () => {
                     <Route path="discounts/:id" element={<DiscountDetail />} />
                     <Route path="discounts/edit/:id" element={<EditDiscount />} />
                     <Route path="chat" element={<Chat />} />
+                    <Route path="reviews" element={<ReviewManager />} />
                     <Route path="customers" element={<h1>Shop Customers</h1>} />
                     <Route path="settings" element={<h1>Shop Settings</h1>} />
                 </Route>

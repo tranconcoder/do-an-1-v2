@@ -1,7 +1,8 @@
 import { OkResponse } from '@/response/success.response';
 import reviewService from '@/services/review.service';
-import { RequestWithBody, RequestWithParams } from '@/types/request';
+import { RequestWithBody, RequestWithParams, RequestWithQuery } from '@/types/request';
 import { CreateReviewSchema } from '@/validations/zod/review.zod';
+import { findOneShop } from '@/models/repository/shop';
 
 export default new class ReviewController {
     /* ---------------------------------------------------------- */
@@ -42,6 +43,41 @@ export default new class ReviewController {
         new OkResponse({
             message: 'Reviews with statistics fetched successfully',
             metadata: await reviewService.getReviewsBySkuId(req.params.skuId)
+        }).send(res);
+    }
+
+    /* ---------------------------------------------------------- */
+    /*              Get reviews by shop with pagination           */
+    /* ---------------------------------------------------------- */
+    getReviewsByShop: RequestWithQuery<{
+        page?: string;
+        limit?: string;
+        rating?: string;
+        sortBy?: string;
+        sortType?: string;
+    }> = async (req, res, _next) => {
+        // Get shop info from user
+        const shop = await findOneShop({
+            query: { shop_userId: req.userId! },
+            options: { lean: true }
+        });
+
+        if (!shop) {
+            throw new Error('Shop not found');
+        }
+
+        // Parse query parameters
+        const options = {
+            page: req.query.page ? parseInt(req.query.page) : 1,
+            limit: req.query.limit ? parseInt(req.query.limit) : 10,
+            rating: req.query.rating ? parseInt(req.query.rating) : undefined,
+            sortBy: (req.query.sortBy as 'createdAt' | 'review_rating') || 'createdAt',
+            sortType: (req.query.sortType as 'asc' | 'desc') || 'desc'
+        };
+
+        new OkResponse({
+            message: 'Shop reviews fetched successfully',
+            metadata: await reviewService.getReviewsByShopId(shop._id.toString(), options)
         }).send(res);
     }
 }

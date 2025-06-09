@@ -99,6 +99,12 @@ export default new (class CheckoutService {
         /* ----------------------- Each shop  ----------------------- */
         await Promise.all(
             cart.cart_shop.map(async (shop) => {
+                // Skip shops with no products
+                if (!shop.products || shop.products.length === 0) {
+                    console.log("SKIP SHOP - No products:", shop.shop);
+                    return;
+                }
+
                 const foundShop = await shopModel.findById(shop.shop);
                 if (!foundShop) throw new NotFoundErrorResponse({ message: 'Not found shop!' });
 
@@ -168,8 +174,9 @@ export default new (class CheckoutService {
                         }
                     })
                 ).then((x) => x.filter((x: any) => x !== null));
-                if (!warehouseCoordinates || !Array.isArray(warehouseCoordinates)) {
-                    throw new InternalServerErrorResponse({ message: 'Failed to get warehouse coordinates!' });
+                if (!warehouseCoordinates || !Array.isArray(warehouseCoordinates) || warehouseCoordinates.length === 0) {
+                    console.log("SKIP SHOP - No valid warehouse coordinates:", shop.shop);
+                    return;
                 }
 
                 /* --------- Get distance nearest warehouse --------- */
@@ -250,7 +257,7 @@ export default new (class CheckoutService {
                         discountAdmin.is_available &&
                         spu &&
                         (discountAdmin.is_apply_all_product ||
-                            discountAdmin?.discount_skus // Note: field name is still discount_skus but contains SPU IDs
+                            discountAdmin?.discount_spus // discount_spus contains SPU IDs
                                 ?.map((x: any) => x.toString())
                                 ?.includes(spu._id.toString()))
                     ) {

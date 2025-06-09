@@ -18,7 +18,8 @@ import {
     MdChevronRight,
     MdDiscount,
     MdWarehouse,
-    MdChat
+    MdChat,
+    MdStar
 } from 'react-icons/md';
 
 const cx = classNames.bind(styles);
@@ -56,6 +57,11 @@ function ShopSidebar({ collapsed, toggleSidebar }) {
             icon: <MdChat className={cx('nav-icon')} />,
             text: 'Tin Nhắn',
             badge: totalUnreadCount > 0 ? totalUnreadCount : null
+        },
+        {
+            path: '/reviews',
+            icon: <MdStar className={cx('nav-icon')} />,
+            text: 'Đánh Giá'
         },
         {
             path: '/customers',

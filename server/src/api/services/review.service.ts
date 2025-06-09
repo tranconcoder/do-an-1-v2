@@ -100,4 +100,82 @@ export default new class ReviewService {
             }
         };
     }
+
+    /* ---------------------------------------------------------- */
+    /*              Get reviews by Shop with pagination           */
+    /* ---------------------------------------------------------- */
+    async getReviewsByShopId(shopId: string, options: {
+        page?: number;
+        limit?: number;
+        rating?: number;
+        sortBy?: 'createdAt' | 'review_rating';
+        sortType?: 'asc' | 'desc';
+    } = {}) {
+        const {
+            page = 1,
+            limit = 10,
+            rating,
+            sortBy = 'createdAt',
+            sortType = 'desc'
+        } = options;
+
+        // Build query
+        const query: any = { shop_id: shopId };
+        if (rating) {
+            query.review_rating = rating;
+        }
+
+        // Get reviews with pagination
+        const skip = (page - 1) * limit;
+        const reviews = await findReview({
+            query,
+            options: {
+                sort: { [sortBy]: sortType === 'asc' ? 1 : -1 },
+                skip,
+                limit,
+                populate: [
+                    { path: 'user_id', select: 'user_fullName user_avatar' },
+                    { path: 'sku_id', select: 'sku_name sku_thumb', populate: { path: 'sku_product', select: 'product_name' } },
+                    { path: 'review_images' }
+                ]
+            }
+        });
+
+        // Get total count
+        const totalReviews = await reviewModel.countDocuments(query);
+
+        // Calculate statistics for all reviews of this shop
+        const allReviews = await findReview({
+            query: { shop_id: shopId },
+            options: { select: 'review_rating' }
+        });
+
+        let averageRating = 0;
+        const ratingBreakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+        if (allReviews.length > 0) {
+            const totalRating = allReviews.reduce((sum, review) => sum + review.review_rating, 0);
+            averageRating = Math.round((totalRating / allReviews.length) * 10) / 10;
+
+            // Count ratings breakdown
+            allReviews.forEach(review => {
+                ratingBreakdown[review.review_rating as keyof typeof ratingBreakdown]++;
+            });
+        }
+
+        return {
+            reviews,
+            pagination: {
+                currentPage: page,
+                totalPages: Math.ceil(totalReviews / limit),
+                totalReviews,
+                limit
+            },
+            statistics: {
+                totalReviews: allReviews.length,
+                averageRating,
+                ratingBreakdown
+            }
+        };
+    }
 }
