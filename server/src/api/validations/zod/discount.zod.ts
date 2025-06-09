@@ -279,31 +279,31 @@ export const updateDiscountSchema = z
             });
         }
 
-        // Validate discount_skus based on is_apply_all_product if is_apply_all_product is provided
+        // Validate discount_spus based on is_apply_all_product if is_apply_all_product is provided
         if (data.is_apply_all_product === false) {
             if (
-                data.discount_skus === undefined ||
-                (Array.isArray(data.discount_skus) && data.discount_skus.length < 1)
+                data.discount_spus === undefined ||
+                (Array.isArray(data.discount_spus) && data.discount_spus.length < 1)
             ) {
-                // only enforce if discount_skus is not explicitly set to null (for clearing)
-                if (data.discount_skus !== null) {
+                // only enforce if discount_spus is not explicitly set to null (for clearing)
+                if (data.discount_spus !== null) {
                     ctx.addIssue({
                         code: z.ZodIssueCode.custom,
-                        message: 'Discount SKUs are required when is_apply_all_product is false',
-                        path: ['discount_skus']
+                        message: 'Discount SPUs are required when is_apply_all_product is false',
+                        path: ['discount_spus']
                     });
                 }
             }
         } else if (data.is_apply_all_product === true) {
-            if (data.discount_skus && data.discount_skus.length > 0) {
+            if (data.discount_spus && data.discount_spus.length > 0) {
                 ctx.addIssue({
                     code: z.ZodIssueCode.custom,
-                    message: 'Discount SKUs must not be provided when is_apply_all_product is true',
-                    path: ['discount_skus']
+                    message: 'Discount SPUs must not be provided when is_apply_all_product is true',
+                    path: ['discount_spus']
                 });
             }
         }
-        // If is_apply_all_product is not part of the update, we don't validate discount_skus based on it.
+        // If is_apply_all_product is not part of the update, we don't validate discount_spus based on it.
         // User might be updating only skus, assuming is_apply_all_product is already false.
 
         // Validate discount_end_at if both start and end are provided

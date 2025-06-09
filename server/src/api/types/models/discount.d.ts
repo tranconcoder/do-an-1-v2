@@ -16,7 +16,7 @@ declare global {
                     discount_code: string;
                     discount_type: DiscountTypeEnum;
                     discount_value: number;
-                    discount_skus: Array<string>;
+                    discount_spus: Array<string>;
 
                     /* ------------------------- History ------------------------ */
                     discount_used_count: number;

@@ -19,7 +19,7 @@ patchRoute.use(authenticate, patchRouteValidated);
 
 /* ----------------- Toggle publish status ------------------ */
 patchRouteValidated.patch(
-    '/:discountId/publish',
+    '/:discountId/toggle-publish',
     validateToggleDiscountPublishParams,
     validateToggleDiscountPublishBody,
     catchError(DiscountController.toggleDiscountPublish)
@@ -27,7 +27,7 @@ patchRouteValidated.patch(
 
 /* ---------------- Toggle available status ----------------- */
 patchRouteValidated.patch(
-    '/:discountId/available',
+    '/:discountId/toggle-available',
     validateToggleDiscountAvailableParams,
     validateToggleDiscountAvailableBody,
     catchError(DiscountController.toggleDiscountAvailable)

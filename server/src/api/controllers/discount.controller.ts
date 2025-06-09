@@ -2,6 +2,8 @@ import { RequestHandler } from 'express';
 import SuccessResponse, { CreatedResponse, OkResponse } from '@/response/success.response.js';
 import DiscountService from '@/services/discount.service.js';
 import { RequestWithBody, RequestWithParams, RequestWithQuery } from '@/types/request.js';
+import { findOneShop } from '@/models/repository/shop';
+import { NotFoundErrorResponse } from '@/response/error.response';
 
 export default class DiscountController {
     /* ---------------------------------------------------------- */
@@ -35,6 +37,20 @@ export default class DiscountController {
     ) => {
         new OkResponse({
             message: 'Get discount by ID successfully',
+            metadata: await DiscountService.getDiscountById({
+                discountId: req.params.discountId
+            })
+        }).send(res);
+    };
+
+    /* -------------- Get discount for edit by shop ------------- */
+    public static getDiscountForEdit: RequestWithParams<{ discountId: string }> = async (
+        req,
+        res,
+        _
+    ) => {
+        new OkResponse({
+            message: 'Get discount for edit successfully',
             metadata: await DiscountService.getDiscountForEdit({
                 discountId: req.params.discountId,
                 userId: req.userId as string
@@ -103,11 +119,25 @@ export default class DiscountController {
         res,
         _
     ) => {
+        const shop = await findOneShop({
+            query: {
+                shop_userId: req.userId as string
+            },
+            options: {
+                lean: true
+            }
+        })
+        if (!shop) {
+            throw new NotFoundErrorResponse({
+                message: "Not found shop"
+            })
+        }
+
         new OkResponse({
             message: 'Update discount success!',
             metadata: await DiscountService.updateDiscount({
                 ...req.body,
-                discount_shop: req.userId as string
+                discount_shop: shop._id.toString()
             })
         }).send(res);
     };

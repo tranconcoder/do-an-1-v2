@@ -9,6 +9,6 @@ const putRoute = Router();
 /* ------------ Apply authenticate to all route  ------------ */
 putRoute.use(authenticate);
 
-putRoute.put('/', validateUpdateDiscount, catchError(DiscountController.updateDiscount));
+putRoute.put('/update', validateUpdateDiscount, catchError(DiscountController.updateDiscount));
 
 export default putRoute;

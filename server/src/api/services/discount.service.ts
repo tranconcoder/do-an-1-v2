@@ -67,7 +67,7 @@ export default class DiscountService {
         }
 
         /* --------------- Check products by SPU and ownership  --------------- */
-        const discountProducts = (payload as any).discount_spus || payload.discount_skus; // Support both field names for compatibility
+        const discountProducts = payload.discount_spus;
         if (discountProducts) {
             // Get SPU list directly to check ownership
             const spuList = await spuModel.find({
@@ -123,18 +123,12 @@ export default class DiscountService {
             }
         }
 
-        // Prepare payload for database - convert discount_spus to discount_skus for storage
+        // Prepare payload for database
         const createPayload: any = {
             ...payload,
             discount_shop: shopId,
             is_admin_voucher: isAdmin
         };
-
-        // Convert discount_spus to discount_skus if present
-        if ((payload as any).discount_spus) {
-            createPayload.discount_skus = (payload as any).discount_spus;
-            delete createPayload.discount_spus;
-        }
 
         return await createDiscount(createPayload);
     };
@@ -250,7 +244,7 @@ export default class DiscountService {
                 discount_end_at: { $gte: new Date() },
                 is_available: true,
                 is_publish: true,
-                $or: [{ discount_skus: [productId] }, { is_apply_all_product: true }] // discount_skus contains SPU IDs
+                $or: [{ discount_spus: [productId] }, { is_apply_all_product: true }] // discount_spus contains SPU IDs
             },
             options: {
                 sort: { is_admin_voucher: -1, updated_at: -1 }
@@ -301,8 +295,8 @@ export default class DiscountService {
                 ...getAllSKUAggregate(limit, page),
                 {
                     $match: {
-                        '_id': { // Match SPU IDs directly since discount_skus now contains SPU IDs
-                            $in: discount.discount_skus.map((x) => new mongoose.Types.ObjectId(x))
+                        '_id': { // Match SPU IDs directly since discount_spus contains SPU IDs
+                            $in: discount.discount_spus.map((x) => new mongoose.Types.ObjectId(x))
                         }
                     }
                 }
@@ -322,7 +316,7 @@ export default class DiscountService {
                 message: 'Not found discount or discount is invalid!'
             });
 
-        const discountSPUs = discount.discount_skus.map((x) => x.toString()); // Note: field name is discount_skus but contains SPU IDs
+        const discountSPUs = discount.discount_spus.map((x: any) => x.toString()); // discount_spus contains SPU IDs
 
         /* ----------- Check product is available to use  ----------- */
         const skuIds = products.map((x) => x.id);
@@ -410,11 +404,13 @@ export default class DiscountService {
         const {
             discount_shop,
             discount_code,
-            discount_skus: discount_products,
+            discount_spus: discount_products,
             discount_start_at,
             discount_end_at
         } = payload;
         /* ------------- Check discount is own by shop  ------------- */
+        console.log("DISCOUNT_SHOP:::", discount_shop)
+        console.log("DISCOUNT_ID:::", _id)
         const discount = await discountModel.findOne({ _id, discount_shop });
         if (!discount)
             throw new ForbiddenErrorResponse({ message: 'Not permission to update discount!' });
@@ -448,20 +444,58 @@ export default class DiscountService {
                 message: `Conflict with discount: ${conflictDiscount.discount_name}`
             });
 
-        /* ------- Check products is own by shop and publish  ------- */
-        if (discount_products?.length) {
-            const productsIsAvailableToDiscount = await checkSKUListIsAvailable({
-                skuList: discount_products
-            });
-            if (!productsIsAvailableToDiscount)
+        /* ------- Check products by SPU and ownership  ------- */
+        const discountProducts = discount_products;
+        if (discountProducts?.length) {
+            // Get SPU list directly to check ownership
+            const spuList = await spuModel.find({
+                _id: { $in: discountProducts.map((x: string) => new mongoose.Types.ObjectId(x)) },
+                is_deleted: false
+            }).lean();
+
+            if (spuList.length !== discountProducts.length) {
                 throw new BadRequestErrorResponse({
-                    message: 'Some products is unpublish or not permission to discount!'
+                    message: 'Some products in discount code are not available!'
                 });
+            }
+
+            for (const spu of spuList) {
+                /* ------------------ Check spu is deleted ------------------ */
+                if (spu.is_deleted) {
+                    throw new BadRequestErrorResponse({
+                        message: `Product ${spu.product_name} is deleted!`
+                    });
+                }
+
+                /* ------------------- Check spu is publish ---------------- */
+                if (!spu.is_publish) {
+                    throw new BadRequestErrorResponse({
+                        message: `Product ${spu.product_name} is not published!`
+                    });
+                }
+
+                /* -------------------- Check shop ownership  ------------------- */
+                // If not admin, products must belong to current shop
+                const isAdmin = await roleService.userIsAdmin(discount.discount_shop.toString());
+                if (!isAdmin && spu.product_shop.toString() !== discount.discount_shop.toString()) {
+                    throw new BadRequestErrorResponse({
+                        message: `Product ${spu.product_name} does not belong to your shop!`
+                    });
+                }
+            }
         }
 
         /* --------------------- Handle update  --------------------- */
+        const updatePayload: any = { ...payload };
+
+        // Convert discount_spus to discount_skus if present
+        if ((payload as any).discount_spus) {
+            updatePayload.discount_skus = (payload as any).discount_spus;
+            delete updatePayload.discount_spus;
+        }
+
         const $set = {};
-        get$SetNestedFromObject(payload, $set);
+        get$SetNestedFromObject(updatePayload, $set);
 
         const result = await discountModel.findOneAndUpdate({ _id }, { $set }, { new: true });
 

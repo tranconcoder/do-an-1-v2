@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
-import styles from './EditDiscount.module.scss';
+import styles from '../DiscountManager/DiscountManager.module.scss';
 import axiosClient from '../../configs/axios';
 import { API_URL } from '../../configs/env.config';
 import ProductSelection from '../DiscountManager/components/ProductSelection';
@@ -11,13 +11,12 @@ import { convertDatetimeLocalToISO, convertISOToDatetimeLocal } from '../../util
 const cx = classNames.bind(styles);
 
 function EditDiscount() {
+    const { id } = useParams();
     const navigate = useNavigate();
-    const { discountId } = useParams();
     const [loading, setLoading] = useState(false);
-    const [fetchLoading, setFetchLoading] = useState(true);
+    const [initialLoading, setInitialLoading] = useState(true);
     const [errors, setErrors] = useState({});
     const { showToast } = useToast();
-    const [originalData, setOriginalData] = useState(null);
     const [formData, setFormData] = useState({
         discount_name: '',
         discount_description: '',
@@ -30,56 +29,46 @@ function EditDiscount() {
         discount_min_order_cost: '',
         discount_start_at: '',
         discount_end_at: '',
-        discount_skus: [],
+        discount_spus: [],
         is_publish: true,
         is_apply_all_product: true,
         is_available: true
     });
 
     useEffect(() => {
-        fetchDiscountDetails();
-    }, [discountId]);
+        fetchDiscountData();
+    }, [id]);
 
-    const fetchDiscountDetails = async () => {
+    const fetchDiscountData = async () => {
         try {
-            setFetchLoading(true);
-            const response = await axiosClient.get(`${API_URL}/discount/${discountId}`);
-
-            if (response.data && response.data.statusCode === 200) {
-                const discount = response.data.metadata;
-
-                const discountData = {
+            setInitialLoading(true);
+            const response = await axiosClient.get(`${API_URL}/discount/edit/${id}`);
+            if (response.data && response.data.data) {
+                const discount = response.data.data;
+                setFormData({
                     discount_name: discount.discount_name || '',
                     discount_description: discount.discount_description || '',
                     discount_code: discount.discount_code || '',
                     discount_type: discount.discount_type || 'percentage',
-                    discount_value: discount.discount_value || '',
-                    discount_count: discount.discount_count || '',
-                    discount_max_value: discount.discount_max_value || '',
-                    discount_user_max_use: discount.discount_user_max_use || '',
-                    discount_min_order_cost: discount.discount_min_order_cost || '',
-                    discount_start_at: convertISOToDatetimeLocal(discount.discount_start_at),
-                    discount_end_at: convertISOToDatetimeLocal(discount.discount_end_at),
-                    discount_skus: discount.discount_skus || [],
-                    is_publish: discount.is_publish !== undefined ? discount.is_publish : true,
-                    is_apply_all_product:
-                        discount.is_apply_all_product !== undefined
-                            ? discount.is_apply_all_product
-                            : true,
-                    is_available: discount.is_available !== undefined ? discount.is_available : true
-                };
-
-                setFormData(discountData);
-                setOriginalData(discountData);
+                    discount_value: discount.discount_value?.toString() || '',
+                    discount_count: discount.discount_count?.toString() || '',
+                    discount_max_value: discount.discount_max_value?.toString() || '',
+                    discount_user_max_use: discount.discount_user_max_use?.toString() || '',
+                    discount_min_order_cost: discount.discount_min_order_cost?.toString() || '',
+                    discount_start_at: convertISOToDatetimeLocal(discount.discount_start_at) || '',
+                    discount_end_at: convertISOToDatetimeLocal(discount.discount_end_at) || '',
+                    discount_spus: discount.discount_skus || [], // Note: field name is discount_skus but contains SPU IDs
+                    is_publish: discount.is_publish ?? true,
+                    is_apply_all_product: discount.is_apply_all_product ?? true,
+                    is_available: discount.is_available ?? true
+                });
             }
         } catch (error) {
-            console.error('Error fetching discount details:', error);
-            const errorMessage =
-                error.response?.data?.message || 'Không thể tải thông tin mã giảm giá';
-            showToast(errorMessage, 'error');
+            console.error('Error fetching discount data:', error);
+            showToast('Không thể tải thông tin mã giảm giá', 'error');
             navigate('/discounts');
         } finally {
-            setFetchLoading(false);
+            setInitialLoading(false);
         }
     };
 
@@ -88,15 +77,21 @@ function EditDiscount() {
         setFormData((prev) => ({
             ...prev,
             [name]: type === 'checkbox' ? checked : value,
-            // Nếu chọn áp dụng tất cả sản phẩm, reset danh sách SKUs đã chọn
-            ...(name === 'is_apply_all_product' && checked ? { discount_skus: [] } : {})
+            // Nếu chọn áp dụng tất cả sản phẩm, reset danh sách SPUs đã chọn
+            ...(name === 'is_apply_all_product' && checked ? { discount_spus: [] } : {}),
+            // Nếu chuyển sang percentage và chưa có giá trị hoặc giá trị = 0, đặt mặc định là 1
+            ...(name === 'discount_type' &&
+            value === 'percentage' &&
+            (!prev.discount_value || prev.discount_value === '' || prev.discount_value === '0')
+                ? { discount_value: '1' }
+                : {})
         }));
     };
 
-    const handleSelectedSkusChange = (selectedSkus, applyAll) => {
+    const handleSelectedSpusChange = (selectedSpus, applyAll) => {
         setFormData((prev) => ({
             ...prev,
-            discount_skus: selectedSkus,
+            discount_spus: selectedSpus,
             // Nếu đang chọn sản phẩm cụ thể, tắt option áp dụng tất cả
             is_apply_all_product: applyAll
         }));
@@ -119,9 +114,9 @@ function EditDiscount() {
             newErrors.discount_value = 'Vui lòng nhập giá trị giảm';
         } else if (
             formData.discount_type === 'percentage' &&
-            (formData.discount_value < 0 || formData.discount_value > 100)
+            (formData.discount_value < 1 || formData.discount_value > 100)
         ) {
-            newErrors.discount_value = 'Phần trăm giảm giá phải từ 0 đến 100';
+            newErrors.discount_value = 'Phần trăm giảm giá phải từ 1 đến 100';
         }
 
         if (formData.discount_count && isNaN(Number(formData.discount_count))) {
@@ -161,12 +156,13 @@ function EditDiscount() {
         try {
             setLoading(true);
             const data = {
-                _id: discountId,
                 ...formData,
-                discount_count: Number(formData.discount_count),
+                _id: id,
+                discount_shop: undefined, // Will be set by server
+                discount_count: Number(formData.discount_count) || undefined,
                 discount_max_value: formData.discount_max_value
                     ? Number(formData.discount_max_value)
-                    : null,
+                    : undefined,
                 discount_min_order_cost: Number(formData.discount_min_order_cost) || 0,
                 discount_user_max_use: Number(formData.discount_user_max_use) || 1,
                 discount_value: Number(formData.discount_value),
@@ -178,13 +174,13 @@ function EditDiscount() {
             if (!data.discount_description) delete data.discount_description;
             if (!data.discount_count) delete data.discount_count;
             if (!data.discount_max_value) delete data.discount_max_value;
-            if (data.is_apply_all_product) delete data.discount_skus;
+            if (data.is_apply_all_product) delete data.discount_spus;
 
-            const response = await axiosClient.put(`${API_URL}/discount`, data);
+            const response = await axiosClient.put(`${API_URL}/discount/update`, data);
 
             if (response.data && response.data.statusCode === 200) {
                 showToast('Mã giảm giá được cập nhật thành công!', 'success');
-                navigate('/discounts');
+                navigate(`/discounts/${id}`);
             }
         } catch (error) {
             console.error('Error updating discount:', error);
@@ -197,17 +193,10 @@ function EditDiscount() {
         }
     };
 
-    const handleCancel = () => {
-        navigate('/discounts');
-    };
-
-    if (fetchLoading) {
+    if (initialLoading) {
         return (
             <div className={cx('discount-manager')}>
-                <div className={cx('loading-state')}>
-                    <div className={cx('loader')}></div>
-                    <p>Đang tải thông tin mã giảm giá...</p>
-                </div>
+                <div className={cx('loading')}>Đang tải thông tin mã giảm giá...</div>
             </div>
         );
     }
@@ -215,8 +204,24 @@ function EditDiscount() {
     return (
         <div className={cx('discount-manager')}>
             <div className={cx('header')}>
-                <h1>Chỉnh Sửa Mã Giảm Giá</h1>
-                <p className={cx('subtitle')}>Mã: {formData.discount_code}</p>
+                <div>
+                    <button
+                        className={cx('back-btn')}
+                        onClick={() => navigate(`/discounts/${id}`)}
+                        style={{
+                            padding: '0.5rem 1rem',
+                            background: '#f8f9fa',
+                            border: '1px solid #e9ecef',
+                            borderRadius: '6px',
+                            color: '#666',
+                            cursor: 'pointer',
+                            marginBottom: '1rem'
+                        }}
+                    >
+                        ← Quay lại
+                    </button>
+                    <h1>Chỉnh Sửa Mã Giảm Giá</h1>
+                </div>
             </div>
 
             <form onSubmit={handleSubmit} className={cx('discount-form')}>
@@ -293,19 +298,39 @@ function EditDiscount() {
                                 Giá trị giảm
                                 <span className={cx('required')}>*</span>
                             </label>
-                            <input
-                                type="number"
-                                name="discount_value"
-                                value={formData.discount_value}
-                                onChange={handleInputChange}
-                                placeholder={
-                                    formData.discount_type === 'percentage'
-                                        ? 'Nhập phần trăm (0-100)'
-                                        : 'Nhập số tiền'
-                                }
-                                min="0"
-                                max={formData.discount_type === 'percentage' ? '100' : ''}
-                            />
+                            {formData.discount_type === 'percentage' ? (
+                                <div className={cx('range-container')}>
+                                    <input
+                                        type="range"
+                                        name="discount_value"
+                                        value={formData.discount_value || 1}
+                                        onChange={handleInputChange}
+                                        min="1"
+                                        max="100"
+                                        step="1"
+                                        className={cx('range-slider')}
+                                        style={{
+                                            background: `linear-gradient(to right, #2c8c99 0%, #2c8c99 ${
+                                                formData.discount_value || 1
+                                            }%, #e0e0e0 ${
+                                                formData.discount_value || 1
+                                            }%, #e0e0e0 100%)`
+                                        }}
+                                    />
+                                    <div className={cx('range-value')}>
+                                        {formData.discount_value || 1}%
+                                    </div>
+                                </div>
+                            ) : (
+                                <input
+                                    type="number"
+                                    name="discount_value"
+                                    value={formData.discount_value}
+                                    onChange={handleInputChange}
+                                    placeholder="Nhập số tiền"
+                                    min="0"
+                                />
+                            )}
                             {errors.discount_value && (
                                 <div className={cx('error-message')}>{errors.discount_value}</div>
                             )}
@@ -425,8 +450,8 @@ function EditDiscount() {
                 <div className={cx('form-section')}>
                     <h2>Chọn sản phẩm áp dụng</h2>
                     <ProductSelection
-                        selectedSkus={formData.discount_skus}
-                        onChange={handleSelectedSkusChange}
+                        selectedSpus={formData.discount_spus}
+                        onChange={handleSelectedSpusChange}
                     />
                 </div>
 
@@ -463,7 +488,7 @@ function EditDiscount() {
                             checked={formData.is_available}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="is_available">Có sẵn để sử dụng</label>
+                        <label htmlFor="is_available">Kích hoạt</label>
                     </div>
                 </div>
 
@@ -471,8 +496,8 @@ function EditDiscount() {
                     <div className={cx('actions')}>
                         <button
                             type="button"
-                            className={cx('cancel-btn')}
-                            onClick={handleCancel}
+                            className={cx('draft-btn')}
+                            onClick={() => navigate(`/discounts/${id}`)}
                             disabled={loading}
                         >
                             Hủy

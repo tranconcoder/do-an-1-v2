@@ -48,4 +48,12 @@ discountGetRouteValidated.get(
     catchError(DiscountController.getAllShopOwnDiscount as any)
 );
 
+/* -------------- Get discount for edit by shop ------------- */
+discountGetRouteValidated.get(
+    '/edit/:discountId',
+    authorization('readOwn', Resources.DISCOUNT),
+    validateParamsId('discountId'),
+    catchError(DiscountController.getDiscountForEdit as any)
+);
+
 export default discountGetRoute;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './DiscountList.module.scss';
 import axiosClient from '../../configs/axios';
@@ -37,6 +37,7 @@ const SORTABLE_FIELDS = [
 
 // Define the DiscountList component as a function expression
 const DiscountList = function () {
+    const navigate = useNavigate();
     const { showToast } = useToast();
     const [discounts, setDiscounts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -202,6 +203,25 @@ const DiscountList = function () {
         if (newPage >= 1 && newPage <= totalPages) {
             setCurrentPage(newPage);
         }
+    };
+
+    const handleRowClick = (discountId, event) => {
+        console.log('Row clicked:', discountId, event.target);
+
+        // Ngăn chặn navigation nếu click vào button hoặc link
+        if (
+            event.target.closest('button') ||
+            event.target.closest('a') ||
+            event.target.closest('.toggle-btn') ||
+            event.target.closest('.edit-btn') ||
+            event.target.closest('.delete-btn')
+        ) {
+            console.log('Click blocked - button/link clicked');
+            return;
+        }
+
+        console.log('Navigating to:', `/discounts/${discountId}`);
+        navigate(`/discounts/${discountId}`);
     };
 
     const handleTogglePublish = async (discountId, currentState) => {
@@ -425,10 +445,26 @@ const DiscountList = function () {
                             <tbody>
                                 {discounts.map((discount) => {
                                     const status = getDiscountStatus(discount);
+                                    console.log(
+                                        'Rendering discount:',
+                                        discount._id,
+                                        discount.discount_name
+                                    );
                                     return (
-                                        <tr key={discount._id}>
+                                        <tr
+                                            key={discount._id}
+                                            className={cx('table-row')}
+                                            onClick={(e) => handleRowClick(discount._id, e)}
+                                            title="Click để xem chi tiết mã giảm giá"
+                                        >
                                             <td className={cx('discount-name')}>
-                                                {discount.discount_name}
+                                                <Link
+                                                    to={`/discounts/${discount._id}`}
+                                                    className={cx('discount-name-link')}
+                                                    onClick={(e) => e.stopPropagation()}
+                                                >
+                                                    {discount.discount_name}
+                                                </Link>
                                             </td>
                                             <td className={cx('discount-code')}>
                                                 {discount.discount_code}
@@ -463,12 +499,13 @@ const DiscountList = function () {
                                                         'toggle-on': discount.is_publish,
                                                         'toggle-off': !discount.is_publish
                                                     })}
-                                                    onClick={() =>
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
                                                         handleTogglePublish(
                                                             discount._id,
                                                             discount.is_publish
-                                                        )
-                                                    }
+                                                        );
+                                                    }}
                                                     title={
                                                         discount.is_publish
                                                             ? 'Hủy xuất bản'
@@ -488,12 +525,13 @@ const DiscountList = function () {
                                                         'toggle-on': discount.is_available,
                                                         'toggle-off': !discount.is_available
                                                     })}
-                                                    onClick={() =>
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
                                                         handleToggleAvailable(
                                                             discount._id,
                                                             discount.is_available
-                                                        )
-                                                    }
+                                                        );
+                                                    }}
                                                     title={
                                                         discount.is_available
                                                             ? 'Tắt khả dụng'
@@ -509,17 +547,19 @@ const DiscountList = function () {
                                             </td>
                                             <td className={cx('actions')}>
                                                 <Link
-                                                    to={`/discounts/${discount._id}/edit`}
+                                                    to={`/discounts/edit/${discount._id}`}
                                                     className={cx('edit-btn')}
                                                     title="Chỉnh sửa"
+                                                    onClick={(e) => e.stopPropagation()}
                                                 >
                                                     <FaEdit />
                                                 </Link>
                                                 <button
                                                     className={cx('delete-btn')}
-                                                    onClick={() =>
-                                                        handleDeleteDiscount(discount._id)
-                                                    }
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleDeleteDiscount(discount._id);
+                                                    }}
                                                     title="Xóa"
                                                 >
                                                     <FaTrash />

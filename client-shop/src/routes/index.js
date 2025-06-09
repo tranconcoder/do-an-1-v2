@@ -23,6 +23,7 @@ import AdminShopRegistrationDetail from '../pages/AdminShopRegistrationDetail';
 import OrderManager from '../pages/OrderManager';
 import DiscountManager from '../pages/DiscountManager';
 import DiscountList from '../pages/DiscountList';
+import DiscountDetail from '../pages/DiscountDetail';
 import EditDiscount from '../pages/EditDiscount';
 import Chat from '../pages/Chat';
 
@@ -91,7 +92,8 @@ const AppRoutes = () => {
                     <Route path="orders" element={<OrderManager />} />
                     <Route path="discounts" element={<DiscountList />} />
                     <Route path="discounts/new" element={<DiscountManager />} />
-                    <Route path="discounts/:discountId/edit" element={<EditDiscount />} />
+                    <Route path="discounts/:id" element={<DiscountDetail />} />
+                    <Route path="discounts/edit/:id" element={<EditDiscount />} />
                     <Route path="chat" element={<Chat />} />
                     <Route path="customers" element={<h1>Shop Customers</h1>} />
                     <Route path="settings" element={<h1>Shop Settings</h1>} />

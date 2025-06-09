@@ -255,12 +255,36 @@
             &:hover {
                 background-color: #f8f9fa;
             }
+
+            &.table-row {
+                cursor: pointer;
+                position: relative;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: #f0f8ff;
+                    box-shadow: 0 2px 8px rgba(44, 140, 153, 0.1);
+                    border-left: 4px solid #2c8c99;
+                }
+            }
         }
 
         .discount-name {
             font-weight: 500;
             color: #333;
             font-size: 0.95rem;
+
+            .discount-name-link {
+                color: #2c8c99;
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    color: #1f6b75;
+                    text-decoration: underline;
+                }
+            }
         }
 
         .discount-code {

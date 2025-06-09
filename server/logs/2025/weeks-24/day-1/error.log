@@ -387,3 +387,67 @@
 [2025-06-09T04:00:18.913Z] [error]: HIDE::404::NotFound::Route is not exists::
 [2025-06-09T04:03:28.605Z] [error]: HIDE::404::NotFound::Not found file!::
 [2025-06-09T04:08:09.880Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:13:43.605Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:15:49.619Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:15:55.594Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:16:37.517Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:17:41.772Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:18:57.977Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:19:53.421Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:21:11.502Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:22:31.399Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:22:38.890Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-09T04:22:39.658Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-09T04:22:44.596Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-09T04:22:45.247Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-09T04:22:46.465Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:23:31.300Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:25:35.340Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-06-09T04:25:35.444Z] [error]: HIDE::403::Forbidden::Invalid token!::
+[2025-06-09T04:25:35.481Z] [error]: HIDE::404::NotFound::Key token not found!::
+[2025-06-09T04:25:35.591Z] [error]: HIDE::403::Forbidden::Token not found!::
+[2025-06-09T04:28:14.061Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:36:01.414Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T04:36:11.437Z] [error]: HIDE::403::Forbidden::Not permission to update discount!::
+[2025-06-09T04:40:42.021Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:41:06.478Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T04:41:22.506Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:41:51.355Z] [error]: HIDE::403::Forbidden::Not permission to update discount!::
+[2025-06-09T04:41:52.332Z] [error]: HIDE::403::Forbidden::Not permission to update discount!::
+[2025-06-09T04:42:26.243Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T04:42:33.014Z] [error]: HIDE::403::Forbidden::Not permission to update discount!::
+[2025-06-09T04:43:44.332Z] [error]: HIDE::403::Forbidden::Not permission to update discount!::
+[2025-06-09T04:45:53.239Z] [error]: HIDE::400::InvalidPayload::Start and end time must greater than now!::
+[2025-06-09T04:46:12.464Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
