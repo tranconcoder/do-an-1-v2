@@ -8,6 +8,29 @@ import {
     // generateValidateWithQuery // You'll need to create or adapt a middleware for query params
 } from '@/middlewares/zod.middleware.js';
 
+// Helper function to handle UTC+0 time comparison
+// Client sends dates in UTC+0 format, server compares with UTC+0 time
+const isDateInPast = (date: Date, gracePeriodMs: number = 60000): boolean => {
+    // Get current UTC+0 time (server time converted to UTC)
+    const nowUTC = new Date();
+
+    // Create UTC timestamp for "now - grace period"
+    const gracePeriodAgoUTC = new Date(nowUTC.getTime() - gracePeriodMs);
+
+    // Convert to UTC strings for debug
+    console.log('📅 Comparing dates in UTC+0:');
+    console.log('   Client date:', date.toISOString());
+    console.log('   Server UTC now:', nowUTC.toISOString());
+    console.log('   Grace period ago:', gracePeriodAgoUTC.toISOString());
+
+    // Since client sends UTC+0 and we want to compare with UTC+0
+    // Both date.getTime() and gracePeriodAgoUTC.getTime() are in UTC
+    const result = date.getTime() < gracePeriodAgoUTC.getTime();
+    console.log('   Is past?', result);
+
+    return result;
+};
+
 // Placeholder for discountCode schema - define this appropriately (e.g., in './index.ts')
 // Example: z.string().min(6).max(20).regex(/^[A-Z0-9]+$/).toUpperCase()
 const zodDiscountCode = z
@@ -33,18 +56,18 @@ export const createDiscountSchema = z
             .number({ required_error: 'Discount count is required' })
             .int()
             .min(1, 'Discount count must be at least 1'),
-        discount_skus: z
+        discount_spus: z
             .array(zodId)
-            .min(1, 'At least one SKU is required if not applying to all products')
+            .min(1, 'At least one SPU is required if not applying to all products')
             .optional(),
         discount_start_at: z.coerce.date({
             required_error: 'Discount start date is required',
             invalid_type_error: 'Invalid datetime format. Please provide a valid datetime.'
-        }),
+        }), // Client sends UTC+0 format, server handles timezone conversion
         discount_end_at: z.coerce.date({
             required_error: 'Discount end date is required',
             invalid_type_error: 'Invalid datetime format. Please provide a valid datetime.'
-        }),
+        }), // Client sends UTC+0 format, server handles timezone conversion
         discount_max_value: z.number().min(0, 'Max value cannot be negative').optional(),
         discount_min_order_cost: z
             .number({ required_error: 'Minimum order cost is required' })
@@ -87,28 +110,28 @@ export const createDiscountSchema = z
             }
         }
 
-        // discount_skus based on is_apply_all_product
+        // discount_spus based on is_apply_all_product
         if (data.is_apply_all_product === false) {
-            if (!data.discount_skus || data.discount_skus.length < 1) {
+            if (!data.discount_spus || data.discount_spus.length < 1) {
                 ctx.addIssue({
                     code: z.ZodIssueCode.custom,
-                    message: 'Discount SKUs are required when not applying to all products',
-                    path: ['discount_skus']
+                    message: 'Discount SPUs are required when not applying to all products',
+                    path: ['discount_spus']
                 });
             }
         } else if (data.is_apply_all_product === true) {
-            if (data.discount_skus && data.discount_skus.length > 0) {
+            if (data.discount_spus && data.discount_spus.length > 0) {
                 ctx.addIssue({
                     code: z.ZodIssueCode.custom,
-                    message: 'Discount SKUs must not be provided when applying to all products',
-                    path: ['discount_skus']
+                    message: 'Discount SPUs must not be provided when applying to all products',
+                    path: ['discount_spus']
                 });
             }
         }
 
         // discount_start_at min('now') - allow a small grace period (e.g., 1 minute)
-        const oneMinuteAgo = new Date(Date.now() - 60000);
-        if (data.discount_start_at < oneMinuteAgo) {
+        // Handle UTC+0 time from client (helper function logs comparison details)
+        if (isDateInPast(data.discount_start_at)) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: 'Discount start date cannot be in the past',
@@ -189,7 +212,7 @@ export const updateDiscountSchema = z
         discount_type: z.nativeEnum(DiscountTypeEnum).optional(),
         discount_value: z.number().optional(),
         discount_count: z.number().int().min(1, 'Discount count must be at least 1').optional(),
-        discount_skus: z.array(zodId).min(1, 'At least one SKU is required').optional().nullable(), // Allow null to clear
+        discount_spus: z.array(zodId).min(1, 'At least one SPU is required').optional().nullable(), // Allow null to clear
         discount_start_at: z.coerce.date({
             invalid_type_error: 'Invalid datetime format. Please provide a valid datetime.'
         }).optional(),
@@ -297,11 +320,14 @@ export const updateDiscountSchema = z
         // If it was valid before and not changed, it should remain valid.
         // If it IS changed, then it should not be in the past.
         if (data.discount_start_at) {
-            const oneMinuteAgo = new Date(Date.now() - 60000);
-            if (data.discount_start_at < oneMinuteAgo) {
-                // This applies if discount_start_at is part of the update payload
-                // ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Discount start date cannot be in the past', path: ['discount_start_at'] });
-                // Commenting out for now as this might be too restrictive for updates if the original date was in the past but valid at creation.
+            // Handle UTC+0 time from client for updates
+            if (isDateInPast(data.discount_start_at)) {
+                // Only validate if this is a new start date being set
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    message: 'Discount start date cannot be in the past',
+                    path: ['discount_start_at']
+                });
             }
         }
     });

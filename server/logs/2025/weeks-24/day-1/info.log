@@ -283,3 +283,122 @@
 [2025-06-09T03:29:00.232Z] [info]: Cleanup key token: 4 key token cleaned
 [2025-06-09T03:29:00.233Z] [info]: Cleanup key token: 0 refresh token used cleaned
 [2025-06-09T03:29:11.963Z] [info]: Socket.IO service initialized
+[2025-06-09T03:30:06.332Z] [info]: Socket.IO service initialized
+[2025-06-09T03:31:00.589Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:31:00.591Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:31:00.591Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:31:13.656Z] [info]: Socket.IO service initialized
+[2025-06-09T03:32:00.073Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:32:00.107Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:32:00.107Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:33:00.429Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:33:00.430Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:34:00.260Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:34:00.260Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:35:00.469Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:35:00.470Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:36:00.135Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:36:00.138Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:37:00.645Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:37:00.648Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:37:14.079Z] [info]: Socket.IO service initialized
+[2025-06-09T03:37:28.435Z] [info]: Socket.IO service initialized
+[2025-06-09T03:37:36.692Z] [info]: Socket.IO service initialized
+[2025-06-09T03:37:52.058Z] [info]: Socket.IO service initialized
+[2025-06-09T03:38:03.272Z] [info]: Socket.IO service initialized
+[2025-06-09T03:38:12.065Z] [info]: Socket.IO service initialized
+[2025-06-09T03:38:25.329Z] [info]: Socket.IO service initialized
+[2025-06-09T03:38:34.735Z] [info]: Socket.IO service initialized
+[2025-06-09T03:38:43.010Z] [info]: Socket.IO service initialized
+[2025-06-09T03:38:50.877Z] [info]: Socket.IO service initialized
+[2025-06-09T03:38:56.279Z] [info]: Socket.IO service initialized
+[2025-06-09T03:39:00.655Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:39:00.688Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:39:00.689Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:40:00.109Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:40:00.109Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:40:13.693Z] [info]: Socket.IO service initialized
+[2025-06-09T03:41:00.152Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:41:00.155Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:41:00.155Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:41:12.707Z] [info]: Socket.IO service initialized
+[2025-06-09T03:41:23.120Z] [info]: Socket.IO service initialized
+[2025-06-09T03:41:34.810Z] [info]: Socket.IO service initialized
+[2025-06-09T03:41:45.713Z] [info]: Socket.IO service initialized
+[2025-06-09T03:42:00.449Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:42:00.480Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:42:00.480Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:43:00.275Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:43:00.275Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:44:00.256Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:44:00.257Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:45:00.105Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:45:00.105Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:45:32.403Z] [info]: Socket.IO service initialized
+[2025-06-09T03:45:48.778Z] [info]: Socket.IO service initialized
+[2025-06-09T03:46:00.123Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:46:00.148Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:46:00.149Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:46:30.958Z] [info]: Socket.IO service initialized
+[2025-06-09T03:46:34.347Z] [info]: Socket.IO service initialized
+[2025-06-09T03:47:00.224Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:47:00.263Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:47:00.264Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:47:36.631Z] [info]: Socket.IO service initialized
+[2025-06-09T03:47:42.157Z] [info]: Socket.IO service initialized
+[2025-06-09T03:47:46.219Z] [info]: Socket.IO service initialized
+[2025-06-09T03:48:00.424Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:48:00.480Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:48:00.481Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:48:18.400Z] [info]: Socket.IO service initialized
+[2025-06-09T03:48:38.460Z] [info]: Socket.IO service initialized
+[2025-06-09T03:49:00.436Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:49:00.479Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:49:00.480Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:49:03.912Z] [info]: Socket.IO service initialized
+[2025-06-09T03:49:12.420Z] [info]: Socket.IO service initialized
+[2025-06-09T03:50:05.416Z] [info]: Socket.IO service initialized
+[2025-06-09T03:50:14.264Z] [info]: Socket.IO service initialized
+[2025-06-09T03:51:00.090Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:51:00.115Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:51:00.116Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:52:00.361Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:52:00.361Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:52:28.043Z] [info]: Socket.IO service initialized
+[2025-06-09T03:52:36.762Z] [info]: Socket.IO service initialized
+[2025-06-09T03:53:00.685Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:53:00.755Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:53:00.755Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:53:11.437Z] [info]: Socket.IO service initialized
+[2025-06-09T03:53:21.194Z] [info]: Socket.IO service initialized
+[2025-06-09T03:53:31.848Z] [info]: Socket.IO service initialized
+[2025-06-09T03:54:00.271Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:54:00.302Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:54:00.302Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:55:01.087Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:55:01.087Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:56:00.255Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:56:00.256Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:56:30.886Z] [info]: Socket.IO service initialized
+[2025-06-09T03:56:42.272Z] [info]: Socket.IO service initialized
+[2025-06-09T03:56:51.778Z] [info]: Socket.IO service initialized
+[2025-06-09T03:57:00.122Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:57:00.175Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:57:00.175Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:57:04.197Z] [info]: Socket.IO service initialized
+[2025-06-09T03:57:42.316Z] [info]: Socket.IO service initialized
+[2025-06-09T03:57:53.633Z] [info]: Socket.IO service initialized
+[2025-06-09T03:58:00.110Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:58:00.145Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:58:00.146Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T03:58:04.319Z] [info]: Socket.IO service initialized
+[2025-06-09T03:58:21.313Z] [info]: Socket.IO service initialized
+[2025-06-09T03:59:00.725Z] [info]: Inventory-SKU Sync: 5 processed, 0 updated, 5 skipped, 0 errors
+[2025-06-09T03:59:00.761Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T03:59:00.762Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T04:00:00.307Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T04:00:00.308Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T04:01:00.133Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T04:01:00.133Z] [info]: Cleanup key token: 0 refresh token used cleaned
+[2025-06-09T04:02:00.735Z] [info]: Cleanup key token: 4 key token cleaned
+[2025-06-09T04:02:00.736Z] [info]: Cleanup key token: 0 refresh token used cleaned

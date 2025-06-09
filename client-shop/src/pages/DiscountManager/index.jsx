@@ -27,7 +27,7 @@ function DiscountManager() {
         discount_min_order_cost: '',
         discount_start_at: '',
         discount_end_at: '',
-        discount_skus: [],
+        discount_spus: [],
         is_publish: true,
         is_apply_all_product: true,
         is_available: true
@@ -38,15 +38,21 @@ function DiscountManager() {
         setFormData((prev) => ({
             ...prev,
             [name]: type === 'checkbox' ? checked : value,
-            // Nếu chọn áp dụng tất cả sản phẩm, reset danh sách SKUs đã chọn
-            ...(name === 'is_apply_all_product' && checked ? { discount_skus: [] } : {})
+            // Nếu chọn áp dụng tất cả sản phẩm, reset danh sách SPUs đã chọn
+            ...(name === 'is_apply_all_product' && checked ? { discount_spus: [] } : {}),
+            // Nếu chuyển sang percentage và chưa có giá trị hoặc giá trị = 0, đặt mặc định là 1
+            ...(name === 'discount_type' &&
+            value === 'percentage' &&
+            (!prev.discount_value || prev.discount_value === '' || prev.discount_value === '0')
+                ? { discount_value: '1' }
+                : {})
         }));
     };
 
-    const handleSelectedSkusChange = (selectedSkus, applyAll) => {
+    const handleSelectedSpusChange = (selectedSpus, applyAll) => {
         setFormData((prev) => ({
             ...prev,
-            discount_skus: selectedSkus,
+            discount_spus: selectedSpus,
             // Nếu đang chọn sản phẩm cụ thể, tắt option áp dụng tất cả
             is_apply_all_product: applyAll
         }));
@@ -69,9 +75,9 @@ function DiscountManager() {
             newErrors.discount_value = 'Vui lòng nhập giá trị giảm';
         } else if (
             formData.discount_type === 'percentage' &&
-            (formData.discount_value < 0 || formData.discount_value > 100)
+            (formData.discount_value < 1 || formData.discount_value > 100)
         ) {
-            newErrors.discount_value = 'Phần trăm giảm giá phải từ 0 đến 100';
+            newErrors.discount_value = 'Phần trăm giảm giá phải từ 1 đến 100';
         }
 
         if (formData.discount_count && isNaN(Number(formData.discount_count))) {
@@ -127,7 +133,7 @@ function DiscountManager() {
             if (!data.discount_description) delete data.discount_description;
             if (!data.discount_count) delete data.discount_count;
             if (!data.discount_max_value) delete data.discount_max_value;
-            if (data.is_apply_all_product) delete data.discount_skus;
+            if (data.is_apply_all_product) delete data.discount_spus;
 
             const response = await axiosClient.post(`${API_URL}/discount/create`, data);
 
@@ -225,19 +231,39 @@ function DiscountManager() {
                                 Giá trị giảm
                                 <span className={cx('required')}>*</span>
                             </label>
-                            <input
-                                type="number"
-                                name="discount_value"
-                                value={formData.discount_value}
-                                onChange={handleInputChange}
-                                placeholder={
-                                    formData.discount_type === 'percentage'
-                                        ? 'Nhập phần trăm (0-100)'
-                                        : 'Nhập số tiền'
-                                }
-                                min="0"
-                                max={formData.discount_type === 'percentage' ? '100' : ''}
-                            />
+                            {formData.discount_type === 'percentage' ? (
+                                <div className={cx('range-container')}>
+                                    <input
+                                        type="range"
+                                        name="discount_value"
+                                        value={formData.discount_value || 1}
+                                        onChange={handleInputChange}
+                                        min="1"
+                                        max="100"
+                                        step="1"
+                                        className={cx('range-slider')}
+                                        style={{
+                                            background: `linear-gradient(to right, #2c8c99 0%, #2c8c99 ${
+                                                formData.discount_value || 1
+                                            }%, #e0e0e0 ${
+                                                formData.discount_value || 1
+                                            }%, #e0e0e0 100%)`
+                                        }}
+                                    />
+                                    <div className={cx('range-value')}>
+                                        {formData.discount_value || 1}%
+                                    </div>
+                                </div>
+                            ) : (
+                                <input
+                                    type="number"
+                                    name="discount_value"
+                                    value={formData.discount_value}
+                                    onChange={handleInputChange}
+                                    placeholder="Nhập số tiền"
+                                    min="0"
+                                />
+                            )}
                             {errors.discount_value && (
                                 <div className={cx('error-message')}>{errors.discount_value}</div>
                             )}
@@ -357,8 +383,8 @@ function DiscountManager() {
                 <div className={cx('form-section')}>
                     <h2>Chọn sản phẩm áp dụng</h2>
                     <ProductSelection
-                        selectedSkus={formData.discount_skus}
-                        onChange={handleSelectedSkusChange}
+                        selectedSpus={formData.discount_spus}
+                        onChange={handleSelectedSpusChange}
                     />
                 </div>
 

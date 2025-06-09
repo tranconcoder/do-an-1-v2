@@ -234,3 +234,154 @@
   }
 ]::
 [2025-06-09T03:28:56.367Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T03:30:07.884Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:30:19.779Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:31:14.082Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:33:32.484Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:33:40.372Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:37:40.374Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:37:52.594Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:38:26.005Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:38:27.119Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:38:58.916Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:40:24.288Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:41:56.332Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:43:59.917Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:45:01.082Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:46:34.906Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:46:49.826Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:47:37.371Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:47:46.624Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:48:19.169Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:48:39.319Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:49:05.329Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:49:12.601Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:49:22.011Z] [error]: HIDE::400::BadRequest::[
+  {
+    "code": "custom",
+    "message": "Discount start date cannot be in the past",
+    "path": [
+      "discount_start_at"
+    ]
+  }
+]::
+[2025-06-09T03:49:41.339Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:50:06.107Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:50:14.985Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:51:01.063Z] [error]: HIDE::400::BadRequest::Some product in discount code is not available!::
+[2025-06-09T03:56:19.974Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:00:08.578Z] [error]: HIDE::404::NotFound::Not found file!::
+[2025-06-09T04:00:18.823Z] [error]: HIDE::404::NotFound::Route is not exists::
+[2025-06-09T04:00:18.913Z] [error]: HIDE::404::NotFound::Route is not exists::

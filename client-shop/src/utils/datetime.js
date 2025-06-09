@@ -18,6 +18,7 @@ export const convertDatetimeLocalToISO = (datetimeLocalValue) => {
 
         // Convert to UTC+0 and return ISO string
         // toISOString() automatically converts to UTC+0
+        console.log(localDate.toISOString());
         return localDate.toISOString();
     } catch (error) {
         console.error('Error converting datetime to UTC ISO:', error);

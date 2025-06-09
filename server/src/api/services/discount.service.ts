@@ -31,12 +31,13 @@ import { getAllSKUAggregate } from '@/utils/sku.util.js';
 import { ITEM_PER_PAGE } from '@/configs/server.config.js';
 import { checkSKUListIsAvailable } from '@/models/repository/sku/index.js';
 import { findOneShop, findShopById } from '@/models/repository/shop/index.js';
+import { ObjectId } from '@/configs/mongoose.config.js';
 
 export default class DiscountService {
     /* ---------------------------------------------------------- */
     /*                           Create                           */
     /* ---------------------------------------------------------- */
-    public static createDiscount = async (args: service.discount.arguments.CreateDiscount) => {
+    public static createDiscount = async (args: service.discount.arguments.CreateDiscount & { discount_spus?: string[] }) => {
         const { userId, ...payload } = args;
 
         /* --------------------- Check is admin --------------------- */
@@ -65,76 +66,77 @@ export default class DiscountService {
             });
         }
 
-        /* --------------- Check products is publish  --------------- */
-        if (payload.discount_skus) {
-            const skuList = await skuModel.aggregate([
-                {
-                    $match: {
-                        _id: {
-                            $in: payload.discount_skus.map((x) => new mongoose.Types.ObjectId(x))
-                        }
-                    }
-                },
-                {
-                    $lookup: {
-                        from: SPU_COLLECTION_NAME,
-                        localField: 'sku_product',
-                        foreignField: '_id',
-                        as: 'product'
-                    }
-                },
-                {
-                    $unwind: '$product'
-                }
-            ]);
-            if (skuList.length !== payload.discount_skus.length) {
+        /* --------------- Check products by SPU and ownership  --------------- */
+        const discountProducts = (payload as any).discount_spus || payload.discount_skus; // Support both field names for compatibility
+        if (discountProducts) {
+            // Get SPU list directly to check ownership
+            const spuList = await spuModel.find({
+                _id: { $in: discountProducts.map((x: string) => new mongoose.Types.ObjectId(x)) },
+                is_deleted: false
+            }).lean();
+
+            console.log({
+                spuList: spuList.map(spu => ({
+                    _id: spu._id,
+                    name: spu.product_name,
+                    shop: spu.product_shop,
+                    currentShop: shopId,
+                    isOwned: spu.product_shop.toString() === shopId
+                })),
+                payload,
+                spu_ids: discountProducts.map((x: string) => new mongoose.Types.ObjectId(x)),
+                shopId,
+                isAdmin
+            });
+
+            if (spuList.length !== discountProducts.length) {
                 throw new BadRequestErrorResponse({
-                    message: 'Some product in discount code is not available!'
+                    message: 'Some products in discount code are not available!'
                 });
             }
 
-            for (const sku of skuList) {
-                /* ---------------------------------------------------------- */
-                /*                          Check SKU                         */
-                /* ---------------------------------------------------------- */
-                /* ------------------ Check sku is deleted ------------------ */
-                if (sku.is_deleted)
-                    throw new BadRequestErrorResponse({
-                        message: `SKU ${sku.product.product_name} is deleted!`
-                    });
-
-                /* ---------------------------------------------------------- */
-                /*                          Check SPU                         */
-                /* ---------------------------------------------------------- */
+            for (const spu of spuList) {
                 /* ------------------ Check spu is deleted ------------------ */
-                if (sku.product.is_deleted)
+                if (spu.is_deleted) {
                     throw new BadRequestErrorResponse({
-                        message: `Product ${sku.product.product_name} is deleted!`
+                        message: `Product ${spu.product_name} is deleted!`
                     });
+                }
 
                 /* ------------------- Check spu is publish ---------------- */
-                if (!sku.product.is_publish)
+                if (!spu.is_publish) {
                     throw new BadRequestErrorResponse({
-                        message: `Product ${sku.product.product_name} is unpublish!`
+                        message: `Product ${spu.product_name} is not published!`
                     });
+                }
 
-                if (isAdmin && !sku.product.product_shop.equals(shopId))
+                /* -------------------- Check shop ownership  ------------------- */
+                // If not admin, products must belong to current shop
+                if (!isAdmin && spu.product_shop.toString() !== shopId) {
                     throw new BadRequestErrorResponse({
-                        message: `Product ${sku.product.product_name} is not owned by shop!`
+                        message: `Product ${spu.product_name} does not belong to your shop!`
                     });
+                }
+
+                // If admin, they can discount any published product from any shop
+                console.log(`✅ Product ${spu.product_name} passed validation - Shop: ${spu.product_shop}, Current: ${shopId}, IsAdmin: ${isAdmin}`);
             }
-
-            if (!skuList)
-                throw new NotFoundErrorResponse({
-                    message: "Some product in discount code isn't available!"
-                });
         }
 
-        return await createDiscount({
+        // Prepare payload for database - convert discount_spus to discount_skus for storage
+        const createPayload: any = {
             ...payload,
             discount_shop: shopId,
             is_admin_voucher: isAdmin
-        });
+        };
+
+        // Convert discount_spus to discount_skus if present
+        if ((payload as any).discount_spus) {
+            createPayload.discount_skus = (payload as any).discount_spus;
+            delete createPayload.discount_spus;
+        }
+
+        return await createDiscount(createPayload);
     };
 
     /* ---------------------------------------------------------- */

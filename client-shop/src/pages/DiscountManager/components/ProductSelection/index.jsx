@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
-const ProductSelection = ({ selectedSkus, onChange }) => {
+const ProductSelection = ({ selectedSpus, onChange }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
@@ -73,12 +73,12 @@ const ProductSelection = ({ selectedSkus, onChange }) => {
 
     const handleSelectProduct = (productId) => {
         let newSelectedProducts;
-        if (selectedSkus.includes(productId)) {
+        if (selectedSpus.includes(productId)) {
             // Remove if already selected
-            newSelectedProducts = selectedSkus.filter((id) => id !== productId);
+            newSelectedProducts = selectedSpus.filter((id) => id !== productId);
         } else {
             // Add if not selected
-            newSelectedProducts = [...selectedSkus, productId];
+            newSelectedProducts = [...selectedSpus, productId];
         }
 
         // Cập nhật trạng thái "Chọn tất cả"
@@ -159,7 +159,7 @@ const ProductSelection = ({ selectedSkus, onChange }) => {
                         <div
                             key={product._id}
                             className={cx('product-item', {
-                                selected: selectedSkus.includes(product._id)
+                                selected: selectedSpus.includes(product._id)
                             })}
                             onClick={() => handleProductClick(product._id)}
                         >
@@ -179,7 +179,7 @@ const ProductSelection = ({ selectedSkus, onChange }) => {
                             <div className={cx('checkbox-wrapper')}>
                                 <input
                                     type="checkbox"
-                                    checked={selectedSkus.includes(product._id)}
+                                    checked={selectedSpus.includes(product._id)}
                                     onChange={() => handleSelectProduct(product._id)}
                                 />
                             </div>
