@@ -6,84 +6,9 @@
     "auditLog": "logs/.80c7a5681eddaa0ae547fe721f591caa353aa950-audit.json",
     "files": [
         {
-            "date": 1747463760054,
-            "name": "logs/2025/weeks-20/day-6/debug.log",
-            "hash": "ccac88eaccf5c18d5ba1512dcc110b977267303585e6fcae246a58cd0317f137"
-        },
-        {
-            "date": 1747991094649,
-            "name": "logs/2025/weeks-21/day-5/debug.log",
-            "hash": "54da81ddfc81b1b46ba96b81f9d96d8431afbca58cd42129629f1a0f6a90e62e"
-        },
-        {
-            "date": 1748053562072,
-            "name": "logs/2025/weeks-21/day-6/debug.log",
-            "hash": "0c962d341e66b3088a219ca5f4505f3ac97c9b273243e3b25afc6a159dfae96a"
-        },
-        {
-            "date": 1748325205677,
-            "name": "logs/2025/weeks-22/day-2/debug.log",
-            "hash": "0567826e10d59c7fba933cb3695e4067198c6b6428c534c8edbe498bc0fd2091"
-        },
-        {
-            "date": 1748390820152,
-            "name": "logs/2025/weeks-22/day-3/debug.log",
-            "hash": "f77442876b244c250e494fe2693a08d8c22d82a51823a271f57ffaafd70436e4"
-        },
-        {
-            "date": 1748486160035,
-            "name": "logs/2025/weeks-22/day-4/debug.log",
-            "hash": "134903843a99d1f90dc038e5a604d73124814d09b8e4be73fd009e6d7f011695"
-        },
-        {
-            "date": 1748567938740,
-            "name": "logs/2025/weeks-22/day-5/debug.log",
-            "hash": "ff312f2536405d49878ca269b4ec49d9e4ecb7526dd7b4afba1a7299a37d6b59"
-        },
-        {
-            "date": 1748659080074,
-            "name": "logs/2025/weeks-22/day-6/debug.log",
-            "hash": "e11030cb040e8f7f40d8cea676d92b11adeda1f2007b57e586d9d2f1e417b35b"
-        },
-        {
-            "date": 1748736121383,
-            "name": "logs/2025/weeks-23/day-0/debug.log",
-            "hash": "cef0822bfa96d896c7eb006ceedde37bcbcbb46fbd6928aa44b540ae38c45a8d"
-        },
-        {
-            "date": 1748871553844,
-            "name": "logs/2025/weeks-23/day-1/debug.log",
-            "hash": "587da2c3683adb4a7c8eb8a67ea5d2fd1f024829e4a5eac81b93dfd7303e0edf"
-        },
-        {
-            "date": 1748909675938,
-            "name": "logs/2025/weeks-23/day-2/debug.log",
-            "hash": "98138011ab9b76dc5d5587e1b59c48abb3fad48ba41bff71b6dfa5ea15389e0c"
-        },
-        {
-            "date": 1749000132946,
-            "name": "logs/2025/weeks-23/day-3/debug.log",
-            "hash": "37b75d997902300a1d5085cf999355455f24f64cc2e59285a667f0f6fb3c6566"
-        },
-        {
-            "date": 1749106318512,
-            "name": "logs/2025/weeks-23/day-4/debug.log",
-            "hash": "7f416d90f54f280d5989353c21ff7c9760e3c6c4972b9c1cd0b47f89feed9f87"
-        },
-        {
-            "date": 1749181024239,
-            "name": "logs/2025/weeks-23/day-5/debug.log",
-            "hash": "04c6708f3ec1c77b8e12b1e2e978909cb760ad0f7ddede468c34460a005a2113"
-        },
-        {
-            "date": 1749271807580,
-            "name": "logs/2025/weeks-23/day-6/debug.log",
-            "hash": "14efc6e39ce3277f958ca33e4ff5defdf2754ce0d1f70dbfba4ec73527fc9978"
-        },
-        {
-            "date": 1749434765214,
-            "name": "logs/2025/weeks-24/day-1/debug.log",
-            "hash": "71e2a1057f34fe6f25ec750902edaef851581dcb4a240299459fe6e554f424c9"
+            "date": 1753770540075,
+            "name": "logs/2025/weeks-31/day-2/debug.log",
+            "hash": "3a00ce36b2037e8e51fe0ae38418093c9b892050d7638314b573746655af7074"
         }
     ],
     "hashType": "sha256"

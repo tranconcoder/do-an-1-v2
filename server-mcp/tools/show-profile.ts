@@ -39,7 +39,7 @@ Bạn cần đăng nhập để xem thông tin profile.
                 if (userData.user_avatar.startsWith('http')) {
                     avatarUrl = userData.user_avatar;
                 } else {
-                    avatarUrl = 'https://aliconcon.tail61bbbd.ts.net:4000/media/' + userData.user_avatar;
+                    avatarUrl = 'https://localhost:4000/media/' + userData.user_avatar;
                 }
             }
 

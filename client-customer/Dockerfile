@@ -1,49 +1,58 @@
-# Use Bun runtime as the base image
-FROM oven/bun:1 AS base
+# Build stage
+FROM node:18-alpine AS builder
 
-# Install dependencies only when needed
-FROM base AS deps
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
-COPY package.json bun.lock* ./
-RUN bun install --frozen-lockfile
+# Copy package files
+COPY package.json pnpm-lock.yaml* ./
 
-# Rebuild the source code only when needed
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Install pnpm and dependencies
+RUN npm install -g pnpm
+RUN pnpm install
+
+# Copy source code
 COPY . .
 
-# Build the application
-RUN bun run build
+# Build Next.js application
+RUN pnpm build
 
-# Production image, copy all the files and run with Bun
-FROM base AS runner
+# Production stage
+FROM node:18-alpine AS production
+
 WORKDIR /app
 
-ENV NODE_ENV production
+# Install pnpm
+RUN npm install -g pnpm
+
+# Copy package files and install production dependencies
+COPY package.json pnpm-lock.yaml* ./
+RUN pnpm install --production
+
+# Copy built application from builder stage
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.mjs ./
+COPY --from=builder /app/server.js ./
+
+# Copy certificates directory
+COPY certificates ./certificates
 
 # Create user for security
-RUN addgroup --system --gid 1001 bunjs
-RUN adduser --system --uid 1001 nextjs
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
 
-# Copy the built application
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/server.js ./
-COPY --from=builder /app/certificates ./certificates
-
-# Create certificates directory and set permissions
-RUN mkdir -p ./certificates && chown nextjs:bunjs ./certificates
+# Set proper permissions
+RUN chown -R nextjs:nodejs /app
 
 USER nextjs
 
+# Expose port
 EXPOSE 3000
 
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
-# Start the application with HTTPS using Bun
-CMD ["bun", "server.js"] 
+# Start the application
+CMD ["node", "server.js"] 

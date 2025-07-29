@@ -549,7 +549,7 @@ Câu hỏi của khách hàng: ${query}`;
 
         try {
             // Generate self-signed certificate with SAN for localhost and Tailscale domain
-            const subjectAltName = 'DNS:localhost,DNS:aliconcon.tail61bbbd.ts.net,IP:127.0.0.1';
+            const subjectAltName = 'DNS:localhost,DNS:localhost,IP:127.0.0.1';
 
             execSync(`openssl req -x509 -newkey rsa:4096 -keyout "${keyPath}" -out "${certPath}" -days 365 -nodes -subj "/C=VN/ST=HCM/L=HoChiMinh/O=Aliconcon/CN=localhost" -addext "subjectAltName=${subjectAltName}"`, {
                 stdio: 'pipe'
@@ -558,7 +558,7 @@ Câu hỏi của khách hàng: ${query}`;
             logger.info("🔒 Self-signed SSL certificates generated successfully");
             logger.info(`🔑 Private key: ${keyPath}`);
             logger.info(`📜 Certificate: ${certPath}`);
-            logger.info("🌐 Valid for: localhost, aliconcon.tail61bbbd.ts.net, 127.0.0.1");
+            logger.info("🌐 Valid for: localhost, localhost, 127.0.0.1");
 
         } catch (error) {
             logger.error("❌ Failed to generate SSL certificates:", error);
@@ -642,7 +642,7 @@ Câu hỏi của khách hàng: ${query}`;
 
             try {
                 const profileData = JSON.parse(profileResponse);
-                profileData.user_avatar = 'https://aliconcon.tail61bbbd.ts.net:4000/media/' + profileData.user_avatar;
+                profileData.user_avatar = 'https://localhost:4000/media/' + profileData.user_avatar;
 
                 userProfile = {
                     ...profileData,

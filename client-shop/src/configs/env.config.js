@@ -10,14 +10,14 @@ const getApiUrl = () => {
     }
 
     // Always use HTTPS for security and WebSocket compatibility
-    return 'https://aliconcon.tail61bbbd.ts.net:4000';
+    return 'https://localhost:4000';
 };
 
 // API URL configuration - HTTPS ONLY for security
 export const API_URL = getApiUrl();
 
 // HTTPS URL (no HTTP fallback for security)
-export const API_URL_HTTPS = 'https://aliconcon.tail61bbbd.ts.net:4000';
+export const API_URL_HTTPS = 'https://localhost:4000';
 
 // Other environment variables can be added here
 export const NODE_ENV = process.env.NODE_ENV || 'development';

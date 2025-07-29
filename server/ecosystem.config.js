@@ -55,7 +55,7 @@ module.exports = {
     deploy: {
         production: {
             user: 'tranv',
-            host: 'aliconcon.tail61bbbd.ts.net',
+            host: 'localhost',
             ref: 'origin/main',
             repo: 'https://github.com/tranconcoder/do-an-1',
             path: '/home/tranv/Workspace/do-an-1-v2',

@@ -63,7 +63,7 @@ export default new (class PaymentService {
         tmnCode: 'FNAX6Q4P',
         hashSecret: 'ZVXPMEMXF4K5UU246CAA3DNO2DCV6QSR',
         url: 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html',
-        returnUrl: 'https://aliconcon.tail61bbbd.ts.net:3000/payment/vnpay-return',
+        returnUrl: 'https://localhost:3000/payment/vnpay-return',
         ipnUrl: 'https://do-an-1-v2.onrender.com/payment/vnpay-ipn'
     };
 

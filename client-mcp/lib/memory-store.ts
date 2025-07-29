@@ -57,9 +57,9 @@ export class ConversationMemoryStore {
 
     constructor() {
         this.redis = createClient({
-            url: process.env.REDIS_URL || 'redis://redis-16463.c295.ap-southeast-1-1.ec2.redns.redis-cloud.com:16463',
+            url: process.env.REDIS_URL || 'redis://localhost:6379',
             username: process.env.REDIS_USERNAME || 'default',
-            password: process.env.REDIS_PASSWORD || 'GDfb50bKLYnvfa4SmnhNzkuwWWzPNbOs',
+            password: process.env.REDIS_PASSWORD || '',
             socket: {
                 reconnectStrategy: (retries) => Math.min(retries * 50, 500)
             }

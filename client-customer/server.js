@@ -18,8 +18,8 @@ app.prepare().then(() => {
     if (process.env.NODE_ENV === 'production') {
         // Production HTTPS server
         const httpsOptions = {
-            key: fs.readFileSync(path.join(__dirname, 'certificates', 'private-key.pem')),
-            cert: fs.readFileSync(path.join(__dirname, 'certificates', 'certificate.pem'))
+            key: fs.readFileSync(path.join(__dirname, 'certificates', 'localhost-key.pem')),
+            cert: fs.readFileSync(path.join(__dirname, 'certificates', 'localhost.pem'))
         };
 
         server = createServer(httpsOptions, async (req, res) => {

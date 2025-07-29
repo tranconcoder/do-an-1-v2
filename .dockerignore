@@ -1,0 +1,75 @@
+# Root level .dockerignore for docker-compose
+
+# Dependencies
+**/node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Build outputs
+**/.next/
+**/out/
+**/build/
+**/dist/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+**/logs/
+*.log
+
+# Cache directories
+**/.cache/
+**/.parcel-cache/
+**/.nuxt/
+**/.vuepress/
+**/.serverless/
+**/.fusebox/
+**/.dynamodb/
+**/.tern-port
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Docker
+docker-compose*
+.dockerignore
+
+# Scripts that we don't need in containers
+*.sh
+
+# Other
+*.tgz
+*.tar.gz
+**/coverage/
+**/.nyc_output/

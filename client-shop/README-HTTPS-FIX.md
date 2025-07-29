@@ -120,7 +120,7 @@ The fix includes comprehensive testing:
 node test-websocket-fix.js
 
 # Expected output:
-# ✅ https://aliconcon.tail61bbbd.ts.net:4000 - SUCCESS (polling)
+# ✅ https://localhost:4000 - SUCCESS (polling)
 # 🎉 WebSocket fixes are working!
 ```
 
@@ -144,7 +144,7 @@ console.log(store.getState().user);
 
 // Force polling mode test
 import { io } from 'socket.io-client';
-const testSocket = io('https://aliconcon.tail61bbbd.ts.net:4000', {
+const testSocket = io('https://localhost:4000', {
     transports: ['polling'],
     upgrade: false
 });

@@ -144,7 +144,8 @@ function AIChatBot() {
         try {
             setConnectionStatus('Đang kết nối...');
             setIsProfileInitialized(false);
-            wsRef.current = new WebSocket(WS_URL);
+            console.log('🔌 Attempting to connect to WebSocket:', WS_URL);
+            wsRef.current = new WebSocket("wss://localhost:8001/chat");
 
             wsRef.current.onopen = () => {
                 console.log('🔌 Connected to AI Assistant WebSocket');

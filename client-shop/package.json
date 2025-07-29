@@ -30,12 +30,13 @@
         "react-scripts": "5.0.1",
         "recharts": "^2.15.3",
         "sass": "^1.62.1",
+        "serve": "^14.2.4",
         "socket.io-client": "^4.8.1",
         "web-vitals": "^2.1.4",
         "yup": "^1.6.1"
     },
     "scripts": {
-        "start": "react-scripts start",
+        "start": "serve -s build -l 3002",
         "dev": "HTTPS=true GENERATE_SOURCEMAP=false WDS_SOCKET_PORT=0 react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",

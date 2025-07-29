@@ -109,7 +109,7 @@ client-mcp/certificates/
 const ws = new WebSocket('wss://localhost:8001/chat');
 
 // Hoặc từ Tailscale domain
-const ws = new WebSocket('wss://aliconcon.tail61bbbd.ts.net:8001/chat');
+const ws = new WebSocket('wss://localhost:8001/chat');
 ```
 
 ### Tắt WSS (sử dụng WS thường)

@@ -47,7 +47,7 @@ export const getUserProfileTool = {
 
             // Handle avatar URL
             if (userData.user_avatar && !userData.user_avatar.startsWith('http')) {
-                userData.user_avatar = 'https://aliconcon.tail61bbbd.ts.net:4000/media/' + userData.user_avatar;
+                userData.user_avatar = 'https://localhost:4000/media/' + userData.user_avatar;
             }
 
             // Add markdown formatted profile info for rich display
