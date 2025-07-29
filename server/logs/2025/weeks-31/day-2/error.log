@@ -1155,3 +1155,4 @@
 [2025-07-29T15:30:52.991Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
 [2025-07-29T15:30:53.393Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
 [2025-07-29T15:30:53.847Z] [error]: Redis error: Error: connect ECONNREFUSED 127.0.0.1:6379
+[2025-07-29T16:05:29.772Z] [error]: HIDE::404::NotFound::Route is not exists::

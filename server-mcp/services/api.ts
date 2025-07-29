@@ -8,7 +8,7 @@ const agent = new https.Agent({
 
 // API Configuration
 const API_CONFIG = {
-    baseURL: process.env.API_BASE_URL || "http://localhost:4000",
+    baseURL: process.env.API_BASE_URL || "https://localhost:4000",
     timeout: 10000, // 10 seconds
     headers: {
         'Content-Type': 'application/json',

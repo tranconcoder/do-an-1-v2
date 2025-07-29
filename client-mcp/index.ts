@@ -20,7 +20,7 @@ config();
 const logger = pino(pretty({ colorize: true }));
 
 // Configuration
-const OPENROUTER_API_KEY = "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";
+const OPENROUTER_API_KEY = "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";
 
 // const MODEL_NAME = process.env.LLM_MODEL || "meta-llama/llama-3-70b-instruct";
 const MODEL_NAME = process.env.LLM_MODEL || "deepseek/deepseek-chat-v3-0324:free";
